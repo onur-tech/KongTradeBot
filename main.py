@@ -433,6 +433,17 @@ async def main():
         ))
 
     try:
+        async def heartbeat_loop(interval: int = 300):
+            """Writes heartbeat.txt every 5 minutes so watchdog.py can detect offline state."""
+            heartbeat_file = os.path.join(os.path.dirname(__file__), "heartbeat.txt")
+            while True:
+                try:
+                    with open(heartbeat_file, "w", encoding="utf-8") as f:
+                        f.write(datetime.now(timezone.utc).isoformat())
+                except Exception as e:
+                    logger.warning(f"Heartbeat write failed: {e}")
+                await asyncio.sleep(interval)
+
         tasks = [
             asyncio.create_task(monitor.start()),
             asyncio.create_task(status_reporter(strategy, risk, engine, config, args.status_interval)),
@@ -441,6 +452,7 @@ async def main():
             asyncio.create_task(resolver_loop()),
             asyncio.create_task(scout_loop(config)),
             asyncio.create_task(latency_report_loop()),
+            asyncio.create_task(heartbeat_loop()),
             asyncio.create_task(poll_commands(
                 callback_status=send_status_now,
                 callback_resolve=check_resolved_markets_and_notify,

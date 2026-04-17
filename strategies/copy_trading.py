@@ -187,6 +187,8 @@ class CopyOrder:
     signal: TradeSignal
     size_usdc: float
     dry_run: bool
+    wallet_multiplier: float = 1.0
+    is_multi_signal: bool = False
 
     def __repr__(self):
         mode = "[DRY-RUN]" if self.dry_run else "[LIVE]"
@@ -400,6 +402,8 @@ class CopyTradingStrategy:
             signal=signal,
             size_usdc=decision.adjusted_size_usdc,
             dry_run=self.config.dry_run,
+            wallet_multiplier=wallet_multiplier,
+            is_multi_signal=extra_multiplier > 1.0,
         )
 
         self.stats["orders_created"] += 1

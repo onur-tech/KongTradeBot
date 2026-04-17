@@ -26,7 +26,8 @@ from strategies.copy_trading import CopyTradingStrategy, CopyOrder
 from telegram_bot import (send, msg_trade, msg_status, msg_startup,
                            msg_shutdown, msg_morning_summary, msg_warning,
                            check_resolved_markets_and_notify, poll_commands,
-                           send_morning_report, send_trade_confirmation)
+                           send_morning_report, send_trade_confirmation,
+                           should_send_trade_notification)
 
 C_RESET  = "\033[0m"
 C_CYAN   = "\033[96m"
@@ -310,14 +311,16 @@ async def main():
         cat = get_category(getattr(sig, "market_question", "") or "")
         from strategies.copy_trading import get_wallet_name as _gwn
         decision = await send_trade_confirmation(
-            order_id   = order_id,
-            market     = str(getattr(sig, "market_question", "") or ""),
-            outcome    = str(getattr(sig, "outcome", "") or ""),
-            size       = float(getattr(order, "size_usdc", 0) or 0),
-            price      = float(getattr(sig, "price", 0) or 0),
-            wallet_name= _gwn(str(getattr(sig, "source_wallet", "") or "")),
-            category   = cat,
-            dry_run    = config.dry_run,
+            order_id         = order_id,
+            market           = str(getattr(sig, "market_question", "") or ""),
+            outcome          = str(getattr(sig, "outcome", "") or ""),
+            size             = float(getattr(order, "size_usdc", 0) or 0),
+            price            = float(getattr(sig, "price", 0) or 0),
+            wallet_name      = _gwn(str(getattr(sig, "source_wallet", "") or "")),
+            category         = cat,
+            dry_run          = config.dry_run,
+            is_multi_signal  = getattr(order, "is_multi_signal", False),
+            wallet_multiplier= getattr(order, "wallet_multiplier", 1.0),
         )
 
         if decision == "skip":
@@ -358,16 +361,22 @@ async def main():
             record_fill(sig, result)
 
             time_to_close = getattr(sig, "time_to_close_hours", None)
-            await send(msg_trade(
-                market=str(getattr(sig, "market_question", "") or ""),
-                outcome=str(getattr(sig, "outcome", "") or ""),
-                size=float(getattr(order, "size_usdc", 0) or 0),
-                price=float(getattr(sig, "price", 0) or 0),
-                category=cat,
-                source=str(getattr(sig, "source_wallet", "") or ""),
-                market_id=market_id,
-                time_to_close_hours=time_to_close,
-            ))
+            trade_size = float(getattr(order, "size_usdc", 0) or 0)
+            if should_send_trade_notification(
+                trade_size,
+                is_multi_signal=getattr(order, "is_multi_signal", False),
+                wallet_multiplier=getattr(order, "wallet_multiplier", 1.0),
+            ):
+                await send(msg_trade(
+                    market=str(getattr(sig, "market_question", "") or ""),
+                    outcome=str(getattr(sig, "outcome", "") or ""),
+                    size=trade_size,
+                    price=float(getattr(sig, "price", 0) or 0),
+                    category=cat,
+                    source=str(getattr(sig, "source_wallet", "") or ""),
+                    market_id=market_id,
+                    time_to_close_hours=time_to_close,
+                ))
 
     async def on_multi_signal(count: int, names: str, outcome: str, market: str, multiplier: float):
         emoji = "🔥🔥" if count >= 3 else "🔥"

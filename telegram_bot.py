@@ -39,6 +39,31 @@ GAMMA_API    = "https://gamma-api.polymarket.com"
 
 CONFIRMATION_TIMEOUT_S = 30  # Sekunden auf Button-Klick warten
 
+# ── Telegram Notification Filter ─────────────────────────────────────────────
+# Nur Trades senden die mindestens EINE dieser Bedingungen erfüllen:
+# 1. Einsatz >= TELEGRAM_MIN_SIZE_USD
+# 2. Multi-Signal-Trade (2+ Wallets) wenn TELEGRAM_ALWAYS_MULTI_SIGNAL=true
+# 3. High-Value-Wallet (Multiplikator >= 2.0x) wenn TELEGRAM_ALWAYS_HIGH_WALLET=true
+_TG_MIN_SIZE        = float(os.getenv("TELEGRAM_MIN_SIZE_USD", "5"))
+_TG_MULTI_SIGNAL    = os.getenv("TELEGRAM_ALWAYS_MULTI_SIGNAL", "true").lower() == "true"
+_TG_HIGH_WALLET     = os.getenv("TELEGRAM_ALWAYS_HIGH_WALLET", "true").lower() == "true"
+_TG_HIGH_WALLET_PCT = 2.0  # Schwelle ab welchem Multiplikator "High-Value" gilt
+
+
+def should_send_trade_notification(
+    size: float,
+    is_multi_signal: bool = False,
+    wallet_multiplier: float = 1.0,
+) -> bool:
+    """Gibt True zurück wenn der Trade per Telegram gemeldet werden soll."""
+    if size >= _TG_MIN_SIZE:
+        return True
+    if _TG_MULTI_SIGNAL and is_multi_signal:
+        return True
+    if _TG_HIGH_WALLET and wallet_multiplier >= _TG_HIGH_WALLET_PCT:
+        return True
+    return False
+
 # Offene Trade-Bestätigungen: order_id → asyncio.Future
 _pending_decisions: dict = {}
 
@@ -132,15 +157,20 @@ async def send_trade_confirmation(
     wallet_name: str,
     category: str = "",
     dry_run: bool = True,
+    is_multi_signal: bool = False,
+    wallet_multiplier: float = 1.0,
 ) -> str:
     """
     Sendet Trade-Signal mit 4 Inline-Buttons an Telegram.
     Wartet bis zu CONFIRMATION_TIMEOUT_S Sekunden auf Antwort.
 
     Gibt zurück: "normal" | "skip" | "double" | "half"
-    Standard bei Timeout: "normal" (Trade läuft durch)
+    Standard bei Timeout / gefiltertem Trade: "normal" (Trade läuft durch)
     """
     if not TOKEN or not CHAT_IDS:
+        return "normal"
+
+    if not should_send_trade_notification(size, is_multi_signal, wallet_multiplier):
         return "normal"
 
     cat_emoji = {

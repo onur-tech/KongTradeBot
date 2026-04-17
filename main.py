@@ -248,6 +248,9 @@ async def status_reporter(strategy, risk, engine, config, interval):
             status_reporter._last_telegram = now
 
 
+LOCK_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "bot.lock")
+
+
 async def main():
     args = parse_args()
     setup_logger()
@@ -259,6 +262,15 @@ async def main():
             summary = get_summary(args.export_tax)
             print(f"Steuer-CSV: {filename} | Trades: {summary['total_trades']} | P&L: ${summary['total_pnl']:.2f}")
         return
+
+    # Lock file: prevent multiple instances running simultaneously
+    if os.path.exists(LOCK_FILE):
+        print(f"\n❌ Bot läuft bereits! Beende den anderen Prozess zuerst.")
+        print(f"   (Lock-Datei: {LOCK_FILE})")
+        print(f"   Falls der Bot abgestürzt ist: Datei manuell löschen und neu starten.\n")
+        sys.exit(1)
+    with open(LOCK_FILE, "w") as f:
+        f.write(str(os.getpid()))
 
     config = load_config()
     if args.live:
@@ -469,6 +481,8 @@ async def main():
         summary = get_summary()
         await send(msg_shutdown(total_trades=summary["total_trades"]))
         cprint(f"\nSession beendet | {summary['total_trades']} Trades", C_GREEN)
+        if os.path.exists(LOCK_FILE):
+            os.remove(LOCK_FILE)
 
 
 if __name__ == "__main__":

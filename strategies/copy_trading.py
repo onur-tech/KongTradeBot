@@ -57,8 +57,8 @@ WALLET_MULTIPLIERS: Dict[str, float] = {
     # HOOK → 2x
     "0x0b7a6030507efe5db145fbb57a25ba0c5f9d86cf": 2.0,
 
-    # sovereign2013 — 57% Win Rate → 1x (Basiswert)
-    "0xee613b3fc183ee44f9da9c05f53e2da107e3debf": 1.0,
+    # sovereign2013 — 57% Win Rate, 551 Verluste 2026-04-17 → 0.5x
+    "0xee613b3fc183ee44f9da9c05f53e2da107e3debf": 0.5,
 
     # Countryside → 2x
     "0xbddf61af533ff524d27154e589d2d7a81510c684": 2.0,

@@ -114,7 +114,7 @@ def log_trade(
             "preis_usdc":          round(price, 4),
             "einsatz_usdc":        round(size_usdc, 4),
             "shares":              round(shares, 4),
-            "source_wallet":       source_wallet[:20] + "..." if len(source_wallet) > 20 else source_wallet,
+            "source_wallet":       source_wallet,
             "tx_hash":             tx_hash,
             "kategorie":           category,
             "modus":               "DRY-RUN" if is_dry_run else "LIVE",

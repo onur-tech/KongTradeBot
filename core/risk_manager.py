@@ -77,15 +77,11 @@ class RiskManager:
                 reason=f"Tages-Verlustlimit ${self.config.max_daily_loss_usd} erreicht"
             )
 
-        # 3. Schließzeit muss bekannt sein — kein market_closes_at = kein Trade
-        if signal.time_to_close_hours is None:
-            return RiskDecision(
-                allowed=False,
-                reason="Schließzeit unbekannt (kein market_closes_at von API)"
-            )
+        # 3. Schließzeit: wenn API kein market_closes_at liefert → 48h annehmen
+        time_to_close = signal.time_to_close_hours if signal.time_to_close_hours is not None else 48.0
 
         # 4. Markt zu kurz bis Auflösung (< 1 Stunde) oder bereits geschlossen
-        if signal.time_to_close_hours < 1:
+        if time_to_close < 1:
             return RiskDecision(
                 allowed=False,
                 reason=f"Markt schließt zu bald: {signal.time_to_close_hours:.1f}h"
@@ -99,7 +95,7 @@ class RiskManager:
             )
 
         # 6. Nur kurzfristige Märkte (unsere Strategie: <72h)
-        if signal.time_to_close_hours > 72:
+        if time_to_close > 72:
             return RiskDecision(
                 allowed=False,
                 reason=f"Markt läuft zu lang: {signal.time_to_close_hours:.0f}h (max 72h)"
@@ -114,9 +110,10 @@ class RiskManager:
                 reason=f"Berechnete Größe ${adjusted_size:.2f} unter Minimum ${self.config.min_trade_size_usd}"
             )
 
+        fallback_note = " [Fallback 48h]" if signal.time_to_close_hours is None else ""
         logger.info(
             f"✅ Trade erlaubt | Größe: ${adjusted_size:.2f} | "
-            f"Markt schließt in: {(signal.time_to_close_hours or 0):.1f}h | "
+            f"Markt schließt in: {time_to_close:.1f}h{fallback_note} | "
             f"Preis: {signal.price:.3f}"
         )
 

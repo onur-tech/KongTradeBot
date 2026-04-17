@@ -49,6 +49,9 @@ _TG_MULTI_SIGNAL    = os.getenv("TELEGRAM_ALWAYS_MULTI_SIGNAL", "true").lower() 
 _TG_HIGH_WALLET     = os.getenv("TELEGRAM_ALWAYS_HIGH_WALLET", "true").lower() == "true"
 _TG_HIGH_WALLET_PCT = 2.0  # Schwelle ab welchem Multiplikator "High-Value" gilt
 
+# Owner-ID darf Inline-Buttons drücken (Trading-Entscheidungen); alle anderen sind read-only
+OWNER_ID = os.getenv("TELEGRAM_OWNER_ID", "")
+
 
 def should_send_trade_notification(
     size: float,
@@ -614,8 +617,14 @@ async def poll_commands(callback_status, callback_resolve):
                             cb_data    = cb.get("data", "")
                             cb_chat_id = str(cb.get("message", {}).get("chat", {}).get("id", ""))
                             cb_msg_id  = cb.get("message", {}).get("message_id")
+                            cb_from_id = str(cb.get("from", {}).get("id", ""))
 
                             if cb_chat_id in CHAT_IDS and cb_data.startswith("t:"):
+                                # Read-only check: nur Owner darf Buttons drücken
+                                if OWNER_ID and cb_from_id != OWNER_ID:
+                                    await _answer_callback_query(cb_id, "⚠️ Nur Onur darf Trades steuern")
+                                    continue
+
                                 parts = cb_data.split(":")
                                 if len(parts) == 3:
                                     _, order_id, decision = parts

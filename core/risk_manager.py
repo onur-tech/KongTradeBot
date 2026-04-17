@@ -99,6 +99,25 @@ class RiskManager:
                 reason=f"Preis zu extrem ({signal.price:.2f}) — Markt fast aufgelöst"
             )
 
+        # 5b. Minimum Odds Filter: nur Trades zwischen 15% und 85%
+        if signal.price < 0.15 or signal.price > 0.85:
+            return RiskDecision(
+                allowed=False,
+                reason=f"Odds außerhalb 15-85% Range ({signal.price:.2f})"
+            )
+
+        # 5c. Trade Freshness Filter: Signal darf nicht älter als 5 Minuten sein
+        detected_at = getattr(signal, "detected_at", None)
+        if detected_at is not None:
+            if detected_at.tzinfo is None:
+                detected_at = detected_at.replace(tzinfo=timezone.utc)
+            signal_age_seconds = (datetime.now(timezone.utc) - detected_at).total_seconds()
+            if signal_age_seconds > 300:
+                return RiskDecision(
+                    allowed=False,
+                    reason=f"Signal zu alt (>{signal_age_seconds/60:.1f} Min — max 5 Min)"
+                )
+
         # 6. Nur kurzfristige Märkte (unsere Strategie: <72h)
         if time_to_close > 72:
             return RiskDecision(

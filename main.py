@@ -350,10 +350,23 @@ async def main():
             "⚠️ Wallet noch aktiv — aber mit reduzierter Größe.",
         ]))
 
-    strategy.on_copy_order   = on_copy_order
-    strategy.on_multi_signal = on_multi_signal
+    async def on_herd_alert(count: int, total: int, names: str, outcome: str, market: str):
+        pct = count / max(1, total) * 100
+        await send("\n".join([
+            f"🐑 <b>HERDENTRIEB ERKANNT ({count}/{total} = {pct:.0f}% Wallets)</b>",
+            "━━━━━━━━━━━━━━━━━━━━",
+            f"🏪 Markt: <b>{market}</b>",
+            f"🎯 Seite: <b>{outcome}</b>",
+            f"👥 Wallets: <b>{names}</b>",
+            "━━━━━━━━━━━━━━━━━━━━",
+            "⚠️  Kein Größen-Boost — Trade wird mit normalem Einsatz ausgeführt.",
+        ]))
+
+    strategy.on_copy_order     = on_copy_order
+    strategy.on_multi_signal   = on_multi_signal
     strategy.on_wallet_warning = on_wallet_warning
-    monitor.on_new_trade     = strategy.handle_signal
+    strategy.on_herd_alert     = on_herd_alert
+    monitor.on_new_trade       = strategy.handle_signal
 
     async def resolver_loop():
         while True:

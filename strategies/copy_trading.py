@@ -35,8 +35,12 @@ MULTI_SIGNAL_MULTIPLIERS: Dict[int, float] = {
     3: 2.0,  # 3+ Wallets → 2x
 }
 
-# Ab dieser Anzahl Wallets gilt es als Herdentrieb → kein Größen-Boost
-HERD_THRESHOLD: int = 4
+# Ab diesem Anteil (50%) der Target-Wallets gilt es als Herdentrieb → kein Boost + Alert
+HERD_FRACTION: float = 0.50
+
+# Early Entry Bonus: Märkte mit <$10K Volumen bekommen 1.5x Bonus
+EARLY_ENTRY_MULTIPLIER: float = 1.5
+EARLY_ENTRY_VOLUME_USD: float = 10_000
 
 
 # ---------------------------------------------------------------------------
@@ -204,6 +208,9 @@ class CopyTradingStrategy:
         # Callback für Wallet-Warnungen (Trend-Decline) → Telegram
         self.on_wallet_warning: Optional[callable] = None
 
+        # Callback für Herdentrieb-Alert → Telegram
+        self.on_herd_alert: Optional[callable] = None
+
         # Signal-Aggregation: key = "token_id:outcome", value = Liste von Signalen
         self._agg_buffer: Dict[str, List[TradeSignal]] = {}
         self._agg_tasks: Dict[str, asyncio.Task] = {}
@@ -276,15 +283,23 @@ class CopyTradingStrategy:
         base_signal = max(signals, key=lambda s: s.size_usdc)
         market_short = base_signal.market_question[:60] if base_signal.market_question else base_signal.token_id[:16]
 
-        # Herdentrieb-Check: >4 Wallets = kein Boost
-        if count > HERD_THRESHOLD:
+        # Herdentrieb-Check: >50% der Target-Wallets = kein Boost + Telegram Alert
+        total_wallets  = max(1, len(self.config.target_wallets))
+        herd_threshold = max(3, int(total_wallets * HERD_FRACTION))
+        if count > herd_threshold:
             multi_multiplier = 1.0
             self.stats["herd_signals"] = self.stats.get("herd_signals", 0) + 1
             names = " + ".join(get_wallet_name(s.source_wallet) for s in signals)
+            pct   = count / total_wallets * 100
             logger.warning(
-                f"🐑 HERDENTRIEB ({count} Wallets) — kein Größen-Boost | "
+                f"🐑 HERDENTRIEB ({count}/{total_wallets} = {pct:.0f}% Wallets) — kein Größen-Boost | "
                 f"{names} | {base_signal.outcome} auf '{market_short}'"
             )
+            if self.on_herd_alert:
+                asyncio.create_task(self._safe_call(
+                    self.on_herd_alert,
+                    count, total_wallets, names, base_signal.outcome, market_short
+                ))
         else:
             multi_multiplier = MULTI_SIGNAL_MULTIPLIERS.get(count, 2.0)  # 3+ → 2x
 
@@ -340,7 +355,17 @@ class CopyTradingStrategy:
                     wallet_multiplier,
                 ))
 
-        combined_multiplier = wallet_multiplier * extra_multiplier
+        # Early Entry Bonus: Markt unter $10K Volumen → 1.5x
+        early_bonus = 1.0
+        if getattr(signal, "is_early_entry", False):
+            early_bonus = EARLY_ENTRY_MULTIPLIER
+            logger.info(
+                f"🌱 Early Entry Bonus {EARLY_ENTRY_MULTIPLIER}x | "
+                f"Markt-Volumen: ${getattr(signal, 'market_volume_usd', 0):,.0f} "
+                f"| {signal.market_question[:50]}"
+            )
+
+        combined_multiplier = wallet_multiplier * extra_multiplier * early_bonus
         scaled_signal = replace(signal, size_usdc=signal.size_usdc * combined_multiplier)
 
         if combined_multiplier != 1.0:

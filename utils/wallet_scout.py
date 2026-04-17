@@ -1,20 +1,25 @@
 """
-wallet_scout.py — Automatischer Wallet Scout
+wallet_scout.py — Automatischer Wallet Scout + Wallet Decay Tracker
 
-Läuft täglich um 09:00 Uhr.
+Scout: Läuft täglich um 09:00 Uhr.
 Scrapt polymonit.com/leaderboard, findet neue Top-Wallets (>60% Win Rate, >$500K Profit)
 die noch nicht in TARGET_WALLETS sind, und schickt Telegram-Benachrichtigung.
 
+Decay Tracker: Überwacht Win Rate Rückgang pro Wallet über mehrere Tage.
+Wenn Win Rate >10% unter Gesamt-Win Rate für 3+ Tage → Multiplikator halbieren + Alert.
+
 Verwendung in main.py:
-    from utils.wallet_scout import scout_loop
+    from utils.wallet_scout import scout_loop, WalletDecayTracker
     asyncio.create_task(scout_loop(config))
 """
 
 import asyncio
+import json
+import os
 import re
 from dataclasses import dataclass
 from datetime import datetime, timedelta
-from typing import List, Optional
+from typing import Dict, List, Optional
 
 try:
     import requests
@@ -28,6 +33,155 @@ from utils.logger import get_logger
 logger = get_logger("wallet_scout")
 
 LEADERBOARD_URL = "https://polymonit.com/leaderboard"
+
+# ── Wallet Decay Tracker ──────────────────────────────────────────────────────
+
+DECAY_STATE_FILE = "wallet_decay_state.json"
+DECAY_DAYS       = 3     # Tage mit anhaltendem Rückgang bevor Alarm
+DECAY_THRESHOLD  = 0.10  # >10% Abfall unter Gesamt-Win Rate
+
+
+class WalletDecayTracker:
+    """
+    Verfolgt tägliche Win Rate Entwicklung pro Wallet.
+
+    Logik:
+    - Täglich wird ein Snapshot der (Gesamt-WR, Letzte-20-WR) gespeichert
+    - Wenn Recent-WR um >10% unter Gesamt-WR liegt → "declining"
+    - Nach 3+ aufeinanderfolgenden Declining-Tagen → Alarm + Multiplikator halbieren
+
+    Verwendung:
+        tracker = WalletDecayTracker()
+        if tracker.snapshot(wallet_addr, total_wr=0.62, recent_wr=0.45):
+            # 3+ Tage Rückgang → Alert senden
+    """
+
+    def __init__(self):
+        self._state: Dict[str, List[dict]] = self._load()
+
+    def snapshot(self, wallet: str, total_wr: float, recent_wr: float) -> bool:
+        """
+        Speichert den heutigen Win-Rate-Stand für eine Wallet.
+        Gibt True zurück wenn der Rückgang seit DECAY_DAYS+ Tagen anhält.
+        """
+        today = datetime.now().strftime("%Y-%m-%d")
+        is_declining = total_wr > 0 and (total_wr - recent_wr) > DECAY_THRESHOLD
+
+        history = self._state.get(wallet, [])
+        history = [d for d in history if d["date"] != today]
+        history.append({
+            "date":       today,
+            "total_wr":   round(total_wr, 4),
+            "recent_wr":  round(recent_wr, 4),
+            "declining":  is_declining,
+        })
+        history = sorted(history, key=lambda x: x["date"])[-14:]
+        self._state[wallet] = history
+        self._save()
+
+        if len(history) < DECAY_DAYS:
+            return False
+        return all(d["declining"] for d in history[-DECAY_DAYS:])
+
+    def consecutive_decline_days(self, wallet: str) -> int:
+        """Gibt die Anzahl aufeinanderfolgender Declining-Tage zurück."""
+        history = self._state.get(wallet, [])
+        count = 0
+        for d in reversed(history):
+            if d.get("declining"):
+                count += 1
+            else:
+                break
+        return count
+
+    def _load(self) -> Dict:
+        if not os.path.exists(DECAY_STATE_FILE):
+            return {}
+        try:
+            with open(DECAY_STATE_FILE, encoding="utf-8") as f:
+                return json.load(f)
+        except Exception:
+            return {}
+
+    def _save(self):
+        try:
+            with open(DECAY_STATE_FILE, "w", encoding="utf-8") as f:
+                json.dump(self._state, f, indent=2)
+        except Exception as e:
+            logger.warning(f"Decay-State konnte nicht gespeichert werden: {e}")
+
+
+def build_decay_alert_message(
+    wallet_name: str,
+    total_wr: float,
+    recent_wr: float,
+    days: int,
+    old_mult: float,
+    new_mult: float,
+) -> str:
+    delta = total_wr - recent_wr
+    lines = [
+        "📉 <b>WALLET DECAY ALERT</b>",
+        "━━━━━━━━━━━━━━━━━━━━",
+        f"👤 Wallet: <b>{wallet_name}</b>",
+        f"📊 Gesamt Win Rate: <b>{total_wr:.0%}</b>",
+        f"📉 Letzte 20 Trades: <b>{recent_wr:.0%}</b>",
+        f"⚠️  Abfall: <b>-{delta:.0%}</b> seit {days} Tagen",
+        f"⚖️  Multiplikator: <b>{old_mult:.1f}x → {new_mult:.1f}x</b>",
+        "━━━━━━━━━━━━━━━━━━━━",
+        "Trades dieser Wallet werden mit halbiertem Einsatz ausgeführt.",
+    ]
+    return "\n".join(lines)
+
+
+async def decay_monitor_loop(strategy, config):
+    """
+    Täglicher Loop der alle Wallets auf anhaltenden Decay prüft.
+    Wird als asyncio.Task in main.py gestartet.
+
+    strategy: CopyTradingStrategy (hat .wallet_performance)
+    config: Config
+    """
+    from strategies.copy_trading import get_wallet_name, get_wallet_multiplier
+    tracker = WalletDecayTracker()
+    logger.info("DecayMonitor gestartet — prüft täglich um 23:00 Uhr")
+
+    while True:
+        try:
+            now      = datetime.now()
+            next_run = now.replace(hour=23, minute=0, second=0, microsecond=0)
+            if now >= next_run:
+                next_run += timedelta(days=1)
+            await asyncio.sleep((next_run - now).total_seconds())
+
+            from telegram_bot import send
+            for wallet, perf in strategy.wallet_performance.items():
+                if perf.trades_total < 10:
+                    continue
+
+                total_wr  = perf.win_rate
+                recent_wr = perf.recent_win_rate
+                in_decay  = tracker.snapshot(wallet, total_wr, recent_wr)
+                days      = tracker.consecutive_decline_days(wallet)
+
+                if in_decay:
+                    old_mult = get_wallet_multiplier(wallet)
+                    new_mult = round(old_mult / 2, 2)
+                    name     = get_wallet_name(wallet)
+                    msg = build_decay_alert_message(name, total_wr, recent_wr, days, old_mult, new_mult)
+                    logger.warning(
+                        f"DECAY ALERT: {name} | Gesamt {total_wr:.0%} vs. Recent {recent_wr:.0%} "
+                        f"seit {days} Tagen"
+                    )
+                    await send(msg)
+
+        except asyncio.CancelledError:
+            break
+        except Exception as e:
+            logger.error(f"DecayMonitor Fehler: {e} — weiter in 1h")
+            await asyncio.sleep(3600)
+
+
 MIN_WIN_RATE    = 0.60        # 60% Mindest-Win-Rate
 MIN_PROFIT_USD  = 500_000.0   # $500K Mindest-Profit
 SCOUT_HOUR      = 9           # Täglich um 09:00 Uhr

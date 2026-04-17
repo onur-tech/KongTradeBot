@@ -62,6 +62,10 @@ class TradeSignal:
     market_question: str = ""       # Lesbare Marktfrage
     outcome: str = ""               # "Yes" oder "No"
 
+    # First Entry Signal
+    market_volume_usd: float = 0.0  # Markt-Volumen zum Zeitpunkt der Erkennung
+    is_early_entry: bool = False    # True wenn Wallet neu in Markt mit <$10K Volumen
+
     @property
     def time_to_close_hours(self) -> Optional[float]:
         """Wie viele Stunden bis der Markt schließt."""
@@ -102,6 +106,9 @@ class WalletMonitor:
         # Deduplizierung: alle gesehenen Transaction Hashes
         self._seen_tx_hashes: Set[str] = set()
 
+        # First Entry Tracking: pro Wallet bekannte Märkte (conditionId)
+        self._wallet_markets: dict = {}
+
         # State
         self._running = False
         self._session: Optional[object] = None
@@ -111,6 +118,7 @@ class WalletMonitor:
             "polls": 0,
             "trades_detected": 0,
             "trades_skipped_duplicate": 0,
+            "early_entry_signals": 0,
             "errors": 0,
         }
 
@@ -158,9 +166,14 @@ class WalletMonitor:
         for wallet in self.config.target_wallets:
             try:
                 trades = await self._fetch_recent_activities(wallet, limit=50)
+                wallet_lower = wallet.lower()
+                if wallet_lower not in self._wallet_markets:
+                    self._wallet_markets[wallet_lower] = set()
                 for trade in trades:
                     if tx_hash := trade.get("transactionHash"):
                         self._seen_tx_hashes.add(tx_hash)
+                    if market_id := trade.get("conditionId"):
+                        self._wallet_markets[wallet_lower].add(market_id)
             except Exception as e:
                 logger.warning(f"Sync übersprungen für {wallet[:10]}...: {e}")
 
@@ -202,15 +215,24 @@ class WalletMonitor:
             self.stats["polls"] += 1
 
             new_trades = []
+            wallet_lower = wallet.lower()
             for activity in activities:
                 if self._is_new_trade(activity):
                     signal = self._parse_trade(activity, wallet)
                     if signal:
+                        signal = await self._enrich_early_entry(signal, wallet_lower)
                         new_trades.append(signal)
 
             for signal in new_trades:
                 self.stats["trades_detected"] += 1
-                logger.info(f"🆕 NEUER TRADE erkannt: {signal}")
+                if signal.is_early_entry:
+                    self.stats["early_entry_signals"] += 1
+                    logger.info(
+                        f"🌱 FRÜH-SIGNAL erkannt: {signal} | "
+                        f"Markt-Volumen: ${signal.market_volume_usd:,.0f}"
+                    )
+                else:
+                    logger.info(f"🆕 NEUER TRADE erkannt: {signal}")
                 if self.on_new_trade:
                     await self._safe_callback(signal)
 
@@ -222,6 +244,52 @@ class WalletMonitor:
         except Exception as e:
             self.stats["errors"] += 1
             logger.error(f"Fehler bei Wallet {wallet[:10]}...: {e}", exc_info=True)
+
+    async def _enrich_early_entry(self, signal: "TradeSignal", wallet_lower: str) -> "TradeSignal":
+        """
+        Prüft ob das Signal ein First Entry in einem Markt mit <$10K Volumen ist.
+        Gibt ein (ggf. modifiziertes) TradeSignal zurück.
+        """
+        from dataclasses import replace
+
+        market_id = signal.market_id
+        if not market_id:
+            return signal
+
+        # Wallet-Märkte initialisieren falls noch nicht vorhanden
+        if wallet_lower not in self._wallet_markets:
+            self._wallet_markets[wallet_lower] = set()
+
+        is_first = market_id not in self._wallet_markets[wallet_lower]
+        self._wallet_markets[wallet_lower].add(market_id)
+
+        if not is_first:
+            return signal
+
+        # Markt-Volumen holen
+        volume = await self._fetch_market_volume(market_id)
+        if volume <= 0:
+            return signal
+
+        is_early = volume < 10_000
+        return replace(signal, market_volume_usd=volume, is_early_entry=is_early)
+
+    async def _fetch_market_volume(self, condition_id: str) -> float:
+        """Holt das aktuelle Handelsvolumen eines Markts von der Gamma API."""
+        try:
+            url = "https://gamma-api.polymarket.com/markets"
+            params = {"conditionIds": condition_id}
+            async with self._session.get(
+                url, params=params, timeout=aiohttp.ClientTimeout(total=5)
+            ) as r:
+                if r.status != 200:
+                    return 0.0
+                data = await r.json()
+                if isinstance(data, list) and data:
+                    return float(data[0].get("volume", 0) or 0)
+        except Exception:
+            pass
+        return 0.0
 
     async def _fetch_recent_activities(self, wallet: str, limit: int = 20) -> List[dict]:
         """

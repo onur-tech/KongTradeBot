@@ -359,6 +359,59 @@ async def check_resolved_markets_and_notify():
             ]))
 
 
+# ── /add Wallet Helper ────────────────────────────────
+
+def _add_wallet_to_env(address: str) -> tuple:
+    """
+    Fügt eine neue Wallet-Adresse zu TARGET_WALLETS in der .env-Datei hinzu.
+    Gibt (success: bool, message: str) zurück.
+    """
+    import re as _re
+
+    if not _re.match(r"^0x[0-9a-fA-F]{40}$", address):
+        return False, "❌ Ungültige Adresse — Format: <code>0x</code> + 40 Hex-Zeichen"
+
+    address = address.lower()
+    env_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), ".env")
+    if not os.path.exists(env_path):
+        env_path = ".env"
+
+    try:
+        with open(env_path, "r", encoding="utf-8") as f:
+            content = f.read()
+
+        # Bereits vorhanden?
+        if address in content.lower():
+            return False, f"⚠️ Wallet bereits in TARGET_WALLETS:\n<code>{address}</code>"
+
+        # TARGET_WALLETS Zeile finden und erweitern
+        if _re.search(r"^TARGET_WALLETS\s*=", content, _re.MULTILINE):
+            content = _re.sub(
+                r"(^TARGET_WALLETS\s*=\s*)(.*)$",
+                lambda m: m.group(1) + m.group(2).rstrip() + ("," if m.group(2).strip() else "") + address,
+                content,
+                flags=_re.MULTILINE,
+            )
+        else:
+            content += f"\nTARGET_WALLETS={address}\n"
+
+        with open(env_path, "w", encoding="utf-8") as f:
+            f.write(content)
+
+        msg = "\n".join([
+            "✅ <b>WALLET HINZUGEFÜGT</b>",
+            "━━━━━━━━━━━━━━━━━━━━",
+            f"<code>{address}</code>",
+            "━━━━━━━━━━━━━━━━━━━━",
+            "⚠️ Bot-Neustart erforderlich damit die Wallet aktiv wird.",
+        ])
+        print(f"[TG] /add: Wallet {address[:10]}... zu .env hinzugefügt")
+        return True, msg
+
+    except Exception as e:
+        return False, f"❌ Fehler beim Schreiben der .env: {e}"
+
+
 # ── Command Handler ────────────────────────────────────
 
 async def poll_commands(callback_status, callback_resolve):
@@ -409,6 +462,12 @@ async def poll_commands(callback_status, callback_resolve):
                                 f"📊 Gesamt P&L: <b>{pnl_sign}${total_pnl:.2f} USDC</b>",
                             ]))
 
+                        elif text.startswith("/add "):
+                            parts = text.split(maxsplit=1)
+                            addr  = parts[1].strip() if len(parts) == 2 else ""
+                            ok, result_msg = _add_wallet_to_env(addr)
+                            await send(result_msg)
+
                         elif text in ["/help", "/h"]:
                             await send("\n".join([
                                 "🤖 <b>KONG TRADING BOT — BEFEHLE</b>",
@@ -417,6 +476,7 @@ async def poll_commands(callback_status, callback_resolve):
                                 "/s       →  Kurzform für /status",
                                 "/pnl     →  Aktueller P&L und Win Rate",
                                 "/p       →  Kurzform für /pnl",
+                                "/add 0x… →  Neue Wallet zu TARGET_WALLETS hinzufügen",
                                 "/help    →  Diese Übersicht",
                                 "━━━━━━━━━━━━━━━━━━━━",
                                 "📱 Status-Report kommt automatisch stündlich.",

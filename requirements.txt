@@ -28,3 +28,7 @@ typing-extensions>=4.0.0
 
 # Anthropic Claude API (KI-Analyse im Morning Report)
 anthropic>=0.40.0
+
+# Wallet Scout (Leaderboard Scraping)
+requests>=2.31.0
+beautifulsoup4>=4.12.0

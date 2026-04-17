@@ -17,6 +17,7 @@ from utils.logger import setup_logger, get_logger
 from utils.balance_fetcher import update_budget_from_chain
 from utils.state_manager import save_state, load_state
 from utils.tax_archive import log_trade, export_tax_csv, get_summary
+from utils.wallet_scout import scout_loop
 from core.wallet_monitor import WalletMonitor
 from core.risk_manager import RiskManager
 from core.execution_engine import ExecutionEngine, OpenPosition
@@ -379,6 +380,7 @@ async def main():
             asyncio.create_task(balance_updater(config, interval=300)),
             asyncio.create_task(morning_report_sender()),
             asyncio.create_task(resolver_loop()),
+            asyncio.create_task(scout_loop(config)),
             asyncio.create_task(poll_commands(
                 callback_status=send_status_now,
                 callback_resolve=check_resolved_markets_and_notify,

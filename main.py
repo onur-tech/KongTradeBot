@@ -26,7 +26,7 @@ from strategies.copy_trading import CopyTradingStrategy, CopyOrder
 from telegram_bot import (send, msg_trade, msg_status, msg_startup,
                            msg_shutdown, msg_morning_summary, msg_warning,
                            check_resolved_markets_and_notify, poll_commands,
-                           send_morning_report)
+                           send_morning_report, send_trade_confirmation)
 
 C_RESET  = "\033[0m"
 C_CYAN   = "\033[96m"
@@ -291,6 +291,35 @@ async def main():
         )
         if total_invested >= config.max_total_invested_usd:
             return
+
+        # ── Telegram Inline-Button Bestätigung (30s Fenster) ─────────────────
+        sig = getattr(order, "signal", None)
+        order_id = str(getattr(sig, "tx_hash", "") or id(order))[:16]
+        cat = get_category(getattr(sig, "market_question", "") or "")
+        from strategies.copy_trading import get_wallet_name as _gwn
+        decision = await send_trade_confirmation(
+            order_id   = order_id,
+            market     = str(getattr(sig, "market_question", "") or ""),
+            outcome    = str(getattr(sig, "outcome", "") or ""),
+            size       = float(getattr(order, "size_usdc", 0) or 0),
+            price      = float(getattr(sig, "price", 0) or 0),
+            wallet_name= _gwn(str(getattr(sig, "source_wallet", "") or "")),
+            category   = cat,
+            dry_run    = config.dry_run,
+        )
+
+        if decision == "skip":
+            logger.info(f"Trade per Telegram ÜBERSPRUNGEN: {order_id}")
+            return
+
+        if decision == "double":
+            from dataclasses import replace as _replace
+            order = _replace(order, size_usdc=order.size_usdc * 2)
+            logger.info(f"Trade per Telegram VERDOPPELT: ${order.size_usdc:.2f}")
+        elif decision == "half":
+            from dataclasses import replace as _replace
+            order = _replace(order, size_usdc=order.size_usdc / 2)
+            logger.info(f"Trade per Telegram HALBIERT: ${order.size_usdc:.2f}")
 
         result = await engine.execute(order)
         if result and result.success:

@@ -37,6 +37,11 @@ ARCHIVE_FILE = "trades_archive.json"
 STATE_FILE   = "bot_state.json"
 GAMMA_API    = "https://gamma-api.polymarket.com"
 
+CONFIRMATION_TIMEOUT_S = 30  # Sekunden auf Button-Klick warten
+
+# Offene Trade-Bestätigungen: order_id → asyncio.Future
+_pending_decisions: dict = {}
+
 
 async def send(text: str, parse_mode: str = "HTML") -> bool:
     if not TOKEN or not CHAT_IDS:
@@ -55,6 +60,135 @@ async def send(text: str, parse_mode: str = "HTML") -> bool:
                 print(f"[TG] Fehler: {e}")
                 success = False
     return success
+
+
+async def _send_with_keyboard(text: str, keyboard: dict) -> Optional[int]:
+    """Sendet eine Nachricht mit Inline-Keyboard. Gibt message_id zurück oder None."""
+    if not TOKEN or not CHAT_IDS:
+        return None
+    chat_id = CHAT_IDS[0]
+    async with aiohttp.ClientSession() as session:
+        url = f"https://api.telegram.org/bot{TOKEN}/sendMessage"
+        payload = {
+            "chat_id":      chat_id,
+            "text":         text,
+            "parse_mode":   "HTML",
+            "reply_markup": keyboard,
+        }
+        try:
+            async with session.post(url, json=payload,
+                                    timeout=aiohttp.ClientTimeout(total=10)) as r:
+                data = await r.json()
+                if r.status == 200 and data.get("ok"):
+                    return data["result"]["message_id"]
+        except Exception as e:
+            print(f"[TG] send_with_keyboard Fehler: {e}")
+    return None
+
+
+async def _answer_callback_query(callback_id: str, text: str = ""):
+    """Beantwortet eine Callback-Query (entfernt Ladeanzeige am Button)."""
+    if not TOKEN:
+        return
+    async with aiohttp.ClientSession() as session:
+        url = f"https://api.telegram.org/bot{TOKEN}/answerCallbackQuery"
+        try:
+            await session.post(
+                url,
+                json={"callback_query_id": callback_id, "text": text},
+                timeout=aiohttp.ClientTimeout(total=5),
+            )
+        except Exception:
+            pass
+
+
+async def _edit_message_reply_markup(chat_id: str, message_id: int, text: str):
+    """Entfernt Inline-Buttons nach Entscheidung und zeigt den gewählten Text."""
+    if not TOKEN:
+        return
+    async with aiohttp.ClientSession() as session:
+        url = f"https://api.telegram.org/bot{TOKEN}/editMessageText"
+        try:
+            await session.post(
+                url,
+                json={
+                    "chat_id":    chat_id,
+                    "message_id": message_id,
+                    "text":       text,
+                    "parse_mode": "HTML",
+                },
+                timeout=aiohttp.ClientTimeout(total=5),
+            )
+        except Exception:
+            pass
+
+
+async def send_trade_confirmation(
+    order_id: str,
+    market: str,
+    outcome: str,
+    size: float,
+    price: float,
+    wallet_name: str,
+    category: str = "",
+    dry_run: bool = True,
+) -> str:
+    """
+    Sendet Trade-Signal mit 4 Inline-Buttons an Telegram.
+    Wartet bis zu CONFIRMATION_TIMEOUT_S Sekunden auf Antwort.
+
+    Gibt zurück: "normal" | "skip" | "double" | "half"
+    Standard bei Timeout: "normal" (Trade läuft durch)
+    """
+    if not TOKEN or not CHAT_IDS:
+        return "normal"
+
+    cat_emoji = {
+        "Sport": "🎾", "Geopolitik": "🌍", "Crypto": "₿",
+        "Makro": "📈", "Sonstiges": "ℹ️"
+    }.get(category, "📋")
+    mode_tag = "[DRY-RUN]" if dry_run else "[LIVE]"
+
+    text = "\n".join([
+        f"{cat_emoji} <b>TRADE SIGNAL {mode_tag}</b>",
+        "━━━━━━━━━━━━━━━━━━━━",
+        f"📌 <b>{market[:55]}</b>",
+        f"🎯 {outcome} @ <b>${price:.3f}</b>",
+        f"💵 Größe: <b>${size:.2f} USDC</b>",
+        f"👛 {wallet_name}",
+        "━━━━━━━━━━━━━━━━━━━━",
+        f"⏱️ <b>{CONFIRMATION_TIMEOUT_S}s</b> — danach läuft Trade normal durch.",
+    ])
+
+    keyboard = {
+        "inline_keyboard": [[
+            {"text": "✅ Normal", "callback_data": f"t:{order_id}:normal"},
+            {"text": "⏭️ Skip",   "callback_data": f"t:{order_id}:skip"},
+            {"text": "2️⃣ Double", "callback_data": f"t:{order_id}:double"},
+            {"text": "½ Half",   "callback_data": f"t:{order_id}:half"},
+        ]]
+    }
+
+    msg_id = await _send_with_keyboard(text, keyboard)
+
+    # Future registrieren
+    loop = asyncio.get_event_loop()
+    future: asyncio.Future = loop.create_future()
+    _pending_decisions[order_id] = (future, CHAT_IDS[0], msg_id)
+
+    try:
+        decision = await asyncio.wait_for(asyncio.shield(future), timeout=CONFIRMATION_TIMEOUT_S)
+    except asyncio.TimeoutError:
+        decision = "normal"
+        if msg_id:
+            await _edit_message_reply_markup(
+                CHAT_IDS[0], msg_id,
+                text + "\n\n⏰ <i>Timeout — Trade normal ausgeführt.</i>"
+            )
+    finally:
+        _pending_decisions.pop(order_id, None)
+
+    return decision
 
 
 def _load_archive() -> list:
@@ -414,6 +548,14 @@ def _add_wallet_to_env(address: str) -> tuple:
 
 # ── Command Handler ────────────────────────────────────
 
+_DECISION_LABELS = {
+    "normal": "✅ Normal — Trade läuft durch",
+    "skip":   "⏭️ Skip — Trade abgelehnt",
+    "double": "2️⃣ Double — Trade 2x größer",
+    "half":   "½ Half — Trade halb so groß",
+}
+
+
 async def poll_commands(callback_status, callback_resolve):
     if not TOKEN or not CHAT_IDS:
         return
@@ -423,8 +565,9 @@ async def poll_commands(callback_status, callback_resolve):
         while True:
             try:
                 url = f"https://api.telegram.org/bot{TOKEN}/getUpdates"
-                params = {"timeout": 30, "offset": offset}
-                async with session.get(url, params=params, timeout=aiohttp.ClientTimeout(total=35)) as r:
+                # Kurzes Timeout damit Callback-Queries schnell ankommen
+                params = {"timeout": 5, "offset": offset}
+                async with session.get(url, params=params, timeout=aiohttp.ClientTimeout(total=10)) as r:
                     if r.status != 200:
                         await asyncio.sleep(5)
                         continue
@@ -433,6 +576,38 @@ async def poll_commands(callback_status, callback_resolve):
 
                     for update in updates:
                         offset = update["update_id"] + 1
+
+                        # ── Callback-Query (Inline-Button-Klick) ──────────────
+                        cb = update.get("callback_query")
+                        if cb:
+                            cb_id      = cb.get("id", "")
+                            cb_data    = cb.get("data", "")
+                            cb_chat_id = str(cb.get("message", {}).get("chat", {}).get("id", ""))
+                            cb_msg_id  = cb.get("message", {}).get("message_id")
+
+                            if cb_chat_id in CHAT_IDS and cb_data.startswith("t:"):
+                                parts = cb_data.split(":")
+                                if len(parts) == 3:
+                                    _, order_id, decision = parts
+                                    pending = _pending_decisions.get(order_id)
+                                    if pending:
+                                        future, chat_id_reg, msg_id_reg = pending
+                                        if not future.done():
+                                            future.set_result(decision)
+                                        label = _DECISION_LABELS.get(decision, decision)
+                                        await _answer_callback_query(cb_id, label)
+                                        # Buttons aus Nachricht entfernen
+                                        mid = msg_id_reg or cb_msg_id
+                                        if mid:
+                                            await _edit_message_reply_markup(
+                                                cb_chat_id, mid,
+                                                f"<b>Entschieden:</b> {label}"
+                                            )
+                                    else:
+                                        await _answer_callback_query(cb_id, "⚠️ Signal bereits abgelaufen")
+                            continue
+
+                        # ── Text-Kommandos ────────────────────────────────────
                         msg = update.get("message", {})
                         text = msg.get("text", "").strip().lower()
                         chat_id = str(msg.get("chat", {}).get("id", ""))
@@ -478,6 +653,8 @@ async def poll_commands(callback_status, callback_resolve):
                                 "/p       →  Kurzform für /pnl",
                                 "/add 0x… →  Neue Wallet zu TARGET_WALLETS hinzufügen",
                                 "/help    →  Diese Übersicht",
+                                "━━━━━━━━━━━━━━━━━━━━",
+                                "Buttons: ✅ Normal  ⏭️ Skip  2️⃣ Double  ½ Half",
                                 "━━━━━━━━━━━━━━━━━━━━",
                                 "📱 Status-Report kommt automatisch stündlich.",
                             ]))

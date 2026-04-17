@@ -64,20 +64,29 @@ WALLET_MULTIPLIERS: Dict[str, float] = {
     # HOOK → 2x
     "0x0b7a6030507efe5db145fbb57a25ba0c5f9d86cf": 2.0,
 
-    # sovereign2013 — 57% Win Rate, 551 Verluste 2026-04-17 → 0.5x
-    "0xee613b3fc183ee44f9da9c05f53e2da107e3debf": 0.5,
+    # sovereign2013 — 49% Win Rate (predicts.guru) → 0.3x
+    "0xee613b3fc183ee44f9da9c05f53e2da107e3debf": 0.3,
 
-    # Countryside → 2x
-    "0xbddf61af533ff524d27154e589d2d7a81510c684": 2.0,
+    # Countryside — 92% Win Rate (predicts.guru) → 3x
+    "0xbddf61af533ff524d27154e589d2d7a81510c684": 3.0,
 
-    # Crypto Spezialist → 2x
+    # Crypto Spezialist — 65.6% Win Rate → 2x
     "0xde17f7144fbd0eddb2679132c10ff5e74b120988": 2.0,
 
-    # BoneReader → 1.5x
+    # BoneReader — 72% Win Rate → 1.5x
     "0xd84c2b6d65dc596f49c7b6aadd6d74ca91e407b9": 1.5,
 
-    # DrPufferfish → 2x
-    "0xdb27bf2ac5d428a9c63dbc914611036855a6c56e": 2.0,
+    # DrPufferfish — 92% Win Rate (predicts.guru) → 3x
+    "0xdb27bf2ac5d428a9c63dbc914611036855a6c56e": 3.0,
+
+    # wan123 — 90% Win Rate → 2.5x
+    "0xde7be6d489bce070a959e0cb813128ae659b5f4b": 2.5,
+
+    # kcnyekchno — 81% Win Rate → 2x
+    "0x7177a7f5c216809c577c50c77b12aae81f81ddef": 2.0,
+
+    # Gambler1968 — 45% Win Rate → 0.3x
+    "0x7a6192ea6815d3177e978dd3f8c38be5f575af24": 0.3,
 }
 
 # Unbekannte / nicht konfigurierte Wallets bekommen halbe Größe

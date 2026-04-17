@@ -18,6 +18,7 @@ from utils.balance_fetcher import update_budget_from_chain
 from utils.state_manager import save_state, load_state
 from utils.tax_archive import log_trade, export_tax_csv, get_summary
 from utils.wallet_scout import scout_loop
+from utils.latency_monitor import record_fill, latency_report_loop
 from core.wallet_monitor import WalletMonitor
 from core.risk_manager import RiskManager
 from core.execution_engine import ExecutionEngine, OpenPosition
@@ -313,6 +314,7 @@ async def main():
             )
             logger.info(f"Trade | {cat} | {market_id[:12] if market_id else 'n/a'}")
             risk.record_market_investment(market_id, float(getattr(order, "size_usdc", 0) or 0))
+            record_fill(sig, result)
 
             time_to_close = getattr(sig, "time_to_close_hours", None)
             await send(msg_trade(
@@ -396,6 +398,7 @@ async def main():
             asyncio.create_task(morning_report_sender()),
             asyncio.create_task(resolver_loop()),
             asyncio.create_task(scout_loop(config)),
+            asyncio.create_task(latency_report_loop()),
             asyncio.create_task(poll_commands(
                 callback_status=send_status_now,
                 callback_resolve=check_resolved_markets_and_notify,

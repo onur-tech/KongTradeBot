@@ -87,6 +87,9 @@ WALLET_MULTIPLIERS: Dict[str, float] = {
 
     # Gambler1968 — 45% Win Rate → 0.3x
     "0x7a6192ea6815d3177e978dd3f8c38be5f575af24": 0.3,
+
+    # RN1 — 26.8% WR im Archiv, historisch negativ → 0.2x
+    "0x2005d16a84ceefa912d4e380cd32e7ff827875ea": 0.2,
 }
 
 # Unbekannte / nicht konfigurierte Wallets bekommen halbe Größe

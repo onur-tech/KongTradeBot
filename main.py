@@ -254,7 +254,8 @@ LOCK_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "bot.lock")
 
 async def main():
     args = parse_args()
-    setup_logger()
+    log_level = os.getenv("LOG_LEVEL", "INFO").upper()
+    setup_logger(level=log_level)
     logger = get_logger("main")
 
     if args.export_tax:
@@ -340,6 +341,22 @@ async def main():
             logger.info(f"Trade per Telegram HALBIERT: ${order.size_usdc:.2f}")
 
         result = await engine.execute(order)
+        if result and not result.success and not result.dry_run:
+            error_msg = str(getattr(result, 'error', '') or '')
+            sig_market = str(getattr(order.signal, 'market_question', '') or '')[:50]
+            if '403' in error_msg or 'geoblock' in error_msg.lower() or 'restricted' in error_msg.lower():
+                await send(
+                    f"🚫 <b>GEOBLOCK — Order abgelehnt</b>\n"
+                    f"📍 <i>{sig_market}</i>\n"
+                    f"🌍 Polymarket blockiert diese Region (Türkei).\n"
+                    f"⚡ <b>Lösung: VPN aktivieren (US/NL/DE) → Bot neu starten</b>"
+                )
+            else:
+                await send(
+                    f"❌ <b>Order fehlgeschlagen</b>\n"
+                    f"📍 <i>{sig_market}</i>\n"
+                    f"🔴 Fehler: <code>{error_msg[:200]}</code>"
+                )
         if result and result.success:
             sig       = getattr(order, "signal", None)
             cat       = get_category(getattr(sig, "market_question", "") or "")

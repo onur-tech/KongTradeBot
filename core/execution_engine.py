@@ -236,12 +236,16 @@ class ExecutionEngine:
         LEKTION: create_and_post_order ist die richtige Methode —
         nicht create_order + post_order separat (Ghost-Trade-Risiko)!
         """
+        logger.debug(f"DEBUG: Entering _live_execute | order={order!r}")
+
         if not self._client:
             logger.error("❌ CLOB Client ist None — engine.initialize() wurde nicht aufgerufen!")
             return ExecutionResult(
                 success=False,
                 error="CLOB Client nicht initialisiert — rufe initialize() auf"
             )
+
+        logger.debug(f"DEBUG: Client is {type(self._client).__name__} (not None)")
 
         signal = order.signal
 
@@ -254,20 +258,29 @@ class ExecutionEngine:
 
             # Tick Size für diesen Markt holen
             tick_size = await self._get_tick_size(signal.token_id)
+            logger.debug(f"DEBUG: tick_size={tick_size}")
 
             # Order platzieren — create_and_post_order in einem Call
             # LEKTION: NICHT create_order() dann post_order() separat!
             # Das führt zu Ghost Trades wenn zwischen den zwei Calls ein Fehler passiert.
             # LEKTION: OrderArgs-Objekt verwenden, NICHT plain dict!
+            shares = order.size_usdc / signal.price
             order_args = OrderArgs(
                 token_id=signal.token_id,
                 price=signal.price,
-                size=order.size_usdc / signal.price,  # Shares, nicht USDC
+                size=shares,
                 side=BUY,
             )
+            logger.debug(
+                f"DEBUG: About to call create_and_post_order with "
+                f"token_id={signal.token_id} price={signal.price} "
+                f"size={shares:.4f} side=BUY"
+            )
             response = self._client.create_and_post_order(order_args)
+            logger.debug(f"DEBUG: API response: {response!r}")
 
             order_id = response.get("orderID") or response.get("id", "unknown")
+            logger.debug(f"DEBUG: Order ID returned: {order_id}")
             logger.info(f"Order gesendet | ID: {order_id}")
 
             # KRITISCH: On-Chain Verifikation

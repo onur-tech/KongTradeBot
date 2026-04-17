@@ -49,10 +49,10 @@ WALLET_NAMES = {
     "0x02227b8f5a9636e895607edd3185ed6ee5598ff7": "HorizonSplendidView",
     "0xefbc5fec8d7b0acdc8911bdd9a98d6964308f9a2": "reachingthesky",
     "0x2005d16a84ceefa912d4e380cd32e7ff827875ea": "RN1",
-    "0xbddf61af533ff524d27154e589d2d7a81510c684": "Wallet-12",
-    "0xde17f7144fbd0eddb2679132c10ff5e74b120988": "Wallet-13",
-    "0xd84c2b6d65dc596f49c7b6aadd6d74ca91e407b9": "Wallet-14",
-    "0xdb27bf2ac5d428a9c63dbc914611036855a6c56e": "Wallet-15",
+    "0xbddf61af533ff524d27154e589d2d7a81510c684": "Countryside",
+    "0xde17f7144fbd0eddb2679132c10ff5e74b120988": "Crypto Spezialist",
+    "0xd84c2b6d65dc596f49c7b6aadd6d74ca91e407b9": "BoneReader",
+    "0xdb27bf2ac5d428a9c63dbc914611036855a6c56e": "DrPufferfish",
 }
 
 CATEGORIES = ["Sport", "Geopolitik", "Crypto", "Makro", "Sonstiges"]

@@ -133,19 +133,24 @@ def save_positions(engine, monitor, strategy):
 
 async def balance_updater(config, interval=300):
     while True:
-        await asyncio.sleep(interval)
-        await update_budget_from_chain(config)
+        try:
+            await asyncio.sleep(interval)
+            await update_budget_from_chain(config)
+        except asyncio.CancelledError:
+            break
+        except Exception as e:
+            logger.error(f"balance_updater Fehler: {e} — weiter")
 
 
 async def morning_report_sender():
     while True:
-        now = datetime.now()
-        next_8am = now.replace(hour=8, minute=0, second=0, microsecond=0)
-        if now >= next_8am:
-            from datetime import timedelta
-            next_8am += timedelta(days=1)
-        await asyncio.sleep((next_8am - now).total_seconds())
         try:
+            now = datetime.now()
+            next_8am = now.replace(hour=8, minute=0, second=0, microsecond=0)
+            if now >= next_8am:
+                from datetime import timedelta
+                next_8am += timedelta(days=1)
+            await asyncio.sleep((next_8am - now).total_seconds())
             summary = get_summary()
             await send_morning_report(
                 trades_today=summary.get("total_trades", 0),
@@ -155,8 +160,10 @@ async def morning_report_sender():
                 pnl=summary.get("total_pnl", 0),
                 total_trades=summary.get("total_trades", 0),
             )
+        except asyncio.CancelledError:
+            break
         except Exception as e:
-            print(f"[TG] Morgen-Report Fehler: {e}", flush=True)
+            logger.error(f"morning_report_sender Fehler: {e} — weiter")
 
 
 async def status_reporter(strategy, risk, engine, config, interval):
@@ -332,8 +339,13 @@ async def main():
 
     async def resolver_loop():
         while True:
-            await asyncio.sleep(900)  # 15 Minuten
-            await check_resolved_markets_and_notify()
+            try:
+                await asyncio.sleep(900)  # 15 Minuten
+                await check_resolved_markets_and_notify()
+            except asyncio.CancelledError:
+                break
+            except Exception as e:
+                logger.error(f"resolver_loop Fehler: {e} — weiter")
 
     async def send_status_now():
         r = risk.status()

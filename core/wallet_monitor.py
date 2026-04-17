@@ -156,31 +156,44 @@ class WalletMonitor:
         """
         logger.info("Initialer Sync: Lade bekannte Trades...")
         for wallet in self.config.target_wallets:
-            trades = await self._fetch_recent_activities(wallet, limit=50)
-            for trade in trades:
-                if tx_hash := trade.get("transactionHash"):
-                    self._seen_tx_hashes.add(tx_hash)
+            try:
+                trades = await self._fetch_recent_activities(wallet, limit=50)
+                for trade in trades:
+                    if tx_hash := trade.get("transactionHash"):
+                        self._seen_tx_hashes.add(tx_hash)
+            except Exception as e:
+                logger.warning(f"Sync übersprungen für {wallet[:10]}...: {e}")
 
         logger.info(f"Sync abgeschlossen: {len(self._seen_tx_hashes)} bekannte Trades geladen")
 
     async def _polling_loop(self):
         """
         Hauptschleife: Pollt regelmäßig die Activities API.
-
-        LEKTION: Polling ist zuverlässiger als WebSocket als primäre Methode
-        wenn man noch keine Co-Location hat. WebSocket wird in v2 ergänzt.
+        Läuft ewig — Ausnahmen werden geloggt und der Loop fortgesetzt.
         """
+        consecutive_errors = 0
         while self._running:
-            start = time.monotonic()
+            try:
+                start = time.monotonic()
 
-            for wallet in self.config.target_wallets:
-                await self._check_wallet(wallet)
+                for wallet in self.config.target_wallets:
+                    if not self._running:
+                        break
+                    await self._check_wallet(wallet)
 
-            elapsed = time.monotonic() - start
-            wait_time = max(0, self.config.poll_interval_seconds - elapsed)
+                consecutive_errors = 0
+                elapsed = time.monotonic() - start
+                wait_time = max(0, self.config.poll_interval_seconds - elapsed)
+                if wait_time > 0:
+                    await asyncio.sleep(wait_time)
 
-            if wait_time > 0:
-                await asyncio.sleep(wait_time)
+            except asyncio.CancelledError:
+                break
+            except Exception as e:
+                consecutive_errors += 1
+                backoff = min(30 * consecutive_errors, 300)
+                logger.error(f"Polling-Loop Fehler (#{consecutive_errors}): {e} — warte {backoff}s")
+                await asyncio.sleep(backoff)
 
     async def _check_wallet(self, wallet: str):
         """Prüft eine einzelne Wallet auf neue Trades."""
@@ -214,6 +227,7 @@ class WalletMonitor:
         """
         Ruft die letzten Activities einer Wallet von der Polymarket Data API ab.
         WICHTIG: Richtiger Endpunkt ist data-api.polymarket.com/activity
+        Gibt immer eine Liste zurück — wirft niemals.
         """
         url = "https://data-api.polymarket.com/activity"
         params = {
@@ -221,20 +235,32 @@ class WalletMonitor:
             "limit": limit,
         }
 
-        async with self._session.get(url, params=params) as response:
-            if response.status == 429:
-                logger.warning("Rate Limit erreicht — warte 30 Sekunden")
-                await asyncio.sleep(30)
-                return []
+        try:
+            async with self._session.get(url, params=params) as response:
+                if response.status == 429:
+                    logger.warning("Rate Limit erreicht — warte 30 Sekunden")
+                    await asyncio.sleep(30)
+                    return []
 
-            if response.status != 200:
-                logger.warning(f"API Fehler: Status {response.status} für {wallet[:10]}...")
-                return []
+                if response.status == 403:
+                    logger.warning(f"HTTP 403 für {wallet[:10]}... — überspringe, warte 30s")
+                    await asyncio.sleep(30)
+                    return []
 
-            data = await response.json()
-            if isinstance(data, list):
-                return data
-            return data.get("data", data.get("activities", []))
+                if response.status != 200:
+                    logger.warning(f"API Fehler: Status {response.status} für {wallet[:10]}...")
+                    return []
+
+                data = await response.json()
+                if isinstance(data, list):
+                    return data
+                return data.get("data", data.get("activities", []))
+
+        except asyncio.CancelledError:
+            raise
+        except Exception as e:
+            logger.warning(f"Netzwerkfehler für {wallet[:10]}...: {e} — überspringe")
+            return []
 
     def _is_new_trade(self, activity: dict) -> bool:
         """

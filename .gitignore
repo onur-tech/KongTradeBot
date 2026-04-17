@@ -1,0 +1,50 @@
+# ============================================================
+# .gitignore — NIEMALS diese Dateien committen!
+# ============================================================
+
+# KRITISCH: Private Keys und Secrets
+.env
+.env.live
+*.key
+*.pem
+secrets/
+
+# Logs (können sensitive Daten enthalten)
+logs/
+*.log
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Virtual Environment
+venv/
+env/
+.venv/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Bot State & Laufzeit-Daten (können Wallet-Infos enthalten)
+data/
+*.json
+!package.json
+bot.pid
+
+# Steuer-Exporte (sensible Finanzdaten)
+steuer_export_*.csv
+blockpit_import_*.csv
+
+# OS
+.DS_Store
+Thumbs.db

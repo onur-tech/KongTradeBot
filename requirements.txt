@@ -1,0 +1,30 @@
+# ============================================================
+# POLYMARKET BOT — ABHÄNGIGKEITEN
+# ============================================================
+# Installation:
+#   pip install -r requirements.txt
+# ============================================================
+
+# Polymarket CLOB API Client (offiziell)
+py-clob-client>=0.16.0
+
+# HTTP Client (async)
+aiohttp>=3.9.0
+
+# WebSocket Client
+websockets>=12.0
+
+# Datum/Zeit Parsing
+python-dateutil>=2.8.2
+
+# .env Datei laden
+python-dotenv>=1.0.0
+
+# Blockchain Interaktion (für On-Chain Verifikation)
+web3>=6.0.0
+
+# Typen und Utilities
+typing-extensions>=4.0.0
+
+# Anthropic Claude API (KI-Analyse im Morning Report)
+anthropic>=0.40.0

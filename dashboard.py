@@ -344,15 +344,73 @@ def api_action():
     return jsonify({"ok": False, "message": "Unbekannte Aktion"})
 
 
+# ── Background-Push Watchdog ─────────────────────────────────────────────────
+
+_push_thread: threading.Thread | None = None
+
+
+def _ensure_push_thread_running():
+    """Startet den background_push Thread neu falls er gestorben ist."""
+    global _push_thread
+    if _push_thread is None or not _push_thread.is_alive():
+        _push_thread = threading.Thread(target=background_push, daemon=True)
+        _push_thread.start()
+        print(f"[Dashboard] background_push Thread (neu)gestartet")
+
+
+def _watchdog():
+    """Überwacht background_push und startet ihn neu falls er stirbt."""
+    while True:
+        try:
+            time.sleep(10)
+            _ensure_push_thread_running()
+        except Exception:
+            pass
+
+
 # ── Start ─────────────────────────────────────────────────────────────────────
 
-if __name__ == "__main__":
-    t = threading.Thread(target=background_push, daemon=True)
-    t.start()
-    print("=" * 55)
-    print("  KongTrade Bot Dashboard")
-    print("  http://localhost:5000")
-    print("  Netzwerk: http://0.0.0.0:5000")
-    print("  Stoppen: Ctrl+C")
-    print("=" * 55)
+_BANNER = """\
+=======================================================
+  KongTrade Bot Dashboard
+  http://localhost:5000
+  Netzwerk: http://0.0.0.0:5000
+  Stoppen: Ctrl+C
+======================================================="""
+
+MAX_RESTARTS = 20
+
+
+def _run_server():
     socketio.run(app, host="0.0.0.0", port=5000, debug=False, allow_unsafe_werkzeug=True)
+
+
+if __name__ == "__main__":
+    _ensure_push_thread_running()
+    threading.Thread(target=_watchdog, daemon=True).start()
+
+    print(_BANNER)
+
+    restarts = 0
+    while restarts < MAX_RESTARTS:
+        try:
+            _run_server()
+            break  # Sauberer Exit (Ctrl+C)
+        except KeyboardInterrupt:
+            print("\n[Dashboard] Gestoppt.")
+            break
+        except OSError as e:
+            if "Address already in use" in str(e) or "10048" in str(e):
+                print(f"[Dashboard] Port 5000 belegt — warte 10s und versuche erneut...")
+                time.sleep(10)
+            else:
+                restarts += 1
+                print(f"[Dashboard] Fehler: {e} — Neustart {restarts}/{MAX_RESTARTS} in 3s")
+                time.sleep(3)
+        except Exception as e:
+            restarts += 1
+            print(f"[Dashboard] Unerwarteter Fehler: {e} — Neustart {restarts}/{MAX_RESTARTS} in 3s")
+            time.sleep(3)
+
+    if restarts >= MAX_RESTARTS:
+        print(f"[Dashboard] {MAX_RESTARTS} Neustarts erreicht — beendet.")

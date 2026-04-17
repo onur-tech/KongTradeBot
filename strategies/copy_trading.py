@@ -59,6 +59,18 @@ WALLET_MULTIPLIERS: Dict[str, float] = {
 
     # sovereign2013 — 57% Win Rate → 1x (Basiswert)
     "0xee613b3fc183ee44f9da9c05f53e2da107e3debf": 1.0,
+
+    # Countryside → 2x
+    "0xbddf61af533ff524d27154e589d2d7a81510c684": 2.0,
+
+    # Crypto Spezialist → 2x
+    "0xde17f7144fbd0eddb2679132c10ff5e74b120988": 2.0,
+
+    # BoneReader → 1.5x
+    "0xd84c2b6d65dc596f49c7b6aadd6d74ca91e407b9": 1.5,
+
+    # DrPufferfish → 2x
+    "0xdb27bf2ac5d428a9c63dbc914611036855a6c56e": 2.0,
 }
 
 # Unbekannte / nicht konfigurierte Wallets bekommen halbe Größe
@@ -79,6 +91,10 @@ WALLET_NAMES: Dict[str, str] = {
     "0x7a6192ea6815d3177e978dd3f8c38be5f575af24": "Gambler1968",
     "0x7177a7f5c216809c577c50c77b12aae81f81ddef": "kcnyekchno",
     "0x2005d16a84ceefa912d4e380cd32e7ff827875ea": "RN1",
+    "0xbddf61af533ff524d27154e589d2d7a81510c684": "Countryside",
+    "0xde17f7144fbd0eddb2679132c10ff5e74b120988": "Crypto Spezialist",
+    "0xd84c2b6d65dc596f49c7b6aadd6d74ca91e407b9": "BoneReader",
+    "0xdb27bf2ac5d428a9c63dbc914611036855a6c56e": "DrPufferfish",
 }
 
 

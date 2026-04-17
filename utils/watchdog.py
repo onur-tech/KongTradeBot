@@ -38,8 +38,9 @@ def _load_env():
 
 
 _env = _load_env()
-TELEGRAM_TOKEN   = _env.get("TELEGRAM_BOT_TOKEN", "")
-TELEGRAM_CHAT_ID = _env.get("TELEGRAM_CHAT_ID", "")
+TELEGRAM_TOKEN   = _env.get("TELEGRAM_TOKEN", "")
+_raw_ids         = _env.get("TELEGRAM_CHAT_IDS", "")
+TELEGRAM_CHAT_ID = _raw_ids.split(",")[0].strip() if _raw_ids else ""
 
 
 def _send_telegram(text: str):

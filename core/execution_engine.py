@@ -249,6 +249,7 @@ class ExecutionEngine:
 
         signal = order.signal
 
+        MAX_RETRIES = 3
         try:
             logger.info(
                 f"🔴 LIVE ORDER:\n"
@@ -277,12 +278,33 @@ class ExecutionEngine:
                 f"size={shares:.4f} side=BUY"
             )
             # run_in_executor: verhindert dass der synchrone requests-Call
-            # den asyncio Event-Loop einfriert (TCP-Timeout bei GeoBlock)
+            # den asyncio Event-Loop einfriert.
+            # Retry bei VPN-Netzwerkfehlern (WinError 10035, httpx.ReadError).
+            response = None
             loop = asyncio.get_event_loop()
-            response = await asyncio.wait_for(
-                loop.run_in_executor(None, self._client.create_and_post_order, order_args),
-                timeout=15.0,
-            )
+            for attempt in range(1, MAX_RETRIES + 1):
+                try:
+                    response = await asyncio.wait_for(
+                        loop.run_in_executor(None, self._client.create_and_post_order, order_args),
+                        timeout=30.0,
+                    )
+                    break
+                except (asyncio.TimeoutError, Exception) as _exc:
+                    _err = str(_exc)
+                    _retryable = (
+                        isinstance(_exc, asyncio.TimeoutError)
+                        or "10035" in _err
+                        or "ReadError" in _err
+                        or ("status_code=None" in _err and "Request exception" in _err)
+                    )
+                    if _retryable and attempt < MAX_RETRIES:
+                        logger.warning(
+                            f"Netzwerkfehler Versuch {attempt}/{MAX_RETRIES}: "
+                            f"{_err[:80]} — retry in 2s"
+                        )
+                        await asyncio.sleep(2)
+                    else:
+                        raise
             logger.debug(f"DEBUG: API response: {response!r}")
 
             order_id = response.get("orderID") or response.get("id", "unknown")
@@ -338,6 +360,13 @@ class ExecutionEngine:
             elif "429" in error_msg:
                 logger.warning("Rate Limit! Warte 30 Sekunden...")
                 await asyncio.sleep(30)
+            elif "10035" in error_msg or "ReadError" in error_msg or (
+                "status_code=None" in error_msg and "Request exception" in error_msg
+            ):
+                logger.error(
+                    f"VPN-Netzwerkfehler nach {MAX_RETRIES} Versuchen: {error_msg[:120]}\n"
+                    f"Tipp: VPN-Server wechseln falls Fehler anhält."
+                )
             else:
                 logger.error(f"Order fehlgeschlagen: {error_msg}", exc_info=True)
 

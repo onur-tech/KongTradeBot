@@ -35,6 +35,9 @@ MULTI_SIGNAL_MULTIPLIERS: Dict[int, float] = {
     3: 2.0,  # 3+ Wallets → 2x
 }
 
+# Ab dieser Anzahl Wallets gilt es als Herdentrieb → kein Größen-Boost
+HERD_THRESHOLD: int = 4
+
 
 # ---------------------------------------------------------------------------
 # Wallet-Gewichtungs-Konfiguration
@@ -136,14 +139,21 @@ class WalletPerformance:
 
     @property
     def is_decaying(self) -> bool:
-        """
-        Win Rate Decay Detection.
-        LEKTION: Wenn jemand gut war aber jetzt schlecht ist → aufhören zu kopieren.
-        Erfordert mindestens 10 Trades für Signal.
-        """
+        """Win Rate unter 45% in den letzten 20 Trades → Wallet komplett überspringen."""
         if len(self.recent_results) < 10:
             return False
-        return self.recent_win_rate < 0.45  # Unter 45% in letzten 20 Trades
+        return self.recent_win_rate < 0.45
+
+    @property
+    def is_trend_declining(self) -> bool:
+        """
+        Trend-Decline Detection: Recent Win Rate >10% unter Gesamt-Win Rate.
+        Nicht hart stoppen, aber Multiplikator halbieren.
+        Erfordert mind. 20 Gesamttrades und 10 Recent-Trades für Signal.
+        """
+        if self.trades_total < 20 or len(self.recent_results) < 10:
+            return False
+        return self.recent_win_rate < self.win_rate - 0.10
 
     def record(self, pnl_usd: float):
         self.trades_total += 1
@@ -190,6 +200,9 @@ class CopyTradingStrategy:
 
         # Callback zur ExecutionEngine
         self.on_copy_order: Optional[callable] = None
+
+        # Callback für Wallet-Warnungen (Trend-Decline) → Telegram
+        self.on_wallet_warning: Optional[callable] = None
 
         # Signal-Aggregation: key = "token_id:outcome", value = Liste von Signalen
         self._agg_buffer: Dict[str, List[TradeSignal]] = {}
@@ -261,8 +274,19 @@ class CopyTradingStrategy:
         count = len(signals)
         # Basiswert: Signal mit größtem Einsatz der kopierenden Wallets
         base_signal = max(signals, key=lambda s: s.size_usdc)
-        multi_multiplier = MULTI_SIGNAL_MULTIPLIERS.get(count, 2.0)  # 3+ → 2x
         market_short = base_signal.market_question[:60] if base_signal.market_question else base_signal.token_id[:16]
+
+        # Herdentrieb-Check: >4 Wallets = kein Boost
+        if count > HERD_THRESHOLD:
+            multi_multiplier = 1.0
+            self.stats["herd_signals"] = self.stats.get("herd_signals", 0) + 1
+            names = " + ".join(get_wallet_name(s.source_wallet) for s in signals)
+            logger.warning(
+                f"🐑 HERDENTRIEB ({count} Wallets) — kein Größen-Boost | "
+                f"{names} | {base_signal.outcome} auf '{market_short}'"
+            )
+        else:
+            multi_multiplier = MULTI_SIGNAL_MULTIPLIERS.get(count, 2.0)  # 3+ → 2x
 
         if count >= 2:
             self.stats["multi_signals"] += 1
@@ -295,8 +319,27 @@ class CopyTradingStrategy:
             self.stats["orders_skipped"] += 1
             return
 
-        # 2. Wallet-Multiplikator × Multi-Signal-Multiplikator anwenden
+        # 2. Wallet-Multiplikator — ggf. halbieren bei Trend-Decline
         wallet_multiplier = get_wallet_multiplier(signal.source_wallet)
+
+        if perf and perf.is_trend_declining:
+            original_mult = wallet_multiplier
+            wallet_multiplier = round(wallet_multiplier / 2, 2)
+            logger.warning(
+                f"📉 Trend-Decline bei {get_wallet_name(signal.source_wallet)} | "
+                f"Gesamt: {perf.win_rate:.0%} vs. Letzte 20: {perf.recent_win_rate:.0%} | "
+                f"Multiplikator: {original_mult}x → {wallet_multiplier}x (halbiert)"
+            )
+            if self.on_wallet_warning:
+                asyncio.create_task(self._safe_call(
+                    self.on_wallet_warning,
+                    get_wallet_name(signal.source_wallet),
+                    perf.win_rate,
+                    perf.recent_win_rate,
+                    original_mult,
+                    wallet_multiplier,
+                ))
+
         combined_multiplier = wallet_multiplier * extra_multiplier
         scaled_signal = replace(signal, size_usdc=signal.size_usdc * combined_multiplier)
 

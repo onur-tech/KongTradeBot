@@ -312,6 +312,7 @@ async def main():
                 token_id=token_id,
             )
             logger.info(f"Trade | {cat} | {market_id[:12] if market_id else 'n/a'}")
+            risk.record_market_investment(market_id, float(getattr(order, "size_usdc", 0) or 0))
 
             time_to_close = getattr(sig, "time_to_close_hours", None)
             await send(msg_trade(
@@ -334,9 +335,23 @@ async def main():
             f"🏪 {market}"
         )
 
-    strategy.on_copy_order  = on_copy_order
+    async def on_wallet_warning(name: str, overall_wr: float, recent_wr: float,
+                                old_mult: float, new_mult: float):
+        await send("\n".join([
+            "📉 <b>WALLET TREND-DECLINE ERKANNT</b>",
+            "━━━━━━━━━━━━━━━━━━━━",
+            f"👤 Wallet: <b>{name}</b>",
+            f"📊 Gesamt Win Rate: <b>{overall_wr:.0%}</b>",
+            f"📉 Letzte 20 Trades: <b>{recent_wr:.0%}</b>",
+            f"⚖️  Multiplikator: <b>{old_mult}x → {new_mult}x</b> (halbiert)",
+            "━━━━━━━━━━━━━━━━━━━━",
+            "⚠️ Wallet noch aktiv — aber mit reduzierter Größe.",
+        ]))
+
+    strategy.on_copy_order   = on_copy_order
     strategy.on_multi_signal = on_multi_signal
-    monitor.on_new_trade    = strategy.handle_signal
+    strategy.on_wallet_warning = on_wallet_warning
+    monitor.on_new_trade     = strategy.handle_signal
 
     async def resolver_loop():
         while True:

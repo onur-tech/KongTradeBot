@@ -14,13 +14,15 @@ LEKTIONEN AUS DER COMMUNITY:
 
 from dataclasses import dataclass, field
 from datetime import datetime, date, timezone
-from typing import Optional
+from typing import Optional, Dict
 
 from utils.logger import get_logger
 from utils.config import Config
 from core.wallet_monitor import TradeSignal
 
 logger = get_logger("risk_manager")
+
+MAX_MARKET_BUDGET_PCT = 0.03  # Max 3% des Portfolios pro einzelnem Markt
 
 
 @dataclass
@@ -49,6 +51,9 @@ class RiskManager:
         self._daily_loss_usd = 0.0
         self._daily_profit_usd = 0.0
         self._trades_today = 0
+
+        # Markt-Budget-Tracking: investierter Betrag pro market_id heute
+        self._market_investments: Dict[str, float] = {}
 
     @property
     def net_pnl_today(self) -> float:
@@ -110,6 +115,31 @@ class RiskManager:
                 reason=f"Berechnete Größe ${adjusted_size:.2f} unter Minimum ${self.config.min_trade_size_usd}"
             )
 
+        # 8. Max 3% Budget pro Markt (verhindert Überkonzentration in einem Markt)
+        if signal.market_id:
+            market_budget  = self.config.portfolio_budget_usd * MAX_MARKET_BUDGET_PCT
+            already_in     = self._market_investments.get(signal.market_id, 0.0)
+            remaining_budget = market_budget - already_in
+            if remaining_budget <= 0:
+                return RiskDecision(
+                    allowed=False,
+                    reason=(
+                        f"Markt-Budget erschöpft: ${already_in:.2f}/${market_budget:.2f} "
+                        f"bereits investiert (max {MAX_MARKET_BUDGET_PCT:.0%} Budget)"
+                    )
+                )
+            if adjusted_size > remaining_budget:
+                logger.info(
+                    f"⚠️  Markt-Budget Limit: ${adjusted_size:.2f} → ${remaining_budget:.2f} "
+                    f"(${already_in:.2f} bereits in diesem Markt)"
+                )
+                adjusted_size = remaining_budget
+            if adjusted_size < self.config.min_trade_size_usd:
+                return RiskDecision(
+                    allowed=False,
+                    reason=f"Markt-Budget Rest ${adjusted_size:.2f} unter Minimum"
+                )
+
         fallback_note = " [Fallback 48h]" if signal.time_to_close_hours is None else ""
         logger.info(
             f"✅ Trade erlaubt | Größe: ${adjusted_size:.2f} | "
@@ -122,6 +152,13 @@ class RiskManager:
             reason="Alle Checks bestanden",
             adjusted_size_usdc=adjusted_size
         )
+
+    def record_market_investment(self, market_id: str, size_usdc: float):
+        """Registriert eine ausgeführte Investment-Größe für das Markt-Budget-Tracking."""
+        if market_id:
+            self._market_investments[market_id] = (
+                self._market_investments.get(market_id, 0.0) + size_usdc
+            )
 
     def record_trade_result(self, pnl_usd: float):
         """
@@ -173,6 +210,8 @@ class RiskManager:
             self._daily_loss_usd = 0.0
             self._daily_profit_usd = 0.0
             self._trades_today = 0
+            # Markt-Investments zurücksetzen
+            self._market_investments.clear()
             # Kill-Switch täglich automatisch zurücksetzen
             if self._kill_switch_active:
                 logger.info("Kill-Switch durch Tageswechsel zurückgesetzt")

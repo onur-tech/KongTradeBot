@@ -26,7 +26,7 @@ from core.risk_manager import RiskManager, RiskDecision
 logger = get_logger("copy_trading")
 
 # Sekunden nach dem ersten Signal warten, um weitere Wallets zu sammeln
-AGGREGATION_WINDOW_S: int = 15
+AGGREGATION_WINDOW_S: int = 60
 
 # Multiplikatoren je nach Anzahl bestätigender Wallets
 MULTI_SIGNAL_MULTIPLIERS: Dict[int, float] = {

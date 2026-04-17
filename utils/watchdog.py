@@ -17,6 +17,7 @@ from pathlib import Path
 # ── Config ────────────────────────────────────────────────────────────────────
 BASE_DIR        = Path(__file__).resolve().parent.parent
 HEARTBEAT_FILE  = BASE_DIR / "heartbeat.txt"
+LOCK_FILE       = BASE_DIR / "bot.lock"
 BOT_SCRIPT      = BASE_DIR / "main.py"
 PYTHON_EXE      = sys.executable          # same python that runs watchdog
 CHECK_INTERVAL  = 120                     # check every 2 minutes
@@ -78,6 +79,13 @@ def _is_bot_running() -> bool:
 
 
 def _start_bot() -> bool:
+    # Remove stale lock file so the bot can start after an unclean shutdown
+    if LOCK_FILE.exists():
+        try:
+            LOCK_FILE.unlink()
+            print(f"[watchdog] Stale bot.lock entfernt")
+        except Exception as e:
+            print(f"[watchdog] Konnte bot.lock nicht löschen: {e}")
     try:
         subprocess.Popen(
             [PYTHON_EXE, str(BOT_SCRIPT)],

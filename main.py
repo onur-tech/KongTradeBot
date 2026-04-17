@@ -289,6 +289,9 @@ async def main():
     strategy = CopyTradingStrategy(config, risk)
     monitor  = WalletMonitor(config)
 
+    # KRITISCH: CLOB Client initialisieren (MUSS vor dem ersten Trade-Aufruf erfolgen!)
+    await engine.initialize()
+
     load_state(engine, monitor)
     restored = restore_positions(engine)
 

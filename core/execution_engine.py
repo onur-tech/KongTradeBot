@@ -142,10 +142,18 @@ class ExecutionEngine:
         logger.info("Initialisiere CLOB Client...")
 
         try:
+            # Proxy-Adresse validieren (Polymarket verwendet Proxy-Wallets)
+            funder = self.config.polymarket_address
+            if not funder or not funder.startswith("0x") or len(funder) != 42:
+                raise ValueError(
+                    f"POLYMARKET_ADDRESS ungültig: '{funder}' — muss 0x + 40 Hex-Zeichen sein"
+                )
+
             self._client = ClobClient(
                 host=self.config.clob_host,
                 chain_id=self.config.chain_id,
                 key=self.config.private_key,
+                funder=funder,  # Proxy-Wallet-Adresse (KRITISCH für Polymarket)
             )
 
             # KRITISCH: API Credentials ableiten und setzen
@@ -153,7 +161,7 @@ class ExecutionEngine:
             creds = self._client.create_or_derive_api_creds()
             self._client.set_api_creds(creds)
 
-            logger.info("✅ CLOB Client initialisiert und authentifiziert")
+            logger.info(f"✅ CLOB Client initialisiert | funder: {funder[:10]}...")
 
             # Balance prüfen
             await self._check_balance()
@@ -229,6 +237,7 @@ class ExecutionEngine:
         nicht create_order + post_order separat (Ghost-Trade-Risiko)!
         """
         if not self._client:
+            logger.error("❌ CLOB Client ist None — engine.initialize() wurde nicht aufgerufen!")
             return ExecutionResult(
                 success=False,
                 error="CLOB Client nicht initialisiert — rufe initialize() auf"
@@ -249,18 +258,14 @@ class ExecutionEngine:
             # Order platzieren — create_and_post_order in einem Call
             # LEKTION: NICHT create_order() dann post_order() separat!
             # Das führt zu Ghost Trades wenn zwischen den zwei Calls ein Fehler passiert.
-            response = self._client.create_and_post_order(
-                {
-                    "token_id": signal.token_id,
-                    "price": signal.price,
-                    "size": order.size_usdc / signal.price,  # Shares, nicht USDC
-                    "side": "BUY",
-                },
-                {
-                    "tick_size": tick_size,
-                    "neg_risk": False,
-                }
+            # LEKTION: OrderArgs-Objekt verwenden, NICHT plain dict!
+            order_args = OrderArgs(
+                token_id=signal.token_id,
+                price=signal.price,
+                size=order.size_usdc / signal.price,  # Shares, nicht USDC
+                side=BUY,
             )
+            response = self._client.create_and_post_order(order_args)
 
             order_id = response.get("orderID") or response.get("id", "unknown")
             logger.info(f"Order gesendet | ID: {order_id}")

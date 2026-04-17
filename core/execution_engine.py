@@ -109,6 +109,11 @@ class ExecutionEngine:
         self.config = config
         self._client: Optional[object] = None
 
+        # GeoBlock Circuit-Breaker: nach 403 alle Orders X Sekunden überspringen
+        # verhindert Thread-Pool-Erschöpfung durch simultane fehlgeschlagene Orders
+        self._geoblock_until: float = 0.0
+        self._GEOBLOCK_COOLDOWN = 120  # Sekunden Pause nach GeoBlock
+
         # Offene Positionen tracken
         self.open_positions: Dict[str, OpenPosition] = {}  # order_id → Position
 
@@ -247,6 +252,13 @@ class ExecutionEngine:
 
         logger.debug(f"DEBUG: Client is {type(self._client).__name__} (not None)")
 
+        # GeoBlock Circuit-Breaker: sofort abbrechen statt API zu kontaktieren
+        if time.time() < self._geoblock_until:
+            remaining = int(self._geoblock_until - time.time())
+            logger.debug(f"GeoBlock Circuit-Breaker aktiv — überspringe Order ({remaining}s verbleibend)")
+            self.stats["orders_failed"] += 1
+            return ExecutionResult(success=False, error="GeoBlock Cooldown aktiv")
+
         signal = order.signal
 
         MAX_RETRIES = 3
@@ -357,6 +369,12 @@ class ExecutionEngine:
                 logger.error("Auth-Fehler: set_api_creds() wurde nicht aufgerufen oder Key ist falsch")
             elif "INVALID_SIGNATURE" in error_msg:
                 logger.error("Signatur-Fehler: Private Key oder Chain ID falsch")
+            elif "403" in error_msg and ("geoblock" in error_msg.lower() or "restricted" in error_msg.lower()):
+                self._geoblock_until = time.time() + self._GEOBLOCK_COOLDOWN
+                logger.warning(
+                    f"🚫 GeoBlock 403 — Circuit-Breaker aktiviert für {self._GEOBLOCK_COOLDOWN}s. "
+                    f"VPN aktivieren (US/EU) und Bot neu starten."
+                )
             elif "429" in error_msg:
                 logger.warning("Rate Limit! Warte 30 Sekunden...")
                 await asyncio.sleep(30)

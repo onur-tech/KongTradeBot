@@ -276,7 +276,13 @@ class ExecutionEngine:
                 f"token_id={signal.token_id} price={signal.price} "
                 f"size={shares:.4f} side=BUY"
             )
-            response = self._client.create_and_post_order(order_args)
+            # run_in_executor: verhindert dass der synchrone requests-Call
+            # den asyncio Event-Loop einfriert (TCP-Timeout bei GeoBlock)
+            loop = asyncio.get_event_loop()
+            response = await asyncio.wait_for(
+                loop.run_in_executor(None, self._client.create_and_post_order, order_args),
+                timeout=15.0,
+            )
             logger.debug(f"DEBUG: API response: {response!r}")
 
             order_id = response.get("orderID") or response.get("id", "unknown")
@@ -345,7 +351,11 @@ class ExecutionEngine:
         → Order wird abgelehnt obwohl Liquidität vorhanden ist.
         """
         try:
-            market_info = self._client.get_market(token_id)
+            loop = asyncio.get_event_loop()
+            market_info = await asyncio.wait_for(
+                loop.run_in_executor(None, self._client.get_market, token_id),
+                timeout=10.0,
+            )
             return str(market_info.get("minimum_tick_size", "0.01"))
         except Exception:
             return "0.01"  # Safe Default
@@ -361,8 +371,15 @@ class ExecutionEngine:
             # LEKTION: get_balance_allowance() lesen (READ-ONLY)
             # NIEMALS update_balance_allowance() aufrufen nach einem Fill!
             # Das überschreibt den internen CLOB-State!
-            balance = self._client.get_balance_allowance(
-                params={"asset_type": "CONDITIONAL", "token_id": token_id}
+            loop = asyncio.get_event_loop()
+            balance = await asyncio.wait_for(
+                loop.run_in_executor(
+                    None,
+                    lambda: self._client.get_balance_allowance(
+                        params={"asset_type": "CONDITIONAL", "token_id": token_id}
+                    )
+                ),
+                timeout=10.0,
             )
             # Wenn Balance > 0, haben wir Tokens erhalten → Order war erfolgreich
             holdings = float(balance.get("balance", 0) or 0)

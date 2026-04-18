@@ -13,6 +13,8 @@ LEKTIONEN AUS DER COMMUNITY:
 """
 
 import asyncio
+import json
+import os
 from dataclasses import dataclass, field, replace
 from typing import Dict, List, Optional
 from collections import deque
@@ -41,6 +43,15 @@ HERD_FRACTION: float = 0.50
 # Early Entry Bonus: Märkte mit <$10K Volumen bekommen 1.5x Bonus
 EARLY_ENTRY_MULTIPLIER: float = 1.5
 EARLY_ENTRY_VOLUME_USD: float = 10_000
+
+# ---------------------------------------------------------------------------
+# Defensive Config (aus .env)
+# ---------------------------------------------------------------------------
+MAX_POSITIONS_TOTAL: int = int(os.environ.get("MAX_POSITIONS_TOTAL", "999"))
+MIN_MARKT_VOLUMEN_USD: float = float(os.environ.get("MIN_MARKT_VOLUMEN", "0"))
+_CATEGORY_BLACKLIST: list = [
+    s.strip() for s in os.environ.get("CATEGORY_BLACKLIST", "").split(",") if s.strip()
+]
 
 
 # ---------------------------------------------------------------------------
@@ -94,6 +105,37 @@ WALLET_MULTIPLIERS: Dict[str, float] = {
 
 # Unbekannte / nicht konfigurierte Wallets bekommen halbe Größe
 DEFAULT_WALLET_MULTIPLIER: float = 0.5
+
+# ---------------------------------------------------------------------------
+# Override WALLET_MULTIPLIERS mit WALLET_WEIGHTS aus .env (falls gesetzt)
+# Format: '{"0xABCD...":1.5,"default":1.0}'
+# Nur Prefix-Matching (erste 18 Zeichen der Adresse)
+# ---------------------------------------------------------------------------
+def _load_env_weights() -> dict:
+    raw = os.environ.get("WALLET_WEIGHTS", "")
+    if not raw:
+        return {}
+    try:
+        return json.loads(raw)
+    except Exception:
+        return {}
+
+_ENV_WEIGHTS = _load_env_weights()
+
+def _apply_env_weights():
+    """Merged ENV-Weights in WALLET_MULTIPLIERS (Prefix-Match auf 18 Chars)."""
+    for env_prefix, weight in _ENV_WEIGHTS.items():
+        if env_prefix == "default":
+            continue
+        for full_addr in list(WALLET_MULTIPLIERS.keys()):
+            if full_addr.lower().startswith(env_prefix.lower()):
+                WALLET_MULTIPLIERS[full_addr] = float(weight)
+    default = _ENV_WEIGHTS.get("default")
+    if default is not None:
+        global DEFAULT_WALLET_MULTIPLIER
+        DEFAULT_WALLET_MULTIPLIER = float(default)
+
+_apply_env_weights()
 
 # ---------------------------------------------------------------------------
 # Wallet-Namen-Mapping — lesbare Namen für alle bekannten Target-Wallets
@@ -219,6 +261,9 @@ class CopyTradingStrategy:
         # Callback zur ExecutionEngine
         self.on_copy_order: Optional[callable] = None
 
+        # Callback: gibt aktuelle Anzahl offener Positionen zurück (für MAX_POSITIONS_TOTAL)
+        self.get_open_positions_count: Optional[callable] = None
+
         # Callback für Wallet-Warnungen (Trend-Decline) → Telegram
         self.on_wallet_warning: Optional[callable] = None
 
@@ -338,6 +383,39 @@ class CopyTradingStrategy:
 
     async def _process_signal(self, signal: TradeSignal, extra_multiplier: float = 1.0):
         """Interne Ausführungslogik für ein (ggf. aggregiertes) Signal."""
+        # 0a. CATEGORY_BLACKLIST-Check
+        if _CATEGORY_BLACKLIST:
+            slug = (getattr(signal, "market_slug", "") or signal.market_question or "").lower()
+            for prefix in _CATEGORY_BLACKLIST:
+                if prefix.lower() in slug:
+                    logger.info(
+                        f"⏭️ SKIP: reason=CATEGORY_BLACKLIST prefix={prefix!r} "
+                        f"(slug={slug[:60]})"
+                    )
+                    self.stats["orders_skipped"] += 1
+                    return
+
+        # 0b. MIN_MARKT_VOLUMEN-Check (nur wenn Volumen explizit bekannt und > 0)
+        market_vol = getattr(signal, "market_volume_usd", None)
+        if MIN_MARKT_VOLUMEN_USD > 0 and market_vol is not None and market_vol > 0 and market_vol < MIN_MARKT_VOLUMEN_USD:
+            logger.info(
+                f"⏭️ SKIP: reason=MIN_MARKT_VOLUMEN vol=${market_vol:,.0f} < ${MIN_MARKT_VOLUMEN_USD:,.0f} "
+                f"(slug={getattr(signal, 'market_slug', signal.token_id[:12])})"
+            )
+            self.stats["orders_skipped"] += 1
+            return
+
+        # 0c. MAX_POSITIONS_TOTAL-Check
+        if self.get_open_positions_count is not None:
+            open_pos = self.get_open_positions_count()
+            if open_pos >= MAX_POSITIONS_TOTAL:
+                logger.info(
+                    f"⏭️ SKIP: reason=MAX_POSITIONS_TOTAL ({open_pos}/{MAX_POSITIONS_TOTAL}) "
+                    f"(slug={getattr(signal, 'market_slug', signal.token_id[:12])})"
+                )
+                self.stats["orders_skipped"] += 1
+                return
+
         # 1. Performance der Source-Wallet prüfen
         perf = self.wallet_performance.get(signal.source_wallet)
         if perf and perf.is_decaying:

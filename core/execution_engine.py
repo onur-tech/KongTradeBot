@@ -511,7 +511,7 @@ class ExecutionEngine:
             # BalanceAllowanceParams verwenden statt plain dict —
             # dict führt zu 'dict has no attribute signature_type' im py-clob-client
             if BalanceAllowanceParams is not None:
-                params = BalanceAllowanceParams(asset_type="USDC")
+                params = BalanceAllowanceParams(asset_type="COLLATERAL")
                 balance = self._client.get_balance_allowance(params=params)
             else:
                 balance = self._client.get_balance_allowance()

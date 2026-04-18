@@ -6,10 +6,13 @@ main.py - KongTrade Bot v0.6
 - market_id wird gespeichert
 """
 import asyncio
+import atexit
 import json
 import os
+import signal
 import sys
 import aiohttp
+import psutil
 from datetime import datetime, timezone, date
 from collections import defaultdict
 
@@ -436,6 +439,56 @@ async def status_reporter(strategy, risk, engine, config, interval):
 
 
 LOCK_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "bot.lock")
+
+# ── PID-Lock helpers ──────────────────────────────────────────────────────────
+
+def _remove_lock():
+    try:
+        if os.path.exists(LOCK_FILE):
+            os.remove(LOCK_FILE)
+    except Exception:
+        pass  # best-effort; logger may not be available at atexit time
+
+def _signal_handler(signum, frame):
+    _remove_lock()
+    sys.exit(0)
+
+def check_and_create_lock():
+    """
+    PID-aware lock: prüft ob der Prozess der den Lock hält wirklich noch läuft.
+    Entfernt stale Locks automatisch, statt mit exit(1) zu scheitern.
+    """
+    if os.path.exists(LOCK_FILE):
+        try:
+            old_pid = int(open(LOCK_FILE).read().strip())
+            if psutil.pid_exists(old_pid):
+                try:
+                    proc = psutil.Process(old_pid)
+                    cmdline = " ".join(proc.cmdline())
+                    if "main.py" in cmdline:
+                        # Echte zweite Instanz — legitim abbrechen
+                        print("Bot laeuft bereits mit PID " + str(old_pid) + ". Abbruch.")
+                        sys.exit(1)
+                except (psutil.NoSuchProcess, psutil.AccessDenied):
+                    pass
+            # PID existiert nicht (oder gehört anderem Prozess) → stale lock
+            print(f"⚠️  Stale Lock-Datei (PID {old_pid} tot). Entferne und starte.")
+        except (ValueError, OSError):
+            print("⚠️  Korrupte Lock-Datei. Entferne und starte.")
+        try:
+            os.remove(LOCK_FILE)
+        except OSError:
+            pass
+
+    with open(LOCK_FILE, "w") as f:
+        f.write(str(os.getpid()))
+
+    atexit.register(_remove_lock)
+    signal.signal(signal.SIGTERM, _signal_handler)
+    signal.signal(signal.SIGHUP,  _signal_handler)
+    # SIGINT bleibt beim Default (KeyboardInterrupt → finally-Block läuft durch)
+
+# ─────────────────────────────────────────────────────────────────────────────
 
 
 async def main():

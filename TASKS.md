@@ -1,5 +1,5 @@
 # KongTrade Bot — Task Tracking
-_Stand: 2026-04-18 08:39 Berlin_
+_Stand: 2026-04-18 07:30 Berlin_
 
 **Regeln:**
 - Status: ARBEIT | QUEUE | DONE | BLOCKED | IDEE
@@ -11,7 +11,6 @@ _Stand: 2026-04-18 08:39 Berlin_
 
 | ID | Titel | Prio | Notiz |
 |----|-------|------|-------|
-| T-009 | CLAIM $11.29 auf polymarket.com | KRITISCH | Manuell! Bot blockiert bis Cash > $5 |
 
 ---
 
@@ -19,8 +18,9 @@ _Stand: 2026-04-18 08:39 Berlin_
 
 | ID | Titel | Prio | Notiz |
 |----|-------|------|-------|
+| T-022 | Auto-Claim Intervall 30min -> 5min; alle redeemable-Feld-Varianten akzeptieren | WICHTIG | Intervall in claim_all.py; isRedeemable/redeemable/is_redeemable |
 | T-010 | Balance-Delta SEIT START reparieren | KRITISCH | Portfolio-Snapshot beim Start fehlt (P007) |
-| T-011 | Bot-Neustart damit alle Nacht-Fixes aktiv werden | KRITISCH | claim_loop, sync_positions, dynamic subscribe |
+
 | T-012 | Alle 37 Positionen anzeigen (tbl-wrap CSS) | WICHTIG | Braucht Dashboard-Neustart - DONE, aber Restart noetig |
 | T-013 | Resolutions Panel aus Portfolio-Cache | WICHTIG | /api/resolutions auf _polymarket_positions (P010) |
 | T-014 | Countdown-Spalte SCHLIESST IN | WICHTIG | endDate aus Polymarket-API (P009) |
@@ -39,9 +39,9 @@ _Stand: 2026-04-18 08:39 Berlin_
 
 | ID | Titel | Blocker |
 |----|-------|---------|
-| T-008 | GitHub Push | Braucht GitHub Personal Access Token |
-| T-021 | Public Status Repo KongTradeBot-Status | Abhaengig von T-008 |
-| T-003 | Cloudflare Tunnel | Braucht cloudflared tunnel login mit Browser |
+
+
+
 
 ---
 
@@ -73,6 +73,19 @@ _Stand: 2026-04-18 08:39 Berlin_
 | T-D22 | CLAIM-Button: redeemable || isRedeemable | 2026-04-18 |
 | T-D23 | Positionen-Tabelle: max-height 600px (alle 37 sichtbar) | 2026-04-18 |
 | T-D24 | Commit b1c413a mit allen Nacht-Aenderungen | 2026-04-18 |
+| T-D25 | Auto-Claim Script: $11.29 geclaimed (Brrudi manuell + Script Nacht) | 2026-04-18 |
+| T-D26 | Bot-Neustart Nacht-Fixes aktiv (claim_loop, sync, dynamic subscribe) | 2026-04-18 |
+| T-D27 | GitHub-Credentials + PAT auf Server gespeichert | 2026-04-18 |
+| T-D28 | Public Repo KongTradeBot-Status angelegt + Initial-Push | 2026-04-18 |
+| T-D29 | generate_status.py + push_status.sh deployed | 2026-04-18 |
+| T-D30 | systemd Timer kongtrade-status-push alle 5min aktiv | 2026-04-18 |
+| T-D31 | Defensive Config: Multiplier 0.15->0.05, MAX_POS=15, BLACKLIST, MIN_VOL | 2026-04-18 |
+| T-D32 | WALLET_WEIGHTS env-Override in copy_trading.py implementiert | 2026-04-18 |
+| T-D33 | Cloudflare Quick Tunnel kongtrade-tunnel.service aktiv | 2026-04-18 |
+| T-D34 | tunnel_watcher.py + Timer -> Telegram-Alert bei URL-Aenderung | 2026-04-18 |
+| T-D35 | generate_status.py: Dashboard-URL Abschnitt hinzugefuegt | 2026-04-18 |
+| T-D36 | P022 struktureller Fix: PID-Lock + atexit + ExecStartPre (3 Ebenen) | 2026-04-18 |
+| T-D37 | P026: Watchdog-HB-Fix + MIN_VOL-Bug (vol=0 fuelschlicherweise skip) | 2026-04-18 |
 
 ---
 
@@ -85,3 +98,13 @@ _Stand: 2026-04-18 08:39 Berlin_
 | T-I03 | Wallet-Blacklist (Win-Rate < 30% -> stoppe Kopieren) | Klein |
 | T-I04 | Multi-Bot Support (mehrere Proxy-Wallets) | Sehr hoch |
 | T-I05 | Grafana/Prometheus fuer Metriken | Mittel |
+
+## T-027 — Template-Repo vorbereiten [DONE]
+- /root/template-ready/ vollständig: README, SETUP, ARCHITEKTUR, CONTRIBUTING, .env.example, LICENSE
+- Privacy-Audit bestanden, alle sensitiven Daten entfernt
+- Warte auf GitHub-Account-Entsperrung für Push
+
+## T-028 — Alex/Tunay/Dietmar einladen [BLOCKED]
+- Blocked by: GitHub-Account KongTradeBot gesperrt (P028)
+- Action: support.github.com kontaktieren
+- Resume: Template-Repo pushen sobald Account entsperrt

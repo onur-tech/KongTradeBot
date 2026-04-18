@@ -1,249 +1,376 @@
 # KongTrade Bot — Knowledge Base
 _Format: Problem → Root-Cause → Fix → Status_
+_Ziel: Dokumentiert jeden gelösten Bug damit er nie wieder stundenlang debuggt werden muss._
+_Update: Nach jedem Fix neuen P00X-Eintrag hinzufügen._
 
-## P001 — FillTracker: open_positions immer leer
+---
 
-**Status:** BEHOBEN (18.04.2026)
+## P001 — FillTracker: Alle Orders bleiben in pending, open_positions immer leer
 
-**Symptom:** Bot platziert Orders, Dashboard zeigt 0 offene Positionen.
+**Status:** ✅ BEHOBEN (18.04.2026)
 
-**Root-Cause:** FillTracker._subscribe() nutzte Builder-Credentials statt L2-Credentials.
-Polymarket User-Channel benötigt L2-Creds via ClobClient.derive_api_key().
-Falsche Creds -> silent disconnect -> keine Events -> alles bleibt in pending hängen.
+**Symptom:**
+Bot platziert echte Orders, Polymarket bestätigt sie, aber das Dashboard zeigt dauerhaft 0 offene Positionen.
+ enthält keine Einträge in .
+
+**Root-Cause:**
+ sendete die WebSocket-Auth mit Builder-Credentials statt L2-Credentials.
+Polymarket User-Channel (wss://ws-subscriptions-clob.polymarket.com/ws/user) erfordert L2-Credentials,
+die via  abgeleitet werden müssen.
+Mit falschen Creds → silent disconnect ohne Fehlermeldung → keine Events empfangen →
+alle Orders bleiben im  Bucket hängen →  bleibt leer.
 
 **Referenz:** github.com/Polymarket/clob-client/issues/303
 
-**Fix:** core/fill_tracker.py -> _derive_l2_creds() nutzt ClobClient.derive_api_key().
+**Fix:**
+ →  Methode nutzt jetzt :
+
+Fallback auf Config-Creds wenn derive fehlschlägt.
+
+**Verification:**
+Nach Neustart: WebSocket sollte Events empfangen (log zeigt User-Channel subscribed).
+Nach nächster Order: Position erscheint in open_positions (Dashboard Tab OPEN).
 
 ---
 
-## P002 — dict object has no attribute signature_type
+## P002 — On-Chain Verifikation: 'dict object has no attribute signature_type'
 
-**Status:** BEHOBEN (17.04.2026)
+**Status:** ✅ BEHOBEN (17.04.2026)
 
-**Root-Cause:** get_balance_allowance() mit plain dict aufgerufen statt BalanceAllowanceParams Objekt.
+**Symptom:**
 
-**Fix:** from py_clob_client.clob_types import BalanceAllowanceParams; params = BalanceAllowanceParams(...)
+Bei jeder Order, nach dem Submit.
 
----
+**Root-Cause:**
+ rief  mit einem plain dict auf:
 
-## P003 — Pending Orders nach Neustart verloren
+py-clob-client erwartet aber ein  Objekt.
 
-**Status:** BEHOBEN (18.04.2026)
+**Fix:**
+:
 
-**Root-Cause:** save_positions() speicherte nicht _pending_data, market_closes_at fehlte.
-
-**Fix:** main.py: market_closes_at serialisieren + recover_stale_positions() via REST API beim Start.
-
----
-
-## P004 — Proxy-Deploy Catch-22
-
-**Status:** DOKUMENTIERT
-
-**Symptom:** Alle Orders scheitern, Proxy nicht deployed.
-
-**Lösung:** $1 Manual-Trade auf polymarket.com über NORWEGEN-VPN (nicht Finnland!).
 
 ---
 
-## P005 — Balance-Fetch fehlschlägt (rpc.ankr.com)
+## P003 — Stale Positionen nach Bot-Neustart verloren
 
-**Status:** WORKAROUND
+**Status:** ✅ BEHOBEN (18.04.2026)
 
-**Root-Cause:** rpc.ankr.com blockiert Hetzner-IP.
+**Symptom:**
+Bot neugestartet.  enthält open_positions aber nach Reload sind Pending-Orders verschwunden.
+Orders die im pending-Bucket waren (submitted, noch nicht confirmed) sind nach Neustart weg.
 
-**Workaround:** Fallback-RPCs: polygon-bor-rpc.publicnode.com (reliable), polygon-rpc.com, 1rpc.io/matic.
+**Root-Cause:**
+ in main.py speicherte nur , nicht .
+Außerdem wurde  nicht serialisiert → nach Restore fehlten Countdown-Informationen.
+
+**Fix:**
+:
+1.  → fügt  zur Serialisierung hinzu
+2.  → deserialisiert  zurück zu datetime
+3. Neue  Async-Funktion → fragt Polymarket REST 
+   nach offenen Orders und fügt sie als pending hinzu falls noch nicht im State
 
 ---
 
-## P006 — signature_type=1 Pflicht für Magic-Link
+## P004 — Proxy-Deploy Catch-22 (Magic-Link Account)
 
-**Status:** DOKUMENTIERT
+**Status:** ✅ DOKUMENTIERT (17.04.2026)
 
-**Fix:** ClobClient(... signature_type=1). Ohne diesen Parameter -> Auth-Fehler bei allen Orders.
+**Symptom:**
+Bot startet, alle Orders scheitern mit Allowance-Fehler. Kein Trade möglich.
+
+**Root-Cause:**
+Polymarket Proxy-Contract wird erst deployed wenn der ERSTE erfolgreiche Trade stattfindet.
+Wenn der allererste Trade scheitert (Geoblock, Allowance=0, etc.) → Proxy nicht deployed →
+Allowance=0 → Trade scheitert → Teufelskreis.
+
+**Lösung:**
+ Manual-Trade auf polymarket.com über **Norwegen-VPN** (AirVPN) machen.
+Finnland-AirVPN funktioniert nicht. Norwegen funktioniert.
 
 ---
 
-## P007 — NegRisk-Märkte (z.B. Maduro Venezuela)
+## P005 — Balance-Fetch schlägt fehl mit RPC rpc.ankr.com
 
-**Status:** DOKUMENTIERT
+**Status:** ✅ WORKAROUND (17.04.2026)
 
-**Fix:** neg_risk Flag aus Orderbook lesen (_get_market_info), im Log als [NEGRISK] markieren.
+**Symptom:**
+
+Log zeigt  Balance obwohl 900+ USDC.e on-chain.
+
+**Root-Cause:**
+ blockiert oder rate-limited Anfragen von Hetzner-IP.
+
+**Workaround:**
+ → Mehrere Fallback-RPCs konfiguriert:
+1. https://rpc.ankr.com/polygon (primary, oft flaky)
+2. https://polygon-bor-rpc.publicnode.com (reliable)
+3. https://polygon-rpc.com
+4. https://1rpc.io/matic
+
+Dashboard nutzt direkt  als Primary.
+
+---
+
+## P006 — signature_type=1 Pflicht für Magic-Link Account
+
+**Status:** ✅ DOKUMENTIERT (17.04.2026)
+
+**Symptom:**
+Alle Orders scheitern mit Auth-Fehler obwohl Private Key korrekt ist.
+
+**Root-Cause:**
+Magic-Link Account erfordert  im ClobClient.
+Standard-Wert 0 ist für MetaMask/EOA Wallets.
+
+**Fix:**
+
+
+---
+
+## P007 — NegRisk-Märkte: NEGRISK-Flag erforderlich
+
+**Status:** ✅ DOKUMENTIERT (17.04.2026)
+
+**Symptom:**
+Orders auf bestimmten Märkten (z.B. Maduro Venezuela) scheitern oder werden falsch behandelt.
+
+**Root-Cause:**
+Polymarket hat Negative Risk Märkte die spezielle Behandlung brauchen.
+Das  Flag kommt vom Orderbook-Endpoint ().
+
+**Fix:**
+ liest  aus dem Orderbook und loggt es.
+Das Flag wird im Order-Log als  ausgegeben.
 
 ---
 
 ## P008 — Ghost Trades durch create_order + post_order separat
 
-**Status:** DOKUMENTIERT
+**Status:** ✅ DOKUMENTIERT (community lesson)
 
-**Fix:** Immer create_and_post_order() in EINEM Call. Niemals create_order() + post_order() separat.
+**Symptom:**
+Doppelte Orders auf Polymarket, Balance-Inkonsistenzen.
 
----
+**Root-Cause:**
+Wenn  und  in zwei separaten Calls aufgerufen werden,
+kann ein Netzwerkfehler zwischen den Calls einen Ghost Trade erzeugen.
 
-## Infrastruktur-Quick-Reference
-
-Server:          89.167.29.183 (Hetzner Helsinki)
-Bot-Pfad:        /root/KongTradeBot/
-Proxy-Wallet:    0x700BC51b721F168FF975ff28942BC0E5fAF945eb
-Magic-EOA:       0xd7869A5Cae59FDb6ab306ab332a9340AceC8cbE2
-USDC.e Contract: 0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174
-Dashboard-URL:   ssh -L 5000:localhost:5000 root@89.167.29.183 -> http://localhost:5000
-Bot Log:         /root/KongTradeBot/logs/bot_YYYY-MM-DD.log
-State:           /root/KongTradeBot/bot_state.json
-Metrics DB:      /root/KongTradeBot/metrics.db
+**Fix:**
+Immer  in einem einzigen Call verwenden.
+NIEMALS  +  separat.
 
 ---
 
-## P009 — Dashboard: SEIT START / 24h Δ zeigen "—"
+## 📋 Wallet-Referenz
 
-**Status:** OFFEN
+| Wallet | Name | Multiplier | Notes |
+|--------|------|-----------|-------|
+| 0x019782... | majorexploiter | 3.0x | 76% Win Rate |
+| 0x492442... | April#1 Sports | 2.0x | 65% Win Rate |
+| 0x02227b... | HorizonSplendidView | 2.0x | Sports specialist |
+| RN1 | RN1 | 0.2x | Kleiner Einsatz |
 
-**Symptom:** Balance-Widget zeigt "—" für "SEIT START" und "24H CASH Δ".
+## 🔑 Infrastruktur-Quick-Reference
 
-**Root-Cause:** setDelta() erhält d.delta_total=null — /api/balance berechnet Deltas nur auf Cash-Basis (USDC.e on-chain), nicht auf Portfolio-Total (Cash + Shares). Seit Portfolio-Total neu ist, fehlt der Startvergleichswert.
 
-**Fix:** In dashboard.py: Portfolio-Total-Snapshot beim Sessionstart in SQLite balance_snapshots speichern. delta_total = portfolio_now - portfolio_at_session_start. delta_24h = portfolio_now - portfolio_24h_ago (aus DB).
-
----
-
-## P010 — Balance-Chart zeigt Cash statt Portfolio-Total
-
-**Status:** OFFEN
-
-**Symptom:** Balance-Chart im Dashboard visualisiert nur USDC.e Cash-Verlauf, nicht Gesamtportfolio.
-
-**Root-Cause:** db_insert_balance() speichert config.portfolio_budget_usd (= Cash). Portfolio-Total (Cash + currentValue aller Shares) wird nicht persistiert.
-
-**Fix:** SQLite balance_snapshots um Spalte portfolio_total REAL erweitern. db_insert_balance() umbenennen auf db_insert_snapshot(cash, portfolio_total). Chart-Endpoint /api/chart anpassen.
 
 ---
 
-## P011 — Positionen-Tabelle: Countdown-Spalte fehlt
+## P022 -- Stale bot.lock -> Endlos-Crash-Loop (06:29-07:23 UTC, 2026-04-18)
 
-**Status:** OFFEN
+**Status:** BEHOBEN (struktureller Fix 2026-04-18 08:15 UTC)
 
-**Symptom:** Kein "SCHLIESST IN"-Countdown in der Open-Positionen-Tabelle.
+**Symptom:**
+Bot startet ~alle 15s, laeuft 1.5s, Exit-Code 1.
+Journalctl: "Main process exited, code=exited, status=1/FAILURE" in Dauerschleife.
+service-bot.log enthaelt nur: "Bot laeuft bereits! Lock-Datei: /root/KongTradeBot/bot.lock"
+Watchdog erkennt DOWN, versucht Restart -- hilft nicht (Lock bleibt).
 
-**Root-Cause:** data-api.polymarket.com/positions liefert endDate (Unix-Timestamp), aber fetchPortfolio() in dashboard.html rendert diese Spalte nicht.
+**Timeline:**
+- 06:17-06:47: Ankr RPC liefert $0.00 (Balance-Fehler, kein CRITICAL geloggt)
+- ~06:28: Original-Prozess crashed still (kein Fehler-Log, Journal rotiert)
+- 06:29:55: systemd-Restart startet Lock-Loop
+- 06:47: Letzter Log-Eintrag des alten Prozesses (bot_2026-04-17.log)
+- 07:23: Manuell gefixt -- rm bot.lock + systemctl reset-failed + restart
 
-**Fix:** In fetchPortfolio() JS: closes_h = (p.endDate - Date.now()/1000) / 3600. CSS-Klassen: closes-red (<1h), closes-yellow (1-6h), closes-green (>6h).
+**Root-Cause:**
+Ausloeser: ankr-RPC-Ausfall -> Balance-Fetch haengt/fail-loops ->
+Heartbeat-Update stoppt -> Watchdog erkennt stale Heartbeat (>1700s) ->
+systemctl restart sendet SIGTERM -> Prozess terminiert OHNE Lock-Cleanup
+(atexit/Signal-Handler lief nicht durch, Race-Condition moeglich
+bei gleichzeitigem ankr-Timeout-Thread).
 
----
+**Mechanismus:**
+bot.lock wird beim Start gesetzt, aber cleanup() nicht via atexit registriert,
+nur via SIGTERM-Handler. Bei hartem Kill oder Startup-Exception BEVOR
+Handler registriert ist -> Lock bleibt und blockiert alle Neustarts.
 
-## P012 — "NÄCHSTE RESOLUTIONS" Panel immer leer
+**Fix (sofort):**
+  rm -f /root/KongTradeBot/bot.lock
+  systemctl reset-failed kongtrade-bot
+  systemctl restart kongtrade-bot
 
-**Status:** OFFEN
+**Fix (strukturell -- TODO):**
+1. bot.lock Cleanup via atexit.register(cleanup) ZUSAETZLICH zu Signal-Handler
+2. bot.lock beim Start pruefen: wenn PID drin tot ist -> automatisch loeschen (PID-Lock)
+3. Watchdog: vor restart -> rm bot.lock (eine Zeile hinzufuegen)
+4. ankr-RPC Timeout hart auf 5s cappen (kein haengendes Request)
 
-**Symptom:** Resolutions-Panel leer obwohl 37 Positionen mit endDate vorhanden.
 
-**Root-Cause:** /api/resolutions liest open_positions aus bot_state.json (Phantom-Daten nach Neustart), nicht aus Live-Portfolio-Cache (_polymarket_positions).
 
-**Fix:** /api/resolutions auf _polymarket_positions["data"] umstellen. endDate aus Polymarket-API extrahieren, Top 5 nach endDate sortieren.
+**Struktureller Fix (2026-04-18) — 3-Ebenen-Absicherung:**
 
----
+Ebene 1 — main.py (check_and_create_lock):
+  - Liest PID aus bot.lock, prueft via psutil ob Prozess wirklich existiert
+  - Ist PID tot: lock entfernen + normal starten (kein exit(1))
+  - atexit.register(_remove_lock): lock wird auch bei unerwarteten Exceptions geloescht
+  - signal.SIGTERM + SIGHUP Handler: lock vor exit raeumen
+  - Ergebnis: Bot selbst loest stale lock auf
 
-## P013 — Service-Health: "WS Events 0" trotz aktiver Bot-Aktivität
+Ebene 2 — watchdog.py (cleanup_stale_lock):
+  - Vor jedem systemctl restart: prueft ob PID in bot.lock lebt
+  - Wenn tot: lock entfernen BEVOR restart getriggert wird
+  - Ergebnis: Watchdog verursacht keine neuen Lock-Loops mehr
 
-**Status:** OFFEN
+Ebene 3 — systemd ExecStartPre:
+  - Shell-Check vor jedem Start: lock existiert + PID tot -> rm -f bot.lock
+  - Unabhaengig von Python-Code, greift auf OS-Ebene
+  - Ergebnis: selbst wenn Ebene 1+2 versagen, startet systemd sauber
 
-**Symptom:** Dashboard zeigt "WS Events 0 (letzte 5min)" obwohl Bot Signale empfängt.
+Nebenfix: StartLimitBurst 3->10 (verhindert permanent-failed bei schnellen Restarts)
 
-**Root-Cause 1:** ws_events_min zählt nur "CONFIRMED" und "MATCHED" im Log — die seit Stunden wegen Balance-Error nicht vorkommen.
-**Root-Cause 2:** FillTracker.subscribe_market() wird nach neuen Orders nicht aufgerufen (Dynamic Subscribe fehlt).
-
-**Fix 1 (sofort):** Auch "NEUER TRADE erkannt" und "Signal buffered" als Aktivität zählen.
-**Fix 2 (T-NIGHT-3):** execution_engine.py: nach create_and_post_order() fill_tracker._subscribe_new_conditions([condition_id]) aufrufen.
-
----
-
-## P014 — CLAIM-Button zeigt "—" trotz redeemable=true
-
-**Status:** OFFEN
-
-**Symptom:** Positionen-Tabelle Claim-Spalte zeigt "—" für alle 4 redeemable Positionen.
-
-**Root-Cause:** Polymarket-API gibt das Feld inkonsistent zurück: mal "redeemable", mal "isRedeemable", mal "redeemed": false mit "winner": true.
-
-**Fix:** In dashboard.html fetchPortfolio(): const claimable = p.redeemable || p.isRedeemable || (p.redeemed === false && p.winner);
-
----
-
-## P015 — Positionen-Tabelle zeigt nur ~10 von 37
-
-**Status:** OFFEN
-
-**Symptom:** 37 Positionen geladen (count=37), aber Tabelle zeigt nur ~10.
-
-**Root-Cause:** CSS .tbl-wrap hat max-height + overflow-y:auto. Positionen vorhanden aber hinter Scroll versteckt. Eventuell auch JS-slice() aktiv.
-
-**Fix:** CSS: .tbl-wrap { max-height: 600px; } auf 800px erhöhen oder overflow-y:scroll explizit setzen. JS: kein .slice() auf d.positions anwenden.
-
----
-
-## P016 — P&L HEUTE zeigt +$0.00
-
-**Status:** OFFEN
-
-**Symptom:** Session-Stats "P&L HEUTE" immer $0.00.
-
-**Root-Cause:** api_stats_session() berechnet P&L nur aus trades_archive.json (aufgelösten Trades). Unrealized P&L und Portfolio-Delta seit Mitternacht fehlen.
-
-**Fix:** P&L Heute = portfolio_total_jetzt minus portfolio_total_um_mitternacht. Mitternacht-Snapshot in SQLite speichern (täglich via cron oder beim ersten DB-Write nach 00:00).
+Test-Protokoll:
+  kill -9 <BOT_PID>  -> systemd erkennt SIGKILL -> ExecStartPre entfernt stale lock
+  -> Bot startet sauber in <26s (15s RestartSec + Startup-Zeit)
+  Log: "[systemd] Stale lock removed (PID X tot)"
 
 ---
 
-## P017 — Per-Wallet-Performance "Keine Daten"
+## P023 -- Defensive Config Deployment (2026-04-18, nach $137 Verlust)
 
-**Status:** OFFEN
+**Status:** DEPLOYED
 
-**Symptom:** Wallet-Performance-Panel leer trotz 178 Signale von 11 Wallets.
+**Kontext:**
+Bot hatte COPY_SIZE_MULTIPLIER=0.15 und keine Positions-Limits.
+Nach $137 Verlust durch aggressive Orders auf illiquide Maerkte (Kolumbien, Ecuador, etc.)
+wurde defensive Config deployed.
 
-**Root-Cause:** api_wallet_performance() liest aus trades_archive.json, filtert nach aufgeloest=True. Da keine Trades wegen Balance-Error ausgeführt wurden, ist die Archiv-Datei leer.
+**Aenderungen in .env:**
+- COPY_SIZE_MULTIPLIER: 0.15 -> 0.05 (3x kleinere Orders)
+- MAX_POSITIONS_TOTAL=15 (max gleichzeitig offene Positionen)
+- MIN_MARKT_VOLUMEN=50000 (keine Maerkte unter $50k Volumen)
+- CATEGORY_BLACKLIST=col1-,por-,ecu-,arg-b- (Kolumbien1, Portugal, Ecuador, Argentinien B)
+- WALLET_WEIGHTS=JSON mit per-Wallet Multiplikatoren (env-Override)
 
-**Fix (kurzfristig):** Auch nicht-aufgelöste Trades (kopierte Signale) anzeigen.
-**Fix (langfristig):** Wallet-Signal-Counter aus wallet_monitor.py in State persistieren.
+**Code-Aenderungen (strategies/copy_trading.py):**
+- _load_env_weights() + _apply_env_weights(): merged WALLET_WEIGHTS aus .env
+- _process_signal(): 3 neue Checks vor Order-Erstellung:
+  0a. CATEGORY_BLACKLIST gegen market_slug
+  0b. MIN_MARKT_VOLUMEN gegen signal.market_volume_usd
+  0c. MAX_POSITIONS_TOTAL via get_open_positions_count Callback
+- Skip-Log: "SKIP: reason=X (slug/wallet)"
 
----
-
-## P018 — Timezone: Log UTC vs Dashboard Europe/Berlin
-
-**Status:** DOKUMENTIERT
-
-**Symptom:** Bot-Logs 00:17 UTC, Dashboard-Header 02:14 (Berlin).
-
-**Root-Cause:** Python datetime.now() = Lokalzeit Server (UTC), Browser-JS = Localtime (Europe/Berlin = UTC+2).
-
-**Fix:** Server-Timestamps explizit als UTC labeln oder alle mit timezone.utc erzeugen. Dashboard: moment.js oder Intl.DateTimeFormat für Anzeige.
-
----
-
-## P019 — RPC ankr.com liefert $0.00 (gibt nie Fehler zurück)
-
-**Status:** BEHOBEN (18.04.2026)
-
-**Root-Cause:** rpc.ankr.com/polygon antwortet HTTP 200 mit result=0x0 (falsche Daten). Da kein Exception ausgelöst wird, wird $0.00 sofort zurückgegeben ohne andere RPCs zu probieren.
-
-**Fix:** In balance_fetcher.py: if balance_usdc <= 0: continue — nächsten RPC probieren. Niemals auf .env-Fallback zurückfallen.
+**Warum kein harter Revert:** Code-Aenderung minimal, env-Werte leicht anpassbar.
 
 ---
 
-## P020 — Duplicate Log-Zeilen (jede INFO 2x)
+## P024 -- Cloudflare Quick Tunnel Setup (trycloudflare.com)
 
-**Status:** BEHOBEN (18.04.2026)
+**Status:** AKTIV | systemd kongtrade-tunnel.service
 
-**Root-Cause:** setup_logger() erstellt polymarket_bot-Logger mit propagate=True (Standard). Sub-Logger (polymarket_bot.balance etc.) propagieren Events zu polymarket_bot UND zu Root-Logger. Wenn Root-Logger ebenfalls Handlers hat -> Duplikat.
+**Problem:** Dashboard (Port 5000) war nur via SSH-Tunnel erreichbar.
 
-**Fix:** logger.py: nach if logger.handlers: return logger — logger.propagate = False hinzufügen.
+**Setup:**
+- cloudflared war bereits als arm64-Binary installiert (2026.3.0)
+- Kein Account/Login noetig fuer trycloudflare.com Quick Tunnel
+- systemd Service: /etc/systemd/system/kongtrade-tunnel.service
+  ExecStart: cloudflared tunnel --url http://localhost:5000
+
+**Wichtig - LIMITATION:**
+URL aendert sich bei jedem Service-Neustart (zufaellige Subdomain).
+Aktuelle URL: siehe journalctl -u kongtrade-tunnel | grep trycloudflare
+
+**Upgrade-Pfad (spaeter):**
+Named Tunnel mit fester Subdomain benoetigt:
+1. cloudflared tunnel login (Browser-Auth)
+2. cloudflared tunnel create kongtrade
+3. DNS CNAME bei eigener Domain
+
 
 ---
 
-## P021 — Geoblock auf Windows-lokalem Bot
+## P025 -- Dashboard-URL aendert sich bei Tunnel-Restart -> Telegram-Watcher
 
-**Status:** DOKUMENTIERT
+**Status:** DEPLOYED | kongtrade-tunnel-watcher.timer (alle 5min)
 
-**Symptom:** Lokale Windows-Installation erhält 403 "Trading restricted in your region".
+**Problem:**
+trycloudflare.com Quick-Tunnel generiert bei jedem Neustart eine neue zufaellige URL.
+Brrudi wusste nicht welche URL aktuell gueltig ist.
 
-**Root-Cause:** Lokale IP ist von Polymarket für CLOB-API geblockt. Hetzner-Helsinki-IP ist freigegeben.
+**Loesung:**
+tunnel_watcher.py prueft alle 5min via journalctl ob URL sich geaendert hat.
+Bei Aenderung:
+  1. Neue URL in .current_tunnel_url speichern
+  2. Telegram-Alert an ersten Chat aus TELEGRAM_CHAT_IDS
+  3. STATUS.md bekommt beim naechsten Push die neue URL
 
-**Fix:** Lokalen Bot nur für DRY_RUN verwenden. Live-Trading ausschließlich auf Hetzner-Server.
+**Files:**
+- /root/KongTradeBot/scripts/tunnel_watcher.py
+- /root/KongTradeBot/.current_tunnel_url (aktuelle URL)
+- /root/KongTradeBot/.last_tunnel_url (letzte bekannte URL fuer Change-Detection)
+- /etc/systemd/system/kongtrade-tunnel-watcher.service + .timer
+
+**Langfristige Loesung:**
+Named Tunnel mit eigener Domain -> feste URL ohne Watcher noetig.
+
+
+---
+
+## P026 -- Watchdog-Heartbeat STALE in STATUS.md (2026-04-18)
+
+**Status:** BEHOBEN
+
+**Symptom:** STATUS.md zeigte "STALE 1175s alt" fuer Watchdog-Heartbeat.
+
+**Root-Causes (2 Probleme):**
+
+1. generate_status.py Schwellwert 120s zu eng:
+   heartbeat_loop() in main.py schreibt alle 300s -> Heartbeat bis zu 300s alt.
+   Mit Schwellwert 120s -> fast immer "WARNUNG", nach laengerer Pause -> "STALE".
+   Fix: Schwellwerte auf 360s (OK) / 700s (WARN) angepasst.
+
+2. systemctl-native Timer-Info als zusaetzliche Quelle:
+   get_watchdog_timer_info() liest LastTriggerUSec aus systemctl show.
+   Parsing: systemd liefert lesbares Datum ("Sat 2026-04-18 08:35:27 UTC"),
+   nicht Unix-Timestamp -> datetime.strptime mit regex.
+
+**Kritischer Nebenbefund (P026b) — MIN_MARKT_VOLUMEN Bug:**
+   copy_trading.py skippte ALLE Signale weil market_volume_usd=0 (unbekannt) < 50000.
+   WalletMonitor befuellt market_volume_usd nicht -> bleibt 0 (kein None).
+   Fix: Bedingung auf `vol > 0 and vol < MIN_MARKT_VOLUMEN_USD` geaendert.
+   Betroffen: alle Signale zwischen 08:15 und 08:34 UTC wurden faelschlicherweise geskippt.
+
+**Files geaendert:**
+- /root/KongTradeBot/scripts/generate_status.py (Schwellwerte + Timer-Info)
+- /root/KongTradeBot/strategies/copy_trading.py (vol>0 Guard)
+
+
+## P028 — GitHub Account Suspension (2026-04-18)
+
+**Problem:** GitHub-Account  wurde automatisch gesperrt.
+
+**Ursache:** Neuer Account + 2 Repos erstellt + Auto-Push alle 5 Minuten → Bot-Detection ausgelöst.
+
+**Sofortmaßnahmen:**
+- Auto-Push-Timer () sofort gestoppt
+- Lokale Backups der Template-Files erstellt
+- Template-Arbeit lokal abgeschlossen ()
+
+**Status:** Warte auf GitHub Support-Antwort (support.github.com)
+
+**Lesson Learned:**
+- Neue GitHub-Accounts langsam warm-laufen lassen (kein sofortiger Auto-Push)
+- Mindestens 1 Woche manuell pushen bevor Automation aktiviert wird
+- Für Bot-Accounts: Personal Account verwenden und Repo unter Org anlegen

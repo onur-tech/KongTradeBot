@@ -561,3 +561,44 @@ Ergebnis: EUR/USD-Kurs fällt auf Fallback 0.92 — zu niedrig
 3. Tertiary: Hardcodierter Fallback 0.92
 
 **Affected file:** `utils/tax_archive.py` — `_fetch_eur_usd_rates()`
+
+---
+
+## P038 — "Schließt in"-Spalte zeigt "—" für alle offenen Positionen
+
+**Status:** BEHOBEN (2026-04-18)
+
+**Symptom:**
+Alle 6 offenen Positionen im Dashboard zeigen "—" in der
+"Schließt in"-Spalte statt Countdown. "Nächste Resolutions"
+Panel meldet "Keine offenen Positionen mit Deadline".
+
+**Root-Cause (systematisch, kein Edge-Case):**
+Die Polymarket Data API (`data-api.polymarket.com/positions`)
+liefert `endDate` als reines Datumsfeld: `"2026-04-30"` (kein Zeit-,
+kein Timezone-Suffix). `datetime.fromisoformat("2026-04-30")` gibt ein
+**naive datetime** zurück (tzinfo=None). Die Subtraktion
+`naive_dt - datetime.now(timezone.utc)` wirft dann
+`TypeError: can't subtract offset-naive and offset-aware datetimes`.
+Dieser Fehler wird von `except Exception: return "—"` abgefangen —
+komplett silent.
+
+**Warum nicht Gamma/CLOB-Fallback?**
+`p.get("endDate")` im Data-API-Objekt liefert bereits den Wert
+`"2026-04-30"` — truthy, daher wird der enddate_map-Fallback nie
+erreicht. Der Bug tritt vor der Gamma/CLOB-Abfrage auf.
+
+**Fix (eine Zeile):**
+```python
+if dt.tzinfo is None:
+    dt = dt.replace(tzinfo=timezone.utc)
+```
+In `_closes_in_label()`, direkt nach `datetime.fromisoformat()`.
+
+**Live-Test-Ergebnis nach Fix:**
+- Trump Iran April 21 → "2d 9h" ✅
+- Trump enrichment April 30 → "11d 9h" ✅
+- US x Iran April 30 → "11d 9h" ✅
+- US x Iran April 22 → "3d 9h" ✅
+- Strait of Hormuz April 30 → "11d 9h" ✅
+- ENDED Märkte → "ENDED" ✅

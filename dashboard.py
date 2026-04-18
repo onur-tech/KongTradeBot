@@ -139,6 +139,8 @@ def _closes_in_label(end_date_str, market_title: str = "") -> tuple:
     else:
         try:
             dt = datetime.fromisoformat(str(end_date_str).replace("Z", "+00:00"))
+            if dt.tzinfo is None:
+                dt = dt.replace(tzinfo=timezone.utc)
         except Exception:
             dt = _parse_title_date(market_title)
             if dt is None:

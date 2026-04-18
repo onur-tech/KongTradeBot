@@ -1,19 +1,22 @@
 """
-dashboard.py — KongTrade Bot Premium Dashboard
-Abhängigkeiten: pip install flask flask-socketio
+dashboard.py — KongTrade Bot Ultimate Dashboard v2.0
+Abhängigkeiten: pip install flask flask-socketio requests
 Starten: python dashboard.py
-Öffnen:  http://localhost:5000  (auch remote via http://<server-ip>:5000)
+Öffnen:  http://localhost:5000
 """
 
 import json
 import os
 import re
+import sqlite3
 import subprocess
 import sys
 import threading
 import time
-from datetime import datetime, date
+from datetime import datetime, date, timezone
 from pathlib import Path
+
+import requests
 
 sys.path.insert(0, str(Path(__file__).parent))
 try:
@@ -35,12 +38,147 @@ ARCHIVE_FILE  = BASE_DIR / "trades_archive.json"
 ENV_FILE      = BASE_DIR / ".env"
 STRATEGY_FILE = BASE_DIR / "strategies" / "copy_trading.py"
 LOG_DIR       = BASE_DIR / "logs"
+DB_FILE       = BASE_DIR / "metrics.db"
+
+PROXY_ADDRESS  = "0x700BC51b721F168FF975ff28942BC0E5fAF945eb"
+USDC_CONTRACT  = "0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174"
+POLYGON_RPCS   = [
+    "https://polygon-bor-rpc.publicnode.com",
+    "https://polygon-rpc.com",
+    "https://1rpc.io/matic",
+    "https://rpc.ankr.com/polygon",
+]
 
 app = Flask(__name__, template_folder=str(BASE_DIR))
 app.config["SECRET_KEY"] = "polymarket-dashboard-2026"
 socketio = SocketIO(app, cors_allowed_origins="*", async_mode="threading")
 
-# ── Hilfsfunktionen ──────────────────────────────────────────────────────────
+# ── SQLite Metrics DB ──────────────────────────────────────────────────────────
+
+def init_db():
+    conn = sqlite3.connect(str(DB_FILE))
+    conn.execute("""
+        CREATE TABLE IF NOT EXISTS balance_snapshots (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            ts INTEGER NOT NULL,
+            balance_usdc REAL NOT NULL
+        )
+    """)
+    conn.execute("CREATE INDEX IF NOT EXISTS idx_balance_ts ON balance_snapshots(ts)")
+    conn.commit()
+    conn.close()
+
+
+def db_insert_balance(balance: float):
+    try:
+        conn = sqlite3.connect(str(DB_FILE))
+        conn.execute("INSERT INTO balance_snapshots (ts, balance_usdc) VALUES (?,?)",
+                     (int(time.time()), balance))
+        conn.execute("DELETE FROM balance_snapshots WHERE ts < ?", (int(time.time()) - 30 * 86400,))
+        conn.commit()
+        conn.close()
+    except Exception:
+        pass
+
+
+def db_get_balance_history(hours: int = 24):
+    try:
+        conn = sqlite3.connect(str(DB_FILE))
+        since = int(time.time()) - hours * 3600
+        rows = conn.execute(
+            "SELECT ts, balance_usdc FROM balance_snapshots WHERE ts >= ? ORDER BY ts ASC",
+            (since,)
+        ).fetchall()
+        conn.close()
+        return [{"ts": r[0], "balance": round(r[1], 2)} for r in rows]
+    except Exception:
+        return []
+
+
+# ── On-Chain Balance ──────────────────────────────────────────────────────────
+
+_current_balance: dict = {"value": None, "ts": 0.0}
+POLYMARKET_DATA_API = "https://data-api.polymarket.com"
+_polymarket_positions: dict = {"data": [], "ts": 0.0}
+
+
+def fetch_polymarket_positions_sync() -> list:
+    env = load_env()
+    proxy = env.get("POLYMARKET_ADDRESS", PROXY_ADDRESS)
+    try:
+        url = f"{POLYMARKET_DATA_API}/positions?user={proxy}&sizeThreshold=.01&limit=500"
+        resp = requests.get(url, timeout=10, headers={"User-Agent": "KongTradeBot/2.0"})
+        if resp.status_code == 200:
+            data = resp.json()
+            return data if isinstance(data, list) else data.get("data", [])
+    except Exception:
+        pass
+    return []
+
+
+def _positions_updater_thread():
+    global _polymarket_positions
+    time.sleep(8)
+    while True:
+        try:
+            positions = fetch_polymarket_positions_sync()
+            if positions is not None:
+                _polymarket_positions = {"data": positions, "ts": time.time()}
+                try:
+                    socketio.emit("positions_update", {"count": len(positions), "ts": time.time()})
+                except Exception:
+                    pass
+        except Exception:
+            pass
+        time.sleep(60)
+
+
+
+
+def fetch_onchain_balance_sync() -> float | None:
+    env = load_env()
+    proxy = env.get("POLYMARKET_ADDRESS", PROXY_ADDRESS)
+    padded = proxy.lower().replace("0x", "").zfill(64)
+    data = f"0x70a08231{padded}"
+    payload = {
+        "jsonrpc": "2.0",
+        "method": "eth_call",
+        "params": [{"to": USDC_CONTRACT, "data": data}, "latest"],
+        "id": 1,
+    }
+    for rpc in POLYGON_RPCS:
+        try:
+            resp = requests.post(rpc, json=payload,
+                                 headers={"Content-Type": "application/json"},
+                                 timeout=10)
+            if resp.status_code == 200:
+                result = resp.json().get("result", "0x0")
+                return int(result, 16) / 1_000_000
+        except Exception:
+            continue
+    return None
+
+
+def _balance_updater_thread():
+    global _current_balance
+    # Initial fetch immediately
+    time.sleep(3)
+    while True:
+        try:
+            bal = fetch_onchain_balance_sync()
+            if bal is not None:
+                _current_balance = {"value": round(bal, 2), "ts": time.time()}
+                db_insert_balance(bal)
+                try:
+                    socketio.emit("balance_update", {"balance": round(bal, 2), "ts": time.time()})
+                except Exception:
+                    pass
+        except Exception:
+            pass
+        time.sleep(30)
+
+
+# ── Helper functions ───────────────────────────────────────────────────────────
 
 def load_json(path):
     try:
@@ -129,80 +267,19 @@ def save_default_multiplier(value):
         return False, str(e)
 
 
-def get_stats():
-    archive = load_json(ARCHIVE_FILE) or []
-    closed  = [t for t in archive if t.get("aufgeloest")]
-    open_t  = [t for t in archive if not t.get("aufgeloest")]
-    wins    = [t for t in closed if t.get("ergebnis") == "GEWINN"]
-    losses  = [t for t in closed if t.get("ergebnis") == "VERLUST"]
-    pnl     = sum(float(t.get("gewinn_verlust_usdc", 0) or 0) for t in closed)
-    invested = sum(float(t.get("einsatz_usdc", 0) or 0) for t in closed)
-    win_rate = len(wins) / len(closed) * 100 if closed else 0
-    today   = date.today().isoformat()
-    today_trades = [t for t in archive if t.get("datum") == today]
-    today_pnl    = sum(float(t.get("gewinn_verlust_usdc", 0) or 0) for t in today_trades if t.get("aufgeloest"))
-
-    # Kategorie-Breakdown
-    cats = {}
-    for t in archive:
-        cat = t.get("kategorie", "Sonstiges") or "Sonstiges"
-        cats[cat] = cats.get(cat, 0) + 1
-
-    # Wallet-Performance
-    wallet_perf = {}
-    for t in closed:
-        w = t.get("source_wallet", "Unknown")
-        if w not in wallet_perf:
-            wallet_perf[w] = {"wins": 0, "losses": 0, "pnl": 0}
-        if t.get("ergebnis") == "GEWINN":
-            wallet_perf[w]["wins"] += 1
-        else:
-            wallet_perf[w]["losses"] += 1
-        wallet_perf[w]["pnl"] += float(t.get("gewinn_verlust_usdc", 0) or 0)
-
-    return {
-        "total_trades": len(archive),
-        "open":         len(open_t),
-        "closed":       len(closed),
-        "wins":         len(wins),
-        "losses":       len(losses),
-        "pnl":          round(pnl, 2),
-        "invested":     round(invested, 2),
-        "win_rate":     round(win_rate, 1),
-        "today_trades": len(today_trades),
-        "today_pnl":    round(today_pnl, 2),
-        "categories":   cats,
-        "wallet_perf":  {k[:10]+"...": v for k, v in wallet_perf.items()},
-    }
-
-
-def get_positions():
-    state = load_json(STATE_FILE)
-    if not state:
-        return []
-    result = []
-    for p in state.get("open_positions", []):
-        opened = p.get("opened_at", "")
-        try:
-            age_h = round((datetime.now() - datetime.fromisoformat(opened)).total_seconds() / 3600, 1)
-        except Exception:
-            age_h = 0
-        result.append({
-            "market":      p.get("market_question", "Unknown")[:52],
-            "outcome":     p.get("outcome", ""),
-            "entry_price": round(float(p.get("entry_price", 0)) * 100, 1),
-            "size_usdc":   round(float(p.get("size_usdc", 0)), 2),
-            "age_h":       age_h,
-            "wallet":      get_wallet_name(p.get("source_wallet", "")),
-        })
-    return result
-
-
-def get_log_lines(n=50):
+def get_log_lines(n=100):
     today = date.today().strftime("%Y-%m-%d")
     log_file = LOG_DIR / f"bot_{today}.log"
     if not log_file.exists():
-        return []
+        # Fallback: neueste log Datei
+        try:
+            files = sorted(LOG_DIR.glob("bot_*.log"), key=lambda f: f.stat().st_mtime, reverse=True)
+            if files:
+                log_file = files[0]
+            else:
+                return []
+        except Exception:
+            return []
     try:
         lines = log_file.read_text(encoding="utf-8", errors="replace").splitlines()
         return lines[-n:]
@@ -220,65 +297,583 @@ def is_bot_running():
         except Exception:
             pass
     try:
-        out = subprocess.check_output("tasklist", shell=True, text=True)
-        return "python" in out.lower(), None
+        if os.name == "nt":
+            out = subprocess.check_output("tasklist", shell=True, text=True)
+            return "python" in out.lower(), None
+        else:
+            out = subprocess.check_output(["pgrep", "-f", "main.py"], text=True)
+            pids = [int(p) for p in out.strip().split() if p.strip()]
+            return bool(pids), pids[0] if pids else None
     except Exception:
         return False, None
 
 
-# ── WebSocket Live-Push ───────────────────────────────────────────────────────
-
-_last_log_count = 0
-
-def background_push():
-    global _last_log_count
-    while True:
-        try:
-            with app.app_context():
-                # Stats
-                stats = get_stats()
-                running, pid = is_bot_running()
-                env = load_env()
-                stats["bot_running"] = running
-                stats["bot_pid"]     = pid
-                stats["dry_run"]     = env.get("DRY_RUN", "true").lower() == "true"
-                socketio.emit("stats", stats)
-
-                # Positionen
-                socketio.emit("positions", get_positions())
-
-                # Log (nur neue Zeilen)
-                lines = get_log_lines(80)
-                if len(lines) != _last_log_count:
-                    _last_log_count = len(lines)
-                    socketio.emit("log", lines[-50:])
-        except Exception:
-            pass
-        time.sleep(5)
+def _get_bot_uptime():
+    """Liest Bot-Startzeit aus lock- oder pid-Datei."""
+    for fname in ("bot.pid", "bot.lock"):
+        f = BASE_DIR / fname
+        if f.exists():
+            try:
+                mtime = f.stat().st_mtime
+                return int(time.time() - mtime)
+            except Exception:
+                pass
+    return None
 
 
-@socketio.on("connect")
-def on_connect():
-    stats = get_stats()
-    running, pid = is_bot_running()
-    env = load_env()
-    stats["bot_running"] = running
-    stats["bot_pid"]     = pid
-    stats["dry_run"]     = env.get("DRY_RUN", "true").lower() == "true"
-    emit("stats", stats)
-    emit("positions", get_positions())
-    emit("log", get_log_lines(50))
-    mults, default = load_wallet_multipliers()
-    emit("multipliers", {"wallets": mults, "default": default})
-    emit("env", load_env())
+def get_stats():
+    archive = load_json(ARCHIVE_FILE) or []
+    closed  = [t for t in archive if t.get("aufgeloest")]
+    open_t  = [t for t in archive if not t.get("aufgeloest")]
+    wins    = [t for t in closed if t.get("ergebnis") == "GEWINN"]
+    losses  = [t for t in closed if t.get("ergebnis") == "VERLUST"]
+    pnl     = sum(float(t.get("gewinn_verlust_usdc", 0) or 0) for t in closed)
+    invested = sum(float(t.get("einsatz_usdc", 0) or 0) for t in closed)
+    win_rate = len(wins) / len(closed) * 100 if closed else 0
+    today   = date.today().isoformat()
+    today_trades = [t for t in archive if t.get("datum") == today]
+    today_pnl    = sum(float(t.get("gewinn_verlust_usdc", 0) or 0) for t in today_trades if t.get("aufgeloest"))
+    cats = {}
+    for t in archive:
+        cat = t.get("kategorie", "Sonstiges") or "Sonstiges"
+        cats[cat] = cats.get(cat, 0) + 1
+    wallet_perf = {}
+    for t in closed:
+        w = t.get("source_wallet", "Unknown")
+        if w not in wallet_perf:
+            wallet_perf[w] = {"wins": 0, "losses": 0, "pnl": 0}
+        if t.get("ergebnis") == "GEWINN":
+            wallet_perf[w]["wins"] += 1
+        else:
+            wallet_perf[w]["losses"] += 1
+        wallet_perf[w]["pnl"] += float(t.get("gewinn_verlust_usdc", 0) or 0)
+    return {
+        "total_trades": len(archive),
+        "open":         len(open_t),
+        "closed":       len(closed),
+        "wins":         len(wins),
+        "losses":       len(losses),
+        "pnl":          round(pnl, 2),
+        "invested":     round(invested, 2),
+        "win_rate":     round(win_rate, 1),
+        "today_trades": len(today_trades),
+        "today_pnl":    round(today_pnl, 2),
+        "categories":   cats,
+        "wallet_perf":  {k[:10] + "...": v for k, v in wallet_perf.items()},
+    }
 
 
-# ── REST Endpoints ────────────────────────────────────────────────────────────
+def _parse_closes_in(closes_at_str):
+    """Returns (closes_in_s, closes_in_h) or (None, None)."""
+    if not closes_at_str:
+        return None, None
+    try:
+        closes_dt = datetime.fromisoformat(closes_at_str.replace("Z", "+00:00"))
+        if closes_dt.tzinfo is None:
+            closes_dt = closes_dt.replace(tzinfo=timezone.utc)
+        diff = (closes_dt - datetime.now(timezone.utc)).total_seconds()
+        s = max(0.0, diff)
+        return int(s), round(s / 3600, 2)
+    except Exception:
+        return None, None
+
+
+# ── REST API Endpoints ────────────────────────────────────────────────────────
+
+def _cors(response):
+    response.headers["Access-Control-Allow-Origin"] = "*"
+    response.headers["Access-Control-Allow-Headers"] = "Content-Type"
+    return response
+
 
 @app.route("/")
 def index():
     return send_from_directory(str(BASE_DIR), "dashboard.html")
 
+
+@app.route("/api/balance")
+def api_balance():
+    env = load_env()
+    initial = float(env.get("BOT_INITIAL_BALANCE_USD", "988.49"))
+    cash = _current_balance.get("value")
+    last_ts = _current_balance.get("ts", 0)
+
+    history_24h = db_get_balance_history(24)
+    history_7d  = db_get_balance_history(168)
+    history_30d = db_get_balance_history(720)
+
+    if cash is None and history_24h:
+        cash = history_24h[-1]["balance"]
+
+    positions = _polymarket_positions.get("data", [])
+    in_positions = round(sum(float(p.get("currentValue") or p.get("value") or 0) for p in positions), 2)
+    portfolio_total = round((cash or 0) + in_positions, 2)
+    to_win_total = round(sum(float(p.get("toWin") or p.get("maxPayout") or p.get("size") or 0) for p in positions), 2)
+    unclaimed = [p for p in positions if p.get("redeemable") or p.get("isRedeemable")]
+    unclaimed_amount = round(sum(float(p.get("currentValue") or 0) for p in unclaimed), 2)
+    unrealized_pnl = round(sum(float(p.get("unrealizedPnl") or 0) for p in positions), 2)
+
+    delta_total_cash = round(cash - initial, 2) if cash is not None else 0
+    h1_cut = time.time() - 3600
+    h1_pts = [h for h in history_24h if h["ts"] >= h1_cut]
+    delta_1h = round(cash - h1_pts[0]["balance"], 2) if h1_pts and cash is not None else 0
+    delta_24h_cash = round(cash - history_24h[0]["balance"], 2) if history_24h and cash is not None else 0
+
+    return _cors(jsonify({
+        "current":          cash,
+        "cash":             cash,
+        "in_positions":     in_positions,
+        "portfolio_total":  portfolio_total,
+        "to_win_total":     to_win_total,
+        "unclaimed_amount": unclaimed_amount,
+        "unclaimed_count":  len(unclaimed),
+        "unrealized_pnl":   unrealized_pnl,
+        "initial":          initial,
+        "delta_total":      delta_total_cash,
+        "delta_24h":        delta_24h_cash,
+        "delta_1h":         delta_1h,
+        "last_fetch_ts":    last_ts,
+        "positions_ts":     _polymarket_positions.get("ts", 0),
+        "history_24h":      history_24h[-200:],
+        "history_7d":       history_7d[-200:],
+        "history_30d":      history_30d[-200:],
+    }))
+
+
+@app.route("/api/positions")
+def api_positions():
+    state   = load_json(STATE_FILE) or {}
+    archive = load_json(ARCHIVE_FILE) or []
+
+    # OPEN positions
+    open_pos = []
+    for p in state.get("open_positions", []):
+        closes_in_s, closes_in_h = _parse_closes_in(p.get("market_closes_at"))
+        entry_price = float(p.get("entry_price", 0) or 0)
+        size_usdc   = float(p.get("size_usdc", 0) or 0)
+        shares      = float(p.get("shares", 0) or 0)
+        profit_win  = round(shares - size_usdc, 2) if shares > size_usdc else 0
+        open_pos.append({
+            "order_id":      str(p.get("order_id", ""))[:16],
+            "market":        (p.get("market_question") or "Unknown")[:72],
+            "outcome":       p.get("outcome", ""),
+            "entry_price_pct": round(entry_price * 100, 1),
+            "size_usdc":     round(size_usdc, 2),
+            "shares":        round(shares, 3),
+            "profit_if_win": profit_win,
+            "closes_in_h":   closes_in_h,
+            "closes_in_s":   closes_in_s,
+            "wallet":        get_wallet_name(p.get("source_wallet", "")),
+            "opened_at":     p.get("opened_at", ""),
+        })
+    open_pos.sort(key=lambda x: (x.get("closes_in_h") or 9999))
+
+    # PENDING positions
+    pending = []
+    for oid, pd in (state.get("pending_data") or {}).items():
+        submitted = pd.get("submitted_at", 0)
+        age_s = int(time.time() - submitted) if isinstance(submitted, (int, float)) and submitted > 0 else 0
+        pending.append({
+            "order_id":      oid[:16] + "...",
+            "market":        (pd.get("market_question") or "")[:72],
+            "outcome":       pd.get("outcome", ""),
+            "entry_price_pct": round(float(pd.get("entry_price", 0) or 0) * 100, 1),
+            "size_usdc":     round(float(pd.get("size_usdc", 0) or 0), 2),
+            "age_s":         age_s,
+            "stuck":         age_s > 60,
+        })
+
+    # RESOLVED positions
+    resolved = []
+    for t in archive:
+        if not t.get("aufgeloest"):
+            continue
+        pnl  = float(t.get("gewinn_verlust_usdc", 0) or 0)
+        size = float(t.get("einsatz_usdc", 0) or 0)
+        roi  = round(pnl / size * 100, 1) if size > 0 else 0
+        resolved.append({
+            "time":     f"{t.get('datum', '')} {t.get('zeit', '')}",
+            "market":   (t.get("markt") or t.get("market_question") or "")[:72],
+            "outcome":  t.get("ergebnis_seite", t.get("outcome", "")),
+            "result":   t.get("ergebnis", ""),
+            "pnl":      round(pnl, 2),
+            "roi":      roi,
+            "wallet":   get_wallet_name(t.get("source_wallet", "")),
+            "size_usdc": round(size, 2),
+        })
+    resolved = list(reversed(resolved))[:50]
+
+    return _cors(jsonify({
+        "open":    open_pos,
+        "pending": pending,
+        "resolved": resolved,
+        "counts": {
+            "open":    len(open_pos),
+            "pending": len(pending),
+            "resolved": len(resolved),
+        },
+    }))
+
+
+
+@app.route("/api/portfolio")
+def api_portfolio():
+    positions = _polymarket_positions.get("data", [])
+    result = []
+    for p in positions:
+        avg_price   = float(p.get("avgPrice") or p.get("averagePrice") or 0)
+        cur_price   = float(p.get("curPrice") or p.get("currentPrice") or p.get("price") or 0)
+        shares      = float(p.get("size") or p.get("shares") or 0)
+        traded_usdc = float(p.get("initialValue") or p.get("cost") or (avg_price * shares) or 0)
+        cur_value   = float(p.get("currentValue") or p.get("value") or (cur_price * shares) or 0)
+        to_win      = float(p.get("toWin") or p.get("maxPayout") or shares or 0)
+        pnl_pct     = round((cur_value - traded_usdc) / max(0.001, traded_usdc) * 100, 1) if traded_usdc > 0 else 0
+        result.append({
+            "condition_id":  p.get("conditionId", ""),
+            "market":        (p.get("title") or p.get("question") or p.get("market") or "")[:80],
+            "outcome":       p.get("outcome", ""),
+            "avg_price_pct": round(avg_price * 100, 1),
+            "cur_price_pct": round(cur_price * 100, 1),
+            "shares":        round(shares, 4),
+            "traded":        round(traded_usdc, 2),
+            "current_value": round(cur_value, 2),
+            "to_win":        round(to_win, 2),
+            "pnl_usdc":      round(cur_value - traded_usdc, 2),
+            "pnl_pct":       pnl_pct,
+            "redeemable":    bool(p.get("redeemable") or p.get("isRedeemable")),
+            "asset_id":      p.get("asset_id") or p.get("tokenId") or "",
+        })
+    result.sort(key=lambda x: x["current_value"], reverse=True)
+    total_value  = round(sum(r["current_value"] for r in result), 2)
+    total_traded = round(sum(r["traded"] for r in result), 2)
+    total_to_win = round(sum(r["to_win"] for r in result), 2)
+    total_pnl    = round(sum(r["pnl_usdc"] for r in result), 2)
+    return _cors(jsonify({
+        "positions":        result,
+        "count":            len(result),
+        "total_value":      total_value,
+        "total_traded":     total_traded,
+        "total_to_win":     total_to_win,
+        "total_pnl":        total_pnl,
+        "redeemable_count": sum(1 for r in result if r["redeemable"]),
+        "ts":               _polymarket_positions.get("ts", 0),
+    }))
+
+
+@app.route("/api/health")
+def api_health():
+    running, pid = is_bot_running()
+    env = load_env()
+    uptime_s = _get_bot_uptime()
+
+    hb_age = None
+    hb_file = BASE_DIR / "heartbeat.txt"
+    if hb_file.exists():
+        hb_age = int(time.time() - hb_file.stat().st_mtime)
+
+    # Last error from log
+    last_error = None
+    lines = get_log_lines(300)
+    for line in reversed(lines):
+        if "ERROR" in line or "CRITICAL" in line:
+            last_error = line.strip()[-150:]
+            break
+
+    # Last trade time
+    last_trade_at = None
+    for line in reversed(lines):
+        if "LIVE ORDER" in line or "DRY-RUN" in line or "Order gesendet" in line:
+            try:
+                last_trade_at = line[:19]
+            except Exception:
+                pass
+            break
+
+    # System resources
+    cpu_pct = ram_pct = None
+    try:
+        import psutil
+        cpu_pct = round(psutil.cpu_percent(interval=0.1), 1)
+        ram_pct = round(psutil.virtual_memory().percent, 1)
+    except Exception:
+        pass
+
+    # Count WS MATCHED events in recent logs
+    ws_events_min = sum(1 for l in lines[-60:] if "CONFIRMED" in l or "MATCHED" in l)
+
+    return _cors(jsonify({
+        "bot_running":    running,
+        "bot_pid":        pid,
+        "uptime_s":       uptime_s,
+        "dry_run":        env.get("DRY_RUN", "true").lower() == "true",
+        "heartbeat_age_s": hb_age,
+        "heartbeat_ok":   (hb_age is not None and hb_age < 180),
+        "last_error":     last_error,
+        "last_trade_at":  last_trade_at,
+        "cpu_pct":        cpu_pct,
+        "ram_pct":        ram_pct,
+        "ws_events_recent": ws_events_min,
+        "balance":        _current_balance.get("value"),
+        "balance_ts":     _current_balance.get("ts"),
+        "ts":             int(time.time()),
+    }))
+
+
+@app.route("/api/stats/session")
+def api_stats_session():
+    archive = load_json(ARCHIVE_FILE) or []
+    today   = date.today().isoformat()
+    today_trades  = [t for t in archive if t.get("datum") == today]
+    today_filled  = [t for t in today_trades if t.get("aufgeloest")]
+    today_wins    = [t for t in today_filled if t.get("ergebnis") == "GEWINN"]
+    today_losses  = [t for t in today_filled if t.get("ergebnis") == "VERLUST"]
+    today_pnl     = sum(float(t.get("gewinn_verlust_usdc", 0) or 0) for t in today_filled)
+
+    best  = max(today_filled, key=lambda t: float(t.get("gewinn_verlust_usdc", 0) or 0), default=None)
+    worst = min(today_filled, key=lambda t: float(t.get("gewinn_verlust_usdc", 0) or 0), default=None)
+
+    streak = 0
+    for t in reversed(today_filled):
+        r = t.get("ergebnis", "")
+        if r == "GEWINN":
+            if streak >= 0: streak += 1
+            else: break
+        elif r == "VERLUST":
+            if streak <= 0: streak -= 1
+            else: break
+
+    lines = get_log_lines(500)
+    signals_today  = sum(1 for l in lines if "NEUER TRADE erkannt" in l)
+    orders_tried   = sum(1 for l in lines if "LIVE ORDER" in l or "DRY-RUN" in l)
+    orders_skipped = sum(1 for l in lines if "übersprungen" in l or "Order übersprungen" in l)
+    orders_rejected = sum(1 for l in lines if "abgelehnt" in l or "Preis zu extrem" in l)
+
+    return _cors(jsonify({
+        "today_date":       today,
+        "signals_today":    signals_today,
+        "orders_tried":     orders_tried,
+        "orders_filled":    len(today_trades),
+        "orders_skipped":   orders_skipped,
+        "orders_rejected":  orders_rejected,
+        "resolved_today":   len(today_filled),
+        "wins_today":       len(today_wins),
+        "losses_today":     len(today_losses),
+        "pnl_today":        round(today_pnl, 2),
+        "win_rate_today":   round(len(today_wins) / max(1, len(today_filled)) * 100, 1),
+        "streak":           streak,
+        "best_trade":       {
+            "market": (best.get("markt") or "")[:50],
+            "pnl":    round(float(best.get("gewinn_verlust_usdc", 0) or 0), 2),
+        } if best else None,
+        "worst_trade":      {
+            "market": (worst.get("markt") or "")[:50],
+            "pnl":    round(float(worst.get("gewinn_verlust_usdc", 0) or 0), 2),
+        } if worst else None,
+    }))
+
+
+@app.route("/api/stats/wallets")
+def api_stats_wallets():
+    archive = load_json(ARCHIVE_FILE) or []
+    closed  = [t for t in archive if t.get("aufgeloest")]
+    wallet_stats: dict = {}
+    for t in closed:
+        w    = t.get("source_wallet", "Unknown") or "Unknown"
+        name = get_wallet_name(w)
+        if w not in wallet_stats:
+            wallet_stats[w] = {"name": name, "address": w[:10] + "...", "trades": 0,
+                               "wins": 0, "losses": 0, "pnl": 0.0, "invested": 0.0}
+        wallet_stats[w]["trades"]   += 1
+        wallet_stats[w]["pnl"]      += float(t.get("gewinn_verlust_usdc", 0) or 0)
+        wallet_stats[w]["invested"] += float(t.get("einsatz_usdc", 0) or 0)
+        if t.get("ergebnis") == "GEWINN":
+            wallet_stats[w]["wins"] += 1
+        elif t.get("ergebnis") == "VERLUST":
+            wallet_stats[w]["losses"] += 1
+
+    result = []
+    for s in wallet_stats.values():
+        trades   = s["trades"]
+        invested = s["invested"]
+        pnl      = s["pnl"]
+        result.append({
+            "name":      s["name"],
+            "address":   s["address"],
+            "trades":    trades,
+            "wins":      s["wins"],
+            "losses":    s["losses"],
+            "win_rate":  round(s["wins"] / max(1, trades) * 100, 1),
+            "pnl":       round(pnl, 2),
+            "roi":       round(pnl / max(0.01, invested) * 100, 1),
+            "invested":  round(invested, 2),
+        })
+    result.sort(key=lambda x: x["pnl"], reverse=True)
+    return _cors(jsonify({"wallets": result}))
+
+
+@app.route("/api/resolutions")
+def api_resolutions():
+    state   = load_json(STATE_FILE) or {}
+    archive = load_json(ARCHIVE_FILE) or []
+
+    upcoming = []
+    for p in state.get("open_positions", []):
+        closes_in_s, closes_in_h = _parse_closes_in(p.get("market_closes_at"))
+        if closes_in_s is None or closes_in_s <= 0:
+            continue
+        entry_price = float(p.get("entry_price", 0) or 0)
+        size_usdc   = float(p.get("size_usdc", 0) or 0)
+        shares      = float(p.get("shares", 0) or 0)
+        profit_win  = round(max(0, shares - size_usdc), 2)
+        upcoming.append({
+            "market":        (p.get("market_question") or "Unknown")[:72],
+            "outcome":       p.get("outcome", ""),
+            "closes_in_s":   closes_in_s,
+            "closes_in_h":   closes_in_h,
+            "closes_at":     p.get("market_closes_at", ""),
+            "size_usdc":     round(size_usdc, 2),
+            "profit_if_win": profit_win,
+        })
+    upcoming.sort(key=lambda x: x["closes_in_s"])
+
+    # Recent resolutions
+    recent = []
+    for t in archive:
+        if not t.get("aufgeloest"):
+            continue
+        pnl = float(t.get("gewinn_verlust_usdc", 0) or 0)
+        recent.append({
+            "time":   f"{t.get('datum', '')} {t.get('zeit', '')}",
+            "market": (t.get("markt") or t.get("market_question") or "")[:60],
+            "result": t.get("ergebnis", ""),
+            "pnl":    round(pnl, 2),
+        })
+    recent = list(reversed(recent))[:10]
+
+    return _cors(jsonify({
+        "upcoming":           upcoming[:8],
+        "total_at_stake":     round(sum(x["size_usdc"] for x in upcoming), 2),
+        "max_possible_win":   round(sum(x["profit_if_win"] for x in upcoming), 2),
+        "recent_resolutions": recent,
+    }))
+
+
+@app.route("/api/logs")
+def api_logs():
+    n = min(int(request.args.get("n", 150)), 500)
+    filter_type = request.args.get("filter", "all")
+    search = request.args.get("search", "").lower()
+    lines = get_log_lines(500)
+
+    if filter_type == "orders":
+        lines = [l for l in lines if "LIVE ORDER" in l or "DRY-RUN" in l or
+                 "Order gesendet" in l or "Order pending" in l or "übersprungen" in l]
+    elif filter_type == "signals":
+        lines = [l for l in lines if "NEUER TRADE" in l or "buffered" in l or
+                 "Multiplikator" in l or "Signal" in l]
+    elif filter_type == "errors":
+        lines = [l for l in lines if "ERROR" in l or "WARNING" in l or
+                 "CRITICAL" in l or "Exception" in l or "Traceback" in l or "Kill-Switch" in l]
+    elif filter_type == "resolutions":
+        lines = [l for l in lines if "GEWINN" in l or "VERLUST" in l or
+                 "resolver" in l.lower() or "resolved" in l.lower() or "aufgelöst" in l.lower()]
+
+    if search:
+        lines = [l for l in lines if search in l.lower()]
+
+    return _cors(jsonify({"count": len(lines), "lines": lines[-n:]}))
+
+
+@app.route("/api/whatif")
+def api_whatif():
+    sim_mult = float(request.args.get("multiplier", 0.15))
+    env      = load_env()
+    archive  = load_json(ARCHIVE_FILE) or []
+    today    = date.today().isoformat()
+    today_trades = [t for t in archive if t.get("datum") == today]
+    actual_mult  = float(env.get("COPY_SIZE_MULTIPLIER", "0.15"))
+    min_size     = float(env.get("MIN_TRADE_SIZE_USD", "5.0"))
+
+    simulated = []
+    for t in today_trades:
+        actual_size = float(t.get("einsatz_usdc", 0) or 0)
+        if actual_mult > 0 and actual_size > 0:
+            whale_size = actual_size / actual_mult
+            sim_size   = round(whale_size * sim_mult, 2)
+            simulated.append({
+                "market":       (t.get("markt") or "")[:50],
+                "actual_size":  round(actual_size, 2),
+                "sim_size":     sim_size,
+                "would_exec":   sim_size >= min_size,
+            })
+
+    executed  = [s for s in simulated if s["would_exec"]]
+    total_vol = round(sum(s["sim_size"] for s in executed), 2)
+
+    return _cors(jsonify({
+        "actual_mult":   actual_mult,
+        "sim_mult":      sim_mult,
+        "actual_trades": len(today_trades),
+        "sim_trades":    len(executed),
+        "sim_volume":    total_vol,
+        "trades":        simulated[:20],
+    }))
+
+
+@app.route("/api/summary")
+def api_summary():
+    stats = get_stats()
+    running, pid = is_bot_running()
+    env = load_env()
+    hb_age = None
+    try:
+        hb_file = BASE_DIR / "heartbeat.txt"
+        if hb_file.exists():
+            hb_age = round(time.time() - hb_file.stat().st_mtime, 1)
+    except Exception:
+        pass
+    data = {
+        "bot_running": running,
+        "bot_pid": pid,
+        "dry_run": env.get("DRY_RUN", "true").lower() == "true",
+        "heartbeat_age_s": hb_age,
+        "max_trade_size_usd": env.get("MAX_TRADE_SIZE_USD"),
+        "copy_size_multiplier": env.get("COPY_SIZE_MULTIPLIER"),
+        "max_daily_loss_usd": env.get("MAX_DAILY_LOSS_USD"),
+        **{k: stats[k] for k in ("total_trades", "open", "closed", "wins", "losses",
+                                  "win_rate", "pnl", "invested", "today_trades", "today_pnl")},
+    }
+    return _cors(jsonify(data))
+
+
+@app.route("/api/signals")
+def api_signals():
+    n = min(int(request.args.get("n", 100)), 500)
+    archive = load_json(ARCHIVE_FILE) or []
+    signals = []
+    for t in archive[-n:]:
+        signals.append({
+            "datum": t.get("datum"),
+            "zeit": t.get("zeit"),
+            "source_wallet": (t.get("source_wallet") or "")[:12] + "...",
+            "market": t.get("markt", t.get("market_question", ""))[:60],
+            "outcome": t.get("outcome", t.get("ergebnis_seite", "")),
+            "price": t.get("entry_price", t.get("einstiegspreis")),
+            "size_usdc": t.get("einsatz_usdc"),
+            "kategorie": t.get("kategorie"),
+        })
+    return _cors(jsonify({"count": len(signals), "signals": signals}))
+
+
+@app.route("/api/decisions")
+def api_decisions():
+    n = min(int(request.args.get("n", 100)), 500)
+    state = load_json(STATE_FILE) or {}
+    decisions = state.get("recent_decisions", [])
+    return _cors(jsonify({"count": len(decisions), "decisions": decisions[-n:]}))
+
+
+# ── Mutable Endpoints ─────────────────────────────────────────────────────────
 
 @app.route("/api/env", methods=["POST"])
 def api_env():
@@ -304,7 +899,6 @@ def api_action():
     action  = request.json.get("action", "")
     python  = sys.executable
     bot_dir = str(BASE_DIR)
-    flags   = subprocess.CREATE_NEW_CONSOLE if os.name == "nt" else 0
 
     if action == "stop":
         pid_file = BASE_DIR / "bot.pid"
@@ -313,15 +907,22 @@ def api_action():
                 pid = int(pid_file.read_text().strip())
                 os.kill(pid, 15)
                 return jsonify({"ok": True, "message": f"Bot gestoppt (PID {pid})"})
-            subprocess.run("taskkill /F /IM python.exe", shell=True, capture_output=True)
+            if os.name == "nt":
+                subprocess.run("taskkill /F /IM python.exe", shell=True, capture_output=True)
+            else:
+                subprocess.run(["pkill", "-f", "main.py"], capture_output=True)
             return jsonify({"ok": True, "message": "Bot gestoppt"})
         except Exception as e:
             return jsonify({"ok": False, "message": str(e)})
 
     elif action == "restart":
         try:
-            subprocess.run("taskkill /F /IM python.exe", shell=True, capture_output=True)
+            if os.name == "nt":
+                subprocess.run("taskkill /F /IM python.exe", shell=True, capture_output=True)
+            else:
+                subprocess.run(["pkill", "-f", "main.py"], capture_output=True)
             time.sleep(2)
+            flags = subprocess.CREATE_NEW_CONSOLE if os.name == "nt" else 0
             subprocess.Popen([python, "main.py"], cwd=bot_dir, creationflags=flags)
             return jsonify({"ok": True, "message": "Bot neu gestartet"})
         except Exception as e:
@@ -329,37 +930,95 @@ def api_action():
 
     elif action == "auswertung":
         try:
-            subprocess.Popen([python, "auswertung.py"], cwd=bot_dir, creationflags=flags)
-            return jsonify({"ok": True, "message": "Auswertung gestartet"})
+            result = subprocess.run(
+                [python, "auswertung.py"], cwd=bot_dir,
+                capture_output=True, text=True, timeout=60
+            )
+            output = (result.stdout or "") + (result.stderr or "")
+            return jsonify({"ok": True, "output": output[-4000:], "message": "Auswertung abgeschlossen"})
+        except subprocess.TimeoutExpired:
+            return jsonify({"ok": False, "output": "", "message": "Timeout (60s)"})
         except Exception as e:
-            return jsonify({"ok": False, "message": str(e)})
+            return jsonify({"ok": False, "output": "", "message": str(e)})
 
     elif action == "resolver":
         try:
-            subprocess.Popen([python, "resolver.py"], cwd=bot_dir, creationflags=flags)
-            return jsonify({"ok": True, "message": "Resolver gestartet"})
+            result = subprocess.run(
+                [python, "resolver.py"], cwd=bot_dir,
+                capture_output=True, text=True, timeout=120
+            )
+            output = (result.stdout or "") + (result.stderr or "")
+            return jsonify({"ok": True, "output": output[-4000:], "message": "Resolver abgeschlossen"})
+        except subprocess.TimeoutExpired:
+            return jsonify({"ok": False, "output": "", "message": "Timeout (120s)"})
         except Exception as e:
-            return jsonify({"ok": False, "message": str(e)})
+            return jsonify({"ok": False, "output": "", "message": str(e)})
 
     return jsonify({"ok": False, "message": "Unbekannte Aktion"})
 
 
-# ── Background-Push Watchdog ─────────────────────────────────────────────────
+# ── WebSocket Push ─────────────────────────────────────────────────────────────
+
+_last_log_count = 0
+
+
+def background_push():
+    global _last_log_count
+    while True:
+        try:
+            with app.app_context():
+                stats = get_stats()
+                running, pid = is_bot_running()
+                env = load_env()
+                stats["bot_running"] = running
+                stats["bot_pid"]     = pid
+                stats["dry_run"]     = env.get("DRY_RUN", "true").lower() == "true"
+                socketio.emit("stats", stats)
+
+                state = load_json(STATE_FILE) or {}
+                open_count   = len(state.get("open_positions", []))
+                pending_count = len(state.get("pending_data") or {})
+                socketio.emit("position_counts", {"open": open_count, "pending": pending_count})
+
+                lines = get_log_lines(100)
+                if len(lines) != _last_log_count:
+                    _last_log_count = len(lines)
+                    socketio.emit("log", lines[-60:])
+        except Exception:
+            pass
+        time.sleep(5)
+
+
+@socketio.on("connect")
+def on_connect():
+    stats = get_stats()
+    running, pid = is_bot_running()
+    env = load_env()
+    stats["bot_running"] = running
+    stats["bot_pid"]     = pid
+    stats["dry_run"]     = env.get("DRY_RUN", "true").lower() == "true"
+    emit("stats", stats)
+    emit("log", get_log_lines(60))
+    mults, default = load_wallet_multipliers()
+    emit("multipliers", {"wallets": mults, "default": default})
+    emit("env", load_env())
+    if _current_balance.get("value") is not None:
+        emit("balance_update", {"balance": _current_balance["value"], "ts": _current_balance["ts"]})
+
+
+# ── Background watchdog ───────────────────────────────────────────────────────
 
 _push_thread: threading.Thread | None = None
 
 
 def _ensure_push_thread_running():
-    """Startet den background_push Thread neu falls er gestorben ist."""
     global _push_thread
     if _push_thread is None or not _push_thread.is_alive():
         _push_thread = threading.Thread(target=background_push, daemon=True)
         _push_thread.start()
-        print(f"[Dashboard] background_push Thread (neu)gestartet")
 
 
 def _watchdog():
-    """Überwacht background_push und startet ihn neu falls er stirbt."""
     while True:
         try:
             time.sleep(10)
@@ -372,9 +1031,8 @@ def _watchdog():
 
 _BANNER = """\
 =======================================================
-  KongTrade Bot Dashboard
+  KongTrade Bot Dashboard v2.0 — ULTIMATE
   http://localhost:5000
-  Netzwerk: http://0.0.0.0:5000
   Stoppen: Ctrl+C
 ======================================================="""
 
@@ -382,12 +1040,15 @@ MAX_RESTARTS = 20
 
 
 def _run_server():
-    socketio.run(app, host="0.0.0.0", port=5000, debug=False, allow_unsafe_werkzeug=True)
+    socketio.run(app, host="127.0.0.1", port=5000, debug=False, allow_unsafe_werkzeug=True)
 
 
 if __name__ == "__main__":
+    init_db()
     _ensure_push_thread_running()
     threading.Thread(target=_watchdog, daemon=True).start()
+    threading.Thread(target=_balance_updater_thread, daemon=True).start()
+    threading.Thread(target=_positions_updater_thread, daemon=True).start()
 
     print(_BANNER)
 
@@ -395,22 +1056,19 @@ if __name__ == "__main__":
     while restarts < MAX_RESTARTS:
         try:
             _run_server()
-            break  # Sauberer Exit (Ctrl+C)
+            break
         except KeyboardInterrupt:
             print("\n[Dashboard] Gestoppt.")
             break
         except OSError as e:
             if "Address already in use" in str(e) or "10048" in str(e):
-                print(f"[Dashboard] Port 5000 belegt — warte 10s und versuche erneut...")
+                print(f"[Dashboard] Port 5000 belegt — warte 10s...")
                 time.sleep(10)
             else:
                 restarts += 1
-                print(f"[Dashboard] Fehler: {e} — Neustart {restarts}/{MAX_RESTARTS} in 3s")
+                print(f"[Dashboard] Fehler: {e} — Neustart {restarts}/{MAX_RESTARTS}")
                 time.sleep(3)
         except Exception as e:
             restarts += 1
-            print(f"[Dashboard] Unerwarteter Fehler: {e} — Neustart {restarts}/{MAX_RESTARTS} in 3s")
+            print(f"[Dashboard] Unerwarteter Fehler: {e} — Neustart {restarts}/{MAX_RESTARTS}")
             time.sleep(3)
-
-    if restarts >= MAX_RESTARTS:
-        print(f"[Dashboard] {MAX_RESTARTS} Neustarts erreicht — beendet.")

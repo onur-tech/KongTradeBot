@@ -9,6 +9,7 @@ import asyncio
 import json
 import os
 import sys
+import aiohttp
 from datetime import datetime, timezone, date
 from collections import defaultdict
 
@@ -22,6 +23,7 @@ from utils.latency_monitor import record_fill, latency_report_loop
 from core.wallet_monitor import WalletMonitor
 from core.risk_manager import RiskManager
 from core.execution_engine import ExecutionEngine, OpenPosition
+from core.fill_tracker import FillTracker, PendingOrder
 from strategies.copy_trading import CopyTradingStrategy, CopyOrder
 from telegram_bot import (send, msg_trade, msg_status, msg_startup,
                            msg_shutdown, msg_morning_summary, msg_warning,
@@ -78,6 +80,12 @@ def restore_positions(engine):
         restored = 0
         for pos_data in positions_data:
             try:
+                closes_at = None
+                if pos_data.get("market_closes_at"):
+                    try:
+                        closes_at = datetime.fromisoformat(pos_data["market_closes_at"].replace("Z", "+00:00"))
+                    except Exception:
+                        pass
                 pos = OpenPosition(
                     order_id=str(pos_data.get("order_id", f"r_{restored}")),
                     market_id=str(pos_data.get("market_id", "")),
@@ -89,7 +97,13 @@ def restore_positions(engine):
                     shares=float(pos_data.get("shares", 0) or 0),
                     source_wallet=str(pos_data.get("source_wallet", "")),
                     tx_hash_entry=str(pos_data.get("tx_hash_entry", "")),
+                    market_closes_at=closes_at,
                 )
+                if pos_data.get("opened_at"):
+                    try:
+                        pos.opened_at = datetime.fromisoformat(pos_data["opened_at"].replace("Z", "+00:00"))
+                    except Exception:
+                        pass
                 engine.open_positions[pos.order_id] = pos
                 engine.stats["total_invested_usdc"] = float(engine.stats.get("total_invested_usdc", 0)) + pos.size_usdc
                 restored += 1
@@ -99,6 +113,53 @@ def restore_positions(engine):
         return restored
     except Exception as e:
         print(f"[RESTORE] Fehler: {e}", flush=True)
+        return 0
+
+
+async def recover_stale_positions(engine, config):
+    """
+    Beim Bot-Start: REST-API nach offenen Orders befragen und als pending wiederherstellen.
+    Verhindert verlorene Positionen nach Neustart wenn WebSocket-Events ausgeblieben sind.
+    """
+    if config.dry_run:
+        return 0
+    try:
+        url = f"{config.clob_host}/orders?maker_address={config.polymarket_address}&status=LIVE"
+        async with aiohttp.ClientSession() as session:
+            async with session.get(url, timeout=aiohttp.ClientTimeout(total=15)) as resp:
+                if resp.status != 200:
+                    return 0
+                data = await resp.json()
+                orders = data.get("data", []) if isinstance(data, dict) else (data if isinstance(data, list) else [])
+                recovered = 0
+                for order in orders:
+                    order_id = str(order.get("id") or order.get("order_id") or "")
+                    if not order_id:
+                        continue
+                    if order_id in engine.open_positions or order_id in engine._pending_data:
+                        continue
+                    price = float(order.get("price", 0) or 0)
+                    orig_size = float(order.get("original_size", 0) or 0)
+                    remaining = float(order.get("remaining_size", orig_size) or orig_size)
+                    engine._pending_data[order_id] = {
+                        "order_id": order_id,
+                        "market_id": str(order.get("market", order.get("condition_id", "")) or ""),
+                        "token_id": str(order.get("token_id", order.get("asset_id", "")) or ""),
+                        "outcome": str(order.get("outcome", order.get("side", "")) or ""),
+                        "market_question": str(order.get("question", order.get("market", "Recovered Order")) or "Recovered Order")[:80],
+                        "entry_price": price,
+                        "size_usdc": round(orig_size * price, 4),
+                        "shares": remaining,
+                        "market_closes_at": None,
+                        "source_wallet": "",
+                        "tx_hash_entry": "",
+                    }
+                    recovered += 1
+                if recovered > 0:
+                    print(f"[RECOVER] {recovered} stale Orders aus Polymarket REST wiederhergestellt", flush=True)
+                return recovered
+    except Exception as e:
+        print(f"[RECOVER] Stale-Recovery fehlgeschlagen: {e}", flush=True)
         return 0
 
 
@@ -118,6 +179,7 @@ def save_positions(engine, monitor, strategy):
                 "source_wallet":   getattr(pos, "source_wallet", ""),
                 "tx_hash_entry":   getattr(pos, "tx_hash_entry", ""),
                 "opened_at":       pos.opened_at.isoformat() if hasattr(pos, "opened_at") and pos.opened_at else datetime.now().isoformat(),
+                "market_closes_at": pos.market_closes_at.isoformat() if hasattr(pos, "market_closes_at") and pos.market_closes_at else None,
             })
         state = {
             "version":         "1.6",
@@ -295,10 +357,16 @@ async def main():
 
     load_state(engine, monitor)
     restored = restore_positions(engine)
+    stale = await recover_stale_positions(engine, config)
 
     await send(msg_startup(len(config.target_wallets), config.portfolio_budget_usd, config.dry_run))
-    if restored > 0:
-        await send(f"♻️ <b>{restored} Positionen</b> aus letzter Session wiederhergestellt.")
+    if restored > 0 or stale > 0:
+        msg_parts = []
+        if restored > 0:
+            msg_parts.append(f"{restored} Positionen aus State")
+        if stale > 0:
+            msg_parts.append(f"{stale} stale Orders aus REST-API")
+        await send(f"♻️ <b>Wiederhergestellt:</b> {', '.join(msg_parts)}")
 
     async def on_copy_order(order: CopyOrder):
         positions = engine.get_open_positions_summary()
@@ -485,6 +553,14 @@ async def main():
                     logger.warning(f"Heartbeat write failed: {e}")
                 await asyncio.sleep(interval)
 
+        # FillTracker: WebSocket-basiertes Fill-Tracking (verhindert Phantom-Positionen)
+        fill_tracker = FillTracker(config)
+        fill_tracker.register_callbacks(
+            on_matched=engine.on_order_matched,
+            on_failed=engine.on_order_failed,
+            on_cancelled=engine.on_order_cancelled,
+        )
+
         tasks = [
             asyncio.create_task(monitor.start()),
             asyncio.create_task(status_reporter(strategy, risk, engine, config, args.status_interval)),
@@ -494,6 +570,7 @@ async def main():
             asyncio.create_task(scout_loop(config)),
             asyncio.create_task(latency_report_loop()),
             asyncio.create_task(heartbeat_loop()),
+            asyncio.create_task(fill_tracker.run()),
             asyncio.create_task(poll_commands(
                 callback_status=send_status_now,
                 callback_resolve=check_resolved_markets_and_notify,

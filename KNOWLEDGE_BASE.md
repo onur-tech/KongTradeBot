@@ -564,6 +564,30 @@ Ergebnis: EUR/USD-Kurs fällt auf Fallback 0.92 — zu niedrig
 
 ---
 
+## P039 — Wallet-Scout Decay-Detection via SQLite-Zeitreihe
+
+**Status:** IMPLEMENTIERT (2026-04-18)
+
+**Problem:**
+`wallet_scout.py` sendet nach jedem Scan nur einen Telegram-Report.
+Keine persistente Geschichte → keine Trend-Erkennung, kein Decay-Vergleich
+über mehrere Tage, kein "neue Einsteiger"-Tracking moeglich.
+
+**Fix:**
+- SQLite DB `data/wallet_scout.db` (Tabelle `wallet_scout_daily`)
+- PRIMARY KEY (scan_date, wallet_address, source) → idempotent, taeglich ueberschreibbar
+- `utils/wallet_trends.py`: Trend-Funktionen (get_wallet_trend,
+  get_decay_candidates, get_new_entries, get_rising_stars, get_top_stable)
+- `scripts/weekly_wallet_report.py` + systemd Timer (So 20:00 Berlin)
+- Dashboard `/api/wallet_trends` Endpoint fuer spaetere Chart-Integration
+- DB wird beim ersten Scan automatisch angelegt (mkdir -p + CREATE IF NOT EXISTS)
+
+**Hinweis:**
+Erste echte Trends sind nach 7-14 Scan-Tagen sichtbar.
+Heute startet die Zeitreihe bei null.
+
+---
+
 ## P038 — "Schließt in"-Spalte zeigt "—" für alle offenen Positionen
 
 **Status:** BEHOBEN (2026-04-18)

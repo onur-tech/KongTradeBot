@@ -17,8 +17,10 @@ import asyncio
 import json
 import os
 import re
+import sqlite3
 from dataclasses import dataclass
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
+from pathlib import Path
 from typing import Dict, List, Optional
 
 try:
@@ -32,7 +34,75 @@ from utils.logger import get_logger
 
 logger = get_logger("wallet_scout")
 
-LEADERBOARD_URL = "https://polymonit.com/leaderboard"
+LEADERBOARD_URL  = "https://polymonit.com/leaderboard"
+SCOUT_DB_FILE    = os.getenv("WALLET_SCOUT_DB", "data/wallet_scout.db")
+
+
+# ── SQLite Init ───────────────────────────────────────────────────────────────
+
+def _init_scout_db(db_path: str = SCOUT_DB_FILE) -> None:
+    """Legt DB und Tabellen an falls nicht vorhanden. Idempotent."""
+    Path(db_path).parent.mkdir(parents=True, exist_ok=True)
+    with sqlite3.connect(db_path) as c:
+        c.executescript("""
+            CREATE TABLE IF NOT EXISTS wallet_scout_daily (
+                scan_date       TEXT NOT NULL,
+                scan_timestamp  TEXT NOT NULL,
+                wallet_address  TEXT NOT NULL,
+                alias           TEXT,
+                rank            INTEGER,
+                win_rate        REAL,
+                roi_pct         REAL,
+                volume_usd      REAL,
+                pnl_usd         REAL,
+                source          TEXT NOT NULL,
+                notes           TEXT,
+                PRIMARY KEY (scan_date, wallet_address, source)
+            );
+            CREATE INDEX IF NOT EXISTS idx_wallet_date
+                ON wallet_scout_daily(wallet_address, scan_date);
+            CREATE INDEX IF NOT EXISTS idx_source_date
+                ON wallet_scout_daily(source, scan_date);
+        """)
+
+
+def _save_scan_results(
+    wallets: List, source: str = "polymonit", db_path: str = SCOUT_DB_FILE
+) -> int:
+    """
+    Schreibt Scan-Ergebnisse in SQLite. INSERT OR REPLACE (idempotent pro Tag).
+    Gibt Anzahl gespeicherter Rows zurück.
+    """
+    _init_scout_db(db_path)
+    now_utc    = datetime.now(timezone.utc)
+    scan_date  = now_utc.strftime("%Y-%m-%d")
+    scan_ts    = now_utc.strftime("%Y-%m-%dT%H:%M:%SZ")
+    saved = 0
+    try:
+        with sqlite3.connect(db_path) as c:
+            for rank, w in enumerate(wallets, start=1):
+                c.execute(
+                    """INSERT OR REPLACE INTO wallet_scout_daily
+                       (scan_date, scan_timestamp, wallet_address, alias,
+                        rank, win_rate, roi_pct, volume_usd, pnl_usd, source, notes)
+                       VALUES (?,?,?,?,?,?,?,?,?,?,?)""",
+                    (
+                        scan_date, scan_ts,
+                        w.address.lower(), w.name,
+                        rank,
+                        round(w.win_rate, 4) if w.win_rate else None,
+                        None,   # roi_pct — nicht von polymonit verfügbar
+                        None,   # volume_usd — nicht verfügbar
+                        round(w.profit_usd, 2) if w.profit_usd else None,
+                        source,
+                        None,
+                    ),
+                )
+                saved += 1
+        logger.info(f"Scout DB: {saved} Wallets für {scan_date} ({source}) gespeichert")
+    except Exception as e:
+        logger.error(f"Scout DB Schreib-Fehler: {e}")
+    return saved
 
 # ── Wallet Decay Tracker ──────────────────────────────────────────────────────
 
@@ -504,6 +574,11 @@ async def _run_scout(config):
         logger.warning("WalletScout: Keine Wallet-Daten gescrapt — überspringe")
         return
 
+    # ── SQLite Historisierung ────────────────────────────────────────────────
+    await loop.run_in_executor(
+        None, lambda: _save_scan_results(scraped, source="polymonit")
+    )
+
     new_wallets = find_new_top_wallets(
         scraped=scraped,
         known_addresses=config.target_wallets,
@@ -516,7 +591,6 @@ async def _run_scout(config):
 
     logger.info(f"WalletScout: {len(new_wallets)} neue Top-Wallet(s) gefunden!")
 
-    # Telegram-Import hier um zirkuläre Imports zu vermeiden
     from telegram_bot import send
     for wallet in new_wallets:
         logger.info(f"  → {wallet}")

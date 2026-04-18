@@ -1,0 +1,9 @@
+[Unit]
+Description=KongTradeBot Weekly Wallet Scout Report Timer
+
+[Timer]
+OnCalendar=Sun *-*-* 20:00:00 Europe/Berlin
+Persistent=true
+
+[Install]
+WantedBy=timers.target

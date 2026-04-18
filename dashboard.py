@@ -1098,6 +1098,40 @@ def api_action():
     return jsonify({"ok": False, "message": "Unbekannte Aktion"})
 
 
+@app.route("/api/wallet_trends")
+def api_wallet_trends():
+    """
+    Gibt Wallet-Scout-Zeitreihe zurück.
+    ?wallet=0x...  → Trend-History für eine Wallet
+    ?report=1      → Weekly-Summary (new, decay, stars, stable)
+    """
+    try:
+        from utils.wallet_trends import (
+            get_wallet_trend, get_new_entries,
+            get_decay_candidates, get_rising_stars, get_top_stable
+        )
+    except Exception as e:
+        return _cors(jsonify({"error": f"wallet_trends nicht verfügbar: {e}"}))
+
+    source = request.args.get("source", "polymonit")
+    days   = int(request.args.get("days", "14"))
+    wallet = request.args.get("wallet", "")
+
+    if wallet:
+        trend = get_wallet_trend(wallet, days=days)
+        return _cors(jsonify({"wallet": wallet, "days": days, "trend": trend}))
+
+    # Summary-Report
+    return _cors(jsonify({
+        "source":     source,
+        "days":       days,
+        "new":        get_new_entries(source, days=days),
+        "decay":      get_decay_candidates(source, days=days),
+        "rising":     get_rising_stars(source, days=days),
+        "stable_top5": get_top_stable(source, days=days),
+    }))
+
+
 # ── WebSocket Push ─────────────────────────────────────────────────────────────
 
 _last_log_count = 0

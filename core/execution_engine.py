@@ -25,8 +25,10 @@ WICHTIG:
 
 import asyncio
 import time
+import math
+import aiohttp
 from dataclasses import dataclass, field
-from typing import Optional, Dict, List
+from typing import Optional, Dict, List, Tuple
 from datetime import datetime, timezone
 
 from utils.logger import get_logger
@@ -38,13 +40,16 @@ logger = get_logger("execution")
 # py-clob-client Import — optional, damit Tests ohne Installation laufen
 try:
     from py_clob_client.client import ClobClient
-    from py_clob_client.clob_types import OrderArgs, OrderType
+    from py_clob_client.clob_types import OrderArgs, OrderType, BalanceAllowanceParams
     from py_clob_client.order_builder.constants import BUY
     CLOB_AVAILABLE = True
 except ImportError:
     CLOB_AVAILABLE = False
+    BalanceAllowanceParams = None
     logger.warning("py-clob-client nicht installiert. Nur Dry-Run möglich.")
     logger.warning("Installation: pip install py-clob-client")
+
+MARKET_INFO_CACHE_TTL = 60  # Sekunden — Orderbook-Daten cachen
 
 
 @dataclass
@@ -114,14 +119,22 @@ class ExecutionEngine:
         self._geoblock_until: float = 0.0
         self._GEOBLOCK_COOLDOWN = 120  # Sekunden Pause nach GeoBlock
 
-        # Offene Positionen tracken
-        self.open_positions: Dict[str, OpenPosition] = {}  # order_id → Position
+        # Orderbook-Info-Cache: token_id → (timestamp, min_order_size, tick_size, neg_risk)
+        self._market_info_cache: Dict[str, Tuple[float, float, float, bool]] = {}
+
+        # Offene Positionen: order_id → Position (nur CONFIRMED/MATCHED)
+        self.open_positions: Dict[str, OpenPosition] = {}
+
+        # Pending Orders: submitted aber noch nicht von Polymarket bestätigt
+        # FillTracker promoted diese nach open_positions oder löscht sie bei Ablehnung
+        self._pending_data: Dict[str, dict] = {}  # order_id → Position-Konstrukt-Daten
 
         # Statistik
         self.stats = {
             "orders_attempted": 0,
             "orders_filled": 0,
             "orders_failed": 0,
+            "orders_pending": 0,
             "dry_run_orders": 0,
             "total_invested_usdc": 0.0,
         }
@@ -159,6 +172,7 @@ class ExecutionEngine:
                 chain_id=self.config.chain_id,
                 key=self.config.private_key,
                 funder=funder,  # Proxy-Wallet-Adresse (KRITISCH für Polymarket)
+                signature_type=1,  # Magic-Link Account (0 = MetaMask/EOA, 1 = Magic-Link)
             )
 
             # KRITISCH: API Credentials ableiten und setzen
@@ -263,24 +277,40 @@ class ExecutionEngine:
 
         MAX_RETRIES = 3
         try:
+            # Dynamischer Pre-Submit-Check via Orderbook-API (gecacht 60s)
+            min_size, tick_size_f, neg_risk = await self._get_market_info(signal.token_id)
+
+            if order.size_usdc < min_size:
+                logger.info(
+                    f"⏭️  Order übersprungen (unter Minimum): "
+                    f"${order.size_usdc:.2f} < ${min_size:.2f} | {signal.market_question[:50]}"
+                )
+                self.stats["orders_failed"] += 1
+                return ExecutionResult(
+                    success=False,
+                    error=f"Size ${order.size_usdc:.2f} unter Minimum ${min_size:.2f}"
+                )
+
+            # Preis auf gültigen Tick runden
+            price = self._round_to_tick(signal.price, tick_size_f)
+            if price != signal.price:
+                logger.debug(f"Preis gerundet: {signal.price:.4f} → {price:.4f} (tick={tick_size_f})")
+
             logger.info(
                 f"🔴 LIVE ORDER:\n"
                 f"  Markt: {signal.market_question[:60]}\n"
-                f"  {signal.outcome} @ ${signal.price:.4f} | ${order.size_usdc:.2f} USDC"
+                f"  {signal.outcome} @ ${price:.4f} | ${order.size_usdc:.2f} USDC"
+                + (" [NEGRISK]" if neg_risk else "")
             )
-
-            # Tick Size für diesen Markt holen
-            tick_size = await self._get_tick_size(signal.token_id)
-            logger.debug(f"DEBUG: tick_size={tick_size}")
 
             # Order platzieren — create_and_post_order in einem Call
             # LEKTION: NICHT create_order() dann post_order() separat!
             # Das führt zu Ghost Trades wenn zwischen den zwei Calls ein Fehler passiert.
             # LEKTION: OrderArgs-Objekt verwenden, NICHT plain dict!
-            shares = order.size_usdc / signal.price
+            shares = order.size_usdc / price if price > 0 else 0
             order_args = OrderArgs(
                 token_id=signal.token_id,
-                price=signal.price,
+                price=price,
                 size=shares,
                 side=BUY,
             )
@@ -319,43 +349,44 @@ class ExecutionEngine:
                         raise
             logger.debug(f"DEBUG: API response: {response!r}")
 
+            # API-Fehler-Check: Nur bei gültigem Status ("matched"/"resting") als Position tracken
+            # Sonst entstehen Phantom-Positionen für abgelehnte Orders
+            api_error = response.get("error") or response.get("errorMessage")
+            order_status = response.get("status", "")
+            has_valid_id = bool(response.get("orderID") or response.get("id"))
+
+            if api_error or (not has_valid_id and order_status not in ("matched", "resting", "")):
+                reason = api_error or f"Unbekannter Status: {order_status}"
+                logger.warning(f"⚠️  Polymarket hat Order abgelehnt: {reason}")
+                self.stats["orders_failed"] += 1
+                return ExecutionResult(success=False, error=f"API Ablehnung: {reason}")
+
             order_id = response.get("orderID") or response.get("id", "unknown")
             logger.debug(f"DEBUG: Order ID returned: {order_id}")
             logger.info(f"Order gesendet | ID: {order_id}")
 
-            # KRITISCH: On-Chain Verifikation
-            # LEKTION: API-Response NICHT blind vertrauen — immer on-chain checken!
-            await asyncio.sleep(0.5)  # 500ms warten — API braucht Zeit zum Sync
-            verified = await self._verify_order_onchain(order_id, signal.token_id)
-
-            if not verified:
-                logger.warning(f"⚠️  Order {order_id} nicht on-chain verifiziert!")
-                # Trotzdem als Position tracken — könnte noch gefillt werden
-            else:
-                logger.info(f"✅ Order on-chain verifiziert: {order_id}")
-
-            # Position tracken
-            position = OpenPosition(
-                order_id=order_id,
-                market_id=signal.market_id,
-                token_id=signal.token_id,
-                outcome=signal.outcome,
-                market_question=signal.market_question,
-                entry_price=signal.price,
-                size_usdc=order.size_usdc,
-                shares=order.size_usdc / signal.price if signal.price > 0 else 0,
-                market_closes_at=signal.market_closes_at,
-                source_wallet=signal.source_wallet,
-                tx_hash_entry=signal.tx_hash,
-            )
-            self.open_positions[order_id] = position
-            self.stats["orders_filled"] += 1
-            self.stats["total_invested_usdc"] += order.size_usdc
+            # Order in pending_data ablegen — FillTracker bestätigt via WebSocket
+            # NICHT sofort in open_positions! Verhindert Phantom-Positionen.
+            self._pending_data[order_id] = {
+                "order_id": order_id,
+                "market_id": signal.market_id,
+                "token_id": signal.token_id,
+                "outcome": signal.outcome,
+                "market_question": signal.market_question,
+                "entry_price": price,
+                "size_usdc": order.size_usdc,
+                "shares": order.size_usdc / price if price > 0 else 0,
+                "market_closes_at": signal.market_closes_at,
+                "source_wallet": signal.source_wallet,
+                "tx_hash_entry": signal.tx_hash,
+            }
+            self.stats["orders_pending"] += 1
+            logger.info(f"⏳ Order pending (wartet auf WebSocket-Bestätigung): {order_id[:12]}...")
 
             return ExecutionResult(
                 success=True,
                 order_id=order_id,
-                filled_price=signal.price,
+                filled_price=price,
                 filled_size_usdc=order.size_usdc,
                 dry_run=False,
             )
@@ -390,22 +421,44 @@ class ExecutionEngine:
 
             return ExecutionResult(success=False, error=error_msg)
 
-    async def _get_tick_size(self, token_id: str) -> str:
+    async def _get_market_info(self, token_id: str) -> Tuple[float, float, bool]:
         """
-        Holt die Tick Size für einen Markt.
+        Holt min_order_size, tick_size und neg_risk vom Orderbook-Endpoint.
+        Gecacht für MARKET_INFO_CACHE_TTL Sekunden pro token_id.
+        Gibt (min_order_size, tick_size_float, neg_risk) zurück.
+        """
+        cached = self._market_info_cache.get(token_id)
+        if cached and (time.time() - cached[0]) < MARKET_INFO_CACHE_TTL:
+            return cached[1], cached[2], cached[3]
 
-        LEKTION: Falsche Tick Size → 'ceiling price too tight' Fehler
-        → Order wird abgelehnt obwohl Liquidität vorhanden ist.
-        """
         try:
-            loop = asyncio.get_event_loop()
-            market_info = await asyncio.wait_for(
-                loop.run_in_executor(None, self._client.get_market, token_id),
-                timeout=10.0,
-            )
-            return str(market_info.get("minimum_tick_size", "0.01"))
-        except Exception:
-            return "0.01"  # Safe Default
+            url = f"{self.config.clob_host}/book?token_id={token_id}"
+            async with aiohttp.ClientSession() as session:
+                async with session.get(url, timeout=aiohttp.ClientTimeout(total=8)) as resp:
+                    if resp.status == 200:
+                        data = await resp.json()
+                        min_size = float(data.get("min_order_size", 5.0))
+                        tick_size = float(data.get("tick_size", 0.01))
+                        neg_risk = bool(data.get("neg_risk", False))
+                        self._market_info_cache[token_id] = (time.time(), min_size, tick_size, neg_risk)
+                        return min_size, tick_size, neg_risk
+        except Exception as e:
+            logger.debug(f"Orderbook-Fetch fehlgeschlagen für {token_id[:12]}: {e}")
+
+        return 5.0, 0.01, False  # Safe defaults
+
+    @staticmethod
+    def _round_to_tick(price: float, tick_size: float) -> float:
+        """Rundet Preis auf nächsten gültigen Tick ab."""
+        if tick_size <= 0:
+            return price
+        rounded = math.floor(price / tick_size) * tick_size
+        return round(rounded, 6)
+
+    async def _get_tick_size(self, token_id: str) -> str:
+        """Holt Tick Size — delegiert an _get_market_info (gecacht)."""
+        _, tick_size, _ = await self._get_market_info(token_id)
+        return str(tick_size)
 
     async def _verify_order_onchain(self, order_id: str, token_id: str) -> bool:
         """
@@ -414,20 +467,29 @@ class ExecutionEngine:
         LEKTION: API sagt manchmal 'kein Fill' obwohl on-chain gefüllt wurde.
         Immer direkt on-chain prüfen!
         """
+        # T-010: leere token_id → API 400 "assetAddress invalid hex address"
+        if not token_id or token_id.strip() in ("", "0x", "0x0"):
+            logger.warning(f"_verify_order_onchain: token_id leer für {order_id[:12]}... — übersprungen")
+            return False
         try:
             # LEKTION: get_balance_allowance() lesen (READ-ONLY)
             # NIEMALS update_balance_allowance() aufrufen nach einem Fill!
             # Das überschreibt den internen CLOB-State!
             loop = asyncio.get_event_loop()
-            balance = await asyncio.wait_for(
-                loop.run_in_executor(
-                    None,
-                    lambda: self._client.get_balance_allowance(
-                        params={"asset_type": "CONDITIONAL", "token_id": token_id}
-                    )
-                ),
-                timeout=10.0,
-            )
+            if BalanceAllowanceParams is not None:
+                params = BalanceAllowanceParams(asset_type="CONDITIONAL", token_id=token_id)
+                balance = await asyncio.wait_for(
+                    loop.run_in_executor(
+                        None,
+                        lambda: self._client.get_balance_allowance(params=params)
+                    ),
+                    timeout=10.0,
+                )
+            else:
+                balance = await asyncio.wait_for(
+                    loop.run_in_executor(None, self._client.get_balance_allowance),
+                    timeout=10.0,
+                )
             # Wenn Balance > 0, haben wir Tokens erhalten → Order war erfolgreich
             holdings = float(balance.get("balance", 0) or 0)
             return holdings > 0
@@ -438,9 +500,13 @@ class ExecutionEngine:
     async def _check_balance(self):
         """Prüft USDC Balance beim Start."""
         try:
-            balance = self._client.get_balance_allowance(
-                params={"asset_type": "USDC"}
-            )
+            # BalanceAllowanceParams verwenden statt plain dict —
+            # dict führt zu 'dict has no attribute signature_type' im py-clob-client
+            if BalanceAllowanceParams is not None:
+                params = BalanceAllowanceParams(asset_type="USDC")
+                balance = self._client.get_balance_allowance(params=params)
+            else:
+                balance = self._client.get_balance_allowance()
             usdc = float(balance.get("balance", 0) or 0)
             logger.info(f"💰 USDC Balance: ${usdc:.2f}")
 
@@ -448,6 +514,58 @@ class ExecutionEngine:
                 logger.warning(f"⚠️  Wenig USDC! Balance: ${usdc:.2f}")
         except Exception as e:
             logger.warning(f"Balance-Check fehlgeschlagen: {e}")
+
+    # --- FillTracker Callbacks ---
+
+    async def on_order_matched(self, order_id: str):
+        """FillTracker ruft dies bei MATCHED/CONFIRMED auf → Position in open_positions promoten."""
+        data = self._pending_data.pop(order_id, None)
+        if data is None:
+            return
+        position = OpenPosition(
+            order_id=data["order_id"],
+            market_id=data["market_id"],
+            token_id=data["token_id"],
+            outcome=data["outcome"],
+            market_question=data["market_question"],
+            entry_price=data["entry_price"],
+            size_usdc=data["size_usdc"],
+            shares=data["shares"],
+            market_closes_at=data["market_closes_at"],
+            source_wallet=data["source_wallet"],
+            tx_hash_entry=data["tx_hash_entry"],
+        )
+        self.open_positions[order_id] = position
+        self.stats["orders_filled"] += 1
+        self.stats["orders_pending"] = max(0, self.stats["orders_pending"] - 1)
+        self.stats["total_invested_usdc"] += data["size_usdc"]
+        logger.info(
+            f"✅ CONFIRMED: {data['outcome']} @ ${data['entry_price']:.4f} | "
+            f"${data['size_usdc']:.2f} | {data['market_question'][:50]}"
+        )
+
+    async def on_order_failed(self, order_id: str):
+        """FillTracker ruft dies bei FAILED/abgelehnter Order auf."""
+        data = self._pending_data.pop(order_id, None)
+        if data is None:
+            return
+        self.stats["orders_failed"] += 1
+        self.stats["orders_pending"] = max(0, self.stats["orders_pending"] - 1)
+        logger.warning(
+            f"❌ Order ABGELEHNT: {data['outcome']} @ ${data['entry_price']:.4f} | "
+            f"${data['size_usdc']:.2f} | {data['market_question'][:50]}"
+        )
+
+    async def on_order_cancelled(self, order_id: str):
+        """FillTracker ruft dies bei CANCELLATION auf."""
+        # Aus pending oder open entfernen
+        if order_id in self._pending_data:
+            data = self._pending_data.pop(order_id)
+            self.stats["orders_pending"] = max(0, self.stats["orders_pending"] - 1)
+            logger.info(f"🚫 Pending Order gecancelt: {order_id[:12]}...")
+        elif order_id in self.open_positions:
+            pos = self.open_positions.pop(order_id)
+            logger.info(f"🚫 Position gecancelt: {pos.outcome} | ${pos.size_usdc:.2f}")
 
     def get_open_positions_summary(self) -> List[dict]:
         """Gibt eine Zusammenfassung aller offenen Positionen zurück."""

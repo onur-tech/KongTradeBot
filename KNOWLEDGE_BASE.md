@@ -457,4 +457,47 @@ Belastung relativ zum Trade-Volumen, viele False-Positive-Signale
   Log: "Micro-Trade geskipped: $X.XX < MIN_TRADE_SIZE $0.50"
 - Beide Werte via .env konfigurierbar fuer spaeteres Tuning.
 
+---
+
+## P033 — Steuer-Archiv: tx_hash fehlte in CSV-Export
+
+**Status:** BEHOBEN (2026-04-18)
+
+**Problem:**
+`log_trade()` hat `tx_hash` als Parameter akzeptiert, aber `main.py`
+hat diesen Parameter nie befuellt — er blieb stets leer string "".
+Im CSV-Export fehlte die TX-Hash-Spalte komplett.
+
+**Root-Cause:**
+`result.order_id` (aus `ExecutionResult`) war nach erfolgreicher Order
+vorhanden, wurde aber nie an `log_trade()` weitergegeben.
+Polymarket liefert keinen separaten `transactionHash` im CLOB-Response —
+der `order_id` ist die naechstbeste Referenz bis der Fill bestaetigt wird.
+
+**Fix:**
+- `main.py`: nach `result.success`, `_tx_hash = f"pending_{result.order_id}"`
+  an `log_trade(tx_hash=_tx_hash)` uebergeben. Prefix "pending_" signalisiert
+  dass der Blockchain-TX noch nicht bestaetigt ist.
+- `tax_archive.py`: `"TX-Hash"` Spalte in deutschen CSV-Export eingefuegt
+  (nach Uhrzeit-Spalte). Wert im Archiv nachtraeglich updatebar via `resolve_trade()`.
+
+---
+
+## P034 — Silent Auto-Claim-Errors: Fehler wurden nur geloggt, kein Telegram-Alert
+
+**Status:** BEHOBEN (2026-04-18)
+
+**Problem:**
+Wenn `redeem_position()` scheiterte (z.B. RPC-Timeout, CLOB-Auth-Fehler),
+wurde der Fehler nur ins Server-Log geschrieben. Brrudi sah nichts —
+Positionen blieben unclaimed bis zum naechsten Loop-Durchlauf.
+
+**Fix:**
+- `redeem_position()` gibt jetzt `(bool, str)` zurueck statt nur `bool`.
+- `claim_all()` sammelt alle fehlgeschlagenen Positionen in `failed_positions`.
+- `claim_loop()` ruft `_send_claim_error_alert(condition_id, error_msg)` pro Fehler.
+- Rate-Limit: `CLAIM_ERROR_ALERT_COOLDOWN_S=3600` (env-konfigurierbar) —
+  pro `condition_id` max 1 Telegram-Alert pro Stunde.
+- Alert-Format: "⚠️ Auto-Claim Fehler: <error> (Position: <cid_short>, Zeit: <utc>)"
+
 **Status:** DEPLOYED (2026-04-18)

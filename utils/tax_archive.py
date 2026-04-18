@@ -176,7 +176,7 @@ def export_tax_csv(year: Optional[int] = None) -> str:
     with open(filename, 'w', newline='', encoding='utf-8-sig') as f:
         writer = csv.writer(f, delimiter=';')
         writer.writerow([
-            "ID", "Datum", "Uhrzeit", "Markt", "Market-ID", "Outcome", "Seite",
+            "ID", "Datum", "Uhrzeit", "TX-Hash", "Markt", "Market-ID", "Outcome", "Seite",
             "Preis (USDC)", "Einsatz (USDC)", "Einsatz (EUR)", "Shares",
             "EUR/USD Kurs", "Kursquelle",
             "Gewinn/Verlust (USDC)", "Gewinn/Verlust (EUR)",
@@ -200,6 +200,7 @@ def export_tax_csv(year: Optional[int] = None) -> str:
                 t.get("id", ""),
                 date,
                 t.get("uhrzeit", ""),
+                t.get("tx_hash", ""),
                 t.get("markt", ""),
                 t.get("market_id", ""),
                 t.get("outcome", ""),

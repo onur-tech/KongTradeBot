@@ -619,6 +619,8 @@ async def main():
             market_id = str(getattr(sig, "market_id", "") or "")
             token_id  = str(getattr(sig, "token_id", "")  or "")
 
+            _order_id = str(result.order_id or "")
+            _tx_hash  = f"pending_{_order_id}" if _order_id else ""
             log_trade(
                 market_question=str(getattr(sig, "market_question", "Unknown") or "Unknown")[:100],
                 outcome=str(getattr(sig, "outcome", "")),
@@ -627,6 +629,7 @@ async def main():
                 size_usdc=float(getattr(order, "size_usdc", 0) or 0),
                 shares=float(getattr(order, "size_usdc", 0) or 0) / max(float(getattr(sig, "price", 1) or 1), 0.0001),
                 source_wallet=str(getattr(sig, "source_wallet", "")),
+                tx_hash=_tx_hash,
                 category=cat,
                 is_dry_run=config.dry_run,
                 market_id=market_id,

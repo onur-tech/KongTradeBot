@@ -13,6 +13,7 @@ import asyncio
 import argparse
 import os
 import sys
+import time
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
@@ -22,8 +23,12 @@ from utils.config import Config
 
 logger = get_logger("claim")
 
-POLYMARKET_DATA_API = "https://data-api.polymarket.com"
-AUTO_CLAIM_INTERVAL_S = int(os.getenv("AUTO_CLAIM_INTERVAL_S", "300"))
+POLYMARKET_DATA_API       = "https://data-api.polymarket.com"
+AUTO_CLAIM_INTERVAL_S     = int(os.getenv("AUTO_CLAIM_INTERVAL_S", "300"))
+CLAIM_ERROR_COOLDOWN_S    = int(os.getenv("CLAIM_ERROR_ALERT_COOLDOWN_S", "3600"))
+
+# Rate-limit: condition_id → last alerted timestamp
+_claim_error_alerted: dict = {}
 
 
 def is_claimable(pos: dict) -> bool:
@@ -56,8 +61,8 @@ async def fetch_redeemable_positions(proxy_address: str) -> list:
         return []
 
 
-async def redeem_position(config: Config, position: dict, dry_run: bool = False) -> bool:
-    """Löst eine einzelne Position ein."""
+async def redeem_position(config: Config, position: dict, dry_run: bool = False) -> tuple:
+    """Löst eine einzelne Position ein. Gibt (success: bool, error_msg: str) zurück."""
     try:
         from py_clob_client.client import ClobClient
 
@@ -67,12 +72,13 @@ async def redeem_position(config: Config, position: dict, dry_run: bool = False)
         outcome = str(position.get("outcome") or "?")
 
         if not condition_id:
-            logger.warning(f"Kein conditionId für Position: {outcome}")
-            return False
+            msg = f"Kein conditionId für Position: {outcome}"
+            logger.warning(msg)
+            return False, msg
 
         if dry_run:
             logger.info(f"[DRY] Würde einlösen: {outcome} | ${cur_value:.2f}")
-            return True
+            return True, ""
 
         client = ClobClient(
             host=getattr(config, 'clob_host', 'https://clob.polymarket.com'),
@@ -83,14 +89,14 @@ async def redeem_position(config: Config, position: dict, dry_run: bool = False)
         )
         client.set_api_creds(client.derive_api_key())
 
-        # redeem() takes condition_id
         result = client.redeem(condition_id)
         logger.info(f"✅ Eingelöst: {outcome} | ${cur_value:.2f} | tx={str(result)[:20]}")
-        return True
+        return True, ""
 
     except Exception as e:
-        logger.error(f"redeem fehlgeschlagen für {position.get('outcome','?')}: {e}")
-        return False
+        msg = str(e)
+        logger.error(f"redeem fehlgeschlagen für {position.get('outcome','?')}: {msg}")
+        return False, msg
 
 
 async def claim_all(config: Config, dry_run: bool = False) -> dict:
@@ -115,21 +121,46 @@ async def claim_all(config: Config, dry_run: bool = False) -> dict:
     claimed = 0
     errors = 0
     claimed_usdc = 0.0
+    failed_positions = []  # [{condition_id, error_msg}]
 
     for pos in redeemable:
-        success = await redeem_position(config, pos, dry_run=dry_run)
+        condition_id = str(pos.get("conditionId") or pos.get("market") or "")
+        success, error_msg = await redeem_position(config, pos, dry_run=dry_run)
         if success:
             claimed += 1
             claimed_usdc += float(pos.get("currentValue") or 0)
         else:
             errors += 1
+            failed_positions.append({"condition_id": condition_id, "error": error_msg})
         # Small delay between redemptions
         await asyncio.sleep(1.0)
 
     if not dry_run and claimed > 0:
         logger.info(f"✅ Claim abgeschlossen: {claimed}/{len(redeemable)} | ${claimed_usdc:.2f} zurück in Balance")
 
-    return {"claimed": claimed, "total_usdc": claimed_usdc, "errors": errors}
+    return {"claimed": claimed, "total_usdc": claimed_usdc, "errors": errors, "failed_positions": failed_positions}
+
+
+async def _send_claim_error_alert(condition_id: str, error_msg: str) -> None:
+    """Sendet Telegram-Alert für Claim-Fehler mit 1h Rate-Limit pro condition_id."""
+    now = time.time()
+    last = _claim_error_alerted.get(condition_id, 0)
+    if now - last < CLAIM_ERROR_COOLDOWN_S:
+        return
+    _claim_error_alerted[condition_id] = now
+    cid_short = condition_id[:12] if condition_id else "?"
+    from datetime import datetime, timezone
+    ts_utc = datetime.now(timezone.utc).strftime("%H:%M UTC")
+    try:
+        from telegram_bot import send
+        await send(
+            f"⚠️ <b>Auto-Claim Fehler</b>\n"
+            f"📌 Position: <code>{cid_short}...</code>\n"
+            f"🔴 Fehler: <code>{error_msg[:200]}</code>\n"
+            f"🕐 {ts_utc}"
+        )
+    except Exception:
+        pass
 
 
 async def claim_loop(config: Config, interval_s: int = AUTO_CLAIM_INTERVAL_S):
@@ -143,12 +174,13 @@ async def claim_loop(config: Config, interval_s: int = AUTO_CLAIM_INTERVAL_S):
             result = await claim_all(config, dry_run=False)
             if result["claimed"] > 0:
                 logger.info(f"💰 AutoClaim: ${result['total_usdc']:.2f} eingelöst ({result['claimed']} Positionen)")
-                # Telegram-Notification
                 try:
                     from telegram_bot import send
                     await send(f"💰 Auto-Claim: ${result['total_usdc']:.2f} eingelöst ({result['claimed']} Positionen) — Cash wiederhergestellt!")
                 except Exception:
                     pass
+            for fail in result.get("failed_positions", []):
+                await _send_claim_error_alert(fail["condition_id"], fail["error"])
         except Exception as e:
             logger.error(f"claim_loop Fehler: {e}")
         await asyncio.sleep(interval_s)

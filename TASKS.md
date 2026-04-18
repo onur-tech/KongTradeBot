@@ -1,66 +1,52 @@
 # KongTrade Bot — Task Tracking
-_Stand: 2026-04-18_
+_Stand: 2026-04-18 07:30 Berlin_
 
 **Regeln:**
-- Eine Task pro Zeile mit ID, Titel, Priorität
-- Status: 🔄 IN ARBEIT | ⏳ QUEUE | ✅ DONE | 🚫 BLOCKED | 💡 IDEE
-- Priorität: 🔴 KRITISCH | 🟡 WICHTIG | 🟢 NICE-TO-HAVE
+- Status: ARBEIT | QUEUE | DONE | BLOCKED | IDEE
+- Prioritaet: KRITISCH | WICHTIG | NICE-TO-HAVE
 
 ---
 
-## 🔄 IN ARBEIT
+## IN ARBEIT
 
 | ID | Titel | Prio | Notiz |
 |----|-------|------|-------|
-| T-001 | Dashboard Portfolio-Upgrade (fetchPortfolio, /api/portfolio) | 🔴 | Auf Server deployed, aber 13 Follow-up Bugs offen |
-| T-005 | KNOWLEDGE_BASE.md + TASKS.md pflegen | 🟡 | Lokal erstellt, noch nicht auf Server gepusht |
 
 ---
 
-## ⏳ QUEUE (priorisiert)
-
-### 🔴 Kritisch — Bot kann nicht traden
+## QUEUE
 
 | ID | Titel | Prio | Notiz |
 |----|-------|------|-------|
-| T-009 | CLAIM $11.29 auf polymarket.com | 🔴 | Manuell! 4 redeemable Positionen. Bot blockiert bis Cash > $5 |
-| T-011 | CLAIM-Button in Positions-Tabelle fixen | 🔴 | `p.redeemable \|\| p.isRedeemable` prüfen (P012) |
+| T-022 | Auto-Claim Intervall 30min -> 5min; alle redeemable-Feld-Varianten akzeptieren | WICHTIG | Intervall in claim_all.py; isRedeemable/redeemable/is_redeemable |
+| T-039 | weekly_doku_check.py Script (Freitag 17:00, Telegram-Report fuer Events ohne Doku) | NICE | — |
+| T-010 | Balance-Delta SEIT START reparieren | KRITISCH | Portfolio-Snapshot beim Start fehlt (P007) |
 
-### 🟡 Wichtig — Dashboard-Qualität
-
-| ID | Titel | Prio | Notiz |
-|----|-------|------|-------|
-| T-012 | Alle 37 Positionen anzeigen (nicht nur 10) | 🟡 | CSS max-height erhöhen + kein JS-Slice (P013) |
-| T-013 | "NÄCHSTE RESOLUTIONS" Panel aus Portfolio-Cache füllen | 🟡 | /api/resolutions auf _polymarket_positions umstellen (P010) |
-| T-014 | Countdown-Spalte "SCHLIESST IN" in Positionen-Tabelle | 🟡 | endDate aus Polymarket-API berechnen (P009) |
-| T-015 | P&L HEUTE = Portfolio-Delta seit Mitternacht | 🟡 | Mitternacht-Snapshot in SQLite speichern (P014) |
-| T-016 | Balance-Chart auf Portfolio-Total umstellen | 🟡 | db_insert_balance() mit portfolio_total (P008) |
-| T-006 | Duplikat-Wallet in TARGET_WALLETS entfernen | 🟡 | grep .env, doppelte Adresse löschen, Bot neu starten (P006) |
-
-### 🟢 Nice-to-Have
-
-| ID | Titel | Prio | Notiz |
-|----|-------|------|-------|
-| T-007 | Telegram-Commands: /balance /health /logs /restart | 🟢 | telegram_bot.py erweitern |
-| T-017 | Per-Wallet-Performance aus Signal-Counter befüllen | 🟢 | Auch nicht-ausgeführte Signale tracken (P015) |
-| T-018 | Log-Rotation auf TimedRotatingFileHandler | 🟢 | Prozess-Neustart nicht mehr nötig (P018) |
-| T-019 | WS-Events-Counter auf Signale/Trades erweitern | 🟢 | Nicht nur CONFIRMED/MATCHED zählen (P011) |
-| T-020 | Timezone Europe/Berlin vereinheitlichen | 🟢 | Server-Logs als UTC labeln oder alle auf CET (P016) |
+| T-012 | Alle 37 Positionen anzeigen (tbl-wrap CSS) | WICHTIG | Braucht Dashboard-Neustart - DONE, aber Restart noetig |
+| T-013 | Resolutions Panel aus Portfolio-Cache | WICHTIG | /api/resolutions auf _polymarket_positions (P010) |
+| T-014 | Countdown-Spalte SCHLIESST IN | WICHTIG | endDate aus Polymarket-API (P009) |
+| T-015 | P&L HEUTE = Portfolio-Delta seit Mitternacht | WICHTIG | Mitternacht-Snapshot fehlt (P014) |
+| T-016 | Balance-Chart auf Portfolio-Total | WICHTIG | SQLite Spalte portfolio_total (P008) |
+| T-006 | Duplikat-Wallet entfernen | WICHTIG | grep .env, doppelte Adresse loeschen (P006) |
+| T-007 | Telegram-Commands: /balance /health /logs | NICE | telegram_bot.py erweitern |
+| T-017 | Per-Wallet-Performance aus Signal-Counter | NICE | Signale tracken (P015) |
+| T-018 | Log-Rotation TimedRotatingFileHandler | NICE | Kein Prozess-Neustart noetig (P018) |
+| T-019 | WS-Events Counter verbessern | NICE | P013 - bereits deployed |
+| T-020 | Timezone Berlin vereinheitlichen | NICE | P016 |
 
 ---
 
-## 🚫 BLOCKED
+## BLOCKED
 
 | ID | Titel | Blocker |
 |----|-------|---------|
-| T-002 | systemd Services (bot + dashboard) | Benötigt Hetzner-SSH-Zugang + Testzeit |
-| T-003 | Cloudflare Tunnel | Benötigt `cloudflared tunnel login` mit Browser-Auth |
-| T-008 | GitHub Push | Benötigt GitHub Personal Access Token (PAT) |
-| T-021 | Public Status Repo "KongTradeBot-Status" | Abhängig von T-008 (GitHub Token) |
+
+
+
 
 ---
 
-## ✅ DONE
+## DONE
 
 | ID | Titel | Datum |
 |----|-------|-------|
@@ -69,25 +55,60 @@ _Stand: 2026-04-18_
 | T-D03 | signature_type=1 Fix deployed | 2026-04-17 |
 | T-D04 | Min-Size-Check Fix deployed | 2026-04-17 |
 | T-D05 | FillTracker condition_id Fix deployed | 2026-04-17 |
-| T-D06 | Dashboard live (screen 'dash' :5000) | 2026-04-17 |
+| T-D06 | Dashboard live (screen dash :5000) | 2026-04-17 |
 | T-D07 | SSH-Key-Login eingerichtet | 2026-04-17 |
-| T-D08 | /api/portfolio Endpoint (fetchPortfolio) | 2026-04-18 |
-| T-D09 | Dashboard: TOTAL PORTFOLIO VALUE als Hauptzahl | 2026-04-18 |
+| T-D08 | /api/portfolio Endpoint + fetchPortfolio JS | 2026-04-18 |
+| T-D09 | Dashboard: TOTAL PORTFOLIO VALUE Hauptzahl | 2026-04-18 |
 | T-D10 | Dashboard: Cash + In Positionen Sub-Zahlen | 2026-04-18 |
-| T-D11 | Dashboard: CLAIM ALL Button (unclaimed wins) | 2026-04-18 |
+| T-D11 | Dashboard: CLAIM ALL Button | 2026-04-18 |
 | T-D12 | logger.py: propagate=False (Duplikat-Fix) | 2026-04-18 |
-| T-D13 | balance_fetcher.py: Skip $0 RPCs, nie .env-Fallback | 2026-04-18 |
-| T-D14 | dashboard.py: API-Fehler lesbar übersetzen | 2026-04-18 |
-| T-010 | Balance-Check-Bug (400 assetAddress invalid hex address) | 2026-04-18 | Balance-Fix deployed ca. 09:35 UTC, verifiziert via /api/logs (P029) |
+| T-D13 | balance_fetcher.py: Skip $0 RPCs | 2026-04-18 |
+| T-D14 | dashboard.py: API-Fehler lesbar uebersetzen | 2026-04-18 |
+| T-D15 | KNOWLEDGE_BASE.md P009-P021 (13 neue Bugs) | 2026-04-18 |
+| T-D16 | Dynamic Subscribe FillTracker nach Orders | 2026-04-18 |
+| T-D17 | Stale-Position-Recovery via Polymarket Data-API | 2026-04-18 |
+| T-D18 | Auto-Claim alle 30min (claim_all.py) | 2026-04-18 |
+| T-D19 | systemd kongtrade-bot.service enabled (Restart=always) | 2026-04-18 |
+| T-D20 | Watchdog-Timer aktiviert (alle 60s) | 2026-04-18 |
+| T-D21 | Morning-Report 08:00 Berlin + Portfolio-Daten | 2026-04-18 |
+| T-D22 | CLAIM-Button: redeemable || isRedeemable | 2026-04-18 |
+| T-D23 | Positionen-Tabelle: max-height 600px (alle 37 sichtbar) | 2026-04-18 |
+| T-D24 | Commit b1c413a mit allen Nacht-Aenderungen | 2026-04-18 |
+| T-D25 | Auto-Claim Script: $11.29 geclaimed (Brrudi manuell + Script Nacht) | 2026-04-18 |
+| T-D26 | Bot-Neustart Nacht-Fixes aktiv (claim_loop, sync, dynamic subscribe) | 2026-04-18 |
+| T-D27 | GitHub-Credentials + PAT auf Server gespeichert | 2026-04-18 |
+| T-D28 | Public Repo KongTradeBot-Status angelegt + Initial-Push | 2026-04-18 |
+| T-D29 | generate_status.py + push_status.sh deployed | 2026-04-18 |
+| T-D30 | systemd Timer kongtrade-status-push alle 5min aktiv | 2026-04-18 |
+| T-D31 | Defensive Config: Multiplier 0.15->0.05, MAX_POS=15, BLACKLIST, MIN_VOL | 2026-04-18 |
+| T-D32 | WALLET_WEIGHTS env-Override in copy_trading.py implementiert | 2026-04-18 |
+| T-D33 | Cloudflare Quick Tunnel kongtrade-tunnel.service aktiv | 2026-04-18 |
+| T-D34 | tunnel_watcher.py + Timer -> Telegram-Alert bei URL-Aenderung | 2026-04-18 |
+| T-D35 | generate_status.py: Dashboard-URL Abschnitt hinzugefuegt | 2026-04-18 |
+| T-D36 | P022 struktureller Fix: PID-Lock + atexit + ExecStartPre (3 Ebenen) | 2026-04-18 |
+| T-D37 | P026: Watchdog-HB-Fix + MIN_VOL-Bug (vol=0 fuelschlicherweise skip) | 2026-04-18 |
+| T-D38 | Doku-Initiative: 5 Kerndokumente angelegt (STRATEGY, WALLETS, ARCHITECTURE, BACKTEST_RESULTS, SETUP) | 2026-04-18 |
+| T-D39 | GUIDELINES.md: Doku-Pflicht + Commit-Format + Session-Recap institutionalisiert | 2026-04-18 |
+| T-010 | Balance-Check-Bug (400 assetAddress invalid hex address) — Fix deployed, verifiziert via /api/logs (P029) | 2026-04-18 |
 
 ---
 
-## 💡 IDEEN
+## IDEEN
 
 | ID | Idee | Aufwand |
 |----|------|---------|
-| T-I01 | Auto-Claim via Polymarket SDK wenn redeemable > $5 | Hoch |
-| T-I02 | Telegram-Alert wenn Claim verfügbar | Klein |
-| T-I03 | Stop-Loss per Position (verkaufe wenn -50%) | Mittel |
-| T-I04 | Wallet-Blacklist (stoppe Kopieren wenn Win-Rate < 30%) | Klein |
-| T-I05 | Multi-Bot Support (mehrere Proxy-Wallets) | Sehr hoch |
+| T-I01 | Telegram-Alert wenn Claim verfuegbar | Klein |
+| T-I02 | Stop-Loss per Position (verkaufe wenn -50%) | Mittel |
+| T-I03 | Wallet-Blacklist (Win-Rate < 30% -> stoppe Kopieren) | Klein |
+| T-I04 | Multi-Bot Support (mehrere Proxy-Wallets) | Sehr hoch |
+| T-I05 | Grafana/Prometheus fuer Metriken | Mittel |
+
+## T-027 — Template-Repo vorbereiten [DONE]
+- /root/template-ready/ vollständig: README, SETUP, ARCHITEKTUR, CONTRIBUTING, .env.example, LICENSE
+- Privacy-Audit bestanden, alle sensitiven Daten entfernt
+- Warte auf GitHub-Account-Entsperrung für Push
+
+## T-028 — Alex/Tunay/Dietmar einladen [BLOCKED]
+- Blocked by: GitHub-Account KongTradeBot gesperrt (P028)
+- Action: support.github.com kontaktieren
+- Resume: Template-Repo pushen sobald Account entsperrt

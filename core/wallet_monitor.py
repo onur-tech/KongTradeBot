@@ -438,3 +438,118 @@ class WalletMonitor:
         wait = min(base_wait * (2 ** min(self.stats["errors"], 6)), 120)
         logger.info(f"Warte {wait:.0f}s nach Fehler (Backoff)")
         await asyncio.sleep(wait)
+
+    # ── Sell-History für Whale-Follow-Exit ───────────────────────────────────
+
+    # In-Memory-Cache: wallet_address → (timestamp, List[dict])
+    _recent_sells_cache: dict = {}
+    _SELLS_CACHE_TTL = 60  # Sekunden
+
+    async def get_recent_sells(self, wallet_address: str, minutes: int = 60) -> List[dict]:
+        """
+        Gibt SELL-Events einer Wallet der letzten `minutes` Minuten zurück.
+
+        Genutzt von exit_manager._check_whale_exit() für Whale-Follow-Exit-Logik.
+        Bei API-Fehler: [] zurückgeben, KEINE Exception (Exit-Loop läuft weiter).
+
+        Return-Format pro Entry:
+            condition_id: str
+            outcome: str        (Yes / No)
+            shares_sold: float
+            price: float
+            timestamp: float    (Unix-Timestamp)
+            tx_hash: str
+        """
+        wallet_lower = wallet_address.lower()
+        now = time.time()
+
+        # Cache-Hit?
+        cached = self._recent_sells_cache.get(wallet_lower)
+        if cached and (now - cached[0]) < self._SELLS_CACHE_TTL:
+            logger.debug(f"[get_recent_sells] Cache-Hit für {wallet_lower[:10]}")
+            return cached[1]
+
+        # Eigene Session bauen falls WalletMonitor noch nicht gestartet ist
+        session = self._session
+        close_after = False
+        if session is None or session.closed:
+            if not AIOHTTP_AVAILABLE:
+                return []
+            session = aiohttp.ClientSession(
+                timeout=aiohttp.ClientTimeout(total=10),
+                headers={"User-Agent": "polymarket-bot/1.0"},
+            )
+            close_after = True
+
+        result = []
+        cutoff = now - (minutes * 60)
+        # /trades endpoint liefert side=SELL/BUY mit vollständigen Feldern (conditionId, outcome, etc.)
+        url = "https://data-api.polymarket.com/trades"
+        params = {"user": wallet_lower, "limit": 50}
+
+        try:
+            async with session.get(url, params=params, timeout=aiohttp.ClientTimeout(total=8)) as resp:
+                if resp.status == 429:
+                    logger.warning(f"[get_recent_sells] Rate-Limit für {wallet_lower[:10]}")
+                    return []
+                if resp.status != 200:
+                    logger.warning(f"[get_recent_sells] HTTP {resp.status} für {wallet_lower[:10]}")
+                    return []
+                data = await resp.json()
+                activities = data if isinstance(data, list) else data.get("data", [])
+
+            for act in activities:
+                # Nur SELL-Seite (side-Feld, kein type-Feld in /trades)
+                side = str(act.get("side", "")).upper()
+                if side != "SELL":
+                    continue
+
+                # Zeitfilter — timestamp ist Unix-Integer in /trades
+                ts_raw = act.get("timestamp") or act.get("createdAt") or act.get("time")
+                ts = 0.0
+                if ts_raw:
+                    try:
+                        ts = float(ts_raw) if str(ts_raw).replace(".", "").isdigit() else (
+                            datetime.fromisoformat(str(ts_raw).replace("Z", "+00:00")).timestamp()
+                        )
+                    except Exception:
+                        pass
+                if ts and ts < cutoff:
+                    continue  # zu alt
+
+                condition_id = act.get("conditionId") or act.get("market_id", "")
+                outcome = str(act.get("outcome") or "Unknown")
+
+                try:
+                    price = float(act.get("price", 0))
+                    shares = float(act.get("size", 0) or act.get("usdcSize", 0))
+                except (ValueError, TypeError):
+                    price, shares = 0.0, 0.0
+
+                entry = {
+                    "condition_id": condition_id,
+                    "market_id": condition_id,  # Alias für exit_manager compat
+                    "outcome": outcome,
+                    "shares_sold": shares,
+                    "price": price,
+                    "timestamp": ts,
+                    "tx_hash": act.get("transactionHash") or act.get("id", ""),
+                }
+                result.append(entry)
+
+            logger.debug(
+                f"[get_recent_sells] {wallet_lower[:10]}: "
+                f"{len(result)} SELLs in letzten {minutes}min"
+            )
+
+        except asyncio.CancelledError:
+            raise
+        except Exception as exc:
+            logger.warning(f"[get_recent_sells] Fehler für {wallet_lower[:10]}: {exc}")
+            result = []
+        finally:
+            if close_after:
+                await session.close()
+
+        self._recent_sells_cache[wallet_lower] = (now, result)
+        return result

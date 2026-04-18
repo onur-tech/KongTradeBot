@@ -1,0 +1,2 @@
+# KongTradeBot
+Polymarket Trade Bot

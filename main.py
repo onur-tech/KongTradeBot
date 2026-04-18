@@ -27,6 +27,7 @@ from core.wallet_monitor import WalletMonitor
 from core.risk_manager import RiskManager
 from core.execution_engine import ExecutionEngine, OpenPosition
 from core.fill_tracker import FillTracker, PendingOrder
+from core.exit_manager import ExitManager, ExitEvent
 from strategies.copy_trading import CopyTradingStrategy, CopyOrder
 from claim_all import claim_loop
 from telegram_bot import (send, msg_trade, msg_status, msg_startup,
@@ -721,6 +722,128 @@ async def main():
     strategy.on_herd_alert     = on_herd_alert
     monitor.on_new_trade       = strategy.handle_signal
 
+    # ── Exit-Manager Setup ────────────────────────────────────────────────────
+
+    async def _fetch_live_prices(token_ids: list) -> dict:
+        """Holt Midpoint-Preise für alle token_ids vom CLOB /book Endpoint."""
+        prices = {}
+        async with aiohttp.ClientSession() as session:
+            for tid in token_ids:
+                if not tid:
+                    continue
+                try:
+                    url = f"{config.clob_host}/book?token_id={tid}"
+                    async with session.get(url, timeout=aiohttp.ClientTimeout(total=5)) as r:
+                        if r.status == 200:
+                            data = await r.json()
+                            bids = data.get("bids", [])
+                            asks = data.get("asks", [])
+                            best_bid = float(bids[0]["price"]) if bids else 0.0
+                            best_ask = float(asks[0]["price"]) if asks else 0.0
+                            if best_bid > 0 and best_ask > 0:
+                                prices[tid] = (best_bid + best_ask) / 2
+                            elif best_bid > 0:
+                                prices[tid] = best_bid
+                            elif best_ask > 0:
+                                prices[tid] = best_ask
+                except Exception as e:
+                    logger.debug(f"[exit_loop] Preisfetch fehlgeschlagen {tid[:12]}: {e}")
+        return prices
+
+    async def on_exit_event(event: ExitEvent):
+        dry_tag = "🧪 <b>DRY-RUN</b> " if config.exit_dry_run else ""
+        type_labels = {
+            "tp1": "💰 EXIT: TP1 (40%)",
+            "tp2": "💰 EXIT: TP2 (40%)",
+            "tp3": "💰 EXIT: TP3 (15%)",
+            "trail": "🔻 EXIT: Trailing-Stop",
+            "whale_exit": "🚨 WHALE-EXIT",
+            "manual": "🖐 EXIT: Manuell",
+        }
+        label = type_labels.get(event.exit_type, f"EXIT: {event.exit_type}")
+        pnl_sign = "+" if event.pnl_usdc >= 0 else ""
+
+        if event.exit_type == "whale_exit":
+            lines = [
+                f"{dry_tag}🚨 <b>WHALE-EXIT</b>",
+                "━━━━━━━━━━━━━━━━━━━━",
+                f"🏪 {event.market[:60]}",
+                f"🎯 {event.outcome}",
+                f"💸 Komplett-Exit: {event.shares_sold:.4f} shares @ ${event.exit_price:.3f} = <b>${event.usdc_received:.2f}</b>",
+                f"{'🟢' if event.pnl_usdc >= 0 else '🔴'} PnL: <b>{pnl_sign}${event.pnl_usdc:.2f} ({event.pnl_pct:+.1f}%)</b>",
+            ]
+        else:
+            remaining_shares = 0.0  # Part 2: after sell, remaining tracked in engine
+            lines = [
+                f"{dry_tag}<b>{label}</b>",
+                "━━━━━━━━━━━━━━━━━━━━",
+                f"🏪 {event.market[:60]}",
+                f"🎯 {event.outcome}",
+                f"📈 Entry: ${event.entry_price:.3f} → Exit: ${event.exit_price:.3f} ({event.pnl_pct:+.1f}%)",
+                f"💸 Verkauft: {event.shares_sold:.4f} shares @ ${event.exit_price:.3f} = <b>${event.usdc_received:.2f}</b>",
+                f"{'🟢' if event.pnl_usdc >= 0 else '🔴'} PnL: <b>{pnl_sign}${event.pnl_usdc:.2f}</b>",
+            ]
+        await send("\n".join(lines))
+
+    exit_manager = ExitManager(
+        config=config,
+        wallet_monitor=monitor,
+        on_exit_event=on_exit_event,
+    )
+
+    async def exit_loop():
+        """Wertet offene Positionen alle EXIT_LOOP_INTERVAL Sekunden aus."""
+        while True:
+            try:
+                await asyncio.sleep(config.exit_loop_interval)
+                positions = list(engine.open_positions.values())
+                if not positions:
+                    continue
+                token_ids = [p.token_id for p in positions if p.token_id]
+                live_prices = await _fetch_live_prices(token_ids)
+                if not live_prices:
+                    logger.debug("[exit_loop] Keine Live-Preise verfügbar, skip")
+                    continue
+                events = await exit_manager.evaluate_all(positions, live_prices)
+                if events:
+                    for ev in events:
+                        log_trade({
+                            "type": "exit",
+                            "exit_type": ev.exit_type,
+                            "position_id": ev.position_id,
+                            "condition_id": ev.condition_id,
+                            "outcome": ev.outcome,
+                            "entry_price": ev.entry_price,
+                            "exit_price": ev.exit_price,
+                            "shares_sold": ev.shares_sold,
+                            "usdc_received": ev.usdc_received,
+                            "pnl_usdc": ev.pnl_usdc,
+                            "pnl_pct": ev.pnl_pct,
+                            "timestamp": ev.timestamp,
+                            "dry_run": config.exit_dry_run,
+                        })
+                        if not config.exit_dry_run:
+                            # Live-Exit: verkaufe via execution_engine
+                            pos = engine.open_positions.get(ev.position_id)
+                            if pos:
+                                result = await engine.create_and_post_sell_order(
+                                    asset_id=pos.token_id,
+                                    shares=ev.shares_sold,
+                                    min_price=ev.exit_price * 0.97,  # 3% Slippage tolerance
+                                    exit_dry_run=False,
+                                )
+                                if result["success"]:
+                                    pos.shares = round(pos.shares - result["shares_sold"], 6)
+                                    if pos.shares <= 0:
+                                        engine.open_positions.pop(ev.position_id, None)
+                                        exit_manager._remove_state(ev.condition_id, ev.outcome)
+                                else:
+                                    logger.error(f"[exit_loop] Sell-Order fehlgeschlagen: {result['error']}")
+            except asyncio.CancelledError:
+                break
+            except Exception as exc:
+                logger.error(f"[exit_loop] Fehler: {exc}", exc_info=True)
+
     async def resolver_loop():
         while True:
             try:
@@ -788,6 +911,7 @@ async def main():
             asyncio.create_task(heartbeat_loop()),
             asyncio.create_task(fill_tracker.run()),
             asyncio.create_task(claim_loop(config, interval_s=int(os.getenv("AUTO_CLAIM_INTERVAL_S", "300")))),  # Auto-Claim alle 5min (env: AUTO_CLAIM_INTERVAL_S)
+            asyncio.create_task(exit_loop()),
             asyncio.create_task(poll_commands(
                 callback_status=send_status_now,
                 callback_resolve=check_resolved_markets_and_notify,

@@ -579,6 +579,118 @@ class ExecutionEngine:
             pos = self.open_positions.pop(order_id)
             logger.info(f"🚫 Position gecancelt: {pos.outcome} | ${pos.size_usdc:.2f}")
 
+    async def create_and_post_sell_order(
+        self,
+        asset_id: str,
+        shares: float,
+        min_price: Optional[float] = None,
+        exit_dry_run: bool = True,
+    ) -> dict:
+        """
+        Verkauft `shares` eines Tokens (SELL-Order) auf Polymarket.
+
+        Analogon zu create_and_post_order (BUY) mit gleichen Sicherheitsprinzipien:
+        - set_api_creds zuerst (bereits in initialize() gesetzt)
+        - create_and_post_order als single call (kein split, kein Ghost-Trade)
+        - tick_size via _get_market_info (gecacht)
+        - 500ms wait nach Submit für API-Sync
+
+        Returns dict mit: success, order_id, filled_price, shares_sold,
+                          remaining_shares, error, dry_run
+        Retry: max 2x bei Netzwerkfehlern (5s Delay)
+        """
+        MAX_RETRIES = 3
+        RETRY_DELAY = 5.0
+
+        if exit_dry_run or self.config.dry_run:
+            logger.info(
+                f"[EXIT DRY-RUN] SELL {shares:.4f} shares @ asset={asset_id[:16]}... "
+                f"(min_price={min_price})"
+            )
+            return {
+                "success": True, "order_id": f"sell_dry_{int(time.time())}",
+                "filled_price": min_price or 0.0, "shares_sold": shares,
+                "remaining_shares": 0.0, "error": None, "dry_run": True,
+            }
+
+        if not CLOB_AVAILABLE or not self._client:
+            return {
+                "success": False, "order_id": None, "filled_price": None,
+                "shares_sold": 0.0, "remaining_shares": shares,
+                "error": "CLOB Client nicht initialisiert", "dry_run": False,
+            }
+
+        try:
+            _, tick_size_f, _ = await self._get_market_info(asset_id)
+            sell_price = self._round_to_tick(min_price if min_price else 0.01, tick_size_f)
+
+            try:
+                from py_clob_client.clob_types import OrderArgs
+                from py_clob_client.order_builder.constants import SELL as SELL_SIDE
+            except ImportError:
+                return {
+                    "success": False, "order_id": None, "filled_price": None,
+                    "shares_sold": 0.0, "remaining_shares": shares,
+                    "error": "py-clob-client fehlt (SELL const)", "dry_run": False,
+                }
+
+            order_args = OrderArgs(
+                token_id=asset_id,
+                price=sell_price,
+                size=shares,
+                side=SELL_SIDE,
+            )
+
+            loop = asyncio.get_event_loop()
+            response = None
+            for attempt in range(1, MAX_RETRIES + 1):
+                try:
+                    response = await asyncio.wait_for(
+                        loop.run_in_executor(None, self._client.create_and_post_order, order_args),
+                        timeout=30.0,
+                    )
+                    break
+                except (asyncio.TimeoutError, Exception) as exc:
+                    err_s = str(exc)
+                    retryable = (
+                        isinstance(exc, asyncio.TimeoutError)
+                        or "10035" in err_s or "ReadError" in err_s
+                    )
+                    if retryable and attempt < MAX_RETRIES:
+                        logger.warning(f"[SELL] Netzwerkfehler Versuch {attempt}: {err_s[:60]} — retry in {RETRY_DELAY}s")
+                        await asyncio.sleep(RETRY_DELAY)
+                    else:
+                        raise
+
+            await asyncio.sleep(0.5)  # API-Sync-Lag nach Fill
+
+            api_error = response.get("error") or response.get("errorMessage")
+            if api_error:
+                raise RuntimeError(f"API Ablehnung: {api_error}")
+
+            order_id = response.get("orderID") or response.get("id", "unknown")
+            filled = float(response.get("sizeMatched") or shares)
+            remaining = round(shares - filled, 6)
+            fill_price = float(response.get("price") or sell_price)
+
+            logger.info(
+                f"✅ SELL ORDER gefüllt: {filled:.4f} shares @ ${fill_price:.4f} | "
+                f"ID: {order_id} | remaining: {remaining:.4f}"
+            )
+            return {
+                "success": True, "order_id": order_id, "filled_price": fill_price,
+                "shares_sold": filled, "remaining_shares": remaining,
+                "error": None, "dry_run": False,
+            }
+
+        except Exception as exc:
+            logger.error(f"[SELL] Fehler: {exc}", exc_info=True)
+            return {
+                "success": False, "order_id": None, "filled_price": None,
+                "shares_sold": 0.0, "remaining_shares": shares,
+                "error": str(exc), "dry_run": False,
+            }
+
     def get_open_positions_summary(self) -> List[dict]:
         """Gibt eine Zusammenfassung aller offenen Positionen zurück."""
         return [

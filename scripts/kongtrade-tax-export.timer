@@ -1,0 +1,9 @@
+[Unit]
+Description=KongTradeBot Weekly Tax Export Timer
+
+[Timer]
+OnCalendar=Fri *-*-* 23:55:00 Europe/Berlin
+Persistent=true
+
+[Install]
+WantedBy=timers.target

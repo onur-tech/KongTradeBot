@@ -96,13 +96,15 @@ token = env.get("TELEGRAM_TOKEN", "")
 chat_ids_raw = env.get("TELEGRAM_CHAT_IDS", "")
 first_chat_id = chat_ids_raw.split(",")[0].strip() if chat_ids_raw else ""
 
-if token and first_chat_id:
+if token and chat_ids_raw:
+    chat_ids = [cid.strip() for cid in chat_ids_raw.split(",") if cid.strip()]
     msg = (
         f"<b>Neue Dashboard-URL</b>\n\n"
         f"{current_url}\n\n"
         f"Status-Repo: https://github.com/KongTradeBot/KongTradeBot-Status"
     )
-    send_telegram(token, first_chat_id, msg)
+    sent = [cid for cid in chat_ids if send_telegram(token, cid, msg)]
+    log.info(f"Alert an {len(sent)}/{len(chat_ids)} Chat-IDs gesendet: {sent}")
 else:
     log.warning("Kein TELEGRAM_TOKEN oder CHAT_ID in .env — kein Telegram-Alert")
 

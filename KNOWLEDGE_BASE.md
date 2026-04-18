@@ -500,4 +500,27 @@ Positionen blieben unclaimed bis zum naechsten Loop-Durchlauf.
   pro `condition_id` max 1 Telegram-Alert pro Stunde.
 - Alert-Format: "⚠️ Auto-Claim Fehler: <error> (Position: <cid_short>, Zeit: <utc>)"
 
+---
+
+## P035 — Wöchentlicher Auto-Tax-Export
+
+**Status:** IMPLEMENTIERT (2026-04-18)
+
+**Problem:**
+`export_tax_csv()` war nur manuell aufrufbar — keine automatische
+Sicherung, Brrudi musste aktiv dran denken.
+
+**Fix:**
+- `scripts/weekly_tax_export.py`: ruft `export_tax_csv()` auf,
+  verschiebt Dateien in `/root/KongTradeBot/exports/tax_YYYY_KWWW.csv`
+  und `blockpit_YYYY_KWWW.csv`, sendet Telegram-Summary an alle Chat-IDs.
+- `kongtrade-tax-export.service` + `.timer`: OnCalendar=Fri 23:55 Berlin
+- Herunterladen per scp: `scp root@89.167.29.183:/root/KongTradeBot/exports/*.csv .`
+
+**Blockpit-Timestamp-Hinweis:**
+Gespeicherte Zeiten sind Server-Lokalzeit (Helsinki ≈ UTC+2 Sommer).
+Blockpit-Export formatiert als `YYYY-MM-DDTHH:MM:SSZ` (formal UTC-Flag).
+TODO(BLOCKPIT-VERIFY): Falls Blockpit auf korrekte UTC besteht,
+muss log_trade() timezone-aware speichern.
+
 **Status:** DEPLOYED (2026-04-18)

@@ -288,8 +288,10 @@ def _export_blockpit_csv(year_trades: list, eur_rates: Dict[str, float], year: i
                 continue  # Simulation nicht exportieren
 
             date    = t.get("datum", "")
-            time    = t.get("uhrzeit", "00:00:00")
-            ts      = f"{date} {time}"
+            time_s  = t.get("uhrzeit", "00:00:00")
+            # TODO(BLOCKPIT-VERIFY): stored time is server-local (Helsinki ≈ UTC+2).
+            # Blockpit expects ISO 8601 UTC. Verify import accepts this or adjust tz offset.
+            ts      = f"{date}T{time_s}Z"
             rate    = _get_rate(eur_rates, date)
 
             inv_usd = float(t.get("einsatz_usdc", 0) or 0)

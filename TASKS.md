@@ -89,6 +89,7 @@ _Stand: 2026-04-18 07:30 Berlin_
 | T-D41 | Signal-Filter: MIN_TRADE_SIZE 0.50 + MIN_WHALE_SIZE 5.00 reduziert Micro-Noise | 2026-04-18 |
 | T-D42 | Dashboard: Compact-Header (80px statt 30% Hoehe) + Countdown-Spalte (T-014) | 2026-04-18 |
 | T-D43 | Paket A: tx_hash in tax_archive + Auto-Claim Fehler Telegram-Alert | 2026-04-18 |
+| T-D44 | Paket B: Tunnel-Broadcast + Weekly-Tax-Export + Blockpit-Timestamp | 2026-04-18 |
 
 ---
 

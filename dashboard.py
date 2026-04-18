@@ -42,10 +42,11 @@ STRATEGY_FILE = BASE_DIR / "strategies" / "copy_trading.py"
 def _get_midnight_snapshot(today_str: str, current_total: float) -> dict:
     """Lädt oder erstellt den Tages-Snapshot für today_pnl-Berechnung.
     Datei: .portfolio_snapshot_YYYY-MM-DD.json
+    Kein Snapshot wird erstellt wenn current_total == 0 (Daten noch nicht geladen).
     Returns: {"snapshot_value": float, "created_at": str}
     """
     snap_file = BASE_DIR / f".portfolio_snapshot_{today_str}.json"
-    # Alte Snapshots (> 7 Tage) aufräumen
+    # Alte Snapshots aufräumen (> 7 Tage)
     try:
         for f in BASE_DIR.glob(".portfolio_snapshot_*.json"):
             if f.name < f".portfolio_snapshot_{today_str}.json":
@@ -54,9 +55,17 @@ def _get_midnight_snapshot(today_str: str, current_total: float) -> dict:
         pass
     if snap_file.exists():
         try:
-            return json.loads(snap_file.read_text())
+            existing = json.loads(snap_file.read_text())
+            # Überschreibe schlechten Snapshot (snapshot_value == 0 aber Daten jetzt da)
+            if existing.get("snapshot_value", 0) == 0 and current_total > 0:
+                pass  # → neu erstellen
+            else:
+                return existing
         except Exception:
             pass
+    if current_total <= 0:
+        # Daten noch nicht geladen — kein Snapshot erstellen
+        return {"snapshot_value": 0.0, "created_at": ""}
     snap = {"snapshot_value": current_total, "created_at": datetime.now(timezone.utc).isoformat()}
     try:
         snap_file.write_text(json.dumps(snap))

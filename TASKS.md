@@ -93,6 +93,7 @@ _Stand: 2026-04-18 07:30 Berlin_
 | T-D45 | Dashboard-Verbesserungen: OAuth-Popup-Fix + Schrift +20% + Countdown-Fallbacks | 2026-04-18 |
 | T-D46 | Wallet-Scout Historisierung: SQLite + Trend-Analyse + Weekly-Report | 2026-04-18 |
 | T-D47 | Telegram Callbacks + Restart-Loop-Fix + Persistent Keyboard | 2026-04-18 |
+| T-D48 | Exit-Strategie: TP-Staffel + Trailing-Stop + Whale-Follow-Exit (3 Teile) | 2026-04-18 | → 35c3f43 (Part 1), 5e53632 (Part 2), Part 3 pending |
 
 ---
 

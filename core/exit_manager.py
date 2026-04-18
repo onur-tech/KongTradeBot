@@ -197,11 +197,11 @@ class ExitManager:
         market_volume: float,
     ) -> bool:
         """Aktualisiert highest_price_seen und gibt True zurück wenn Stop ausgelöst."""
-        gain = current_price - state.entry_price
-        if gain < self.cfg.exit_trail_activation:
-            return False
-
         if not state.trail_active:
+            # Noch nicht aktiviert: Gain-Schwelle prüfen
+            gain = current_price - state.entry_price
+            if gain < self.cfg.exit_trail_activation:
+                return False
             state.trail_active = True
             logger.info(
                 f"[ExitMgr] 📈 Trailing-Stop aktiviert: {pos.outcome} @ {current_price:.3f} "

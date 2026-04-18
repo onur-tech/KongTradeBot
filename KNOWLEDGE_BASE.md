@@ -776,3 +776,50 @@ Fix: `_safe_callback(name, handler, *args)` in `telegram_bot.py`:
 - Fängt Exception, loggt Traceback, sendet Telegram-Alert mit Fehlermeldung
 - Gibt `"⚠️ Fehler"` zurück statt re-raise
 - Beide Call-Sites (Inline-Keyboard und Text-Button) nutzen `_safe_callback`
+
+---
+
+## P046 — Exit-Strategie Design Decisions (18.04.2026)
+
+**Status:** ✅ IMPLEMENTIERT (18.04.2026) — EXIT_DRY_RUN=true, Observation läuft
+
+### Warum 40/40/15/5 Staffel?
+Basiert auf Prevayo-Research und Laika AI Backtests für binäre Prediction-Markets.
+- 40% Sicherheits-Take bei +30%: Kapitalsicherung bevor Reversal-Risk steigt
+- Zweites 40% bei +60%: Compound-Effekt bei Gewinnern
+- 15% bei +100%: Lässt Runner-Anteil (5%) bis Resolution
+- 5% "Runner" bis Markt-End: Max-Payout bei Jackpot-Outcomes
+
+Boost-Staffel (3+ Wallets): 50/90/150% Schwellen wegen höherer Conviction bei
+multi-wallet Signalen → länger halten macht Sinn.
+
+### Warum 12¢ Trail-Aktivierung (absolut, nicht prozentual)?
+Binäre Prediction-Markets handeln 0..1 USDC. Prozentuale Trails scheitern bei:
+- Billige Tokens (z.B. 5¢ entry): 10% = 0.5¢ → Trail zu sensibel
+- Teure Tokens (z.B. 85¢ entry): 10% = 8.5¢ → nur Margins, kein Edge
+12¢ absolut = sinnvoller echter Gewinn bei allen Preisniveaus.
+Trail-Distance: 7¢ (liquid ≥$50k Volume) vs 10¢ (thin) — breiterer Trail bei
+illiquidem Market wegen höherer Spread-Noise.
+
+### Warum Whale-Exit höchste Priorität?
+Smart-Money-Signal überschreibt Zahlen. Wenn die Wallet die wir kopieren verkauft,
+weiß sie etwas das wir nicht wissen (Info-Arbitrage, privates Signal).
+TP-Schwellen sind historische Statistik; Whale-Signal ist Information.
+Sofort 100% raus, kein partial-exit, kein Zögern.
+
+### Warum DRY-RUN-Default?
+Drei Gründe:
+1. Validierung: Erste 24h beobachten ob Exit-Logik vernünftige Signale produziert
+2. Preis-Slippage: SELL auf Polymarket hat andere Dynamics als BUY — braucht Daten
+3. Race-Condition: exit_loop + WalletMonitor + FillTracker teilen sich `engine.open_positions`
+   → im DRY-RUN keine echten Side-Effects wenn Race-Condition auftritt
+
+Nach 24h Observation: grep exit_loop Logs, prüfe ob TP/Trail-Signale sinnvoll,
+dann EXIT_DRY_RUN=false setzen.
+
+### Bekannte Edge-Cases (für Post-Observation Review):
+- Partial-Fill bei SELL: `remaining_shares` wird tracked, aber nächster Loop-Cycle
+  verkauft nochmal basierend auf `pos.shares` (nicht updated wenn DRY-RUN)
+- Race: Whale-Exit + TP1 gleichzeitig → Whale-Exit gewinnt (continue-Statement)
+- `market_volumes` kommt aktuell als {} → immer thin-trail (konservativ, gut)
+- `get_recent_sells` auf WalletMonitor fehlt noch → Whale-Exit immer skip bis implementiert

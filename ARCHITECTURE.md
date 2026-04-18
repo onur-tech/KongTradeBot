@@ -162,6 +162,40 @@ Chat-Claude fetcht via Exa.
 - Min-Size pro Markt: NEGRISK anders, via Orderbook abfragen
 - Stale token_id (P029): Recovery-Positions ohne token_id filtern
 
-Siehe KNOWLEDGE_BASE.md für alle P001-P029+ Einträge.
+Siehe KNOWLEDGE_BASE.md für alle P001-P043+ Einträge.
+
+## Telegram-UX (18.04.2026)
+
+### Persistent Reply Keyboard
+- 8 Buttons in 4x2 Raster, unten fixiert im Chat
+- Kein `python-telegram-bot` nötig — raw Telegram Bot API JSON: `reply_markup.is_persistent=true`
+- `/start` → Begrüßung + Keyboard (Brrudi muss einmalig `/start` tippen nach Deploy)
+- `/menu` / `/m` → Keyboard erneut senden (falls ausgeblendet)
+- Button-Klicks kommen als normale Text-Nachrichten an → `_BUTTON_ACTION_MAP` dispatcht
+
+### Menu-Callbacks (Datenquelle)
+Alle 6 Daten-Buttons lesen von **Dashboard-API localhost:5000** (nicht local state):
+- 📊 Status → `callback_status()` (Live)
+- 💼 Portfolio → `/api/summary` + `/api/portfolio`
+- 📅 Heute → `/api/summary`
+- 📋 Positionen → `/api/portfolio`
+- 🗄️ Archiv → `/api/summary`
+- ⚙️ Config → env-Variablen
+
+### Mute-System
+- `.mute_until` (ISO-Timestamp) → `_is_muted()` → `send(urgent=False)` überspringt
+- `urgent=True`: Mute wird ignoriert (Fehler-Alerts, Watchdog-Downs, Unmute-Confirm)
+- 🔇 Mute 1h Button schreibt Datei | 🔔 Unmute löscht sie
+
+### Startup Rate-Limit
+- `.last_startup_alert` (Unix-Timestamp) → 30min Cooldown via `_is_startup_allowed()`
+- `send_startup()` Wrapper — schreibt nach erfolgreichem Alert Timestamp
+
+### Heartbeat-Invariante (KRITISCH)
+```
+HEARTBEAT_MAX_AGE (watchdog.py) > heartbeat_loop(interval) (main.py)
+600s > 300s  ✅
+```
+Wenn HEARTBEAT_MAX_AGE ≤ interval → Watchdog restartiert Bot immer wieder (P042).
 
 Ende ARCHITECTURE.md.

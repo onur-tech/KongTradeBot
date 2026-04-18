@@ -33,7 +33,7 @@ from telegram_bot import (send, msg_trade, msg_status, msg_startup,
                            msg_shutdown, msg_morning_summary, msg_warning,
                            check_resolved_markets_and_notify, poll_commands,
                            send_morning_report, send_trade_confirmation,
-                           should_send_trade_notification)
+                           should_send_trade_notification, send_startup)
 
 C_RESET  = "\033[0m"
 C_CYAN   = "\033[96m"
@@ -547,7 +547,7 @@ async def main():
     stale = await recover_stale_positions(engine, config)
     synced = await sync_positions_from_polymarket(engine, config)
 
-    await send(msg_startup(len(config.target_wallets), config.portfolio_budget_usd, config.dry_run))
+    await send_startup(len(config.target_wallets), config.portfolio_budget_usd, config.dry_run)
     if restored > 0 or stale > 0:
         msg_parts = []
         if restored > 0:

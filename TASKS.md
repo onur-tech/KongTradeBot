@@ -92,7 +92,7 @@ _Stand: 2026-04-18 07:30 Berlin_
 | T-D44 | Paket B: Tunnel-Broadcast + Weekly-Tax-Export + Blockpit-Timestamp | 2026-04-18 |
 | T-D45 | Dashboard-Verbesserungen: OAuth-Popup-Fix + Schrift +20% + Countdown-Fallbacks | 2026-04-18 |
 | T-D46 | Wallet-Scout Historisierung: SQLite + Trend-Analyse + Weekly-Report | 2026-04-18 |
-| T-D47 | Telegram-Umbau: /menu + Mute + Startup-Rate-Limit + Digest + Watchdog-Fix | 2026-04-18 |
+| T-D47 | Telegram Callbacks + Restart-Loop-Fix + Persistent Keyboard | 2026-04-18 |
 
 ---
 

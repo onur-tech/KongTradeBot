@@ -89,6 +89,18 @@ def _mark_startup_sent():
         pass
 
 
+def _fetch_dashboard(endpoint: str) -> Optional[dict]:
+    """GET http://localhost:5000{endpoint} → JSON dict. None bei Fehler."""
+    import urllib.request
+    try:
+        url = f"http://localhost:5000{endpoint}"
+        with urllib.request.urlopen(url, timeout=3) as r:
+            return json.loads(r.read())
+    except Exception as e:
+        print(f"[TG] Dashboard fetch failed {endpoint}: {e}")
+        return None
+
+
 def should_send_trade_notification(
     size: float,
     is_multi_signal: bool = False,
@@ -570,54 +582,70 @@ def _menu_keyboard() -> dict:
     }
 
 
+_DASHBOARD_ERR = "⚠️ Dashboard aktuell nicht erreichbar. In 1–2 Min erneut versuchen."
+
+
 async def _handle_menu_callback(action: str, callback_status) -> str:
-    """Verarbeitet m:* Callback-Actions, gibt Ack-Text zurück."""
+    """Verarbeitet m:* Callback-Actions und Text-Button-Klicks, gibt Ack-Text zurück."""
     if action == "status":
         await callback_status()
         return "📊 Status gesendet"
 
     elif action == "portfolio":
-        try:
-            with open(STATE_FILE, "r", encoding="utf-8") as f:
-                state = json.load(f)
-            positions = state.get("open_positions", [])
-            if isinstance(positions, dict):
-                positions = list(positions.values())
-            total = sum(float(p.get("size_usdc", 0) or 0) for p in positions)
-            top = sorted(positions, key=lambda p: float(p.get("size_usdc", 0) or 0), reverse=True)[:6]
-            lines = [
-                "💼 <b>OFFENE POSITIONEN</b>",
-                "━━━━━━━━━━━━━━━━━━━━",
-                f"📊 <b>{len(positions)}</b> Positionen | <b>${total:.2f} USDC</b>",
-                "━━━━━━━━━━━━━━━━━━━━",
-            ]
-            for p in top:
-                lines.append(f"  📌 {p.get('outcome','?')} | ${float(p.get('size_usdc',0)):.2f} | {p.get('market_question','')[:35]}")
-            if not top:
-                lines.append("  —")
-            await send("\n".join(lines), urgent=True)
-        except Exception as e:
-            await send(f"❌ Fehler: {e}", urgent=True)
+        summary = _fetch_dashboard("/api/summary")
+        port    = _fetch_dashboard("/api/portfolio")
+        if not summary and not port:
+            await send(_DASHBOARD_ERR, urgent=True)
+            return "⚠️"
+        cash    = float((summary or {}).get("balance_usdc", 0))
+        total   = float((port or {}).get("total_value", 0))
+        in_pos  = float((port or {}).get("in_positions", 0))
+        count   = int((port or {}).get("count", 0))
+        redeemable = int((port or {}).get("redeemable_count", 0))
+        to_win  = float((port or {}).get("to_win_total", 0))
+        net_pnl = float((port or {}).get("net_pnl", 0))
+        pnl_sign = "+" if net_pnl >= 0 else ""
+        lines = [
+            "💼 <b>PORTFOLIO</b>",
+            "━━━━━━━━━━━━━━━━━━━━",
+            f"📊 Total: <b>${total:.2f} USDC</b>",
+            f"💵 Cash: <b>${cash:.2f}</b>",
+            f"📈 In Positionen: <b>${in_pos:.2f}</b> ({count} offen{', ' + str(redeemable) + ' claimable' if redeemable else ''})",
+            f"🏆 To-Win: <b>${to_win:.2f}</b>",
+            f"💰 Net PnL: <b>{pnl_sign}${net_pnl:.2f}</b>",
+        ]
+        # Top 5 Positionen
+        positions = (port or {}).get("positions", [])
+        if positions:
+            lines += ["━━━━━━━━━━━━━━━━━━━━", "🔝 Top Positionen:"]
+            for i, p in enumerate(sorted(positions, key=lambda x: float(x.get("current_value", 0) or 0), reverse=True)[:5], 1):
+                mkt = str(p.get("market_question", p.get("market", "?")))[:35]
+                cur = float(p.get("current_value", 0) or 0)
+                inv = float(p.get("size_usdc", 0) or 0)
+                lines.append(f"  {i}. {mkt} → <b>${cur:.2f}</b> (inv ${inv:.2f})")
+        await send("\n".join(lines), urgent=True)
         return "💼 Portfolio gesendet"
 
     elif action == "today":
-        trades = _load_archive()
-        today_str = date.today().isoformat()
-        today = [t for t in trades if t.get("datum", "") == today_str]
-        resolved_today = [t for t in today if t.get("aufgeloest")]
-        won = [t for t in resolved_today if t.get("ergebnis") == "GEWINN"]
-        lost = [t for t in resolved_today if t.get("ergebnis") == "VERLUST"]
-        pnl = sum(float(t.get("gewinn_verlust_usdc", 0) or 0) for t in resolved_today)
-        pnl_sign = "+" if pnl >= 0 else ""
+        data = _fetch_dashboard("/api/summary")
+        if not data:
+            await send(_DASHBOARD_ERR, urgent=True)
+            return "⚠️"
+        today_count  = int(data.get("trades_today", data.get("signals_today", 0)))
+        wins_today   = int(data.get("wins_today", 0))
+        losses_today = int(data.get("losses_today", 0))
+        pnl_today    = float(data.get("pnl_today", 0))
+        pnl_sign     = "+" if pnl_today >= 0 else ""
+        pnl_icon     = "🟢" if pnl_today >= 0 else "🔴"
         lines = [
             f"📅 <b>HEUTE — {date.today().strftime('%d.%m.%Y')}</b>",
             "━━━━━━━━━━━━━━━━━━━━",
-            f"📋 Trades heute: <b>{len(today)}</b>",
-            f"🎯 Aufgelöst: <b>{len(resolved_today)}</b>  ✅{len(won)} / ❌{len(lost)}",
-            f"💰 P&L heute: <b>{pnl_sign}${pnl:.2f} USDC</b>",
+            f"📋 Trades: <b>{today_count}</b>",
+            f"🎯 Aufgelöst: ✅{wins_today} / ❌{losses_today}",
+            f"{pnl_icon} P&L heute: <b>{pnl_sign}${pnl_today:.2f} USDC</b>",
         ]
         await send("\n".join(lines), urgent=True)
-        return "📅 Heute-Stats gesendet"
+        return "📅 Heute gesendet"
 
     elif action == "config":
         mute_str = "✅ JA" if _is_muted() else "❌ NEIN"
@@ -634,26 +662,56 @@ async def _handle_menu_callback(action: str, callback_status) -> str:
         return "⚙️ Config gesendet"
 
     elif action == "positions":
-        top_pos = _get_top_positions()
-        lines = ["🔝 <b>TOP POSITIONEN</b>", "━━━━━━━━━━━━━━━━━━━━"]
-        for p in top_pos:
-            lines.append(f"  📌 {p['outcome']} | ${p['size']:.2f} | {p['question']}")
-        if not top_pos:
+        port = _fetch_dashboard("/api/portfolio")
+        if not port:
+            await send(_DASHBOARD_ERR, urgent=True)
+            return "⚠️"
+        positions = port.get("positions", [])
+        count = len(positions)
+        top10 = sorted(positions, key=lambda x: float(x.get("current_value", 0) or 0), reverse=True)[:10]
+        lines = [
+            f"📋 <b>OFFENE POSITIONEN ({count})</b>",
+            "━━━━━━━━━━━━━━━━━━━━",
+        ]
+        for i, p in enumerate(top10, 1):
+            mkt = str(p.get("market_question", p.get("market", "?")))[:30]
+            cur = float(p.get("current_value", 0) or 0)
+            inv = float(p.get("size_usdc", 0) or 0)
+            lines.append(f"  {i}. {mkt} | ${inv:.2f}→<b>${cur:.2f}</b>")
+        if not top10:
             lines.append("  —")
         await send("\n".join(lines), urgent=True)
         return "📋 Positionen gesendet"
 
     elif action == "archive":
-        won, lost, win_rate = _get_win_rate()
-        wr_icon = "🟢" if win_rate >= 55 else "🟡" if win_rate >= 50 else "🔴"
-        lines = [
-            "🗄️ <b>ARCHIV-STATISTIK</b>",
-            "━━━━━━━━━━━━━━━━━━━━",
-            f"✅ Gewonnen: <b>{won}</b>  ❌ Verloren: <b>{lost}</b>",
-            f"{wr_icon} Win Rate: <b>{win_rate}%</b>",
-        ]
+        data = _fetch_dashboard("/api/summary")
+        if not data:
+            won, lost, win_rate = _get_win_rate()
+            wr_icon = "🟢" if win_rate >= 55 else "🟡" if win_rate >= 50 else "🔴"
+            lines = [
+                "🗄️ <b>ARCHIV-STATISTIK</b>",
+                "━━━━━━━━━━━━━━━━━━━━",
+                f"✅ Gewonnen: <b>{won}</b>  ❌ Verloren: <b>{lost}</b>",
+                f"{wr_icon} Win Rate: <b>{win_rate}%</b>",
+            ]
+        else:
+            total_trades = int(data.get("total_trades", 0))
+            wins  = int(data.get("total_wins", 0))
+            losses = int(data.get("total_losses", 0))
+            win_rate = round(wins / (wins + losses) * 100, 1) if (wins + losses) > 0 else 0
+            net_pnl  = float(data.get("net_pnl", 0))
+            wr_icon  = "🟢" if win_rate >= 55 else "🟡" if win_rate >= 50 else "🔴"
+            tp_sign  = "+" if net_pnl >= 0 else ""
+            lines = [
+                "🗄️ <b>ARCHIV-STATISTIK</b>",
+                "━━━━━━━━━━━━━━━━━━━━",
+                f"📦 Gesamt: <b>{total_trades} Trades</b>",
+                f"✅ Gewonnen: <b>{wins}</b>  ❌ Verloren: <b>{losses}</b>",
+                f"{wr_icon} Win Rate: <b>{win_rate}%</b>",
+                f"💰 Net PnL: <b>{tp_sign}${net_pnl:.2f} USDC</b>",
+            ]
         await send("\n".join(lines), urgent=True)
-        return "📡 Archiv gesendet"
+        return "🗄️ Archiv gesendet"
 
     elif action == "mute1h":
         until = datetime.now(timezone.utc) + timedelta(hours=1)
@@ -674,6 +732,52 @@ async def _handle_menu_callback(action: str, callback_status) -> str:
         return "🔔 Unmuted"
 
     return "?"
+
+
+# Persistent Reply Keyboard (kein python-telegram-bot nötig — raw Telegram API JSON)
+MAIN_REPLY_KEYBOARD = {
+    "keyboard": [
+        [{"text": "📊 Status"},     {"text": "💼 Portfolio"}],
+        [{"text": "📅 Heute"},      {"text": "🗄️ Archiv"}],
+        [{"text": "📋 Positionen"}, {"text": "⚙️ Config"}],
+        [{"text": "🔇 Mute 1h"},    {"text": "🔔 Unmute"}],
+    ],
+    "resize_keyboard": True,
+    "is_persistent": True,
+    "input_field_placeholder": "KongTrade Bot",
+}
+
+# Mapping: Button-Text → menu action (muss mit MAIN_REPLY_KEYBOARD übereinstimmen)
+_BUTTON_ACTION_MAP = {
+    "📊 status":     "status",
+    "💼 portfolio":  "portfolio",
+    "📅 heute":      "today",
+    "🗄️ archiv":    "archive",
+    "📋 positionen": "positions",
+    "⚙️ config":    "config",
+    "🔇 mute 1h":    "mute1h",
+    "🔔 unmute":     "unmute",
+}
+
+
+async def _send_with_reply_keyboard(text: str, chat_id: str) -> bool:
+    """Sendet eine Nachricht mit dem persistenten Reply-Keyboard."""
+    if not TOKEN:
+        return False
+    async with aiohttp.ClientSession() as session:
+        url = f"https://api.telegram.org/bot{TOKEN}/sendMessage"
+        payload = {
+            "chat_id":      chat_id,
+            "text":         text,
+            "parse_mode":   "HTML",
+            "reply_markup": MAIN_REPLY_KEYBOARD,
+        }
+        try:
+            async with session.post(url, json=payload, timeout=aiohttp.ClientTimeout(total=10)) as r:
+                return r.status == 200
+        except Exception as e:
+            print(f"[TG] Reply-Keyboard Fehler: {e}")
+            return False
 
 
 def msg_shutdown(total_trades):
@@ -1002,10 +1106,16 @@ async def poll_commands(callback_status, callback_resolve):
                         if chat_id not in CHAT_IDS:
                             continue
 
-                        if text in ["/menu", "/m"]:
-                            await _send_with_keyboard(
-                                "🤖 <b>KongTrade Bot — Menü</b>\nWähle eine Aktion:",
-                                _menu_keyboard(),
+                        if text in ["/start"]:
+                            await _send_with_reply_keyboard(
+                                "🤖 <b>KongTrade Bot bereit!</b>\nNutze die Buttons unten für Status, Portfolio etc.",
+                                chat_id,
+                            )
+
+                        elif text in ["/menu", "/m"]:
+                            await _send_with_reply_keyboard(
+                                "🤖 <b>KongTrade Bot — Menü</b>",
+                                chat_id,
                             )
 
                         elif text in ["/status", "/s"]:
@@ -1048,6 +1158,10 @@ async def poll_commands(callback_status, callback_resolve):
                                 await send("⚠️ Nur Onur darf Orders stornieren.")
                             else:
                                 await _cmd_cancel(order_id)
+
+                        elif text.lower() in _BUTTON_ACTION_MAP:
+                            action = _BUTTON_ACTION_MAP[text.lower()]
+                            await _handle_menu_callback(action, callback_status)
 
                         elif text in ["/help", "/h"]:
                             await send("\n".join([

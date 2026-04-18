@@ -654,3 +654,72 @@ Zusätzlich: Bot-Startup-Alert kam bei jedem Restart, auch wenn mehrere Neustart
   - `/menu` Inline-Keyboard (8 Buttons: Status, Portfolio, Heute, Config, Positionen, Archiv, Mute 1h, Unmute).
   - `_TG_MIN_SIZE` Default: 5 → 2 USD.
 - `scripts/daily_digest.py` + systemd Timer 22:00 Berlin.
+
+---
+
+## P041 — Telegram-Callbacks lasen local state statt API → immer $0 / 0 Positionen
+
+**Status:** ✅ BEHOBEN (18.04.2026)
+
+**Symptom:**
+`/menu → Portfolio` zeigte "0 Positionen | $0.00 USDC" obwohl 18 offene Positionen
+mit $213 Value existierten. Alle 6 Menu-Callbacks zeigten leere/falsche Daten.
+
+**Root-Cause:**
+`_handle_menu_callback()` las aus `bot_state.json` und `trades_archive.json` auf Disk.
+Nach jedem Bot-Restart ist `bot_state.json` initial leer (Positionen werden erst nach
+Sync geladen, aber das Keyboard wurde schon vorher gedrückt).
+
+**Fix:**
+- `_fetch_dashboard(endpoint)` Helper: `GET http://localhost:5000{endpoint}` (localhost, kein Auth).
+- Alle 6 Callbacks auf Dashboard-API umgestellt:
+  - STATUS → `callback_status()` (unverändert, zieht Live-Daten)
+  - PORTFOLIO → `/api/summary` + `/api/portfolio`
+  - HEUTE → `/api/summary`
+  - POSITIONEN → `/api/portfolio`
+  - ARCHIV → `/api/summary` (Fallback: lokales Archiv)
+  - CONFIG → env-Variablen (kein API-Call nötig)
+- Fehlerbehandlung: wenn API nicht erreichbar → "Dashboard aktuell nicht erreichbar".
+
+---
+
+## P042 — Bot-Restart-Schleife alle 3 Min (HEARTBEAT_MAX_AGE < heartbeat_loop interval)
+
+**Status:** ✅ BEHOBEN (18.04.2026, via aeec617)
+
+**Symptom:**
+Bot sendete alle 2–4 Min "BOT GESTARTET" (Timestamps: 14:34, 14:37, 14:40, 14:43...).
+Telegram-Alert kam zuverlässig (Rate-Limit griff korrekt), aber Bot war tatsächlich jedes Mal neu.
+
+**Root-Cause:**
+`heartbeat_loop(interval=300)` schreibt Heartbeat alle **300 Sekunden**.
+`watchdog.py` hatte `HEARTBEAT_MAX_AGE = 180` Sekunden.
+180 < 300 → Watchdog sah nach 180s keine neue Heartbeat-Datei → restartete Bot.
+Bot startete neu, Heartbeat wurde sofort geschrieben, dann 300s Pause → wieder Restart.
+
+Cycle: 180s up → Watchdog restart → 180s up → repeat. Genau die 3-Minuten-Abstände.
+
+**Fix:**
+`HEARTBEAT_MAX_AGE`: 180 → 600 (> 300 = heartbeat_loop interval).
+Fix war in aeec617 enthalten, wurde aber erst ab 15:01:27 (nach Auto-Deploy) aktiv.
+Bot stabil seit 15:01:27.
+
+**Lesson:** `HEARTBEAT_MAX_AGE` muss immer > `heartbeat_loop(interval)` sein. Aktuell: 600 > 300 ✅.
+
+---
+
+## P043 — Persistent Reply Keyboard (kein python-telegram-bot nötig)
+
+**Status:** ✅ IMPLEMENTIERT (18.04.2026)
+
+**Anforderung:** Keyboard permanent unten sichtbar — User soll nie `/menu` tippen müssen.
+
+**Lösung:**
+Telegram Bot API unterstützt `ReplyKeyboardMarkup` als raw JSON ohne python-telegram-bot Library:
+```json
+{"keyboard": [[{"text": "📊 Status"}, ...]], "resize_keyboard": true, "is_persistent": true}
+```
+- `/start` → sendet Begrüßung + Keyboard (Brrudi muss EINMALIG `/start` tippen nach Deploy)
+- `/menu` / `/m` → sendet Keyboard erneut (falls ausgeblendet)
+- Text-Button-Klicks werden als normale Nachrichten empfangen → `_BUTTON_ACTION_MAP` dispatcht zu `_handle_menu_callback()`
+- `python-telegram-bot` NICHT installiert auf Server → Library-Import würde crashen

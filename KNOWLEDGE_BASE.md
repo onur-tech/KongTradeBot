@@ -427,3 +427,34 @@ Alle redeemable-Checks in `claim_all.py` und `dashboard.py` nutzen jetzt diese F
 **Bonus:** `AUTO_CLAIM_INTERVAL_S` env-Variable (default 300s / 5min statt 1800s / 30min).
 
 **Status:** DEPLOYED (2026-04-18)
+
+---
+
+## P032 — Micro-Trade-Noise: 80% aller Trades unter $1, kaum Edge
+
+**Status:** BEHOBEN (2026-04-18)
+
+**Problem:**
+Mit COPY_SIZE_MULTIPLIER=0.05 und MIN_TRADE_SIZE_USD=0.01 wurden
+Whale-Trades ab $0.20 kopiert. Ergebnis: ~80% aller generierten
+Trades hatten eine Groesse unter $1.00 — kaum Edge, hohe Gebueehren-
+Belastung relativ zum Trade-Volumen, viele False-Positive-Signale
+(Whale-Tests, Positions-Anpassungen, Liquiditaets-Spielereien).
+
+**Root-Cause (2 Ebenen):**
+1. Whale-Signal-Ebene: Kleine Whale-Trades ($1-$5) sind oft keine
+   echten Signale (Testen, Rebalancing) — sie sollten gar nicht erst
+   als Signal verarbeitet werden.
+2. Output-Ebene: Nach Multiplikator-Anwendung (0.05x) entstehen
+   noch kleinere Trades (z.B. $10 Whale → $0.50 Copy).
+
+**Fix:**
+- `MIN_WHALE_TRADE_SIZE_USD=5.00` (neu): Filter in wallet_monitor.py
+  direkt nach size_usdc-Extraktion. Whale-Trades unter $5 → kein Signal.
+  Log: "Whale-Trade geskipped: $X.XX < MIN_WHALE $5.00 [wallet]"
+- `MIN_TRADE_SIZE_USD=0.50` (angehoben von 0.01): Filter in
+  risk_manager.py. Berechnete Copy-Groesse unter $0.50 → kein Trade.
+  Log: "Micro-Trade geskipped: $X.XX < MIN_TRADE_SIZE $0.50"
+- Beide Werte via .env konfigurierbar fuer spaeteres Tuning.
+
+**Status:** DEPLOYED (2026-04-18)

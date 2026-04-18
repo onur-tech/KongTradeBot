@@ -19,7 +19,8 @@ class Config:
     # Risiko Management
     max_daily_loss_usd: float = 50.0
     max_trade_size_usd: float = 25.0
-    min_trade_size_usd: float = 0.01
+    min_trade_size_usd: float = 0.50
+    min_whale_trade_size_usd: float = 5.00
     copy_size_multiplier: float = 0.05
 
     # Portfolio Limits
@@ -72,7 +73,8 @@ def load_config() -> Config:
         target_wallets=target_wallets,
         max_daily_loss_usd=float(os.getenv("MAX_DAILY_LOSS_USD", "50")),
         max_trade_size_usd=float(os.getenv("MAX_TRADE_SIZE_USD", "25")),
-        min_trade_size_usd=float(os.getenv("MIN_TRADE_SIZE_USD", "0.01")),
+        min_trade_size_usd=float(os.getenv("MIN_TRADE_SIZE_USD", "0.50")),
+        min_whale_trade_size_usd=float(os.getenv("MIN_WHALE_TRADE_SIZE_USD", "5.00")),
         copy_size_multiplier=float(os.getenv("COPY_SIZE_MULTIPLIER", "0.05")),
         portfolio_budget_usd=float(os.getenv("PORTFOLIO_BUDGET_USD", "1000")),
         max_portfolio_pct=float(os.getenv("MAX_PORTFOLIO_PCT", "0.20")),

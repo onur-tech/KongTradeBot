@@ -380,6 +380,15 @@ class WalletMonitor:
             # Größe extrahieren
             size_usdc = float(activity.get("usdcSize", 0) or activity.get("size", 0))
 
+            # Whale-Trade-Filter: Micro-Trades ignorieren (Tests, Pos-Anpassungen, kein Edge)
+            min_whale = getattr(self.config, "min_whale_trade_size_usd", 5.0)
+            if size_usdc < min_whale:
+                wallet_short = source_wallet[:10]
+                logger.debug(
+                    f"Whale-Trade geskipped: ${size_usdc:.2f} < MIN_WHALE ${min_whale:.2f} [{wallet_short}]"
+                )
+                return None
+
             # Market-Info
             market_id = activity.get("conditionId", "")
             token_id = activity.get("asset", activity.get("tokenId", ""))

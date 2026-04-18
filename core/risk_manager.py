@@ -131,7 +131,7 @@ class RiskManager:
         if adjusted_size < self.config.min_trade_size_usd:
             return RiskDecision(
                 allowed=False,
-                reason=f"Berechnete Größe ${adjusted_size:.2f} unter Minimum ${self.config.min_trade_size_usd}"
+                reason=f"Micro-Trade geskipped: ${adjusted_size:.2f} < MIN_TRADE_SIZE ${self.config.min_trade_size_usd:.2f}"
             )
 
         # 8. Max 3% Budget pro Markt (verhindert Überkonzentration in einem Markt)
@@ -156,7 +156,7 @@ class RiskManager:
             if adjusted_size < self.config.min_trade_size_usd:
                 return RiskDecision(
                     allowed=False,
-                    reason=f"Markt-Budget Rest ${adjusted_size:.2f} unter Minimum"
+                    reason=f"Micro-Trade geskipped: Markt-Budget Rest ${adjusted_size:.2f} < MIN_TRADE_SIZE ${self.config.min_trade_size_usd:.2f}"
                 )
 
         fallback_note = " [Fallback 48h]" if signal.time_to_close_hours is None else ""

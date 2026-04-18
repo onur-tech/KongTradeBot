@@ -87,6 +87,7 @@ _Stand: 2026-04-18 07:30 Berlin_
 | T-D38 | T-010: token_id-Guard in _verify_order_onchain + restore + recover | 2026-04-18 |
 | T-D39 | T-022: Auto-Claim 5min + is_claimable() alle 3 redeemable-Varianten | 2026-04-18 |
 | T-D40 | T-006: Duplikat-Wallet-Check — OBSOLETE, 15 unique Eintraege, kein Duplikat | 2026-04-18 |
+| T-D41 | Signal-Filter: MIN_TRADE_SIZE 0.50 + MIN_WHALE_SIZE 5.00 reduziert Micro-Noise | 2026-04-18 |
 
 ---
 

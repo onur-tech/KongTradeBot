@@ -38,8 +38,9 @@ def _fetch_eur_usd_rates(start_date: str, end_date: str) -> Dict[str, float]:
     """
     FALLBACK_RATE = 0.92  # Grober Fallback, wird im Export vermerkt
 
+    # Primary: frankfurter.dev (ECB-Quelle, neue Domain, kein Hetzner-IP-Block)
     try:
-        url = f"https://api.frankfurter.app/{start_date}..{end_date}?from=USD&to=EUR"
+        url = f"https://api.frankfurter.dev/v1/{start_date}..{end_date}?from=USD&to=EUR"
         with urlopen(url, timeout=10) as resp:
             data = json.loads(resp.read().decode())
         rates = {date: vals["EUR"] for date, vals in data.get("rates", {}).items()}
@@ -47,22 +48,42 @@ def _fetch_eur_usd_rates(start_date: str, end_date: str) -> Dict[str, float]:
             logger.info(f"EUR/USD Kurse geladen: {len(rates)} Tage ({start_date} – {end_date})")
             return rates
     except URLError as e:
-        logger.warning(f"Frankfurter API nicht erreichbar: {e}")
+        logger.warning(f"Frankfurter.dev nicht erreichbar: {e}")
     except Exception as e:
         logger.warning(f"EUR/USD Abruf fehlgeschlagen: {e}")
 
-    # Fallback: heutigen Kurs probieren
+    # Secondary: frankfurter.dev latest (single-rate fallback)
     try:
-        url = "https://api.frankfurter.app/latest?from=USD&to=EUR"
+        url = "https://api.frankfurter.dev/v1/latest?from=USD&to=EUR"
         with urlopen(url, timeout=10) as resp:
             data = json.loads(resp.read().decode())
         rate = data["rates"]["EUR"]
         today = data.get("date", datetime.now().strftime("%Y-%m-%d"))
-        logger.warning(f"Fallback: verwende heutigen Kurs {today}: 1 USD = {rate} EUR")
+        logger.warning(f"Frankfurter.dev latest: 1 USD = {rate} EUR ({today})")
         return {"__fallback__": rate}
     except Exception:
-        logger.warning(f"Kein EUR-Kurs verfügbar — verwende Fallback {FALLBACK_RATE}")
-        return {"__fallback__": FALLBACK_RATE}
+        pass
+
+    # Tertiary: ECB direkt via XML
+    try:
+        from xml.etree import ElementTree as ET
+        ecb_url = "https://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml"
+        with urlopen(ecb_url, timeout=10) as resp:
+            root = ET.fromstring(resp.read())
+        ns = {"gesmes": "http://www.gesmes.org/xml/2002-08-01",
+              "ecb": "http://www.ecb.int/vocabulary/2002-08-01/eurofxref"}
+        for cube in root.iter("{http://www.ecb.int/vocabulary/2002-08-01/eurofxref}Cube"):
+            if cube.get("currency") == "USD":
+                usd_per_eur = float(cube.get("rate", 0))
+                if usd_per_eur > 0:
+                    eur_per_usd = round(1 / usd_per_eur, 6)
+                    logger.warning(f"ECB XML Fallback: 1 USD = {eur_per_usd} EUR")
+                    return {"__fallback__": eur_per_usd}
+    except Exception as e:
+        logger.warning(f"ECB XML Fallback fehlgeschlagen: {e}")
+
+    logger.warning(f"Kein EUR-Kurs verfügbar — verwende Fallback {FALLBACK_RATE}")
+    return {"__fallback__": FALLBACK_RATE}
 
 
 def _get_rate(rates: Dict[str, float], date: str) -> float:
@@ -168,7 +189,7 @@ def export_tax_csv(year: Optional[int] = None) -> str:
     start_date = dates[0]
     end_date   = dates[-1]
     eur_rates  = _fetch_eur_usd_rates(start_date, end_date)
-    rate_src   = "ECB via frankfurter.app" if "__fallback__" not in eur_rates else "Fallback-Kurs (API nicht erreichbar)"
+    rate_src   = "ECB via frankfurter.dev" if "__fallback__" not in eur_rates else "Fallback-Kurs (API nicht erreichbar)"
 
     # ── Detailliertes CSV ────────────────────────────────────────────────────
     filename = TAX_CSV_FILE.format(year=year)

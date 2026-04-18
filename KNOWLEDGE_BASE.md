@@ -541,3 +541,23 @@ eingebettet ist. Kein `~/.gitconfig` existierte zur Überschreibung.
 
 Leerer String in User-Config überschreibt System-Helper für github.com-URLs.
 Git liest Credentials dann direkt aus der URL.
+
+---
+
+## P037 — Frankfurter API URL-Migration (.app → .dev/v1), Hetzner-IP-Block
+
+**Status:** BEHOBEN (2026-04-18)
+
+**Problem:**
+`api.frankfurter.app` gibt 403 von Hetzner-Helsinki-IP.
+Ergebnis: EUR/USD-Kurs fällt auf Fallback 0.92 — zu niedrig
+(aktueller Kurs ≈ 0.88), systematische Verzerrung aller EUR-Steuerbeträge.
+
+**Fix (3 Ebenen):**
+1. Primary: `https://api.frankfurter.dev/v1/` — gleiche ECB-Quelle,
+   neue Domain, kein Hetzner-Block
+2. Secondary: ECB direkt via XML
+   `https://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml`
+3. Tertiary: Hardcodierter Fallback 0.92
+
+**Affected file:** `utils/tax_archive.py` — `_fetch_eur_usd_rates()`

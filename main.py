@@ -657,7 +657,31 @@ async def main():
                     time_to_close_hours=time_to_close,
                 ))
 
+    _MULTI_SIGNAL_DEDUP_FILE = os.path.join(os.path.dirname(__file__), ".multi_signal_last_alert.json")
+    _MULTI_SIGNAL_COOLDOWN_S = 15 * 60  # 15 Minuten
+
     async def on_multi_signal(count: int, names: str, outcome: str, market: str, multiplier: float):
+        sorted_wallets = ",".join(sorted(names.split(" + ")))
+        dedup_key = f"{market}|{outcome}|{sorted_wallets}"
+        now = time.time()
+
+        try:
+            dedup = json.loads(Path(_MULTI_SIGNAL_DEDUP_FILE).read_text()) if Path(_MULTI_SIGNAL_DEDUP_FILE).exists() else {}
+        except Exception:
+            dedup = {}
+
+        last_sent = dedup.get(dedup_key, 0)
+        if now - last_sent < _MULTI_SIGNAL_COOLDOWN_S:
+            return  # Rate-limit: dieselbe Kombination bereits vor <15 Min gesendet
+
+        dedup[dedup_key] = now
+        # Alte Keys (>24h) bereinigen
+        dedup = {k: v for k, v in dedup.items() if now - v < 86400}
+        try:
+            Path(_MULTI_SIGNAL_DEDUP_FILE).write_text(json.dumps(dedup))
+        except Exception:
+            pass
+
         emoji = "🔥🔥" if count >= 3 else "🔥"
         await send(
             f"{emoji} <b>MULTI-SIGNAL ({count} Wallets, {multiplier}x Größe)!</b>\n"
@@ -724,7 +748,7 @@ async def main():
         tax_summary = get_summary()
         await send(msg_status(
             signals=s["signals_received"],
-            orders=s["orders_created"],
+            orders_sent=s["orders_created"],
             open_pos=e["open_positions"],
             total_invested=total_invested,
             pnl=r["net_pnl_today"],

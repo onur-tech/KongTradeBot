@@ -749,3 +749,30 @@ Fix: Midnight-Snapshot in `dashboard.py`:
 - `/api/portfolio` gibt `today_pnl_portfolio = total_value - snapshot_value` zurück
 - Telegram zeigt: "Portfolio-Delta: +$X.XX USDC (Morgen: $X → Jetzt: $X)"
 - Alte Snapshots (> 7 Tage) automatisch gelöscht
+
+---
+
+## P045 — Drei Telegram-Bugs nach Live-Test (18.04.2026)
+
+**Status:** ✅ BEHOBEN (18.04.2026)
+
+### Bug A — Status-Button: zweites `orders=` in send_status_now() übersehen
+P044 Fix hatte `orders=` → `orders_sent=` nur in `status_reporter` (line 441) behoben.
+`send_status_now()` (line 727) — aufgerufen vom Status-Button — hatte noch `orders=s["orders_created"]`.
+Gleiches TypeError → silent fail → kein Response auf Button-Klick.
+Fix: `orders=` → `orders_sent=` auch in `send_status_now()`.
+
+### Bug B — Multi-Signal Spam: dieselbe Wallet+Markt-Kombi mehrfach in 15 Min
+`_flush_aggregated()` feuert `on_multi_signal` bei jedem Trade-Chunk für dieselbe Kondition.
+Cincinnati Reds-Beispiel: Alert um 20:37, 20:48, etc. für identische Wallet+Markt-Kombination.
+Fix: Dedup in `on_multi_signal` (main.py):
+- Key = `f"{market}|{outcome}|{sorted(wallet_names)}"`
+- 15-Min-Cooldown via `.multi_signal_last_alert.json` (root dir)
+- Keys älter als 24h werden beim nächsten Alert bereinigt
+
+### Bug C — Silent Button-Crashes: kein Feedback bei Exception
+Exceptions in `_handle_menu_callback` propagierten zu `poll_commands` → `except Exception: pass` → kein Telegram-Alert.
+Fix: `_safe_callback(name, handler, *args)` in `telegram_bot.py`:
+- Fängt Exception, loggt Traceback, sendet Telegram-Alert mit Fehlermeldung
+- Gibt `"⚠️ Fehler"` zurück statt re-raise
+- Beide Call-Sites (Inline-Keyboard und Text-Button) nutzen `_safe_callback`

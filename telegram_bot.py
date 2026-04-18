@@ -585,6 +585,21 @@ def _menu_keyboard() -> dict:
 _DASHBOARD_ERR = "⚠️ Dashboard aktuell nicht erreichbar. In 1–2 Min erneut versuchen."
 
 
+async def _safe_callback(name: str, handler, *args):
+    """Führt einen Button-Handler aus. Fängt Exceptions ab und sendet Telegram-Alert statt silent fail."""
+    try:
+        return await handler(*args)
+    except Exception as exc:
+        import traceback
+        tb = traceback.format_exc(limit=5)
+        print(f"[TG] ❌ Button '{name}' crashed: {exc}\n{tb}")
+        try:
+            await send(f"⚠️ <b>Button-Fehler [{name}]</b>\n<code>{str(exc)[:200]}</code>", urgent=True)
+        except Exception:
+            pass
+        return "⚠️ Fehler"
+
+
 async def _handle_menu_callback(action: str, callback_status) -> str:
     """Verarbeitet m:* Callback-Actions und Text-Button-Klicks, gibt Ack-Text zurück."""
     if action == "status":
@@ -1100,8 +1115,8 @@ async def poll_commands(callback_status, callback_resolve):
 
                             elif cb_chat_id in CHAT_IDS and cb_data.startswith("m:"):
                                 action = cb_data[2:]
-                                ack = await _handle_menu_callback(action, callback_status)
-                                await _answer_callback_query(cb_id, ack)
+                                ack = await _safe_callback(action, _handle_menu_callback, action, callback_status)
+                                await _answer_callback_query(cb_id, ack or "⚠️")
                             continue
 
                         # ── Text-Kommandos ────────────────────────────────────
@@ -1167,7 +1182,7 @@ async def poll_commands(callback_status, callback_resolve):
 
                         elif text.lower() in _BUTTON_ACTION_MAP:
                             action = _BUTTON_ACTION_MAP[text.lower()]
-                            await _handle_menu_callback(action, callback_status)
+                            await _safe_callback(action, _handle_menu_callback, action, callback_status)
 
                         elif text in ["/help", "/h"]:
                             await send("\n".join([

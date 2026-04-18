@@ -25,7 +25,6 @@ _Stand: 2026-04-18 07:30 Berlin_
 | T-014 | Countdown-Spalte SCHLIESST IN | WICHTIG | endDate aus Polymarket-API (P009) |
 | T-015 | P&L HEUTE = Portfolio-Delta seit Mitternacht | WICHTIG | Mitternacht-Snapshot fehlt (P014) |
 | T-016 | Balance-Chart auf Portfolio-Total | WICHTIG | SQLite Spalte portfolio_total (P008) |
-| T-006 | Duplikat-Wallet entfernen | WICHTIG | grep .env, doppelte Adresse loeschen (P006) |
 | T-007 | Telegram-Commands: /balance /health /logs | NICE | telegram_bot.py erweitern |
 | T-017 | Per-Wallet-Performance aus Signal-Counter | NICE | Signale tracken (P015) |
 | T-018 | Log-Rotation TimedRotatingFileHandler | NICE | Kein Prozess-Neustart noetig (P018) |
@@ -87,6 +86,7 @@ _Stand: 2026-04-18 07:30 Berlin_
 | T-D37 | P026: Watchdog-HB-Fix + MIN_VOL-Bug (vol=0 fuelschlicherweise skip) | 2026-04-18 |
 | T-D38 | T-010: token_id-Guard in _verify_order_onchain + restore + recover | 2026-04-18 |
 | T-D39 | T-022: Auto-Claim 5min + is_claimable() alle 3 redeemable-Varianten | 2026-04-18 |
+| T-D40 | T-006: Duplikat-Wallet-Check — OBSOLETE, 15 unique Eintraege, kein Duplikat | 2026-04-18 |
 
 ---
 

@@ -70,6 +70,7 @@ signer = Magic-EOA, funder = Proxy.
 | kongtrade-status.timer | Auto-Push STATUS | 5min (AUS) |
 | kongtrade-deploy.timer | Auto-Pull + Restart | 5min |
 | kongtrade-tax-export.timer | Wöchentlicher CSV-Export | Freitag 23:55 Berlin |
+| kongtrade-wallet-report.timer | Wöchentlicher Wallet-Trend-Report | Sonntag 20:00 Berlin |
 
 ## Auto-Deploy-Pipeline (18.04.2026)
 
@@ -86,6 +87,23 @@ Komponenten:
 
 Remote-URL enthält embedded PAT weil systemd kein TTY hat
 und interaktive Username-Prompts nicht funktionieren.
+
+## Wallet-Scout & Trend-Analyse (18.04.2026)
+
+**Komponenten:**
+- `utils/wallet_scout.py` — Scraper (polymonit.com), WalletDecayTracker,
+  täglich 09:00 via asyncio-Task in main.py
+- `data/wallet_scout.db` — SQLite, Tabelle `wallet_scout_daily`
+  (scan_date, wallet_address, source) als PRIMARY KEY
+- `utils/wallet_trends.py` — Trend-Funktionen:
+  get_wallet_trend, get_decay_candidates, get_new_entries,
+  get_rising_stars, get_top_stable
+- `scripts/weekly_wallet_report.py` — Telegram-Report (So 20:00)
+- `kongtrade-wallet-report.timer` — systemd Timer
+
+**Datenpfad:** `/root/KongTradeBot/data/wallet_scout.db`
+**Dashboard:** `GET /api/wallet_trends?wallet=0x...` oder `?report=1`
+**Erste Trends sichtbar:** nach 7–14 Scan-Tagen
 
 Verifikations-Commands:
 ```

@@ -13,11 +13,11 @@ Multiplier in WALLET_WEIGHTS (env-Override).
 | 3 | 0x0B7A60...86cf | HOOK | 1.0x | TBD | wallet_init.py |
 | 4 | 0xee613b...debf | sovereign2013 | 0.3x | 45-49% WR | Decay-Kategorie |
 | 5 | 0xbaa2bc...2c73 | denizz | 0.5x | Geopolitik | wallet_init.py |
-| 6 | 0xde7be6...5f4b | wan123 | 2.5x | 90% WR ABER -71% ROI | Beobachten |
+| 6 | 0xde7be6...5f4b | sovereign2013 | 0.3x | 45-49% WR | Decay-Kategorie |
 | 7 | 0x019782...9f3c | majorexploiter | 3.0x | 76% WR, Mio-Profit | Polymonit |
 | 8 | 0x492442...3782 | April#1 Sports | 2.0x | 65% WR, Sport | Predicts.guru |
 | 9 | 0x02227b...8ff7 | HorizonSplendidView | 2.0x | Sport | Predicts.guru |
-| 10 | 0xefbc5f...f9a2 | reachingthesky | 1.0x | TBD | wallet_init.py |
+| 10 | 0xefbc5f...f9a2 | wan123 | 2.5x | 90% WR ABER -71% ROI | Beobachten |
 | 11 | 0x2005d1...75ea | RN1 | 0.2x | Klein | wallet_init.py |
 
 ## Wallet-Kategorien

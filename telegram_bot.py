@@ -180,10 +180,10 @@ async def send_trade_confirmation(
         "Sport": "🎾", "Geopolitik": "🌍", "Crypto": "₿",
         "Makro": "📈", "Sonstiges": "ℹ️"
     }.get(category, "📋")
-    mode_tag = "[DRY-RUN]" if dry_run else "[LIVE]"
+    mode_tag = " [DRY-RUN]" if dry_run else ""
 
     text = "\n".join([
-        f"{cat_emoji} <b>TRADE SIGNAL {mode_tag}</b>",
+        f"{cat_emoji} <b>TRADE SIGNAL{mode_tag}</b>",
         "━━━━━━━━━━━━━━━━━━━━",
         f"📌 <b>{market[:55]}</b>",
         f"🎯 {outcome} @ <b>${price:.3f}</b>",
@@ -216,7 +216,7 @@ async def send_trade_confirmation(
         if msg_id:
             await _edit_message_reply_markup(
                 CHAT_IDS[0], msg_id,
-                text + "\n\n⏰ <i>Timeout — Trade normal ausgeführt.</i>"
+                text + "\n\n⏰ <i>Timeout — wird normal ausgeführt.</i>"
             )
     finally:
         _pending_decisions.pop(order_id, None)
@@ -272,11 +272,12 @@ def _get_top_positions():
 # ── Message Templates ─────────────────────────────────
 
 def msg_trade(market, outcome, size, price, category, source,
-              market_id="", time_to_close_hours=None):
+              market_id="", time_to_close_hours=None, dry_run=False):
     cat_emoji = {
         "Sport": "🎾", "Geopolitik": "🌍", "Crypto": "₿",
         "Makro": "📈", "Sonstiges": "ℹ️"
     }.get(category, "📋")
+    mode_tag = " [DRY-RUN]" if dry_run else ""
 
     if time_to_close_hours is not None:
         if time_to_close_hours < 1:
@@ -291,7 +292,7 @@ def msg_trade(market, outcome, size, price, category, source,
     id_line = f"\n🔑 <code>{market_id[:24]}</code>" if market_id else ""
 
     lines = [
-        f"{cat_emoji} <b>NEUER TRADE</b> [DRY-RUN]",
+        f"{cat_emoji} <b>NEUER TRADE{mode_tag}</b>",
         "━━━━━━━━━━━━━━━━━━━━",
         f"📌 <b>{market[:60]}</b>",
         f"✅ Outcome: <b>{outcome}</b>",
@@ -300,6 +301,57 @@ def msg_trade(market, outcome, size, price, category, source,
         f"👛 Wallet: <b>{_get_wallet_name(source)}</b>{id_line}",
     ]
     return "\n".join(lines)
+
+
+def msg_order_submitted(order_id, market, outcome, price, size, wallet, dry_run=False):
+    """📤 Nach erfolgreichem Submit — Order ist PENDING, warte auf Polymarket-Bestätigung."""
+    mode_tag = " [DRY-RUN]" if dry_run else ""
+    return "\n".join([
+        f"📤 <b>ORDER GESENDET{mode_tag}</b>",
+        "━━━━━━━━━━━━━━━━━━━━",
+        f"🎯 <b>{market[:55]}</b>",
+        f"💰 {outcome} @ <b>${price:.3f}</b> | <b>${size:.2f} USDC</b>",
+        f"🐋 {_get_wallet_name(wallet)}",
+        f"🔑 <code>{order_id[:20]}...</code>",
+        "━━━━━━━━━━━━━━━━━━━━",
+        "⏳ <i>Warte auf Polymarket-Bestätigung...</i>",
+    ])
+
+
+def msg_order_filled(order_id, market, outcome, price, size, shares, wallet, tx_hash=""):
+    """✅ WebSocket MATCHED/CONFIRMED — Order ist gefüllt."""
+    tx_line = f'\n🔗 <a href="https://polygonscan.com/tx/{tx_hash}">Polygonscan</a>' if tx_hash else ""
+    return "\n".join([
+        "✅ <b>ORDER GEFILLT</b>",
+        "━━━━━━━━━━━━━━━━━━━━",
+        f"🎯 <b>{market[:55]}</b>",
+        f"✅ {outcome} @ <b>${price:.3f}</b> | <b>${size:.2f} USDC</b> → <b>{shares:.2f} Shares</b>",
+        f"🐋 {_get_wallet_name(wallet)}{tx_line}",
+        f"🔑 <code>{order_id[:20]}...</code>",
+    ])
+
+
+def msg_order_rejected(order_id, market, outcome, size, error_msg=""):
+    """❌ WebSocket FAILED oder API 400 — nur echte Rejections, keine Pre-Submit-Skips."""
+    reason = f"\n❗ Grund: <i>{error_msg[:120]}</i>" if error_msg else ""
+    return "\n".join([
+        "❌ <b>ORDER ABGELEHNT</b>",
+        "━━━━━━━━━━━━━━━━━━━━",
+        f"🎯 <b>{market[:55]}</b>",
+        f"💰 {outcome} | ${size:.2f} USDC{reason}",
+        f"🔑 <code>{order_id[:20]}...</code>",
+    ])
+
+
+def msg_order_cancelled(order_id, market, outcome, size):
+    """🚫 WebSocket CANCELLATION."""
+    return "\n".join([
+        "🚫 <b>ORDER GECANCELT</b>",
+        "━━━━━━━━━━━━━━━━━━━━",
+        f"🎯 <b>{market[:55]}</b>",
+        f"💰 {outcome} | ${size:.2f} USDC",
+        f"🔑 <code>{order_id[:20]}...</code>",
+    ])
 
 
 def msg_result(market, outcome, won, size, pnl):
@@ -316,7 +368,11 @@ def msg_result(market, outcome, won, size, pnl):
     return "\n".join(lines)
 
 
-def msg_status(signals, orders, open_pos, total_invested, pnl, categories, archive_count):
+def msg_status(
+    signals, orders_sent, open_pos, total_invested, pnl, categories, archive_count,
+    skipped_min_size=0, rejected_api=0, filled=0, pending=0,
+    # legacy compat: old callers pass orders as 2nd arg — treat as orders_sent
+):
     cat_lines = []
     for cat, amt in sorted(categories.items(), key=lambda x: x[1], reverse=True):
         if amt > 0:
@@ -350,14 +406,18 @@ def msg_status(signals, orders, open_pos, total_invested, pnl, categories, archi
         "╚══════════════════════╝",
         f"🕐 <b>{datetime.now().strftime('%d.%m.  %H:%M')} Uhr</b>",
         "━━━━━━━━━━━━━━━━━━━━━━",
-        f"📡 Signale:  <b>{signals}</b>",
-        f"✅ Orders:   <b>{orders}</b>",
-        f"⚡ Offen:    <b>{open_pos} Positionen</b>",
+        f"📡 Signale empfangen:    <b>{signals}</b>",
+        f"📤 Orders gesendet:      <b>{orders_sent}</b>",
+        f"⏭️ Skipped (Min-Size):  <b>{skipped_min_size}</b>",
+        f"❌ Rejected (API):       <b>{rejected_api}</b>",
+        f"✅ Gefüllt:              <b>{filled}</b>",
+        f"⏳ Pending:              <b>{pending}</b>",
+        f"⚡ Offen:                <b>{open_pos} Positionen</b>",
         "━━━━━━━━━━━━━━━━━━━━━━",
         "🎯 <b>Win Rate:</b>",
         wr_line,
         "━━━━━━━━━━━━━━━━━━━━━━",
-        "💰 <b>Im Rennen:</b>",
+        "💰 <b>Real investiert:</b>",
         f"  {inv_bar}",
         f"  <b>${total_invested:.2f} USDC</b>",
         "━━━━━━━━━━━━━━━━━━━━━━",
@@ -377,7 +437,8 @@ def msg_status(signals, orders, open_pos, total_invested, pnl, categories, archi
     return "\n".join(lines)
 
 
-def msg_morning_summary(trades_today, resolved, won, lost, pnl, total_trades):
+def msg_morning_summary(trades_today, resolved, won, lost, pnl, total_trades,
+                        portfolio=None, redeemable_str="", closing_today_str=""):
     win_rate = round(won / resolved * 100, 1) if resolved > 0 else 0
     wr_icon  = "🟢" if win_rate >= 55 else "🟡" if win_rate >= 50 else "🔴"
     pnl_icon = "🟢" if pnl >= 0 else "🔴"
@@ -385,16 +446,31 @@ def msg_morning_summary(trades_today, resolved, won, lost, pnl, total_trades):
     lines = [
         f"☀️ <b>MORGEN-REPORT — {date.today().strftime('%d.%m.%Y')}</b>",
         "━━━━━━━━━━━━━━━━━━━━",
-        f"📋 Neue Trades: <b>{trades_today}</b>",
-        f"🎯 Aufgelöst:   <b>{resolved}</b>",
-        f"  ✅ Gewonnen: <b>{won}</b>",
-        f"  ❌ Verloren: <b>{lost}</b>",
+        f"📋 Neue Signale: <b>{trades_today}</b>",
+        f"🎯 Aufgelöst:    <b>{resolved}</b>  ✅{won} / ❌{lost}",
         f"  {wr_icon} Win Rate: <b>{win_rate}%</b>",
+        f"{pnl_icon} P&L Session: <b>{pnl_sign}${pnl:.2f} USDC</b>",
+    ]
+    if portfolio:
+        lines += [
+            "━━━━━━━━━━━━━━━━━━━━",
+            f"💼 Portfolio: <b>${portfolio.get('total_value', 0):.2f}</b> ({portfolio.get('count', 0)} Positionen)",
+            f"🎰 To-Win Total: <b>${portfolio.get('to_win', 0):.2f}</b>",
+        ]
+        if portfolio.get('redeemable_count', 0) > 0:
+            lines.append(f"💰 <b>CLAIM VERFÜGBAR: ${portfolio.get('redeemable_value', 0):.2f} ({portfolio.get('redeemable_count')}x)</b>")
+            if redeemable_str:
+                lines.append(redeemable_str)
+    if closing_today_str:
+        lines += [
+            "━━━━━━━━━━━━━━━━━━━━",
+            "⏰ <b>Resolutions heute:</b>",
+            closing_today_str,
+        ]
+    lines += [
         "━━━━━━━━━━━━━━━━━━━━",
-        f"{pnl_icon} P&L heute: <b>{pnl_sign}${pnl:.2f} USDC</b>",
-        f"📦 Gesamt Archiv: <b>{total_trades} Trades</b>",
-        "━━━━━━━━━━━━━━━━━━━━",
-        "🤖 Bot läuft weiter — guten Morgen! ☕",
+        f"📦 Archiv gesamt: <b>{total_trades} Trades</b>",
+        "🤖 Bot läuft — guten Morgen Brrudi! ☕",
     ]
     return "\n".join(lines)
 
@@ -579,6 +655,96 @@ def _add_wallet_to_env(address: str) -> tuple:
         return False, f"❌ Fehler beim Schreiben der .env: {e}"
 
 
+# ── /position + /cancel Helper ───────────────────────────────────────────────
+
+async def _cmd_position(order_id: str):
+    """Zeigt Details zu einer offenen Position."""
+    if not order_id:
+        await send("❌ Verwendung: /position &lt;order_id&gt;")
+        return
+    try:
+        with open(STATE_FILE, "r", encoding="utf-8") as f:
+            state = json.load(f)
+        positions = state.get("open_positions", {})
+        # Support both dict (new) and list (legacy)
+        if isinstance(positions, dict):
+            pos = positions.get(order_id)
+        else:
+            pos = next((p for p in positions if p.get("order_id") == order_id), None)
+        pending = state.get("pending_data", {}).get(order_id)
+    except Exception:
+        pos, pending = None, None
+
+    if pos:
+        lines = [
+            "📊 <b>POSITION DETAILS</b>",
+            "━━━━━━━━━━━━━━━━━━━━",
+            f"📌 {pos.get('market_question', '?')[:55]}",
+            f"✅ Outcome: <b>{pos.get('outcome', '?')}</b>",
+            f"💵 Einsatz: <b>${float(pos.get('size_usdc', 0)):.2f} USDC</b>",
+            f"🎯 Einstieg: <b>${float(pos.get('entry_price', 0)):.3f}</b>",
+            f"📈 Anteile: <b>{float(pos.get('shares', 0)):.2f}</b>",
+            f"🐋 Wallet: {_get_wallet_name(pos.get('source_wallet', ''))}",
+            f"🔑 <code>{order_id[:24]}</code>",
+            "━━━━━━━━━━━━━━━━━━━━",
+            "Status: <b>OPEN (gefüllt)</b>",
+        ]
+        await send("\n".join(lines))
+    elif pending:
+        lines = [
+            "⏳ <b>PENDING POSITION</b>",
+            "━━━━━━━━━━━━━━━━━━━━",
+            f"📌 {pending.get('market_question', '?')[:55]}",
+            f"✅ Outcome: <b>{pending.get('outcome', '?')}</b>",
+            f"💵 Einsatz: <b>${float(pending.get('size_usdc', 0)):.2f} USDC</b>",
+            f"🎯 Preis: <b>${float(pending.get('entry_price', 0)):.3f}</b>",
+            f"🔑 <code>{order_id[:24]}</code>",
+            "━━━━━━━━━━━━━━━━━━━━",
+            "Status: <b>⏳ PENDING — warte auf Polymarket</b>",
+        ]
+        await send("\n".join(lines))
+    else:
+        await send(f"❓ Order <code>{order_id[:24]}</code> nicht gefunden (weder offen noch pending).")
+
+
+async def _cmd_cancel(order_id: str):
+    """Schreibt Cancel-Request für eine PENDING Order."""
+    if not order_id:
+        await send("❌ Verwendung: /cancel &lt;order_id&gt;")
+        return
+    try:
+        with open(STATE_FILE, "r", encoding="utf-8") as f:
+            state = json.load(f)
+        pending = state.get("pending_data", {}).get(order_id)
+    except Exception:
+        pending = None
+
+    if not pending:
+        await send(f"⚠️ <code>{order_id[:24]}</code> ist nicht PENDING — nur Pending-Orders können storniert werden.")
+        return
+
+    cancel_file = os.path.join(os.path.dirname(os.path.abspath(STATE_FILE)), "cancel_requests.json")
+    try:
+        existing = []
+        if os.path.exists(cancel_file):
+            with open(cancel_file, "r", encoding="utf-8") as f:
+                existing = json.load(f)
+        if order_id not in existing:
+            existing.append(order_id)
+        with open(cancel_file, "w", encoding="utf-8") as f:
+            json.dump(existing, f)
+        await send("\n".join([
+            "🚫 <b>CANCEL ANGEFORDERT</b>",
+            "━━━━━━━━━━━━━━━━━━━━",
+            f"🔑 <code>{order_id[:24]}</code>",
+            f"📌 {pending.get('market_question', '?')[:50]}",
+            "━━━━━━━━━━━━━━━━━━━━",
+            "⏳ Bot storniert beim nächsten Check.",
+        ]))
+    except Exception as e:
+        await send(f"❌ Cancel fehlgeschlagen: {e}")
+
+
 # ── Command Handler ────────────────────────────────────
 
 _DECISION_LABELS = {
@@ -682,6 +848,19 @@ async def poll_commands(callback_status, callback_resolve):
                             ok, result_msg = _add_wallet_to_env(addr)
                             await send(result_msg)
 
+                        elif text.startswith("/position ") or text.startswith("/pos "):
+                            parts = text.split(maxsplit=1)
+                            order_id = parts[1].strip() if len(parts) == 2 else ""
+                            await _cmd_position(order_id)
+
+                        elif text.startswith("/cancel "):
+                            parts = text.split(maxsplit=1)
+                            order_id = parts[1].strip() if len(parts) == 2 else ""
+                            if OWNER_ID and str(msg.get("from", {}).get("id", "")) != OWNER_ID:
+                                await send("⚠️ Nur Onur darf Orders stornieren.")
+                            else:
+                                await _cmd_cancel(order_id)
+
                         elif text in ["/help", "/h"]:
                             await send("\n".join([
                                 "🤖 <b>KONG TRADING BOT — BEFEHLE</b>",
@@ -690,7 +869,9 @@ async def poll_commands(callback_status, callback_resolve):
                                 "/s       →  Kurzform für /status",
                                 "/pnl     →  Aktueller P&L und Win Rate",
                                 "/p       →  Kurzform für /pnl",
-                                "/add 0x… →  Neue Wallet zu TARGET_WALLETS hinzufügen",
+                                "/position &lt;order_id&gt;  →  Details zu einer Position",
+                                "/cancel &lt;order_id&gt;   →  PENDING-Order manuell stornieren",
+                                "/add 0x…  →  Neue Wallet zu TARGET_WALLETS hinzufügen",
                                 "/help    →  Diese Übersicht",
                                 "━━━━━━━━━━━━━━━━━━━━",
                                 "Buttons: ✅ Normal  ⏭️ Skip  2️⃣ Double  ½ Half",
@@ -779,7 +960,7 @@ async def generate_ai_analysis(wallet_trends: dict) -> str:
         return f"KI-Analyse nicht verfügbar: {e}"
 
 
-async def send_morning_report(trades_today, resolved, won, lost, pnl, total_trades):
+async def send_morning_report(trades_today, resolved, won, lost, pnl, total_trades, portfolio=None, redeemable_str="", closing_today_str=""):
     """Sendet Morning Report + KI-Analyse an alle konfigurierten Chats."""
     # Standardreport sofort senden
     await send(msg_morning_summary(
@@ -789,6 +970,9 @@ async def send_morning_report(trades_today, resolved, won, lost, pnl, total_trad
         lost=lost,
         pnl=pnl,
         total_trades=total_trades,
+        portfolio=portfolio,
+        redeemable_str=redeemable_str,
+        closing_today_str=closing_today_str,
     ))
 
     # KI-Analyse asynchron nachladen und senden

@@ -576,7 +576,15 @@ def api_health():
     lines = get_log_lines(300)
     for line in reversed(lines):
         if "ERROR" in line or "CRITICAL" in line:
-            last_error = line.strip()[-150:]
+            raw = line.strip()[-200:]
+            if "not enough balance" in raw or ("allowance" in raw.lower() and "balance" in raw.lower()):
+                last_error = "⚠️ Balance zu gering für Orders — Wins claimen oder USDC aufladen"
+            elif "geoblock" in raw.lower() or "Trading restricted" in raw:
+                last_error = "🚫 Geoblock — Bot-IP prüfen oder VPN deaktivieren"
+            elif "403" in raw and "restricted" in raw.lower():
+                last_error = "🚫 HTTP 403 — Zugriff verweigert (Geoblock)"
+            else:
+                last_error = raw[-150:]
             break
 
     # Last trade time
@@ -599,7 +607,7 @@ def api_health():
         pass
 
     # Count WS MATCHED events in recent logs
-    ws_events_min = sum(1 for l in lines[-60:] if "CONFIRMED" in l or "MATCHED" in l)
+    ws_events_min = sum(1 for l in lines[-60:] if "CONFIRMED" in l or "MATCHED" in l or "NEUER TRADE" in l or "Signal buffered" in l or "Order erstellt" in l)
 
     return _cors(jsonify({
         "bot_running":    running,

@@ -25,6 +25,7 @@ from core.risk_manager import RiskManager
 from core.execution_engine import ExecutionEngine, OpenPosition
 from core.fill_tracker import FillTracker, PendingOrder
 from strategies.copy_trading import CopyTradingStrategy, CopyOrder
+from claim_all import claim_loop
 from telegram_bot import (send, msg_trade, msg_status, msg_startup,
                            msg_shutdown, msg_morning_summary, msg_warning,
                            check_resolved_markets_and_notify, poll_commands,
@@ -196,6 +197,72 @@ def save_positions(engine, monitor, strategy):
         print(f"[SAVE] Fehler: {e}", flush=True)
 
 
+async def sync_positions_from_polymarket(engine, config):
+    """
+    T-NIGHT-4: Beim Start alle offenen Positionen von data-api.polymarket.com laden
+    und in engine.open_positions synchronisieren. Polymarket ist die Quelle der Wahrheit.
+    """
+    if config.dry_run:
+        return 0
+    try:
+        proxy = getattr(config, 'polymarket_address', None)
+        if not proxy:
+            return 0
+        url = f"https://data-api.polymarket.com/positions?user={proxy}&sizeThreshold=.01&limit=500"
+        import aiohttp
+        async with aiohttp.ClientSession() as session:
+            async with session.get(url, timeout=aiohttp.ClientTimeout(total=20)) as resp:
+                if resp.status != 200:
+                    print(f"[SYNC] Data-API HTTP {resp.status}", flush=True)
+                    return 0
+                positions = await resp.json()
+                if not isinstance(positions, list):
+                    positions = positions.get("data", []) if isinstance(positions, dict) else []
+
+        synced = 0
+        for p in positions:
+            size = float(p.get("size") or p.get("shares") or 0)
+            if size < 0.001:
+                continue
+            condition_id = str(p.get("conditionId") or p.get("market") or "")
+            token_id = str(p.get("asset_id") or p.get("tokenId") or "")
+            outcome = str(p.get("outcome") or p.get("title") or "")
+            already = any(pos.market_id == condition_id for pos in engine.open_positions.values())
+            if already:
+                continue
+            avg_price = float(p.get("avgPrice") or p.get("averagePrice") or 0)
+            size_usdc = float(p.get("initialValue") or p.get("cost") or round(avg_price * size, 4) or 0)
+            synth_id = f"RECOVERED_{condition_id[:20]}_{outcome[:10]}".replace(" ", "_")
+            try:
+                from core.execution_engine import OpenPosition
+                pos = OpenPosition(
+                    order_id=synth_id,
+                    market_id=condition_id,
+                    token_id=token_id,
+                    outcome=outcome,
+                    market_question=str(p.get("title") or p.get("market") or outcome)[:80],
+                    entry_price=avg_price,
+                    size_usdc=size_usdc,
+                    shares=size,
+                    market_closes_at=None,
+                    source_wallet="[polymarket-sync]",
+                    tx_hash_entry="",
+                )
+                engine.open_positions[synth_id] = pos
+                synced += 1
+            except Exception as e:
+                print(f"[SYNC] Fehler bei Position {outcome}: {e}", flush=True)
+
+        if synced > 0:
+            print(f"[SYNC] {synced} Positionen von Polymarket Data-API synchronisiert", flush=True)
+        else:
+            print(f"[SYNC] Alle {len(positions)} Polymarket-Positionen bereits im State", flush=True)
+        return synced
+    except Exception as e:
+        print(f"[SYNC] fehlgeschlagen: {e}", flush=True)
+        return 0
+
+
 async def balance_updater(config, interval=300):
     while True:
         try:
@@ -208,15 +275,69 @@ async def balance_updater(config, interval=300):
 
 
 async def morning_report_sender():
+    """Sendet um 08:00 Europe/Berlin einen vollständigen Morgen-Report."""
     while True:
         try:
-            now = datetime.now()
-            next_8am = now.replace(hour=8, minute=0, second=0, microsecond=0)
-            if now >= next_8am:
-                from datetime import timedelta
-                next_8am += timedelta(days=1)
-            await asyncio.sleep((next_8am - now).total_seconds())
+            # Berechne nächstes 08:00 Uhr Berlin (UTC+2 Sommer / UTC+1 Winter)
+            from datetime import timedelta
+            now_utc = datetime.now(timezone.utc)
+            berlin_offset = timedelta(hours=2)  # CEST (Sommerzeit April)
+            now_berlin = now_utc + berlin_offset
+            next_8am_berlin = now_berlin.replace(hour=8, minute=0, second=0, microsecond=0)
+            if now_berlin >= next_8am_berlin:
+                next_8am_berlin += timedelta(days=1)
+            sleep_secs = (next_8am_berlin - now_berlin).total_seconds()
+            logger.info(f"Morgen-Report in {sleep_secs/3600:.1f}h (um 08:00 Berlin)")
+            await asyncio.sleep(sleep_secs)
+
             summary = get_summary()
+
+            # Portfolio-Daten von Polymarket holen
+            portfolio_data = {}
+            redeemable_str = ""
+            closing_today_str = ""
+            try:
+                import aiohttp
+                proxy = getattr(config, 'polymarket_address', None)
+                if proxy:
+                    url = f"https://data-api.polymarket.com/positions?user={proxy}&sizeThreshold=.01&limit=500"
+                    async with aiohttp.ClientSession() as session:
+                        async with session.get(url, timeout=aiohttp.ClientTimeout(total=15)) as resp:
+                            if resp.status == 200:
+                                positions = await resp.json()
+                                if isinstance(positions, list):
+                                    total_val = sum(float(p.get("currentValue") or 0) for p in positions)
+                                    to_win = sum(float(p.get("toWin") or 0) for p in positions)
+                                    redeemable = [p for p in positions if p.get("redeemable") or p.get("isRedeemable")]
+                                    portfolio_data = {
+                                        "count": len(positions),
+                                        "total_value": total_val,
+                                        "to_win": to_win,
+                                        "redeemable_count": len(redeemable),
+                                        "redeemable_value": sum(float(p.get("currentValue") or 0) for p in redeemable),
+                                    }
+                                    if redeemable:
+                                        redeemable_str = "\n".join(
+                                            f"  💰 {p.get('outcome','?')[:40]}: ${float(p.get('currentValue',0)):.2f}"
+                                            for p in redeemable[:5]
+                                        )
+                                    # Closing today
+                                    import time as _time
+                                    now_ts = _time.time()
+                                    eod_ts = now_ts + 86400
+                                    closing = sorted(
+                                        [p for p in positions if p.get("endDate") and float(p.get("endDate") or 0) < eod_ts and float(p.get("endDate") or 0) > now_ts],
+                                        key=lambda p: float(p.get("endDate") or 0)
+                                    )[:5]
+                                    if closing:
+                                        from datetime import datetime
+                                        closing_today_str = "\n".join(
+                                            f"  ⏰ {p.get('outcome','?')[:35]}: {datetime.fromtimestamp(float(p.get('endDate',0)), tz=timezone.utc).strftime('%H:%M UTC')}"
+                                            for p in closing
+                                        )
+            except Exception as pe:
+                logger.warning(f"Portfolio-Fetch für Morning-Report fehlgeschlagen: {pe}")
+
             await send_morning_report(
                 trades_today=summary.get("total_trades", 0),
                 resolved=summary.get("resolved", 0),
@@ -224,6 +345,9 @@ async def morning_report_sender():
                 lost=summary.get("lost", 0),
                 pnl=summary.get("total_pnl", 0),
                 total_trades=summary.get("total_trades", 0),
+                portfolio=portfolio_data,
+                redeemable_str=redeemable_str,
+                closing_today_str=closing_today_str,
             )
         except asyncio.CancelledError:
             break
@@ -358,6 +482,7 @@ async def main():
     load_state(engine, monitor)
     restored = restore_positions(engine)
     stale = await recover_stale_positions(engine, config)
+    synced = await sync_positions_from_polymarket(engine, config)
 
     await send(msg_startup(len(config.target_wallets), config.portfolio_budget_usd, config.dry_run))
     if restored > 0 or stale > 0:
@@ -560,6 +685,7 @@ async def main():
             on_failed=engine.on_order_failed,
             on_cancelled=engine.on_order_cancelled,
         )
+        engine.set_fill_tracker(fill_tracker)  # Dynamic subscribe nach Orders
 
         tasks = [
             asyncio.create_task(monitor.start()),
@@ -571,6 +697,7 @@ async def main():
             asyncio.create_task(latency_report_loop()),
             asyncio.create_task(heartbeat_loop()),
             asyncio.create_task(fill_tracker.run()),
+            asyncio.create_task(claim_loop(config, interval_s=1800)),  # Auto-Claim alle 30min
             asyncio.create_task(poll_commands(
                 callback_status=send_status_now,
                 callback_resolve=check_resolved_markets_and_notify,

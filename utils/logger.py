@@ -21,6 +21,7 @@ def setup_logger(name: str = "polymarket_bot", level: str = "INFO") -> logging.L
 
     if logger.handlers:
         return logger  # Bereits initialisiert
+    logger.propagate = False  # Verhindert Duplikate in Root-Logger
 
     formatter = logging.Formatter(
         fmt="%(asctime)s | %(levelname)-8s | %(name)s | %(message)s",

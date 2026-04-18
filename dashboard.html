@@ -135,7 +135,7 @@ nav{position:sticky;top:0;z-index:200;background:rgba(3,3,3,.96);border-bottom:1
 .tab-content.active{display:block}
 
 /* ── TABLE ── */
-.tbl-wrap{overflow-x:auto;max-height:380px;overflow-y:auto}
+.tbl-wrap{overflow-x:auto;max-height:600px;overflow-y:auto}
 .tbl-wrap::-webkit-scrollbar{width:4px;height:4px}
 .tbl-wrap::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
 table{width:100%;border-collapse:collapse}
@@ -316,7 +316,7 @@ tr.trow:hover td{background:var(--bg3)}
   nav{padding:0 14px}
   .page{padding:14px 14px 60px}
   .wallet-grid{grid-template-columns:1fr}
-  .tbl-wrap{max-height:260px}
+  .tbl-wrap{max-height:400px}
 }
 @media(max-width:480px){
   .balance-hero{padding:18px 20px}
@@ -891,10 +891,11 @@ async function fetchPortfolio(){
     if(obody) obody.innerHTML = d.positions.map(p => {
       const pnlClass = p.pnl_pct > 0 ? 'style="color:#00ff88"' : p.pnl_pct < 0 ? 'style="color:#ff3366"' : '';
       const pnlStr = (p.pnl_pct >= 0 ? '+' : '') + p.pnl_pct.toFixed(1) + '%';
-      const claimCell = p.redeemable
+      const claimable = p.redeemable || p.isRedeemable;
+      const claimCell = claimable
         ? `<button class="btn-claim" onclick="claimAll()">CLAIM $${p.current_value.toFixed(2)}</button>`
         : '—';
-      return `<tr class="trow${p.redeemable ? ' redeemable-row' : ''}">
+      return `<tr class="trow${claimable ? ' redeemable-row' : ''}">
         <td style="max-width:180px;overflow:hidden;text-overflow:ellipsis" title="${esc(p.market)}">${esc(p.market.substring(0,42))}…</td>
         <td><span class="tag tag-open">${esc(p.outcome)}</span></td>
         <td style="color:var(--muted)">${p.avg_price_pct}¢→<b>${p.cur_price_pct}¢</b></td>

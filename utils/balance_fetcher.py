@@ -61,6 +61,9 @@ async def fetch_usdc_balance(wallet_address: str) -> float:
                     # USDC hat 6 Dezimalstellen (nicht 18 wie ETH)
                     balance_wei = int(result, 16)
                     balance_usdc = balance_wei / 1_000_000
+                    if balance_usdc <= 0:
+                        logger.warning(f"RPC {rpc} liefert $0.00 — versuche nächsten RPC")
+                        continue
                     logger.info(f"💳 Wallet Balance: ${balance_usdc:.2f} USDC (via {rpc})")
                     return balance_usdc
             except Exception as e:

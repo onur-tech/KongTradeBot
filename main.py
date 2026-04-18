@@ -80,6 +80,12 @@ def restore_positions(engine):
         with open(STATE_FILE, "r", encoding="utf-8") as f:
             state = json.load(f)
         positions_data = state.get("open_positions", [])
+        valid_positions = [p for p in positions_data
+                           if str(p.get("token_id", "")).strip() not in ("", "0x", "0x0")]
+        skipped = len(positions_data) - len(valid_positions)
+        if skipped:
+            print(f"[RESTORE] {skipped} Positionen ohne token_id übersprungen (stale)", flush=True)
+        positions_data = valid_positions
         print(f"[RESTORE] {len(positions_data)} Positionen gefunden...", flush=True)
         restored = 0
         for pos_data in positions_data:
@@ -145,10 +151,14 @@ async def recover_stale_positions(engine, config):
                     price = float(order.get("price", 0) or 0)
                     orig_size = float(order.get("original_size", 0) or 0)
                     remaining = float(order.get("remaining_size", orig_size) or orig_size)
+                    token_id = str(order.get("token_id", order.get("asset_id", "")) or "")
+                    if not token_id.strip() or token_id.strip() in ("0x", "0x0"):
+                        print(f"[RECOVER] Order {order_id[:12]}... ohne token_id übersprungen", flush=True)
+                        continue
                     engine._pending_data[order_id] = {
                         "order_id": order_id,
                         "market_id": str(order.get("market", order.get("condition_id", "")) or ""),
-                        "token_id": str(order.get("token_id", order.get("asset_id", "")) or ""),
+                        "token_id": token_id,
                         "outcome": str(order.get("outcome", order.get("side", "")) or ""),
                         "market_question": str(order.get("question", order.get("market", "Recovered Order")) or "Recovered Order")[:80],
                         "entry_price": price,
@@ -750,7 +760,7 @@ async def main():
             asyncio.create_task(latency_report_loop()),
             asyncio.create_task(heartbeat_loop()),
             asyncio.create_task(fill_tracker.run()),
-            asyncio.create_task(claim_loop(config, interval_s=1800)),  # Auto-Claim alle 30min
+            asyncio.create_task(claim_loop(config, interval_s=int(os.getenv("AUTO_CLAIM_INTERVAL_S", "300")))),  # Auto-Claim alle 5min (env: AUTO_CLAIM_INTERVAL_S)
             asyncio.create_task(poll_commands(
                 callback_status=send_status_now,
                 callback_resolve=check_resolved_markets_and_notify,

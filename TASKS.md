@@ -18,7 +18,6 @@ _Stand: 2026-04-18 07:30 Berlin_
 
 | ID | Titel | Prio | Notiz |
 |----|-------|------|-------|
-| T-022 | Auto-Claim Intervall 30min -> 5min; alle redeemable-Feld-Varianten akzeptieren | WICHTIG | Intervall in claim_all.py; isRedeemable/redeemable/is_redeemable |
 | T-010 | Balance-Delta SEIT START reparieren | KRITISCH | Portfolio-Snapshot beim Start fehlt (P007) |
 
 | T-012 | Alle 37 Positionen anzeigen (tbl-wrap CSS) | WICHTIG | Braucht Dashboard-Neustart - DONE, aber Restart noetig |
@@ -86,6 +85,8 @@ _Stand: 2026-04-18 07:30 Berlin_
 | T-D35 | generate_status.py: Dashboard-URL Abschnitt hinzugefuegt | 2026-04-18 |
 | T-D36 | P022 struktureller Fix: PID-Lock + atexit + ExecStartPre (3 Ebenen) | 2026-04-18 |
 | T-D37 | P026: Watchdog-HB-Fix + MIN_VOL-Bug (vol=0 fuelschlicherweise skip) | 2026-04-18 |
+| T-D38 | T-010: token_id-Guard in _verify_order_onchain + restore + recover | 2026-04-18 |
+| T-D39 | T-022: Auto-Claim 5min + is_claimable() alle 3 redeemable-Varianten | 2026-04-18 |
 
 ---
 

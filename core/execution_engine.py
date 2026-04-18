@@ -480,6 +480,10 @@ class ExecutionEngine:
         Immer direkt on-chain prüfen!
         """
         try:
+            # T-010: Leere token_id führt zu API 400 "invalid hex address"
+            if not token_id or token_id.strip() in ("", "0x", "0x0"):
+                logger.warning(f"_verify_order_onchain: token_id leer für {order_id[:12]}... — übersprungen")
+                return False
             # LEKTION: get_balance_allowance() lesen (READ-ONLY)
             # NIEMALS update_balance_allowance() aufrufen nach einem Fill!
             # Das überschreibt den internen CLOB-State!

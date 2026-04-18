@@ -374,3 +374,56 @@ Named Tunnel mit eigener Domain -> feste URL ohne Watcher noetig.
 - Neue GitHub-Accounts langsam warm-laufen lassen (kein sofortiger Auto-Push)
 - Mindestens 1 Woche manuell pushen bevor Automation aktiviert wird
 - Für Bot-Accounts: Personal Account verwenden und Repo unter Org anlegen
+
+---
+
+## P029 — T-010: Leere token_id triggert API 400 alle ~3min
+
+**Status:** BEHOBEN (2026-04-18)
+
+**Problem:** Bot loggte alle ~3 Minuten:
+`PolyApiException[status_code=400, 'GetBalanceAndAllowance invalid params: assetAddress invalid hex address']`
+
+**Root-Cause:**
+`_verify_order_onchain()` wurde mit leerem `token_id=""` aufgerufen.
+Ursache: `recover_stale_positions()` und `restore_positions()` injizierten Positionen
+aus REST-API-Antworten die kein `token_id`/`asset_id` enthielten.
+Watchdog-RestartCooldown 180s erklaert das ~3-Minuten-Intervall der Fehler.
+
+**Fix (3 Ebenen):**
+1. `core/execution_engine.py` — Guard in `_verify_order_onchain()`:
+   Wenn `token_id` leer/`0x`/`0x0` → `return False` ohne API-Call
+2. `main.py restore_positions()` — Filter vor Loop:
+   Positionen ohne gueltigen `token_id` werden beim Start uebersprungen
+3. `main.py recover_stale_positions()` — Guard pro Order:
+   Orders ohne `token_id` → `continue` (kein Inject in `_pending_data`)
+
+**Status:** DEPLOYED (commit feat/T-010+T-022, 2026-04-18)
+
+---
+
+## P030 — Inkonsistente Polymarket redeemable-Feldnamen
+
+**Status:** BEHOBEN (2026-04-18)
+
+**Problem:**
+Polymarket Data-API liefert den redeemable-Status unter verschiedenen Feldnamen
+je nach Endpunkt und API-Version:
+- `redeemable` (aeltere Endpunkte)
+- `isRedeemable` (neuere Endpunkte, camelCase)
+- `is_redeemable` (snake_case Variante, selten)
+
+`claim_all.py` pruefte nur `redeemable` und `isRedeemable` → `is_redeemable` Positionen
+wurden nicht geclaimt. `dashboard.py` hatte dasselbe Problem bei der unclaimed-Summe.
+
+**Fix:**
+`is_claimable()` Helper-Funktion in `claim_all.py`:
+```python
+def is_claimable(pos: dict) -> bool:
+    return any(pos.get(k) for k in ("redeemable", "isRedeemable", "is_redeemable"))
+```
+Alle redeemable-Checks in `claim_all.py` und `dashboard.py` nutzen jetzt diese Funktion.
+
+**Bonus:** `AUTO_CLAIM_INTERVAL_S` env-Variable (default 300s / 5min statt 1800s / 30min).
+
+**Status:** DEPLOYED (2026-04-18)

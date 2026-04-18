@@ -409,7 +409,7 @@ def api_balance():
     in_positions = round(sum(float(p.get("currentValue") or p.get("value") or 0) for p in positions), 2)
     portfolio_total = round((cash or 0) + in_positions, 2)
     to_win_total = round(sum(float(p.get("toWin") or p.get("maxPayout") or p.get("size") or 0) for p in positions), 2)
-    unclaimed = [p for p in positions if p.get("redeemable") or p.get("isRedeemable")]
+    unclaimed = [p for p in positions if any(p.get(k) for k in ("redeemable", "isRedeemable", "is_redeemable"))]
     unclaimed_amount = round(sum(float(p.get("currentValue") or 0) for p in unclaimed), 2)
     unrealized_pnl = round(sum(float(p.get("unrealizedPnl") or 0) for p in positions), 2)
 

@@ -11,6 +11,7 @@ Verwendung:
 
 import asyncio
 import argparse
+import os
 import sys
 from pathlib import Path
 
@@ -22,6 +23,11 @@ from utils.config import Config
 logger = get_logger("claim")
 
 POLYMARKET_DATA_API = "https://data-api.polymarket.com"
+AUTO_CLAIM_INTERVAL_S = int(os.getenv("AUTO_CLAIM_INTERVAL_S", "300"))
+
+
+def is_claimable(pos: dict) -> bool:
+    return any(pos.get(k) for k in ("redeemable", "isRedeemable", "is_redeemable"))
 
 
 async def fetch_redeemable_positions(proxy_address: str) -> list:
@@ -40,9 +46,8 @@ async def fetch_redeemable_positions(proxy_address: str) -> list:
 
         redeemable = []
         for p in positions:
-            is_redeemable = p.get("redeemable") or p.get("isRedeemable")
             cur_value = float(p.get("currentValue") or p.get("value") or 0)
-            if is_redeemable and cur_value > 0.01:
+            if is_claimable(p) and cur_value > 0.01:
                 redeemable.append(p)
 
         return redeemable
@@ -127,7 +132,7 @@ async def claim_all(config: Config, dry_run: bool = False) -> dict:
     return {"claimed": claimed, "total_usdc": claimed_usdc, "errors": errors}
 
 
-async def claim_loop(config: Config, interval_s: int = 1800):
+async def claim_loop(config: Config, interval_s: int = AUTO_CLAIM_INTERVAL_S):
     """
     Loop der alle interval_s Sekunden nach redeemable Positionen sucht und sie einlöst.
     Aus main.py als asyncio.create_task() starten.

@@ -11,7 +11,7 @@ Multiplier in WALLET_WEIGHTS (env-Override).
 | 1 | 0x7a6192...af24 | Gambler1968 | 1.0x | TBD | wallet_init.py |
 | 2 | 0x7177a7...dDEf | kcnyekchno | 1.0x | TBD | wallet_init.py |
 | 3 | 0x0B7A60...86cf | HOOK | 1.0x | TBD | wallet_init.py |
-| 4 | 0xee613b...debf | sovereign2013 | 0.3x | 45-49% WR | Decay-Kategorie |
+| 4 | 0xee613b...debf | denizz | 0.5x | Geopolitik | Original-Doku |
 | 5 | 0xbaa2bc...2c73 | denizz | 0.5x | Geopolitik | wallet_init.py |
 | 6 | 0xde7be6...5f4b | sovereign2013 | 0.3x | 45-49% WR | Decay-Kategorie |
 | 7 | 0x019782...9f3c | majorexploiter | 3.0x | 76% WR, Mio-Profit | Polymonit |
@@ -67,8 +67,14 @@ Multiplier in WALLET_WEIGHTS (env-Override).
 
 ## Offene Punkte
 
-- Alias + Performance für #1, #2, #3, #5, #11 nachtragen
-- wan123-Entscheidung treffen
+- Performance für #1, #2, #3 nachtragen (Gambler1968, kcnyekchno, HOOK)
+- wan123-Entscheidung treffen (0.5x wenn Live-Daten -71% ROI bestätigen)
 - Per-Wallet-P&L-Tracking implementieren (T-017)
+
+## Daten-Diskrepanz
+
+HINWEIS: wallet_init.py mappt 0xee613b auf sovereign2013 —
+wurde hier auf denizz gesetzt basierend auf Original-Doku.
+Zu verifizieren via Polymarket-UI Wallet-Lookup wenn Brrudi mal Zeit hat.
 
 Ende WALLETS.md.

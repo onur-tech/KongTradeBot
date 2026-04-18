@@ -37,6 +37,32 @@ STATE_FILE    = BASE_DIR / "bot_state.json"
 ARCHIVE_FILE  = BASE_DIR / "trades_archive.json"
 ENV_FILE      = BASE_DIR / ".env"
 STRATEGY_FILE = BASE_DIR / "strategies" / "copy_trading.py"
+
+
+def _get_midnight_snapshot(today_str: str, current_total: float) -> dict:
+    """Lädt oder erstellt den Tages-Snapshot für today_pnl-Berechnung.
+    Datei: .portfolio_snapshot_YYYY-MM-DD.json
+    Returns: {"snapshot_value": float, "created_at": str}
+    """
+    snap_file = BASE_DIR / f".portfolio_snapshot_{today_str}.json"
+    # Alte Snapshots (> 7 Tage) aufräumen
+    try:
+        for f in BASE_DIR.glob(".portfolio_snapshot_*.json"):
+            if f.name < f".portfolio_snapshot_{today_str}.json":
+                f.unlink(missing_ok=True)
+    except Exception:
+        pass
+    if snap_file.exists():
+        try:
+            return json.loads(snap_file.read_text())
+        except Exception:
+            pass
+    snap = {"snapshot_value": current_total, "created_at": datetime.now(timezone.utc).isoformat()}
+    try:
+        snap_file.write_text(json.dumps(snap))
+    except Exception:
+        pass
+    return snap
 LOG_DIR       = BASE_DIR / "logs"
 DB_FILE       = BASE_DIR / "metrics.db"
 
@@ -681,15 +707,24 @@ def api_portfolio():
     total_traded = round(sum(r["traded"] for r in result), 2)
     total_to_win = round(sum(r["to_win"] for r in result), 2)
     total_pnl    = round(sum(r["pnl_usdc"] for r in result), 2)
+
+    # Midnight snapshot → today_pnl_portfolio = Wertveränderung seit Tagesbeginn
+    today_str = date.today().isoformat()
+    snap = _get_midnight_snapshot(today_str, total_value)
+    today_pnl_portfolio = round(total_value - snap["snapshot_value"], 2)
+
     return _cors(jsonify({
-        "positions":        result,
-        "count":            len(result),
-        "total_value":      total_value,
-        "total_traded":     total_traded,
-        "total_to_win":     total_to_win,
-        "total_pnl":        total_pnl,
-        "redeemable_count": sum(1 for r in result if r["redeemable"]),
-        "ts":               _polymarket_positions.get("ts", 0),
+        "positions":            result,
+        "count":                len(result),
+        "total_value":          total_value,
+        "total_traded":         total_traded,
+        "total_to_win":         total_to_win,
+        "total_pnl":            total_pnl,
+        "redeemable_count":     sum(1 for r in result if r["redeemable"]),
+        "today_pnl_portfolio":  today_pnl_portfolio,
+        "snapshot_value":       snap["snapshot_value"],
+        "snapshot_created_at":  snap.get("created_at", ""),
+        "ts":                   _polymarket_positions.get("ts", 0),
     }))
 
 

@@ -438,7 +438,7 @@ async def status_reporter(strategy, risk, engine, config, interval):
             cat_simple = {k.split()[-1]: v for k, v in categories.items()}
             await send(msg_status(
                 signals=s["signals_received"],
-                orders=s["orders_created"],
+                orders_sent=s["orders_created"],
                 open_pos=e["open_positions"],
                 total_invested=total_invested,
                 pnl=pnl,

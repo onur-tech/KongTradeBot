@@ -723,3 +723,29 @@ Telegram Bot API unterstützt `ReplyKeyboardMarkup` als raw JSON ohne python-tel
 - `/menu` / `/m` → sendet Keyboard erneut (falls ausgeblendet)
 - Text-Button-Klicks werden als normale Nachrichten empfangen → `_BUTTON_ACTION_MAP` dispatcht zu `_handle_menu_callback()`
 - `python-telegram-bot` NICHT installiert auf Server → Library-Import würde crashen
+
+---
+
+## P044 — Drei Detail-Bugs nach Callback-API-Umstieg (18.04.2026)
+
+**Status:** ✅ BEHOBEN (18.04.2026)
+
+### Bug A — Positionen-Callback: Invest immer $0.00
+`p.get("size_usdc")` → Feld existiert nicht in `/api/portfolio`.
+API liefert `traded` (= Initial-Investment in USDC).
+Fix: `p.get("traded", 0)`. Zeigt jetzt korrekt "$60.00→$66.38 (+10.6%)".
+
+### Bug B — Status-Button: reagiert nicht
+`msg_status(orders=s["orders_created"])` → Parameter heißt `orders_sent`.
+Python TypeError: unexpected keyword argument 'orders' → Exception → silent fail.
+**Betroffen:** sowohl `/status` Befehl als auch stündlicher Status-Reporter (beide seit langem kaputt).
+Fix: beide Call-Sites in main.py: `orders=` → `orders_sent=`.
+
+### Bug C — Heute-Callback: P&L immer $0.00
+`today_pnl` in `/api/summary` = Summe AUFGELÖSTER Trades heute.
+Da heute keine Märkte aufgelöst wurden → 0. (T-015, bereits bekannt)
+Fix: Midnight-Snapshot in `dashboard.py`:
+- `_get_midnight_snapshot(today_str, current_total)` erstellt `.portfolio_snapshot_YYYY-MM-DD.json`
+- `/api/portfolio` gibt `today_pnl_portfolio = total_value - snapshot_value` zurück
+- Telegram zeigt: "Portfolio-Delta: +$X.XX USDC (Morgen: $X → Jetzt: $X)"
+- Alte Snapshots (> 7 Tage) automatisch gelöscht

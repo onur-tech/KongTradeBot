@@ -623,20 +623,31 @@ async def _handle_menu_callback(action: str, callback_status) -> str:
         return "💼 Portfolio gesendet"
 
     elif action == "today":
-        data = _fetch_dashboard("/api/summary")
-        if not data:
+        summary = _fetch_dashboard("/api/summary")
+        port    = _fetch_dashboard("/api/portfolio")
+        if not summary:
             await send(_DASHBOARD_ERR, urgent=True)
             return "⚠️"
-        today_count = int(data.get("today_trades", 0))
-        pnl_today   = float(data.get("today_pnl", 0))
-        pnl_sign    = "+" if pnl_today >= 0 else ""
-        pnl_icon    = "🟢" if pnl_today >= 0 else "🔴"
+        today_count   = int(summary.get("today_trades", 0))
+        # Portfolio-Delta seit Mitternacht (Snapshot-basiert, genauer als nur resolved P&L)
+        port_pnl      = float((port or {}).get("today_pnl_portfolio", 0))
+        snap_val      = float((port or {}).get("snapshot_value", 0))
+        total_val     = float((port or {}).get("total_value", 0))
+        resolved_pnl  = float(summary.get("today_pnl", 0))
+        pnl_sign = "+" if port_pnl >= 0 else ""
+        pnl_icon = "🟢" if port_pnl >= 0 else "🔴"
         lines = [
             f"📅 <b>HEUTE — {date.today().strftime('%d.%m.%Y')}</b>",
             "━━━━━━━━━━━━━━━━━━━━",
             f"📋 Trades: <b>{today_count}</b>",
-            f"{pnl_icon} P&L heute: <b>{pnl_sign}${pnl_today:.2f} USDC</b>",
         ]
+        if snap_val > 0:
+            lines += [
+                f"{pnl_icon} Portfolio-Delta: <b>{pnl_sign}${port_pnl:.2f} USDC</b>",
+                f"   Morgen: ${snap_val:.2f} → Jetzt: ${total_val:.2f}",
+            ]
+        else:
+            lines.append(f"💰 Resolved P&L heute: <b>{'+' if resolved_pnl>=0 else ''}${resolved_pnl:.2f}</b>")
         await send("\n".join(lines), urgent=True)
         return "📅 Heute gesendet"
 
@@ -660,17 +671,19 @@ async def _handle_menu_callback(action: str, callback_status) -> str:
             await send(_DASHBOARD_ERR, urgent=True)
             return "⚠️"
         positions = port.get("positions", [])
-        count = len(positions)
+        count = int(port.get("count", len(positions)))
         top10 = sorted(positions, key=lambda x: float(x.get("current_value", 0) or 0), reverse=True)[:10]
         lines = [
             f"📋 <b>OFFENE POSITIONEN ({count})</b>",
             "━━━━━━━━━━━━━━━━━━━━",
         ]
         for i, p in enumerate(top10, 1):
-            mkt = str(p.get("market_question", p.get("market", "?")))[:30]
+            mkt = str(p.get("market", "?"))[:30]
             cur = float(p.get("current_value", 0) or 0)
-            inv = float(p.get("size_usdc", 0) or 0)
-            lines.append(f"  {i}. {mkt} | ${inv:.2f}→<b>${cur:.2f}</b>")
+            inv = float(p.get("traded", 0) or 0)   # traded = Initial-Investment
+            pct = float(p.get("pnl_pct", 0) or 0)
+            pct_str = f" ({'+' if pct>=0 else ''}{pct:.1f}%)" if inv > 0 else ""
+            lines.append(f"  {i}. {mkt} | ${inv:.2f}→<b>${cur:.2f}</b>{pct_str}")
         if not top10:
             lines.append("  —")
         await send("\n".join(lines), urgent=True)

@@ -490,3 +490,279 @@ Im CSV-Export fehlte die TX-Hash-Spalte komplett.
 - Exports nach `/root/KongTradeBot/exports/tax_YYYY_KWWW.csv` + `blockpit_YYYY_KWWW.csv`
 - Telegram-Summary an alle Chat-IDs
 - Download: `scp root@89.167.29.183:/root/KongTradeBot/exports/*.csv .`
+
+---
+
+## P036 — OAuth-Popup trotz embedded PAT — GCM intercepted github.com
+
+**Status:** BEHOBEN (2026-04-18)
+
+GCM (`credential.helper=manager`) ist systemweit gesetzt und fängt HTTPS-Requests
+an github.com ab — selbst wenn PAT in der Remote-URL eingebettet ist.
+Kein `~/.gitconfig` existierte zur Überschreibung.
+
+**Fix:** `git config --global credential.https://github.com.helper ""`
+
+Leerer String in User-Config überschreibt System-Helper für github.com-URLs.
+
+---
+
+## P037 — Frankfurter API URL-Migration (.app → .dev/v1), Hetzner-IP-Block
+
+**Status:** BEHOBEN (2026-04-18)
+
+`api.frankfurter.app` gibt 403 von Hetzner-Helsinki-IP → EUR/USD fällt auf Fallback
+0.92 (aktueller Kurs ≈ 0.88) → systematische Steuer-Verzerrung.
+
+**Fix (3 Ebenen):**
+1. Primary: `https://api.frankfurter.dev/v1/` — gleiche ECB-Quelle, neue Domain
+2. Secondary: ECB direkt `https://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml`
+3. Tertiary: Hardcodierter Fallback 0.92
+
+**Betroffen:** `utils/tax_archive.py` — `_fetch_eur_usd_rates()`
+
+---
+
+## P038 — "Schließt in"-Spalte zeigt "—" für alle offenen Positionen
+
+**Status:** BEHOBEN (2026-04-18)
+
+Polymarket Data API liefert `endDate` als reines Datum `"2026-04-30"` (kein Timezone-Suffix).
+`datetime.fromisoformat("2026-04-30")` → naive datetime. Subtraktion naive - aware →
+`TypeError` → `except Exception: return "—"` — komplett silent.
+
+**Fix:** `if dt.tzinfo is None: dt = dt.replace(tzinfo=timezone.utc)` in `_closes_in_label()`.
+
+---
+
+## P039 — Wallet-Scout Decay-Detection via SQLite-Zeitreihe
+
+**Status:** IMPLEMENTIERT (2026-04-18)
+
+`wallet_scout.py` hatte keine persistente Geschichte → keine Trend-Erkennung.
+
+**Fix:**
+- SQLite DB `data/wallet_scout.db` (Tabelle `wallet_scout_daily`)
+- PRIMARY KEY (scan_date, wallet_address, source) → idempotent
+- `utils/wallet_trends.py`: get_wallet_trend, get_decay_candidates, get_rising_stars
+- `scripts/weekly_wallet_report.py` + systemd Timer (So 20:00 Berlin)
+- Dashboard `/api/wallet_trends` Endpoint
+
+Erste echte Trends nach 7-14 Scan-Tagen.
+
+---
+
+## P040 — Telegram-Spam: Bot-Neustart-Alerts bei jedem Watchdog-Zyklus
+
+**Status:** ✅ BEHOBEN (18.04.2026)
+
+Jeder Watchdog-Restart schickte "✅ neu gestartet" an Telegram. Startup-Alert kam
+bei jedem Neustart ohne Throttle.
+
+**Fix:**
+- `watchdog.py`: Erfolgreiche Restart-Alerts entfernt. `HEARTBEAT_MAX_AGE` 180 → 600s.
+- `telegram_bot.py`: `_is_muted()` / `_MUTE_FILE`, `_is_startup_allowed()` 30min Cooldown,
+  `send(urgent=False)` respektiert Mute, Inline-Menu 8 Buttons, `_TG_MIN_SIZE` 5→2 USD.
+- `scripts/daily_digest.py` + systemd Timer 22:00 Berlin.
+
+---
+
+## P041 — Telegram-Callbacks lasen local state statt API → immer $0 / 0 Positionen
+
+**Status:** ✅ BEHOBEN (18.04.2026)
+
+`/menu → Portfolio` zeigte "0 Positionen | $0.00" obwohl 18 Positionen mit $213 Value existierten.
+`_handle_menu_callback()` las aus `bot_state.json` (leer nach Restart).
+
+**Fix:** `_fetch_dashboard(endpoint)` → `GET http://localhost:5000{endpoint}`.
+Alle 6 Callbacks auf Dashboard-API umgestellt. Fehler-Fallback: "Dashboard nicht erreichbar".
+
+---
+
+## P042 — Bot-Restart-Schleife alle 3 Min (HEARTBEAT_MAX_AGE < heartbeat_loop interval)
+
+**Status:** ✅ BEHOBEN (18.04.2026, via aeec617)
+
+`heartbeat_loop(interval=300)` schreibt alle 300s. `HEARTBEAT_MAX_AGE=180`.
+180 < 300 → Watchdog restartete bot jeden Cycle. Genau 3-Min-Abstände.
+
+**Fix:** `HEARTBEAT_MAX_AGE`: 180 → 600 (> 300). **Invariante: MAX_AGE > interval immer!**
+
+---
+
+## P043 — Persistent Reply Keyboard (kein python-telegram-bot nötig)
+
+**Status:** ✅ IMPLEMENTIERT (18.04.2026)
+
+Telegram `ReplyKeyboardMarkup` als raw JSON ohne Library:
+`{"keyboard": [...], "resize_keyboard": true, "is_persistent": true}`
+- `/start` → Begrüßung + Keyboard (Brrudi einmalig `/start` nach Deploy)
+- Text-Button-Klicks → normale Nachrichten → `_BUTTON_ACTION_MAP` → `_handle_menu_callback()`
+
+---
+
+## P044 — Drei Detail-Bugs nach Callback-API-Umstieg (18.04.2026)
+
+**Status:** ✅ BEHOBEN (18.04.2026)
+
+**Bug A:** `p.get("size_usdc")` → Feld nicht in `/api/portfolio`. Fix: `p.get("traded", 0)`.
+
+**Bug B:** `msg_status(orders=s["orders_created"])` → Parameter heißt `orders_sent`. TypeError → silent fail.
+Fix: `orders=` → `orders_sent=` (beide Call-Sites in main.py).
+
+**Bug C:** `today_pnl` = nur RESOLVED Trades → immer 0 wenn kein Markt heute resolved.
+Fix: Midnight-Snapshot `_get_midnight_snapshot()` in `dashboard.py`. `/api/portfolio` gibt
+`today_pnl_portfolio = total_value - snapshot_value`. Snapshots >7 Tage auto-gelöscht.
+
+---
+
+## P045 — Drei Telegram-Bugs nach Live-Test (18.04.2026)
+
+**Status:** ✅ BEHOBEN (18.04.2026, via 26a36c1)
+
+**Bug A:** P044-Fix hatte `orders=` → `orders_sent=` nur in `status_reporter` (line 441) behoben.
+`send_status_now()` (line 727, aufgerufen vom Status-Button) hatte noch `orders=`. Fix dort auch.
+
+**Bug B:** Multi-Signal Spam — gleiche Wallet+Markt-Kombi mehrfach in 15 Min.
+Fix: Dedup in `on_multi_signal` (main.py): Key = `f"{market}|{outcome}|{sorted_wallets}"`,
+15-Min-Cooldown via `.multi_signal_last_alert.json`, 24h-Cleanup.
+
+**Bug C:** Exceptions in `_handle_menu_callback` → `poll_commands except: pass` → kein Alert.
+Fix: `_safe_callback(name, handler, *args)` fängt Exception, sendet Telegram-Alert, gibt `"⚠️"` zurück.
+
+---
+
+## P046 — Exit-Strategie Design Decisions (18.04.2026)
+
+**Status:** ✅ IMPLEMENTIERT (18.04.2026) — EXIT_DRY_RUN=true, Observation läuft
+
+### Warum 40/40/15/5 Staffel?
+Prevayo-Research + Laika AI Backtests für binäre Prediction-Markets.
+- 40% Sicherheits-Take bei +30%: Kapitalsicherung vor Reversal-Risk
+- Zweites 40% bei +60%: Compound-Effekt bei Gewinnern
+- 15% bei +100%: Runner-Anteil (5%) bis Resolution
+- Boost-Staffel (3+ Wallets): 50/90/150% wegen höherer Conviction
+
+### Warum 12¢ Trail-Aktivierung (absolut)?
+Binäre Märkte 0..1 USDC — prozentuale Trails scheitern bei billigen/teuren Tokens.
+12¢ = sinnvoller Gewinn bei allen Preisniveaus.
+Trail-Distance: 7¢ (≥$50k Vol) vs 10¢ (thin) — breiter bei illiquidem Orderbook.
+
+### Warum Whale-Exit höchste Priorität?
+Smart-Money-Signal > Zahlen. Wallet verkauft = Information, nicht nur Statistik.
+Sofort 100% raus, kein partial-exit.
+
+### Warum DRY-RUN-Default?
+(1) Validierung erste 24h. (2) SELL-Slippage-Dynamics noch unbekannt. (3) Race-Condition
+exit_loop + WalletMonitor + FillTracker auf `engine.open_positions` im DRY-RUN harmlos.
+
+### Bekannte Edge-Cases
+- `wallet_monitor.get_recent_sells` noch nicht implementiert → Whale-Exit immer skip
+- `market_volumes` aktuell immer `{}` → immer thin-trail (konservativ)
+- Partial-Fill bei SELL: `remaining_shares` tracked, aber `pos.shares` erst bei Live-Exit updated
+
+---
+
+## P047 — OpenClaw-Evaluation: Warum nicht integrieren
+
+**Status:** ENTSCHIEDEN (18.04.2026) — Weg A: Konzepte klauen, Plattform nicht nutzen
+
+OpenClaw (Peter Steinberger), 329k GitHub-Stars. $116k/Tag-Narrativ = Arbitrage mit
+riesigem Kapital. Reddit-Test: $42 mit OpenClaw-Setup. Edge halbiert sich 3-6 Monate.
+
+**Eigene Architektur-Analyse:** Watcher, Enricher, Notifier, Executor — 80% bereits vorhanden.
+Fehlt nur: zentralisiertes Memory-System.
+
+**Entscheidung:** Konzepte übernehmen (Skill-Manifeste, Dry-Run-First, Structured Signals,
+Guarded Execution). Plattform nicht nutzen.
+
+**Grund:** Seit 4. April 2026 Anthropic-Sperre für Subscription-Zugriff aus Third-Party-Tools
+→ separater API-Key erforderlich, Zusatzkosten, kein Vorteil zu eigenem Stack.
+
+---
+
+## P048 — Latenz-Argument-Korrektur (iPhone-Chat-Insight)
+
+**Status:** VERSTANDEN (18.04.2026) — Strategie angepasst
+
+**Fehler-Annahme (heute):** "4-11 Min Lag = Edge für uns."
+**Richtig:** Lag relevant für HFT-Arbitrage (5-Min-BTC-Märkte), NICHT für Copy-Trading
+mit Stunden-/Wochen-Haltedauern.
+
+**Echte Edge-Quellen:**
+1. **Wallet-Kuration als Moat:** Weniger bekannte, konsistent profitable Wallets;
+   Kategorie-Spezialisten; Brier-Score-Rebalancing
+2. **Filter-Edge statt Speed-Edge:** Claude filtert emotionale/Fun/Hedge-Trades raus
+3. **Multi-Wallet-Confluence:** 3+ unabhängige Top-Wallets, gleiche Seite, 48h = starkes Signal
+4. **Duration-Aware Entry:** Später zu besseren Preisen wenn Whale-Impact abgeklungen
+
+---
+
+## P049 — Copy-Trading-Realitäts-Check (Reddit-Research)
+
+**Status:** VERSTANDEN (18.04.2026) — Risiken im System adressieren
+
+**Reddit 4-Monats-Test ($9.200 Kapital):** Nur 1 von 7 Bots profitabel.
+Copy-Trading 8 Wochen → 5 straight losses. Edge-Verfall 60% in 12 Wochen.
+Slippage 3-5¢/Trade. 99.49% aller Polymarket-Wallets nie $1.000+ Profit.
+
+**Decoy-Trading real:** Polymarket dokumentierte Sept 2025 "Copytrade Wars" —
+Top-Whales platzieren Decoy-Trades (kaufen → warten auf Copier → in Spike verkaufen).
+
+**68%-Win-Rate-Trugschluss:** "Liegt nicht am Signal, sondern an ALLEM dazwischen."
+5 Execution-Bugs: Ghost Trades, Fake P&L, Market-Order in thin Orderbook,
+Resolution-Window-Race, Balance-Tracking statt Preis als Ground Truth.
+
+**Was uns schützt:** Fill-Verifikation on-chain, Multi-RPC-Fallback, Defensive Config 0.05x,
+Auto-Claim via blockchain-state, Wallet-Scout mit Trend-Analyse.
+
+**Was noch fehlt:** Slippage-Tracking (T-I11), Decoy-Detection (T-I08),
+Exit-Strategie ✅ erledigt (T-D52).
+
+---
+
+## P050 — Sentiment-Bot-Architektur-Plan
+
+**Status:** DESIGN FINAL (18.04.2026) — Implementation geplant als T-I07
+
+**Problem:** 4-11 Min Lag zwischen News-Signal und Polymarket-Reprice dokumentiert.
+
+**API-Kosten-Research:**
+- Twitter Basic: $100/Monat OHNE Streaming (unbrauchbar)
+- Twitter Pro: $5.000/Monat (zu teuer)
+- TweetStream.io: $139-349/Monat (Polymarket-Detection built-in)
+- Free Alternative: RSS + Reddit API + Telegram Public Channels
+
+**Wichtigster LLM-Insight:** LLMs schlecht bei Probability-Estimation, sehr gut bei
+Classification. Claude fragen: "Bullish oder bearish für Position X?" statt "Wahrscheinlichkeit?"
+
+**Referenz-Projekte:** foxchain99/polymarket-sentiment-bot (open source),
+brodyautomates/polymarket-pipeline (Claude-Klassifikation)
+
+**Phased Approach:**
+- Phase 0.5 (T-I07): Free-Tier RSS+Reddit+Telegram, NUR Logging+Info-Alerts, 2 Wochen Validierung
+- Phase 1: Alert-Only mit mehr Quellen (wenn >55% Accuracy)
+- Phase 2: Semi-Auto high-confidence, small sizes
+- Phase 3: Voll integriert
+
+**Risiken:** Fake-News (→ 2-Source-Confirmation), Bot-Konkurrenz (→ Nischen-Märkte <$500k),
+API-Kosten (→ Free-Tier-Start).
+
+---
+
+## P051 — Manifold als Paper-Trading-Plattform
+
+**Status:** EVALUATION GEPLANT (18.04.2026) — T-I09
+
+Manifold.markets: Mana (virtuelle Währung, kostenlos), offene API, realistische
+Preis-Dynamik durch echte User.
+
+**vs. PolySimulator:** PolySimulator = nur Polymarket-Preise ohne Market-Dynamik.
+Manifold = echtes Orderbook, echte Preisbildung.
+
+**Plan:** `utils/manifold_shadow.py` mit identischer Copy-Logik wie KongTradeBot.
+4-6 Wochen Kalibrierung. Metriken: Hit-Rate, Brier-Score, ROI.
+Strategie-Änderungen erst Manifold-Test → dann Polymarket-Deployment.
+
+**Einschränkung:** Andere User-Basis (kleinere Märkte, weniger Whales). Execution-Logik
+ähnlich genug für Validierung der Strategy-Layer.

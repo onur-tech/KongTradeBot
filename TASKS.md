@@ -1,5 +1,5 @@
 # KongTrade Bot — Task Tracking
-_Stand: 2026-04-18 07:30 Berlin_
+_Stand: 2026-04-18 22:30 Berlin_
 
 **Regeln:**
 - Status: ARBEIT | QUEUE | DONE | BLOCKED | IDEE
@@ -18,16 +18,8 @@ _Stand: 2026-04-18 07:30 Berlin_
 
 | ID | Titel | Prio | Notiz |
 |----|-------|------|-------|
-| T-022 | Auto-Claim Intervall 30min -> 5min; alle redeemable-Feld-Varianten akzeptieren | WICHTIG | Intervall in claim_all.py; isRedeemable/redeemable/is_redeemable |
 | T-039 | weekly_doku_check.py Script (Freitag 17:00, Telegram-Report fuer Events ohne Doku) | NICE | — |
-| T-010 | Balance-Delta SEIT START reparieren | KRITISCH | Portfolio-Snapshot beim Start fehlt (P007) |
-
-| T-012 | Alle 37 Positionen anzeigen (tbl-wrap CSS) | WICHTIG | Braucht Dashboard-Neustart - DONE, aber Restart noetig |
-| T-013 | Resolutions Panel aus Portfolio-Cache | WICHTIG | /api/resolutions auf _polymarket_positions (P010) |
-| T-014 | Countdown-Spalte SCHLIESST IN | WICHTIG | endDate aus Polymarket-API (P009) |
-| T-015 | P&L HEUTE = Portfolio-Delta seit Mitternacht | WICHTIG | Mitternacht-Snapshot fehlt (P014) |
 | T-016 | Balance-Chart auf Portfolio-Total | WICHTIG | SQLite Spalte portfolio_total (P008) |
-| T-006 | Duplikat-Wallet entfernen | WICHTIG | grep .env, doppelte Adresse loeschen (P006) |
 | T-007 | Telegram-Commands: /balance /health /logs | NICE | telegram_bot.py erweitern |
 | T-017 | Per-Wallet-Performance aus Signal-Counter | NICE | Signale tracken (P015) |
 | T-018 | Log-Rotation TimedRotatingFileHandler | NICE | Kein Prozess-Neustart noetig (P018) |
@@ -40,9 +32,7 @@ _Stand: 2026-04-18 07:30 Berlin_
 
 | ID | Titel | Blocker |
 |----|-------|---------|
-
-
-
+| T-028 | Alex/Tunay/Dietmar einladen | GitHub Account KongTradeBot gesperrt (P028) — support.github.com kontaktieren |
 
 ---
 
@@ -71,7 +61,7 @@ _Stand: 2026-04-18 07:30 Berlin_
 | T-D19 | systemd kongtrade-bot.service enabled (Restart=always) | 2026-04-18 |
 | T-D20 | Watchdog-Timer aktiviert (alle 60s) | 2026-04-18 |
 | T-D21 | Morning-Report 08:00 Berlin + Portfolio-Daten | 2026-04-18 |
-| T-D22 | CLAIM-Button: redeemable || isRedeemable | 2026-04-18 |
+| T-D22 | CLAIM-Button: redeemable \|\| isRedeemable | 2026-04-18 |
 | T-D23 | Positionen-Tabelle: max-height 600px (alle 37 sichtbar) | 2026-04-18 |
 | T-D24 | Commit b1c413a mit allen Nacht-Aenderungen | 2026-04-18 |
 | T-D25 | Auto-Claim Script: $11.29 geclaimed (Brrudi manuell + Script Nacht) | 2026-04-18 |
@@ -90,6 +80,22 @@ _Stand: 2026-04-18 07:30 Berlin_
 | T-D38 | Doku-Initiative: 5 Kerndokumente angelegt (STRATEGY, WALLETS, ARCHITECTURE, BACKTEST_RESULTS, SETUP) | 2026-04-18 |
 | T-D39 | GUIDELINES.md: Doku-Pflicht + Commit-Format + Session-Recap institutionalisiert | 2026-04-18 |
 | T-010 | Balance-Check-Bug (400 assetAddress invalid hex address) — Fix deployed, verifiziert via /api/logs (P029) | 2026-04-18 |
+| T-D40 | Signal-Filter MIN_TRADE_SIZE $0.50 + MIN_WHALE_SIZE $5.00 (f81980e) | 2026-04-18 |
+| T-D41 | Dashboard Redesign + Countdown-Spalte "Schließt in" + P038-Fix (7608025) | 2026-04-18 |
+| T-D42 | tx_hash im Trades-Archiv für Steuer-Export (19c0e63) | 2026-04-18 |
+| T-D43 | Weekly Tax-Export Freitag 23:55 Berlin, Blockpit-kompatibel (ff1c7d0) | 2026-04-18 |
+| T-D44 | Frankfurter API Fix: .app → .dev/v1, 3-Layer-Fallback, Hetzner-IP-Block (db69557) | 2026-04-18 |
+| T-D45 | WalletScout SQLite Historisierung + Weekly Report Sonntag 20:00 (b55ecf0) | 2026-04-18 |
+| T-D46 | Telegram Overhaul: Inline-Menu + Mute-System + Daily Digest + Rate-Limit (aeec617) | 2026-04-18 |
+| T-D47 | Dashboard: OAuth-Popup-Fix + Font +20% + Countdown-Fallbacks (32f623f, bde8d71) | 2026-04-18 |
+| T-015 | P&L Heute = Portfolio-Delta seit Mitternacht — Fix via Midnight-Snapshot (fadb283, 86742fb) | 2026-04-18 |
+| T-014 | Countdown-Spalte "Schließt in" — DONE via P038-Fix (7608025, 32f623f) | 2026-04-18 |
+| T-022 | Auto-Claim Intervall 30min -> 5min + alle redeemable-Varianten — DONE (aeec617) | 2026-04-18 |
+| T-D48 | Telegram-Bugfixes Wave 1: API-Feldnamen in Callbacks (49a47b8) | 2026-04-18 |
+| T-D49 | Telegram-Bugfixes Wave 2: Invest-Feld + Midnight-Snapshot + Status-Callback (fadb283, 86742fb) | 2026-04-18 |
+| T-D50 | Telegram-Bugfixes Wave 3: Status-2nd-Call-Site + Multi-Signal-Dedup + Safe-Callbacks (26a36c1) | 2026-04-18 |
+| T-D51 | Claude Code auf Server als claudeuser (non-root, passwordless SSH, sudo ACLs) | 2026-04-18 |
+| T-D52 | Exit-Strategie: TP-Staffel 40/40/15/5 + Trailing-Stop + Whale-Follow-Exit, DRY-RUN (35c3f43, 5e53632, 2f71c35) | 2026-04-18 |
 
 ---
 
@@ -102,16 +108,82 @@ _Stand: 2026-04-18 07:30 Berlin_
 | T-I03 | Wallet-Blacklist (Win-Rate < 30% -> stoppe Kopieren) | Klein |
 | T-I04 | Multi-Bot Support (mehrere Proxy-Wallets) | Sehr hoch |
 | T-I05 | Grafana/Prometheus fuer Metriken | Mittel |
+| T-I06 | Panic-Entry für korrelierte Sell-Offs | Mittel-Groß |
+| T-I06a | Missed-Signal-Tracking (data/missed_signals.json — Basis für T-I06) | Klein |
+| T-I07 | Sentiment-Bot Phase 0.5 (Free-Tier RSS+Reddit+Telegram, NUR Logging) | Groß |
+| T-I08 | Decoy-Detection im Wallet-Scout (Hold-Duration, Hit-Rate-Drop, Exit-Pattern) | Mittel |
+| T-I09 | Manifold-Shadow-Run (Paper-Trading-Validierung, utils/manifold_shadow.py) | Mittel |
+| T-I10 | Claude-Analyst als Filter-Modul zwischen Signal und Execution | Mittel-Groß |
+| T-I11 | Slippage-Tracking: whale vs our entry price delta, weekly report | Klein-Mittel |
+| T-I12 | OpenClaw-Evaluation (parked, re-check in 2 Monaten) | Langfristig |
 
-## T-027 — Template-Repo vorbereiten [DONE]
-- /root/template-ready/ vollständig: README, SETUP, ARCHITEKTUR, CONTRIBUTING, .env.example, LICENSE
-- Privacy-Audit bestanden, alle sensitiven Daten entfernt
-- Warte auf GitHub-Account-Entsperrung für Push
+---
 
-## T-D43 — Paket A: tx_hash in tax_archive + Claim-Error-Alerts [DONE 2026-04-18]
-## T-D44 — Paket B: Tunnel-Broadcast + Weekly-Tax-Export + Blockpit-Timestamp [DONE 2026-04-18]
+### T-I06 — Panic-Entry für korrelierte Sell-Offs (Detail)
+**Trigger:** ≥3 offene Positionen fallen ≥15% in 2h, ≥2 verschiedene Kategorien,
+jeweils ≥$10k Daily Volume. Optional: BTC gleichzeitig -3% (Bonus-Confidence).  
+**Aktion:** 4h Panic-Mode, pausiert Exits, sucht in `data/missed_signals.json`
+nach verpassten Whale-Entries: Whale noch drin + Preis ≥25% unter Whale-Entry +
+Resolution >72h. Size 0.025x (halber Multiplier). Max 5 Late-Entries/Event,
+max $50 Gesamt, max 1 pro Markt. Kill-Switch bei 50% Daily-Loss-Ausschöpfung.
 
-## T-028 — Alex/Tunay/Dietmar einladen [BLOCKED]
-- Blocked by: GitHub-Account KongTradeBot gesperrt (P028)
-- Action: support.github.com kontaktieren
-- Resume: Template-Repo pushen sobald Account entsperrt
+### T-I07 — Sentiment-Bot Phase 0.5 (Detail)
+**Modul:** `utils/sentiment_monitor.py`  
+**Sources:** RSS-Feeds (20 kuratierte News-Quellen), Reddit API (r/politics,
+r/worldnews, r/CryptoCurrency), Telegram Public Channels.  
+**Pipeline:** Poll 2min → Dedup → Market-Matcher → Claude klassifiziert
+(direction/materiality/credibility) → Signal in `sentiment_signals.jsonl` →
+Telegram-Alert (NUR Info, KEIN Auto-Trade).  
+**Phase 0.5 Ziel:** 2 Wochen Signals sammeln, gegen Preis-Bewegungen validieren.
+Phase 1+2+3 erst nach >55% Accuracy.
+
+### T-I08 — Decoy-Detection im Wallet-Scout (Detail)
+Polymarket dokumentierte Sept 2025 "Copytrade Wars".  
+**Track:** Average Hold Duration, Position-Size-Stdev, Hit-Rate 30d, Exit-Pattern.  
+**Alert bei:** 50%+ kürzere Holds als Baseline, Öffnen/Schließen <24h, Hit-Rate-Drop >30%.  
+Sonntag-Digest erweitern. Kritischer Decoy-Score → `data/suspected_decoys.json`
+→ Copy-Filter: size halbieren oder skippen.
+
+### T-I10 — Claude-Analyst als Filter-Modul (Detail)
+**Modul:** `core/claude_analyst.py`  
+**Input:** Signal + Whale-Historie + Market-Info.  
+**Output:** action/confidence/reasoning/suggested_stake/kill_conditions. Threshold 0.7.  
+Phase 1: Dry-Run (bewertet, ändert nichts). Phase 2: Gatekeeper. Phase 3: eigene Exit-Vorschläge.  
+**Kosten:** ~$0.003/Analysis, ~$1.80/Monat bei 20 Signals/Tag.
+
+### T-I11 — Slippage-Tracking (Detail)
+Reddit-Tests zeigen 3-5¢ systematische Slippage. Logge bei jedem Copy-Trade:
+`whale_entry_price`, `our_entry_price`, `delta_bps`. Wöchentlicher Report Freitag.
+Alert wenn Trend >10bps steigt.
+
+### T-I12 — OpenClaw-Evaluation (parked)
+OpenClaw (Peter Steinberger), 329k GitHub-Stars. Unsere Architektur hat 80% davon.
+Re-Evaluation in ~2 Monaten. Entscheidung heute: **Weg A** (Konzepte klauen,
+Plattform nicht nutzen). Seit 4. April 2026 Anthropic-Subscription-Sperre →
+separater API-Key nötig, Zusatzkosten. Siehe P047.
+
+---
+
+## 📝 SESSION-LOGS
+
+### Session 2026-04-18 (Samstag)
+
+**Fokus:** Infrastructure + Telegram-Stabilisierung + Exit-Strategie-Design
+
+**Major Milestones:**
+- Server-CC eingerichtet (claudeuser, non-root)
+- 6 Telegram-Callback-Bugs gefixt in 3 Commit-Waves
+- Passwordless SSH aktiviert
+- Exit-Strategie designed (40/40/15/5 + Trailing + Whale-Exit)
+- 7 neue strategische Tasks definiert (T-I06 bis T-I12)
+
+**Portfolio-Stand (Abend):**
+Total: ~$195 USDC | Net PnL: -$177 cumulative (Lerngeld, $1k Einsatz)
+18 offene Positionen, 12 claimable. Sport-Resolutions heute
+haben -$120+ beigetragen. Brrudi hat entschieden: kein Panic-Mode, Fokus auf Fundamentals.
+
+**Lessons für nächste Sessions:**
+- TASKS.md IMMER zu Session-Start lesen (Source of Truth)
+- Doku-Updates gehen über CC, nicht Brrudi manuell
+- Latenz-Argument gilt nicht für Copy-Trading-Märkte mit langen Haltedauern
+- Reasoning-Quality > Speed für unsere Strategie

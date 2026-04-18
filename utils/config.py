@@ -34,6 +34,27 @@ class Config:
     dry_run: bool = True
     log_level: str = "INFO"
 
+    # Exit-Manager
+    exit_enabled: bool = True
+    exit_dry_run: bool = True            # WICHTIG: Erste 24h nur loggen, nicht traden
+    exit_loop_interval: int = 60
+    exit_tp1_threshold: float = 0.30
+    exit_tp1_sell_ratio: float = 0.40
+    exit_tp2_threshold: float = 0.60
+    exit_tp2_sell_ratio: float = 0.40
+    exit_tp3_threshold: float = 1.00
+    exit_tp3_sell_ratio: float = 0.15
+    exit_multi_signal_boost_min: int = 3
+    exit_tp1_threshold_boost: float = 0.50
+    exit_tp2_threshold_boost: float = 0.90
+    exit_tp3_threshold_boost: float = 1.50
+    exit_trail_activation: float = 0.12
+    exit_trail_distance_liquid: float = 0.07
+    exit_trail_distance_thin: float = 0.10
+    exit_trail_liquidity_threshold: float = 50000.0
+    exit_min_position_usdc: float = 3.0
+    exit_min_hours_to_close: float = 24.0
+
     # API
     clob_host: str = "https://clob.polymarket.com"
     gamma_host: str = "https://gamma-api.polymarket.com"
@@ -83,6 +104,25 @@ def load_config() -> Config:
         poll_interval_seconds=int(os.getenv("POLL_INTERVAL_SECONDS", "10")),
         dry_run=os.getenv("DRY_RUN", "true").lower() == "true",
         log_level=os.getenv("LOG_LEVEL", "INFO"),
+        exit_enabled=os.getenv("EXIT_ENABLED", "true").lower() == "true",
+        exit_dry_run=os.getenv("EXIT_DRY_RUN", "true").lower() == "true",
+        exit_loop_interval=int(os.getenv("EXIT_LOOP_INTERVAL", "60")),
+        exit_tp1_threshold=float(os.getenv("EXIT_TP1_THRESHOLD", "0.30")),
+        exit_tp1_sell_ratio=float(os.getenv("EXIT_TP1_SELL_RATIO", "0.40")),
+        exit_tp2_threshold=float(os.getenv("EXIT_TP2_THRESHOLD", "0.60")),
+        exit_tp2_sell_ratio=float(os.getenv("EXIT_TP2_SELL_RATIO", "0.40")),
+        exit_tp3_threshold=float(os.getenv("EXIT_TP3_THRESHOLD", "1.00")),
+        exit_tp3_sell_ratio=float(os.getenv("EXIT_TP3_SELL_RATIO", "0.15")),
+        exit_multi_signal_boost_min=int(os.getenv("EXIT_MULTI_SIGNAL_BOOST_MIN", "3")),
+        exit_tp1_threshold_boost=float(os.getenv("EXIT_TP1_THRESHOLD_BOOST", "0.50")),
+        exit_tp2_threshold_boost=float(os.getenv("EXIT_TP2_THRESHOLD_BOOST", "0.90")),
+        exit_tp3_threshold_boost=float(os.getenv("EXIT_TP3_THRESHOLD_BOOST", "1.50")),
+        exit_trail_activation=float(os.getenv("EXIT_TRAIL_ACTIVATION", "0.12")),
+        exit_trail_distance_liquid=float(os.getenv("EXIT_TRAIL_DISTANCE_LIQUID", "0.07")),
+        exit_trail_distance_thin=float(os.getenv("EXIT_TRAIL_DISTANCE_THIN", "0.10")),
+        exit_trail_liquidity_threshold=float(os.getenv("EXIT_TRAIL_LIQUIDITY_THRESHOLD", "50000")),
+        exit_min_position_usdc=float(os.getenv("EXIT_MIN_POSITION_USDC", "3.0")),
+        exit_min_hours_to_close=float(os.getenv("EXIT_MIN_HOURS_TO_CLOSE", "24.0")),
         clob_host=os.getenv("CLOB_HOST", "https://clob.polymarket.com"),
         gamma_host=os.getenv("GAMMA_HOST", "https://gamma-api.polymarket.com"),
         chain_id=int(os.getenv("CHAIN_ID", "137")),

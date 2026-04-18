@@ -53,6 +53,62 @@ app = Flask(__name__, template_folder=str(BASE_DIR))
 app.config["SECRET_KEY"] = "polymarket-dashboard-2026"
 socketio = SocketIO(app, cors_allowed_origins="*", async_mode="threading")
 
+# ── Gamma endDate cache (condition_id → (ts, end_date_str)) ───────────────────
+_gamma_enddate_cache: dict = {}
+
+
+def _batch_fetch_gamma_enddates(condition_ids: list) -> dict:
+    now = time.time()
+    uncached = [cid for cid in condition_ids
+                if cid not in _gamma_enddate_cache
+                or now - _gamma_enddate_cache[cid][0] > 3600]
+    if uncached:
+        try:
+            ids_str = ",".join(uncached[:20])
+            r = requests.get(
+                f"https://gamma-api.polymarket.com/markets?condition_ids={ids_str}",
+                timeout=5
+            )
+            if r.status_code == 200:
+                for m in r.json():
+                    cid = m.get("conditionId", "")
+                    if cid:
+                        _gamma_enddate_cache[cid] = (
+                            now,
+                            m.get("endDate") or m.get("endDateIso") or m.get("end_date_iso")
+                        )
+        except Exception:
+            pass
+        for cid in uncached:
+            if cid not in _gamma_enddate_cache:
+                _gamma_enddate_cache[cid] = (now, None)
+    return {cid: _gamma_enddate_cache.get(cid, (0, None))[1] for cid in condition_ids}
+
+
+def _closes_in_label(end_date_str) -> tuple:
+    """Returns (label, css_class) for countdown display."""
+    if not end_date_str:
+        return "—", "closes-gray"
+    try:
+        dt = datetime.fromisoformat(str(end_date_str).replace("Z", "+00:00"))
+        now_utc = datetime.now(timezone.utc)
+        diff_s = (dt - now_utc).total_seconds()
+        if diff_s <= 0:
+            return "ENDED", "closes-ended"
+        if diff_s < 3600:
+            return f"{int(diff_s // 60)}m", "closes-red"
+        elif diff_s < 6 * 3600:
+            h, m = int(diff_s // 3600), int((diff_s % 3600) // 60)
+            return f"{h}h {m}m", "closes-orange"
+        elif diff_s < 24 * 3600:
+            return f"{int(diff_s // 3600)}h", "closes-yellow"
+        else:
+            d, h = int(diff_s // 86400), int((diff_s % 86400) // 3600)
+            return f"{d}d {h}h", "closes-gray"
+    except Exception:
+        return "—", "closes-gray"
+
+
 # ── SQLite Metrics DB ──────────────────────────────────────────────────────────
 
 def init_db():
@@ -519,6 +575,19 @@ def api_positions():
 @app.route("/api/portfolio")
 def api_portfolio():
     positions = _polymarket_positions.get("data", [])
+
+    # Gamma API endDate lookup (batched, cached 1h)
+    condition_ids = [p.get("conditionId", "") for p in positions if p.get("conditionId")]
+    enddate_map = _batch_fetch_gamma_enddates(condition_ids) if condition_ids else {}
+
+    # Source-wallet mapping from bot_state (condition_id → wallet name)
+    state = load_json(STATE_FILE) or {}
+    wallet_map = {}
+    for op in state.get("open_positions", []):
+        cid = op.get("market_id", "")
+        if cid:
+            wallet_map[cid] = get_wallet_name(op.get("source_wallet", ""))
+
     result = []
     for p in positions:
         avg_price   = float(p.get("avgPrice") or p.get("averagePrice") or 0)
@@ -540,8 +609,16 @@ def api_portfolio():
             "to_win":        round(to_win, 2),
             "pnl_usdc":      round(cur_value - traded_usdc, 2),
             "pnl_pct":       pnl_pct,
-            "redeemable":    bool(p.get("redeemable") or p.get("isRedeemable")),
-            "asset_id":      p.get("asset_id") or p.get("tokenId") or "",
+        })
+        end_date_str = (p.get("endDate") or p.get("endDateIso") or p.get("end_date")
+                        or enddate_map.get(p.get("conditionId", "")))
+        ci_label, ci_class = _closes_in_label(end_date_str)
+        result[-1].update({
+            "redeemable":      bool(any(p.get(k) for k in ("redeemable", "isRedeemable", "is_redeemable"))),
+            "asset_id":        p.get("asset_id") or p.get("tokenId") or "",
+            "closes_in_label": ci_label,
+            "closes_in_class": ci_class,
+            "wallet":          wallet_map.get(p.get("conditionId", ""), "—"),
         })
     result.sort(key=lambda x: x["current_value"], reverse=True)
     total_value  = round(sum(r["current_value"] for r in result), 2)

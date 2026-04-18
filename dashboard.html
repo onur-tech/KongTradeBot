@@ -103,17 +103,46 @@ nav{position:sticky;top:0;z-index:200;background:rgba(3,3,3,.96);border-bottom:1
     font-size:11px;transition:all .2s}
 .balance-refresh-btn:hover{border-color:var(--neon);color:var(--neon)}
 
-/* ── SESSION STATS BAR ── */
-.session-bar{display:flex;gap:10px;margin-bottom:20px;flex-wrap:wrap}
-.stat-pill{background:var(--bg1);border:1px solid var(--border2);border-radius:10px;
-    padding:10px 16px;display:flex;flex-direction:column;gap:4px;flex:1;min-width:100px;
-    transition:border-color .3s}
-.stat-pill:hover{border-color:var(--border2);border-color:#333}
+/* ── SESSION STATS BAR (legacy, hidden) ── */
+.session-bar{display:none}
+.stat-pill{display:none}
 .sp-label{font-size:10px;letter-spacing:2px;color:var(--muted);text-transform:uppercase}
-.sp-value{font-size:20px;font-weight:800;color:var(--text)}
+.sp-value{font-size:13px;font-weight:700;color:var(--text)}
 .sp-value.green{color:var(--neon)}
 .sp-value.red{color:var(--red)}
 .sp-value.yellow{color:var(--yellow)}
+
+/* ── COMPACT HEADER ── */
+.compact-header{display:flex;gap:0;margin-bottom:20px;
+    background:var(--bg1);border:1px solid var(--border2);border-radius:14px;overflow:hidden}
+.ch-left{flex:6;padding:14px 20px;min-width:0}
+.ch-right{flex:4;padding:14px 20px;border-left:1px solid var(--border);min-width:0}
+.ch-total-row{display:flex;align-items:center;gap:10px;margin-bottom:8px;flex-wrap:wrap}
+.ch-total{font-size:28px;font-weight:800;color:var(--neon);
+    text-shadow:0 0 16px var(--neon);transition:all .3s;line-height:1}
+.ch-total.negative{color:var(--red);text-shadow:0 0 16px var(--red)}
+.ch-sublabel{font-size:9px;letter-spacing:2px;color:var(--neon2);text-transform:uppercase;align-self:flex-end;padding-bottom:2px}
+.ch-row{display:flex;align-items:center;gap:4px;flex-wrap:wrap}
+.ch-item{display:flex;flex-direction:column;gap:1px;padding:0 6px}
+.ch-l{font-size:9px;letter-spacing:1px;color:var(--muted);text-transform:uppercase}
+.ch-v,.ch-item .sp-value{font-size:13px;font-weight:700;color:var(--text);font-size:13px}
+.ch-v.pos{color:var(--neon)} .ch-v.neg{color:var(--red)} .ch-v.neutral{color:var(--muted)}
+.ch-sep{color:var(--border2);padding:0 2px;align-self:center;line-height:1;font-size:14px}
+.btn-claim-header{background:rgba(0,255,136,.15);color:#00ff88;border:1px solid rgba(0,255,136,.4);
+    border-radius:5px;padding:3px 10px;font-size:11px;cursor:pointer;font-weight:700;
+    font-family:'JetBrains Mono',monospace;white-space:nowrap}
+.btn-claim-header:hover{background:rgba(0,255,136,.3)}
+.btn-refresh-hdr{background:transparent;border:1px solid var(--border2);color:var(--muted);
+    border-radius:5px;padding:3px 8px;font-size:12px;cursor:pointer;
+    font-family:'JetBrains Mono',monospace;margin-left:auto}
+.btn-refresh-hdr:hover{border-color:var(--neon);color:var(--neon)}
+/* Countdown CSS classes */
+.closes-red{color:var(--red);font-weight:700}
+.closes-orange{color:#ff8833;font-weight:700}
+.closes-yellow{color:var(--yellow)}
+.closes-gray{color:var(--muted)}
+.closes-ended{color:var(--neon);font-weight:700}
+@media(max-width:700px){.compact-header{flex-direction:column}.ch-right{border-left:none;border-top:1px solid var(--border)}}
 
 /* ── MAIN GRID ── */
 .main-grid{display:grid;grid-template-columns:1fr 340px;gap:20px;margin-bottom:20px}
@@ -358,56 +387,57 @@ tr.trow:hover td{background:var(--bg3)}
 
 <div class="page">
 
-  <!-- 1. BALANCE HERO -->
-  <div class="balance-hero mb20">
-    <div class="balance-top">
-      <div class="balance-main-wrap">
-        <div class="balance-label">TOTAL PORTFOLIO VALUE</div>
-        <div class="balance-value" id="bal-portfolio-total">$—</div>
-        <div class="balance-deltas">
-          <div class="delta-item">
-            <span class="delta-label">Cash (USDC.e)</span>
-            <span class="delta-value neutral" id="bal-cash">$—</span>
-          </div>
-          <div class="delta-item">
-            <span class="delta-label">In Positionen</span>
-            <span class="delta-value neutral" id="bal-in-positions">$—</span>
-          <div class="delta-item">
-            <span class="delta-label">Seit Start</span>
-            <span class="delta-value neutral" id="bal-delta-total">—</span>
-          </div>
-          <div class="delta-item">
-            <span class="delta-label">24h Cash Δ</span>
-            <span class="delta-value neutral" id="bal-delta-24h">—</span>
-          <div class="delta-item">
-            <span class="delta-label">To-Win (max)</span>
-            <span class="delta-value neutral" id="bal-to-win">$—</span>
-          </div>
-          <div class="delta-item" id="bal-unclaimed-wrap" style="display:none">
-            <span class="delta-label">Claim verfügbar</span>
-            <span class="delta-value pos" id="bal-unclaimed">$—</span>
-        </div>
+  <!-- 1. COMPACT HEADER -->
+  <div class="compact-header">
+    <!-- Linke Spalte: Portfolio-Zahlen -->
+    <div class="ch-left">
+      <div class="ch-total-row">
+        <span class="ch-total" id="bal-portfolio-total">$—</span>
+        <span class="ch-sublabel">TOTAL PORTFOLIO</span>
+        <button id="btn-claim-all" class="btn-claim-header" style="display:none" onclick="claimAll()">CLAIM $—</button>
+        <button class="btn-refresh-hdr" onclick="fetchBalance();fetchPortfolio();">⟳</button>
       </div>
-      <div class="balance-right">
-        <span class="balance-ts" id="bal-ts">Wird geladen...</span>
-        <button class="balance-refresh-btn" onclick="fetchBalance();fetchPortfolio();">⟳ Refresh</button>
-        <button id="btn-claim-all" class="balance-refresh-btn" style="display:none;background:rgba(0,255,136,.15);color:#00ff88;margin-top:6px" onclick="claimAll()">CLAIM ALL</button>
+      <div class="ch-row">
+        <span class="ch-item"><span class="ch-l">USDC</span><span class="ch-v" id="bal-cash">$—</span></span>
+        <span class="ch-sep">|</span>
+        <span class="ch-item"><span class="ch-l">IN POS.</span><span class="ch-v" id="bal-in-positions">$—</span></span>
+        <span class="ch-sep">|</span>
+        <span class="ch-item"><span class="ch-l">SEIT START</span><span class="ch-v neutral" id="bal-delta-total">—</span></span>
+        <span class="ch-sep">|</span>
+        <span class="ch-item"><span class="ch-l">24H Δ</span><span class="ch-v neutral" id="bal-delta-24h">—</span></span>
+        <span class="ch-sep" id="bal-unclaimed-sep" style="display:none">|</span>
+        <span class="ch-item" id="bal-unclaimed-wrap" style="display:none"><span class="ch-l">CLAIM</span><span class="ch-v pos" id="bal-unclaimed">$—</span></span>
       </div>
     </div>
+    <!-- Rechte Spalte: Session-Stats -->
+    <div class="ch-right">
+      <div class="ch-row" style="margin-bottom:8px">
+        <span class="ch-item"><span class="ch-l">P&amp;L HEUTE</span><span class="sp-value" id="ss-pnl">—</span></span>
+        <span class="ch-sep">|</span>
+        <span class="ch-item"><span class="ch-l">TRADES</span><span class="sp-value green" id="ss-filled">—</span></span>
+        <span class="ch-sep">|</span>
+        <span class="ch-item"><span class="ch-l">SKIP</span><span class="sp-value" id="ss-skipped">—</span></span>
+        <span class="ch-sep">|</span>
+        <span class="ch-item"><span class="ch-l">STREAK</span><span class="sp-value yellow" id="ss-streak">—</span></span>
+      </div>
+      <div class="ch-row">
+        <span class="ch-item"><span class="ch-l">SIGNALE</span><span class="sp-value" id="ss-signals">—</span></span>
+        <span class="ch-sep">|</span>
+        <span class="ch-item"><span class="ch-l">VERSUCHT</span><span class="sp-value" id="ss-tried">—</span></span>
+        <span class="ch-sep">|</span>
+        <span class="ch-item"><span class="ch-l">BEST</span><span class="sp-value green" id="ss-best">—</span></span>
+        <span class="ch-sep">|</span>
+        <span class="ch-item"><span class="ch-l">WORST</span><span class="sp-value red" id="ss-worst">—</span></span>
+      </div>
+    </div>
+    <!-- Backward-compat hidden elements -->
+    <span id="bal-ts" style="display:none"></span>
+    <span id="ss-rejected" style="display:none"></span>
+    <span id="bal-to-win" style="display:none"></span>
   </div>
 
-  <!-- 2. SESSION STATS BAR -->
-  <div class="session-bar" id="session-bar">
-    <div class="stat-pill"><span class="sp-label">Signale</span><span class="sp-value" id="ss-signals">—</span></div>
-    <div class="stat-pill"><span class="sp-label">Versucht</span><span class="sp-value" id="ss-tried">—</span></div>
-    <div class="stat-pill"><span class="sp-label">Ausgeführt</span><span class="sp-value green" id="ss-filled">—</span></div>
-    <div class="stat-pill"><span class="sp-label">Skip</span><span class="sp-value" id="ss-skipped">—</span></div>
-    <div class="stat-pill"><span class="sp-label">Abgelehnt</span><span class="sp-value red" id="ss-rejected">—</span></div>
-    <div class="stat-pill"><span class="sp-label">P&L Heute</span><span class="sp-value" id="ss-pnl">—</span></div>
-    <div class="stat-pill"><span class="sp-label">Streak</span><span class="sp-value yellow" id="ss-streak">—</span></div>
-    <div class="stat-pill"><span class="sp-label">Best Trade</span><span class="sp-value green" id="ss-best">—</span></div>
-    <div class="stat-pill"><span class="sp-label">Worst Trade</span><span class="sp-value red" id="ss-worst">—</span></div>
-  </div>
+  <!-- 2. SESSION STATS BAR (hidden, IDs preserved above) -->
+  <div class="session-bar" id="session-bar" style="display:none"></div>
 
   <!-- 3. MAIN GRID: Positions + Health/Resolutions -->
   <div class="main-grid mb20">
@@ -432,10 +462,9 @@ tr.trow:hover td{background:var(--bg3)}
         <div class="tbl-wrap">
           <table>
             <thead><tr>
-              <th>Markt</th><th>Outcome</th><th>Avg→Jetzt</th><th>Shares</th><th>Investiert</th><th>Aktuell</th><th>To Win</th><th>P&amp;L%</th><th>Claim</th>
-              <th>Einsatz</th><th>Gewinn/Win</th><th>Schließt in</th><th>Wallet</th>
+              <th>Markt</th><th>Outcome</th><th>Avg→Jetzt</th><th>Shares</th><th>Investiert</th><th>Aktuell</th><th>To Win</th><th>P&amp;L%</th><th>Claim</th><th>Schließt in</th><th>Wallet</th>
             </tr></thead>
-            <tbody id="tbl-open-body"><tr><td colspan="7" class="empty-msg">Keine offenen Positionen</td></tr></tbody>
+            <tbody id="tbl-open-body"><tr><td colspan="11" class="empty-msg">Keine offenen Positionen</td></tr></tbody>
           </table>
         </div>
       </div>
@@ -758,7 +787,7 @@ function updateBalanceDisplay(d){
   const portfolio = d.portfolio_total ?? cash;
   if(portfolio != null){
     const el = document.getElementById('bal-portfolio-total');
-    if(el){ el.textContent = '$' + portfolio.toFixed(2); el.className = 'balance-value ' + (portfolio >= (d.initial||988.49) ? '' : 'negative'); }
+    if(el){ el.textContent = '$' + portfolio.toFixed(2); el.className = 'ch-total ' + (portfolio >= (d.initial||988.49) ? '' : 'negative'); }
   }
   const cashEl = document.getElementById('bal-cash');
   if(cashEl && cash != null) cashEl.textContent = '$' + cash.toFixed(2);
@@ -885,18 +914,26 @@ async function fetchPortfolio(){
     const el = document.getElementById('tab-count-open');
     if(el) el.textContent = '(' + d.count + ')';
     if(!d.positions || d.positions.length === 0){
-      if(obody) obody.innerHTML = '<tr><td colspan="9" class="empty-msg">Keine Positionen auf Polymarket</td></tr>';
+      if(obody) obody.innerHTML = '<tr><td colspan="11" class="empty-msg">Keine Positionen auf Polymarket</td></tr>';
       return;
     }
     if(obody) obody.innerHTML = d.positions.map(p => {
       const pnlClass = p.pnl_pct > 0 ? 'style="color:#00ff88"' : p.pnl_pct < 0 ? 'style="color:#ff3366"' : '';
       const pnlStr = (p.pnl_pct >= 0 ? '+' : '') + p.pnl_pct.toFixed(1) + '%';
-      const claimable = p.redeemable || p.isRedeemable;
+      const claimable = p.redeemable;
       const claimCell = claimable
         ? `<button class="btn-claim" onclick="claimAll()">CLAIM $${p.current_value.toFixed(2)}</button>`
         : '—';
+      const closesLabel = p.closes_in_label || '—';
+      const closesClass = p.closes_in_class || 'closes-gray';
+      const closesCell = claimable
+        ? `<span class="closes-ended">ENDED</span>`
+        : `<span class="${closesClass}">${closesLabel}</span>`;
+      const walletCell = p.wallet && p.wallet !== '—'
+        ? `<span style="color:var(--muted);font-size:11px">${esc(p.wallet)}</span>`
+        : '<span style="color:var(--border2)">—</span>';
       return `<tr class="trow${claimable ? ' redeemable-row' : ''}">
-        <td style="max-width:180px;overflow:hidden;text-overflow:ellipsis" title="${esc(p.market)}">${esc(p.market.substring(0,42))}…</td>
+        <td style="max-width:160px;overflow:hidden;text-overflow:ellipsis" title="${esc(p.market)}">${esc(p.market.substring(0,40))}…</td>
         <td><span class="tag tag-open">${esc(p.outcome)}</span></td>
         <td style="color:var(--muted)">${p.avg_price_pct}¢→<b>${p.cur_price_pct}¢</b></td>
         <td>${p.shares.toFixed(2)}</td>
@@ -905,6 +942,8 @@ async function fetchPortfolio(){
         <td style="color:#00ff88">$${p.to_win.toFixed(2)}</td>
         <td ${pnlClass}>${pnlStr}</td>
         <td>${claimCell}</td>
+        <td>${closesCell}</td>
+        <td>${walletCell}</td>
       </tr>`;
     }).join('');
   } catch(e){ console.error('portfolio', e); }

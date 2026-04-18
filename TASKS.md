@@ -22,7 +22,6 @@ _Stand: 2026-04-18 07:30 Berlin_
 
 | T-012 | Alle 37 Positionen anzeigen (tbl-wrap CSS) | WICHTIG | Braucht Dashboard-Neustart - DONE, aber Restart noetig |
 | T-013 | Resolutions Panel aus Portfolio-Cache | WICHTIG | /api/resolutions auf _polymarket_positions (P010) |
-| T-014 | Countdown-Spalte SCHLIESST IN | WICHTIG | endDate aus Polymarket-API (P009) |
 | T-015 | P&L HEUTE = Portfolio-Delta seit Mitternacht | WICHTIG | Mitternacht-Snapshot fehlt (P014) |
 | T-016 | Balance-Chart auf Portfolio-Total | WICHTIG | SQLite Spalte portfolio_total (P008) |
 | T-007 | Telegram-Commands: /balance /health /logs | NICE | telegram_bot.py erweitern |
@@ -88,6 +87,7 @@ _Stand: 2026-04-18 07:30 Berlin_
 | T-D39 | T-022: Auto-Claim 5min + is_claimable() alle 3 redeemable-Varianten | 2026-04-18 |
 | T-D40 | T-006: Duplikat-Wallet-Check — OBSOLETE, 15 unique Eintraege, kein Duplikat | 2026-04-18 |
 | T-D41 | Signal-Filter: MIN_TRADE_SIZE 0.50 + MIN_WHALE_SIZE 5.00 reduziert Micro-Noise | 2026-04-18 |
+| T-D42 | Dashboard: Compact-Header (80px statt 30% Hoehe) + Countdown-Spalte (T-014) | 2026-04-18 |
 
 ---
 

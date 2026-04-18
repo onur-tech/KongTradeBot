@@ -68,6 +68,33 @@ signer = Magic-EOA, funder = Proxy.
 | kongtrade-tunnel | Cloudflare Tunnel | permanent |
 | kongtrade-tunnel-watcher.timer | URL-Alert | 5min |
 | kongtrade-status.timer | Auto-Push STATUS | 5min (AUS) |
+| kongtrade-deploy.timer | Auto-Pull + Restart | 5min |
+
+## Auto-Deploy-Pipeline (18.04.2026)
+
+Windows-CC pusht Code → GitHub → Hetzner pullt binnen 5 Min autonom.
+
+Komponenten:
+- `scripts/auto_deploy.sh` — git fetch, bei Änderung pull +
+  systemctl restart kongtrade-bot, Logging in
+  /var/log/kongtrade-deploy.log
+- `/etc/systemd/system/kongtrade-deploy.service` — Type=oneshot,
+  Environment=HOME=/root (kritisch für git-credentials)
+- `/etc/systemd/system/kongtrade-deploy.timer` — OnBootSec=2min,
+  OnUnitActiveSec=5min
+
+Remote-URL enthält embedded PAT weil systemd kein TTY hat
+und interaktive Username-Prompts nicht funktionieren.
+
+Verifikations-Commands:
+```
+systemctl list-timers | grep kongtrade-deploy
+tail -f /var/log/kongtrade-deploy.log
+cat /var/log/kongtrade-deploy.log
+```
+
+Erster Live-Test am 18.04.2026 11:39 UTC erfolgreich
+(857d82b → 5c8cfb5, Bot-Restart in 1 Sekunde).
 
 ## Signal-Flow
 

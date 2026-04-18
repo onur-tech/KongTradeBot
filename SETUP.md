@@ -58,7 +58,29 @@ journalctl -u kongtrade-tunnel | grep trycloudflare | tail -1
 ## Repos
 
 - https://github.com/onur-tech/KongTradeBot (öffentlich, Doku + Status)
-- Source Code NUR auf Server, nicht im Public-Repo
+- https://github.com/onur-tech/KongTradeBot-src (privat, Source-Code)
+
+## Git-Workflow (ab 18.04.2026)
+
+- **onur-tech/KongTradeBot** (öffentlich) — Docs (MD-Dateien), STATUS, Bootstrap
+- **onur-tech/KongTradeBot-src** (privat) — Source-Code, Single-Source-of-Truth für Bot
+
+**Entwicklungsfluss:**
+1. Windows-CC arbeitet in
+   `C:\Users\OnurAribas\Downloads\Trading Bot\Trading Bot\Trading Bot`
+2. `git add / commit / git push origin main`
+   (origin = KongTradeBot-src)
+3. GitHub empfängt Push
+4. Hetzner-Timer kongtrade-deploy.timer triggered alle 5 Min
+5. Bei Änderung: pull + systemctl restart kongtrade-bot
+6. Live binnen 5 Min
+
+**Manuelle Interventionen (nur Notfall):**
+```
+ssh root@89.167.29.183
+cd /root/KongTradeBot
+systemctl start kongtrade-deploy.service  # sofort triggern
+```
 
 ## Arbeitsweise
 

@@ -385,3 +385,67 @@ Named Tunnel mit eigener Domain -> feste URL ohne Watcher noetig.
 2. `main.py restore_positions`: Filtert Positionen mit leerem `token_id` vor Restore (Stale-Cleanup).
 3. `main.py recover_stale_positions`: Filtert Orders ohne `token_id` vor Eintrag in `_pending_data`.
 **Status:** DEPLOYED — verifiziert via `/api/logs` ca. 09:35 UTC.
+
+---
+
+## P030 — Inkonsistente Polymarket redeemable-Feldnamen
+
+**Status:** BEHOBEN (2026-04-18)
+
+**Problem:**
+Polymarket Data-API liefert den redeemable-Status unter verschiedenen Feldnamen
+je nach Endpunkt und API-Version:
+- `redeemable` (aeltere Endpunkte)
+- `isRedeemable` (neuere Endpunkte, camelCase)
+- `is_redeemable` (snake_case Variante, selten)
+
+`claim_all.py` pruefte nur `redeemable` und `isRedeemable` → `is_redeemable` Positionen
+wurden nicht geclaimt. `dashboard.py` hatte dasselbe Problem bei der unclaimed-Summe.
+
+**Fix:**
+`is_claimable()` Helper-Funktion in `claim_all.py`:
+```python
+def is_claimable(pos: dict) -> bool:
+    return any(pos.get(k) for k in ("redeemable", "isRedeemable", "is_redeemable"))
+```
+Alle redeemable-Checks in `claim_all.py` und `dashboard.py` nutzen jetzt diese Funktion.
+
+**Bonus:** `AUTO_CLAIM_INTERVAL_S` env-Variable (default 300s / 5min statt 1800s / 30min).
+
+**Status:** DEPLOYED (2026-04-18)
+
+---
+
+## P031 — Server-Remote war auf gesperrtem Account
+
+**Status:** BEHOBEN (2026-04-18)
+
+**Problem:**
+Alter GitHub-Account "KongTradeBot" wurde gesperrt. Server-Code lag
+lokal als /root/KongTradeBot auf Hetzner mit Remote auf
+github.com/KongTradeBot/KongTradeBot.git — kein Push/Pull mehr möglich.
+
+**Symptom:**
+- git pull: 403
+- Auto-Deploy unmöglich
+- Neueste Server-Fixes (scripts/, fill_tracker.py, watchdog.py)
+  nie committed — Server war einzige Quelle
+
+**Root-Cause:**
+Account-Sperrung unabhängig vom Repo, Account-Reaktivierung nicht planbar.
+
+**Fix:**
+1. Neues privates Source-Repo onur-tech/KongTradeBot-src angelegt
+2. Server-State konsolidiert: Backup /root/kongtrade-backup-20260418/
+3. .gitignore erweitert um Runtime-Files (bot.lock, heartbeat.txt,
+   metrics.db, STATUS.md) und Backup-Files (*.bak, *.bak_night, *.server_backup)
+4. 13 Files commited (857d82b), inklusive scripts/-Ordner und
+   fill_tracker.py die vorher nie in Git waren
+5. Remote umgebogen: origin → origin-old, neu origin =
+   onur-tech/KongTradeBot-src
+6. 217 Objects / 227 KB gepusht
+7. Windows-Working-Tree per git reset --hard origin/main synchronisiert
+
+**Lesson:**
+Single-Account-Abhängigkeiten für kritische Repos vermeiden.
+onur-tech (personal account) ist stabiler wegen weniger Spam-/Automation-Flags.

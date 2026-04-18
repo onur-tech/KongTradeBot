@@ -30,6 +30,16 @@ reduzierter Größe. Live seit 17.04.2026.
 - kongtrade-tunnel.service — Cloudflare Tunnel
 - kongtrade-tunnel-watcher.timer — URL-Change-Alert 5min
 - kongtrade-status.timer — Auto-Push STATUS.md (AUS, Warm-Start)
+- kongtrade-tax-export.timer — Wöchentlicher CSV-Export (Freitag 23:55)
+
+## Tax-Exports herunterladen
+
+Exports liegen auf dem Server unter `/root/KongTradeBot/exports/`:
+```
+scp root@89.167.29.183:/root/KongTradeBot/exports/tax_2026_KW*.csv .
+scp root@89.167.29.183:/root/KongTradeBot/exports/blockpit_2026_KW*.csv .
+```
+Formate: `tax_YYYY_KWWW.csv` (Deutsch, semicolon, EUR) + `blockpit_YYYY_KWWW.csv` (Blockpit-Import)
 
 ## Wallet-Architektur (Kurzfassung)
 

@@ -69,6 +69,7 @@ signer = Magic-EOA, funder = Proxy.
 | kongtrade-tunnel-watcher.timer | URL-Alert | 5min |
 | kongtrade-status.timer | Auto-Push STATUS | 5min (AUS) |
 | kongtrade-deploy.timer | Auto-Pull + Restart | 5min |
+| kongtrade-tax-export.timer | Wöchentlicher CSV-Export | Freitag 23:55 Berlin |
 
 ## Auto-Deploy-Pipeline (18.04.2026)
 

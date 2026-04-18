@@ -449,3 +449,44 @@ Account-Sperrung unabhängig vom Repo, Account-Reaktivierung nicht planbar.
 **Lesson:**
 Single-Account-Abhängigkeiten für kritische Repos vermeiden.
 onur-tech (personal account) ist stabiler wegen weniger Spam-/Automation-Flags.
+
+---
+
+## P033 — Steuer-Archiv: tx_hash fehlte in CSV-Export
+
+**Status:** BEHOBEN (2026-04-18)
+
+**Problem:**
+`log_trade()` hat `tx_hash` als Parameter akzeptiert, aber `main.py`
+hat diesen Parameter nie befuellt — er blieb stets leer.
+Im CSV-Export fehlte die TX-Hash-Spalte komplett.
+
+**Fix:**
+- `main.py`: nach `result.success`, `_tx_hash = f"pending_{result.order_id}"`
+  an `log_trade(tx_hash=_tx_hash)` uebergeben.
+- `tax_archive.py`: `"TX-Hash"` Spalte in deutschen CSV-Export eingefuegt.
+
+---
+
+## P034 — Silent Auto-Claim-Errors: kein Telegram-Alert bei Fehlern
+
+**Status:** BEHOBEN (2026-04-18)
+
+**Fix:**
+- `redeem_position()` gibt jetzt `(bool, str)` zurueck.
+- `claim_loop()` sendet rate-limitierten Telegram-Alert pro fehlgeschlagener Position.
+- `CLAIM_ERROR_ALERT_COOLDOWN_S=3600` (env-konfigurierbar).
+
+---
+
+## P035 — Wöchentlicher Auto-Tax-Export
+
+**Status:** IMPLEMENTIERT (2026-04-18)
+
+**Problem:** `export_tax_csv()` war nur manuell aufrufbar.
+
+**Fix:**
+- `scripts/weekly_tax_export.py` + systemd Timer (Freitag 23:55 Berlin)
+- Exports nach `/root/KongTradeBot/exports/tax_YYYY_KWWW.csv` + `blockpit_YYYY_KWWW.csv`
+- Telegram-Summary an alle Chat-IDs
+- Download: `scp root@89.167.29.183:/root/KongTradeBot/exports/*.csv .`

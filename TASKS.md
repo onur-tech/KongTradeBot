@@ -108,6 +108,9 @@ _Stand: 2026-04-18 07:30 Berlin_
 - Privacy-Audit bestanden, alle sensitiven Daten entfernt
 - Warte auf GitHub-Account-Entsperrung für Push
 
+## T-D43 — Paket A: tx_hash in tax_archive + Claim-Error-Alerts [DONE 2026-04-18]
+## T-D44 — Paket B: Tunnel-Broadcast + Weekly-Tax-Export + Blockpit-Timestamp [DONE 2026-04-18]
+
 ## T-028 — Alex/Tunay/Dietmar einladen [BLOCKED]
 - Blocked by: GitHub-Account KongTradeBot gesperrt (P028)
 - Action: support.github.com kontaktieren

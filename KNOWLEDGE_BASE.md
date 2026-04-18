@@ -524,3 +524,20 @@ TODO(BLOCKPIT-VERIFY): Falls Blockpit auf korrekte UTC besteht,
 muss log_trade() timezone-aware speichern.
 
 **Status:** DEPLOYED (2026-04-18)
+
+---
+
+## P036 — OAuth-Popup trotz embedded PAT — GCM intercepted github.com
+
+**Status:** BEHOBEN (2026-04-18)
+
+**Problem:**
+GCM (`credential.helper=manager`) ist systemweit gesetzt und fängt
+HTTPS-Requests an github.com ab — selbst wenn PAT in der Remote-URL
+eingebettet ist. Kein `~/.gitconfig` existierte zur Überschreibung.
+
+**Fix:**
+`git config --global credential.https://github.com.helper ""`
+
+Leerer String in User-Config überschreibt System-Helper für github.com-URLs.
+Git liest Credentials dann direkt aus der URL.

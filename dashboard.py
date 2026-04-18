@@ -63,6 +63,7 @@ def _batch_fetch_gamma_enddates(condition_ids: list) -> dict:
                 if cid not in _gamma_enddate_cache
                 or now - _gamma_enddate_cache[cid][0] > 3600]
     if uncached:
+        # Gamma API batch (up to 20 at once)
         try:
             ids_str = ",".join(uncached[:20])
             r = requests.get(
@@ -73,24 +74,76 @@ def _batch_fetch_gamma_enddates(condition_ids: list) -> dict:
                 for m in r.json():
                     cid = m.get("conditionId", "")
                     if cid:
-                        _gamma_enddate_cache[cid] = (
-                            now,
-                            m.get("endDate") or m.get("endDateIso") or m.get("end_date_iso")
-                        )
+                        end = (m.get("endDate") or m.get("endDateIso")
+                               or m.get("end_date_iso") or m.get("endDateTimestamp"))
+                        _gamma_enddate_cache[cid] = (now, end)
         except Exception:
             pass
+        # CLOB API fallback for any still-uncached IDs
+        for cid in uncached:
+            if cid not in _gamma_enddate_cache or _gamma_enddate_cache[cid][1] is None:
+                try:
+                    r2 = requests.get(
+                        f"https://clob.polymarket.com/markets/{cid}",
+                        timeout=5
+                    )
+                    if r2.status_code == 200:
+                        m2 = r2.json()
+                        end = (m2.get("end_date_iso") or m2.get("endDateIso")
+                               or m2.get("game_start_time")
+                               or m2.get("accepting_orders_until"))
+                        _gamma_enddate_cache[cid] = (now, end)
+                except Exception:
+                    pass
         for cid in uncached:
             if cid not in _gamma_enddate_cache:
                 _gamma_enddate_cache[cid] = (now, None)
     return {cid: _gamma_enddate_cache.get(cid, (0, None))[1] for cid in condition_ids}
 
 
-def _closes_in_label(end_date_str) -> tuple:
+_MONTH_MAP = {
+    "january":1,"february":2,"march":3,"april":4,"may":5,"june":6,
+    "july":7,"august":8,"september":9,"october":10,"november":11,"december":12,
+    "jan":1,"feb":2,"mar":3,"apr":4,"jun":6,"jul":7,"aug":8,
+    "sep":9,"oct":10,"nov":11,"dec":12,
+}
+_DATE_RE = re.compile(
+    r"by\s+([A-Za-z]+)\s+(\d{1,2})(?:st|nd|rd|th)?(?:,?\s*(\d{4}))?",
+    re.IGNORECASE
+)
+
+def _parse_title_date(title: str):
+    """Try to extract a deadline date from a market title like 'by April 30, 2026'."""
+    m = _DATE_RE.search(title or "")
+    if not m:
+        return None
+    mon_str, day_str, yr_str = m.group(1).lower(), m.group(2), m.group(3)
+    mon = _MONTH_MAP.get(mon_str)
+    if not mon:
+        return None
+    year = int(yr_str) if yr_str else datetime.now(timezone.utc).year
+    try:
+        from datetime import date as _date
+        return datetime(year, mon, int(day_str), 23, 59, 59, tzinfo=timezone.utc)
+    except ValueError:
+        return None
+
+
+def _closes_in_label(end_date_str, market_title: str = "") -> tuple:
     """Returns (label, css_class) for countdown display."""
     if not end_date_str:
-        return "—", "closes-gray"
+        # Fallback: try to parse date from title
+        dt = _parse_title_date(market_title)
+        if dt is None:
+            return "?", "closes-gray"
+    else:
+        try:
+            dt = datetime.fromisoformat(str(end_date_str).replace("Z", "+00:00"))
+        except Exception:
+            dt = _parse_title_date(market_title)
+            if dt is None:
+                return "?", "closes-gray"
     try:
-        dt = datetime.fromisoformat(str(end_date_str).replace("Z", "+00:00"))
         now_utc = datetime.now(timezone.utc)
         diff_s = (dt - now_utc).total_seconds()
         if diff_s <= 0:
@@ -106,7 +159,7 @@ def _closes_in_label(end_date_str) -> tuple:
             d, h = int(diff_s // 86400), int((diff_s % 86400) // 3600)
             return f"{d}d {h}h", "closes-gray"
     except Exception:
-        return "—", "closes-gray"
+        return "?", "closes-gray"
 
 
 # ── SQLite Metrics DB ──────────────────────────────────────────────────────────
@@ -612,7 +665,8 @@ def api_portfolio():
         })
         end_date_str = (p.get("endDate") or p.get("endDateIso") or p.get("end_date")
                         or enddate_map.get(p.get("conditionId", "")))
-        ci_label, ci_class = _closes_in_label(end_date_str)
+        mkt_title = p.get("title") or p.get("question") or p.get("market") or ""
+        ci_label, ci_class = _closes_in_label(end_date_str, market_title=mkt_title)
         result[-1].update({
             "redeemable":      bool(any(p.get(k) for k in ("redeemable", "isRedeemable", "is_redeemable"))),
             "asset_id":        p.get("asset_id") or p.get("tokenId") or "",

@@ -626,3 +626,31 @@ In `_closes_in_label()`, direkt nach `datetime.fromisoformat()`.
 - US x Iran April 22 → "3d 9h" ✅
 - Strait of Hormuz April 30 → "11d 9h" ✅
 - ENDED Märkte → "ENDED" ✅
+
+---
+
+## P040 — Telegram-Spam: Bot-Neustart-Alerts bei jedem Watchdog-Zyklus
+
+**Status:** ✅ BEHOBEN (18.04.2026)
+
+**Symptom:**
+Jeder erfolgreiche Bot-Neustart via Watchdog schickte "✅ neu gestartet via systemd" an Telegram.
+Da der Watchdog alle 60s läuft und bei Frozen-Erkennung immer neu startet, konnte dies massiv spammen.
+Zusätzlich: Bot-Startup-Alert kam bei jedem Restart, auch wenn mehrere Neustarts binnen Minuten passierten.
+
+**Root-Cause:**
+1. `watchdog.py` lud immer `send_telegram('✅ neu gestartet...')` nach Restart — kein Throttle.
+2. `HEARTBEAT_MAX_AGE = 180s` zu niedrig — bei kurzer Systemlast feuerte Watchdog zu früh.
+3. `send()` in `telegram_bot.py` hatte kein Mute-System.
+4. Startup-Alert in `main.py` hatte kein Rate-Limit.
+
+**Fix:**
+- `watchdog.py`: Erfolgreiche Restart-Alerts entfernt (nur Fehler-Alert bleibt). `HEARTBEAT_MAX_AGE` 180 → 600s.
+- `telegram_bot.py`: 
+  - `_is_muted()` / `_MUTE_FILE` (`.mute_until` Datei, ISO-Timestamp).
+  - `_is_startup_allowed()` / `_STARTUP_ALERT_FILE` (`.last_startup_alert`, Unix-Timestamp, 30min Cooldown).
+  - `send(urgent=False)` — respektiert Mute außer bei `urgent=True`.
+  - `send_startup()` — Wrapper mit Rate-Limit-Check.
+  - `/menu` Inline-Keyboard (8 Buttons: Status, Portfolio, Heute, Config, Positionen, Archiv, Mute 1h, Unmute).
+  - `_TG_MIN_SIZE` Default: 5 → 2 USD.
+- `scripts/daily_digest.py` + systemd Timer 22:00 Berlin.

@@ -16,7 +16,7 @@ BASE_DIR = Path(__file__).parent
 load_dotenv(BASE_DIR / '.env')
 
 HEARTBEAT_FILE = BASE_DIR / 'heartbeat.txt'
-HEARTBEAT_MAX_AGE = 180  # Sekunden
+HEARTBEAT_MAX_AGE = 600  # Sekunden
 
 TELEGRAM_TOKEN = os.getenv('TELEGRAM_BOT_TOKEN', '')
 CHAT_IDS = [cid.strip() for cid in os.getenv('TELEGRAM_CHAT_IDS', '507270873').split(',')]
@@ -99,7 +99,7 @@ def main():
         send_telegram(msg)
         cleanup_stale_lock()
         if restart_bot():
-            send_telegram('✅ <b>KongTrade Bot</b> neu gestartet via systemd')
+            print('[Watchdog] Bot neu gestartet via systemd')
         else:
             send_telegram('❌ <b>KongTrade Bot</b> Neustart fehlgeschlagen!')
         return
@@ -110,7 +110,7 @@ def main():
         send_telegram(msg)
         cleanup_stale_lock()
         if restart_bot():
-            send_telegram('✅ <b>KongTrade Bot</b> neu gestartet (frozen)')
+            print('[Watchdog] Bot neu gestartet (frozen)')
         return
 
 if __name__ == '__main__':

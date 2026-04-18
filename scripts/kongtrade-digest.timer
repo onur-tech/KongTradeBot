@@ -1,0 +1,9 @@
+[Unit]
+Description=KongTrade Daily Digest Timer
+
+[Timer]
+OnCalendar=*-*-* 22:00:00 Europe/Berlin
+Persistent=true
+
+[Install]
+WantedBy=timers.target

@@ -1,11 +1,13 @@
 """
-telegram_bot.py v3 - Kong Trading Bot Notifications
+telegram_bot.py v4 - Kong Trading Bot Notifications
 """
 import asyncio
 import json
 import os
 import sys
-from datetime import datetime, date, timedelta
+import time
+from datetime import datetime, date, timedelta, timezone
+from pathlib import Path
 from typing import Optional
 
 try:
@@ -44,13 +46,47 @@ CONFIRMATION_TIMEOUT_S = 30  # Sekunden auf Button-Klick warten
 # 1. Einsatz >= TELEGRAM_MIN_SIZE_USD
 # 2. Multi-Signal-Trade (2+ Wallets) wenn TELEGRAM_ALWAYS_MULTI_SIGNAL=true
 # 3. High-Value-Wallet (Multiplikator >= 2.0x) wenn TELEGRAM_ALWAYS_HIGH_WALLET=true
-_TG_MIN_SIZE        = float(os.getenv("TELEGRAM_MIN_SIZE_USD", "5"))
+_TG_MIN_SIZE        = float(os.getenv("TELEGRAM_MIN_SIZE_USD", "2"))
 _TG_MULTI_SIGNAL    = os.getenv("TELEGRAM_ALWAYS_MULTI_SIGNAL", "true").lower() == "true"
 _TG_HIGH_WALLET     = os.getenv("TELEGRAM_ALWAYS_HIGH_WALLET", "true").lower() == "true"
 _TG_HIGH_WALLET_PCT = 2.0  # Schwelle ab welchem Multiplikator "High-Value" gilt
 
 # Owner-ID darf Inline-Buttons drücken (Trading-Entscheidungen); alle anderen sind read-only
 OWNER_ID = os.getenv("TELEGRAM_OWNER_ID", "")
+
+# ── Mute + Startup Rate-Limit ─────────────────────────────────────────────────
+_BOT_DIR            = Path(os.getenv("BOT_DIR", "."))
+_MUTE_FILE          = _BOT_DIR / ".mute_until"
+_STARTUP_ALERT_FILE = _BOT_DIR / ".last_startup_alert"
+_STARTUP_COOLDOWN_S = int(os.getenv("STARTUP_ALERT_COOLDOWN_S", "1800"))
+
+
+def _is_muted() -> bool:
+    if not _MUTE_FILE.exists():
+        return False
+    try:
+        until = datetime.fromisoformat(_MUTE_FILE.read_text().strip())
+        if until.tzinfo is None:
+            until = until.replace(tzinfo=timezone.utc)
+        return datetime.now(timezone.utc) < until
+    except Exception:
+        return False
+
+
+def _is_startup_allowed() -> bool:
+    if not _STARTUP_ALERT_FILE.exists():
+        return True
+    try:
+        return (time.time() - float(_STARTUP_ALERT_FILE.read_text().strip())) > _STARTUP_COOLDOWN_S
+    except Exception:
+        return True
+
+
+def _mark_startup_sent():
+    try:
+        _STARTUP_ALERT_FILE.write_text(str(time.time()))
+    except Exception:
+        pass
 
 
 def should_send_trade_notification(
@@ -71,9 +107,11 @@ def should_send_trade_notification(
 _pending_decisions: dict = {}
 
 
-async def send(text: str, parse_mode: str = "HTML") -> bool:
+async def send(text: str, parse_mode: str = "HTML", *, urgent: bool = False) -> bool:
     if not TOKEN or not CHAT_IDS:
         return False
+    if not urgent and _is_muted():
+        return True
     success = True
     async with aiohttp.ClientSession() as session:
         for chat_id in CHAT_IDS:
@@ -499,6 +537,145 @@ def msg_startup(wallets, budget, dry_run):
     return "\n".join(lines)
 
 
+async def send_startup(wallets: int, budget: float, dry_run: bool) -> bool:
+    if not _is_startup_allowed():
+        print("[TG] Startup-Alert gedrosselt (< 30 min seit letztem)")
+        return True
+    _mark_startup_sent()
+    return await send(msg_startup(wallets, budget, dry_run), urgent=True)
+
+
+# ── /menu Inline-Keyboard ─────────────────────────────────────────────────────
+
+def _menu_keyboard() -> dict:
+    return {
+        "inline_keyboard": [
+            [
+                {"text": "📊 Status",      "callback_data": "m:status"},
+                {"text": "💼 Portfolio",   "callback_data": "m:portfolio"},
+            ],
+            [
+                {"text": "📅 Heute",       "callback_data": "m:today"},
+                {"text": "⚙️ Config",     "callback_data": "m:config"},
+            ],
+            [
+                {"text": "📋 Positionen", "callback_data": "m:positions"},
+                {"text": "📡 Archiv",     "callback_data": "m:archive"},
+            ],
+            [
+                {"text": "🔇 Mute 1h",    "callback_data": "m:mute1h"},
+                {"text": "🔔 Unmute",     "callback_data": "m:unmute"},
+            ],
+        ]
+    }
+
+
+async def _handle_menu_callback(action: str, callback_status) -> str:
+    """Verarbeitet m:* Callback-Actions, gibt Ack-Text zurück."""
+    if action == "status":
+        await callback_status()
+        return "📊 Status gesendet"
+
+    elif action == "portfolio":
+        try:
+            with open(STATE_FILE, "r", encoding="utf-8") as f:
+                state = json.load(f)
+            positions = state.get("open_positions", [])
+            if isinstance(positions, dict):
+                positions = list(positions.values())
+            total = sum(float(p.get("size_usdc", 0) or 0) for p in positions)
+            top = sorted(positions, key=lambda p: float(p.get("size_usdc", 0) or 0), reverse=True)[:6]
+            lines = [
+                "💼 <b>OFFENE POSITIONEN</b>",
+                "━━━━━━━━━━━━━━━━━━━━",
+                f"📊 <b>{len(positions)}</b> Positionen | <b>${total:.2f} USDC</b>",
+                "━━━━━━━━━━━━━━━━━━━━",
+            ]
+            for p in top:
+                lines.append(f"  📌 {p.get('outcome','?')} | ${float(p.get('size_usdc',0)):.2f} | {p.get('market_question','')[:35]}")
+            if not top:
+                lines.append("  —")
+            await send("\n".join(lines), urgent=True)
+        except Exception as e:
+            await send(f"❌ Fehler: {e}", urgent=True)
+        return "💼 Portfolio gesendet"
+
+    elif action == "today":
+        trades = _load_archive()
+        today_str = date.today().isoformat()
+        today = [t for t in trades if t.get("datum", "") == today_str]
+        resolved_today = [t for t in today if t.get("aufgeloest")]
+        won = [t for t in resolved_today if t.get("ergebnis") == "GEWINN"]
+        lost = [t for t in resolved_today if t.get("ergebnis") == "VERLUST"]
+        pnl = sum(float(t.get("gewinn_verlust_usdc", 0) or 0) for t in resolved_today)
+        pnl_sign = "+" if pnl >= 0 else ""
+        lines = [
+            f"📅 <b>HEUTE — {date.today().strftime('%d.%m.%Y')}</b>",
+            "━━━━━━━━━━━━━━━━━━━━",
+            f"📋 Trades heute: <b>{len(today)}</b>",
+            f"🎯 Aufgelöst: <b>{len(resolved_today)}</b>  ✅{len(won)} / ❌{len(lost)}",
+            f"💰 P&L heute: <b>{pnl_sign}${pnl:.2f} USDC</b>",
+        ]
+        await send("\n".join(lines), urgent=True)
+        return "📅 Heute-Stats gesendet"
+
+    elif action == "config":
+        mute_str = "✅ JA" if _is_muted() else "❌ NEIN"
+        lines = [
+            "⚙️ <b>BOT-KONFIGURATION</b>",
+            "━━━━━━━━━━━━━━━━━━━━",
+            f"💵 Min Trade: <b>${_TG_MIN_SIZE:.2f} USD</b>",
+            f"📡 Multi-Signal: <b>{'✅' if _TG_MULTI_SIGNAL else '❌'}</b>",
+            f"🐋 High-Wallet: <b>{'✅' if _TG_HIGH_WALLET else '❌'} (≥{_TG_HIGH_WALLET_PCT}x)</b>",
+            f"🔇 Stumm: <b>{mute_str}</b>",
+            f"🌍 Dry-Run: <b>{os.getenv('DRY_RUN', 'false')}</b>",
+        ]
+        await send("\n".join(lines), urgent=True)
+        return "⚙️ Config gesendet"
+
+    elif action == "positions":
+        top_pos = _get_top_positions()
+        lines = ["🔝 <b>TOP POSITIONEN</b>", "━━━━━━━━━━━━━━━━━━━━"]
+        for p in top_pos:
+            lines.append(f"  📌 {p['outcome']} | ${p['size']:.2f} | {p['question']}")
+        if not top_pos:
+            lines.append("  —")
+        await send("\n".join(lines), urgent=True)
+        return "📋 Positionen gesendet"
+
+    elif action == "archive":
+        won, lost, win_rate = _get_win_rate()
+        wr_icon = "🟢" if win_rate >= 55 else "🟡" if win_rate >= 50 else "🔴"
+        lines = [
+            "🗄️ <b>ARCHIV-STATISTIK</b>",
+            "━━━━━━━━━━━━━━━━━━━━",
+            f"✅ Gewonnen: <b>{won}</b>  ❌ Verloren: <b>{lost}</b>",
+            f"{wr_icon} Win Rate: <b>{win_rate}%</b>",
+        ]
+        await send("\n".join(lines), urgent=True)
+        return "📡 Archiv gesendet"
+
+    elif action == "mute1h":
+        until = datetime.now(timezone.utc) + timedelta(hours=1)
+        try:
+            _MUTE_FILE.write_text(until.isoformat())
+        except Exception:
+            pass
+        await send(f"🔇 Bot stumm bis <b>{until.strftime('%H:%M')} UTC</b>.\nTrades laufen normal weiter.", urgent=True)
+        return "🔇 Stumm 1h"
+
+    elif action == "unmute":
+        try:
+            if _MUTE_FILE.exists():
+                _MUTE_FILE.unlink()
+        except Exception:
+            pass
+        await send("🔔 Stummschaltung aufgehoben.", urgent=True)
+        return "🔔 Unmuted"
+
+    return "?"
+
+
 def msg_shutdown(total_trades):
     return "\n".join([
         "🛑 <b>BOT GESTOPPT</b>",
@@ -810,6 +987,11 @@ async def poll_commands(callback_status, callback_resolve):
                                             )
                                     else:
                                         await _answer_callback_query(cb_id, "⚠️ Signal bereits abgelaufen")
+
+                            elif cb_chat_id in CHAT_IDS and cb_data.startswith("m:"):
+                                action = cb_data[2:]
+                                ack = await _handle_menu_callback(action, callback_status)
+                                await _answer_callback_query(cb_id, ack)
                             continue
 
                         # ── Text-Kommandos ────────────────────────────────────
@@ -820,7 +1002,13 @@ async def poll_commands(callback_status, callback_resolve):
                         if chat_id not in CHAT_IDS:
                             continue
 
-                        if text in ["/status", "/s"]:
+                        if text in ["/menu", "/m"]:
+                            await _send_with_keyboard(
+                                "🤖 <b>KongTrade Bot — Menü</b>\nWähle eine Aktion:",
+                                _menu_keyboard(),
+                            )
+
+                        elif text in ["/status", "/s"]:
                             await callback_status()
 
                         elif text in ["/pnl", "/p"]:
@@ -865,6 +1053,8 @@ async def poll_commands(callback_status, callback_resolve):
                             await send("\n".join([
                                 "🤖 <b>KONG TRADING BOT — BEFEHLE</b>",
                                 "━━━━━━━━━━━━━━━━━━━━",
+                                "/menu    →  Interaktives Menü mit Buttons",
+                                "/m       →  Kurzform für /menu",
                                 "/status  →  Sofortiger Status Report",
                                 "/s       →  Kurzform für /status",
                                 "/pnl     →  Aktueller P&L und Win Rate",
@@ -876,8 +1066,8 @@ async def poll_commands(callback_status, callback_resolve):
                                 "━━━━━━━━━━━━━━━━━━━━",
                                 "Buttons: ✅ Normal  ⏭️ Skip  2️⃣ Double  ½ Half",
                                 "━━━━━━━━━━━━━━━━━━━━",
-                                "📱 Status-Report kommt automatisch stündlich.",
-                            ]))
+                                "📱 Morning Report: täglich 08:00, Digest: 22:00 Berlin",
+                            ]), urgent=True)
 
             except asyncio.CancelledError:
                 break

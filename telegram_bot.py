@@ -592,36 +592,32 @@ async def _handle_menu_callback(action: str, callback_status) -> str:
         return "📊 Status gesendet"
 
     elif action == "portfolio":
-        summary = _fetch_dashboard("/api/summary")
-        port    = _fetch_dashboard("/api/portfolio")
-        if not summary and not port:
+        port = _fetch_dashboard("/api/portfolio")
+        if not port:
             await send(_DASHBOARD_ERR, urgent=True)
             return "⚠️"
-        cash    = float((summary or {}).get("balance_usdc", 0))
-        total   = float((port or {}).get("total_value", 0))
-        in_pos  = float((port or {}).get("in_positions", 0))
-        count   = int((port or {}).get("count", 0))
-        redeemable = int((port or {}).get("redeemable_count", 0))
-        to_win  = float((port or {}).get("to_win_total", 0))
-        net_pnl = float((port or {}).get("net_pnl", 0))
-        pnl_sign = "+" if net_pnl >= 0 else ""
+        positions  = port.get("positions", [])
+        count      = int(port.get("count", len(positions)))
+        total      = sum(float(p.get("current_value", 0) or 0) for p in positions)
+        in_pos     = sum(float(p.get("traded", 0) or 0) for p in positions)
+        to_win     = sum(float(p.get("to_win", 0) or 0) for p in positions)
+        net_pnl    = sum(float(p.get("pnl_usdc", 0) or 0) for p in positions)
+        redeemable = sum(1 for p in positions if p.get("redeemable"))
+        pnl_sign   = "+" if net_pnl >= 0 else ""
         lines = [
             "💼 <b>PORTFOLIO</b>",
             "━━━━━━━━━━━━━━━━━━━━",
             f"📊 Total: <b>${total:.2f} USDC</b>",
-            f"💵 Cash: <b>${cash:.2f}</b>",
-            f"📈 In Positionen: <b>${in_pos:.2f}</b> ({count} offen{', ' + str(redeemable) + ' claimable' if redeemable else ''})",
+            f"📈 Investiert: <b>${in_pos:.2f}</b> ({count} Positionen{', ' + str(redeemable) + ' claimable' if redeemable else ''})",
             f"🏆 To-Win: <b>${to_win:.2f}</b>",
             f"💰 Net PnL: <b>{pnl_sign}${net_pnl:.2f}</b>",
         ]
-        # Top 5 Positionen
-        positions = (port or {}).get("positions", [])
         if positions:
-            lines += ["━━━━━━━━━━━━━━━━━━━━", "🔝 Top Positionen:"]
+            lines += ["━━━━━━━━━━━━━━━━━━━━", "🔝 Top 5:"]
             for i, p in enumerate(sorted(positions, key=lambda x: float(x.get("current_value", 0) or 0), reverse=True)[:5], 1):
-                mkt = str(p.get("market_question", p.get("market", "?")))[:35]
+                mkt = str(p.get("market", "?"))[:33]
                 cur = float(p.get("current_value", 0) or 0)
-                inv = float(p.get("size_usdc", 0) or 0)
+                inv = float(p.get("traded", 0) or 0)
                 lines.append(f"  {i}. {mkt} → <b>${cur:.2f}</b> (inv ${inv:.2f})")
         await send("\n".join(lines), urgent=True)
         return "💼 Portfolio gesendet"
@@ -631,17 +627,14 @@ async def _handle_menu_callback(action: str, callback_status) -> str:
         if not data:
             await send(_DASHBOARD_ERR, urgent=True)
             return "⚠️"
-        today_count  = int(data.get("trades_today", data.get("signals_today", 0)))
-        wins_today   = int(data.get("wins_today", 0))
-        losses_today = int(data.get("losses_today", 0))
-        pnl_today    = float(data.get("pnl_today", 0))
-        pnl_sign     = "+" if pnl_today >= 0 else ""
-        pnl_icon     = "🟢" if pnl_today >= 0 else "🔴"
+        today_count = int(data.get("today_trades", 0))
+        pnl_today   = float(data.get("today_pnl", 0))
+        pnl_sign    = "+" if pnl_today >= 0 else ""
+        pnl_icon    = "🟢" if pnl_today >= 0 else "🔴"
         lines = [
             f"📅 <b>HEUTE — {date.today().strftime('%d.%m.%Y')}</b>",
             "━━━━━━━━━━━━━━━━━━━━",
             f"📋 Trades: <b>{today_count}</b>",
-            f"🎯 Aufgelöst: ✅{wins_today} / ❌{losses_today}",
             f"{pnl_icon} P&L heute: <b>{pnl_sign}${pnl_today:.2f} USDC</b>",
         ]
         await send("\n".join(lines), urgent=True)
@@ -696,10 +689,10 @@ async def _handle_menu_callback(action: str, callback_status) -> str:
             ]
         else:
             total_trades = int(data.get("total_trades", 0))
-            wins  = int(data.get("total_wins", 0))
-            losses = int(data.get("total_losses", 0))
-            win_rate = round(wins / (wins + losses) * 100, 1) if (wins + losses) > 0 else 0
-            net_pnl  = float(data.get("net_pnl", 0))
+            wins     = int(data.get("wins", 0))
+            losses   = int(data.get("losses", 0))
+            win_rate = round(float(data.get("win_rate", 0)), 1)
+            net_pnl  = float(data.get("pnl", 0))
             wr_icon  = "🟢" if win_rate >= 55 else "🟡" if win_rate >= 50 else "🔴"
             tp_sign  = "+" if net_pnl >= 0 else ""
             lines = [
@@ -708,7 +701,7 @@ async def _handle_menu_callback(action: str, callback_status) -> str:
                 f"📦 Gesamt: <b>{total_trades} Trades</b>",
                 f"✅ Gewonnen: <b>{wins}</b>  ❌ Verloren: <b>{losses}</b>",
                 f"{wr_icon} Win Rate: <b>{win_rate}%</b>",
-                f"💰 Net PnL: <b>{tp_sign}${net_pnl:.2f} USDC</b>",
+                f"💰 PnL: <b>{tp_sign}${net_pnl:.2f} USDC</b>",
             ]
         await send("\n".join(lines), urgent=True)
         return "🗄️ Archiv gesendet"

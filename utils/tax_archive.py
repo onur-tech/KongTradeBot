@@ -118,10 +118,17 @@ def log_trade(
     is_dry_run: bool = True,
     market_id: str = "",
     token_id: str = "",
+    realized_pnl: float = 0.0,
+    mark_resolved: bool = False,
 ) -> None:
     """Loggt einen Trade ins persistente Archiv."""
     try:
         trades = _load_trades()
+
+        if mark_resolved:
+            ergebnis = "GEWINN" if realized_pnl > 0 else "VERLUST" if realized_pnl < 0 else "NEUTRAL"
+        else:
+            ergebnis = ""
 
         trade = {
             "id":                  len(trades) + 1,
@@ -139,9 +146,9 @@ def log_trade(
             "tx_hash":             tx_hash,
             "kategorie":           category,
             "modus":               "DRY-RUN" if is_dry_run else "LIVE",
-            "ergebnis":            "",
-            "gewinn_verlust_usdc": 0.0,
-            "aufgeloest":          False,
+            "ergebnis":            ergebnis,
+            "gewinn_verlust_usdc": round(realized_pnl, 4) if mark_resolved else 0.0,
+            "aufgeloest":          mark_resolved,
         }
 
         trades.append(trade)

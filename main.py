@@ -936,10 +936,12 @@ async def main():
                             shares=ev.shares_sold,
                             source_wallet=getattr(_pos, "source_wallet", ""),
                             tx_hash=f"exit_{ev.exit_type}_{ev.position_id[:12]}",
-                            category="exit",
+                            category=f"exit_{ev.exit_type}",
                             is_dry_run=config.exit_dry_run,
                             market_id=ev.condition_id,
                             token_id=getattr(_pos, "token_id", ""),
+                            realized_pnl=ev.pnl_usdc,
+                            mark_resolved=True,
                         )
                         if not config.exit_dry_run:
                             # Live-Exit: verkaufe via execution_engine

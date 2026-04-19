@@ -19,6 +19,11 @@ _Stand: 2026-04-19 12:00 Berlin_
 | ID | Titel | Prio | Notiz |
 |----|-------|------|-------|
 | T-039 | weekly_doku_check.py Script (Freitag 17:00, Telegram-Report fuer Events ohne Doku) | NICE | — |
+| T-D105 | Skipped-Signal-Shadow-Tracking: data/all_signals.jsonl + fiktive Performance | WICHTIG | IN PROGRESS — Server-CC |
+| T-D106 | On-Chain-Wallet-Discovery-Scan (aktive Polygon-Wallets mit Polymarket-Trades) | WICHTIG | PENDING |
+| T-D107 | External-Wallet-Data-API-Integration (predicts.guru-Scraping oder Polymarket-API) | WICHTIG | PENDING |
+| T-D108 | Briefing v1.1 Publish + Shadow-DB Schema finalisieren | NICE | PENDING |
+| T-D109 | 30-Day-Wallet-Review fuer aktuelle 10 TARGET_WALLETS | WICHTIG | SCHEDULED 2026-05-19 |
 | T-D70 | Scout v2: 9 Hard-Filter in utils/wallet_scout.py implementieren | WICHTIG | WALLET_SCOUT_BRIEFING.md Teil 4 |
 | T-D71 | KongScore-Engine: 10 Soft-Score-Kategorien (SC-1 bis SC-10) | WICHTIG | WALLET_SCOUT_BRIEFING.md Teil 5 |
 | T-D72 | Tiered System (A/B/C Pools) in core/state_manager integrieren | WICHTIG | Bootstrapping-Modus Toggle |
@@ -48,6 +53,7 @@ _Stand: 2026-04-19 12:00 Berlin_
 ---
 
 ## DONE
+| T-D104 | Audit v1.0: 3 Wallets entfernt (RN1, Gambler1968, sovereign2013) via HF-8 (7c29ac9) | 2026-04-19 |
 | T-D103 | ✨ feat(analytics): Per-Wallet-Performance-Report mit Kategorie- und Zeitfenster-Aufschlüsselung (8689c4e) | 2026-04-19 |
 | T-D102 | 🔧 chore: Nacht-Autopilot 18.04: Auto-Claim, Dynamic-Subscribe, Stale-Recovery, WS-Fix, Morning-Report Berlin-Zeit, 13 Bug-Fixes (b1c413a) | 2026-04-18 |
 | T-D101 | 🔧 chore: TASKS.md: Nacht-Autopilot Status-Update (T-D15 bis T-D24) (89b5578) | 2026-04-18 |

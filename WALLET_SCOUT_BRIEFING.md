@@ -184,6 +184,10 @@ Alle 9 Filter müssen für Tier A erfüllt sein. Für Tier B 7 von 9.
 - **Kriterium:** Mindestens 3 neue Positionen in letzten 14 Tagen
 - **Quelle:** polymarketcopybot.com Staleness-Regel
 - **Begründung:** Inaktive Wallets können Strategie geändert haben
+- **WICHTIG (v1.1):** Nicht-Aktivität im Bot (0 kopierte Trades) allein ist KEIN
+  Removal-Grund vor 30 Tagen Beobachtung. Gründe für 0 Bot-Copies können
+  MIN_TRADE_SIZE, Budget-Cap oder Kategorie-Blacklist sein — nicht Wallet-Inaktivität.
+  Externe Aktivität (predicts.guru Last-Trade-Date) immer gegenchecken. Siehe Teil 16.
 
 ### HF-6: Profit-Konzentration
 - **Kriterium:** Keine Einzel-Position > 20% des kumulierten Profits
@@ -372,8 +376,79 @@ Siehe separates Dokument: KONG_REVIEW_SYSTEM.md
 - Integration der Polymarket-Anpassungen
 - Grok-Verifikations-Protokoll (Roadmap)
 
-Format zukünftiger Versionen: 1.1, 1.2 für Kriterien-Anpassungen;
+### Version 1.1 (2026-04-19) — Post-Audit-Erkenntnisse
+Änderungen basierend auf erstem Audit (3 Wallets entfernt, 10 beobachtet):
+- Teil 14 hinzugefügt: Skipped-Signal-Feedback-Loop
+- Teil 15 hinzugefügt: Discovery-Gap — Wallet-Universum außerhalb TARGET_WALLETS
+- Teil 16 hinzugefügt: Beobachtungs-Zeitraum-Regel (30 Tage Minimum)
+- HF-5 Hinweis ergänzt: Nicht-Aktivität im Bot ≠ Wallet-Inaktivität
+
+Format zukünftiger Versionen: 1.x für Kriterien-Anpassungen;
 Major-Release 2.0 für grundlegende Systemänderungen.
+
+---
+
+## Teil 14: Skipped-Signal-Feedback-Loop
+
+_Erkenntnis aus Audit v1.0 (19.04.2026)_
+
+**Problem:** Bot filtert Signale aus ohne die Konsequenz zu messen.
+Welche Filter sind zu streng? Wie viel Profit wird durch MIN_TRADE_SIZE,
+Budget-Cap oder Kategorie-Blacklist verhindert? Survivorship Bias
+in der Auswertung ohne Messung.
+
+**Implementation:** T-D105 Skipped-Signal-Tracker
+- `data/all_signals.jsonl` speichert jedes erkannte Signal (inkl. Skip-Grund)
+- Nach Market-Resolution: fiktive Performance berechnen
+- Weekly-Report zeigt welcher Filter am meisten gekostet hat
+
+**Regel:** Kein Filter ist "settled" solange seine Schatten-Kosten
+nicht gemessen werden.
+
+---
+
+## Teil 15: Discovery-Gap
+
+_Erkenntnis aus Audit v1.0 (19.04.2026)_
+
+**Problem:** Briefing prüft nur bestehende TARGET_WALLETS.
+Polymarket hat ~300.000 Wallets. Nur 15 zu auditieren ist nur die halbe Wahrheit.
+Es könnten bessere Kandidaten existieren die der alte Scout nie vorgeschlagen hat.
+
+**Lösung in Phasen:**
+
+| Phase | Zeitraum | Quelle |
+|-------|---------|--------|
+| 1 | Aktuell | Polymonit-Leaderboard als Basis-Scout |
+| 2 | T-D106 | On-Chain-Discovery-Scan aller aktiven Polygon-Wallets mit Polymarket-Trades |
+| 3 | Q3 2026 | Grok/X-basiertes Nischen-Discovery |
+
+**Regel:** Audit ohne Discovery ist Wartung. Audit MIT Discovery ist Strategie.
+
+---
+
+## Teil 16: Beobachtungs-Zeitraum-Regel
+
+_Erkenntnis aus Audit v1.0 (19.04.2026)_
+
+**Problem:** Nicht-aktive Wallets dürfen nicht voreilig entfernt werden.
+4 Tage Bot-Betrieb sind statistisch bedeutungslos. 0 kopierte Bot-Trades
+kann viele Ursachen haben die nichts mit der Wallet-Qualität zu tun haben.
+
+**Regel:** Entfernung wegen Inaktivität erfordert MINDESTENS:
+1. 30 Tage Beobachtungsfenster
+2. Wallet hatte Chance in mindestens 2 verschiedenen Markt-Kategorien zu agieren
+3. Kein externes Signal dass Wallet generell aktiv ist
+   (via predicts.guru Last-Trade-Date check)
+
+**Wallets mit 0 Bot-Copies aber externer Aktivität** bleiben im Watching-Status.
+
+**Mögliche Gründe für 0 Bot-Copies (kein Removal-Grund):**
+- MIN_TRADE_SIZE filtert Whale-Trades heraus
+- Budget-Cap blockiert neue Orders
+- Trade-Kategorien auf Blacklist
+- Wallet wochenend-inaktiv (Sportereignisse)
+- Wallet agiert in anderen Märkten als der Bot verfolgt
 
 ---
 

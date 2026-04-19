@@ -952,3 +952,35 @@ Claim-Chain auf Polymarket: `resolved → redeemable → payout (kann $0 sein)`
 
 **Lesson:** ROI nur berechenbar wenn min. 1 Trade resolved ist — bei all-pending Wallets resolved_invested≈0 führt zu Division-by-near-Zero. Fix: roi_pct=None wenn (wins+losses)==0, nicht wenn invested>0.
 
+---
+
+## P063 — Erste Anwendung Scout-Briefing v1.0 (19.04.2026)
+
+**Status:** LIVE — Wirksamkeit bestätigt, Lücken identifiziert
+
+**Context:** Heute wurde WALLET_SCOUT_BRIEFING.md v1.0 erstmals gegen
+bestehende 15 TARGET_WALLETS angewendet.
+
+**Erkenntnis 1 — Briefing wirkt:**
+3 Wallets klar disqualifiziert durch HF-8 (Win-Rate 55–75%).
+RN1 (27% WR, 87% des kopierten Volumens) entfernt — systematischer
+Verlust-Generator der das Briefing nie approved hätte.
+
+**Erkenntnis 2 — Datengrundlage unvollständig:**
+Nur 2 von 9 Hard-Filtern faktisch prüfbar (HF-5 Aktivität, HF-8 Win-Rate).
+7 weitere Filter brauchen externe Daten (predicts.guru oder on-chain-Analyse).
+Vollständiger Audit erfordert T-D107 (External-Data-API-Integration).
+
+**Erkenntnis 3 — Briefing hat blinde Flecken:**
+- Skipped Signals nicht getrackt → T-D105
+- Discovery nur aus bestehenden TARGET_WALLETS → T-D106
+- Beobachtungszeit-Regel nicht explizit → Briefing v1.1 (Teil 16)
+
+**Lesson:** Erste Anwendung eines neuen Systems deckt gleichzeitig seine
+Stärken und Lücken auf. Briefing v1.0 erkannte klare Fälle richtig (RN1).
+Aber vollständige Prüfung aller 9 Hard-Filter erfordert nächste Iteration.
+
+**Meta-Lesson:** Documentation and implementation are separate concerns.
+v1.0 auf GitHub ≠ v1.0 in Bot-Betrieb. Jede Iteration deckt neue Lücken
+auf — das ist by design, nicht ein Fehler.
+

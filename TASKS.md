@@ -37,6 +37,7 @@ _Stand: 2026-04-19 12:00 Berlin_
 ---
 
 ## DONE
+| T-D62 | 🐛 fix(dashboard): CLAIM-Button deaktiviert bei verlorenen Positionen ($0.00) (cdd0fb5) | 2026-04-19 |
 
 | ID | Titel | Datum |
 |----|-------|-------|

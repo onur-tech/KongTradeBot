@@ -1403,3 +1403,45 @@ Keine separate Owner-EOA, kein zweiter Schlüssel nötig.
 **Manuelle Claims als Beweis:** Beide Claims (Wuning +$50.13, Busan +$39.00) erfolgten
 ohne MetaMask-Popup → Polymarket nutzt denselben internen Magic.link-Signer.
 Auto-Claim via demselben Private Key sollte identisch funktionieren.
+
+---
+
+## P082 — Custodial Architecture: Warum Builder-Code kein Claim-Recht gibt (19.04.2026)
+
+**Status:** VERSTANDEN — Dokumentiert nach Builder-Profil-Setup
+
+**Kontext:** Onur erstellte heute Builder-Profil "KongTrade" auf Polymarket.
+Initialer Gedanke: "Builder-Code könnte Auto-Claim ermöglichen." — FALSCH.
+
+**Polymarket Wallet-Architektur:**
+```
+Magic.link EOA (0xd7869A5C) — privater Schlüssel
+    ↓ deployed + owns
+Gnosis Safe Proxy Wallet (0x700BC5...) — hält alle Positionen
+    ↓ alle Trades laufen über
+CLOB API / Relayer — sendet Orders
+    ↓ Volume-Attribution durch
+Builder-Code (bytes32) — nur ein Label, kein Schlüssel
+```
+
+**Builder-Code ist ein reines Attribution-Label:**
+- Kein Signer-Mechanismus
+- Kein Wallet-Zugriff
+- Kein Claim-Recht
+- Kein API-Authentifizierungs-Mechanismus
+- Nur: "dieser Order wurde von Builder X geroutet"
+
+**Drei getrennte Credential-Systeme bei Polymarket:**
+
+| System | Credential | Zweck |
+|--------|-----------|-------|
+| CLOB Trading | api_key + api_secret + api_passphrase (L2 Auth) | Order-Submission |
+| Relayer (Gasless) | RELAYER_API_KEY + RELAYER_API_KEY_ADDRESS | Gaslose On-Chain-Transaktionen |
+| Builder Attribution | Builder-Code (bytes32) | Volume-Tracking, Leaderboard |
+
+→ Diese drei Systeme sind unabhängig. Builder-Code ≠ Trading-Keys ≠ Relayer-Keys.
+
+**KongTrade Builder-Profil (erstellt 19.04.2026):**
+- Code: `0xc58cb20...767c6de` (bytes32)
+- Builder-API-Key = RELAYER_API_KEY: `019da5f1-fb1d-790a-802f-46eeb0bc36f5`
+- Integration: zukünftig via T-M10 (niedrige Prio)

@@ -31,7 +31,7 @@ _Stand: 2026-04-19 23:59 Berlin_
 | ID | Titel | Prio | Notiz |
 |----|-------|------|-------|
 | T-M04d | Take-Profit-Trigger >=95c: Price-Cap in ExitManager + Hold-Ticks + Daily-Sell-Cap | WICHTIG | **Prompt ready** (prompts/t_m04d_take_profit_trigger.md) — nach T-M04b |
-| T-M09b | Multiplier: April#1 Sports 2.0x→0.3x + HOOK 2.0x→1.0x | WICHTIG | Verifikation done (5d7d138), noch nicht in TARGET_WALLETS umgesetzt |
+| T-M09b | Multiplier: April#1 Sports 2.0x→0.3x + HOOK 2.0x→1.0x | WICHTIG | **Prompt ready** (prompts/t_m09b_multiplier_adjust.md) — nach T-M04d |
 | T-M08 | Dashboard position_state-Feld — AKTIV-Zähler auf 11 korrigieren (~3.5h) | WICHTIG | Diagnose done (f20e29e) |
 | T-M05 | Dashboard-Zeitstempel-Differenzierung (Trading bis / Resolution / Claim ab) | NICE | Zeitstempel-Research done |
 | T-M06 | On-Chain-Reconciliation: Archive gegen live Positionen abgleichen | NICE | Abhängig von T-M04b |
@@ -44,7 +44,8 @@ _Stand: 2026-04-19 23:59 Berlin_
 | T-M01 | Wallet-Audit v1.0 durchgefuehrt — 3 Wallets entfernt (RN1/Gambler1968/sovereign2013) | DONE | 2026-04-19 |
 | T-M02 | Briefing v1.1 Post-Audit-Update — Teile 14/15/16 + HF-5 Hinweis | DONE | 2026-04-19 |
 | T-M03 | T-D105 Skipped-Signal-Tracking Phase 1 PoC | IN PROGRESS | Server-CC |
-| T-M10 | Scout v2: 9 Hard-Filter in utils/wallet_scout.py implementieren | WICHTIG | WALLET_SCOUT_BRIEFING.md Teil 4 |
+| T-M10 | Builder-Code Integration: POLY_BUILDER_CODE in .env + create_and_post_order() | NICE | analyses/builder_code_setup_2026-04-19.md — erst nach 2 Wochen stabilem Betrieb |
+| T-M10b | Scout v2: 9 Hard-Filter in utils/wallet_scout.py implementieren | WICHTIG | WALLET_SCOUT_BRIEFING.md Teil 4 |
 | T-M11 | KongScore-Engine: 10 Soft-Score-Kategorien (SC-1 bis SC-10) | WICHTIG | WALLET_SCOUT_BRIEFING.md Teil 5 |
 | T-M12 | Tiered System (A/B/C Pools) in core/state_manager integrieren | WICHTIG | Bootstrapping-Modus Toggle |
 | T-M13 | Bootstrapping-Modus Toggle in .env (BOOTSTRAPPING_MODE=true/false) | NICE | Erste 90 Tage |

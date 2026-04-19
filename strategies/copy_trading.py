@@ -67,6 +67,28 @@ MIN_MARKT_VOLUMEN_USD: float = float(os.environ.get("MIN_MARKT_VOLUMEN", "0"))
 _CATEGORY_BLACKLIST: list = [
     s.strip() for s in os.environ.get("CATEGORY_BLACKLIST", "").split(",") if s.strip()
 ]
+_CRYPTO_DAILY_SINGLE_SIGNAL: bool = os.environ.get("CRYPTO_DAILY_SINGLE_SIGNAL", "true").lower() == "true"
+
+
+# ---------------------------------------------------------------------------
+# Crypto-Daily Erkennung
+# ---------------------------------------------------------------------------
+
+def is_crypto_daily(signal: "TradeSignal") -> bool:
+    """Erkennt tägliche Crypto-Preis-Märkte (BTC/ETH above/below, daily price bets)."""
+    slug = getattr(signal, "market_slug", "") or ""
+    question = getattr(signal, "market_question", "") or ""
+    text = (slug + " " + question).lower()
+    crypto_keywords = [
+        "bitcoin-above", "ethereum-above", "btc-above", "eth-above",
+        "bitcoin-up-or-down", "ethereum-up-or-down",
+        "what-price-will-bitcoin", "what-price-will-ethereum",
+        "bitcoin-price-on", "ethereum-price-on",
+        "crypto-above", "btc-daily", "eth-daily",
+        "bitcoin above", "ethereum above", "btc above", "eth above",
+        "bitcoin price", "ethereum price",
+    ]
+    return any(kw in text for kw in crypto_keywords)
 
 
 # ---------------------------------------------------------------------------
@@ -394,6 +416,21 @@ class CopyTradingStrategy:
         else:
             multi_multiplier = MULTI_SIGNAL_MULTIPLIERS.get(count, 2.0)  # 3+ → 2x
 
+        # Min-Wallet-Check: Crypto-Daily = 1 Wallet reicht; alle anderen = 2 Wallets benötigt
+        if _CRYPTO_DAILY_SINGLE_SIGNAL:
+            min_signals_required = 1 if is_crypto_daily(base_signal) else 2
+        else:
+            min_signals_required = 1
+        if count < min_signals_required:
+            wallet_name = get_wallet_name(base_signal.source_wallet)
+            logger.info(
+                f"⏭️ SKIP: nur {count} Wallet ({wallet_name}) — min {min_signals_required} "
+                f"für diesen Markt | {base_signal.outcome} auf '{market_short}'"
+            )
+            self.stats["orders_skipped"] += 1
+            log_signal(base_signal, "SKIPPED", f"MIN_WALLETS:{count}<{min_signals_required}")
+            return
+
         if count >= 2:
             self.stats["multi_signals"] += 1
             names = " + ".join(get_wallet_name(s.source_wallet) for s in signals)
@@ -410,6 +447,13 @@ class CopyTradingStrategy:
                     )
                 except Exception:
                     pass
+        else:
+            # count == 1, Crypto-Daily — explizit loggen
+            wallet_name = get_wallet_name(base_signal.source_wallet)
+            logger.info(
+                f"₿ CRYPTO-DAILY SINGLE-SIGNAL [{wallet_name}]: "
+                f"{base_signal.outcome} auf '{market_short}'"
+            )
 
         await self._process_signal(base_signal, extra_multiplier=multi_multiplier)
 

@@ -1,0 +1,12 @@
+[Unit]
+Description=KongTradeBot Daily Skipped-Signal Evaluator
+After=network.target
+
+[Service]
+Type=oneshot
+User=root
+WorkingDirectory=/root/KongTradeBot
+ExecStart=/usr/bin/python3 /root/KongTradeBot/scripts/run_signal_evaluator.py
+EnvironmentFile=/root/KongTradeBot/.env
+StandardOutput=journal
+StandardError=journal

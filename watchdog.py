@@ -42,7 +42,7 @@ SIGTERM_WAIT       = 30    # Sekunden warten nach SIGTERM vor SIGKILL
 RESTART_RATE_LIMIT = 3     # Max Restarts innerhalb von RATE_LIMIT_WINDOW
 RATE_LIMIT_WINDOW  = 3600  # 1 Stunde
 
-TELEGRAM_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN", "")
+TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN", "")
 _raw_chat_ids  = os.getenv("TELEGRAM_CHAT_IDS", "507270873")
 CHAT_IDS       = [cid.strip() for cid in _raw_chat_ids.split(",") if cid.strip()]
 

@@ -140,6 +140,54 @@ SPORTS_DAILY_RE = re.compile(
     re.I,
 )
 
+# Comprehensive wallet-level category patterns — applied to each trade's slug
+# (broader than CATEGORY_RE; includes daily sports that are excluded from market scan)
+WALLET_CAT_RE: dict[str, re.Pattern] = {
+    "sports": re.compile(
+        r"\bmlb\b|\bnba\b|\bnfl\b|\bnhl\b|mls-|ufc-|tennis-|atp-|wta-|"
+        r"soccer-|basketball-|baseball-|hockey-|ncaa-|nascar-|formula-1|f1-|"
+        r"champions-league|\bucl-|\bpl-|\blaliga-|\bbundesliga-|\bserie-a-|"
+        r"\bligue-1-|\buefa-|\befa-|\bchampions-|epl-|premier-league|"
+        r"super-bowl|world-series|stanley-cup|wimbledon|"
+        r"us-open-tennis|fifa-world-cup|pga-|masters-golf|esport|dota|"
+        r"-lol-|-cs2-|-valorant-|game1-|game2-|kill-over",
+        re.I,
+    ),
+    "politics": re.compile(
+        r"election|president|congress|senate|parliament|referendum|governor-|"
+        r"chancellor-|coalition|primary-winner|party-win|majority|approval-rating|"
+        r"democratic-|republican-|vote-for|ballot|polling|trump|biden|vance|harris",
+        re.I,
+    ),
+    "geopolitics": re.compile(
+        r"ukraine|russia|ceasefire|nato|iran|nuclear|middle-east|israel|taiwan|"
+        r"sanctions|peace-deal|war-in|conflict-|coup-|invasion|putin|zelensky|"
+        r"kim-jong|india-pakistan|gaza|hamas|hezbollah|military-",
+        re.I,
+    ),
+    "crypto": re.compile(
+        r"btc|bitcoin|\beth\b|ethereum|solana|xrp|stablecoin|defi|nft-|updown-|"
+        r"crypto-|blockchain-|altcoin",
+        re.I,
+    ),
+    "tech": re.compile(
+        r"openai|gpt-|ai-model|spacex|starship|tesla-|apple-|google-|amazon-|"
+        r"microsoft-|ipo-|chatgpt|claude-ai|gemini-|llm-|semiconductor",
+        re.I,
+    ),
+    "culture": re.compile(
+        r"oscar|emmy|grammy|nobel|box-office|celebrity|movie-|award-|"
+        r"eurovision|pope-|royal-|world-record|hollywood|music-|entertainment|"
+        r"singer|rapper|actor|actress|tv-show|film-|album",
+        re.I,
+    ),
+    "macro": re.compile(
+        r"fed-|rate-cut|inflation|recession|interest-rate|national-debt|"
+        r"gold-price|crude-oil|sp500|stock-market|yield-curve|unemployment",
+        re.I,
+    ),
+}
+
 
 # ── API Helper ────────────────────────────────────────────────────────────────
 
@@ -160,6 +208,14 @@ def _classify(slug: str) -> str | None:
         if pat.search(slug):
             return cat
     return None
+
+
+def _classify_wallet_slug(slug: str) -> str:
+    """Classify a single trade slug against WALLET_CAT_RE (includes daily sports)."""
+    for cat, pat in WALLET_CAT_RE.items():
+        if pat.search(slug):
+            return cat
+    return "other"
 
 
 # ── Phase 1: Category-driven market scan ─────────────────────────────────────
@@ -346,11 +402,12 @@ async def _fetch_wallet_stats(session: aiohttp.ClientSession, wallet: str) -> di
                 trades_60d += 1
     trades_limit_hit = (td is not None and len(td) >= 500)
 
-    # 2. Activity (up to 1500 records for WR + account-age + GL-ratio)
+    # 2. Activity (up to 1500 records for WR + account-age + GL-ratio + category)
     bought_cids:   set          = set()
     redeemed_cids: set          = set()
     buy_costs:     dict         = defaultdict(float)    # conditionId → total USDC spent
     redeem_gains:  dict         = defaultdict(float)    # conditionId → total USDC received
+    wallet_cat_counts: Counter  = Counter()             # wallet-level category from own slugs
     oldest_activity = oldest_trade
     activity_exhausted = False
 
@@ -373,6 +430,10 @@ async def _fetch_wallet_stats(session: aiohttp.ClientSession, wallet: str) -> di
             if typ == "TRADE" and (a.get("side") or "").upper() == "BUY" and cid:
                 bought_cids.add(cid)
                 buy_costs[cid] += usdc
+                # Classify this trade's slug against full wallet-level patterns
+                slug = a.get("slug", "") or a.get("eventSlug", "")
+                if slug:
+                    wallet_cat_counts[_classify_wallet_slug(slug)] += 1
             elif typ == "REDEEM" and cid:
                 redeemed_cids.add(cid)
                 redeem_gains[cid] += usdc
@@ -419,6 +480,7 @@ async def _fetch_wallet_stats(session: aiohttp.ClientSession, wallet: str) -> di
         "gl_ratio":          gl_ratio,
         "cash_pnl":          round(cash_pnl, 2),
         "oldest_ts":         oldest_activity,
+        "wallet_cat_counts": wallet_cat_counts,   # category counts from own trade slugs
     }
 
 
@@ -825,13 +887,19 @@ async def main(max_events: int = 600, top: int = 100) -> None:
             hft      = hft_results[w]
             last_ts  = wd.get("last_ts", 0)
             name     = wd.get("name", "")
-            focus    = _compute_focus(wd.get("category_counts", Counter()))
+            # Use wallet's own trade-slug classification (fixes market-first bias)
+            # Falls back to scan-discovery counts if activity fetch returned nothing
+            wallet_cats = stats.get("wallet_cat_counts") or Counter()
+            if not wallet_cats:
+                wallet_cats = wd.get("category_counts", Counter())
+            focus    = _compute_focus(wallet_cats)
             top_cat  = focus["top_category"]
             hf       = _apply_filters(stats, hft, last_ts)
             arch     = _archetyp(stats, hft, focus)
             score    = _compute_score(stats, hft, focus)
 
-            cat_meta[top_cat]["analyzed"] = cat_meta[top_cat].get("analyzed", 0) + 1
+            if top_cat in cat_meta:
+                cat_meta[top_cat]["analyzed"] = cat_meta[top_cat].get("analyzed", 0) + 1
 
             candidates.append({
                 "wallet":   w,

@@ -80,8 +80,8 @@ WALLET_MULTIPLIERS: Dict[str, float] = {
     # HOOK → 2x
     "0x0b7a6030507efe5db145fbb57a25ba0c5f9d86cf": 2.0,
 
-    # sovereign2013 — 49% Win Rate (predicts.guru) → 0.3x
-    "0xee613b3fc183ee44f9da9c05f53e2da107e3debf": 0.3,
+    # REMOVED 2026-04-19 Audit v1.0 HF-8 FAIL (49% WR)
+    # "0xee613b3fc183ee44f9da9c05f53e2da107e3debf": 0.3,  # sovereign2013
 
     # Countryside — 92% Win Rate (predicts.guru) → 3x
     "0xbddf61af533ff524d27154e589d2d7a81510c684": 3.0,
@@ -101,11 +101,11 @@ WALLET_MULTIPLIERS: Dict[str, float] = {
     # kcnyekchno — 81% Win Rate → 2x
     "0x7177a7f5c216809c577c50c77b12aae81f81ddef": 2.0,
 
-    # Gambler1968 — 45% Win Rate → 0.3x
-    "0x7a6192ea6815d3177e978dd3f8c38be5f575af24": 0.3,
+    # REMOVED 2026-04-19 Audit v1.0 HF-8 FAIL (45% WR)
+    # "0x7a6192ea6815d3177e978dd3f8c38be5f575af24": 0.3,  # Gambler1968
 
-    # RN1 — 26.8% WR im Archiv, historisch negativ → 0.2x
-    "0x2005d16a84ceefa912d4e380cd32e7ff827875ea": 0.2,
+    # REMOVED 2026-04-19 Audit v1.0 HF-8 FAIL (26.8% WR, 87% Copy-Volume)
+    # "0x2005d16a84ceefa912d4e380cd32e7ff827875ea": 0.2,  # RN1
 }
 
 # Unbekannte / nicht konfigurierte Wallets bekommen halbe Größe

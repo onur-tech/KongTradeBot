@@ -421,6 +421,7 @@ def msg_result(market, outcome, won, size, pnl):
 def msg_status(
     signals, orders_sent, open_pos, total_invested, pnl, categories, archive_count,
     skipped_min_size=0, rejected_api=0, filled=0, pending=0,
+    pnl_today: dict | None = None,
     # legacy compat: old callers pass orders as 2nd arg — treat as orders_sent
 ):
     cat_lines = []
@@ -479,9 +480,17 @@ def msg_status(
         "🔝 <b>Größte Positionen:</b>",
     ])
     lines.extend(pos_lines)
+    if pnl_today and (pnl_today.get("won_count", 0) + pnl_today.get("lost_count", 0)) > 0:
+        pnl_detail = (
+            f"  ✅ {pnl_today['won_count']}× +${pnl_today['won_usdc']:.2f}"
+            f"  ❌ {pnl_today['lost_count']}× ${pnl_today['lost_usdc']:.2f}"
+        )
+        pnl_line = f"{pnl_icon} P&L heute: <b>{pnl_sign}${pnl:.2f} USDC</b>\n{pnl_detail}"
+    else:
+        pnl_line = f"{pnl_icon} P&L heute: <b>{pnl_sign}${pnl:.2f} USDC</b>"
     lines.extend([
         "━━━━━━━━━━━━━━━━━━━━━━",
-        f"{pnl_icon} P&L heute: <b>{pnl_sign}${pnl:.2f} USDC</b>",
+        pnl_line,
         f"🗄️ Archiv:   <b>{archive_count} Trades</b>",
     ])
     return "\n".join(lines)

@@ -20,7 +20,7 @@ from utils.config import load_config
 from utils.logger import setup_logger, get_logger
 from utils.balance_fetcher import update_budget_from_chain
 from utils.state_manager import save_state, load_state
-from utils.tax_archive import log_trade, export_tax_csv, get_summary
+from utils.tax_archive import log_trade, export_tax_csv, get_summary, get_pnl_today
 from utils.wallet_scout import scout_loop
 from utils.latency_monitor import record_fill, latency_report_loop
 from utils.error_handler import handle_error, set_telegram_sender, safe_call_transparent
@@ -419,8 +419,9 @@ async def status_reporter(strategy, risk, engine, config, interval, state_worker
         max_allowed = config.max_total_invested_usd
         pct_used    = (total_invested / max_allowed * 100) if max_allowed > 0 else 0
         top_wallet  = max(wallet_counts, key=wallet_counts.get) if wallet_counts else "---"
-        tax_summary = get_summary()
-        pnl         = r["net_pnl_today"]
+        tax_summary  = get_summary()
+        pnl_today    = get_pnl_today()
+        pnl          = pnl_today["net_usdc"]
 
         bar_filled = int(pct_used / 5)
         bar        = "█" * bar_filled + "░" * (20 - bar_filled)
@@ -446,7 +447,8 @@ async def status_reporter(strategy, risk, engine, config, interval, state_worker
         cprint("╔══════════════════════════════════════════════════════════════╗", C_CYAN)
         cprint(f"║  📊 STATUS  {datetime.now().strftime('%H:%M:%S')}  |  Modus: {e['mode']}", C_CYAN)
         cprint("╠══════════════════════════════════════════════════════════════╣", C_CYAN)
-        print(f"{C_CYAN}║{C_RESET}  💰 PnL:      {pnl_color}{pnl:+.2f} USDC{C_RESET}   |   Verlust: {C_YELLOW}${r['daily_loss_usd']:.2f}{C_RESET}/${r['limit_usd']:.2f}", flush=True)
+        pnl_detail = f"✅{pnl_today['won_count']}×+${pnl_today['won_usdc']:.2f}  ❌{pnl_today['lost_count']}×${pnl_today['lost_usdc']:.2f}"
+        print(f"{C_CYAN}║{C_RESET}  💰 PnL heute: {pnl_color}{pnl:+.2f} USDC{C_RESET}  ({pnl_detail})", flush=True)
         print(f"{C_CYAN}║{C_RESET}  📡 Signale:  {C_WHITE}{s['signals_received']}{C_RESET}  |  Orders: {C_GREEN}{s['orders_created']}{C_RESET}  |  Skip: {C_GRAY}{s['orders_skipped']}{C_RESET}", flush=True)
         # T-M08: State-Tabs statt einfacher "Offen"-Zahl
         pending_str = f"  |  🕐 {C_YELLOW}PENDING:{n_pending}{C_RESET}" if n_pending > 0 else ""
@@ -501,6 +503,7 @@ async def status_reporter(strategy, risk, engine, config, interval, state_worker
                 pnl=pnl,
                 categories=cat_simple,
                 archive_count=tax_summary["total_trades"],
+                pnl_today=pnl_today,
             ))
             status_reporter._last_telegram = now
 
@@ -1044,14 +1047,16 @@ async def main():
             cat = get_category(p.get("question", ""))
             categories[cat] += amt
         tax_summary = get_summary()
+        pnl_today = get_pnl_today()
         await send(msg_status(
             signals=s["signals_received"],
             orders_sent=s["orders_created"],
             open_pos=e["open_positions"],
             total_invested=total_invested,
-            pnl=r["net_pnl_today"],
+            pnl=pnl_today["net_usdc"],
             categories=dict(categories),
             archive_count=tax_summary["total_trades"],
+            pnl_today=pnl_today,
         ))
 
     try:

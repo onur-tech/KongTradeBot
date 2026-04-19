@@ -14,7 +14,7 @@ DAC8-Meldepflicht ab 2026.
 import csv
 import json
 import os
-from datetime import datetime
+from datetime import date, datetime
 from typing import Optional, Dict
 from urllib.request import urlopen
 from urllib.error import URLError
@@ -395,6 +395,29 @@ def _fmt(val) -> str:
 def _fmt_bp(val: float) -> str:
     """Dezimalzahl mit Punkt (englisches Format für Blockpit)."""
     return f"{val:.6f}".rstrip("0").rstrip(".")
+
+
+def get_pnl_today() -> dict:
+    """Returns today's realized P&L from the archive (restart-proof)."""
+    today = date.today().isoformat()
+    trades = _load_trades()
+    resolved_today = [
+        t for t in trades
+        if t.get("datum") == today
+        and t.get("modus") == "LIVE"
+        and t.get("aufgeloest")
+    ]
+    won  = [t for t in resolved_today if float(t.get("gewinn_verlust_usdc", 0) or 0) > 0]
+    lost = [t for t in resolved_today if float(t.get("gewinn_verlust_usdc", 0) or 0) < 0]
+    won_usdc  = round(sum(float(t.get("gewinn_verlust_usdc", 0) or 0) for t in won),  2)
+    lost_usdc = round(sum(float(t.get("gewinn_verlust_usdc", 0) or 0) for t in lost), 2)
+    return {
+        "won_usdc":   won_usdc,
+        "lost_usdc":  lost_usdc,
+        "net_usdc":   round(won_usdc + lost_usdc, 2),
+        "won_count":  len(won),
+        "lost_count": len(lost),
+    }
 
 
 def get_summary(year: Optional[int] = None) -> dict:

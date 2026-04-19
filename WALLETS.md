@@ -25,13 +25,13 @@ _Stand: 2026-04-20 | Sync-Commit: Deep-Discovery | Multiplier-Review: T-M09 2026
 |---------|-------|-----------|------------|----------|--------|---------------|
 | `0x63d43bbb87f85af03b8f2f9e2fad7b54334fa2f` | **wokerjoesleeper** | Politik/Macro/Fed | **0.5x** | 20.04.2026 | PANews Biteye | Deep-Discovery 2026-04-20 |
 | `0xbacd00c9080a82ded56f504ee8810af732b0ab35` | **ScottyNooo** | Politik/Trump/Iran | **0.3x** | 20.04.2026 | PANews Biteye | Deep-Discovery 2026-04-20 |
-| `0x0f37cb80dee49d55b5f6d9e595d52591d6371410` | **hans323** | Weather (Barbell) | **0.3x ⚠ PENDING** | 20.04.2026 | predictionmarketspicks | Nacht 2026-04-20 |
+| `0x0f37cb80dee49d55b5f6d9e595d52591d6371410` | **hans323** | Weather (Barbell) | **0.3x ⚠ PENDING** | 20.04.2026 | predictionmarketspicks + predictfolio ✅ | Nacht 2026-04-20 |
 
 ### Weather-Spezialisten (Tier B, T-WEATHER)
 
 | Adresse | Alias | Kategorie | Multiplier | Aufnahme | Quelle | Status |
 |---------|-------|-----------|------------|----------|--------|--------|
-| `0x0f37cb80dee49d55b5f6d9e595d52591d6371410` | **hans323** | Weather Barbell | **0.3x** | 20.04.2026 | PredictionMarketsPicks | PENDING predicts.guru |
+| `0x0f37cb80dee49d55b5f6d9e595d52591d6371410` | **hans323** | Weather Barbell | **0.3x** | 20.04.2026 | PredictionMarketsPicks + predictfolio ✅ | PENDING predicts.guru |
 | `0x15ceffed7bf820cd2d90f90ea24ae9909f5cd5fa` | **HondaCivic** | Weather Ladder | **0.3x** | 20.04.2026 | PANews Biteye | PENDING predicts.guru |
 
 ### PANews Biteye APPROVE-Queue (Review 2026-05-05)

@@ -1,5 +1,5 @@
 # Weather Traders — Verifikation 2026-04-20
-_Erstellt: 2026-04-20 | Quellen: polymarketanalytics.com, predicts.guru, polymonit, BlockBeats, PulsarTech_
+_Erstellt: 2026-04-20 | Aktualisiert: 2026-04-21 | Quellen: polymarketanalytics.com, predicts.guru, polymonit, BlockBeats, PulsarTech, predictfolio.com_
 
 ---
 
@@ -21,6 +21,7 @@ _Erstellt: 2026-04-20 | Quellen: polymarketanalytics.com, predicts.guru, polymon
 Quellen:
 - polymarketanalytics.com/traders/0x0f37cb80dee49d55b5f6d9e595d52591d6371410 ✅
 - polymarket.com/profile/0x0f37cb80dee49d55b5f6d9e595d52591d6371410 ✅
+- predictfolio.com/@Hans323 ✅ (bestätigt 2026-04-21 — zeigt identische Adresse + Polygonscan-Link)
 
 ### Polymarket-Profil
 | Kennzahl | Wert |
@@ -79,6 +80,7 @@ Wenn Hans323 in einem Weather-Markt kauft → eigene T-WEATHER-Analyse starten.
 Quellen:
 - polymarket.com/profile/0x6297b93ea37ff92a57fd636410f3b71ebf74517e ✅
 - predicts.guru: $29,553 PnL, +2,536% ROI ✅
+- predictfolio.com/@neobrother ✅ (bestätigt 2026-04-21 — Polygonscan-Link identisch)
 
 ### predicts.guru Vollprofil
 | Kennzahl | Wert |

@@ -1,0 +1,29 @@
+MORGEN PLAN 2026-04-21 (Dienstag)
+
+PRIO 1 - US x Iran Resolution (EVENT-GETRIEBEN)
+- Resolution heute!
+- Bei WON: Telegram-Alert kommt -> manuell claimen
+  via polymarket.com + Norwegen-VPN
+- T-M04d sollte bei >=95c feuern (deployed)
+
+PRIO 2 - WebSocket WalletMonitor (T-WS)
+- Prompt: prompts/t_ws_websocket_wallet_monitor.md
+- Nach Windows-CC git push verfuegbar
+- Latenz 10s -> 1-3s
+
+PRIO 3 - Anomalie-Detektor (T-M-NEW)
+- Prompt: prompts/t_m_new_anomaly_detector.md
+- Nach T-WS implementieren
+
+PRIO 4 - Neue Wallets integrieren
+- Deep Discovery Ergebnisse von Windows-CC abwarten
+- Min. 2 neue Kategorie-A Kandidaten erwartet
+
+PRIO 5 - Cap $60 -> $100 bestaetigt
+- Bereits deployed heute
+
+Wallet-Stand:
+- 11 Wallets aktiv
+- DrPufferfish + Countryside neu (0.3x)
+- April#1 Sports entfernt
+- bcda REJECT (-89% ROI)

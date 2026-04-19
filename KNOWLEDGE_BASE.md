@@ -1137,3 +1137,40 @@ Methode: Polymarket-Profil + data-api Ground-Truth + 0xinsider wo verfügbar.
 - **Kategorie-Keyword-Matcher zu eng:** Iran, Hormuz, Ceasefire werden als "Other" klassifiziert.
   Für Scout v2 (T-M10): Keyword-Liste um Geopolitik-Nische erweitern.
 
+---
+
+## P075 — Position-State-Bug: 14 von 25 Portfolio-Positionen sind faktisch beendet (19.04.2026)
+
+**Status:** DIAGNOSTIZIERT — Implementation geplant für T-M08 nächste Session
+
+**Symptom:** Dashboard Portfolio zeigt 25 Positionen als "OPEN". Tatsächlich:
+- 11 wirklich aktiv (Markt offen, value > 0)
+- 1 WON wartet auf Claim (redeemable=True, value=$50)
+- 13 RESOLVED_LOST (redeemable=True, value=$0) — werden NIE weggeräumt
+- Gesamtverlust in festsitzenden Positionen: -$148.70
+
+**Root-Cause (alle drei Hypothesen bestätigt):**
+
+1. **H1 — Polymarket-API:** Positions-API liefert alle on-chain Positionen bis zum expliziten
+   Redeem. `redeemable=True + value=0` = RESOLVED_LOST, bleibt aber in Portfolio-Count.
+
+2. **H2 — Kein Cleanup-Job:** `resolver.py --save` (schreibt `aufgeloest=True`) ist manuell.
+   ResolverLoop (15min) läuft ohne `--save`. Ergebnis: 106/106 Trades `aufgeloest=False`.
+   RESOLVED-Tab zeigt immer 0.
+
+3. **H3 — Claim/Sell Confusion:** LOST-Positionen haben `redeemable=True` (Vertrag resolved),
+   aber kein Geld claimbar. Ohne explizites Redeem-$0-Call bleiben sie ewig im Portfolio.
+
+**Zwei getrennte Tracking-Systeme ohne Sync:**
+- `bot_state.json → open_positions` → `/api/positions` → 0 (täglich gecleared)
+- Polymarket on-chain API → `_polymarket_positions` → `/api/portfolio` → 25
+
+**Fix (T-M08, nächste Session ~3.5h):**
+- `position_state` Feld in `/api/portfolio`: ACTIVE / RESOLVED_WON / RESOLVED_LOST
+- Dashboard-AKTIV-Zähler auf 11 korrigieren
+- ResolverLoop mit `--save` aktivieren
+- Sofort-Maßnahme risikofrei: `python resolver.py --save` manuell ausführen
+
+**Lesson:** Position-State ist keine DB-Spalte sondern eine State-Machine.
+Jeder Zustand braucht expliziten Trigger. Ohne Cleanup-Worker akkumulieren
+beendete Positionen endlos — Dashboard-Zahlen werden unbrauchbar.

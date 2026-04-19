@@ -88,8 +88,9 @@ WALLET_MULTIPLIERS: Dict[str, float] = {
     # RECAL 2026-04-19 T-M09: 0 Activity-Records via API, war 2.0x
     "0x02227b8f5a9636e895607edd3185ed6ee5598ff7": 0.5,
 
-    # reachingthesky → 2x
-    "0xefbc5fec8d7b0acdc8911bdd9a98d6964308f9a2": 2.0,
+    # reachingthesky — Tier B 1.0x
+    # RECAL 2026-04-19: Code war 2.0x veraltet, .env gewann mit 1.0x - sync aligned (P083)
+    "0xefbc5fec8d7b0acdc8911bdd9a98d6964308f9a2": 1.0,
 
     # HOOK — Tier B 1.0x
     # RECAL 2026-04-19 T-M09b: Nur 46 Trades (unter HF-1 100-Trade-Minimum),

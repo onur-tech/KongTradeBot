@@ -75,14 +75,16 @@ _CATEGORY_BLACKLIST: list = [
 # Wallets die hier nicht aufgeführt sind bekommen DEFAULT_WALLET_MULTIPLIER.
 # ---------------------------------------------------------------------------
 WALLET_MULTIPLIERS: Dict[str, float] = {
-    # majorexploiter — 76% Win Rate → 3x
-    "0x019782cab5d844f02bafb71f512758be78579f3c": 3.0,
+    # majorexploiter — Sports/UCL (nicht Geopolitics wie angenommen) → 1.5x
+    # RECAL 2026-04-19 T-M09: Bug-Fix 8d9b08a zeigte Sports 100% (UCL), war 3.0x
+    "0x019782cab5d844f02bafb71f512758be78579f3c": 1.5,
 
     # April#1 Sports — 65% Win Rate → 2x
     "0x492442eab586f242b53bda933fd5de859c8a3782": 2.0,
 
-    # HorizonSplendidView → 2x
-    "0x02227b8f5a9636e895607edd3185ed6ee5598ff7": 2.0,
+    # HorizonSplendidView → 0.5x (0 Activity erkannt, inaktiv)
+    # RECAL 2026-04-19 T-M09: 0 Activity-Records via API, war 2.0x
+    "0x02227b8f5a9636e895607edd3185ed6ee5598ff7": 0.5,
 
     # reachingthesky → 2x
     "0xefbc5fec8d7b0acdc8911bdd9a98d6964308f9a2": 2.0,
@@ -105,11 +107,13 @@ WALLET_MULTIPLIERS: Dict[str, float] = {
     # DrPufferfish — 92% Win Rate (predicts.guru) → 3x
     "0xdb27bf2ac5d428a9c63dbc914611036855a6c56e": 3.0,
 
-    # wan123 — 90% Win Rate → 2.5x
-    "0xde7be6d489bce070a959e0cb813128ae659b5f4b": 2.5,
+    # wan123 — negative ROI-Flag, Moonshot-Pattern → 0.5x
+    # RECAL 2026-04-19 T-M09: negative ROI in KNOWLEDGE_BASE, war 2.5x
+    "0xde7be6d489bce070a959e0cb813128ae659b5f4b": 0.5,
 
-    # kcnyekchno — 81% Win Rate → 2x
-    "0x7177a7f5c216809c577c50c77b12aae81f81ddef": 2.0,
+    # kcnyekchno — 81% Win Rate → 1x (bisher 0 Trades kopiert, konservativ)
+    # RECAL 2026-04-19 T-M09: 0 kopierte Trades bisher, war 2.0x
+    "0x7177a7f5c216809c577c50c77b12aae81f81ddef": 1.0,
 
     # REMOVED 2026-04-19 Audit v1.0 HF-8 FAIL (45% WR)
     # "0x7a6192ea6815d3177e978dd3f8c38be5f575af24": 0.3,  # Gambler1968
@@ -120,6 +124,10 @@ WALLET_MULTIPLIERS: Dict[str, float] = {
     # ADDED 2026-04-19: Manual Discovery (Commit 38bbb5c Windows-CC)
     "0xc6587b11a2209e46dfe3928b31c5514a8e33b784": 0.5,  # Erasmus - Geopolitics/Iran, Tier B
     "0x0c0e270cf879583d6a0142fc817e05b768d0434e": 0.3,  # TheSpiritofUkraine - Geopolitics seit 2021, Tier B
+
+    # denizz — polymonit April Politics #1 +$751k (UCL-Soccer-Spezialist) → 1.0x
+    # RECAL 2026-04-19 T-M09: explizit auf 1.0x (vorher DEFAULT 0.5x)
+    "0xbaa2bcb5439e985ce4ccf815b4700027d1b92c73": 1.0,
 }
 
 # Unbekannte / nicht konfigurierte Wallets bekommen halbe Größe

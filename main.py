@@ -30,6 +30,7 @@ from core.risk_manager import RiskManager
 from core.execution_engine import ExecutionEngine, OpenPosition
 from core.fill_tracker import FillTracker, PendingOrder
 from core.exit_manager import ExitManager, ExitEvent
+from core.position_state_worker import PositionStateWorker
 from strategies.copy_trading import CopyTradingStrategy, CopyOrder
 from claim_all import claim_loop
 from telegram_bot import (send, msg_trade, msg_status, msg_startup,
@@ -910,6 +911,9 @@ async def main():
         on_exit_event=on_exit_event,
     )
 
+    # T-M08 Phase 2: State-Update-Worker (läuft parallel, kein Einfluss auf Exit-Logic)
+    state_worker = PositionStateWorker(engine, interval=300)
+
     async def exit_loop():
         """Wertet offene Positionen alle EXIT_LOOP_INTERVAL Sekunden aus."""
         while True:
@@ -1071,6 +1075,7 @@ async def main():
             asyncio.create_task(fill_tracker.run()),
             asyncio.create_task(claim_loop(config, interval_s=int(os.getenv("AUTO_CLAIM_INTERVAL_S", "300")))),  # Auto-Claim alle 5min (env: AUTO_CLAIM_INTERVAL_S)
             asyncio.create_task(exit_loop()),
+            asyncio.create_task(state_worker.run()),   # T-M08 Phase 2
             asyncio.create_task(poll_commands(
                 callback_status=send_status_now,
                 callback_resolve=check_resolved_markets_and_notify,

@@ -54,6 +54,11 @@ class Config:
     exit_trail_liquidity_threshold: float = 50000.0
     exit_min_position_usdc: float = 3.0
     exit_min_hours_to_close: float = 24.0
+    # Price-trigger ≥Xc Auto-Sell
+    exit_price_trigger_cents: float = 95.0
+    exit_price_trigger_stability_min: int = 10
+    exit_daily_sell_cap_usd: float = 200.0
+    exit_auto_sell_emergency_stop: bool = False
 
     # API
     clob_host: str = "https://clob.polymarket.com"
@@ -123,6 +128,10 @@ def load_config() -> Config:
         exit_trail_liquidity_threshold=float(os.getenv("EXIT_TRAIL_LIQUIDITY_THRESHOLD", "50000")),
         exit_min_position_usdc=float(os.getenv("EXIT_MIN_POSITION_USDC", "3.0")),
         exit_min_hours_to_close=float(os.getenv("EXIT_MIN_HOURS_TO_CLOSE", "24.0")),
+        exit_price_trigger_cents=float(os.getenv("TAKE_PROFIT_PRICE_CENTS", "95")),
+        exit_price_trigger_stability_min=int(os.getenv("TAKE_PROFIT_STABILITY_MINUTES", "10")),
+        exit_daily_sell_cap_usd=float(os.getenv("DAILY_SELL_CAP_USD", "200")),
+        exit_auto_sell_emergency_stop=os.getenv("AUTO_SELL_EMERGENCY_STOP", "false").lower() == "true",
         clob_host=os.getenv("CLOB_HOST", "https://clob.polymarket.com"),
         gamma_host=os.getenv("GAMMA_HOST", "https://gamma-api.polymarket.com"),
         chain_id=int(os.getenv("CHAIN_ID", "137")),

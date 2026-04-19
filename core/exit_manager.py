@@ -1,18 +1,18 @@
 """
 SKILL: exit-manager
 Purpose: Evaluiert offene Positionen, triggert Exits via TP-Staffel, Trailing-Stop,
-         Whale-Follow-Exit, No-Exit-Rules
+         Whale-Follow-Exit, No-Exit-Rules, und Price-Trigger ≥95¢
 Inputs: OpenPosition-Liste, Live-Preise, Whale-Activity
 Outputs: Exit-Orders via execution_engine, Telegram-Alerts
 Triggers: Alle 60 Sek von main.py (neue async Task)
-Status: Production Phase 1
+Status: Production Phase 2
 """
 
 import asyncio
 import json
 import time
 from dataclasses import dataclass, field, asdict
-from datetime import datetime, timezone
+from datetime import datetime, date, timezone
 from pathlib import Path
 from typing import Callable, Dict, List, Optional
 
@@ -39,9 +39,10 @@ class ExitEvent:
     usdc_received: float
     pnl_usdc: float
     pnl_pct: float
-    exit_type: str          # "tp1" | "tp2" | "tp3" | "trail" | "whale_exit" | "manual"
+    exit_type: str          # "tp1"|"tp2"|"tp3"|"trail"|"whale_exit"|"manual"|"price_trigger"
     timestamp: str = field(default_factory=lambda: datetime.now(timezone.utc).isoformat())
     tx_hash: str = ""
+    minutes_stable: float = 0.0   # für price_trigger: Minuten über Schwelle
 
 
 @dataclass
@@ -55,13 +56,16 @@ class ExitState:
     trail_active: bool = False
     highest_price_seen: float = 0.0
     last_evaluated: float = field(default_factory=time.time)
+    price_above_since: float = 0.0   # unix ts, 0 = nicht aktiv
+    price_trigger_done: bool = False
 
     def to_dict(self) -> dict:
         return asdict(self)
 
     @classmethod
     def from_dict(cls, d: dict) -> "ExitState":
-        return cls(**d)
+        known = {f.name for f in cls.__dataclass_fields__.values()}
+        return cls(**{k: v for k, v in d.items() if k in known})
 
 
 # ── Exit-Manager ──────────────────────────────────────────────────────────────
@@ -72,11 +76,12 @@ class ExitManager:
 
     Aufruf-Interface (Teil 2 wired up in main.py):
         manager = ExitManager(config, wallet_monitor=monitor, on_exit_event=callback)
-        await manager.evaluate_all(positions, live_prices, market_volumes)
+        await manager.evaluate_all(positions, live_prices, market_volumes, order_books=obs)
 
     wallet_monitor muss get_recent_sells(wallet_addr, minutes) -> List[dict] bereitstellen.
     live_prices: Dict[token_id, float]
     market_volumes: Dict[condition_id, float] — optional, default 0 (→ thin-market trail)
+    order_books: Dict[token_id, {"best_bid": float, "best_ask": float}] — optional
     """
 
     def __init__(
@@ -89,6 +94,8 @@ class ExitManager:
         self.wallet_monitor = wallet_monitor
         self.on_exit_event = on_exit_event
         self._states: Dict[str, ExitState] = {}
+        self._daily_sell_usdc: float = 0.0
+        self._daily_sell_date: str = ""
         self._load_state()
 
     # ── State Persistence ─────────────────────────────────────────────────────
@@ -198,7 +205,6 @@ class ExitManager:
     ) -> bool:
         """Aktualisiert highest_price_seen und gibt True zurück wenn Stop ausgelöst."""
         if not state.trail_active:
-            # Noch nicht aktiviert: Gain-Schwelle prüfen
             gain = current_price - state.entry_price
             if gain < self.cfg.exit_trail_activation:
                 return False
@@ -223,6 +229,89 @@ class ExitManager:
             return True
         return False
 
+    # ── Price-Trigger ≥95¢ ────────────────────────────────────────────────────
+
+    def _check_price_trigger(
+        self,
+        pos,
+        state: ExitState,
+        current_price: float,
+        best_bid: float,
+    ) -> bool:
+        """
+        True wenn Preis >= threshold für stability_min Minuten stabil.
+        Mutiert state.price_above_since (Timer-Start/Reset).
+        Bypass für hours_to_close — soll auch kurz vor Auflösung feuern.
+        """
+        threshold = self.cfg.exit_price_trigger_cents / 100.0
+        stability_s = self.cfg.exit_price_trigger_stability_min * 60.0
+        now = time.time()
+
+        if current_price < threshold:
+            if state.price_above_since > 0:
+                logger.debug(
+                    f"[ExitMgr] ≥{self.cfg.exit_price_trigger_cents:.0f}¢ Timer reset: "
+                    f"{pos.outcome} @ {current_price:.3f} < {threshold:.2f}"
+                )
+                state.price_above_since = 0.0
+            return False
+
+        if state.price_above_since == 0.0:
+            state.price_above_since = now
+            logger.info(
+                f"[ExitMgr] ≥{self.cfg.exit_price_trigger_cents:.0f}¢ Timer START: "
+                f"{pos.outcome} @ {current_price:.3f} | "
+                f"warte {self.cfg.exit_price_trigger_stability_min}min"
+            )
+            return False
+
+        minutes_above = (now - state.price_above_since) / 60.0
+
+        if minutes_above < self.cfg.exit_price_trigger_stability_min:
+            logger.debug(
+                f"[ExitMgr] ≥{self.cfg.exit_price_trigger_cents:.0f}¢ warte: "
+                f"{pos.outcome} {minutes_above:.1f}/{self.cfg.exit_price_trigger_stability_min}min"
+            )
+            return False
+
+        # Stabilitäts-Bedingung erfüllt — Order-Book-Check
+        spread_ok = True
+        if best_bid > 0:
+            max_spread_cents = 5.0
+            if best_bid < threshold - (max_spread_cents / 100.0):
+                logger.warning(
+                    f"[ExitMgr] ≥{self.cfg.exit_price_trigger_cents:.0f}¢ SKIP: "
+                    f"Spread zu hoch — best_bid={best_bid:.3f} < {threshold - max_spread_cents/100:.2f} | "
+                    f"{pos.outcome}"
+                )
+                spread_ok = False
+
+        if spread_ok:
+            logger.info(
+                f"[ExitMgr] ≥{self.cfg.exit_price_trigger_cents:.0f}¢ TRIGGER: "
+                f"{pos.outcome} @ {current_price:.3f} | {minutes_above:.1f}min stabil | "
+                f"{pos.market_question[:50]}"
+            )
+            return True
+
+        return False
+
+    # ── Daily-Cap ─────────────────────────────────────────────────────────────
+
+    def _check_daily_cap(self, usdc_to_sell: float) -> bool:
+        today = str(date.today())
+        if self._daily_sell_date != today:
+            self._daily_sell_date = today
+            self._daily_sell_usdc = 0.0
+        if self._daily_sell_usdc + usdc_to_sell > self.cfg.exit_daily_sell_cap_usd:
+            logger.warning(
+                f"[ExitMgr] Daily-Sell-Cap erreicht: "
+                f"${self._daily_sell_usdc:.2f} + ${usdc_to_sell:.2f} > "
+                f"${self.cfg.exit_daily_sell_cap_usd:.2f}"
+            )
+            return False
+        return True
+
     # ── Exit ausführen ────────────────────────────────────────────────────────
 
     async def _execute_exit(
@@ -233,11 +322,24 @@ class ExitManager:
         exit_type: str,
         current_price: float,
     ) -> Optional[ExitEvent]:
+        # Emergency-Stop
+        if self.cfg.exit_auto_sell_emergency_stop:
+            logger.warning(f"[ExitMgr] AUTO_SELL_EMERGENCY_STOP aktiv — {exit_type} unterdrückt: {pos.outcome}")
+            return None
+
         shares_to_sell = round(pos.shares * shares_ratio, 6)
         usdc_received  = round(shares_to_sell * current_price, 4)
         cost_basis     = round(pos.size_usdc * shares_ratio, 4)
         pnl_usdc       = round(usdc_received - cost_basis, 4)
         pnl_pct        = round((current_price - state.entry_price) / max(0.001, state.entry_price) * 100, 2)
+
+        # Daily-Cap (nur Live)
+        if not self.cfg.exit_dry_run and not self._check_daily_cap(usdc_received):
+            return None
+
+        minutes_stable = 0.0
+        if exit_type == "price_trigger" and state.price_above_since > 0:
+            minutes_stable = round((time.time() - state.price_above_since) / 60.0, 1)
 
         event = ExitEvent(
             position_id=pos.order_id,
@@ -251,19 +353,19 @@ class ExitManager:
             pnl_usdc=pnl_usdc,
             pnl_pct=pnl_pct,
             exit_type=exit_type,
+            minutes_stable=minutes_stable,
         )
 
         dry_tag = "[DRY-RUN] " if self.cfg.exit_dry_run else ""
         logger.info(
             f"[ExitMgr] {dry_tag}EXIT {exit_type.upper()}: {pos.outcome} @ {current_price:.3f} | "
             f"sell {shares_ratio*100:.0f}% ({shares_to_sell:.4f} shares) | "
-            f"recv ${usdc_received:.2f} | pnl {'+' if pnl_usdc>=0 else ''}${pnl_usdc:.2f} ({pnl_pct:+.1f}%) | "
-            f"{pos.market_question[:50]}"
+            f"recv ${usdc_received:.2f} | pnl {'+' if pnl_usdc>=0 else ''}${pnl_usdc:.2f} ({pnl_pct:+.1f}%)"
+            + (f" | stabil {minutes_stable:.1f}min" if exit_type == "price_trigger" else "")
         )
 
         if not self.cfg.exit_dry_run:
-            # Part 2: hier execution_engine.sell_position(pos, shares_to_sell) aufrufen
-            pass
+            self._daily_sell_usdc += usdc_received
 
         if self.on_exit_event:
             try:
@@ -281,6 +383,7 @@ class ExitManager:
         live_prices: Dict[str, float],
         market_volumes: Optional[Dict[str, float]] = None,
         multi_signal_counts: Optional[Dict[str, int]] = None,
+        order_books: Optional[Dict[str, dict]] = None,
     ) -> List[ExitEvent]:
         """
         Evaluiert alle offenen Positionen. Gibt Liste der ausgelösten ExitEvents zurück.
@@ -289,39 +392,64 @@ class ExitManager:
         live_prices: {token_id: float}  — aktuelle Marktpreise (0..1)
         market_volumes: {condition_id: float} — optional, 0 = thin market
         multi_signal_counts: {condition_id: int} — optional, für Boost-Staffel
+        order_books: {token_id: {"best_bid": float, "best_ask": float}} — optional
         """
         if not self.cfg.exit_enabled:
             return []
 
         volumes = market_volumes or {}
         multi_counts = multi_signal_counts or {}
+        obs = order_books or {}
         events: List[ExitEvent] = []
-        state_dirty = False
 
         for pos in positions:
+            state_dirty = False
+
             current_price = live_prices.get(pos.token_id)
             if current_price is None:
                 logger.debug(f"[ExitMgr] Kein Live-Preis für token_id={pos.token_id[:16]}, skip")
                 continue
 
             current_value = pos.shares * current_price
-            hours_to_resolution = self._hours_to_resolution(pos)
-
-            if self._should_skip(pos, current_value, hours_to_resolution):
-                continue
-
             state = self._get_or_create_state(pos)
             state.last_evaluated = time.time()
+            ob = obs.get(pos.token_id, {})
+
+            # 0. Price-trigger ≥95¢ — bypasses hours_to_close, höchste Priorität
+            if (pos.shares > 0
+                    and current_value >= self.cfg.exit_min_position_usdc
+                    and not state.price_trigger_done):
+                prev_timer = state.price_above_since
+                triggered = self._check_price_trigger(
+                    pos, state, current_price, ob.get("best_bid", 0.0)
+                )
+                if state.price_above_since != prev_timer:
+                    state_dirty = True
+                if triggered:
+                    event = await self._execute_exit(pos, state, 1.0, "price_trigger", current_price)
+                    if event:
+                        events.append(event)
+                        state.price_trigger_done = True
+                        state_dirty = True
+                    if state_dirty:
+                        self._save_state()
+                    continue
+
+            hours_to_resolution = self._hours_to_resolution(pos)
+            if self._should_skip(pos, current_value, hours_to_resolution):
+                if state_dirty:
+                    self._save_state()
+                continue
+
             multi_count = multi_counts.get(pos.market_id, 1)
             pnl_pct = (current_price - state.entry_price) / max(0.001, state.entry_price)
 
-            # 1. Whale-Follow-Exit (höchste Priorität)
+            # 1. Whale-Follow-Exit (höchste Priorität unter den klassischen Exits)
             if await self._check_whale_exit(pos):
                 event = await self._execute_exit(pos, state, 1.0, "whale_exit", current_price)
                 if event:
                     events.append(event)
                     self._remove_state(pos.market_id, pos.outcome)
-                    state_dirty = False  # remove_state already saves
                 continue
 
             # 2. TP-Staffel
@@ -346,12 +474,10 @@ class ExitManager:
                 if event:
                     events.append(event)
                     self._remove_state(pos.market_id, pos.outcome)
-                    state_dirty = False
                 continue
 
             if state_dirty:
                 self._save_state()
-                state_dirty = False
 
         return events
 

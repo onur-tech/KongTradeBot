@@ -828,9 +828,12 @@ async def main():
 
     # ── Exit-Manager Setup ────────────────────────────────────────────────────
 
-    async def _fetch_live_prices(token_ids: list) -> dict:
-        """Holt Midpoint-Preise für alle token_ids vom CLOB /book Endpoint."""
+    async def _fetch_live_prices(token_ids: list) -> tuple:
+        """Holt Midpoint-Preise + Order-Book-Daten vom CLOB /book Endpoint.
+        Returns (prices, order_books) — prices: {tid: midpoint}, order_books: {tid: {"best_bid", "best_ask"}}
+        """
         prices = {}
+        order_books = {}
         async with aiohttp.ClientSession() as session:
             for tid in token_ids:
                 if not tid:
@@ -844,6 +847,7 @@ async def main():
                             asks = data.get("asks", [])
                             best_bid = float(bids[0]["price"]) if bids else 0.0
                             best_ask = float(asks[0]["price"]) if asks else 0.0
+                            order_books[tid] = {"best_bid": best_bid, "best_ask": best_ask}
                             if best_bid > 0 and best_ask > 0:
                                 prices[tid] = (best_bid + best_ask) / 2
                             elif best_bid > 0:
@@ -852,7 +856,7 @@ async def main():
                                 prices[tid] = best_ask
                 except Exception as e:
                     logger.debug(f"[exit_loop] Preisfetch fehlgeschlagen {tid[:12]}: {e}")
-        return prices
+        return prices, order_books
 
     async def on_exit_event(event: ExitEvent):
         dry_tag = "🧪 <b>DRY-RUN</b> " if config.exit_dry_run else ""
@@ -863,6 +867,7 @@ async def main():
             "trail": "🔻 EXIT: Trailing-Stop",
             "whale_exit": "🚨 WHALE-EXIT",
             "manual": "🖐 EXIT: Manuell",
+            "price_trigger": f"📈 AUTO-SELL ≥{config.exit_price_trigger_cents:.0f}¢",
         }
         label = type_labels.get(event.exit_type, f"EXIT: {event.exit_type}")
         pnl_sign = "+" if event.pnl_usdc >= 0 else ""
@@ -876,8 +881,18 @@ async def main():
                 f"💸 Komplett-Exit: {event.shares_sold:.4f} shares @ ${event.exit_price:.3f} = <b>${event.usdc_received:.2f}</b>",
                 f"{'🟢' if event.pnl_usdc >= 0 else '🔴'} PnL: <b>{pnl_sign}${event.pnl_usdc:.2f} ({event.pnl_pct:+.1f}%)</b>",
             ]
+        elif event.exit_type == "price_trigger":
+            stable_info = f" | {event.minutes_stable:.0f}min stabil" if event.minutes_stable > 0 else ""
+            lines = [
+                f"{dry_tag}<b>{label}</b>",
+                "━━━━━━━━━━━━━━━━━━━━",
+                f"🏪 {event.market[:60]}",
+                f"🎯 {event.outcome}",
+                f"📈 Entry: ${event.entry_price:.3f} → Exit: ${event.exit_price:.3f} ({event.pnl_pct:+.1f}%){stable_info}",
+                f"💸 Komplett-Sell: {event.shares_sold:.4f} shares = <b>${event.usdc_received:.2f}</b>",
+                f"{'🟢' if event.pnl_usdc >= 0 else '🔴'} PnL: <b>{pnl_sign}${event.pnl_usdc:.2f}</b>",
+            ]
         else:
-            remaining_shares = 0.0  # Part 2: after sell, remaining tracked in engine
             lines = [
                 f"{dry_tag}<b>{label}</b>",
                 "━━━━━━━━━━━━━━━━━━━━",
@@ -904,11 +919,11 @@ async def main():
                 if not positions:
                     continue
                 token_ids = [p.token_id for p in positions if p.token_id]
-                live_prices = await _fetch_live_prices(token_ids)
+                live_prices, order_books = await _fetch_live_prices(token_ids)
                 if not live_prices:
                     logger.debug("[exit_loop] Keine Live-Preise verfügbar, skip")
                     continue
-                events = await exit_manager.evaluate_all(positions, live_prices)
+                events = await exit_manager.evaluate_all(positions, live_prices, order_books=order_books)
                 if events:
                     for ev in events:
                         _pos = engine.open_positions.get(ev.position_id)

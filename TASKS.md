@@ -30,7 +30,8 @@ _Stand: 2026-04-19 23:59 Berlin_
 
 | ID | Titel | Prio | Notiz |
 |----|-------|------|-------|
-| T-M04d | Take-Profit-Trigger >=95c: Price-Cap in ExitManager + Hold-Ticks + Daily-Sell-Cap | WICHTIG | **Prompt ready** (prompts/t_m04d_take_profit_trigger.md) — nach T-M04b |
+| T-M04f | Duplicate-Trigger-Fix: whale_exit_triggered Once-Only-Flag in ExitState | KRITISCH | **Prompt ready** (prompts/t_m04f_duplicate_trigger_fix.md) — MORGEN ZUERST, vor Cap-Erhöhung |
+| T-M04d | Take-Profit-Trigger >=95c: Price-Cap in ExitManager + Hold-Ticks + Daily-Sell-Cap | WICHTIG | **Prompt ready** (prompts/t_m04d_take_profit_trigger.md) — nach T-M04f |
 | T-M04e | Stop-Loss-Trigger: Trigger B (24h+15c) + Trigger C (Drawdown 30%/40c) in ExitManager | WICHTIG | **Prompt ready** (prompts/t_m04e_stop_loss.md) — nach T-M04d |
 | T-M09b | Multiplier: April#1 Sports 2.0x→0.3x + HOOK 2.0x→1.0x | WICHTIG | **Prompt ready** (prompts/t_m09b_multiplier_adjust.md) — nach T-M04d |
 | T-M08 | Dashboard position_state-Feld — AKTIV-Zähler auf 11 korrigieren (~3.5h) | WICHTIG | **Prompt ready** (prompts/t_m08_position_state_implementation.md) — nach T-M04e |

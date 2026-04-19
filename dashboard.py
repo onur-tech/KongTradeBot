@@ -1358,6 +1358,46 @@ def api_action():
     return jsonify({"ok": False, "message": "Unbekannte Aktion"})
 
 
+@app.route("/api/manual_exit", methods=["POST"])
+def api_manual_exit():
+    """
+    Manueller Exit für eine Position.
+    Schreibt Exit-Request in manual_exit_queue.json — der Bot verarbeitet ihn im exit_loop.
+    Body: { "condition_id": "0x...", "reason": "profit_taking" }
+    """
+    data         = request.json or {}
+    condition_id = (data.get("condition_id") or "").strip()
+    reason       = (data.get("reason") or "manual").strip()[:50]
+
+    if not condition_id:
+        return jsonify({"ok": False, "error": "condition_id fehlt"}), 400
+
+    queue_path = BASE_DIR / "manual_exit_queue.json"
+    try:
+        queue = []
+        if queue_path.exists():
+            try:
+                queue = json.loads(queue_path.read_text())
+            except Exception:
+                queue = []
+        # Duplikat-Check
+        if any(e.get("condition_id") == condition_id for e in queue):
+            return jsonify({"ok": True, "queued": False, "message": "Bereits in Queue"})
+        queue.append({
+            "condition_id": condition_id,
+            "reason":       reason,
+            "requested_at": datetime.now(timezone.utc).isoformat(),
+        })
+        queue_path.write_text(json.dumps(queue, indent=2))
+        return jsonify({
+            "ok":      True,
+            "queued":  True,
+            "message": f"Exit-Request eingereiht: {condition_id[:20]}… ({reason})",
+        })
+    except Exception as e:
+        return jsonify({"ok": False, "error": str(e)}), 500
+
+
 @app.route("/api/wallet_trends")
 def api_wallet_trends():
     """

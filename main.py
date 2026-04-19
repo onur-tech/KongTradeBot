@@ -11,6 +11,7 @@ import json
 import os
 import signal
 import sys
+from pathlib import Path
 import aiohttp
 import psutil
 from datetime import datetime, timezone, date
@@ -1058,11 +1059,60 @@ async def main():
     state_worker = PositionStateWorker(engine, interval=300)
     state_worker.apply_states_to_positions()   # States sofort auf synced Positionen anwenden
 
+    MANUAL_EXIT_QUEUE = Path("manual_exit_queue.json")
+
+    async def _process_manual_exit_queue():
+        """Verarbeitet ausstehende manuelle Exit-Requests aus manual_exit_queue.json."""
+        if not MANUAL_EXIT_QUEUE.exists():
+            return
+        try:
+            queue = json.loads(MANUAL_EXIT_QUEUE.read_text())
+        except Exception:
+            return
+        if not queue:
+            return
+
+        remaining = []
+        for req in queue:
+            cid    = req.get("condition_id", "")
+            reason = req.get("reason", "manual")
+            pos    = next((p for p in engine.open_positions.values()
+                           if p.market_id == cid), None)
+            if not pos:
+                logger.warning(f"[ManualExit] Position nicht gefunden: {cid[:20]}")
+                continue  # Aus Queue löschen — nicht mehr offen
+
+            token_ids = [pos.token_id] if pos.token_id else []
+            live_prices, order_books = await _fetch_live_prices(token_ids)
+            current_price = live_prices.get(pos.token_id, pos.entry_price)
+
+            event = await exit_manager._execute_exit(pos, exit_manager._get_or_create_state(pos),
+                                                      1.0, reason, current_price)
+            if event:
+                _pos = pos
+                _log_kwargs = dict(
+                    market_question=getattr(_pos, "market_question", event.market or cid)[:100],
+                    outcome=event.outcome, side="SELL", price=event.exit_price,
+                    size_usdc=event.usdc_received, shares=event.shares_sold,
+                    source_wallet=getattr(_pos, "source_wallet", ""),
+                    category=f"exit_{reason}", market_id=cid,
+                    token_id=getattr(_pos, "token_id", ""),
+                    realized_pnl=event.pnl_usdc, mark_resolved=True,
+                )
+                log_trade(**_log_kwargs)
+                engine.close_position(event.position_id)
+                logger.info(f"[ManualExit] ✅ {cid[:20]} | {reason} | PnL ${event.pnl_usdc:+.2f}")
+            else:
+                remaining.append(req)  # Nicht ausgeführt → in Queue lassen
+
+        MANUAL_EXIT_QUEUE.write_text(json.dumps(remaining, indent=2))
+
     async def exit_loop():
         """Wertet offene Positionen alle EXIT_LOOP_INTERVAL Sekunden aus."""
         while True:
             try:
                 await asyncio.sleep(config.exit_loop_interval)
+                await _process_manual_exit_queue()
                 positions = list(engine.open_positions.values())
                 if not positions:
                     continue

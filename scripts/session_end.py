@@ -109,13 +109,21 @@ def call_claude(prompt: str) -> str:
         print("FEHLER: ANTHROPIC_API_KEY nicht gesetzt (in .env eintragen)")
         sys.exit(1)
 
+    import time
     client = anthropic.Anthropic(api_key=api_key)
-    message = client.messages.create(
-        model="claude-sonnet-4-6",
-        max_tokens=1024,
-        messages=[{"role": "user", "content": prompt}],
-    )
-    return message.content[0].text
+    for attempt in range(3):
+        try:
+            message = client.messages.create(
+                model="claude-haiku-4-5-20251001",
+                max_tokens=1024,
+                messages=[{"role": "user", "content": prompt}],
+            )
+            return message.content[0].text
+        except anthropic.RateLimitError as e:
+            wait = 30 * (attempt + 1)
+            print(f"  Rate-Limit (429) — warte {wait}s, Versuch {attempt+2}/3...")
+            time.sleep(wait)
+    raise RuntimeError("Rate-Limit nach 3 Versuchen — Account-Credits prüfen auf console.anthropic.com")
 
 
 def update_session_recap(target_date: str, narrative: str, dry_run: bool) -> None:

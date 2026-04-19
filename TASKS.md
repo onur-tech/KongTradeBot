@@ -30,7 +30,7 @@ _Stand: 2026-04-19 23:59 Berlin_
 
 | ID | Titel | Prio | Notiz |
 |----|-------|------|-------|
-| T-M04d | Take-Profit-Trigger aktivieren (nach T-M04b) | WICHTIG | T-M04a done (57ff2e7), TP1-Exits feuern bereits als DRY-RUN |
+| T-M04d | Take-Profit-Trigger >=95c: Price-Cap in ExitManager + Hold-Ticks + Daily-Sell-Cap | WICHTIG | **Prompt ready** (prompts/t_m04d_take_profit_trigger.md) — nach T-M04b |
 | T-M09b | Multiplier: April#1 Sports 2.0x→0.3x + HOOK 2.0x→1.0x | WICHTIG | Verifikation done (5d7d138), noch nicht in TARGET_WALLETS umgesetzt |
 | T-M08 | Dashboard position_state-Feld — AKTIV-Zähler auf 11 korrigieren (~3.5h) | WICHTIG | Diagnose done (f20e29e) |
 | T-M05 | Dashboard-Zeitstempel-Differenzierung (Trading bis / Resolution / Claim ab) | NICE | Zeitstempel-Research done |

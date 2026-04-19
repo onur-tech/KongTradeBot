@@ -136,6 +136,21 @@ _Stand: 2026-04-18 07:30 Berlin_
 | T-S20 | KongHub Multi-Bot-Dashboard mit zentraler Kapital-Allokation | Groß |
 | T-S21 | Gemeinsame Telegram-Integration für alle Bots | Klein |
 
+## 🐝 COLLECTIVE TASKS
+
+| ID | Task | Aufwand | Ziel |
+|----|------|---------|------|
+| T-C01 | GitHub-Org "kongtrade-collective" anlegen | Klein | Q2 |
+| T-C02 | Shared KNOWLEDGE_BASE migrieren | Klein | Q2 |
+| T-C03 | Shared WALLET_RESEARCH.md anlegen | Klein | Q2 |
+| T-C04 | STRATEGY_TEMPLATES als eigenes Repo | Mittel | Q2 |
+| T-C05 | Grok/xAI-Shared-Account Setup + Abrechnung | Mittel | Q2-Q3 |
+| T-C06 | Polymarket-Data-Proxy zentral auf Hetzner | Mittel | Q3 |
+| T-C07 | Schwarm-Datenbank Schema + API | Groß | Q3 |
+| T-C08 | Anonymisiertes Trade-Logging im eigenen Bot | Mittel | Q3 |
+| T-C09 | Performance-Vergleichs-Dashboard | Groß | Q4 |
+| T-C10 | Telegram-Collective-Channel für Alerts | Klein | Q2 |
+
 ## T-027 — Template-Repo vorbereiten [DONE]
 - /root/template-ready/ vollständig: README, SETUP, ARCHITEKTUR, CONTRIBUTING, .env.example, LICENSE
 - Privacy-Audit bestanden, alle sensitiven Daten entfernt

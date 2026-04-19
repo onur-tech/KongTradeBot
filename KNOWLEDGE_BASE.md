@@ -854,3 +854,27 @@ Implikation:
 Architektur-Update: Grok-Modul wird so gebaut, dass es von ALLEN
 zukünftigen Bots genutzt werden kann (Polymarket, Crypto, Stocks,
 Futures). Kein Bot-spezifisches Twitter-Tracking mehr.
+
+---
+
+## P054 — Peer-Modell für Kollaboration (19.04.2026)
+
+Status: ENTSCHIEDEN — Peer, nicht Chef
+
+Kontext: 4 Personen bauen parallel ähnliche Systeme.
+Frage: Wie koordinieren ohne Hierarchie?
+
+Entscheidung:
+- Brrudi initiiert Infrastruktur + GUIDELINES
+- Alle 4 sind gleichberechtigte Entscheider
+- Opt-In statt Opt-Out
+- Autonomie vor Konformität
+
+Implikation:
+- Keine Master-Slave-Architektur
+- Kein zentraler Bot-Controller
+- Shared Services sind Utilities, nicht Kommando
+- Wenn Alex/Tunay/Dietmar nicht teilnehmen wollen: OK
+
+Lesson: Bei Familie/Freunden nie Chef spielen.
+Strukturen so bauen dass sie OHNE dich weiter funktionieren.

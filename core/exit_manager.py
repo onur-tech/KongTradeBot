@@ -403,8 +403,21 @@ class ExitManager:
         obs = order_books or {}
         events: List[ExitEvent] = []
 
+        skipped_states = 0
         for pos in positions:
             state_dirty = False
+
+            # ── T-M08 Phase 5: Position-State-Guard ──────────────────────────
+            position_state = getattr(pos, "position_state", "ACTIVE")
+            if position_state in ("RESOLVED_WON", "RESOLVED_LOST", "CLAIMED", "TRADING_ENDED"):
+                logger.debug(
+                    f"[exit_guard] Skip {pos.outcome[:20]} @ {pos.market_id[:14]}... "
+                    f"— State: {position_state}"
+                )
+                skipped_states += 1
+                continue
+            # position_state == "ACTIVE" (oder OPEN/UNKNOWN als Fallback) → weiter
+            # ─────────────────────────────────────────────────────────────────
 
             current_price = live_prices.get(pos.token_id)
             if current_price is None:
@@ -486,6 +499,11 @@ class ExitManager:
             if state_dirty:
                 self._save_state()
 
+        if skipped_states:
+            logger.info(
+                f"[exit_guard] {len(positions) - skipped_states} ACTIVE evaluiert, "
+                f"{skipped_states} übersprungen (RESOLVED_LOST/CLAIMED/TRADING_ENDED)"
+            )
         return events
 
     # ── Hilfsfunktionen ───────────────────────────────────────────────────────

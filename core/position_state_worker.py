@@ -84,6 +84,25 @@ class PositionStateWorker:
     def get_all_states(self) -> dict:
         return dict(self._states)
 
+    def apply_states_to_positions(self) -> int:
+        """
+        Überträgt geladene States sofort auf engine.open_positions.
+        Wird einmalig beim Start gerufen (bevor erster 300s-Zyklus läuft).
+        Gibt Anzahl aktualisierter Positionen zurück.
+        """
+        updated = 0
+        for pos in self.engine.open_positions.values():
+            key = f"{pos.market_id}|{pos.outcome}"
+            if key in self._states:
+                old = getattr(pos, "position_state", "ACTIVE")
+                new = self._states[key]
+                if old != new:
+                    pos.position_state = new
+                    updated += 1
+        if updated:
+            logger.info(f"[StateWorker] Startup-States applied: {updated} Positionen aktualisiert")
+        return updated
+
     def mark_resolved(self, market_id: str, outcome: str) -> None:
         """Manuell auf RESOLVED setzen (wird von Phase 5 Exit-Guard gerufen)."""
         key = f"{market_id}|{outcome}"

@@ -102,6 +102,7 @@ def restore_positions(engine):
                     source_wallet=str(pos_data.get("source_wallet", "")),
                     tx_hash_entry=str(pos_data.get("tx_hash_entry", "")),
                     market_closes_at=closes_at,
+                    position_state=str(pos_data.get("position_state", "ACTIVE")),  # T-M08
                 )
                 if pos_data.get("opened_at"):
                     try:
@@ -188,6 +189,7 @@ def save_positions(engine, monitor, strategy):
                 "tx_hash_entry":   getattr(pos, "tx_hash_entry", ""),
                 "opened_at":       pos.opened_at.isoformat() if hasattr(pos, "opened_at") and pos.opened_at else datetime.now().isoformat(),
                 "market_closes_at": pos.market_closes_at.isoformat() if hasattr(pos, "market_closes_at") and pos.market_closes_at else None,
+                "position_state":  getattr(pos, "position_state", "ACTIVE"),  # T-M08
             })
         state = {
             "version":         "1.6",
@@ -256,6 +258,10 @@ async def sync_positions_from_polymarket(engine, config):
                     pass
             try:
                 from core.execution_engine import OpenPosition
+                # T-M08 Phase 4: position_state aus redeemable-Flag ableiten
+                is_redeemable  = bool(p.get("redeemable", False))
+                current_val    = float(p.get("currentValue") or 0)
+                _pos_state     = "RESOLVED_LOST" if (is_redeemable and current_val == 0) else "ACTIVE"
                 pos = OpenPosition(
                     order_id=synth_id,
                     market_id=condition_id,
@@ -268,6 +274,7 @@ async def sync_positions_from_polymarket(engine, config):
                     market_closes_at=closes_at,
                     source_wallet="[polymarket-sync]",
                     tx_hash_entry="",
+                    position_state=_pos_state,
                 )
                 engine.open_positions[synth_id] = pos
                 synced += 1
@@ -945,8 +952,9 @@ async def main():
         on_exit_event=on_exit_event,
     )
 
-    # T-M08 Phase 2: State-Update-Worker (läuft parallel, kein Einfluss auf Exit-Logic)
+    # T-M08 Phase 2+5: State-Update-Worker + Startup-Apply
     state_worker = PositionStateWorker(engine, interval=300)
+    state_worker.apply_states_to_positions()   # States sofort auf synced Positionen anwenden
 
     async def exit_loop():
         """Wertet offene Positionen alle EXIT_LOOP_INTERVAL Sekunden aus."""

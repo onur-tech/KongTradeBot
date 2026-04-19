@@ -31,6 +31,7 @@ from core.execution_engine import ExecutionEngine, OpenPosition
 from core.fill_tracker import FillTracker, PendingOrder
 from core.exit_manager import ExitManager, ExitEvent
 from core.position_state_worker import PositionStateWorker
+from core.anomaly_detector import AnomalyDetector, anomaly_detector_loop
 from strategies.copy_trading import CopyTradingStrategy, CopyOrder
 from claim_all import claim_loop
 from telegram_bot import (send, msg_trade, msg_status, msg_startup,
@@ -594,10 +595,11 @@ async def main():
     cprint("║    🚀 POLYMARKET COPY TRADING BOT v0.6 + TELEGRAM           ║", C_CYAN)
     cprint("╚══════════════════════════════════════════════════════════════╝", C_CYAN)
 
-    risk     = RiskManager(config)
-    engine   = ExecutionEngine(config)
-    strategy = CopyTradingStrategy(config, risk)
-    monitor  = WalletMonitor(config)
+    risk             = RiskManager(config)
+    engine           = ExecutionEngine(config)
+    strategy         = CopyTradingStrategy(config, risk)
+    monitor          = WalletMonitor(config)
+    anomaly_detector = AnomalyDetector()
 
     # KRITISCH: CLOB Client initialisieren (MUSS vor dem ersten Trade-Aufruf erfolgen!)
     await engine.initialize()
@@ -1214,6 +1216,10 @@ async def main():
             asyncio.create_task(claim_loop(config, interval_s=int(os.getenv("AUTO_CLAIM_INTERVAL_S", "300")))),  # Auto-Claim alle 5min (env: AUTO_CLAIM_INTERVAL_S)
             asyncio.create_task(exit_loop()),
             asyncio.create_task(state_worker.run()),   # T-M08 Phase 2
+            asyncio.create_task(anomaly_detector_loop(  # T-M-NEW
+                anomaly_detector, engine, send,
+                interval_seconds=int(os.getenv("ANOMALY_SCAN_INTERVAL_SECONDS", "300"))
+            )),
             asyncio.create_task(poll_commands(
                 callback_status=send_status_now,
                 callback_resolve=check_resolved_markets_and_notify,

@@ -1541,3 +1541,46 @@ Vorbild: `price_trigger_done` (T-M04d) und `tp1_done/tp2_done/tp3_done`.
 **Sicherheits-Regel:** Daily-Sell-Cap NICHT erhöhen bevor Once-Only-Fix deployed.
 
 Source: analyses/duplicate_trigger_bug_diagnosis_2026-04-19.md | Commit 99e9b13
+
+---
+
+## P085 — Multi-Signal-Buffer als emergenter Outlier-Filter (19.04.2026)
+
+**Status:** VERSTANDEN — Design-Konsequenz für Wallet-Selection
+
+**Beobachtung (aus RN1 Zombie-Signal Diagnose, Commit 53809e1):**
+RN1 produzierte 296 pre-audit Signale. Davon wurden **0 Orders ausgeführt**.
+Grund: Der Multi-Signal-Buffer wartet 60s auf Bestätigung von ≥2 Wallets für denselben Markt.
+RN1 kaufte ausschließlich Sports-Märkte (Soccer, Baseball, Tennis).
+Kein anderes Target-Wallet kaufte dieselben Märkte → alle RN1-Signale verfielen nach 60s.
+
+**Emergenter Effekt:**
+Der Multi-Signal-Buffer ist nicht nur ein Confidence-Boost-Mechanismus — er ist ein
+**automatischer Outlier-Filter**. Eine Wallet ohne Category-Overlap zu anderen aktiven
+Wallets wird operativ wirkungslos, unabhängig von ihrem Multiplier.
+
+```
+RN1 (Sports) → 296 Signale → 0 Orders (kein zweites Wallet deckt Sports ab)
+denizz (Soccer) → Signale → Orders möglich (wenn April#1 Sports oder majorexploiter bestätigt)
+Erasmus (Iran/ME) → Signale → Orders nur wenn TheSpiritofUkraine dieselben Märkte kauft
+```
+
+**Implikation für Wallet-Selection:**
+
+| Situation | Konsequenz |
+|-----------|-----------|
+| Nur 1 Wallet pro Kategorie | Alle Signale dieser Wallet landen im Buffer und verfallen |
+| ≥2 Wallets pro Kategorie | Gegenseitige Bestätigung → Signale werden zu Orders |
+| Kategorie-Cluster (3+ Wallets) | Hohe Signal-Dichte → Multi-Signal-Boost aktiv |
+
+**Strategie-Empfehlung:**
+- Mindestens 2-3 Wallets pro Kategorie aufnehmen (Sports, Geopolitics, Crypto)
+- Einzelne Nischen-Wallets nur aufnehmen wenn andere Wallets dieselbe Nische bedienen
+- Aktuell: Erasmus + TheSpiritofUkraine (beide Geopolitics/Iran) → gegenseitige Bestätigung möglich
+- Aktuell: Sports-Kategorie hat HOOK + April#1 Sports (0.3x WATCHING) — schwache Coverage
+
+**Monitoring:**
+Wenn eine Wallet viele buffered signals aber 0 ausgeführte Orders hat →
+wahrscheinlich keine Category-Peers → prüfen ob Aufnahme weiterer Wallets der Kategorie sinnvoll.
+
+Source: analyses/rn1_zombie_signals_diagnosis_2026-04-19.md | Commit 53809e1

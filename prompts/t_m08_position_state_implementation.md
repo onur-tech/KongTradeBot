@@ -1,6 +1,7 @@
 # T-M08: Position-State-Machine Implementation-Prompt
 _Vorbereitet: 2026-04-19 | Basis: analyses/position_state_bug_diagnosis_2026-04-19.md_
 _Aufwand: ~3.5h | PRIO: nach T-M04e_
+_Review: 2026-04-19 Abend — T-M04a/T-M04d/T-M04f Integration geprüft (siehe Update-Notes unten)_
 
 ---
 
@@ -216,8 +217,14 @@ print(f'{len(resolved)} / {len(arch)} Trades aufgeloest=True')
 
 ## PHASE 4: STATE-AWARE EXIT-TRIGGER INTEGRATION (~30min)
 
-**Kontext:** T-M04d (Take-Profit >=95c) und T-M04e (Stop-Loss) werden nach T-M08 implementiert.
-Beide müssen State-aware sein — nur ACTIVE Positionen sollen sell-bar sein.
+**Kontext (Update 2026-04-19 Abend):**
+- T-M04d (Take-Profit >=95c) ist bereits **LIVE** (Commit e5d64e8) — ExitState.price_trigger_done
+- T-M04e (Stop-Loss) steht noch aus — wird ExitState.sl_done nutzen
+- T-M04f (Whale-Exit Once-Only) ist committed aber noch nicht deployed — ExitState.whale_exit_triggered
+- Alle Exit-Trigger nutzen ExitState-Flags, **nicht** position_state aus OpenPosition
+- T-M08's Aufgabe in Phase 4: `redeemable`-Guard in ExitManager damit RESOLVED Positionen
+  nicht verkauft werden (ergänzt ExitState, ersetzt es nicht)
+- Analog-Muster aus T-M04f: Once-Only-Flags in ExitState — T-M08 fügt nur den `redeemable`-Check hinzu
 
 **Datei:** `core/exit_manager.py` oder wo auch immer `_check_price_cap()` und `_check_stop_loss()` landen.
 
@@ -292,17 +299,26 @@ Falls `_polymarket_positions["data"]` leer ist (API-Ausfall):
 - Dashboard zeigt "0 Positionen" statt falsche Zähler
 - Kein Bug, nur temporär leere Anzeige — OK
 
-### 5.3 — Erweiterbarkeit für T-M04 Sell-States
+### 5.3 — Verhältnis zu T-M04 Exit-States (Update 2026-04-19)
 
-Zukünftige States (T-M04 Sell-Feature) können ergänzt werden:
-```
-ACTIVE → PENDING_SELL → SOLD
-ACTIVE → PARTIAL_SELL → PARTIALLY_SOLD
+T-M04d ist LIVE und nutzt **ExitState** (nicht OpenPosition.position_state):
+```python
+ExitState.price_trigger_done: bool   # T-M04d ✅ live
+ExitState.whale_exit_triggered: bool  # T-M04f ✅ committed
+ExitState.sl_done: bool               # T-M04e ⏳ pending
 ```
 
-Kein Breaking Change — `position_state` ist String, neue Werte einfach anhängbar.
+T-M08's `position_state` (ACTIVE/TRADING_ENDED/RESOLVED_WON/RESOLVED_LOST) in OpenPosition
+ist **orthogonal** zu ExitState-Flags:
+- ExitState verfolgt "welche Exits wurden schon ausgelöst"
+- position_state verfolgt "in welchem Lifecycle-Status ist die Position"
+
+Das hypothetische PENDING_SELL/SOLD aus dem ursprünglichen Design ist **nicht nötig** —
+main.py's exit_loop entfernt Position sofort aus `engine.open_positions` bei erfolgreichem Sell.
+Es gibt keinen "Pending"-Zwischenzustand in der aktuellen Architektur.
+
 Dashboard-Frontend filtert `ACTIVE || TRADING_ENDED` → unbekannte States werden
-automatisch in AKTIV-Bereich angezeigt (safe default).
+automatisch in AKTIV-Bereich angezeigt (safe default für zukünftige States).
 
 ---
 
@@ -370,3 +386,16 @@ Nach vollständiger Implementation:
 | `utils/state_manager.py:19` | `save_state()` — keine Änderung nötig |
 | KB P075 | Position-State-Bug Dokumentation |
 | KB P074 | Bot-Feature-Asymmetrie (Diagnose-Kontext) |
+| KB P084 | Duplicate-Trigger-Pattern — Once-Only-Flag (analog für Phase 4) |
+| T-M04d `e5d64e8` | Take-Profit live — ExitState.price_trigger_done (Vorbild für Phase 4) |
+| T-M04f Prompt | whale_exit_triggered Pattern — Phase 4 Guard analog |
+
+---
+
+## UPDATE-NOTES (2026-04-19 Abend)
+
+| Änderung | Grund |
+|---------|-------|
+| Phase 4 Intro: T-M04d als "future" korrigiert | T-M04d ist live seit e5d64e8 |
+| Phase 5.3: PENDING_SELL-States als deprecated markiert | main.py popped Position sofort bei Sell — kein Pending-State nötig |
+| Referenzen ergänzt | T-M04d, T-M04f, KB P084 als Kontext-Quellen |

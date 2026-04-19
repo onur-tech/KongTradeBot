@@ -940,3 +940,15 @@ Claim-Chain auf Polymarket: `resolved → redeemable → payout (kann $0 sein)`
 
 **Lesson:** Doku-Aufwand eliminieren durch Struktur am Source (Commit-Message)
 
+## P061 — Per-Wallet-Performance-Report mit Kategorie- und Zeitfenster-Aufschlüsselung (2026-04-19)
+**Status:** FIXED via `8689c4e`
+**Scope:** analytics
+
+**Root Cause:** Keine Sichtbarkeit in individuelle Wallet-Performance — kein Ranking nach Hit-Rate/ROI, keine Erkennung von underperformenden Wallets.
+
+**Impact:** Blind-Copy aller 15 Wallets ohne Qualitätsdifferenzierung.
+
+**Fix:** wallet_performance.py (compute_wallet_stats, compute_by_category, compute_by_timeframe, compute_all_wallets), dashboard /api/wallet_performance, CLI wallet_report.py, weekly_performance_report.py (freitags 23:55), 13 Tests.
+
+**Lesson:** ROI nur berechenbar wenn min. 1 Trade resolved ist — bei all-pending Wallets resolved_invested≈0 führt zu Division-by-near-Zero. Fix: roi_pct=None wenn (wins+losses)==0, nicht wenn invested>0.
+

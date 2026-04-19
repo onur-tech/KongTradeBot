@@ -37,6 +37,7 @@ _Stand: 2026-04-19 12:00 Berlin_
 ---
 
 ## DONE
+| T-D103 | ✨ feat(analytics): Per-Wallet-Performance-Report mit Kategorie- und Zeitfenster-Aufschlüsselung (8689c4e) | 2026-04-19 |
 | T-D102 | 🔧 chore: Nacht-Autopilot 18.04: Auto-Claim, Dynamic-Subscribe, Stale-Recovery, WS-Fix, Morning-Report Berlin-Zeit, 13 Bug-Fixes (b1c413a) | 2026-04-18 |
 | T-D101 | 🔧 chore: TASKS.md: Nacht-Autopilot Status-Update (T-D15 bis T-D24) (89b5578) | 2026-04-18 |
 | T-D100 | 🔹 ops: Konsolidierung Server-State — scripts/, fill_tracker, balance-fix, doku (857d82b) | 2026-04-18 |

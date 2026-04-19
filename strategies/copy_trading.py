@@ -79,8 +79,10 @@ WALLET_MULTIPLIERS: Dict[str, float] = {
     # RECAL 2026-04-19 T-M09: Bug-Fix 8d9b08a zeigte Sports 100% (UCL), war 3.0x
     "0x019782cab5d844f02bafb71f512758be78579f3c": 1.5,
 
-    # April#1 Sports — 65% Win Rate → 2x
-    "0x492442eab586f242b53bda933fd5de859c8a3782": 2.0,
+    # April#1 Sports — WATCHING 0.3x
+    # RECAL 2026-04-19 T-M09b: Extern WR 46.7% (Cointrenches), Lifetime PnL -$9.8M
+    # HF-8 FAIL + HF-10 HFT-Bot. Review: T-D109 (2026-05-19). Siehe KB P077. Ref: 5d7d138
+    "0x492442eab586f242b53bda933fd5de859c8a3782": 0.3,
 
     # HorizonSplendidView → 0.5x (0 Activity erkannt, inaktiv)
     # RECAL 2026-04-19 T-M09: 0 Activity-Records via API, war 2.0x
@@ -89,8 +91,10 @@ WALLET_MULTIPLIERS: Dict[str, float] = {
     # reachingthesky → 2x
     "0xefbc5fec8d7b0acdc8911bdd9a98d6964308f9a2": 2.0,
 
-    # HOOK → 2x
-    "0x0b7a6030507efe5db145fbb57a25ba0c5f9d86cf": 2.0,
+    # HOOK — Tier B 1.0x
+    # RECAL 2026-04-19 T-M09b: Nur 46 Trades (unter HF-1 100-Trade-Minimum),
+    # WR diskrepant (38.5% vs 67%). Review: T-D109 (2026-05-19). Siehe KB P077. Ref: 5d7d138
+    "0x0b7a6030507efe5db145fbb57a25ba0c5f9d86cf": 1.0,
 
     # REMOVED 2026-04-19 Audit v1.0 HF-8 FAIL (49% WR)
     # "0xee613b3fc183ee44f9da9c05f53e2da107e3debf": 0.3,  # sovereign2013

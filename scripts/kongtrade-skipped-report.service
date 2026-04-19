@@ -1,0 +1,12 @@
+[Unit]
+Description=KongTradeBot Weekly Skipped-Signal Report
+After=network.target
+
+[Service]
+Type=oneshot
+User=root
+WorkingDirectory=/root/KongTradeBot
+ExecStart=/usr/bin/python3 /root/KongTradeBot/scripts/weekly_skipped_report.py --send
+EnvironmentFile=/root/KongTradeBot/.env
+StandardOutput=journal
+StandardError=journal

@@ -1359,6 +1359,52 @@ def api_wallet_trends():
     }))
 
 
+@app.route("/api/skipped_signals")
+def api_skipped_signals():
+    """
+    Shadow-Tracking: SKIPPED-Signal-Performance.
+    ?view=summary          → Gesamtstatistik (default)
+    ?view=by_reason        → Aufschlüsselung nach Skip-Grund
+    ?view=missed_profits   → Theoretische Gewinne/Verluste evaluierter Signale
+    ?days=7                → Zeitfenster (default 7)
+    """
+    try:
+        from utils.signal_tracker import get_summary_stats, _read_signals, _read_outcomes
+    except Exception as e:
+        return _cors(jsonify({"error": f"signal_tracker nicht verfügbar: {e}"}))
+
+    view = request.args.get("view", "summary")
+    days = int(request.args.get("days", "7"))
+    stats = get_summary_stats(days=days)
+
+    if view == "by_reason":
+        return _cors(jsonify({
+            "days": days,
+            "by_reason": stats["by_reason"],
+            "worst_filter": stats["worst_filter"],
+        }))
+
+    if view == "missed_profits":
+        from datetime import datetime, timezone, timedelta
+        cutoff = (datetime.now(timezone.utc) - timedelta(days=days)).isoformat()
+        outcomes = _read_outcomes()
+        week = [o for o in outcomes if o.get("ts_evaluated", "") >= cutoff]
+        winners = [o for o in week if o.get("signal_correct")]
+        losers = [o for o in week if not o.get("signal_correct")]
+        return _cors(jsonify({
+            "days": days,
+            "evaluated": len(week),
+            "winners": len(winners),
+            "losers": len(losers),
+            "missed_profit_usd": round(sum(o.get("theoretical_profit_usdc", 0) for o in winners), 2),
+            "avoided_loss_usd": round(sum(abs(o.get("theoretical_profit_usdc", 0)) for o in losers), 2),
+            "net_missed_usd": stats["net_missed_usd"],
+            "details": week[-50:],
+        }))
+
+    return _cors(jsonify(stats))
+
+
 # ── WebSocket Push ─────────────────────────────────────────────────────────────
 
 _last_log_count = 0

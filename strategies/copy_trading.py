@@ -30,6 +30,16 @@ try:
 except ImportError:
     _handle_error = None
 
+try:
+    from utils.signal_tracker import log_signal as _log_signal
+except ImportError:
+    _log_signal = None  # type: ignore
+
+
+def log_signal(signal, decision: str, reason=None) -> None:
+    if _log_signal is not None:
+        _log_signal(signal, decision, reason)
+
 logger = get_logger("copy_trading")
 
 # Sekunden nach dem ersten Signal warten, um weitere Wallets zu sammeln
@@ -398,6 +408,7 @@ class CopyTradingStrategy:
                         f"(slug={slug[:60]})"
                     )
                     self.stats["orders_skipped"] += 1
+                    log_signal(signal, "SKIPPED", f"CATEGORY_BLACKLIST:{prefix}")
                     return
 
         # 0b. MIN_MARKT_VOLUMEN-Check (nur wenn Volumen explizit bekannt und > 0)
@@ -408,6 +419,7 @@ class CopyTradingStrategy:
                 f"(slug={getattr(signal, 'market_slug', signal.token_id[:12])})"
             )
             self.stats["orders_skipped"] += 1
+            log_signal(signal, "SKIPPED", "MIN_MARKT_VOLUMEN")
             return
 
         # 0c. MAX_POSITIONS_TOTAL-Check
@@ -419,6 +431,7 @@ class CopyTradingStrategy:
                     f"(slug={getattr(signal, 'market_slug', signal.token_id[:12])})"
                 )
                 self.stats["orders_skipped"] += 1
+                log_signal(signal, "SKIPPED", "MAX_POSITIONS_TOTAL")
                 return
 
         # 1. Performance der Source-Wallet prüfen
@@ -429,6 +442,7 @@ class CopyTradingStrategy:
                 f"Aktuelle Win Rate: {perf.recent_win_rate:.0%} — überspringe Trade"
             )
             self.stats["orders_skipped"] += 1
+            log_signal(signal, "SKIPPED", "WIN_RATE_DECAY")
             return
 
         # 2. Wallet-Multiplikator — ggf. halbieren bei Trend-Decline
@@ -478,6 +492,7 @@ class CopyTradingStrategy:
         if not decision.allowed:
             logger.info(f"❌ Trade abgelehnt: {decision.reason}")
             self.stats["orders_skipped"] += 1
+            log_signal(signal, "SKIPPED", decision.reason)
             return
 
         # 4. Order erstellen und weiterleiten
@@ -491,6 +506,7 @@ class CopyTradingStrategy:
 
         self.stats["orders_created"] += 1
         logger.info(f"📋 Order erstellt: {order}")
+        log_signal(signal, "COPIED", None)
 
         if self.on_copy_order:
             await self._safe_execute(order)

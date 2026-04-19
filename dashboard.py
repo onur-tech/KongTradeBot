@@ -207,19 +207,27 @@ def init_db():
         CREATE TABLE IF NOT EXISTS balance_snapshots (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             ts INTEGER NOT NULL,
-            balance_usdc REAL NOT NULL
+            balance_usdc REAL NOT NULL,
+            portfolio_total REAL
         )
     """)
     conn.execute("CREATE INDEX IF NOT EXISTS idx_balance_ts ON balance_snapshots(ts)")
+    # Migration: add portfolio_total column if not yet present
+    try:
+        conn.execute("ALTER TABLE balance_snapshots ADD COLUMN portfolio_total REAL")
+    except Exception:
+        pass  # Column already exists
     conn.commit()
     conn.close()
 
 
-def db_insert_balance(balance: float):
+def db_insert_balance(balance: float, portfolio_total: float | None = None):
     try:
         conn = sqlite3.connect(str(DB_FILE))
-        conn.execute("INSERT INTO balance_snapshots (ts, balance_usdc) VALUES (?,?)",
-                     (int(time.time()), balance))
+        conn.execute(
+            "INSERT INTO balance_snapshots (ts, balance_usdc, portfolio_total) VALUES (?,?,?)",
+            (int(time.time()), balance, portfolio_total),
+        )
         conn.execute("DELETE FROM balance_snapshots WHERE ts < ?", (int(time.time()) - 30 * 86400,))
         conn.commit()
         conn.close()
@@ -232,11 +240,15 @@ def db_get_balance_history(hours: int = 24):
         conn = sqlite3.connect(str(DB_FILE))
         since = int(time.time()) - hours * 3600
         rows = conn.execute(
-            "SELECT ts, balance_usdc FROM balance_snapshots WHERE ts >= ? ORDER BY ts ASC",
+            "SELECT ts, balance_usdc, portfolio_total FROM balance_snapshots WHERE ts >= ? ORDER BY ts ASC",
             (since,)
         ).fetchall()
         conn.close()
-        return [{"ts": r[0], "balance": round(r[1], 2)} for r in rows]
+        return [
+            {"ts": r[0], "balance": round(r[1], 2),
+             "portfolio_total": round(r[2], 2) if r[2] is not None else round(r[1], 2)}
+            for r in rows
+        ]
     except Exception:
         return []
 
@@ -314,7 +326,10 @@ def _balance_updater_thread():
             bal = fetch_onchain_balance_sync()
             if bal is not None:
                 _current_balance = {"value": round(bal, 2), "ts": time.time()}
-                db_insert_balance(bal)
+                positions = _polymarket_positions.get("data", [])
+                in_pos = round(sum(float(p.get("currentValue") or 0) for p in positions), 2)
+                ptotal = round(bal + in_pos, 2) if in_pos >= 0 else None
+                db_insert_balance(bal, portfolio_total=ptotal)
                 try:
                     socketio.emit("balance_update", {"balance": round(bal, 2), "ts": time.time()})
                 except Exception:

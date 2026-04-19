@@ -1065,7 +1065,7 @@ function renderBalanceChart(){
     return S.chartRange === '24h' ? dt.toLocaleTimeString('de-DE',{hour:'2-digit',minute:'2-digit'})
                                    : dt.toLocaleDateString('de-DE',{month:'short',day:'numeric'});
   });
-  const values = data.map(d => d.balance);
+  const values = data.map(d => d.portfolio_total ?? d.balance);
   if(balanceChart) balanceChart.destroy();
   const ctx = document.getElementById('balance-chart').getContext('2d');
   balanceChart = new Chart(ctx, {

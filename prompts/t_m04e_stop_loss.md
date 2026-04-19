@@ -1,6 +1,7 @@
 # T-M04e Implementation: Stop-Loss-Trigger
 
-_Fertig: 2026-04-19 — bereit für Server-CC nach T-M04d-Erfolg_
+_Fertig: 2026-04-19 | Aktualisiert: 2026-04-20 | READY FOR SERVER-CC_
+_Voraussetzung: T-M08 Phase 4+5 deployed ✅ (a656bb6)_
 _Basis: Historical-Validation via SSH + Live-Portfolio-Analyse_
 
 ---
@@ -38,6 +39,17 @@ Begründung für Trigger A-Skip:
 - Bei 5c haben 100 Shares einen Wert von $5 — Sell-Order-Kosten kaum den API-Call
 - Die meisten Sports-Märkte fallen DIREKT von einem mittleren Preis auf 0 (Resolution)
 - Es gibt keine lange "5c-Phase" die zu erkennen wäre
+
+---
+
+## Update 2026-04-20
+
+- T-M08 Phase 4+5 ist deployed (Commit a656bb6)
+- ExitManager hat jetzt `position_state`-Guard: RESOLVED/CLAIMED → skip (vor SL-Check)
+- `OpenPosition.position_state` existiert als Dataclass-Feld
+- `utils/retry.py` (Exponential Backoff) ist deployed — in Phase 3d nutzen
+- `exit_sl_enabled` check kommt NACH `position_state`-Guard in `evaluate_all()`
+- Entscheidungen zu OFFENE FRAGEN getroffen — siehe Abschnitt "ENTSCHEIDUNGEN" weiter unten
 
 ---
 
@@ -218,13 +230,19 @@ def _check_stop_loss(
 
 ### 3d) Stop-Loss in `evaluate_all()` einbauen
 
-In der for-Schleife, NACH TP-Check und Price-Cap (T-M04d), VOR Trail-Check:
+In der for-Schleife, NACH `position_state`-Guard (T-M08 Phase 5), NACH TP-Check und Price-Cap (T-M04d), VOR Trail-Check:
 
 ```python
 # 3. Stop-Loss (NEU T-M04e) — unabhängig von TP
 sl_type = self._check_stop_loss(pos, state, current_price, hours_to_resolution)
 if sl_type:
-    event = await self._execute_exit(pos, state, 1.0, sl_type, current_price)
+    # Für RPC-Fehler beim Sell — utils/retry.py nutzen (deployed 058497c):
+    from utils.retry import retry_with_backoff
+    result = await retry_with_backoff(
+        lambda: self._execute_exit(pos, state, 1.0, sl_type, current_price),
+        max_retries=3, initial_delay=2.0
+    )
+    event = result
     if event:
         events.append(event)
         state.sl_done = True
@@ -414,23 +432,21 @@ Phase 6: fix(config): Produktions-Schwellen finalisiert
 
 ---
 
-## OFFENE FRAGEN (Onur entscheidet vor Implementation)
+## ENTSCHEIDUNGEN (2026-04-20)
 
-1. **Trigger-C aktivieren oder nur Trigger B?**
-   Trigger C (<=30% von Entry bei >=40c Entry) feuert auf Positionen wie "Will AD Pasto" (Entry 0.74c).
-   Von unseren 16 Verlusten: ~3 Positionen hätten Trigger C getroffen.
-   Empfehle: Trigger B + C beide an. Trigger C ist konservativ (nur High-Entry-Positionen).
+1. **Trigger C aktivieren?** → JA, beide Trigger B + C aktiv
+   Begründung: Trigger C ist konservativ (nur bei Entry ≥40c), deckt ~3 von 16 historischen
+   Verlusten ab. Kosten minimal, Nutzen bei High-Entry-Positionen real.
 
-2. **15c Trigger-B-Schwelle oder eher 10c?**
-   Bei 15c: Trump-Operations-Position würde jetzt NICHT mehr triggern (0.11c < 0.15c, aber schon unterhalb)
-   → Hat 0.11c noch Sell-Wert? 172 Shares × $0.11 = $18.95 — ja, noch nicht leer.
-   Bei 10c: vorsichtiger, weniger False-Positives.
-   Empfehle: 0.15c für Starter, dann auf Basis echter Fills tunen.
+2. **Trigger-B-Schwelle: 15c oder 10c?** → 15c als Start
+   Begründung: Konservativerer Einstieg. Trump-Operations (0.11c) liegt darunter — hätte
+   noch Sell-Wert ($18.95), aber Spread bei 0.11c wahrscheinlich zu dünn für guten Fill.
+   Nach erstem Live-Sell: auf echten Daten tunen.
 
-3. **Cooldown 60min oder 120min?**
-   Bei sehr dynamischen Märkten (Iran-Deals) können Positionen schnell >50% fallen.
-   60min Cooldown ist Kompromiss zwischen "zu früh aussteigen" und "zu spät".
+3. **Cooldown: 60min oder 120min?** → 60min
+   Begründung: Kompromiss. Iran-ähnliche schnelle Reversals brauchen Reaktion.
+   120min wäre zu langsam für Sports-Märkte die sich in 2h entscheiden.
 
-4. **Was tun mit den 13 bereits-0c-REDEEMABLE Positionen?**
-   Stop-Loss kann sie nicht retten (Preis = 0). T-M04b (Auto-Claim) würde sie auflösen.
-   → Für SL irrelevant, aber Prompt hier als Hinweis: Diese werden von SL übersprungen (< 2c-Guard).
+4. **13 bereits-0c Positionen?** → Von SL ignoriert (< 2c-Guard)
+   Action: T-M04b Notification-only läuft bereits. Manueller Claim via Polymarket UI.
+   Für SL irrelevant — werden über `position_state` Guard als RESOLVED_LOST markiert.

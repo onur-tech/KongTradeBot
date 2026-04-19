@@ -1,80 +1,165 @@
-# KongTradeBot — Wallet-Portfolio
-_Stand: 18.04.2026_
+# KongTradeBot — Target Wallets
+_Stand: 2026-04-19 Abend | Sync-Commit: 69cf69a_
 
-## Aktive Target-Wallets (11)
+**Dual-Source-Invariante (KB P083):** Jede Multiplier-Änderung erfordert Update in
+`strategies/copy_trading.py WALLET_MULTIPLIERS` UND `.env WALLET_WEIGHTS` + Bot-Restart.
 
-Vollständige Adressen in .env TARGET_WALLETS. 
-Multiplier in WALLET_WEIGHTS (env-Override).
+---
 
-| # | Adresse (kurz) | Alias | Multiplier | Performance | Quelle |
-|---|---|---|---|---|---|
-| 1 | 0x7a6192...af24 | Gambler1968 | 1.0x | TBD | wallet_init.py |
-| 2 | 0x7177a7...dDEf | kcnyekchno | 1.0x | TBD | wallet_init.py |
-| 3 | 0x0B7A60...86cf | HOOK | 1.0x | TBD | wallet_init.py |
-| 4 | 0xee613b...debf | denizz | 0.5x | Geopolitik | Original-Doku |
-| 5 | 0xbaa2bc...2c73 | denizz | 0.5x | Geopolitik | wallet_init.py |
-| 6 | 0xde7be6...5f4b | sovereign2013 | 0.3x | 45-49% WR | Decay-Kategorie |
-| 7 | 0x019782...9f3c | majorexploiter | 3.0x | 76% WR, Mio-Profit | Polymonit |
-| 8 | 0x492442...3782 | April#1 Sports | 2.0x | 65% WR, Sport | Predicts.guru |
-| 9 | 0x02227b...8ff7 | HorizonSplendidView | 2.0x | Sport | Predicts.guru |
-| 10 | 0xefbc5f...f9a2 | wan123 | 2.5x | 90% WR ABER -71% ROI | Beobachten |
-| 11 | 0x2005d1...75ea | RN1 | 0.2x | Klein | wallet_init.py |
+## Aktive Wallets (10)
 
-## Wallet-Kategorien
+### Tier A — Etabliert
 
-### High-Conviction (3.0x)
-- **majorexploiter** — 76% WR, Millionen-Profit
-- Historisch: DrPufferfish (92% WR), Countryside (96% WR) — nicht aktiv
+| Adresse | Alias | Kategorie | Multiplier | Aufnahme | Quelle | Letzte Review |
+|---------|-------|-----------|------------|----------|--------|---------------|
+| `0x019782cab5d844f02bafb71f512758be78579f3c` | **majorexploiter** | Sports/UCL | **1.5x** | 17.04.2026 | polymonit | T-M09 2026-04-19 (war 3.0x) |
+| `0xefbc5fec8d7b0acdc8911bdd9a98d6964308f9a2` | **reachingthesky** | Politik/Mixed | **1.0x** | 17.04.2026 | wallet_init | 69cf69a 2026-04-19 (Code+.env sync) |
+| `0x7177a7f5c216809c577c50c77b12aae81f81ddef` | **kcnyekchno** | Allgemein | **1.0x** | 17.04.2026 | wallet_init | T-M09 2026-04-19 (war 2.0x) |
+| `0xbaa2bcb5439e985ce4ccf815b4700027d1b92c73` | **denizz** | Politics/Soccer | **1.0x** | 17.04.2026 | polymonit | T-M09 2026-04-19 (explizit auf 1.0x) |
+| `0x02227b8f5a9636e895607edd3185ed6ee5598ff7` | **HorizonSplendidView** | Sports | **0.5x** | 17.04.2026 | predicts.guru | T-M09 2026-04-19 (war 2.0x, 0 Activity) |
+| `0xde7be6d489bce070a959e0cb813128ae659b5f4b` | **wan123** | Allgemein | **0.5x** | 17.04.2026 | wallet_init | T-M09 2026-04-19 (war 2.5x, neg. ROI) |
 
-### Strong (2.0-2.5x)
-- April#1 Sports, HorizonSplendidView — Sport-Profis
-- wan123 (2.5x) — PARADOX: 90% WR, aber -71% ROI
-  Action: Multiplier runter auf 0.5x wenn Live-Daten bestätigen
+### Tier B — Experimental / Watching
 
-### Standard (1.0x)
-- Mehrere Adressen ohne Alias, Performance TBD
+| Adresse | Alias | Kategorie | Multiplier | Aufnahme | Quelle | Letzte Review |
+|---------|-------|-----------|------------|----------|--------|---------------|
+| `0xc6587b11a2209e46dfe3928b31c5514a8e33b784` | **Erasmus** | Iran/ME Geopolitics | **0.5x** | 19.04.2026 | polymonit April #4 | Aufnahme-Review b97d9ef |
+| `0x0c0e270cf879583d6a0142fc817e05b768d0434e` | **TheSpiritofUkraine** | Politics/Geopolitics | **0.3x** | 19.04.2026 | polymonit April #3 | Aufnahme-Review b97d9ef |
+| `0x492442eab586f242b53bda933fd5de859c8a3782` | **April#1 Sports** | Sports | **0.3x ⚠ WATCHING** | 17.04.2026 | predicts.guru | T-M09b 2026-04-19 (war 2.0x) |
+| `0x0b7a6030507efe5db145fbb57a25ba0c5f9d86cf` | **HOOK** | Mixed | **1.0x ⚠ WATCHING** | 17.04.2026 | wallet_init | T-M09b 2026-04-19 (war 2.0x) |
 
-### Low-Conviction (0.3-0.5x)
-- denizz (0.5x) — Geopolitik, wenig Historie
-- sovereign2013 (0.3x) — Decay-Zone
+---
 
-## Review-Historie
+## Wallet-Details
 
-| Datum | Änderung | Grund |
-|---|---|---|
-| 17.04.2026 | wan123 auf "beobachten" | 90% WR aber -71% ROI |
-| 18.04.2026 | Defensive Config: effektiv x0.05 statt x0.15 | 137 USD Verlust |
+### majorexploiter — Tier A, 1.5x
+- **Adresse:** `0x019782cab5d844f02bafb71f512758be78579f3c`
+- **Performance:** 76% WR (intern), Millionen-Profit auf polymonit
+- **Kategorie-Korrektur:** Ursprünglich als "Geopolitics" geführt — Bug-Fix (8d9b08a)
+  zeigte 100% Sports (UCL). Multiplier von 3.0x auf 1.5x reduziert.
+- **Review:** T-M09 2026-04-19, Commit nicht einzeln referenziert
 
-## Review-Kadenzen
+### reachingthesky — Tier A, 1.0x
+- **Adresse:** `0xefbc5fec8d7b0acdc8911bdd9a98d6964308f9a2`
+- **Performance:** Unklar — ursprünglich als "wan123" fehlgelabelt in alter Doku
+- **Hinweis:** Code hatte 2.0x, .env explizit 1.0x (P083-Diskrepanz, 69cf69a gefixt auf 1.0x beidseitig)
+- **Nächste Review:** T-D109 2026-05-19
 
-- Täglich 09:00 — WalletScout automatisch
-- Freitag — wallet_check.py Decay-Report (offen als Task)
-- Monatlich — Manuelle Review
+### kcnyekchno — Tier A, 1.0x
+- **Adresse:** `0x7177a7f5c216809c577c50c77b12aae81f81ddef`
+- **Performance:** 81% WR (extern, unbestätigt), 0 Trades bisher kopiert
+- **Hinweis:** Konservative 1.0x wegen fehlender Live-Bestätigung, war 2.0x
+
+### denizz — Tier A, 1.0x
+- **Adresse:** `0xbaa2bcb5439e985ce4ccf815b4700027d1b92c73`
+- **Performance:** polymonit April Politics #1 +$751k, UCL/Soccer-Spezialist
+- **Hinweis:** Explizit auf 1.0x gesetzt (T-M09), vorher DEFAULT 0.5x
+
+### HorizonSplendidView — Tier A, 0.5x (inaktiv)
+- **Adresse:** `0x02227b8f5a9636e895607edd3185ed6ee5598ff7`
+- **Performance:** 0 Activity-Records via data-api
+- **Hinweis:** War 2.0x, auf 0.5x reduziert wegen 0 Activity. Falls permanent inaktiv:
+  Kandidat für Entfernung bei T-D109.
+
+### wan123 — Tier A cautious, 0.5x
+- **Adresse:** `0xde7be6d489bce070a959e0cb813128ae659b5f4b`
+- **Performance:** Negatives ROI-Flag trotz hoher Trade-Frequenz — Moonshot-Pattern
+- **Hinweis:** War 2.5x, auf 0.5x reduziert (T-M09). P083-Diskrepanz (war 0.5x Code / 1.0x .env)
+  heute gefixt via 69cf69a.
+
+### Erasmus — Tier B, 0.5x _(neu 19.04.2026)_
+- **Adresse:** `0xc6587b11a2209e46dfe3928b31c5514a8e33b784`
+- **Performance:** +$476.597 April (~50% ROI), Portfolio $1.4M, cashPnL +$30.693 offen
+- **Kategorie:** Iran/Middle East Geopolitics-Spezialist (82% der Trades)
+- **Hard-Filter:** HF-8 WR nicht extern bestätigbar (0xinsider-Wallet-Mismatch)
+- **Upgrade-Bedingung:** WR ≥55% nach 30-Tage-Review (T-D109 2026-05-19)
+- **Aufnahme-Commit:** b97d9ef | Analyse: analyses/manual_candidates_review_2026-04-19.md
+
+### TheSpiritofUkraine — Tier B, 0.3x _(neu 19.04.2026)_
+- **Adresse:** `0x0c0e270cf879583d6a0142fc817e05b768d0434e`
+- **Performance:** +$503.690 April (5.7% ROI auf $8.8M), 1.086 Markets, seit Aug 2021
+- **Kategorie:** Politics/Geopolitics (57% direkt + ~70-80% inkl. Iran/ME-Overlap)
+- **Hard-Filter:** HF-8 WR nicht bestätigt, cashPnL -$40.963 auf $5.45M (nur 0.75%)
+- **Upgrade-Bedingung:** WR ≥55% nach 30-Tage-Review (T-D109 2026-05-19)
+- **Aufnahme-Commit:** b97d9ef | Analyse: analyses/manual_candidates_review_2026-04-19.md
+
+### April#1 Sports — Tier B, 0.3x ⚠ WATCHING
+- **Adresse:** `0x492442eab586f242b53bda933fd5de859c8a3782`
+- **Performance:** Extern WR 46.7% (Cointrenches), Lifetime PnL -$9.8M
+- **Hard-Filter:** HF-8 FAIL (WR 46.7% < 55%), HF-10 FAIL (HFT-Bot-Muster)
+- **Status:** Noch aktiv bei 0.3x — Risiko kalkuliert, kein Trade-Volumen erwartet
+- **Nächste Review:** T-D109 2026-05-19 — Entfernung möglich bei gleichem Befund
+- **Verifikations-Commit:** 5d7d138 | Analyse: analyses/hook_april_sports_verification_2026-04-19.md
+- **KB-Referenz:** P077
+
+### HOOK — Tier B, 1.0x ⚠ WATCHING
+- **Adresse:** `0x0b7a6030507efe5db145fbb57a25ba0c5f9d86cf`
+- **Performance:** Nur 46 Trades (< HF-1 Minimum von 100), WR diskrepant (38.5% vs. 67%)
+- **Status:** 1.0x nach Reduktion von 2.0x — WR-Diskrepanz unklar
+- **Nächste Review:** T-D109 2026-05-19 — falls WR ≤45%: Entfernung
+- **Verifikations-Commit:** 5d7d138 | Analyse: analyses/hook_april_sports_verification_2026-04-19.md
+- **KB-Referenz:** P077
+
+---
+
+## Entfernte Wallets (heute, Audit v1.0)
+
+| Adresse | Alias | Grund | Entfernt |
+|---------|-------|-------|---------|
+| `0x7a6192ea6815d3177e978dd3f8c38be5f575af24` | **Gambler1968** | 0 kopierte Trades, dauerhaft inaktiv | Commit 7c29ac9, 2026-04-19 |
+| `0x2005d16a84ceefa912d4e380cd32e7ff827875ea` | **RN1** | HF-8 FAIL: 26.8% WR + 87% Copy-Volume = Manip-Verdacht | Commit 7c29ac9, 2026-04-19 |
+| `0xee613b3fc183ee44f9da9c05f53e2da107e3debf` | **sovereign2013** | HF-8 FAIL: 45% WR (< 55% Minimum) | Commit 7c29ac9, 2026-04-19 |
+
+Vollständige Audit-Dokumentation: `analyses/audit_v1_results_2026-04-19.md`
+
+---
+
+## Dormante Code-Einträge (in WALLET_MULTIPLIERS, NICHT in TARGET_WALLETS)
+
+Diese Wallets sind im Code vorkonfiguriert aber nicht aktiv überwacht:
+
+| Adresse | Alias | Multiplier | Status |
+|---------|-------|------------|--------|
+| `0xbddf61af533ff524d27154e589d2d7a81510c684` | Countryside | 3.0x | Historisch — nicht in TARGET_WALLETS |
+| `0xdb27bf2ac5d428a9c63dbc914611036855a6c56e` | DrPufferfish | 3.0x | Historisch — nicht in TARGET_WALLETS |
+| `0xd84c2b6d65dc596f49c7b6aadd6d74ca91e407b9` | BoneReader | 1.5x | Historisch — nicht in TARGET_WALLETS |
+| `0xde17f7144fbd0eddb2679132c10ff5e74b120988` | Crypto Spezialist | 2.0x | REJECTED 19.04 (Portfolio $0, alle Positionen verloren) |
+
+→ Bei nächstem Code-Cleanup: Einträge kommentieren oder entfernen.
+
+---
+
+## Nächste Review
+
+**T-D109 — 30-Day Wallet Review: 2026-05-19**
+
+Schwerpunkte:
+- Erasmus + TheSpiritofUkraine: WR bestätigen (30 Tage Live-Daten)
+- HOOK: WR-Diskrepanz auflösen → behalten oder entfernen
+- April#1 Sports: 30-Tage-Performance → behalten (0.3x) oder entfernen
+- HorizonSplendidView: Activity-Check → inaktiv seit 19.04?
+
+**Entscheidungs-Kriterien (HF-8):** WR < 45% → sofort entfernen. WR 45-55% → weiter beobachten. WR ≥55% → Upgrade möglich.
+
+---
+
+## Dual-Source-Protokoll (KB P083)
+
+Jede Multiplier-Änderung erfordert:
+```
+1. strategies/copy_trading.py → WALLET_MULTIPLIERS Dict (Versionierung)
+2. .env → WALLET_WEIGHTS JSON (Runtime-Effekt, .env gewinnt)
+3. Bot-Restart
+4. Verifikation: Log "Wallet X geladen mit Multiplier Y"
+```
+
+Aktueller Sync-Status: ✅ VOLLSTÄNDIG (Stand: 69cf69a, 2026-04-19)
 
 ## Quellen für neue Kandidaten
 
 - https://polymonit.com/leaderboard
-- https://oddsshift.com/smart-money
 - https://predicts.guru
+- https://oddsshift.com/smart-money
 - https://www.frenflow.com/traders
 
-## Regel für neue Wallets
-
-1. Mindestens 3 Monate Historie, >60% WR, positive ROI
-2. Initial-Multiplier: 1.0x
-3. Nach 2 Wochen live: Multiplier justieren
-4. <45% WR über 1 Woche → raus
-
-## Offene Punkte
-
-- Performance für #1, #2, #3 nachtragen (Gambler1968, kcnyekchno, HOOK)
-- wan123-Entscheidung treffen (0.5x wenn Live-Daten -71% ROI bestätigen)
-- Per-Wallet-P&L-Tracking implementieren (T-017)
-
-## Daten-Diskrepanz
-
-HINWEIS: wallet_init.py mappt 0xee613b auf sovereign2013 —
-wurde hier auf denizz gesetzt basierend auf Original-Doku.
-Zu verifizieren via Polymarket-UI Wallet-Lookup wenn Brrudi mal Zeit hat.
-
-Ende WALLETS.md.
+Veto-Check immer via data-api (`/trades?user=0x...`) — polymonit-Daten nie direkt vertrauen (KB P073).

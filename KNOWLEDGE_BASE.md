@@ -1099,3 +1099,41 @@ Zeitstempel-Semantik der Gamma-API analysiert (Live-Calls + geschlossene Märkte
 nutzt, kann zu spät sein (Trading schon gestoppt) oder zu früh (endDate noch in Zukunft aber
 acceptingOrders bereits false). Immer `acceptingOrders` Boolean prüfen.
 
+---
+
+## P073 — Manuelle Kandidaten-Evaluation: polymonit-Daten nie direkt vertrauen (19.04.2026)
+
+**Status:** ERKENNTNISGEWINN — 2 Kandidaten zur Tier-B-Aufnahme empfohlen
+
+**Kontext:** 4 Kandidaten aus polymonit April Nischen-Leaderboards gegen Briefing v1.2 geprüft.
+Methode: Polymarket-Profil + data-api Ground-Truth + 0xinsider wo verfügbar.
+
+**Befunde:**
+
+1. **Erasmus (0xc658...b784): Tier B, 0.5x Multiplier**
+   Iran/Middle East Spezialist. April ~50% ROI auf $940K Volume. $1.4M Portfolio.
+   Open Positions cashPnL +$30.693. Kein 0xinsider (Wallet-Mapping-Problem).
+
+2. **TheSpiritofUkraine (0x0c0e...434e): Tier B, 0.3x Multiplier**
+   Geopolitics-Spezialist seit Aug 2021 (4.5 Jahre). 1.086 Markets. April +$503K.
+   Open cashPnL -$40.963 klingt schlecht, ist aber nur 0.75% des Portfolios.
+
+3. **Fernandoinfante (0xd737...be95): REJECT**
+   Win Rate 23.3% (0xinsider bestätigt) = HF-8 FAIL.
+   Biggest Win $462K > gesamtes Closed PnL = HF-7 FAIL. Moonshot-Gambler.
+
+4. **0xde17...988: REJECT**
+   Portfolio $0. Alle Positionen -100%. cashPnL -$174.941.
+   polymonit zeigte +$727.451 — komplett falsch/veraltet.
+
+**Kritische Lektionen:**
+
+- **polymonit zweimal widerlegt:** 0xde17 ($727K polymonit vs. $0 real) und Fernandoinfante
+  (impressive PnL real aber Moonshot, nicht Skill). polymonit = Startpunkt, nie Endpunkt.
+- **0xinsider Wallet-Mapping:** Bei Erasmus mappt 0xinsider auf andere Wallet (EOA statt Proxy).
+  0xinsider-Daten für Proxy-Wallets sind unzuverlässig. Polymarket data-api ist Ground Truth.
+- **Iran-Nische dominiert April:** 3/4 Kandidaten spielen Iran/Hormuz. Selbes Event, sehr
+  unterschiedliche Qualität (Erasmus: echter Edge, Fernandoinfante: Moonshot, 0xde17: Verlust).
+- **Kategorie-Keyword-Matcher zu eng:** Iran, Hormuz, Ceasefire werden als "Other" klassifiziert.
+  Für Scout v2 (T-M10): Keyword-Liste um Geopolitik-Nische erweitern.
+

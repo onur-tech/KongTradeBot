@@ -22,6 +22,12 @@ _Stand: 2026-04-19 23:59 Berlin_
 
 | ID | Titel | Prio | Notiz |
 |----|-------|------|-------|
+| T-WS | WebSocket WalletMonitor: 10s Poll → 1-3s Echtzeit | KRITISCH | **Prompt ready** (prompts/t_ws_websocket_wallet_monitor.md) — Server-CC nächste Session |
+| T-M-NEW | Anomalie-Detektor: Insider-Signal-Erkennung in Echtzeit | KRITISCH | **Prompt ready** (prompts/t_m_new_anomaly_detector.md) — nach T-WS |
+| T-NEWS | News-Monitor: Spike-Detektor + RSS-Monitor Phase 1 | WICHTIG | **Prompt ready** (prompts/t_news_monitor.md) — Phase 1A kostenlos |
+| T-WEATHER | Weather Market Integration: OpenMeteo + Ladder + Barbell | WICHTIG | **Prompt ready** (prompts/t_weather_strategy.md) — core/weather_scout.py |
+| T-M21 | Basket-Strategie: SeriouslySirius + beachboy4 | WICHTIG | **Prompt ready** (prompts/t_m21_basket_strategy.md) |
+| T-PANEWS | PANews Biteye Integration: 5 APPROVE-Kandidaten aktivieren | WICHTIG | Review 2026-05-05: cowcat, EFFICIENCYEXPERT, synnet, middleoftheocean, HondaCivic |
 | T-M08-P4 | T-M08 Phase 4: Migration bestehender Positionen in bot_state.json | KRITISCH | **Prompt ready** (prompts/t_m08_phase4_migration.md) — MORGEN ZUERST |
 | T-M08-P5 | T-M08 Phase 5: ExitManager state-aware Guard (evaluate_all) | KRITISCH | **Prompt ready** (prompts/t_m08_phase5_exit_guard_integration.md) — nach Phase 4 |
 | T-M04b | Claim-Fix v2: relayer-v2 + RELAYER_API_KEY + signer=PRIVATE_KEY | WICHTIG | Credentials in .env — nach T-M08 |

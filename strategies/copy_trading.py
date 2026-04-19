@@ -116,6 +116,10 @@ WALLET_MULTIPLIERS: Dict[str, float] = {
 
     # REMOVED 2026-04-19 Audit v1.0 HF-8 FAIL (26.8% WR, 87% Copy-Volume)
     # "0x2005d16a84ceefa912d4e380cd32e7ff827875ea": 0.2,  # RN1
+
+    # ADDED 2026-04-19: Manual Discovery (Commit 38bbb5c Windows-CC)
+    "0xc6587b11a2209e46dfe3928b31c5514a8e33b784": 0.5,  # Erasmus - Geopolitics/Iran, Tier B
+    "0x0c0e270cf879583d6a0142fc817e05b768d0434e": 0.3,  # TheSpiritofUkraine - Geopolitics seit 2021, Tier B
 }
 
 # Unbekannte / nicht konfigurierte Wallets bekommen halbe Größe

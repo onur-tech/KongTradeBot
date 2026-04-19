@@ -1,5 +1,5 @@
 # KongTradeBot — Target Wallets
-_Stand: 2026-04-20 | Sync-Commit: 69cf69a | Multiplier-Review: T-M09 2026-04-19_
+_Stand: 2026-04-20 | Sync-Commit: Deep-Discovery | Multiplier-Review: T-M09 2026-04-19_
 
 **Dual-Source-Invariante (KB P083):** Jede Multiplier-Änderung erfordert Update in
 `strategies/copy_trading.py WALLET_MULTIPLIERS` UND `.env WALLET_WEIGHTS` + Bot-Restart.
@@ -23,6 +23,8 @@ _Stand: 2026-04-20 | Sync-Commit: 69cf69a | Multiplier-Review: T-M09 2026-04-19_
 
 | Adresse | Alias | Kategorie | Multiplier | Aufnahme | Quelle | Letzte Review |
 |---------|-------|-----------|------------|----------|--------|---------------|
+| `0x63d43bbb87f85af03b8f2f9e2fad7b54334fa2f` | **wokerjoesleeper** | Politik/Macro/Fed | **0.5x** | 20.04.2026 | PANews Biteye | Deep-Discovery 2026-04-20 |
+| `0xbacd00c9080a82ded56f504ee8810af732b0ab35` | **ScottyNooo** | Politik/Trump/Iran | **0.3x** | 20.04.2026 | PANews Biteye | Deep-Discovery 2026-04-20 |
 | `0xc6587b11a2209e46dfe3928b31c5514a8e33b784` | **Erasmus** | Iran/ME Geopolitics | **0.5x** | 19.04.2026 | polymonit April #4 | Aufnahme-Review b97d9ef |
 | `0x0c0e270cf879583d6a0142fc817e05b768d0434e` | **TheSpiritofUkraine** | Politics/Geopolitics | **0.3x** | 19.04.2026 | polymonit April #3 | Aufnahme-Review b97d9ef |
 | `0x492442eab586f242b53bda933fd5de859c8a3782` | **April#1 Sports** | Sports | **0.3x ⚠ WATCHING** | 17.04.2026 | predicts.guru | T-M09b 2026-04-19 (war 2.0x) |
@@ -66,6 +68,32 @@ _Stand: 2026-04-20 | Sync-Commit: 69cf69a | Multiplier-Review: T-M09 2026-04-19_
 - **Performance:** Negatives ROI-Flag trotz hoher Trade-Frequenz — Moonshot-Pattern
 - **Hinweis:** War 2.5x, auf 0.5x reduziert (T-M09). P083-Diskrepanz (war 0.5x Code / 1.0x .env)
   heute gefixt via 69cf69a.
+
+### wokerjoesleeper — Tier B, 0.5x _(neu 20.04.2026)_
+- **Adresse:** `0x63d43bbb87f85af03b8f2f9e2fad7b54334fa2f`
+- **Performance:** $900K all-time PnL, **+227% ROI auf Deposits**, 81% WR (NO-Bets)
+- **Kategorie:** Politik, Makro-Economy, Fed Rates, Iran-Politik
+- **Strategie:** 93% NO-Bets auf Low-Probability-Events (Longterm Macro)
+- **Polymarket-Rang:** #73 Politik, #7 Economy, #9 Fed Rates
+- **Trades/Tag:** ~79/d — verteilt auf lange Makro-Positionen, kein Bot-Muster
+- **Joined:** Oktober 2024 | **Predictions:** 42,821
+- **HF-0:** ✅ PASS | **HF-7:** ✅ PASS (+227%) | **HF-10:** ✅ PASS (Macro, kein Sport)
+- **Quelle:** PANews Biteye Smart Money Artikel 2026-04-01
+- **Analyse:** `analyses/deep_discovery_2026-04-20.md`
+- **Upgrade-Bedingung:** Auf 1.0x nach 30-Tage-Live-Bestätigung (T-D109 2026-05-19)
+
+### ScottyNooo — Tier B, 0.3x _(neu 20.04.2026, provisional)_
+- **Adresse:** `0xbacd00c9080a82ded56f504ee8810af732b0ab35`
+- **Performance:** $1.3M all-time PnL, 58.8% WR, Merlin Score 76/100
+- **Kategorie:** Politik (Trump, Iran, Ukraine, Geopolitics)
+- **Avg Trade:** ~$13,000 (Whale-Level) → bei 0.3x: ~$390 pro kopierten Trade
+- **Joined:** Mai 2025 | **Predictions:** ~2,542 (~7/Tag — ideal für Copy-Bot)
+- **30d Performance:** $216K auf $3.4M Volume (6.4% monatlich)
+- **HF-0:** ✅ PASS | **HF-7:** ❓ PENDING (predicts.guru Deposit-ROI unbekannt) | **HF-10:** ✅ PASS
+- **Upgrade-Bedingung:** 0.5x nach predicts.guru Deposit-ROI PASS + 30-Tage-Live
+- **WARNUNG:** Deposit-ROI muss via predicts.guru verifiziert werden (bcda-Lektion)
+- **Quelle:** PANews Biteye Smart Money Artikel 2026-04-01, Merlin, PolyScope
+- **Analyse:** `analyses/deep_discovery_2026-04-20.md`
 
 ### Erasmus — Tier B, 0.5x _(neu 19.04.2026)_
 - **Adresse:** `0xc6587b11a2209e46dfe3928b31c5514a8e33b784`
@@ -140,12 +168,20 @@ Diese Wallets sind im Code vorkonfiguriert aber nicht aktiv überwacht:
 **T-D109 — 30-Day Wallet Review: 2026-05-19**
 
 Schwerpunkte:
+- **wokerjoesleeper:** 30-Tage-Live-Bestätigung → Upgrade auf 1.0x wenn aktiv
+- **ScottyNooo:** predicts.guru Deposit-ROI verifizieren → wenn PASS: Upgrade auf 0.5x
 - Erasmus + TheSpiritofUkraine: WR bestätigen (30 Tage Live-Daten)
 - HOOK: WR-Diskrepanz auflösen → behalten oder entfernen
 - April#1 Sports: 30-Tage-Performance → behalten (0.3x) oder entfernen
 - HorizonSplendidView: Activity-Check → inaktiv seit 19.04?
 - **Countryside Shadow-Review:** 30-Tage-WR via cointrenches/0xinsider (≥56% = Integration)
 - **statwC00KS:** predicts.guru Full-Check + ROI auf Deposits (NBA #18, 96.2% WR, 3.204 Trades)
+
+**2026-05-05 — Watching-Queue Check:**
+- cowcat (`0x38e59b36aae31b164200d0cad7c3fe5e0ee795e7`): predicts.guru ROI → wenn PASS: APPROVE 0.3x
+- Frank0951 (`0x40471b34671887546013ceb58740625c2efe7293`): predicts.guru ROI → wenn PASS: APPROVE 0.3x
+- middleoftheocean (`0x6c743aafd813475986dcd930f380a1f50901bd4e`): predicts.guru + HF-10 Check
+- ewelmealt (`0x07921379f7b31ef93da634b688b2fe36897db778`): 90-Tage-Shadow (Feb 2026 start) → ersten Check Mai 2026
 
 **Shadow-Watch Dormante Wallets:**
 - Countryside: Review 2026-05-20 — WR-Diskrepanz klären, "15% human" Pattern

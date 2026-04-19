@@ -1,5 +1,5 @@
 # KongTradeBot — Target Wallets
-_Stand: 2026-04-19 Abend | Sync-Commit: 69cf69a_
+_Stand: 2026-04-20 | Sync-Commit: 69cf69a | Multiplier-Review: T-M09 2026-04-19_
 
 **Dual-Source-Invariante (KB P083):** Jede Multiplier-Änderung erfordert Update in
 `strategies/copy_trading.py WALLET_MULTIPLIERS` UND `.env WALLET_WEIGHTS` + Bot-Restart.

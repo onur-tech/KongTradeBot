@@ -1584,3 +1584,76 @@ Wenn eine Wallet viele buffered signals aber 0 ausgeführte Orders hat →
 wahrscheinlich keine Category-Peers → prüfen ob Aufnahme weiterer Wallets der Kategorie sinnvoll.
 
 Source: analyses/rn1_zombie_signals_diagnosis_2026-04-19.md | Commit 53809e1
+
+---
+
+## P086 — Proxy vs EOA Token-Holding (2026-04-20)
+
+**Status:** DOKUMENTIERT
+
+**Erkenntnis:**
+CTF-Tokens (ERC-1155) liegen bei uns im PROXY-Wallet (0x700BC51b),
+NICHT im EOA (0xd7869A5C).
+
+**Beweis:**
+GET /positions?user=0x700BC51b&redeemable=true → 13 Ergebnisse
+GET /positions?user=0xd7869A5C&redeemable=true → 0 Ergebnisse
+
+**Implikation für T-M04b (Auto-Claim):**
+- Direkter CTF-Contract-Call vom EOA funktioniert NICHT
+- polymarket-cli `ctf redeem` funktioniert NICHT (EOA-only)
+- TradeSEB-Ansatz (ethers.js direkter CTF-Call) funktioniert NICHT
+- Korrekte Lösung: RelayClient via relayer-v2.polymarket.com
+- Zwischenlösung: Notification-only (aktuell deployed, ausreichend)
+
+---
+
+## P087 — ?redeemable=true API-Endpoint (2026-04-20)
+
+**Status:** DEPLOYED (Phase 2 Worker)
+
+**Endpoint:**
+GET https://data-api.polymarket.com/positions?user={PROXY_ADDR}&redeemable=true
+
+**Vorteil:**
+1 API-Call statt N Gamma-API-Calls für alle resolved Positionen.
+Liefert conditionId + outcome + redeemable Flag für alle abgeschlossenen Märkte.
+
+**Erkenntnis aus Test:**
+Alle 13 redeemable Positionen sind RESOLVED_LOST ($148.71 verloren, $0 claimable).
+redeemable=true bedeutet NUR "Markt ist resolved" — nicht "du gewinnst Geld".
+
+---
+
+## P088 — polymarket-cli Proxy-Inkompatibilität (2026-04-20)
+
+**Status:** DOKUMENTIERT
+
+**Problem:**
+polymarket-cli (Polymarket/polymarket-cli, Rust, v0.1.5) ist für EOA-Wallets designed.
+`polymarket ctf redeem` signiert vom EOA — Tokens liegen aber im Proxy.
+
+**Was funktioniert:**
+- `polymarket clob balance` → liest USDC-Balance (funktioniert)
+- `polymarket wallet show` → zeigt EOA + Proxy-Adresse
+- `polymarket data positions` → liest Portfolio
+
+**Was nicht funktioniert:**
+- `polymarket ctf redeem` → EOA hält keine CTF-Tokens → fehlschlagend
+
+---
+
+## P089 — Exponential Backoff Pattern (2026-04-20)
+
+**Status:** DEPLOYED (utils/retry.py)
+
+**Source:** TradeSEB/polymarket-copytrading-bot
+
+**Pattern:**
+2s → 4s → 8s bei retryable Errors:
+network, timeout, ECONNREFUSED, RPC, rate limit, 503/502/504, socket, ankr
+
+**Retryable vs Non-retryable:**
+- Retryable: Netzwerk-/RPC-Fehler (temporär)
+- Non-retryable: invalid hex address, auth errors, market not found (permanent)
+

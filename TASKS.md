@@ -35,6 +35,9 @@ _Stand: 2026-04-19 23:59 Berlin_
 | Cap-Erhöhung | Daily-Sell-Cap $30 → $60 → $100 | WICHTIG | Sofort möglich nach T-M08 Phase 4 — T-M04f deployed |
 | T-M04e | Stop-Loss-Trigger: Trigger B (24h+15c) + Trigger C (Drawdown 30%/40c) in ExitManager | WICHTIG | **Prompt ready** (prompts/t_m04e_stop_loss.md) — nach T-M08 |
 | T-M09b | Multiplier: April#1 Sports 2.0x→0.3x + HOOK 2.0x→1.0x | WICHTIG | **Prompt ready** (prompts/t_m09b_multiplier_adjust.md) |
+| T-M11 | RelayClient v2 Auto-Claim implementieren | WICHTIG | P086: Proxy-Tokens, relayer-v2.polymarket.com + RELAYER_API_KEY in .env |
+| T-M12 | Rate-Limiting Token-Bucket implementieren | NICE | caiovicentino-Pattern: GAMMA 750/10s, CLOB 5000/10s — erst wenn Rate-Limit-Fehler auftreten |
+| T-M13 | ?redeemable=true in Phase 2 Worker | WICHTIG | P087: 1 API-Call statt N Gamma-Calls für State-Detection |
 | T-M05 | Dashboard-Zeitstempel-Differenzierung (Trading bis / Resolution / Claim ab) | NICE | Zeitstempel-Research done |
 | T-M06 | On-Chain-Reconciliation: Archive gegen live Positionen abgleichen | NICE | Abhängig von T-M04b |
 | T-039 | weekly_doku_check.py Script (Freitag 17:00, Telegram-Report fuer Events ohne Doku) | NICE | — |

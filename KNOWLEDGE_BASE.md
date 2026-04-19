@@ -769,6 +769,79 @@ Strategie-Änderungen erst Manifold-Test → dann Polymarket-Deployment.
 
 ---
 
+## P052 — Grok API als Twitter-Alternative (19.04.2026)
+
+**Status:** VERSTANDEN — Paradigma-Wechsel für Sentiment-Strategie
+
+**Kontext:** Sentiment-Bot-Plan basierte auf Twitter API Basic
+($100/Monat, ohne Streaming unbrauchbar) oder TweetStream.io ($139–349/Monat).
+
+**Update:** Grok 4.1 Fast bietet native X/Twitter-Integration via API-Tool:
+- $0.20 / $0.50 pro 1M Tokens (Input/Output)
+- 2M Token Context-Window
+- Echtzeit-X-Search nativ
+- Kein separater Twitter-API-Account nötig
+
+**Kostenrechnung typischer Einsatz:**
+- 100 Market-Queries/Tag × 5k Tokens avg = 500k Tokens/Tag
+- Monatlich: 15M Tokens = ~$3–15/Monat (statt $139–5000)
+
+**Implikation:**
+- T-I07 Sentiment-Bot Phase 0.5 umgeplant: Grok statt RSS als primäre Quelle
+- Twitter-API-Pro aus Planung gestrichen
+- T-S01: Grok-Integration als universelles Modul für alle zukünftigen Bots
+
+**Architektur-Update:** Grok-Modul wird so gebaut, dass es von ALLEN
+zukünftigen Bots genutzt werden kann.
+
+---
+
+## P053 — Skill-System-Audit (19.04.2026)
+
+**Status:** ERLEDIGT — SKILL.md erstellt mit Investment-Frameworks (Punkte 10–12)
+
+**Kontext:** Frage ob Investment-Prinzipien (Dalio, Taleb, Marks) durch
+Umstellung auf GitHub-Links "verloren gegangen" sind.
+
+**Befund:** User-Skills sind systemweit in `/mnt/skills/user/` verfügbar
+(4 Skills: dalio, marks, taleb, crypto-analyst), aber Chat-Claude greift
+nicht automatisch darauf zu wenn Projekt-SKILL.md nur GitHub-Links enthält.
+
+**Lösung:** SKILL.md neu erstellt mit Pflicht-Verweisen auf die 4 User-Skills
+(Punkte 10–12). Damit werden Investment-Frameworks bei jeder Session aktiv.
+
+**Implikation für Multi-Asset-Vision:** Bei neuen Asset-Klassen werden
+spezialisierte Skills gebaut. Ein generisches "Crypto-Analyst"-Skill reicht
+nicht für Funding-Arb oder DEX-Whale-Following.
+
+**Lesson:** Skill-Erweiterungen müssen bei Projekt-Pivots explizit mitgepflegt werden.
+
+---
+
+## P054 — Peer-Modell für Kollaboration (19.04.2026)
+
+**Status:** ENTSCHIEDEN — Peer, nicht Chef
+
+**Kontext:** 4 Personen (Brrudi, Alex, Tunay, Dietmar) bauen parallel ähnliche
+Systeme. Frage: Wie koordinieren ohne Hierarchie?
+
+**Entscheidung:**
+- Brrudi initiiert Infrastruktur + GUIDELINES
+- Alle 4 sind gleichberechtigte Entscheider
+- Opt-In statt Opt-Out
+- Autonomie vor Konformität
+
+**Implikation:**
+- Keine Master-Slave-Architektur
+- Kein zentraler Bot-Controller
+- Shared Services sind Utilities, nicht Kommando
+- Wenn Alex/Tunay/Dietmar nicht teilnehmen wollen: OK
+
+**Lesson:** Bei Familie/Freunden nie Chef spielen. Strukturen so bauen
+dass sie OHNE dich weiter funktionieren.
+
+---
+
 ## P055 — 138-Restart-Loop Analyse (19.04.2026)
 
 **Status:** ✅ FIXED via B2 (Commit 2fffe16)

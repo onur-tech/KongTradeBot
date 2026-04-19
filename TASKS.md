@@ -104,6 +104,12 @@ _Stand: 2026-04-19 12:00 Berlin_
 | T-D58 | B1: Kill-Switch persistent mit Auto-Reset + Telegram-Commands (91e4d60) | 2026-04-19 |
 | T-D59 | B2: Watchdog Race-Condition-Fix + Lock-PID + Rate-Limit (2fffe16) | 2026-04-19 |
 | T-D60 | C1: Slippage-Tracking + Weekly Report (Hash: TBD nach Fertigstellung) | 2026-04-19 |
+| T-C01 | COLLECTIVE_VISION.md angelegt (Peer-Modell, Governance, Roadmap) | 2026-04-19 |
+| T-C02 | STRATEGIC_VISION.md angelegt (Langfrist-Roadmap, Tier 1-4, Moat) | 2026-04-19 |
+| T-C03 | SKILL.md angelegt (9 Session-URLs + Punkte 10-12 Investment-Frameworks) | 2026-04-19 |
+| T-C04 | P052 (Grok API als Twitter-Alternative) in KNOWLEDGE_BASE.md | 2026-04-19 |
+| T-C05 | P053 (Skill-System-Audit) in KNOWLEDGE_BASE.md | 2026-04-19 |
+| T-C06 | P054 (Peer-Modell Entscheidung) in KNOWLEDGE_BASE.md | 2026-04-19 |
 
 ---
 
@@ -124,12 +130,6 @@ _Stand: 2026-04-19 12:00 Berlin_
 
 | ID | Titel | Prio | Notiz |
 |----|-------|------|-------|
-| T-C01 | COLLECTIVE_VISION.md anlegen (Peer-Modell, Zusammenarbeitsregeln) | WICHTIG | Inhalt aus Session 19.04. |
-| T-C02 | STRATEGIC_VISION.md anlegen (Langfrist-Roadmap, Ziele) | WICHTIG | Inhalt aus Session 19.04. |
-| T-C03 | SKILL.md anlegen (Pflichtlektüre: Dalio, Taleb, Marks) | WICHTIG | Punkte 1-12 dokumentieren |
-| T-C04 | P052 (Grok API) in KNOWLEDGE_BASE.md | NICE | Kosten + Use-Case |
-| T-C05 | P053 (Skill-System-Audit) in KNOWLEDGE_BASE.md | NICE | Reflektion Session 19.04. |
-| T-C06 | P054 (Peer-Modell) in KNOWLEDGE_BASE.md | NICE | Entscheidungsprinzipien |
 | T-C07 | STATUS.md Generator: budget_utilization_pct + kill_switch_status + error_count_24h | NICE | scripts/generate_status.py |
 | T-C08 | Watchdog-Timer manuell wieder aktivieren | KRITISCH | Wurde deaktiviert wegen Race-Condition |
 | T-C09 | Performace-Report-Modul (Per-Wallet + Kategorie-PnL nach Session-Ende) | WICHTIG | — |

@@ -381,7 +381,7 @@ async def morning_report_sender():
             logger.error(f"morning_report_sender Fehler: {e} — weiter")
 
 
-async def status_reporter(strategy, risk, engine, config, interval):
+async def status_reporter(strategy, risk, engine, config, interval, state_worker=None):
     while True:
         await asyncio.sleep(interval)
         r = risk.status()
@@ -420,13 +420,30 @@ async def status_reporter(strategy, risk, engine, config, interval):
         bar_color  = C_GREEN if pct_used < 50 else C_YELLOW if pct_used < 80 else C_RED
         pnl_color  = C_GREEN if pnl >= 0 else C_RED
 
+        # T-M08 Phase 3: Position-State-Counts aus state_worker
+        n_open, n_pending = 0, 0
+        pos_states: dict = {}
+        if state_worker:
+            pos_states  = state_worker.get_all_states()
+            raw_pos     = list(engine.open_positions.values())
+            for rp in raw_pos:
+                st = state_worker.get_state(rp.market_id, rp.outcome)
+                if st == "PENDING_CLOSE":
+                    n_pending += 1
+                else:
+                    n_open += 1
+        else:
+            n_open = len(positions)
+
         print(flush=True)
         cprint("╔══════════════════════════════════════════════════════════════╗", C_CYAN)
         cprint(f"║  📊 STATUS  {datetime.now().strftime('%H:%M:%S')}  |  Modus: {e['mode']}", C_CYAN)
         cprint("╠══════════════════════════════════════════════════════════════╣", C_CYAN)
         print(f"{C_CYAN}║{C_RESET}  💰 PnL:      {pnl_color}{pnl:+.2f} USDC{C_RESET}   |   Verlust: {C_YELLOW}${r['daily_loss_usd']:.2f}{C_RESET}/${r['limit_usd']:.2f}", flush=True)
         print(f"{C_CYAN}║{C_RESET}  📡 Signale:  {C_WHITE}{s['signals_received']}{C_RESET}  |  Orders: {C_GREEN}{s['orders_created']}{C_RESET}  |  Skip: {C_GRAY}{s['orders_skipped']}{C_RESET}", flush=True)
-        print(f"{C_CYAN}║{C_RESET}  ⚡ Offen:    {C_WHITE}{e['open_positions']}{C_RESET}  |  Filled: {C_GREEN}{e['orders_filled']}{C_RESET}  |  Failed: {C_RED}{e['orders_failed']}{C_RESET}", flush=True)
+        # T-M08: State-Tabs statt einfacher "Offen"-Zahl
+        pending_str = f"  |  🕐 {C_YELLOW}PENDING:{n_pending}{C_RESET}" if n_pending > 0 else ""
+        print(f"{C_CYAN}║{C_RESET}  ⚡ Positionen: {C_GREEN}OPEN:{n_open}{C_RESET}{pending_str}  |  Filled: {C_GREEN}{e['orders_filled']}{C_RESET}  |  Failed: {C_RED}{e['orders_failed']}{C_RESET}", flush=True)
         print(f"{C_CYAN}║{C_RESET}  🏦 Budget:   {C_WHITE}${config.portfolio_budget_usd:,.0f} USDC{C_RESET}", flush=True)
         print(f"{C_CYAN}║{C_RESET}  📊 Rennen:   {bar_color}{bar}{C_RESET}  {bar_color}${total_invested:.2f}{C_RESET} ({pct_used:.1f}%)", flush=True)
         cprint("╠══════════════════════════════════════════════════════════════╣", C_CYAN)
@@ -440,11 +457,28 @@ async def status_reporter(strategy, risk, engine, config, interval):
             cprint(f"║  🛑 KILL-SWITCH: {r['kill_switch_reason']}", C_RED)
             await send(msg_warning(f"Kill-Switch: {r['kill_switch_reason']}"))
         cprint("╠══════════════════════════════════════════════════════════════╣", C_CYAN)
-        cprint("║  📋 Offene Positionen:", C_CYAN)
+        # T-M08: PENDING_CLOSE-Positionen zuerst, dann OPEN
+        open_label    = f"📋 OPEN ({n_open}):"
+        pending_label = f"🕐 PENDING_CLOSE ({n_pending}) — Markt aufgelöst, Claim ausstehend:" if n_pending else None
+        cprint(f"║  {open_label}", C_CYAN)
+        shown = 0
         for pos in positions[:10]:
-            print(f"{C_CYAN}║{C_RESET}  {C_GREEN}{pos['outcome']}{C_RESET} @ {C_WHITE}{pos['entry_price']}{C_RESET} | {C_YELLOW}{pos['invested']}{C_RESET} | {C_GRAY}{pos['question'][:40]}{C_RESET}", flush=True)
+            raw = engine.open_positions.get(
+                next((oid for oid, p in engine.open_positions.items()
+                      if p.outcome == pos.get("outcome") and
+                         p.market_question[:40] == pos.get("question", "")[:40]), None),
+                None
+            )
+            pos_state = (state_worker.get_state(raw.market_id, raw.outcome)
+                         if state_worker and raw else "OPEN")
+            state_icon = "🕐" if pos_state == "PENDING_CLOSE" else "▶"
+            state_col  = C_YELLOW if pos_state == "PENDING_CLOSE" else C_GREEN
+            print(f"{C_CYAN}║{C_RESET}  {state_icon} {state_col}{pos['outcome']}{C_RESET} @ {C_WHITE}{pos['entry_price']}{C_RESET} | {C_YELLOW}{pos['invested']}{C_RESET} | {C_GRAY}{pos['question'][:38]}{C_RESET}", flush=True)
+            shown += 1
         if len(positions) > 10:
             cprint(f"║  ... und {len(positions)-10} weitere", C_GRAY)
+        if pending_label:
+            cprint(f"║  {pending_label}", C_YELLOW)
         cprint("╚══════════════════════════════════════════════════════════════╝", C_CYAN)
 
         # Telegram: nur stündlich
@@ -1064,7 +1098,7 @@ async def main():
 
         tasks = [
             asyncio.create_task(monitor.start()),
-            asyncio.create_task(status_reporter(strategy, risk, engine, config, args.status_interval)),
+            asyncio.create_task(status_reporter(strategy, risk, engine, config, args.status_interval, state_worker=state_worker)),
             asyncio.create_task(balance_updater(config, engine=engine, interval=300)),
             asyncio.create_task(morning_report_sender()),
             asyncio.create_task(resolver_loop()),

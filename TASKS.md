@@ -1,5 +1,5 @@
 # KongTrade Bot — Task Tracking
-_Stand: 2026-04-19 18:00 Berlin_
+_Stand: 2026-04-19 23:00 Berlin_
 
 **Regeln:**
 - Status: ARBEIT | QUEUE | DONE | BLOCKED | IDEE
@@ -29,6 +29,12 @@ _Stand: 2026-04-19 18:00 Berlin_
 
 | ID | Titel | Prio | Notiz |
 |----|-------|------|-------|
+| T-M04b | Claim-Fix: py-builder-relayer-client statt client.redeem() — Standard + NegRisk | KRITISCH | Research fertig (82385dc) — Implementation ~2h |
+| T-M04a | Position-Restore nach Restart + EXIT_DRY_RUN=false aktivieren | KRITISCH | T-M04 Phase 0 Diagnose done |
+| T-M04d | Take-Profit-Trigger aktivieren (nach T-M04a) | WICHTIG | Abhängig von Position-Restore |
+| T-M08 | Dashboard position_state-Feld — AKTIV-Zähler auf 11 korrigieren (~3.5h) | WICHTIG | Diagnose done (f20e29e) |
+| T-M05 | Dashboard-Zeitstempel-Differenzierung (Trading bis / Resolution / Claim ab) | NICE | Zeitstempel-Research done |
+| T-M06 | On-Chain-Reconciliation: Archive gegen live Positionen abgleichen | NICE | Abhängig von T-M04b |
 | T-039 | weekly_doku_check.py Script (Freitag 17:00, Telegram-Report fuer Events ohne Doku) | NICE | — |
 | T-D105 | Skipped-Signal-Shadow-Tracking: data/all_signals.jsonl + fiktive Performance | WICHTIG | IN PROGRESS — Server-CC |
 | T-D106 | On-Chain-Wallet-Discovery-Scan (aktive Polygon-Wallets mit Polymarket-Trades) | WICHTIG | PENDING |
@@ -67,6 +73,12 @@ _Stand: 2026-04-19 18:00 Berlin_
 ---
 
 ## DONE
+| T-M09 | Multiplier-Re-Kalibrierung: wan123 2.5x→0.5x, majorexploiter 3.0x→1.5x, denizz 0.5x→1.0x, HorizonSplendidView 2.0x→0.5x, kcnyekchno 2.0x→1.0x | 2026-04-19 |
+| T-M07 | Wallet-Aufnahme Tier B: Erasmus 0.5x (Iran/ME) + TheSpiritofUkraine 0.3x (Geopolitics) (b97d9ef) | 2026-04-19 |
+| T-M04-Ph0 | T-M04 Phase 0 Diagnose: Sell-Code existiert (636-746), EXIT_DRY_RUN Blocker, Claim-Bug, Position-Restore fehlt, Archive-Drift | 2026-04-19 |
+| T-M08-Ph0 | T-M08 Phase 0 Diagnose: 14/25 Positionen beendet aber OPEN, Lifecycle dokumentiert (f20e29e) | 2026-04-19 |
+| T-M04b-R | T-M04b Research: RelayClient-Empfehlung, NegRisk-Bifurkation, Implementation-Plan ~2h (82385dc) | 2026-04-19 |
+| T-D83-P1.6 | T-D83 Phase 1.6: Discovery-Scan + Kategorie-Bug-Fix (63fc7ba, 8d9b08a) | 2026-04-19 |
 | T-D104 | Audit v1.0: 3 Wallets entfernt (RN1, Gambler1968, sovereign2013) via HF-8 (7c29ac9) | 2026-04-19 |
 | T-D103 | ✨ feat(analytics): Per-Wallet-Performance-Report mit Kategorie- und Zeitfenster-Aufschlüsselung (8689c4e) | 2026-04-19 |
 | T-D102 | 🔧 chore: Nacht-Autopilot 18.04: Auto-Claim, Dynamic-Subscribe, Stale-Recovery, WS-Fix, Morning-Report Berlin-Zeit, 13 Bug-Fixes (b1c413a) | 2026-04-18 |

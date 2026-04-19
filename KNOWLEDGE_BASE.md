@@ -1139,6 +1139,40 @@ Methode: Polymarket-Profil + data-api Ground-Truth + 0xinsider wo verfügbar.
 
 ---
 
+## P074 — T-M04 Phase 0 Diagnose: Bot-Feature-Asymmetrie (19.04.2026)
+
+**Status:** DIAGNOSTIZIERT — Implementation-Plan für T-M04a/b/d
+
+**Kontext:** Server-CC führte vollständige Code-Analyse des Sell-/Claim-Features durch.
+Erwartung: komplette Lücken. Realität: "50% implementiert, 50% broken seit Beginn".
+
+**Befunde:**
+
+1. **Sell-Code existiert** (execution_engine.py:636-746) — nicht Greenfield-Build nötig.
+   `EXIT_DRY_RUN=true` ist hard-coded Blocker → eine Zeile fix → Sell live.
+
+2. **Claim-Code (claim_all.py) broken seit Tag 1** — `client.redeem(condition_id)` gibt
+   `AttributeError`. 0 erfolgreiche automatische Claims seit Inbetriebnahme.
+   Wuning ($50.13) wurde manuell geclaimed. Fix: RelayClient (P076, ~2h).
+
+3. **Position-Restore fehlt** — `engine.open_positions` leer nach Restart/Tagesübergang.
+   State-Manager löscht open_positions bei Datumswechsel. Fix: Reconciliation gegen
+   Polymarket on-chain Positionen bei Startup.
+
+4. **Archive-Drift: 84.9% ohne tx_hash** — Trades werden archiviert bevor tx_hash
+   confirmed. Retroaktiver Fill fehlt. 18 Einträge heute manuell via data-api nachgetragen.
+
+5. **Heartbeat-Alarm war False Positive** — 300s Write-Interval vs 180s Warning-Schwelle.
+   Fix: Schwelle auf 360s angehoben (P075-adjacent).
+
+**Lesson:** Vor Feature-Build immer Diagnose der Bestandssysteme.
+"50% implementiert" hat andere Implikationen als "Greenfield":
+- Man repariert Bestehendes statt neu zu bauen
+- Risiko: bestehender Code hat implizite Annahmen die man nicht kennt
+- Vorteil: viel weniger Aufwand als erwartet (EXIT_DRY_RUN = eine Zeile)
+
+---
+
 ## P075 — Position-State-Bug: 14 von 25 Portfolio-Positionen sind faktisch beendet (19.04.2026)
 
 **Status:** DIAGNOSTIZIERT — Implementation geplant für T-M08 nächste Session

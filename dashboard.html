@@ -905,6 +905,46 @@ function formatDuration(s){
 }
 
 // ── Positions ──────────────────────────────────────────────────────────────────
+function renderResolvedTab(){
+  const rbody = document.getElementById('tbl-resolved-body');
+  if(!rbody) return;
+  const inactivePos = (S.portfolioData && S.portfolioData.inactive_positions) || [];
+  const inactiveRows = inactivePos.map(p => {
+    const isWon = p.position_state === 'RESOLVED_WON';
+    const pnl = p.pnl_usdc || 0;
+    const pnlClass = pnl > 0 ? 'style="color:var(--neon)"' : pnl < 0 ? 'style="color:var(--red)"' : '';
+    const rowBg = isWon ? 'background:rgba(0,255,136,.03)' : 'background:rgba(255,51,102,.03)';
+    const tag = isWon ? '<span class="tag tag-win">GEWINN</span>' : '<span class="tag tag-loss">VERLUST</span>';
+    return `<tr class="trow" style="${rowBg}">
+      <td style="color:var(--muted);font-size:10px">—</td>
+      <td style="max-width:160px;overflow:hidden;text-overflow:ellipsis">${esc((p.market||'').substring(0,35))}…</td>
+      <td>${esc(p.outcome||'')}</td>
+      <td>${tag}</td>
+      <td ${pnlClass}>${pnl >= 0 ? '+' : ''}$${pnl.toFixed(2)}</td>
+      <td ${pnlClass}>${(p.pnl_pct||0) >= 0 ? '+' : ''}${p.pnl_pct||0}%</td>
+      <td style="color:var(--muted)">${esc(p.wallet||'—')}</td>
+    </tr>`;
+  });
+  const archiveRows = ((S.posData && S.posData.resolved) || []).map(t => {
+    const isWin = t.result === 'GEWINN';
+    const rowBg = isWin ? 'background:rgba(0,255,136,.03)' : (t.result === 'VERLUST' ? 'background:rgba(255,51,102,.03)' : '');
+    const pnlClass = (t.pnl||0) > 0 ? 'style="color:var(--neon)"' : (t.pnl||0) < 0 ? 'style="color:var(--red)"' : '';
+    return `<tr class="trow" style="${rowBg}">
+      <td style="color:var(--muted);font-size:10px">${esc(t.time||'')}</td>
+      <td style="max-width:160px;overflow:hidden;text-overflow:ellipsis">${esc((t.market||'').substring(0,35))}…</td>
+      <td>${esc(t.outcome||'')}</td>
+      <td><span class="tag ${isWin?'tag-win':'tag-loss'}">${esc(t.result||'')}</span></td>
+      <td ${pnlClass}>${(t.pnl||0) >= 0 ? '+' : ''}$${(t.pnl||0).toFixed(2)}</td>
+      <td ${pnlClass}>${(t.roi||0) >= 0 ? '+' : ''}${t.roi||0}%</td>
+      <td style="color:var(--muted)">${esc(t.wallet||'—')}</td>
+    </tr>`;
+  });
+  const allRows = [...inactiveRows, ...archiveRows];
+  rbody.innerHTML = allRows.length > 0
+    ? allRows.join('')
+    : '<tr><td colspan="7" class="empty-msg">Keine aufgelösten Trades</td></tr>';
+}
+
 async function fetchPortfolio(){
   try{
     const r = await fetch('/api/portfolio');
@@ -915,6 +955,7 @@ async function fetchPortfolio(){
     if(el) el.textContent = '(' + d.count + ')';
     if(!d.positions || d.positions.length === 0){
       if(obody) obody.innerHTML = '<tr><td colspan="11" class="empty-msg">Keine Positionen auf Polymarket</td></tr>';
+      renderResolvedTab();
       return;
     }
     if(obody) obody.innerHTML = d.positions.map(p => {
@@ -949,8 +990,7 @@ async function fetchPortfolio(){
         <td>${walletCell}</td>
       </tr>`;
     }).join('');
-    // Re-render RESOLVED tab with now-available inactive_positions (race-condition fix)
-    if(S.posData && S.posData.resolved !== undefined) renderPositions(S.posData);
+    renderResolvedTab();
   } catch(e){ console.error('portfolio', e); }
 }
 async function claimAll(){
@@ -964,13 +1004,13 @@ async function fetchPositions(){
     const d = await r.json();
     S.posData = d;
     renderPositions(d);
-  }catch(e){}
+  }catch(e){ console.error('positions', e); }
 }
 
 function renderPositions(d){
   // Tab counts
   // tab-count-open updated by fetchPortfolio
-  document.getElementById('tab-count-pending').textContent = '('+d.counts.pending+')';
+  document.getElementById('tab-count-pending').textContent = '('+(d.counts ? d.counts.pending : 0)+')';
 
   // Open tab rendered by fetchPortfolio()
 
@@ -992,46 +1032,11 @@ function renderPositions(d){
     }).join('');
   }
 
-  // Resolved tab — archive trades + inactive portfolio positions
-  const rbody = document.getElementById('tbl-resolved-body');
-  const inactivePos = (S.portfolioData && S.portfolioData.inactive_positions) || [];
-  const inactiveRows = inactivePos.map(p => {
-    const isWon = p.position_state === 'RESOLVED_WON';
-    const pnl = p.pnl_usdc || 0;
-    const pnlClass = pnl > 0 ? 'style="color:var(--neon)"' : pnl < 0 ? 'style="color:var(--red)"' : '';
-    const rowBg = isWon ? 'background:rgba(0,255,136,.03)' : 'background:rgba(255,51,102,.03)';
-    const tag = isWon ? '<span class="tag tag-win">GEWINN</span>' : '<span class="tag tag-loss">VERLUST</span>';
-    return `<tr class="trow" style="${rowBg}">
-      <td style="color:var(--muted);font-size:10px">—</td>
-      <td style="max-width:160px;overflow:hidden;text-overflow:ellipsis">${esc((p.market||'').substring(0,35))}…</td>
-      <td>${esc(p.outcome)}</td>
-      <td>${tag}</td>
-      <td ${pnlClass}>${pnl >= 0 ? '+' : ''}$${pnl.toFixed(2)}</td>
-      <td ${pnlClass}>${p.pnl_pct >= 0 ? '+' : ''}${p.pnl_pct}%</td>
-      <td style="color:var(--muted)">${esc(p.wallet||'—')}</td>
-    </tr>`;
-  });
-  const archiveRows = (d.resolved || []).map(t => {
-    const isWin = t.result === 'GEWINN';
-    const rowBg = isWin ? 'background:rgba(0,255,136,.03)' : (t.result === 'VERLUST' ? 'background:rgba(255,51,102,.03)' : '');
-    const pnlClass = t.pnl > 0 ? 'style="color:var(--neon)"' : t.pnl < 0 ? 'style="color:var(--red)"' : '';
-    return `<tr class="trow" style="${rowBg}">
-      <td style="color:var(--muted);font-size:10px">${esc(t.time)}</td>
-      <td style="max-width:160px;overflow:hidden;text-overflow:ellipsis">${esc((t.market||'').substring(0,35))}…</td>
-      <td>${esc(t.outcome)}</td>
-      <td><span class="tag ${isWin?'tag-win':'tag-loss'}">${esc(t.result)}</span></td>
-      <td ${pnlClass}>${t.pnl >= 0 ? '+' : ''}$${t.pnl.toFixed(2)}</td>
-      <td ${pnlClass}>${t.roi >= 0 ? '+' : ''}${t.roi}%</td>
-      <td style="color:var(--muted)">${esc(t.wallet)}</td>
-    </tr>`;
-  });
-  const allRows = [...inactiveRows, ...archiveRows];
-  rbody.innerHTML = allRows.length > 0
-    ? allRows.join('')
-    : '<tr><td colspan="7" class="empty-msg">Keine aufgelösten Trades</td></tr>';
+  // Resolved tab
+  renderResolvedTab();
 
   // Notifications for PnL
-  d.resolved.slice(0,3).forEach(t => {
+  (d.resolved || []).slice(0,3).forEach(t => {
     if(Math.abs(t.pnl) >= 20){
       const isWin = t.pnl > 0;
       notifyUser(

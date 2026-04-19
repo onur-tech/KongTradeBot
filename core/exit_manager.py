@@ -58,6 +58,7 @@ class ExitState:
     last_evaluated: float = field(default_factory=time.time)
     price_above_since: float = 0.0   # unix ts, 0 = nicht aktiv
     price_trigger_done: bool = False
+    whale_exit_done: bool = False    # verhindert Re-Trigger in 60-min Whale-Sell-Fenster
 
     def to_dict(self) -> dict:
         return asdict(self)
@@ -445,12 +446,18 @@ class ExitManager:
             pnl_pct = (current_price - state.entry_price) / max(0.001, state.entry_price)
 
             # 1. Whale-Follow-Exit (höchste Priorität unter den klassischen Exits)
-            if await self._check_whale_exit(pos):
+            # whale_exit_done verhindert Re-Trigger für dieselbe Sell im 60-min Fenster
+            if not state.whale_exit_done and await self._check_whale_exit(pos):
+                state.whale_exit_done = True
+                state_dirty = True
                 event = await self._execute_exit(pos, state, 1.0, "whale_exit", current_price)
                 if event:
                     events.append(event)
                     self._remove_state(pos.market_id, pos.outcome)
-                continue
+                    if state_dirty:
+                        self._save_state()
+                    continue
+                # Blocked (z.B. Daily-Cap): Flag gespeichert, TP/Trail weiter prüfen
 
             # 2. TP-Staffel
             tp_result = self._check_tp(pos, state, pnl_pct, multi_count)

@@ -530,8 +530,9 @@ class ExecutionEngine:
 
     async def check_clob_allowance_health(self) -> dict:
         """
-        Prüft die CLOB-Allowance (genehmigter USDC-Betrag für den Polymarket CLOB-Contract).
-        Unterschied zur Balance: Balance = Wallet-Guthaben, Allowance = freigegebenes Trading-Limit.
+        Prüft den CLOB-Deposit-Balance (der für Orders verfügbare USDC-Betrag).
+        Das relevante Feld ist 'balance' (in micro-USDC) — die API-Fehlermeldung
+        'not enough balance / allowance: balance: X' bezieht sich genau auf diesen Wert.
         Gibt Health-Dict zurück: allowance_usdc, is_healthy, warning_needed, critical.
         """
         if not self._client or BalanceAllowanceParams is None:
@@ -543,10 +544,11 @@ class ExecutionEngine:
         try:
             params = BalanceAllowanceParams(asset_type=AssetType.COLLATERAL)
             result = self._client.get_balance_allowance(params=params)
-            allowance_raw = int(result.get("allowance", 0) or 0)
-            allowance_usdc = allowance_raw / 1_000_000
+            # 'balance' = CLOB-Deposit in micro-USDC (6 Dezimalstellen)
+            balance_raw = int(result.get("balance", 0) or 0)
+            allowance_usdc = balance_raw / 1_000_000
             max_trade = float(self.config.max_trade_size_usd)
-            logger.info(f"💳 CLOB-Allowance: ${allowance_usdc:.2f} USDC (max_trade=${max_trade:.2f})")
+            logger.info(f"💳 CLOB-Balance: ${allowance_usdc:.2f} USDC (max_trade=${max_trade:.2f})")
             return {
                 "allowance_usdc": allowance_usdc,
                 "is_healthy": allowance_usdc >= max_trade,

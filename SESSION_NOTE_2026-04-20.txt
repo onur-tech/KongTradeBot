@@ -1,0 +1,8 @@
+2026-04-20 Session-Ende:
+- DrPufferfish + Countryside aktiv (0.3x)
+- April#1 Sports entfernt (-$9.8M Lifetime)
+- bcda REJECT (-89% ROI)
+- T-M03 Whale-Exit-Copy deployed
+- Stop-Loss deployed
+- Dashboard fixes deployed
+- Commit: 938869d

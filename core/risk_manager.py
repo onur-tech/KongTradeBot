@@ -55,6 +55,13 @@ class RiskManager:
         # Markt-Budget-Tracking: investierter Betrag pro market_id heute
         self._market_investments: Dict[str, float] = {}
 
+        # Gesamtportfolio-Tracking für Budget-Cap-Check in evaluate()
+        self._total_invested_usd: float = 0.0
+
+    def update_total_invested(self, amount: float):
+        """Synchronisiert den aktuell investierten Gesamtbetrag — wird von main.py gesetzt."""
+        self._total_invested_usd = float(amount or 0)
+
     @property
     def net_pnl_today(self) -> float:
         return self._daily_profit_usd - self._daily_loss_usd
@@ -66,6 +73,14 @@ class RiskManager:
         Gibt RiskDecision zurück mit allowed=True/False und Begründung.
         """
         self._reset_if_new_day()
+
+        # 0. Budget-Cap: Gesamtportfolio-Exposure prüfen
+        max_total = self.config.max_total_invested_usd
+        if self._total_invested_usd >= max_total:
+            return RiskDecision(
+                allowed=False,
+                reason=f"Budget-Cap überschritten: ${self._total_invested_usd:.2f} >= ${max_total:.2f}",
+            )
 
         # 1. Kill-Switch
         if self._kill_switch_active:

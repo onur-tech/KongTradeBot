@@ -1017,6 +1017,23 @@ def api_summary():
             hb_age = round(time.time() - hb_file.stat().st_mtime, 1)
     except Exception:
         pass
+    # Budget-Utilization aus bot_state.json berechnen
+    total_invested_open = 0.0
+    max_invested_usd = 0.0
+    budget_utilization_pct = 0.0
+    try:
+        state = load_json(STATE_FILE) or {}
+        open_positions = state.get("open_positions", [])
+        total_invested_open = sum(float(p.get("size_usdc", 0) or 0) for p in open_positions)
+        portfolio_budget = float(env.get("PORTFOLIO_BUDGET_USD", "1000") or "1000")
+        max_portfolio_pct = float(env.get("MAX_PORTFOLIO_PCT", "0.2") or "0.2")
+        max_invested_usd = portfolio_budget * max_portfolio_pct
+        budget_utilization_pct = round(
+            total_invested_open / max(0.01, max_invested_usd) * 100, 1
+        )
+    except Exception:
+        pass
+
     data = {
         "bot_running": running,
         "bot_pid": pid,
@@ -1025,6 +1042,9 @@ def api_summary():
         "max_trade_size_usd": env.get("MAX_TRADE_SIZE_USD"),
         "copy_size_multiplier": env.get("COPY_SIZE_MULTIPLIER"),
         "max_daily_loss_usd": env.get("MAX_DAILY_LOSS_USD"),
+        "total_invested_usd": round(total_invested_open, 2),
+        "max_invested_usd": round(max_invested_usd, 2),
+        "budget_utilization_pct": budget_utilization_pct,
         **{k: stats[k] for k in ("total_trades", "open", "closed", "wins", "losses",
                                   "win_rate", "pnl", "invested", "today_trades", "today_pnl")},
     }

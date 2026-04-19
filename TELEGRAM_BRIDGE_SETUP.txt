@@ -1,0 +1,88 @@
+=== TELEGRAM BRIDGE SETUP (T-TELEGRAM) ===
+
+Einmalige Einrichtung (~5 Minuten):
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SCHRITT 1: Telegram API Credentials holen
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  1. Browser öffnen: https://my.telegram.org
+  2. Mit deiner Telegram-Nummer (+49...) einloggen
+  3. "API development tools" klicken
+  4. App erstellen:
+       App title: KongTradeBot
+       Short name: kongtrade
+       Platform: Other
+  5. API_ID (Zahl, z.B. 12345678) und
+     API_HASH (32-stellig, z.B. abc123...) kopieren
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SCHRITT 2: Credentials in .env eintragen
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  Auf dem Server editieren:
+    nano /root/KongTradeBot/.env
+
+  Zeilen ausfüllen:
+    TELEGRAM_API_ID=12345678
+    TELEGRAM_API_HASH=deinapihashabc123def456
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SCHRITT 3: Session erstellen (einmalig, interaktiv)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  Auf dem Server ausführen:
+    cd /root/KongTradeBot
+    python3 -c "
+import asyncio, os
+os.environ['TELEGRAM_API_ID'] = '12345678'        # deine ID
+os.environ['TELEGRAM_API_HASH'] = 'dein_hash'     # dein Hash
+from telethon import TelegramClient
+async def main():
+    c = TelegramClient('/root/KongTradeBot/telegram_bridge_session',
+                       int(os.environ['TELEGRAM_API_ID']),
+                       os.environ['TELEGRAM_API_HASH'])
+    await c.start()
+    print('Session erstellt!')
+    await c.disconnect()
+asyncio.run(main())
+"
+  → Gibt deine Telefonnummer ein (mit Ländervorwahl: +49...)
+  → Telegram-Code eingeben (kommt als Telegram-Nachricht)
+  → Fertig! Session gespeichert in telegram_bridge_session.session
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SCHRITT 4: Bridge aktivieren
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  In .env setzen:
+    TELEGRAM_BRIDGE_ENABLED=true
+
+  Bot neu starten:
+    sudo systemctl restart kongtrade-bot
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Was dann passiert:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  Glint Alert kommt → Bridge liest in < 1s:
+
+  Impact=CRITICAL + Relevanz≥8 + Preis<40¢:
+    → Anomalie-Detektor-Signal ausgelöst
+    → Telegram-Alert an Onur: "AUTO-TRADE (Glint Bridge)"
+
+  Impact=HIGH oder Relevanz 6-7:
+    → Nur Telegram-Alert, kein Auto-Trade
+
+  Alles andere:
+    → Ignoriert (kein Noise)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Troubleshooting:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  Logs prüfen:
+    grep "TGBridge" /root/KongTradeBot/logs/service-bot.log
+
+  Session neu erstellen (wenn abgelaufen):
+    rm /root/KongTradeBot/telegram_bridge_session.session
+    → Schritt 3 wiederholen
+
+  Glint Bot Username ändern:
+    GLINT_SOURCE=@AndererBotUsername  (in .env)

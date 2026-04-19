@@ -269,11 +269,16 @@ async def sync_positions_from_polymarket(engine, config):
         return 0
 
 
-async def balance_updater(config, interval=300):
+async def balance_updater(config, engine=None, interval=300):
     while True:
         try:
             await asyncio.sleep(interval)
             await update_budget_from_chain(config)
+            # portfolio_budget_usd = CLOB-Cash + investierter Betrag in Positionen
+            # (CLOB allein unterschätzt das Portfolio wenn Cash in Positionen gebunden ist)
+            if engine is not None:
+                _invested = sum(float(p.size_usdc or 0) for p in engine.open_positions.values())
+                config.portfolio_budget_usd += _invested
         except asyncio.CancelledError:
             break
         except Exception as e:
@@ -548,6 +553,8 @@ async def main():
         float(pos.size_usdc or 0) for pos in engine.open_positions.values()
     )
     risk.update_total_invested(_startup_invested)
+    # portfolio_budget_usd = CLOB-Cash + Positionen → korrekte Gesamtgröße
+    config.portfolio_budget_usd += _startup_invested
 
     # CLOB-Allowance Startup-Check
     if not config.dry_run:
@@ -1023,7 +1030,7 @@ async def main():
         tasks = [
             asyncio.create_task(monitor.start()),
             asyncio.create_task(status_reporter(strategy, risk, engine, config, args.status_interval)),
-            asyncio.create_task(balance_updater(config, interval=300)),
+            asyncio.create_task(balance_updater(config, engine=engine, interval=300)),
             asyncio.create_task(morning_report_sender()),
             asyncio.create_task(resolver_loop()),
             asyncio.create_task(scout_loop(config)),

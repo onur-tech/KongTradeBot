@@ -65,3 +65,5 @@ STATUS.md
 
 # === Zufälliger Kram ===
 Liu
+.env.*
+bot_state.json

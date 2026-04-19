@@ -823,3 +823,34 @@ dann EXIT_DRY_RUN=false setzen.
 - Race: Whale-Exit + TP1 gleichzeitig → Whale-Exit gewinnt (continue-Statement)
 - `market_volumes` kommt aktuell als {} → immer thin-trail (konservativ, gut)
 - `get_recent_sells` auf WalletMonitor fehlt noch → Whale-Exit immer skip bis implementiert
+
+---
+
+## P052 — Grok API als Twitter-Alternative (19.04.2026)
+
+Status: VERSTANDEN — Paradigma-Wechsel für Sentiment-Strategie
+
+Kontext: Gestern Abend Sentiment-Bot-Plan basierte auf Twitter API
+Basic ($100/Monat, ohne Streaming unbrauchbar) oder TweetStream.io
+($139-349/Monat als Mittelweg).
+
+Update: Grok 4.1 Fast bietet native X/Twitter-Integration via
+API-Tool:
+- $0.20 / $0.50 pro 1M Tokens (Input/Output)
+- 2M Token Context Window (ganze Tweet-Streams verarbeitbar)
+- Echtzeit-X-Search nativ
+- Kein separater Twitter-API-Account nötig
+
+Kostenrechnung für typischen Einsatz:
+- 100 Market-Queries/Tag × 5k Tokens avg = 500k Tokens/Tag
+- Monatlich: 15M Tokens = ~$3-15/Monat (statt $139-5000)
+
+Implikation:
+- T-I07 Sentiment-Bot Phase 0.5 wird umgeplant: Grok statt RSS als
+  primäre Quelle
+- Twitter-API-Pro aus der Planung gestrichen
+- Neue Task T-S01/T-S05: Grok-Integration als universelles Modul
+
+Architektur-Update: Grok-Modul wird so gebaut, dass es von ALLEN
+zukünftigen Bots genutzt werden kann (Polymarket, Crypto, Stocks,
+Futures). Kein Bot-spezifisches Twitter-Tracking mehr.

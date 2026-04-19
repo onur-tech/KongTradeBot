@@ -107,6 +107,35 @@ _Stand: 2026-04-18 07:30 Berlin_
 | T-I04 | Multi-Bot Support (mehrere Proxy-Wallets) | Sehr hoch |
 | T-I05 | Grafana/Prometheus fuer Metriken | Mittel |
 
+## 🚀 STRATEGISCHE ROADMAP-TASKS
+
+### Infrastruktur für Multi-Asset
+
+| ID | Task | Aufwand |
+|----|------|---------|
+| T-S01 | Grok API Integration als universelles signal_source Modul | Mittel |
+| T-S02 | Config-Management zentralisieren (configs/*.yml pro Bot) | Klein |
+| T-S03 | Dashboard erweitern um "Bot-Selector" (Polymarket/Manifold/...) | Mittel |
+| T-S04 | Mini-PC als Manifold-Shadow-Node aufsetzen | Mittel |
+| T-S05 | utils/grok_monitor.py mit X-Search + RSS + Reddit-Clients | Mittel-Groß |
+
+### Neue Bot-Kandidaten (Reihenfolge nach Priorität)
+
+| ID | Task | Aufwand |
+|----|------|---------|
+| T-S10 | KongFunding — Crypto Futures Funding-Rate Arbitrage | Groß |
+| T-S11 | KongCrypto — Solana-Whale-Copy-Trading | Groß |
+| T-S12 | KongSentiment — News-triggered Trading via Grok | Sehr Groß |
+| T-S13 | KongStock-Insider — SEC EDGAR Monitor (13F, Form 4) | Mittel |
+| T-S14 | KongSignals as a Service — B2B Signal-Verkauf | Sehr Groß |
+
+### Meta-Plattform
+
+| ID | Task | Aufwand |
+|----|------|---------|
+| T-S20 | KongHub Multi-Bot-Dashboard mit zentraler Kapital-Allokation | Groß |
+| T-S21 | Gemeinsame Telegram-Integration für alle Bots | Klein |
+
 ## T-027 — Template-Repo vorbereiten [DONE]
 - /root/template-ready/ vollständig: README, SETUP, ARCHITEKTUR, CONTRIBUTING, .env.example, LICENSE
 - Privacy-Audit bestanden, alle sensitiven Daten entfernt

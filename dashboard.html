@@ -870,7 +870,7 @@ async function fetchHealth(){
     else {
       hbEl.textContent=d.heartbeat_age_s+'s ago ⚠️';
       hbEl.className='hr-value hr-err';
-      if(d.heartbeat_age_s > 180) showToast('💔 Heartbeat ausgefallen ('+d.heartbeat_age_s+'s)!','error');
+      if(d.heartbeat_age_s > 360) showToast('💔 Heartbeat ausgefallen ('+d.heartbeat_age_s+'s)!','error');
     }
     // Last trade
     const ltEl = document.getElementById('h-lasttrade');

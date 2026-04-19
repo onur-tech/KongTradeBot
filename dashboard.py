@@ -792,7 +792,7 @@ def api_health():
         "uptime_s":       uptime_s,
         "dry_run":        env.get("DRY_RUN", "true").lower() == "true",
         "heartbeat_age_s": hb_age,
-        "heartbeat_ok":   (hb_age is not None and hb_age < 180),
+        "heartbeat_ok":   (hb_age is not None and hb_age < 360),
         "last_error":     last_error,
         "last_trade_at":  last_trade_at,
         "cpu_pct":        cpu_pct,

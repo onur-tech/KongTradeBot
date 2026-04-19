@@ -548,6 +548,28 @@ async def main():
     stale = await recover_stale_positions(engine, config)
     synced = await sync_positions_from_polymarket(engine, config)
 
+    # Budget-Cap: Risk Manager mit wiederhergestellten Positionen synchronisieren
+    _startup_invested = sum(
+        float(pos.size_usdc or 0) for pos in engine.open_positions.values()
+    )
+    risk.update_total_invested(_startup_invested)
+
+    # CLOB-Allowance Startup-Check
+    if not config.dry_run:
+        _health = await engine.check_clob_allowance_health()
+        _allowance = _health.get("allowance_usdc", 0.0)
+        if _health.get("critical"):
+            await send(
+                f"🚨 <b>CLOB-Allowance KRITISCH: ${_allowance:.2f} USDC</b>\n"
+                f"⚠️ Min. Trade: ${config.max_trade_size_usd:.2f} — Trades werden fehlschlagen!\n"
+                f"💡 Polymarket USDC-Allowance muss aufgefüllt werden."
+            )
+        elif _health.get("warning_needed"):
+            await send(
+                f"⚠️ <b>CLOB-Allowance niedrig: ${_allowance:.2f} USDC</b>\n"
+                f"Bitte Allowance aufstocken (Max Trade: ${config.max_trade_size_usd:.2f})."
+            )
+
     await send_startup(len(config.target_wallets), config.portfolio_budget_usd, config.dry_run)
     if restored > 0 or stale > 0:
         msg_parts = []
@@ -557,13 +579,33 @@ async def main():
             msg_parts.append(f"{stale} stale Orders aus REST-API")
         await send(f"♻️ <b>Wiederhergestellt:</b> {', '.join(msg_parts)}")
 
+    _cap_alert_last = [None]  # throttle: max 1 Telegram-Alert pro Stunde
+
     async def on_copy_order(order: CopyOrder):
         positions = engine.get_open_positions_summary()
         total_invested = sum(
             float(str(p.get("invested", "0")).replace("$", "").replace(" USDC", "") or 0)
             for p in positions
         )
+        risk.update_total_invested(total_invested)
+
         if total_invested >= config.max_total_invested_usd:
+            sig = getattr(order, "signal", None)
+            market = str(getattr(sig, "market_question", "") or "")[:50]
+            logger.warning(
+                f"🚫 Budget-Cap überschritten: ${total_invested:.2f} >= "
+                f"${config.max_total_invested_usd:.2f} — Trade abgelehnt ({market})"
+            )
+            now = datetime.now()
+            if _cap_alert_last[0] is None or (now - _cap_alert_last[0]).total_seconds() >= 3600:
+                _cap_alert_last[0] = now
+                await send(
+                    f"⚠️ <b>Budget-Cap überschritten</b>\n"
+                    f"💰 Investiert: <b>${total_invested:.2f}</b> / ${config.max_total_invested_usd:.2f} "
+                    f"({total_invested / max(0.01, config.max_total_invested_usd) * 100:.0f}%)\n"
+                    f"📊 {len(positions)} offene Positionen\n"
+                    f"⏸️ Neue Trades pausiert bis Positionen schließen."
+                )
             return
 
         # ── Telegram Inline-Button Bestätigung (30s Fenster) ─────────────────
@@ -891,6 +933,43 @@ async def main():
                     logger.warning(f"Heartbeat write failed: {e}")
                 await asyncio.sleep(interval)
 
+        async def clob_allowance_monitor():
+            """Prüft alle 15 Min die CLOB-Allowance. Alert nur bei State-Wechsel."""
+            _state = "healthy"  # "healthy" | "warning" | "critical"
+            while True:
+                try:
+                    await asyncio.sleep(900)
+                    if config.dry_run:
+                        continue
+                    health = await engine.check_clob_allowance_health()
+                    if "error" in health:
+                        continue
+                    allowance = health.get("allowance_usdc", 0.0)
+                    if health.get("critical"):
+                        new_state = "critical"
+                    elif health.get("warning_needed"):
+                        new_state = "warning"
+                    else:
+                        new_state = "healthy"
+                    if new_state != _state:
+                        if new_state == "critical":
+                            await send(
+                                f"🚨 <b>CLOB-Allowance KRITISCH: ${allowance:.2f} USDC</b>\n"
+                                f"Alle Trades blockiert — Polymarket Allowance aufstocken!"
+                            )
+                        elif new_state == "warning":
+                            await send(
+                                f"⚠️ <b>CLOB-Allowance niedrig: ${allowance:.2f} USDC</b>\n"
+                                f"Bitte bald aufstocken (Max Trade: ${config.max_trade_size_usd:.2f})."
+                            )
+                        elif new_state == "healthy":
+                            logger.info(f"✅ CLOB-Allowance wieder OK: ${allowance:.2f}")
+                        _state = new_state
+                except asyncio.CancelledError:
+                    break
+                except Exception as e:
+                    logger.error(f"clob_allowance_monitor Fehler: {e} — weiter")
+
         # FillTracker: WebSocket-basiertes Fill-Tracking (verhindert Phantom-Positionen)
         fill_tracker = FillTracker(config)
         fill_tracker.register_callbacks(
@@ -909,6 +988,7 @@ async def main():
             asyncio.create_task(scout_loop(config)),
             asyncio.create_task(latency_report_loop()),
             asyncio.create_task(heartbeat_loop()),
+            asyncio.create_task(clob_allowance_monitor()),
             asyncio.create_task(fill_tracker.run()),
             asyncio.create_task(claim_loop(config, interval_s=int(os.getenv("AUTO_CLAIM_INTERVAL_S", "300")))),  # Auto-Claim alle 5min (env: AUTO_CLAIM_INTERVAL_S)
             asyncio.create_task(exit_loop()),

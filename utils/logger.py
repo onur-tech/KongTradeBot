@@ -10,7 +10,7 @@ Lektion aus der Community:
 
 import logging
 import sys
-from datetime import datetime
+from logging.handlers import TimedRotatingFileHandler
 from pathlib import Path
 
 
@@ -33,11 +33,17 @@ def setup_logger(name: str = "polymarket_bot", level: str = "INFO") -> logging.L
     console_handler.setFormatter(formatter)
     logger.addHandler(console_handler)
 
-    # File Output — Log-Datei pro Tag
+    # File Output — tägliche Rotation, 14 Tage Retention
     log_dir = Path("logs")
     log_dir.mkdir(exist_ok=True)
-    today = datetime.now().strftime("%Y-%m-%d")
-    file_handler = logging.FileHandler(log_dir / f"bot_{today}.log", encoding="utf-8")
+    file_handler = TimedRotatingFileHandler(
+        log_dir / "bot.log",
+        when="midnight",
+        interval=1,
+        backupCount=14,
+        encoding="utf-8",
+    )
+    file_handler.suffix = "%Y-%m-%d"
     file_handler.setFormatter(formatter)
     logger.addHandler(file_handler)
 

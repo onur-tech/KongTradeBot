@@ -1277,3 +1277,43 @@ einer unabhängigen Quelle (0xinsider, predicts.guru, cointrenches.com).
 
 **Lesson:** Interne Alias-Namen wie "April#1 Sports" sind Merkzettel, kein Qualitäts-Urteil.
 Multiplier-Entscheidungen müssen auf externen Daten basieren, nicht auf internen Labels.
+
+---
+
+## P078 — Archive-Drift: 69% der Trades sind Ghost-Einträge (19.04.2026)
+
+**Status:** DIAGNOSTIZIERT — Fix via T-M06 Reconciliation-System
+
+**Befund (T-M06 Phase 0, live verifiziert):**
+
+```
+Archive:  110 Trades, $1,662.98 USDC (modus=LIVE, alle)
+On-Chain:  40 Trades, $  522.12 USDC (data-api.polymarket.com)
+Drift:     70 Trades, $1,140.86 USDC — 69% des Archive ist Phantom-Volumen
+```
+
+**Root-Cause:** Das Archive wird VOR der Ausführungsbestätigung beschrieben.
+Geblockte/fehlgeschlagene Orders (Risk-Manager, API-Error, Budget-Cap) hinterlassen
+Archive-Einträge ohne tx_hash. Sie löschen sich nie selbst.
+
+```
+tx_hash=''       → 90 Trades ($1,350) — Order nie on-chain ausgeführt
+tx_hash=pending_ → 20 Trades ($312)  — Order ausgeführt, Bestätigung fehlte
+tx_hash=0x...   →  0 Trades ($0)    — kein einziger bestätigt
+```
+
+**Konsequenzen:**
+- PnL-Berechnung im Archive überschätzt Einsatz um Faktor 3x ($1,662 vs $522 real)
+- Steuer-Export 2026 aktuell unmöglich (Daten zu lückenhaft)
+- Manuelle UI-Interventionen (Wuning-Claim +$50.13) landen NICHT im Archive
+- AutoClaim läuft seit Inbetriebnahme: 0 Redeemable gefunden, 0 Claims ausgeführt
+
+**Fix-Plan:**
+1. Signal-Logging nur NACH Ausführungsbestätigung (verhindert neue Ghosts)
+2. `reconcile_onchain.py` — diff Archive vs. on-chain, Ghost-Trades markieren
+3. `tax_export.py` — CSV mit EZB-EUR-Kursen für § 22 Nr.3 EStG
+
+**Steuer-Einordnung Deutschland (konservativ):** § 22 Nr.3 EStG, Freigrenze 256 EUR netto/Jahr,
+voller Einkommensteuersatz. Realisierungszeitpunkt = Claim-Datum, nicht Kauf-Datum.
+
+**Abhängigkeit:** T-M04b (Claim-Fix) muss vor T-M06 fertig sein.

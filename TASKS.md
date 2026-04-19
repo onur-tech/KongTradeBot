@@ -1,5 +1,5 @@
 # KongTrade Bot — Task Tracking
-_Stand: 2026-04-18 22:30 Berlin_
+_Stand: 2026-04-19 12:00 Berlin_
 
 **Regeln:**
 - Status: ARBEIT | QUEUE | DONE | BLOCKED | IDEE
@@ -96,6 +96,44 @@ _Stand: 2026-04-18 22:30 Berlin_
 | T-D50 | Telegram-Bugfixes Wave 3: Status-2nd-Call-Site + Multi-Signal-Dedup + Safe-Callbacks (26a36c1) | 2026-04-18 |
 | T-D51 | Claude Code auf Server als claudeuser (non-root, passwordless SSH, sudo ACLs) | 2026-04-18 |
 | T-D52 | Exit-Strategie: TP-Staffel 40/40/15/5 + Trailing-Stop + Whale-Follow-Exit, DRY-RUN (35c3f43, 5e53632, 2f71c35) | 2026-04-18 |
+| T-D53 | A1: AssetType-Enum Fix (ca37af1) | 2026-04-19 |
+| T-D54 | A1: CLOB-Allowance-Health-Check + Telegram-Alerts (72fe533) | 2026-04-19 |
+| T-D55 | A1: Budget-Cap Enforcement + Dashboard-Metrik (4b78a23, d9cbc2a) | 2026-04-19 |
+| T-D56 | A2: US-Sport + Tennis + Soccer Pattern-Matching + Backfill (e9f3cb5) | 2026-04-19 |
+| T-D57 | A3: error_handler.py — Keine Silent-Fails + Rate-Limited Alerts (38741ae) | 2026-04-19 |
+| T-D58 | B1: Kill-Switch persistent mit Auto-Reset + Telegram-Commands (91e4d60) | 2026-04-19 |
+| T-D59 | B2: Watchdog Race-Condition-Fix + Lock-PID + Rate-Limit (2fffe16) | 2026-04-19 |
+| T-D60 | C1: Slippage-Tracking + Weekly Report (Hash: TBD nach Fertigstellung) | 2026-04-19 |
+
+---
+
+## STRATEGISCHE ROADMAP (T-S)
+
+| ID | Titel | Prio | Ziel |
+|----|-------|------|------|
+| T-S01 | Grok API Integration (Sentiment-Filter, $0.20/1M Tokens) | WICHTIG | Q2 2026 |
+| T-S02 | Manifold Shadow-Run (Strategie-Validierung vor Polymarket-Deployment) | WICHTIG | Q2 2026 |
+| T-S03 | Per-Wallet + Kategorie-PnL Performance-Report | WICHTIG | Q2 2026 |
+| T-S04 | Exit-Strategy Live (nach Dry-Run-Analyse 24h) | KRITISCH | Q2 2026 |
+| T-S05 | Mini-PC Setup (Manifold Shadow + Lokale Redundanz) | NICE | Q3 2026 |
+| T-S06 | Tunay/Alex/Dietmar Onboarding (sobald GitHub-Sperre gelöst) | WICHTIG | Q2 2026 |
+
+---
+
+## COLLECTIVE TASKS (T-C) — Peer-Modell
+
+| ID | Titel | Prio | Notiz |
+|----|-------|------|-------|
+| T-C01 | COLLECTIVE_VISION.md anlegen (Peer-Modell, Zusammenarbeitsregeln) | WICHTIG | Inhalt aus Session 19.04. |
+| T-C02 | STRATEGIC_VISION.md anlegen (Langfrist-Roadmap, Ziele) | WICHTIG | Inhalt aus Session 19.04. |
+| T-C03 | SKILL.md anlegen (Pflichtlektüre: Dalio, Taleb, Marks) | WICHTIG | Punkte 1-12 dokumentieren |
+| T-C04 | P052 (Grok API) in KNOWLEDGE_BASE.md | NICE | Kosten + Use-Case |
+| T-C05 | P053 (Skill-System-Audit) in KNOWLEDGE_BASE.md | NICE | Reflektion Session 19.04. |
+| T-C06 | P054 (Peer-Modell) in KNOWLEDGE_BASE.md | NICE | Entscheidungsprinzipien |
+| T-C07 | STATUS.md Generator: budget_utilization_pct + kill_switch_status + error_count_24h | NICE | scripts/generate_status.py |
+| T-C08 | Watchdog-Timer manuell wieder aktivieren | KRITISCH | Wurde deaktiviert wegen Race-Condition |
+| T-C09 | Performace-Report-Modul (Per-Wallet + Kategorie-PnL nach Session-Ende) | WICHTIG | — |
+| T-C10 | Exit-Strategie Dry-Run-Analyse nach 24h (nächste Session) | KRITISCH | Audit dd7b1df |
 
 ---
 

@@ -766,3 +766,66 @@ Strategie-Änderungen erst Manifold-Test → dann Polymarket-Deployment.
 
 **Einschränkung:** Andere User-Basis (kleinere Märkte, weniger Whales). Execution-Logik
 ähnlich genug für Validierung der Strategy-Layer.
+
+---
+
+## P055 — 138-Restart-Loop Analyse (19.04.2026)
+
+**Status:** ✅ FIXED via B2 (Commit 2fffe16)
+
+**Symptom:** Am 18.04.2026 138 Watchdog-Restarts in 9 Stunden.
+
+**Root Cause — 2-Schichten:**
+
+**Schicht 1 (06:50–16:18 UTC 18.04.):**
+- Alte Bot-Session hielt `bot.lock`
+- Session blockiert wegen CLOB-Allowance erschöpft ($4.63)
+- Watchdog/systemd sahen "failed" und restarteten blind
+- Jeder neue Prozess erkannte Lock und beendete sich sofort
+- Fail-Loop: Lock da → Exit → Watchdog restart → Lock da → Exit
+
+**Schicht 2 (seit 16:18 UTC 18.04.):**
+- Neue stabile Session läuft
+- ABER: `sync_positions_from_polymarket()` lädt $342.46 beim Start
+- `MAX_PORTFOLIO_PCT=50%` × $629 = $314.53
+- Alle Orders silent blockiert im `_safe_call`-Wrapper
+- 1065 CopyOrders erstellt, 0 ausgeführt
+
+**Fixes:**
+- A1: Budget-Cap blockiert jetzt sichtbar (nicht mehr silent)
+- A3: `error_handler.py` ersetzt `_safe_call`
+- B2: Watchdog prüft PID + Heartbeat statt blind zu restarten
+- Manuell: `MAX_PORTFOLIO_PCT` auf 60% erhöht
+
+**Lessons:**
+1. Silent-Fails verstecken kritische Bugs — IMMER sichtbar loggen
+2. Watchdog braucht echte Gesundheitsprüfung, nicht nur systemctl-Status
+3. Budget-Cap + Lock-File + Watchdog-Trio muss als System gedacht werden
+
+---
+
+## P056 — Kategorie-Erkennung Bug (19.04.2026)
+
+**Status:** ✅ FIXED via A2 (Commit e9f3cb5)
+
+**Symptom:** 79 von 90 Trades im Archiv als "Sonstiges" kategorisiert, obwohl sie
+US-Sport (NBA, MLB, NHL) waren.
+
+**Root Cause:** Pattern-Matching nutzte `"vs "` (mit Leerzeichen). Polymarket-Format
+ist aber `"vs."` (mit Punkt). Kein Match möglich.
+
+**Fix:**
+- 5 Kategorien: `sport_us`, `soccer`, `tennis`, `geopolitik`, `sonstiges`
+- Pattern erweitert um US-Sport-Liga-Namen + O/U + Spread
+- Backfill: 79 Trades neu kategorisiert
+- 44 Unit-Tests
+
+**Neue Verteilung nach Backfill:**
+- sport_us: 53 (war 0)
+- geopolitik: 14 (war 11)
+- soccer: 15 (war 0)
+- tennis: 8 (war 0)
+- sonstiges: 0 (war 71)
+
+**Lesson:** Pattern-Matching immer mit echten Daten validieren, nicht mit
+konstruierten Beispielen.

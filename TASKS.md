@@ -37,6 +37,44 @@ _Stand: 2026-04-19 12:00 Berlin_
 ---
 
 ## DONE
+| T-D102 | 🔧 chore: Nacht-Autopilot 18.04: Auto-Claim, Dynamic-Subscribe, Stale-Recovery, WS-Fix, Morning-Report Berlin-Zeit, 13 Bug-Fixes (b1c413a) | 2026-04-18 |
+| T-D101 | 🔧 chore: TASKS.md: Nacht-Autopilot Status-Update (T-D15 bis T-D24) (89b5578) | 2026-04-18 |
+| T-D100 | 🔹 ops: Konsolidierung Server-State — scripts/, fill_tracker, balance-fix, doku (857d82b) | 2026-04-18 |
+| T-D99 | ✨ feat(T-022+T-010): Auto-Claim 5min + robust redeemable-Check + token_id-Guards (5c8cfb5) | 2026-04-18 |
+| T-D98 | 📝 docs: T-006 geprueft, keine Duplikate (15 unique Eintraege) (45d60da) | 2026-04-18 |
+| T-D97 | ✨ feat(strategy): MIN_TRADE_SIZE + MIN_WHALE_SIZE filter reduce micro-trade noise (f81980e) | 2026-04-18 |
+| T-D96 | ✨ feat(dashboard): Layout-Redesign (vertikaler Platz) + Countdown-Spalte fuer offene Positionen (7608025) | 2026-04-18 |
+| T-D95 | ✨ feat(tax+claim): tx_hash in archive + claim-error telegram alerts (19c0e63) | 2026-04-18 |
+| T-D94 | ✨ feat(tax+ops): weekly-export + tunnel-broadcast + blockpit-timestamp (ff1c7d0) | 2026-04-18 |
+| T-D93 | 🐛 fix(ops+dashboard): no-popup push + font+20% + countdown-fallbacks (32f623f) | 2026-04-18 |
+| T-D92 | 🐛 fix(tax): frankfurter API URL migration for EUR rates (db69557) | 2026-04-18 |
+| T-D91 | 🐛 fix(dashboard): countdown really works for all open positions (bde8d71) | 2026-04-18 |
+| T-D90 | ✨ feat(scout): SQLite historization + trend detection + weekly report (b55ecf0) | 2026-04-18 |
+| T-D89 | ✨ feat(telegram): inline menu + mute + daily digest + reduced spam (aeec617) | 2026-04-18 |
+| T-D88 | 🐛 fix(telegram): API callbacks + persistent keyboard + startup rate-limit (5ec01d8) | 2026-04-18 |
+| T-D87 | 🐛 fix(telegram): correct API field names for all callbacks (49a47b8) | 2026-04-18 |
+| T-D86 | 🐛 fix(telegram): invest-field, today-snapshot, status-callback (fadb283) | 2026-04-18 |
+| T-D85 | 🐛 fix(dashboard): snapshot not created when total=0 (positions not yet loaded) (86742fb) | 2026-04-18 |
+| T-D84 | 🐛 fix(telegram): status-orders-fix, multi-signal-dedup, safe-callbacks (26a36c1) | 2026-04-18 |
+| T-D83 | ✨ feat(exit): exit_manager module core (1/3) - logic + state + config (35c3f43) | 2026-04-18 |
+| T-D82 | ✨ feat(exit): execution integration + telegram alerts + archive (2/3) (5e53632) | 2026-04-18 |
+| T-D81 | ✨ feat(exit): tests + docs + deployment (3/3) (2f71c35) | 2026-04-18 |
+| T-D80 | 🐛 fix(exit): wallet_monitor.get_recent_sells() implementiert für Whale-Follow-Exit (dd7b1df) | 2026-04-18 |
+| T-D79 | 📝 docs: add Claude Code server setup section to SETUP.md (a2ad286) | 2026-04-18 |
+| T-D78 | 🐛 fix(execution): AssetType enum statt String für CLOB allowance check (ca37af1) | 2026-04-19 |
+| T-D77 | ✨ feat(monitoring): CLOB-Allowance-Health-Check + Telegram-Alerts (72fe533) | 2026-04-19 |
+| T-D76 | 🐛 fix(risk): Budget-Cap blockiert neue Trades + Dashboard-Metrik (4b78a23) | 2026-04-19 |
+| T-D75 | 🐛 fix(monitoring): CLOB-Balance-Check liest 'balance' statt 'allowance' (d9cbc2a) | 2026-04-19 |
+| T-D74 | 🐛 fix(category): US-Sport + Tennis + Soccer Pattern-Matching + Backfill (e9f3cb5) | 2026-04-19 |
+| T-D73 | 📝 docs: Strategic Vision + Roadmap-Tasks + Grok-Insight (P052) (d119412) | 2026-04-19 |
+| T-D72 | 🐛 fix(errors): error_handler.py - Keine Silent-Fails mehr + Rate-Limited Telegram-Alerts + Dashboard-Endpoint (38741ae) | 2026-04-19 |
+| T-D71 | ✨ feat(safety): Kill-Switch persistent mit Auto-Reset + Telegram-Commands (91e4d60) | 2026-04-19 |
+| T-D70 | 📝 docs: COLLECTIVE_VISION.md + Peer-Modell + T-C01-10 + P054 + Skill.md Update (647237d) | 2026-04-19 |
+| T-D69 | 🐛 fix(watchdog): Race-Condition-Fix - Lock-PID + Heartbeat Check + Rate-Limit (2fffe16) | 2026-04-19 |
+| T-D68 | ✨ feat(analytics): Slippage-Tracking pro Trade + Wöchentlicher Report + Dashboard-API (35314c8) | 2026-04-19 |
+| T-D67 | 🐛 fix(risk): portfolio_budget_usd includes position values to prevent false Budget-Cap (451c09f) | 2026-04-19 |
+| T-D66 | 🐛 fix(dashboard): CLAIM-Button deaktiviert bei verlorenen Positionen ($0.00) (cdd0fb5) | 2026-04-19 |
+| T-D65 | ✨ feat(automation): Auto-Doc-Pipeline mit 3-Ebenen-Struktur (85e6e33) | 2026-04-19 |
 | T-D64 | ✨ feat(automation): Auto-Doc-Pipeline mit 3-Ebenen-Struktur (85e6e33) | 2026-04-19 |
 | T-D63 | 🐛 fix(dashboard): CLAIM-Button deaktiviert bei verlorenen Positionen ($0.00) (cdd0fb5) | 2026-04-19 |
 | T-D62 | 🐛 fix(dashboard): CLAIM-Button deaktiviert bei verlorenen Positionen ($0.00) (cdd0fb5) | 2026-04-19 |

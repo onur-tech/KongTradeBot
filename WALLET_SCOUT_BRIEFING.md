@@ -229,6 +229,21 @@ Alle 9 Filter müssen für Tier A erfüllt sein. Für Tier B 7 von 9.
 - **Quelle:** polymarket-insider-detector
 - **Begründung:** Pre-Resolution-Trading ist Insider-Typ-A. Wir können das nie replizieren.
 
+### HF-10: Kein HFT-Bot-Pattern
+
+Mindestens eines der folgenden Kriterien erfüllt → FAIL:
+- >100 Trades pro Tag konsistent
+- >50% der Trades in `*-updown-5m-*` Markets
+- Trade-Frequenz-Varianz <20% (zu regelmäßig für Menschen)
+- Negative kumulative cashPnL nach 500+ Trades (Market-Maker-Pattern)
+
+**Begründung:** HFT-Bots sind profitabel durch Volume + Spread-Capture, nicht durch
+Directional Edge. Copy-Trading einer HFT-Strategie bringt Retail-Traders nichts —
+wir können nicht mit ihren Latenzen und Volumina konkurrieren.
+
+**Quelle:** T-D83 Phase 1 empirischer Befund (Apr 2026, 1069 Wallets gescannt,
+13 PASS — alle HFT-Bots mit negativem PnL).
+
 ---
 
 ## Teil 5: Soft Scoring (KongScore 0–100)
@@ -431,6 +446,8 @@ Grund: Externe Review durch Alex's Claude deckte drei Schwächen auf:
 - Smart-Loading in SKILL.md Punkt 13 (Relevanz-Matrix statt alle 4 immer)
 - Smart-Bootstrap in GUIDELINES.md (3 Pflicht-Docs + kontextabhängig)
 - Anti-Zeremonie-Regel als SKILL.md Punkt 15
+- HF-10 hinzugefügt nach T-D83 Phase-1-Erkenntnis: Discovery fand nur HFT-Bots
+  weil Filter v1.1 diese nicht explizit ausschloss.
 
 Danke an Alex's Claude für die ehrliche Kritik.
 

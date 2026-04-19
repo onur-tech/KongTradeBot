@@ -1249,3 +1249,31 @@ Direkter CTF-Contract-Call geht nicht — Safe muss `execTransaction` aufrufen (
 **Lesson:** Vor Implementation geld-kritischer Features: Research erst, Code später.
 `py-clob-client` kann traden aber nicht redeem — das ist eine bewusste Design-Lücke
 (Issue #139 seit Jul 2025 offen, 50+ Upvotes). Relayer-Client ist der offizielle Weg.
+
+---
+
+## P077 — Multiplier ≥ 1.5x braucht externen WR-Nachweis (19.04.2026)
+
+**Status:** REGEL ETABLIERT — gilt ab sofort für alle Multiplier-Assignments
+
+**Trigger:** HOOK (2.0x) und April#1 Sports (2.0x) hatten interne Aliases ohne externe
+WR-Verifikation. April#1 Sports: polymonit Rank #1 April 2026 (+$6.3M) klang wie starkes
+Signal — externe Verifikation ergab WR 46.7% (HF-8 FAIL) und Lifetime PnL -$9.8M.
+
+**Regel:** Jedes Multiplier ≥ 1.5x erfordert externen WR-Nachweis ≥ 55% aus mindestens
+einer unabhängigen Quelle (0xinsider, predicts.guru, cointrenches.com).
+
+**Ergebnis der Verifikation:**
+
+| Wallet | Alt | Neu | Extern-WR | Grund |
+|--------|-----|-----|-----------|-------|
+| April#1 Sports | 2.0x | 0.3x WATCHING | 46.7% | HF-8 FAIL, HFT-Bot, Lifetime -$9.8M |
+| HOOK | 2.0x | 1.0x | 38.5–67% diskrepant | Sample 46 Trades, WR unklar |
+
+**Muster (dritter Fall):** polymonit-Ranking täuscht systematisch.
+- 0xde17: +$727K polymonit → $0 Realportfolio
+- Fernandoinfante: polymonit-sichtbar → WR 23.3% (HF-7+HF-8 FAIL)
+- April#1 Sports: polymonit Rank #1 → WR 46.7%, Lifetime -$9.8M
+
+**Lesson:** Interne Alias-Namen wie "April#1 Sports" sind Merkzettel, kein Qualitäts-Urteil.
+Multiplier-Entscheidungen müssen auf externen Daten basieren, nicht auf internen Labels.

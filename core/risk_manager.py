@@ -18,11 +18,13 @@ from typing import Optional, Dict
 
 from utils.logger import get_logger
 from utils.config import Config
+from utils.kill_switch import KillSwitch
 from core.wallet_monitor import TradeSignal
 
 logger = get_logger("risk_manager")
 
 MAX_MARKET_BUDGET_PCT = 0.03  # Max 3% des Portfolios pro einzelnem Markt
+MAX_CONSECUTIVE_LOSSES = 5    # 5 aufeinanderfolgende Verluste → Kill-Switch
 
 
 @dataclass
@@ -37,20 +39,19 @@ class RiskManager:
     """
     Prüft jeden potenziellen Trade gegen Risiko-Regeln.
 
-    Wenn der Kill-Switch ausgelöst wird, werden KEINE weiteren Trades
-    ausgeführt bis der Bot neu gestartet wird.
+    Kill-Switch ist persistent — überlebt Bot-Restarts.
     """
 
     def __init__(self, config: Config):
         self.config = config
-        self._kill_switch_active = False
-        self._kill_switch_reason = ""
+        self.kill_switch = KillSwitch()
 
         # Tages-Tracking
         self._today = date.today()
         self._daily_loss_usd = 0.0
         self._daily_profit_usd = 0.0
         self._trades_today = 0
+        self._consecutive_losses = 0
 
         # Markt-Budget-Tracking: investierter Betrag pro market_id heute
         self._market_investments: Dict[str, float] = {}
@@ -82,16 +83,19 @@ class RiskManager:
                 reason=f"Budget-Cap überschritten: ${self._total_invested_usd:.2f} >= ${max_total:.2f}",
             )
 
-        # 1. Kill-Switch
-        if self._kill_switch_active:
+        # 1. Kill-Switch (persistent)
+        if self.kill_switch.is_active():
             return RiskDecision(
                 allowed=False,
-                reason=f"Kill-Switch aktiv: {self._kill_switch_reason}"
+                reason=f"Kill-Switch aktiv: {self.kill_switch.reason}"
             )
 
         # 2. Tages-Verlustlimit
         if self._daily_loss_usd >= self.config.max_daily_loss_usd:
-            self._activate_kill_switch(f"Tages-Verlustlimit erreicht: ${self._daily_loss_usd:.2f}")
+            self._activate_kill_switch(
+                f"Tages-Verlustlimit erreicht: ${self._daily_loss_usd:.2f}",
+                triggered_by="daily_loss",
+            )
             return RiskDecision(
                 allowed=False,
                 reason=f"Tages-Verlustlimit ${self.config.max_daily_loss_usd} erreicht"
@@ -203,15 +207,28 @@ class RiskManager:
 
         if pnl_usd >= 0:
             self._daily_profit_usd += pnl_usd
+            self._consecutive_losses = 0
             logger.info(f"Trade Gewinn: +${pnl_usd:.2f} | Heute gesamt: {self.net_pnl_today:+.2f}")
         else:
             self._daily_loss_usd += abs(pnl_usd)
-            logger.info(f"Trade Verlust: ${pnl_usd:.2f} | Heute Verlust: ${self._daily_loss_usd:.2f}")
+            self._consecutive_losses += 1
+            logger.info(
+                f"Trade Verlust: ${pnl_usd:.2f} | Heute Verlust: ${self._daily_loss_usd:.2f} "
+                f"| Consecutive: {self._consecutive_losses}"
+            )
 
-            # Prüfen ob Kill-Switch ausgelöst werden soll
+            # Tages-Verlustlimit
             if self._daily_loss_usd >= self.config.max_daily_loss_usd:
                 self._activate_kill_switch(
-                    f"Tages-Verlustlimit ${self.config.max_daily_loss_usd} überschritten"
+                    f"Tages-Verlustlimit ${self.config.max_daily_loss_usd} überschritten",
+                    triggered_by="daily_loss",
+                )
+
+            # 5 aufeinanderfolgende Verluste
+            elif self._consecutive_losses >= MAX_CONSECUTIVE_LOSSES:
+                self._activate_kill_switch(
+                    f"{self._consecutive_losses} aufeinanderfolgende Verluste",
+                    triggered_by="consecutive_losses",
                 )
 
     def _calculate_size(self, whale_size_usdc: float) -> float:
@@ -225,12 +242,14 @@ class RiskManager:
         # Auf Limits clippen
         return min(raw_size, self.config.max_trade_size_usd)
 
-    def _activate_kill_switch(self, reason: str):
-        """Aktiviert den Kill-Switch — stoppt alle weiteren Trades."""
-        self._kill_switch_active = True
-        self._kill_switch_reason = reason
-        logger.warning(f"🛑 KILL-SWITCH AKTIVIERT: {reason}")
-        logger.warning("Bot führt keine weiteren Trades aus. Neustart erforderlich.")
+    def _activate_kill_switch(self, reason: str, triggered_by: str = "system"):
+        """Aktiviert den Kill-Switch persistent — stoppt alle weiteren Trades."""
+        if not self.kill_switch.is_active():
+            self.kill_switch.trigger(
+                reason=reason,
+                triggered_by=triggered_by,
+                daily_pnl=self.net_pnl_today,
+            )
 
     def _reset_if_new_day(self):
         """Setzt Tages-Zähler zurück wenn neuer Tag begonnen hat."""
@@ -244,19 +263,23 @@ class RiskManager:
             self._daily_loss_usd = 0.0
             self._daily_profit_usd = 0.0
             self._trades_today = 0
+            self._consecutive_losses = 0
             # Markt-Investments zurücksetzen
             self._market_investments.clear()
             # Kill-Switch täglich automatisch zurücksetzen
-            if self._kill_switch_active:
+            if self.kill_switch.is_active():
                 logger.info("Kill-Switch durch Tageswechsel zurückgesetzt")
-                self._kill_switch_active = False
-                self._kill_switch_reason = ""
+                self.kill_switch.reset("day_change")
 
     def status(self) -> dict:
         """Gibt aktuellen Risiko-Status zurück."""
+        ks = self.kill_switch.get_state()
         return {
-            "kill_switch": self._kill_switch_active,
-            "kill_switch_reason": self._kill_switch_reason,
+            "kill_switch": ks["active"],
+            "kill_switch_reason": ks.get("reason") or "",
+            "kill_switch_triggered_by": ks.get("triggered_by"),
+            "kill_switch_auto_reset_in_hours": ks.get("auto_reset_in_hours"),
+            "consecutive_losses": self._consecutive_losses,
             "daily_loss_usd": self._daily_loss_usd,
             "daily_profit_usd": self._daily_profit_usd,
             "net_pnl_today": self.net_pnl_today,

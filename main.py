@@ -565,6 +565,19 @@ async def main():
             )
 
     set_telegram_sender(send)  # error_handler: Telegram-Alerts aktivieren
+
+    # Kill-Switch: Startup-Check — warnen falls noch aktiv nach Restart
+    if risk.kill_switch.is_active():
+        ks = risk.kill_switch.get_state()
+        reset_info = f"Auto-Reset in {ks['auto_reset_in_hours']:.1f}h" if ks.get("auto_reset_in_hours") else "Manueller Reset: /killswitch_reset"
+        await send(
+            f"🛑 <b>Kill-Switch noch aktiv nach Restart!</b>\n"
+            f"📍 Grund: <code>{ks.get('reason', '?')}</code>\n"
+            f"⏱️ {reset_info}\n"
+            f"⚠️ Keine neuen Trades bis Reset."
+        )
+        logger.warning(f"Kill-Switch bei Startup aktiv: {ks.get('reason')}")
+
     await send_startup(len(config.target_wallets), config.portfolio_budget_usd, config.dry_run)
     if restored > 0 or stale > 0:
         msg_parts = []
@@ -992,6 +1005,7 @@ async def main():
             asyncio.create_task(poll_commands(
                 callback_status=send_status_now,
                 callback_resolve=check_resolved_markets_and_notify,
+                kill_switch=risk.kill_switch,
             )),
         ]
         await asyncio.gather(*tasks, return_exceptions=True)

@@ -1057,7 +1057,7 @@ _DECISION_LABELS = {
 }
 
 
-async def poll_commands(callback_status, callback_resolve):
+async def poll_commands(callback_status, callback_resolve, kill_switch=None):
     if not TOKEN or not CHAT_IDS:
         return
 
@@ -1184,6 +1184,64 @@ async def poll_commands(callback_status, callback_resolve):
                             action = _BUTTON_ACTION_MAP[text.lower()]
                             await _safe_callback(action, _handle_menu_callback, action, callback_status)
 
+                        elif text in ["/killswitch_status", "/ks"]:
+                            if kill_switch is None:
+                                await send("⚠️ Kill-Switch nicht verfügbar.")
+                            else:
+                                ks = kill_switch.get_state()
+                                active = ks["active"]
+                                icon = "🛑" if active else "✅"
+                                lines = [
+                                    f"{icon} <b>KILL-SWITCH STATUS</b>",
+                                    "━━━━━━━━━━━━━━━━━━━━",
+                                    f"Status: <b>{'AKTIV' if active else 'INAKTIV'}</b>",
+                                ]
+                                if active:
+                                    lines += [
+                                        f"Grund: <code>{ks.get('reason', '?')}</code>",
+                                        f"Typ: <code>{ks.get('triggered_by', '?')}</code>",
+                                        f"Aktiviert: <code>{(ks.get('triggered_at') or '?')[:19]}</code>",
+                                    ]
+                                    if ks.get("auto_reset_in_hours") is not None:
+                                        lines.append(f"Auto-Reset in: <b>{ks['auto_reset_in_hours']:.1f}h</b>")
+                                    else:
+                                        lines.append("Auto-Reset: <b>Kein — manuell /killswitch_reset</b>")
+                                else:
+                                    lines.append("Trades laufen normal.")
+                                await send("\n".join(lines))
+
+                        elif text in ["/killswitch_reset", "/ks_reset"]:
+                            if OWNER_ID and str(msg.get("from", {}).get("id", "")) != OWNER_ID:
+                                await send("⚠️ Nur Onur darf den Kill-Switch zurücksetzen.")
+                            elif kill_switch is None:
+                                await send("⚠️ Kill-Switch nicht verfügbar.")
+                            elif not kill_switch.is_active():
+                                await send("ℹ️ Kill-Switch ist bereits inaktiv.")
+                            else:
+                                kill_switch.reset(reason="manual_telegram")
+                                await send(
+                                    "✅ <b>Kill-Switch manuell zurückgesetzt</b>\n"
+                                    "▶️ Trading wieder aktiv."
+                                )
+
+                        elif text in ["/killswitch_on", "/ks_on"]:
+                            if OWNER_ID and str(msg.get("from", {}).get("id", "")) != OWNER_ID:
+                                await send("⚠️ Nur Onur darf den Kill-Switch aktivieren.")
+                            elif kill_switch is None:
+                                await send("⚠️ Kill-Switch nicht verfügbar.")
+                            elif kill_switch.is_active():
+                                await send("ℹ️ Kill-Switch ist bereits aktiv.")
+                            else:
+                                kill_switch.trigger(
+                                    reason="Manuell via Telegram aktiviert",
+                                    triggered_by="manual",
+                                )
+                                await send(
+                                    "🛑 <b>Kill-Switch manuell aktiviert</b>\n"
+                                    "⏸️ Alle neuen Trades pausiert.\n"
+                                    "🔓 Reset: /killswitch_reset"
+                                )
+
                         elif text in ["/help", "/h"]:
                             await send("\n".join([
                                 "🤖 <b>KONG TRADING BOT — BEFEHLE</b>",
@@ -1197,6 +1255,10 @@ async def poll_commands(callback_status, callback_resolve):
                                 "/position &lt;order_id&gt;  →  Details zu einer Position",
                                 "/cancel &lt;order_id&gt;   →  PENDING-Order manuell stornieren",
                                 "/add 0x…  →  Neue Wallet zu TARGET_WALLETS hinzufügen",
+                                "/killswitch_status  →  Kill-Switch Zustand anzeigen",
+                                "/ks              →  Kurzform für /killswitch_status",
+                                "/killswitch_reset →  Kill-Switch manuell zurücksetzen",
+                                "/killswitch_on    →  Kill-Switch manuell aktivieren",
                                 "/help    →  Diese Übersicht",
                                 "━━━━━━━━━━━━━━━━━━━━",
                                 "Buttons: ✅ Normal  ⏭️ Skip  2️⃣ Double  ½ Half",

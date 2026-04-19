@@ -1078,6 +1078,34 @@ def api_decisions():
     return _cors(jsonify({"count": len(decisions), "decisions": decisions[-n:]}))
 
 
+@app.route("/api/killswitch")
+def api_killswitch():
+    ks_file = BASE_DIR / "data" / "kill_switch_state.json"
+    state = {}
+    try:
+        if ks_file.exists():
+            state = json.loads(ks_file.read_text(encoding="utf-8"))
+        else:
+            state = {
+                "active": False, "triggered_at": None, "triggered_by": None,
+                "reason": None, "auto_reset_at": None, "history": [],
+            }
+    except Exception as e:
+        return _cors(jsonify({"error": str(e)})), 500
+
+    # Restzeit berechnen
+    if state.get("active") and state.get("auto_reset_at"):
+        try:
+            from datetime import datetime
+            reset_dt = datetime.fromisoformat(state["auto_reset_at"])
+            remaining_s = (reset_dt - datetime.utcnow()).total_seconds()
+            state["auto_reset_in_hours"] = round(max(0, remaining_s) / 3600, 1)
+        except Exception:
+            state["auto_reset_in_hours"] = None
+
+    return _cors(jsonify(state))
+
+
 @app.route("/api/errors")
 def api_errors():
     severity_filter = request.args.get("severity", "").upper()

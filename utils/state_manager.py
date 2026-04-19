@@ -21,18 +21,24 @@ def save_state(engine, monitor, strategy) -> None:
     try:
         positions = []
         for order_id, pos in engine.open_positions.items():
+            closes_at_iso = None
+            if getattr(pos, 'market_closes_at', None):
+                try:
+                    closes_at_iso = pos.market_closes_at.isoformat()
+                except Exception:
+                    pass
             positions.append({
                 "order_id": order_id,
                 "market_id": getattr(pos, 'market_id', ''),
+                "token_id": getattr(pos, 'token_id', ''),
                 "market_question": pos.market_question,
                 "outcome": pos.outcome,
-                "side": pos.side,
                 "entry_price": pos.entry_price,
                 "size_usdc": pos.size_usdc,
                 "shares": pos.shares,
                 "source_wallet": pos.source_wallet,
-                "timestamp": pos.timestamp.isoformat() if hasattr(pos, 'timestamp') and pos.timestamp else datetime.now().isoformat(),
-                "time_to_close_hours": getattr(pos, 'time_to_close_hours', 0) or 0,
+                "opened_at": pos.opened_at.isoformat() if getattr(pos, 'opened_at', None) else datetime.now().isoformat(),
+                "market_closes_at": closes_at_iso,
             })
 
         state = {

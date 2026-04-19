@@ -231,7 +231,8 @@ async def sync_positions_from_polymarket(engine, config):
             if size < 0.001:
                 continue
             condition_id = str(p.get("conditionId") or p.get("market") or "")
-            token_id = str(p.get("asset_id") or p.get("tokenId") or "")
+            # 'asset' is the correct Data-API field for token_id (decimal ERC-1155 ID)
+            token_id = str(p.get("asset") or p.get("asset_id") or p.get("tokenId") or "")
             outcome = str(p.get("outcome") or p.get("title") or "")
             already = any(pos.market_id == condition_id for pos in engine.open_positions.values())
             if already:
@@ -239,6 +240,19 @@ async def sync_positions_from_polymarket(engine, config):
             avg_price = float(p.get("avgPrice") or p.get("averagePrice") or 0)
             size_usdc = float(p.get("initialValue") or p.get("cost") or round(avg_price * size, 4) or 0)
             synth_id = f"RECOVERED_{condition_id[:20]}_{outcome[:10]}".replace(" ", "_")
+            # Parse endDate for ExitManager time-to-close check
+            closes_at = None
+            end_date_str = p.get("endDate") or ""
+            if end_date_str:
+                try:
+                    from datetime import timezone as _tz
+                    closes_at = datetime.fromisoformat(
+                        end_date_str.replace("Z", "+00:00")
+                    ).replace(tzinfo=_tz.utc) if "+" not in end_date_str and "Z" not in end_date_str else datetime.fromisoformat(end_date_str.replace("Z", "+00:00"))
+                    if closes_at.tzinfo is None:
+                        closes_at = closes_at.replace(tzinfo=_tz.utc)
+                except Exception:
+                    pass
             try:
                 from core.execution_engine import OpenPosition
                 pos = OpenPosition(
@@ -250,7 +264,7 @@ async def sync_positions_from_polymarket(engine, config):
                     entry_price=avg_price,
                     size_usdc=size_usdc,
                     shares=size,
-                    market_closes_at=None,
+                    market_closes_at=closes_at,
                     source_wallet="[polymarket-sync]",
                     tx_hash_entry="",
                 )
@@ -897,21 +911,21 @@ async def main():
                 events = await exit_manager.evaluate_all(positions, live_prices)
                 if events:
                     for ev in events:
-                        log_trade({
-                            "type": "exit",
-                            "exit_type": ev.exit_type,
-                            "position_id": ev.position_id,
-                            "condition_id": ev.condition_id,
-                            "outcome": ev.outcome,
-                            "entry_price": ev.entry_price,
-                            "exit_price": ev.exit_price,
-                            "shares_sold": ev.shares_sold,
-                            "usdc_received": ev.usdc_received,
-                            "pnl_usdc": ev.pnl_usdc,
-                            "pnl_pct": ev.pnl_pct,
-                            "timestamp": ev.timestamp,
-                            "dry_run": config.exit_dry_run,
-                        })
+                        _pos = engine.open_positions.get(ev.position_id)
+                        log_trade(
+                            market_question=getattr(_pos, "market_question", ev.market or ev.condition_id)[:100],
+                            outcome=ev.outcome,
+                            side="SELL",
+                            price=ev.exit_price,
+                            size_usdc=ev.usdc_received,
+                            shares=ev.shares_sold,
+                            source_wallet=getattr(_pos, "source_wallet", ""),
+                            tx_hash=f"exit_{ev.exit_type}_{ev.position_id[:12]}",
+                            category="exit",
+                            is_dry_run=config.exit_dry_run,
+                            market_id=ev.condition_id,
+                            token_id=getattr(_pos, "token_id", ""),
+                        )
                         if not config.exit_dry_run:
                             # Live-Exit: verkaufe via execution_engine
                             pos = engine.open_positions.get(ev.position_id)

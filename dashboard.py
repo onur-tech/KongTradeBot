@@ -1146,6 +1146,56 @@ def api_errors():
     return _cors(jsonify({"count": len(entries), "errors": entries, "stats": stats}))
 
 
+@app.route("/api/slippage")
+def api_slippage():
+    """
+    GET /api/slippage
+    Query params:
+      view=daily|weekly|wallet|category|signal   (default: daily)
+      date=YYYY-MM-DD                            (only for view=daily)
+      n=50                                       (recent raw entries, view=raw)
+    """
+    view = request.args.get("view", "daily")
+    try:
+        sys.path.insert(0, str(BASE_DIR))
+        from utils.slippage_analyzer import (
+            compute_daily_stats, compute_weekly_stats,
+            compute_by_wallet, compute_by_market_category,
+            compute_by_signal_type, get_today_alert_status,
+        )
+        from utils.slippage_tracker import load_entries, ALERT_THRESHOLD_CENTS
+
+        if view == "daily":
+            date_filter = request.args.get("date")
+            data = compute_daily_stats(date_filter)
+            return _cors(jsonify({"view": "daily", "data": data, "threshold": ALERT_THRESHOLD_CENTS}))
+        elif view == "weekly":
+            data = compute_weekly_stats()
+            return _cors(jsonify({"view": "weekly", "data": data, "threshold": ALERT_THRESHOLD_CENTS}))
+        elif view == "wallet":
+            data = compute_by_wallet()
+            return _cors(jsonify({"view": "wallet", "data": data}))
+        elif view == "category":
+            data = compute_by_market_category()
+            return _cors(jsonify({"view": "category", "data": data}))
+        elif view == "signal":
+            data = compute_by_signal_type()
+            return _cors(jsonify({"view": "signal", "data": data}))
+        elif view == "raw":
+            n = min(int(request.args.get("n", 50)), 500)
+            date_filter = request.args.get("date")
+            entries = load_entries(date_filter)
+            return _cors(jsonify({"view": "raw", "count": len(entries), "entries": entries[-n:]}))
+        elif view == "alert":
+            return _cors(jsonify(get_today_alert_status()))
+        else:
+            return _cors(jsonify({"error": f"Unbekannte view: {view}"})), 400
+    except ImportError as e:
+        return _cors(jsonify({"error": f"slippage_analyzer nicht verfügbar: {e}"})), 500
+    except Exception as e:
+        return _cors(jsonify({"error": str(e)})), 500
+
+
 # ── Mutable Endpoints ─────────────────────────────────────────────────────────
 
 @app.route("/api/env", methods=["POST"])

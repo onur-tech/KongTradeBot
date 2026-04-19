@@ -24,6 +24,7 @@ from utils.tax_archive import log_trade, export_tax_csv, get_summary
 from utils.wallet_scout import scout_loop
 from utils.latency_monitor import record_fill, latency_report_loop
 from utils.error_handler import handle_error, set_telegram_sender, safe_call_transparent
+from utils.slippage_tracker import log_slippage
 from core.wallet_monitor import WalletMonitor
 from core.risk_manager import RiskManager
 from core.execution_engine import ExecutionEngine, OpenPosition
@@ -689,6 +690,36 @@ async def main():
             logger.info(f"Trade | {cat} | {market_id[:12] if market_id else 'n/a'}")
             risk.record_market_investment(market_id, float(getattr(order, "size_usdc", 0) or 0))
             record_fill(sig, result)
+
+            try:
+                _detected_at = getattr(sig, "detected_at", None)
+                _lag = (datetime.now(timezone.utc) - _detected_at).total_seconds() if _detected_at else 0.0
+                log_slippage(
+                    whale_price=float(getattr(sig, "price", 0) or 0),
+                    our_price=float(getattr(result, "filled_price", 0) or getattr(sig, "price", 0) or 0),
+                    market=str(getattr(sig, "market_question", "") or ""),
+                    market_id=market_id,
+                    outcome=str(getattr(sig, "outcome", "") or ""),
+                    whale_wallet=str(getattr(sig, "source_wallet", "") or ""),
+                    our_size_usdc=float(getattr(order, "size_usdc", 0) or 0),
+                    category=cat,
+                    is_multi_signal=bool(getattr(order, "is_multi_signal", False)),
+                    detection_lag_seconds=_lag,
+                    dry_run=config.dry_run,
+                )
+                # Tages-Alert wenn Ø-Slippage > 6¢
+                if not config.dry_run:
+                    from utils.slippage_analyzer import get_today_alert_status
+                    alert_info = get_today_alert_status()
+                    if alert_info.get("alert") and alert_info.get("count", 0) >= 5:
+                        await handle_error(
+                            Exception(f"Slippage Ø {alert_info['mean_cents']:.1f}¢ > 6¢ ({alert_info['count']} Trades heute)"),
+                            context="SLIPPAGE_HIGH",
+                            severity="WARNING",
+                            telegram_alert=True,
+                        )
+            except Exception:
+                pass
 
             time_to_close = getattr(sig, "time_to_close_hours", None)
             trade_size = float(getattr(order, "size_usdc", 0) or 0)

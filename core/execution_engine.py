@@ -40,12 +40,13 @@ logger = get_logger("execution")
 # py-clob-client Import — optional, damit Tests ohne Installation laufen
 try:
     from py_clob_client.client import ClobClient
-    from py_clob_client.clob_types import OrderArgs, OrderType, BalanceAllowanceParams
+    from py_clob_client.clob_types import OrderArgs, OrderType, BalanceAllowanceParams, AssetType
     from py_clob_client.order_builder.constants import BUY
     CLOB_AVAILABLE = True
 except ImportError:
     CLOB_AVAILABLE = False
     BalanceAllowanceParams = None
+    AssetType = None
     logger.warning("py-clob-client nicht installiert. Nur Dry-Run möglich.")
     logger.warning("Installation: pip install py-clob-client")
 
@@ -489,7 +490,7 @@ class ExecutionEngine:
             # Das überschreibt den internen CLOB-State!
             loop = asyncio.get_event_loop()
             if BalanceAllowanceParams is not None:
-                params = BalanceAllowanceParams(asset_type="CONDITIONAL", token_id=token_id)
+                params = BalanceAllowanceParams(asset_type=AssetType.CONDITIONAL, token_id=token_id)
                 balance = await asyncio.wait_for(
                     loop.run_in_executor(
                         None,
@@ -515,7 +516,7 @@ class ExecutionEngine:
             # BalanceAllowanceParams verwenden statt plain dict —
             # dict führt zu 'dict has no attribute signature_type' im py-clob-client
             if BalanceAllowanceParams is not None:
-                params = BalanceAllowanceParams(asset_type="COLLATERAL")
+                params = BalanceAllowanceParams(asset_type=AssetType.COLLATERAL)
                 balance = self._client.get_balance_allowance(params=params)
             else:
                 balance = self._client.get_balance_allowance()
@@ -526,6 +527,39 @@ class ExecutionEngine:
                 logger.warning(f"⚠️  Wenig USDC! Balance: ${usdc:.2f}")
         except Exception as e:
             logger.warning(f"Balance-Check fehlgeschlagen: {e}")
+
+    async def check_clob_allowance_health(self) -> dict:
+        """
+        Prüft die CLOB-Allowance (genehmigter USDC-Betrag für den Polymarket CLOB-Contract).
+        Unterschied zur Balance: Balance = Wallet-Guthaben, Allowance = freigegebenes Trading-Limit.
+        Gibt Health-Dict zurück: allowance_usdc, is_healthy, warning_needed, critical.
+        """
+        if not self._client or BalanceAllowanceParams is None:
+            return {
+                "allowance_usdc": 0.0, "is_healthy": False,
+                "warning_needed": True, "critical": True,
+                "error": "Client nicht initialisiert",
+            }
+        try:
+            params = BalanceAllowanceParams(asset_type=AssetType.COLLATERAL)
+            result = self._client.get_balance_allowance(params=params)
+            allowance_raw = int(result.get("allowance", 0) or 0)
+            allowance_usdc = allowance_raw / 1_000_000
+            max_trade = float(self.config.max_trade_size_usd)
+            logger.info(f"💳 CLOB-Allowance: ${allowance_usdc:.2f} USDC (max_trade=${max_trade:.2f})")
+            return {
+                "allowance_usdc": allowance_usdc,
+                "is_healthy": allowance_usdc >= max_trade,
+                "warning_needed": allowance_usdc < max_trade * 2,
+                "critical": allowance_usdc < max_trade,
+            }
+        except Exception as e:
+            logger.warning(f"CLOB-Allowance-Check fehlgeschlagen: {e}")
+            return {
+                "allowance_usdc": 0.0, "is_healthy": False,
+                "warning_needed": True, "critical": True,
+                "error": str(e),
+            }
 
     # --- FillTracker Callbacks ---
 

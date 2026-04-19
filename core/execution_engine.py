@@ -34,6 +34,7 @@ from datetime import datetime, timezone
 from utils.logger import get_logger
 from utils.config import Config
 from strategies.copy_trading import CopyOrder, get_wallet_name
+from core.position_state import PositionState
 
 logger = get_logger("execution")
 
@@ -77,6 +78,9 @@ class OpenPosition:
     # Tracking
     source_wallet: str = ""
     tx_hash_entry: str = ""
+
+    # T-M08: State-Machine
+    position_state: str = PositionState.OPEN
 
     @property
     def current_value_usdc(self) -> float:

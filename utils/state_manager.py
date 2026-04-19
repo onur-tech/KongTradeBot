@@ -39,6 +39,7 @@ def save_state(engine, monitor, strategy) -> None:
                 "source_wallet": pos.source_wallet,
                 "opened_at": pos.opened_at.isoformat() if getattr(pos, 'opened_at', None) else datetime.now().isoformat(),
                 "market_closes_at": closes_at_iso,
+                "position_state": getattr(pos, 'position_state', 'OPEN'),
             })
 
         state = {
@@ -84,10 +85,9 @@ def load_state(engine, monitor) -> bool:
         if saved_date == today:
             positions = state.get("open_positions", [])
             logger.info(f"State von heute geladen: {len(positions)} offene Positionen wiederhergestellt")
-            # Positionen werden informativ geloggt aber nicht aktiv wiederhergestellt
-            # (da wir keinen echten On-Chain Check haben)
             for pos in positions:
-                logger.info(f"  Wiederhergestellt: {pos['outcome']} @ ${pos['entry_price']} | {pos['market_question'][:50]}")
+                state_label = pos.get("position_state", "OPEN")
+                logger.info(f"  Wiederhergestellt: [{state_label}] {pos['outcome']} @ ${pos['entry_price']} | {pos['market_question'][:50]}")
         else:
             logger.info(f"State von {saved_date} — anderer Tag, starte mit frischen Positionen (TX-Hashes behalten)")
 

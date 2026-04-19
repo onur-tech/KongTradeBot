@@ -59,6 +59,16 @@ class Config:
     exit_price_trigger_stability_min: int = 10
     exit_daily_sell_cap_usd: float = 200.0
     exit_auto_sell_emergency_stop: bool = False
+    # Stop-Loss T-M04e
+    exit_sl_enabled: bool = True
+    exit_sl_time_price_hours: float = 24.0
+    exit_sl_time_price_cents: float = 0.15
+    exit_sl_drawdown_pct: float = 0.30
+    exit_sl_drawdown_min_entry: float = 0.40
+    exit_sl_cooldown_after_entry_min: int = 60
+    exit_sl_min_price_to_sell: float = 0.02
+    exit_sl_max_events_per_hour: int = 3
+    exit_sl_spread_max: float = 0.05
 
     # API
     clob_host: str = "https://clob.polymarket.com"
@@ -132,6 +142,15 @@ def load_config() -> Config:
         exit_price_trigger_stability_min=int(os.getenv("TAKE_PROFIT_STABILITY_MINUTES", "10")),
         exit_daily_sell_cap_usd=float(os.getenv("DAILY_SELL_CAP_USD", "200")),
         exit_auto_sell_emergency_stop=os.getenv("AUTO_SELL_EMERGENCY_STOP", "false").lower() == "true",
+        exit_sl_enabled=os.getenv("EXIT_SL_ENABLED", "true").lower() == "true",
+        exit_sl_time_price_hours=float(os.getenv("EXIT_SL_TIME_PRICE_HOURS", "24.0")),
+        exit_sl_time_price_cents=float(os.getenv("EXIT_SL_TIME_PRICE_CENTS", "0.15")),
+        exit_sl_drawdown_pct=float(os.getenv("EXIT_SL_DRAWDOWN_PCT", "0.30")),
+        exit_sl_drawdown_min_entry=float(os.getenv("EXIT_SL_DRAWDOWN_MIN_ENTRY", "0.40")),
+        exit_sl_cooldown_after_entry_min=int(os.getenv("EXIT_SL_COOLDOWN_MINUTES", "60")),
+        exit_sl_min_price_to_sell=float(os.getenv("EXIT_SL_MIN_PRICE", "0.02")),
+        exit_sl_max_events_per_hour=int(os.getenv("EXIT_SL_MAX_PER_HOUR", "3")),
+        exit_sl_spread_max=float(os.getenv("EXIT_SL_SPREAD_MAX", "0.05")),
         clob_host=os.getenv("CLOB_HOST", "https://clob.polymarket.com"),
         gamma_host=os.getenv("GAMMA_HOST", "https://gamma-api.polymarket.com"),
         chain_id=int(os.getenv("CHAIN_ID", "137")),

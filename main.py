@@ -910,6 +910,8 @@ async def main():
             "whale_exit": "🚨 WHALE-EXIT",
             "manual": "🖐 EXIT: Manuell",
             "price_trigger": f"📈 AUTO-SELL ≥{config.exit_price_trigger_cents:.0f}¢",
+            "sl_time_price": "⏱ Stop-Loss (Zeit+Preis)",
+            "sl_drawdown":   "📉 Stop-Loss (Drawdown)",
         }
         label = type_labels.get(event.exit_type, f"EXIT: {event.exit_type}")
         pnl_sign = "+" if event.pnl_usdc >= 0 else ""

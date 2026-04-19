@@ -59,6 +59,8 @@ class ExitState:
     price_above_since: float = 0.0   # unix ts, 0 = nicht aktiv
     price_trigger_done: bool = False
     whale_exit_done: bool = False    # verhindert Re-Trigger in 60-min Whale-Sell-Fenster
+    sl_done: bool = False            # T-M04e: Stop-Loss ausgelöst (verhindert Doppel)
+    entry_timestamp: float = field(default_factory=time.time)  # T-M04e: für Cooldown
 
     def to_dict(self) -> dict:
         return asdict(self)
@@ -97,6 +99,8 @@ class ExitManager:
         self._states: Dict[str, ExitState] = {}
         self._daily_sell_usdc: float = 0.0
         self._daily_sell_date: str = ""
+        self._sl_events_this_hour: int = 0
+        self._sl_hour_start: float = time.time()
         self._load_state()
 
     # ── State Persistence ─────────────────────────────────────────────────────
@@ -313,6 +317,69 @@ class ExitManager:
             return False
         return True
 
+    # ── Stop-Loss (T-M04e) ────────────────────────────────────────────────────
+
+    def _check_stop_loss(
+        self,
+        pos,
+        state: ExitState,
+        current_price: float,
+        hours_to_resolution: float,
+    ) -> Optional[str]:
+        """Gibt exit_type 'sl_time_price' | 'sl_drawdown' zurück oder None."""
+        if not self.cfg.exit_sl_enabled:
+            return None
+        if state.sl_done:
+            return None
+
+        if current_price < self.cfg.exit_sl_min_price_to_sell:
+            logger.debug(
+                f"[ExitMgr] SL-Skip {pos.outcome}: Preis {current_price:.3f} < "
+                f"Min {self.cfg.exit_sl_min_price_to_sell:.3f} (Order-Book dünn)"
+            )
+            return None
+
+        age_minutes = (time.time() - state.entry_timestamp) / 60
+        if age_minutes < self.cfg.exit_sl_cooldown_after_entry_min:
+            logger.debug(
+                f"[ExitMgr] SL-Cooldown {pos.outcome}: {age_minutes:.0f}min "
+                f"< {self.cfg.exit_sl_cooldown_after_entry_min}min"
+            )
+            return None
+
+        now = time.time()
+        if now - self._sl_hour_start > 3600:
+            self._sl_events_this_hour = 0
+            self._sl_hour_start = now
+        if self._sl_events_this_hour >= self.cfg.exit_sl_max_events_per_hour:
+            logger.warning(
+                f"[ExitMgr] ⛔ SL-Rate-Limit: "
+                f"{self._sl_events_this_hour}/{self.cfg.exit_sl_max_events_per_hour}/h"
+            )
+            return None
+
+        # Trigger B: Zeit + Preis
+        if (0 < hours_to_resolution <= self.cfg.exit_sl_time_price_hours
+                and current_price <= self.cfg.exit_sl_time_price_cents):
+            logger.info(
+                f"[ExitMgr] 🔴 SL-TRIGGER B: {pos.outcome} @ {current_price:.3f} "
+                f"(<= {self.cfg.exit_sl_time_price_cents}) "
+                f"mit {hours_to_resolution:.1f}h bis Close"
+            )
+            return "sl_time_price"
+
+        # Trigger C: Drawdown (nur für High-Entry >= 40c)
+        if (state.entry_price >= self.cfg.exit_sl_drawdown_min_entry
+                and current_price <= state.entry_price * self.cfg.exit_sl_drawdown_pct):
+            logger.info(
+                f"[ExitMgr] 🔴 SL-TRIGGER C: {pos.outcome} @ {current_price:.3f} "
+                f"<= {self.cfg.exit_sl_drawdown_pct*100:.0f}% von Entry {state.entry_price:.3f} "
+                f"({(1 - current_price/state.entry_price)*100:.0f}% Drawdown)"
+            )
+            return "sl_drawdown"
+
+        return None
+
     # ── Exit ausführen ────────────────────────────────────────────────────────
 
     async def _execute_exit(
@@ -487,7 +554,22 @@ class ExitManager:
                         state.tp3_done = True
                     state_dirty = True
 
-            # 3. Trailing-Stop (unabhängig von Staffel)
+            # 3. Stop-Loss T-M04e — unabhängig von TP
+            sl_type = self._check_stop_loss(pos, state, current_price, hours_to_resolution)
+            if sl_type:
+                event = await self._execute_exit(pos, state, 1.0, sl_type, current_price)
+                if event:
+                    events.append(event)
+                    state.sl_done = True
+                    self._sl_events_this_hour += 1
+                    state_dirty = True
+                    self._remove_state(pos.market_id, pos.outcome)
+                    state_dirty = False
+                elif state_dirty:
+                    self._save_state()
+                continue
+
+            # 4. Trailing-Stop (unabhängig von Staffel)
             market_vol = volumes.get(pos.market_id, 0.0)
             if self._check_trail(pos, state, current_price, market_vol):
                 event = await self._execute_exit(pos, state, 1.0, "trail", current_price)

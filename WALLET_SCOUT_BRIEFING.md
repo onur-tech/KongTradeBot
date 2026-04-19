@@ -1,9 +1,52 @@
 # WALLET_SCOUT_BRIEFING.md
 _Das Herzstück des KongTradeBot_
 
-**Version:** 1.0
+**Version:** 2.0
 **Erstellt:** 2026-04-19
+**Letzte Änderung:** 2026-04-20
 **Status:** ACTIVE
+
+---
+
+## Teil 0: Profit-First-Philosophie (NEU v2.0)
+
+### Das fundamentale Denkfehler von v1.x
+
+In v1.x wurden Wallets nach **Bot-Kompatibilität** bewertet:
+> "Kopierbar mit aktuellem Bot? → Approve. Nicht kopierbar? → Ablehnen."
+
+Das war **rückwärts gedacht**. Richtig ist:
+
+### Die zwei Primärfragen (Reihenfolge ist kritisch)
+
+**PRIMÄRFRAGE: Ist dieses Wallet profitabel?**
+- Gesamtgewinn > $10.000?
+- ROI auf Deposits positiv?
+→ JA: Kandidat für Integration
+
+**SEKUNDÄRFRAGE: Was muss am Bot gebaut werden?**
+→ Dokumentieren als Bot-Anforderung (Teil 17)
+→ KEIN Ablehnungsgrund
+
+### Was das bedeutet
+
+| Alt (v1.x) | Neu (v2.0) |
+|------------|-----------|
+| "WR 50% → HF-8 FAIL → Ablehnen" | "WR 50% aber $4M Profit → Bot braucht G:L-Tracking → APPROVE bei T-M03" |
+| "Basket-Strategie nicht kopierbar → Ablehnen" | "Basket-Strategie → Bot-Feature-Request → APPROVE wenn T-M20 deployed" |
+| "Multi-Signal-Buffer bestätigt nicht → Skip" | "Single-Signal-Override für High-Conviction-Wallets möglich" |
+| "Whale-Exit nicht kopierbar → Ablehnen" | "Whale-Exit-Copy → T-M03 → APPROVE nach Deploy" |
+
+### Was bleibt als echter Ablehnungsgrund
+
+Nur drei Kriterien rechtfertigen Ablehnung unabhängig von Bot-Features:
+1. **Negativer ROI auf Deposits** (HF-7) — Geld verloren trotz Trades
+2. **Bestätigter Insider-Typ-A** (HF-9) — Last-Minute-Trading, nicht replizierbar
+3. **Bestätigter HFT-Bot** (HF-10) — Latenz-Arbitrage, niemals kopierbar
+
+Alle anderen "Probleme" sind Bot-Feature-Requests.
+
+---
 
 ---
 
@@ -174,6 +217,15 @@ Shadow-Daten. Bis dahin sind sie Hypothesen, keine Gesetze.
 ---
 
 Alle 9 Filter müssen für Tier A erfüllt sein. Für Tier B 7 von 9.
+**HF-0 ist der einzige absolute K.O.-Filter. Alle anderen können durch Bot-Features überbrückt werden.**
+
+### HF-0: Gesamtprofitabilität (NEU v2.0 — höchste Priorität)
+- **Kriterium:** Gesamtgewinn > $10.000 ODER ROI auf Deposits > 10% bei min. $50k Volumen
+- **Quelle:** Eigene Erkenntnis v2.0 (2026-04-20 Re-Audit)
+- **Begründung:** Negativer ROI ist der einzige harte Ablehnungsgrund der durch keinen
+  Bot-Feature überbrückt werden kann. Geld verloren = kein Signal das wir kopieren wollen.
+- **Hinweis:** Win-Rate ist NICHT entscheidend. $4M Profit bei 51% WR → HF-0 ✅ PASS.
+- **Grenzfall:** Wallet in Drawdown aber historisch positiv → HF-0 PASS, HF-3 prüfen.
 
 ### HF-1: Mindest-Sample-Size
 - **Kriterium:** Mindestens 50 resolved Markets
@@ -216,13 +268,32 @@ Alle 9 Filter müssen für Tier A erfüllt sein. Für Tier B 7 von 9.
 - **Begründung:** Hohe Win-Rate mit negativem ROI bedeutet Geldverlust
   trotz häufiger Gewinne (schlechtes Sizing)
 
-### HF-8: Win-Rate-Range
-- **Kriterium:** Win-Rate 55–75% ODER >75% MIT Domain-Experte-Signatur
-- **Domain-Experte-Signatur:** Haltezeit-Median >3 Tage UND Kategorie-Fokus >70%
-  UND keine Last-Minute-Trades
-- **Quelle:** polymarket-insider-detector, 0xIcaruss, PANews
-- **Begründung:** 80%+ Win-Rate ist fast immer Insider-Typ-A (nicht replizierbar)
-  oder Manipulation. Ausnahme: Domain-Experten (Insider-Typ-B) sind Gold wert.
+### HF-8: Win-Rate-Analyse (überarbeitet v2.0)
+- **Kriterium:** Win-Rate ≥ 40% UND Strategie-Typ identifizierbar
+- **Ablehnungsgrenze:** Nur bei HF-0 FAIL (negativer ROI) oder HF-9 FAIL (Insider)
+- **Quelle:** Re-Audit 2026-04-20 (DrPufferfish/Countryside-Analyse)
+- **Begründung v2.0:** WR ist eine Metrik, keine Ablehnungsbasis. Profit kommt aus
+  WR × Position-Size oder aus G:L-Ratio. Beide sind kopierfähig mit den richtigen Bot-Features.
+
+**Strategie-Typ-Matrix (statt Ablehnung → Bot-Feature-Request):**
+
+| WR-Bereich | Strategie-Typ | Bot-Feature nötig | Aktion |
+|------------|--------------|------------------|--------|
+| 55–75% | Direktional, gut kopierbar | — | ✅ Sofort integrieren |
+| 75–100% (displayed) | Early-Loss-Seller — prüfe wahre WR | Whale-Exit-Copy (T-M03) | ✅ Approve + T-M03 |
+| 40–55% | Sizing/G:L-Strategie | G:L-Ratio-Tracking | ✅ Approve + Feature-Task |
+| < 40% | Zu wenig Edge oder Datenfehler | Datenproblem prüfen | ❓ Research needed |
+
+**Early-Loss-Seller-Erkennung:**
+- predicts.guru WR > 80% bei > 50% offene Positionen → IMMER Kreuzcheck mit cointrenches/0xinsider
+- Wahre WR = alle resolved Positionen inkl. früh verkaufter Verlierer
+- Wahre WR < 40% → HF-0 Re-Prüfung (trotzdem profitabel?)
+- Early-Loss-Selling ist LEGITIM — braucht T-M03 (Whale-Exit-Copy) zum Kopieren
+
+**Was bleibt als echter HF-8-Fail:**
+- Bestätigter Insider-Typ-A → bereits von HF-9 abgedeckt
+- Wahre WR < 40% mit negativem ROI → HF-0 greift
+- WR allein ist KEIN K.O.-Kriterium mehr
 
 ### HF-9: Kein Last-Minute-Trading-Pattern
 - **Kriterium:** Weniger als 20% der Trades in den letzten 10 Min vor Resolution
@@ -425,6 +496,26 @@ Siehe separates Dokument: KONG_REVIEW_SYSTEM.md
 
 ## Teil 11: Versionierung
 
+### Version 2.0 (2026-04-20) — Profit-First-Paradigma
+
+**Grund:** Re-Audit nach DrPufferfish/Countryside-Analyse zeigte strukturellen Fehler in v1.x:
+Wallets wurden nach Bot-Kompatibilität abgelehnt statt nach Profitabilität bewertet.
+DrPufferfish (+$6.27M Profit) und Countryside (+$1.57M Profit) hätten nie rejected werden
+dürfen — die richtige Antwort war "Bot braucht T-M03 (Whale-Exit-Copy)".
+
+**Änderungen:**
+- Teil 0 (NEU): Profit-First-Philosophie — Primär- vs Sekundärfrage
+- HF-0 (NEU): Gesamtprofitabilität als einziger absoluter K.O.-Filter
+- HF-8 (ÜBERARBEITET): Win-Rate-Analyse statt Win-Rate-Gate. Strategie-Typ-Matrix.
+  Early-Loss-Seller → Bot-Feature-Request statt Ablehnung.
+- Teil 17 (NEU): Bot-Anforderungs-Mapping — Wallet-Typ zu Bot-Task
+- Multi-Signal-Buffer aus Ablehnungslogik entfernt: kein Grund mehr Wallets abzulehnen
+  weil kein zweites Wallet bestätigt. Single-Signal-Override als Parameter verfügbar.
+
+**Implikation für bereits abgelehnte Wallets:**
+Alle v1.x-Ablehnungen mit Grund "Bot-Kompatibilität" sind zu re-evaluieren.
+Siehe: `analyses/re_audit_rejected_wallets_2026-04-20.md`
+
 ### Version 1.0 (2026-04-19) — Initial
 - Basis-Briefing nach 4 Frameworks + 8-Quellen-Recherche
 - 9 Hard-Filter, 10 Soft-Score-Kategorien
@@ -568,3 +659,73 @@ Rollback muss jederzeit möglich sein.
 ### D-4: Transparenz
 Alle Approval-Entscheidungen werden dokumentiert in: `data/wallet_decisions.jsonl`
 - Datum, KongScore, Hard-Filter-Bestehen, Tier, kurze Begründung
+
+---
+
+## Teil 17: Bot-Anforderungs-Mapping (NEU v2.0)
+
+_Statt "Wallet abgelehnt weil Bot das nicht kann" → "Wallet approved wenn Bot-Feature X gebaut wird"_
+
+### 17.1 Wallet-Typ → Bot-Feature-Tabelle
+
+| Wallet-Typ | Erkennungsmerkmal | Fehlende Bot-Funktion | Task | Status |
+|------------|------------------|----------------------|------|--------|
+| **Early-Loss-Seller** | predicts.guru WR >80%, viele offene Positionen, wahre WR 48–55% | Whale-Exit-Copy: Bot kopiert SELL-Signale wenn Whale eine Position schließt | T-M03 | 🔴 TODO |
+| **G:L-Ratio-Trader** | WR 45–55%, positiver ROI durch Sizing | G:L-Ratio-Sizing: Bot passt Positionsgröße an Whales Conviction-Level | T-M21 | 🔴 TODO |
+| **Basket-Hedger** | Viele gleichzeitige Positionen im selben Turnier | Basket-Bundle: Gruppe von Signals als verbundene Position behandeln | T-M20 | 🔴 TODO |
+| **Daily-Crypto-Spezialist** | BTC/ETH Up/Down, Daily-Auflösung | Single-Signal-Buffer | ✅ DEPLOYED | — |
+| **NBA Same-Day Trader** | Game-Ergebnis, same-day Resolution | Single-Signal-Buffer + kurzes TTL | ✅ DEPLOYED | — |
+| **High-Frequency (>20/Tag)** | >20 Trades/Tag, aber kein Bot-Pattern | Rate-Limiting Token-Bucket | T-M12 | 🟡 QUEUE |
+| **Flip-Trader** | Kauft YES, verkauft und kauft NO im selben Markt | Flip-Signal-Detection | T-M22 | 🔴 TODO |
+| **Contrarian** | Kauft wenn alle anderen verkaufen | Contrarian-Signal-Override | T-M23 | 🔴 TODO |
+
+### 17.2 Konkrete Wallet → Bot-Feature Zuordnung
+
+| Wallet | Profitabilität | Problem v1.x | Neu-Status | Unblocking Feature |
+|--------|---------------|-------------|-----------|-------------------|
+| **DrPufferfish** | ✅ $6.27M | "HF-8 FAIL" (Early-Loss-Seller) | APPROVE nach T-M03 | T-M03 Whale-Exit-Copy |
+| **Countryside** | ✅ $1.57M (+19.56% ROI) | "HF-8 FAIL" (Early-Loss-Seller) | APPROVE nach T-M03 | T-M03 Whale-Exit-Copy |
+| **beachboy4** | ✅ $4.14M | "Multi-Signal-Buffer Problem" | APPROVE nach T-M03 + T-M21 | T-M03 + G:L-Sizing |
+| **SeriouslySirius** | ✅ $3.6M | "HF-8 FAIL" (Sizing-Strategie) | APPROVE nach T-M21 | T-M21 G:L-Ratio-Sizing |
+| **gmanas** | ✅ $4.96M | HFT-Verdacht | WATCHING — HF-10 verifizieren | T-M12 wenn bestätigt kein Bot |
+
+### 17.3 Multi-Signal-Buffer — kein Ablehnungsgrund mehr (v2.0)
+
+**ALT (v1.x):** "Wallet handelt in Märkten wo kein zweites Wallet bestätigt → Skip-Signal"
+
+**NEU (v2.0):** Der Bot hat bereits `CRYPTO_DAILY_SINGLE_SIGNAL` Parameter.
+Dieser kann per .env auf weitere Kategorien ausgeweitet werden:
+```env
+SINGLE_SIGNAL_CATEGORIES=crypto_daily,nba,soccer_match  # Neue Kategorie hinzufügen
+```
+
+Wallet handelt allein in einer Kategorie → KEIN Ablehnungsgrund. Stattdessen:
+1. Kategorie in SINGLE_SIGNAL_CATEGORIES aufnehmen
+2. Multiplier auf 0.3x setzen (reduziertes Risiko ohne Buffer)
+3. 30-Tage Review ob Signale profitabel
+
+### 17.4 Priorisierung der Bot-Features nach Wallet-Wert
+
+| Feature | Wallet-Wert freigeschaltet | Priorität |
+|---------|--------------------------|-----------|
+| T-M03 Whale-Exit-Copy | DrPufferfish ($6.27M) + Countryside ($1.57M) + beachboy4 ($4.14M) = $11.98M | 🔴 HOCH |
+| T-M21 G:L-Ratio-Sizing | SeriouslySirius ($3.6M) + beachboy4 ($4.14M) = $7.74M | 🔴 HOCH |
+| T-M20 Basket-Bundle | DrPufferfish Basket-Seite ($?) | 🟡 MITTEL |
+| T-M12 Rate-Limiting | gmanas ($4.96M) wenn HF-10 clear | 🟡 MITTEL |
+| T-M22 Flip-Detection | Zukünftige Kandidaten | 🟢 NIEDRIG |
+
+### 17.5 Was T-M03 (Whale-Exit-Copy) konkret macht
+
+Wenn ein Wallet aus TARGET_WALLETS eine Position VERKAUFT (nicht nur kauft):
+- Bot erkennt SELL-Signal via data-api activity (type="SELL")
+- Bot prüft ob wir dieselbe Position offen haben
+- Wenn ja: Bot schließt unsere Position proportional
+- Vorteil: Wir kopieren auch das Exit-Timing des Whales (nicht nur Entry)
+
+Warum das Early-Loss-Selling kopierbar macht:
+- DrPufferfish verkauft Verlierer bei -30–40%: Wir tun dasselbe automatisch
+- Countryside schließt NBA-Positionen nach Game: Wir schließen auch
+- Ohne T-M03: Wir halten bis 0¢ wenn Whale schon long ausgestiegen ist
+
+**Abhängigkeiten:** T-M03 setzt T-M08 (Position-State-Machine) voraus → T-M08 first.
+**Status:** T-M08 Phase 1-3 deployed. T-M08 Phase 4-5 in Arbeit. T-M03 danach.

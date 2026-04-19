@@ -949,6 +949,8 @@ async function fetchPortfolio(){
         <td>${walletCell}</td>
       </tr>`;
     }).join('');
+    // Re-render RESOLVED tab with now-available inactive_positions (race-condition fix)
+    if(S.posData && S.posData.resolved !== undefined) renderPositions(S.posData);
   } catch(e){ console.error('portfolio', e); }
 }
 async function claimAll(){
@@ -1369,9 +1371,10 @@ function esc(s){
 
 // ── Polling loops ──────────────────────────────────────────────────────────────
 async function init(){
+  // fetchPortfolio first so inactive_positions are available when renderPositions runs
+  await fetchPortfolio();
   await Promise.all([
     fetchBalance(),
-    fetchPortfolio(),
     fetchSessionStats(),
     fetchHealth(),
     fetchPositions(),

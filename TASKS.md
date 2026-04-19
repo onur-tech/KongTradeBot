@@ -103,7 +103,8 @@ _Stand: 2026-04-19 12:00 Berlin_
 | T-D57 | A3: error_handler.py — Keine Silent-Fails + Rate-Limited Alerts (38741ae) | 2026-04-19 |
 | T-D58 | B1: Kill-Switch persistent mit Auto-Reset + Telegram-Commands (91e4d60) | 2026-04-19 |
 | T-D59 | B2: Watchdog Race-Condition-Fix + Lock-PID + Rate-Limit (2fffe16) | 2026-04-19 |
-| T-D60 | C1: Slippage-Tracking + Weekly Report (Hash: TBD nach Fertigstellung) | 2026-04-19 |
+| T-D60 | C1: Slippage-Tracking + Weekly Report (35314c8) | 2026-04-19 |
+| T-D61 | UX-Fix: Dashboard CLAIM-Button deaktiviert bei $0-Positionen, VERLOREN-Label (cdd0fb5) | 2026-04-19 |
 | T-C01 | COLLECTIVE_VISION.md angelegt (Peer-Modell, Governance, Roadmap) | 2026-04-19 |
 | T-C02 | STRATEGIC_VISION.md angelegt (Langfrist-Roadmap, Tier 1-4, Moat) | 2026-04-19 |
 | T-C03 | SKILL.md angelegt (9 Session-URLs + Punkte 10-12 Investment-Frameworks) | 2026-04-19 |

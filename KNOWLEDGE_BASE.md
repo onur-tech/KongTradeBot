@@ -902,3 +902,28 @@ ist aber `"vs."` (mit Punkt). Kein Match möglich.
 
 **Lesson:** Pattern-Matching immer mit echten Daten validieren, nicht mit
 konstruierten Beispielen.
+
+---
+
+## P057 — Dashboard CLAIM-Button UX-Bug (19.04.2026)
+
+**Status:** ✅ FIXED (Commit cdd0fb5)
+
+**Symptom:** CLAIM-Button war bei allen 12 resolved-verlorenen Positionen
+aktiv und klickbar, zeigte aber "$0.00" an. Brrudi klickte mehrmals in
+Erwartung "Geld zurück" — nichts passierte.
+
+**Root Cause:** Rendering-Logik in `dashboard.html` prüfte nur `redeemable=true`,
+nicht `current_value > 0`. Resolved-verlorene Positionen sind technisch
+`redeemable` auf Polymarket-Seite, aber mit Auszahlung $0.
+
+**Fix:** Conditional Rendering mit zusätzlicher Wert-Prüfung (Zeile 923):
+- `redeemable && value > 0.01` → CLAIM $X.XX Button (grün, aktiv)
+- `redeemable && value <= 0.01` → `<span class="status-lost">VERLOREN</span>` (rot)
+- nicht redeemable → `—` (wie bisher)
+
+CSS ergänzt: `.status-lost{color:#ff4444;font-size:0.85em;font-weight:bold;font-family:monospace}`
+
+**Lesson:** UI-States immer mit allen Kombinationen durchspielen.
+"redeemable" heißt nicht automatisch "claimable mit Wert > 0".
+Claim-Chain auf Polymarket: `resolved → redeemable → payout (kann $0 sein)`

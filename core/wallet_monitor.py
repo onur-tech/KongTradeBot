@@ -21,12 +21,19 @@ WalletMonitor
 """
 
 import asyncio
+import json
+import os
 import time
 try:
     import aiohttp
     AIOHTTP_AVAILABLE = True
 except ImportError:
     AIOHTTP_AVAILABLE = False  # Fallback für Tests ohne Installation
+try:
+    import websockets
+    WEBSOCKETS_AVAILABLE = True
+except ImportError:
+    WEBSOCKETS_AVAILABLE = False
 from dataclasses import dataclass, field
 from typing import Callable, List, Set, Optional
 from datetime import datetime, timezone
@@ -117,6 +124,14 @@ class WalletMonitor:
         self._running = False
         self._session: Optional[object] = None
 
+        # T-WS: WebSocket-Konfiguration
+        self.ws_mode = os.getenv("WALLET_MONITOR_MODE", "poll") == "websocket"
+        self.ws_heartbeat_interval = int(os.getenv("WS_HEARTBEAT_INTERVAL", "10"))
+        self.ws_reconnect_retries = int(os.getenv("WS_RECONNECT_MAX_RETRIES", "5"))
+        self.ws_fallback_interval = int(os.getenv("WS_FALLBACK_POLL_INTERVAL", "30"))
+        self.ws_log_latency = os.getenv("WS_LOG_LATENCY", "true").lower() == "true"
+        self._ws_retries = 0
+
         # Statistik
         self.stats = {
             "polls": 0,
@@ -124,6 +139,8 @@ class WalletMonitor:
             "trades_skipped_duplicate": 0,
             "early_entry_signals": 0,
             "whale_sells_detected": 0,
+            "ws_messages": 0,
+            "ws_reconnects": 0,
             "errors": 0,
         }
 
@@ -131,7 +148,10 @@ class WalletMonitor:
         """Startet den Monitor. Läuft bis stop() aufgerufen wird."""
         logger.info(f"🔍 WalletMonitor startet | Targets: {self.config.target_wallets}")
         logger.info(f"   Modus: {'DRY-RUN (kein echtes Trading)' if self.config.dry_run else '🔴 LIVE'}")
-        logger.info(f"   Poll-Intervall: {self.config.poll_interval_seconds}s")
+        if self.ws_mode:
+            logger.info(f"   Monitor: 🔌 WebSocket (Heartbeat {self.ws_heartbeat_interval}s, max {self.ws_reconnect_retries} Retries)")
+        else:
+            logger.info(f"   Poll-Intervall: {self.config.poll_interval_seconds}s")
 
         self._running = True
         self._session = aiohttp.ClientSession(
@@ -143,8 +163,13 @@ class WalletMonitor:
             # Initialer Sync: Letzte bekannte Trades laden (damit wir keine alten kopieren)
             await self._initial_sync()
 
-            # Hauptschleife
-            await self._polling_loop()
+            # Hauptschleife — WS oder Poll
+            if self.ws_mode and WEBSOCKETS_AVAILABLE:
+                await self._run_websocket()
+            else:
+                if self.ws_mode and not WEBSOCKETS_AVAILABLE:
+                    logger.warning("[WS] websockets-Package nicht installiert — Fallback auf Poll")
+                await self._polling_loop()
 
         except asyncio.CancelledError:
             logger.info("WalletMonitor: Shutdown angefordert")
@@ -515,6 +540,174 @@ class WalletMonitor:
         wait = min(base_wait * (2 ** min(self.stats["errors"], 6)), 120)
         logger.info(f"Warte {wait:.0f}s nach Fehler (Backoff)")
         await asyncio.sleep(wait)
+
+    # ── T-WS: WebSocket-Methoden ──────────────────────────────────────────────
+
+    WS_URL = "wss://ws-subscriptions-clob.polymarket.com/ws/market"
+
+    async def _run_websocket(self):
+        """Äußere Retry-Schleife mit Exponential Backoff."""
+        self._ws_retries = 0
+        while self._running:
+            try:
+                await self._websocket_session()
+                self._ws_retries = 0  # Reset nach erfolgreichem Reconnect
+            except asyncio.CancelledError:
+                break
+            except Exception as e:
+                self._ws_retries += 1
+                self.stats["ws_reconnects"] += 1
+                if self._ws_retries > self.ws_reconnect_retries:
+                    logger.warning(
+                        f"[WS] {self._ws_retries} Retries erschöpft → "
+                        f"Poll-Fallback für {self.ws_fallback_interval}s"
+                    )
+                    await self._run_poll_once()
+                    self._ws_retries = 0
+                    continue
+                wait = min(2 ** self._ws_retries, 60)
+                logger.warning(f"[WS] Verbindungsfehler: {e} — Reconnect in {wait}s "
+                               f"(Retry {self._ws_retries}/{self.ws_reconnect_retries})")
+                await asyncio.sleep(wait)
+
+    async def _websocket_session(self):
+        """Eine WS-Session: verbinden, subscriben, Nachrichten empfangen."""
+        async with websockets.connect(
+            self.WS_URL,
+            ping_interval=None,
+            ping_timeout=None,
+            close_timeout=5,
+        ) as ws:
+            logger.info(f"[WS] Verbunden mit {self.WS_URL}")
+
+            subscribe_msg = {
+                "type": "subscribe",
+                "channel": "live_activity_by_wallet",
+                "wallets": [w.lower() for w in self.config.target_wallets],
+            }
+            await ws.send(json.dumps(subscribe_msg))
+            logger.info(f"[WS] Subscribed auf {len(self.config.target_wallets)} Wallets")
+
+            heartbeat_task = asyncio.create_task(
+                self._heartbeat(ws, self.ws_heartbeat_interval)
+            )
+            try:
+                async for raw_message in ws:
+                    if not self._running:
+                        break
+                    await self._process_ws_message(raw_message)
+            finally:
+                heartbeat_task.cancel()
+
+    async def _heartbeat(self, ws, interval: int):
+        """Hält die WS-Verbindung mit regelmäßigen PINGs am Leben."""
+        while True:
+            await asyncio.sleep(interval)
+            try:
+                await ws.send(json.dumps({"type": "ping"}))
+            except Exception:
+                break
+
+    async def _process_ws_message(self, raw: str):
+        """Verarbeitet eine eingehende WS-Nachricht und emittiert ggf. ein TradeSignal."""
+        try:
+            msg = json.loads(raw)
+        except Exception:
+            return
+
+        self.stats["ws_messages"] += 1
+        msg_type = msg.get("type", "")
+
+        if msg_type in ("pong", "connected", "subscribed", "heartbeat"):
+            return
+
+        # Payload extrahieren — WS kann `data`-Wrapper oder flat sein
+        trade_data = msg.get("data") or msg
+        if not isinstance(trade_data, dict):
+            return
+
+        # Typ prüfen: BUY-Signal oder SELL-Signal?
+        activity_type = (
+            trade_data.get("type") or trade_data.get("side") or msg_type
+        ).upper()
+
+        tx_hash = (
+            trade_data.get("transactionHash")
+            or trade_data.get("tx_hash")
+            or trade_data.get("id", "")
+        )
+        if not tx_hash:
+            return
+
+        # Source-Wallet aus WS-Nachricht
+        source_wallet = (
+            trade_data.get("maker")
+            or trade_data.get("user")
+            or trade_data.get("proxyWallet")
+            or trade_data.get("address", "")
+        )
+        # Falls nicht im Payload: erste Wallet aus unserer Liste als Fallback
+        if not source_wallet:
+            source_wallet = self.config.target_wallets[0] if self.config.target_wallets else ""
+
+        if activity_type in ("SELL", "REDEEM"):
+            # T-M03: Whale-Exit via WS
+            if self.on_whale_sell and getattr(self.config, "whale_exit_copy_enabled", False):
+                sell_signal = self._parse_sell_activity(trade_data, source_wallet)
+                if sell_signal:
+                    self.stats["whale_sells_detected"] += 1
+                    logger.info(
+                        f"[WS] 🐋 WHALE SELL: [{source_wallet[:10]}] "
+                        f"{sell_signal.outcome} auf '{sell_signal.market_question[:50]}'"
+                    )
+                    await self._safe_callback(sell_signal, callback=self.on_whale_sell)
+            return
+
+        # BUY-Signal
+        if activity_type not in ("BUY", "TRADE", "ACTIVITY", "LIVE_TRADE", ""):
+            return
+
+        if tx_hash in self._seen_tx_hashes:
+            self.stats["trades_skipped_duplicate"] += 1
+            return
+        self._seen_tx_hashes.add(tx_hash)
+        if len(self._seen_tx_hashes) > 10_000:
+            oldest = list(self._seen_tx_hashes)[:1000]
+            for h in oldest:
+                self._seen_tx_hashes.discard(h)
+
+        signal = self._parse_trade(trade_data, source_wallet)
+        if not signal:
+            return
+
+        wallet_lower = source_wallet.lower()
+        signal = await self._enrich_early_entry(signal, wallet_lower)
+
+        self.stats["trades_detected"] += 1
+        if signal.is_early_entry:
+            self.stats["early_entry_signals"] += 1
+
+        if self.ws_log_latency:
+            ts_raw = trade_data.get("timestamp") or trade_data.get("createdAt") or 0
+            try:
+                ts = float(ts_raw) if ts_raw else time.time()
+                latency_ms = int((time.time() - ts) * 1000)
+                logger.info(f"[WS] 🆕 Signal: {signal} | Latenz ~{latency_ms}ms")
+            except Exception:
+                logger.info(f"[WS] 🆕 Signal: {signal}")
+        else:
+            logger.info(f"[WS] 🆕 Signal: {signal}")
+
+        if self.on_new_trade:
+            await self._safe_callback(signal)
+
+    async def _run_poll_once(self):
+        """Einmaliger Poll-Durchlauf als Fallback wenn WS nicht verfügbar."""
+        for wallet in self.config.target_wallets:
+            if not self._running:
+                break
+            await self._check_wallet(wallet)
+        await asyncio.sleep(self.ws_fallback_interval)
 
     # ── Sell-History für Whale-Follow-Exit ───────────────────────────────────
 

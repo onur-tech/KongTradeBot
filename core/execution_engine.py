@@ -37,6 +37,11 @@ from strategies.copy_trading import CopyOrder, get_wallet_name
 
 logger = get_logger("execution")
 
+try:
+    from utils.error_handler import handle_error as _handle_error
+except ImportError:
+    _handle_error = None
+
 # py-clob-client Import — optional, damit Tests ohne Installation laufen
 try:
     from py_clob_client.client import ClobClient
@@ -432,6 +437,13 @@ class ExecutionEngine:
             else:
                 logger.error(f"Order fehlgeschlagen: {error_msg}", exc_info=True)
 
+            if _handle_error is not None:
+                try:
+                    await _handle_error(e, context="CLOB_API_ERROR:execute", severity="ERROR",
+                                        telegram_alert=True, reraise=False)
+                except Exception:
+                    pass
+
             return ExecutionResult(success=False, error=error_msg)
 
     async def _get_market_info(self, token_id: str) -> Tuple[float, float, bool]:
@@ -527,6 +539,12 @@ class ExecutionEngine:
                 logger.warning(f"⚠️  Wenig USDC! Balance: ${usdc:.2f}")
         except Exception as e:
             logger.warning(f"Balance-Check fehlgeschlagen: {e}")
+            if _handle_error is not None:
+                try:
+                    await _handle_error(e, context="BALANCE_CHECK_FAILED:_check_balance",
+                                        severity="WARNING", telegram_alert=True, reraise=False)
+                except Exception:
+                    pass
 
     async def check_clob_allowance_health(self) -> dict:
         """

@@ -23,6 +23,7 @@ from utils.state_manager import save_state, load_state
 from utils.tax_archive import log_trade, export_tax_csv, get_summary
 from utils.wallet_scout import scout_loop
 from utils.latency_monitor import record_fill, latency_report_loop
+from utils.error_handler import handle_error, set_telegram_sender, safe_call_transparent
 from core.wallet_monitor import WalletMonitor
 from core.risk_manager import RiskManager
 from core.execution_engine import ExecutionEngine, OpenPosition
@@ -563,6 +564,7 @@ async def main():
                 f"Bitte Allowance aufstocken (Max Trade: ${config.max_trade_size_usd:.2f})."
             )
 
+    set_telegram_sender(send)  # error_handler: Telegram-Alerts aktivieren
     await send_startup(len(config.target_wallets), config.portfolio_budget_usd, config.dry_run)
     if restored > 0 or stale > 0:
         msg_parts = []
@@ -692,6 +694,8 @@ async def main():
                     market_id=market_id,
                     time_to_close_hours=time_to_close,
                 ))
+
+    on_copy_order = safe_call_transparent("on_copy_order", "ERROR")(on_copy_order)
 
     _MULTI_SIGNAL_DEDUP_FILE = os.path.join(os.path.dirname(__file__), ".multi_signal_last_alert.json")
     _MULTI_SIGNAL_COOLDOWN_S = 15 * 60  # 15 Minuten

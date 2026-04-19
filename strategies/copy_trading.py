@@ -25,6 +25,11 @@ from utils.config import Config
 from core.wallet_monitor import TradeSignal
 from core.risk_manager import RiskManager, RiskDecision
 
+try:
+    from utils.error_handler import handle_error as _handle_error
+except ImportError:
+    _handle_error = None
+
 logger = get_logger("copy_trading")
 
 # Sekunden nach dem ersten Signal warten, um weitere Wallets zu sammeln
@@ -495,13 +500,21 @@ class CopyTradingStrategy:
         await self._safe_call(self.on_copy_order, order)
 
     async def _safe_call(self, fn, *args):
+        # DEPRECATED: Bitte safe_call_transparent-Decorator aus utils.error_handler verwenden.
+        # Bleibt für Rückwärtskompatibilität, leitet nun an handle_error weiter.
         try:
             if asyncio.iscoroutinefunction(fn):
                 await fn(*args)
             else:
                 fn(*args)
         except Exception as e:
-            logger.error(f"Fehler bei Callback: {e}", exc_info=True)
+            logger.error(f"Fehler bei Callback {getattr(fn, '__name__', fn)}: {e}", exc_info=True)
+            if _handle_error is not None:
+                ctx = f"_safe_call({getattr(fn, '__name__', str(fn))[:40]})"
+                try:
+                    await _handle_error(e, context=ctx, severity="ERROR", telegram_alert=True, reraise=False)
+                except Exception:
+                    pass
 
     def get_status(self) -> dict:
         """Gibt aktuellen Status der Strategie zurück."""

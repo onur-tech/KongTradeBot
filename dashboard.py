@@ -1078,6 +1078,46 @@ def api_decisions():
     return _cors(jsonify({"count": len(decisions), "decisions": decisions[-n:]}))
 
 
+@app.route("/api/errors")
+def api_errors():
+    severity_filter = request.args.get("severity", "").upper()
+    context_filter  = request.args.get("context", "").lower()
+    limit = min(int(request.args.get("n", 50)), 500)
+
+    error_log = BASE_DIR / "data" / "error_log.jsonl"
+    entries = []
+    try:
+        if error_log.exists():
+            lines = error_log.read_text(encoding="utf-8").splitlines()
+            for line in reversed(lines):
+                if not line.strip():
+                    continue
+                try:
+                    entry = json.loads(line)
+                    if severity_filter and entry.get("severity") != severity_filter:
+                        continue
+                    if context_filter and context_filter not in entry.get("context", "").lower():
+                        continue
+                    entry_clean = {k: v for k, v in entry.items() if k != "stack_trace"}
+                    entries.append(entry_clean)
+                    if len(entries) >= limit:
+                        break
+                except json.JSONDecodeError:
+                    pass
+    except Exception as e:
+        return _cors(jsonify({"error": str(e)})), 500
+
+    stats_file = BASE_DIR / "data" / "error_stats.json"
+    stats = {}
+    try:
+        if stats_file.exists():
+            stats = json.loads(stats_file.read_text(encoding="utf-8"))
+    except Exception:
+        pass
+
+    return _cors(jsonify({"count": len(entries), "errors": entries, "stats": stats}))
+
+
 # ── Mutable Endpoints ─────────────────────────────────────────────────────────
 
 @app.route("/api/env", methods=["POST"])

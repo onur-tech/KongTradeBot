@@ -76,7 +76,7 @@ nav{position:sticky;top:0;z-index:200;background:rgba(3,3,3,.96);border-bottom:1
 .section-title::after{content:'';flex:1;height:1px;background:linear-gradient(to right,var(--border2),transparent)}
 
 /* ── BALANCE HERO ── */
-.btn-claim{background:rgba(0,255,136,.15);color:#00ff88;border:1px solid rgba(0,255,136,.4);border-radius:6px;padding:3px 8px;font-size:11px;cursor:pointer;white-space:nowrap;font-weight:600}.btn-claim:hover{background:rgba(0,255,136,.3)}.redeemable-row{background:rgba(0,255,136,.04)!important}.redeemable-row td:first-child{border-left:2px solid #00ff88}
+.btn-claim{background:rgba(0,255,136,.15);color:#00ff88;border:1px solid rgba(0,255,136,.4);border-radius:6px;padding:3px 8px;font-size:11px;cursor:pointer;white-space:nowrap;font-weight:600}.btn-claim:hover{background:rgba(0,255,136,.3)}.redeemable-row{background:rgba(0,255,136,.04)!important}.redeemable-row td:first-child{border-left:2px solid #00ff88}.status-lost{color:#ff4444;font-size:0.85em;font-weight:bold;font-family:monospace}
 .balance-hero{background:var(--bg1);border:1px solid var(--border2);border-radius:18px;padding:28px 36px;
     margin-bottom:20px;position:relative;overflow:hidden}
 .balance-hero::before{content:'';position:absolute;inset:0;
@@ -921,9 +921,12 @@ async function fetchPortfolio(){
       const pnlClass = p.pnl_pct > 0 ? 'style="color:#00ff88"' : p.pnl_pct < 0 ? 'style="color:#ff3366"' : '';
       const pnlStr = (p.pnl_pct >= 0 ? '+' : '') + p.pnl_pct.toFixed(1) + '%';
       const claimable = p.redeemable;
-      const claimCell = claimable
+      const hasValue = p.current_value > 0.01;
+      const claimCell = (claimable && hasValue)
         ? `<button class="btn-claim" onclick="claimAll()">CLAIM $${p.current_value.toFixed(2)}</button>`
-        : '—';
+        : claimable
+          ? `<span class="status-lost">VERLOREN</span>`
+          : '—';
       const closesLabel = p.closes_in_label || '—';
       const closesClass = p.closes_in_class || 'closes-gray';
       const closesCell = claimable

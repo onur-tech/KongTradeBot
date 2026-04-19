@@ -975,7 +975,7 @@ async def main():
                 if events:
                     for ev in events:
                         _pos = engine.open_positions.get(ev.position_id)
-                        log_trade(
+                        _log_kwargs = dict(
                             market_question=getattr(_pos, "market_question", ev.market or ev.condition_id)[:100],
                             outcome=ev.outcome,
                             side="SELL",
@@ -983,25 +983,31 @@ async def main():
                             size_usdc=ev.usdc_received,
                             shares=ev.shares_sold,
                             source_wallet=getattr(_pos, "source_wallet", ""),
-                            tx_hash=f"exit_{ev.exit_type}_{ev.position_id[:12]}",
                             category=f"exit_{ev.exit_type}",
-                            is_dry_run=config.exit_dry_run,
                             market_id=ev.condition_id,
                             token_id=getattr(_pos, "token_id", ""),
                             realized_pnl=ev.pnl_usdc,
                             mark_resolved=True,
                         )
-                        if not config.exit_dry_run:
-                            # Live-Exit: verkaufe via execution_engine
+                        if config.exit_dry_run:
+                            # DRY-RUN: Archive mit Marker, kein echter Sell
+                            log_trade(**_log_kwargs,
+                                      tx_hash=f"exit_{ev.exit_type}_{ev.position_id[:12]}",
+                                      is_dry_run=True)
+                        else:
+                            # T-M06 Phase 1: Ghost-Write Fix — Archive NUR nach bestätigtem Sell
                             pos = engine.open_positions.get(ev.position_id)
                             if pos:
                                 result = await engine.create_and_post_sell_order(
                                     asset_id=pos.token_id,
                                     shares=ev.shares_sold,
-                                    min_price=ev.exit_price * 0.97,  # 3% Slippage tolerance
+                                    min_price=ev.exit_price * 0.97,
                                     exit_dry_run=False,
                                 )
                                 if result["success"]:
+                                    log_trade(**_log_kwargs,
+                                              tx_hash=result.get("order_id", ""),
+                                              is_dry_run=False)
                                     pos.shares = round(pos.shares - result["shares_sold"], 6)
                                     if pos.shares <= 0:
                                         engine.open_positions.pop(ev.position_id, None)

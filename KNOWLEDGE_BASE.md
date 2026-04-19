@@ -1174,3 +1174,44 @@ Methode: Polymarket-Profil + data-api Ground-Truth + 0xinsider wo verfügbar.
 **Lesson:** Position-State ist keine DB-Spalte sondern eine State-Machine.
 Jeder Zustand braucht expliziten Trigger. Ohne Cleanup-Worker akkumulieren
 beendete Positionen endlos — Dashboard-Zahlen werden unbrauchbar.
+
+---
+
+## P076 — Polymarket-Claim: ClobClient hat kein redeem(), Lösung via RelayClient (19.04.2026)
+
+**Status:** RECHERCHIERT — Implementation via T-M04b nächste Session
+
+**Bug:** `claim_all.py` Zeile 92: `client.redeem(condition_id)` → `AttributeError`.
+`ClobClient` hat keine `redeem`-Methode (bestätigt: vollständiges Method-Listing, GitHub Issue #139).
+Jeder bisherige Claim-Versuch schlug fehl. Wuning wurde manuell via UI geclaimed.
+
+**Korrekte Methode: py-builder-relayer-client (offiziell, gasless)**
+
+```bash
+pip install py-builder-relayer-client  # py_builder_signing_sdk bereits installiert
+```
+
+```python
+from py_builder_relayer_client.client import RelayClient
+
+# Standard-Market:
+redeem_tx = {"to": CTF, "data": encode_abi("redeemPositions", [USDC, bytes(32), condition_id_bytes, index_sets]), "value": "0"}
+# NegRisk-Market (negRisk=True):
+redeem_tx = {"to": NEG_RISK_ADAPTER, "data": encode_abi(...), "value": "0"}
+
+client.execute([redeem_tx], "Redeem positions").wait()
+```
+
+**Wichtige Parameter:**
+- CTF: `0x4D97DCd97eC945f40cF65F87097ACe5EA0476045`
+- NEG_RISK_ADAPTER: `0xd91E80cF2E7be2e162c6513ceD06f1dD0dA35296`
+- USDC: `0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174`
+- `indexSets`: `[1]` für Outcome 0 (YES), `[2]` für Outcome 1 (NO)
+- `parentCollectionId`: `bytes(32)` (HASH_ZERO) für Standard-Markets
+
+**Warum nicht Web3 direkt:** Positionen liegen im Gnosis Safe (Proxy Wallet), nicht EOA.
+Direkter CTF-Contract-Call geht nicht — Safe muss `execTransaction` aufrufen (Issue #139).
+
+**Lesson:** Vor Implementation geld-kritischer Features: Research erst, Code später.
+`py-clob-client` kann traden aber nicht redeem — das ist eine bewusste Design-Lücke
+(Issue #139 seit Jul 2025 offen, 50+ Upvotes). Relayer-Client ist der offizielle Weg.

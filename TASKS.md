@@ -1,9 +1,20 @@
 # KongTrade Bot — Task Tracking
-_Stand: 2026-04-19 12:00 Berlin_
+_Stand: 2026-04-19 18:00 Berlin_
 
 **Regeln:**
 - Status: ARBEIT | QUEUE | DONE | BLOCKED | IDEE
 - Prioritaet: KRITISCH | WICHTIG | NICE-TO-HAVE
+
+## Task-Namespace-Konvention
+
+| Prefix | Quelle | Beschreibung |
+|--------|--------|-------------|
+| T-DXX | Auto-Doc-Pipeline | Automatisch aus Commits erzeugt (auto_doc.py) |
+| T-MXX | Manuell | Aus Chat-Prompts / Session-Planung |
+| T-SXX | Strategisch | Langzeit-Roadmap-Items (Quartals-Horizont) |
+| T-CXX | Collective | Kollaborations-Items (Alex/Tunay/Dietmar) |
+
+**Regel:** Kein manueller Task bekommt mehr T-DXX. Pipeline und Mensch teilen keinen Namespace.
 
 ---
 
@@ -24,17 +35,20 @@ _Stand: 2026-04-19 12:00 Berlin_
 | T-D107 | External-Wallet-Data-API-Integration (predicts.guru-Scraping oder Polymarket-API) | WICHTIG | PENDING |
 | T-D108 | Briefing v1.1 Publish + Shadow-DB Schema finalisieren | NICE | PENDING |
 | T-D109 | 30-Day-Wallet-Review fuer aktuelle 10 TARGET_WALLETS | WICHTIG | SCHEDULED 2026-05-19 |
-| T-D70 | Scout v2: 9 Hard-Filter in utils/wallet_scout.py implementieren | WICHTIG | WALLET_SCOUT_BRIEFING.md Teil 4 |
-| T-D71 | KongScore-Engine: 10 Soft-Score-Kategorien (SC-1 bis SC-10) | WICHTIG | WALLET_SCOUT_BRIEFING.md Teil 5 |
-| T-D72 | Tiered System (A/B/C Pools) in core/state_manager integrieren | WICHTIG | Bootstrapping-Modus Toggle |
-| T-D73 | Bootstrapping-Modus Toggle in .env (BOOTSTRAPPING_MODE=true/false) | NICE | Erste 90 Tage |
-| T-D74 | shadow_wallets.db Schema + Tracking (REJECTED 90d, WATCHING unlimitiert) | WICHTIG | KONG_REVIEW_SYSTEM.md |
-| T-D75 | Dashboard-Panel "WalletScout Kandidaten" (Tier A/B/C Übersicht) | NICE | — |
-| T-D76 | Dashboard-Panel "Missed-Profit-Metric" (Shadow vs Active) | NICE | KONG_REVIEW_SYSTEM.md Ebene 3 |
-| T-D77 | scripts/monthly_wallet_audit.py + systemd Timer (1. jeden Monats 06:00) | WICHTIG | KONG_REVIEW_SYSTEM.md |
-| T-D78 | scripts/quarterly_criteria_review.py + Timer (1.4./1.7./1.10./1.1.) | NICE | Claude API + Grok |
-| T-D79 | Post-Mortem-Generator (30-Tage-Review → KNOWLEDGE_BASE.md Eintrag) | WICHTIG | KONG_REVIEW_SYSTEM.md |
-| T-D80 | Grok-Verifikations-Protokoll (nach Grok-Phase-0, T-S01) | NICE | WALLET_SCOUT_BRIEFING.md Teil 9.3 |
+| T-M01 | Wallet-Audit v1.0 durchgefuehrt — 3 Wallets entfernt (RN1/Gambler1968/sovereign2013) | DONE | 2026-04-19 |
+| T-M02 | Briefing v1.1 Post-Audit-Update — Teile 14/15/16 + HF-5 Hinweis | DONE | 2026-04-19 |
+| T-M03 | T-D105 Skipped-Signal-Tracking Phase 1 PoC | IN PROGRESS | Server-CC |
+| T-M10 | Scout v2: 9 Hard-Filter in utils/wallet_scout.py implementieren | WICHTIG | WALLET_SCOUT_BRIEFING.md Teil 4 |
+| T-M11 | KongScore-Engine: 10 Soft-Score-Kategorien (SC-1 bis SC-10) | WICHTIG | WALLET_SCOUT_BRIEFING.md Teil 5 |
+| T-M12 | Tiered System (A/B/C Pools) in core/state_manager integrieren | WICHTIG | Bootstrapping-Modus Toggle |
+| T-M13 | Bootstrapping-Modus Toggle in .env (BOOTSTRAPPING_MODE=true/false) | NICE | Erste 90 Tage |
+| T-M14 | shadow_wallets.db Schema + Tracking (REJECTED 90d, WATCHING unlimitiert) | WICHTIG | KONG_REVIEW_SYSTEM.md |
+| T-M15 | Dashboard-Panel "WalletScout Kandidaten" (Tier A/B/C Übersicht) | NICE | — |
+| T-M16 | Dashboard-Panel "Missed-Profit-Metric" (Shadow vs Active) | NICE | KONG_REVIEW_SYSTEM.md Ebene 3 |
+| T-M17 | scripts/monthly_wallet_audit.py + systemd Timer (1. jeden Monats 06:00) | WICHTIG | KONG_REVIEW_SYSTEM.md |
+| T-M18 | scripts/quarterly_criteria_review.py + Timer (1.4./1.7./1.10./1.1.) | NICE | Claude API + Grok |
+| T-M19 | Post-Mortem-Generator (30-Tage-Review → KNOWLEDGE_BASE.md Eintrag) | WICHTIG | KONG_REVIEW_SYSTEM.md |
+| T-M20 | Grok-Verifikations-Protokoll (nach Grok-Phase-0, T-S01) | NICE | WALLET_SCOUT_BRIEFING.md Teil 9.3 |
 | T-016 | Balance-Chart auf Portfolio-Total | WICHTIG | SQLite Spalte portfolio_total (P008) |
 | T-007 | Telegram-Commands: /balance /health /logs | NICE | telegram_bot.py erweitern |
 | T-017 | Per-Wallet-Performance aus Signal-Counter | NICE | Signale tracken (P015) |

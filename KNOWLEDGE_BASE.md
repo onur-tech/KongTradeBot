@@ -984,3 +984,28 @@ Aber vollständige Prüfung aller 9 Hard-Filter erfordert nächste Iteration.
 v1.0 auf GitHub ≠ v1.0 in Bot-Betrieb. Jede Iteration deckt neue Lücken
 auf — das ist by design, nicht ein Fehler.
 
+---
+
+## P066 — Namespace-Kollision T-DXX (19.04.2026)
+
+**Status:** BEHOBEN — Namespace-Konvention eingeführt
+
+**Symptom:** Auto-Doc-Pipeline und manuelle Chat-Prompts vergaben beide
+T-DXX Nummern. Heute 11 Kollisionen entstanden: T-D70–T-D80 doppelt belegt
+(QUEUE: Scout-Implementierungs-Tasks; DONE: auto-generierte Commit-Einträge).
+
+**Root-Cause:** Keine explizite Namespace-Trennung zwischen Pipeline (automatisch)
+und Session-Planung (manuell). Beide nutzten dasselbe T-DXX Schema.
+
+**Fix:** Namespace-Konvention in TASKS.md Header:
+- `T-DXX` — Auto-Doc-Pipeline (auto_doc.py aus Commits)
+- `T-MXX` — Manuelle Session-Tasks (Chat-Prompts)
+- `T-SXX` — Strategische Roadmap-Items
+- `T-CXX` — Collective-Tasks
+
+Duplikate T-D70–T-D80 (manuell) umbenannt auf T-M10–T-M20.
+
+**Lesson:** Namespace-Konventionen müssen FRÜH festgelegt werden wenn
+Automation und Mensch parallel in dasselbe System schreiben.
+Retroaktive Bereinigung (11 Einträge heute) kostet mehr als Prävention.
+

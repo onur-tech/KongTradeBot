@@ -26,8 +26,8 @@ DRPUFFERFISH = "0xee613b3fc183ee44f9"
 
 # Kategorien mit Win Rate >60% pro Wallet (aus wallet_category_performance.json)
 WALLET_GOOD_CATEGORIES: dict[str, set[str]] = {
-    SOVEREIGN:    {"Sport"},           # sovereign2013: 100% in Sport, 10.9% in Sonstiges
-    DRPUFFERFISH: {"Sport", "Sonstiges", "Makro", "Geopolitik"},  # 59-80% überall
+    SOVEREIGN:    {"Sport_US", "Tennis", "Soccer", "Sport"},  # sovereign2013: gut in Sport
+    DRPUFFERFISH: {"Sport_US", "Tennis", "Soccer", "Sport", "Sonstiges", "Makro", "Geopolitik"},
 }
 
 

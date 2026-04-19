@@ -61,17 +61,7 @@ def parse_args():
     return parser.parse_args()
 
 
-def get_category(question):
-    q = question.lower()
-    if any(w in q for w in ["tennis","open","grand prix","nba","nhl","nfl","soccer","football","baseball","golf","cricket","vs "]):
-        return "Sport"
-    elif any(w in q for w in ["iran","israel","ukraine","trump","nuclear","war","ceasefire","election","president","nato","china","russia","peace"]):
-        return "Geopolitik"
-    elif any(w in q for w in ["bitcoin","btc","eth","crypto","price","solana","render","token"]):
-        return "Crypto"
-    elif any(w in q for w in ["fed","interest rate","inflation","gdp","recession","oil","gold"]):
-        return "Makro"
-    return "Sonstiges"
+from utils.category import get_category
 
 
 def restore_positions(engine):
@@ -388,10 +378,13 @@ async def status_reporter(strategy, risk, engine, config, interval):
             src = str(p.get("source", "unknown"))[:10]
             wallet_counts[src] += 1
             cat = get_category(p.get("question", ""))
-            if cat == "Sport":        categories["🎾 Tennis/Sport"] += amt
+            if cat == "Sport_US":     categories["🏟️ Sport_US"]    += amt
+            elif cat == "Tennis":     categories["🎾 Tennis"]       += amt
+            elif cat == "Soccer":     categories["⚽ Soccer"]       += amt
             elif cat == "Geopolitik": categories["🌍 Geopolitik"]   += amt
             elif cat == "Crypto":     categories["₿  Crypto"]       += amt
             elif cat == "Makro":      categories["📈 Makro"]         += amt
+            elif cat == "Sport":      categories["🎾 Tennis/Sport"] += amt
             else:                     categories["ℹ️  Sonstiges"]    += amt
 
         max_allowed = config.max_total_invested_usd

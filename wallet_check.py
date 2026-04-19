@@ -90,17 +90,7 @@ def get_wallet_name(addr):
     return normalized[:12] + "..."
 
 
-def get_category(question):
-    q = question.lower()
-    if any(w in q for w in ["tennis","open","grand prix","nba","nhl","nfl","soccer","football","baseball","golf","cricket","vs "," at "]):
-        return "Sport"
-    elif any(w in q for w in ["iran","israel","ukraine","trump","nuclear","war","ceasefire","election","president","nato","china","russia","peace","hezbollah","hamas"]):
-        return "Geopolitik"
-    elif any(w in q for w in ["bitcoin","btc","eth","crypto","price","solana","render","token","doge"]):
-        return "Crypto"
-    elif any(w in q for w in ["fed","interest rate","inflation","gdp","recession","oil","gold","dollar"]):
-        return "Makro"
-    return "Sonstiges"
+from utils.category import get_category
 
 
 def days_ago(n):

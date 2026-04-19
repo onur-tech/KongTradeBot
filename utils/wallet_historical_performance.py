@@ -55,25 +55,9 @@ WALLET_NAMES = {
     "0xdb27bf2ac5d428a9c63dbc914611036855a6c56e": "DrPufferfish",
 }
 
-CATEGORIES = ["Sport", "Geopolitik", "Crypto", "Makro", "Sonstiges"]
+from utils.category import get_category, ALL_CATEGORIES
 
-
-def get_category(question: str) -> str:
-    q = question.lower()
-    if any(w in q for w in ["tennis", "open", "grand prix", "nba", "nhl", "nfl", "soccer",
-                              "football", "baseball", "golf", "cricket", "vs "]):
-        return "Sport"
-    if any(w in q for w in ["iran", "israel", "ukraine", "trump", "nuclear", "war",
-                              "ceasefire", "election", "president", "nato", "china",
-                              "russia", "peace"]):
-        return "Geopolitik"
-    if any(w in q for w in ["bitcoin", "btc", "eth", "crypto", "price", "solana",
-                              "render", "token", "blockchain"]):
-        return "Crypto"
-    if any(w in q for w in ["fed", "interest rate", "inflation", "gdp", "recession",
-                              "oil", "gold"]):
-        return "Makro"
-    return "Sonstiges"
+CATEGORIES = ALL_CATEGORIES
 
 
 def _load_target_wallets() -> list:

@@ -19,6 +19,7 @@ from typing import Optional, Dict
 from utils.logger import get_logger
 from utils.config import Config
 from utils.kill_switch import KillSwitch
+from utils.category import get_category
 from core.wallet_monitor import TradeSignal
 
 logger = get_logger("risk_manager")
@@ -58,6 +59,12 @@ class RiskManager:
 
         # Gesamtportfolio-Tracking für Budget-Cap-Check in evaluate()
         self._total_invested_usd: float = 0.0
+
+        # Kategorie-Exposure-Tracking (MAX_CATEGORY_EXPOSURE_PCT)
+        self._category_invested: Dict[str, float] = {}
+        self._max_category_pct: float = float(
+            __import__("os").getenv("MAX_CATEGORY_EXPOSURE_PCT", "100")
+        ) / 100.0
 
     def update_total_invested(self, amount: float):
         """Synchronisiert den aktuell investierten Gesamtbetrag — wird von main.py gesetzt."""
@@ -178,6 +185,20 @@ class RiskManager:
                     reason=f"Micro-Trade geskipped: Markt-Budget Rest ${adjusted_size:.2f} < MIN_TRADE_SIZE ${self.config.min_trade_size_usd:.2f}"
                 )
 
+        # 8b. Kategorie-Exposure-Limit (MAX_CATEGORY_EXPOSURE_PCT)
+        if self._max_category_pct < 1.0:
+            category = get_category(signal.market_question or "")
+            cat_limit = self.config.portfolio_budget_usd * self._max_category_pct
+            cat_invested = self._category_invested.get(category, 0.0)
+            if cat_invested >= cat_limit:
+                return RiskDecision(
+                    allowed=False,
+                    reason=(
+                        f"Kategorie-Cap: {category} ${cat_invested:.2f}/${cat_limit:.2f} "
+                        f"(max {self._max_category_pct:.0%} Portfolio)"
+                    )
+                )
+
         fallback_note = " [Fallback 48h]" if signal.time_to_close_hours is None else ""
         logger.info(
             f"✅ Trade erlaubt | Größe: ${adjusted_size:.2f} | "
@@ -197,6 +218,17 @@ class RiskManager:
             self._market_investments[market_id] = (
                 self._market_investments.get(market_id, 0.0) + size_usdc
             )
+
+    def record_category_investment(self, category: str, size_usdc: float):
+        """Registriert einen ausgeführten Trade für das Kategorie-Exposure-Tracking."""
+        if category:
+            self._category_invested[category] = (
+                self._category_invested.get(category, 0.0) + size_usdc
+            )
+
+    def set_category_investments(self, investments: Dict[str, float]):
+        """Setzt Kategorie-Investments aus aktuellem Portfolio (z.B. nach Startup)."""
+        self._category_invested = dict(investments)
 
     def record_trade_result(self, pnl_usd: float):
         """

@@ -619,6 +619,15 @@ async def main():
     # portfolio_budget_usd = CLOB-Cash + Positionen → korrekte Gesamtgröße
     config.portfolio_budget_usd += _startup_invested
 
+    # Kategorie-Exposure aus wiederhergestellten Positionen initialisieren
+    _startup_cats: dict[str, float] = {}
+    for pos in engine.open_positions.values():
+        _cat = get_category(getattr(pos, "market_question", "") or "")
+        _startup_cats[_cat] = _startup_cats.get(_cat, 0.0) + float(pos.size_usdc or 0)
+    if _startup_cats:
+        risk.set_category_investments(_startup_cats)
+        logger.info(f"[Risk] Kategorie-Exposure geladen: { {k: f'${v:.2f}' for k,v in _startup_cats.items()} }")
+
     # CLOB-Allowance Startup-Check
     if not config.dry_run:
         _health = await engine.check_clob_allowance_health()
@@ -760,6 +769,7 @@ async def main():
             )
             logger.info(f"Trade | {cat} | {market_id[:12] if market_id else 'n/a'}")
             risk.record_market_investment(market_id, float(getattr(order, "size_usdc", 0) or 0))
+            risk.record_category_investment(cat, float(getattr(order, "size_usdc", 0) or 0))
             record_fill(sig, result)
 
             try:

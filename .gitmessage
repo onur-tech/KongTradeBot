@@ -1,0 +1,41 @@
+# type(scope): short description  (max 72 chars)
+#
+# Valid types:  fix | feat | docs | refactor | test | perf | chore
+# Valid scopes: risk | execution | exit | watchdog | category | errors |
+#               dashboard | telegram | kill_switch | slippage | monitoring |
+#               analytics | state | config | automation | infra
+#
+# ─────────────────────────────────────────────────────────────────────────────
+
+Root-Cause:
+
+Impact:
+
+Fix:
+
+Lesson:
+
+Closes: T-    (optional: links TASKS.md entry)
+Knowledge: P0  (optional: creates KNOWLEDGE_BASE entry)
+
+# ─────────────────────────────────────────────────────────────────────────────
+# COMMIT-FORMAT GUIDE
+#
+# Root-Cause: Was hat das Problem verursacht? (stale state, race condition, ...)
+# Impact:     Was war der beobachtbare Effekt VOR dem Fix? (Metriken, User Impact)
+# Fix:        Was macht dieser Commit? 1-3 Sätze.
+# Lesson:     Was haben wir gelernt? NUR wenn nicht-offensichtlich.
+#             → Wird in KNOWLEDGE_BASE.md als P0XX eingetragen.
+# Closes:     T-DXX aus TASKS.md (auto_doc.py setzt Status auf DONE)
+# Knowledge:  P0XX Nummer (auto_doc.py erstellt den Eintrag)
+#
+# Beispiel:
+#   fix(risk): portfolio_budget_usd includes position values
+#
+#   Root-Cause: update_budget_from_chain() setzt budget = CLOB-Balance (Cash only)
+#   Impact: $342 invested >= $314 cap → alle Trades seit 8h geblockt, kein Alert
+#   Fix: Nach Balance-Update wird investierter Betrag addiert (Cash + Positionen)
+#   Lesson: Wenn Cash in Positionen fliesst, sinkt CLOB-Balance → Cap sinkt →
+#           Teufelskreis. Budget-Cap immer gegen Gesamtportfolio pruefen.
+#   Closes: T-D62
+#   Knowledge: P058

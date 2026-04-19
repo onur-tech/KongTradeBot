@@ -1317,3 +1317,43 @@ tx_hash=0x...   →  0 Trades ($0)    — kein einziger bestätigt
 voller Einkommensteuersatz. Realisierungszeitpunkt = Claim-Datum, nicht Kauf-Datum.
 
 **Abhängigkeit:** T-M04b (Claim-Fix) muss vor T-M06 fertig sein.
+
+---
+
+## P079 — Builder Program NICHT erforderlich für Relayer; P076 hatte falsche Credentials (19.04.2026)
+
+**Status:** KORREKTUR — P076 / claim_fix_research_2026-04-19.md aktualisierungsbedürftig
+
+**Falsche Annahme in P076:** "Builder Program nötig für RelayClient" — FALSCH.
+Relayer-Zugang ist self-service über `polymarket.com/settings?tab=api-keys`. Keine Genehmigung.
+
+**Falsche Credentials in P076:**
+```python
+# FALSCH (P076):
+client = RelayClient(
+    host="https://relayer.polymarket.com",        # ← alte URL
+    api_creds=ApiCreds(api_key=..., api_secret=..., api_passphrase=...)  # ← CLOB-Format
+)
+
+# KORREKT (aktuelle Docs 2026):
+client = RelayClient(
+    host="https://relayer-v2.polymarket.com",     # ← neue URL
+    chain=137,
+    signer=os.getenv("PRIVATE_KEY"),             # ← Private Key direkt
+    relayer_api_key=os.environ["RELAYER_API_KEY"],
+    relayer_api_key_address=os.environ["RELAYER_API_KEY_ADDRESS"],
+)
+```
+
+**Neue .env-Vars für T-M04b:**
+- `RELAYER_API_KEY` — UUID, erstellt unter polymarket.com/settings?tab=api-keys
+- `RELAYER_API_KEY_ADDRESS` — Ethereum-Adresse des Key-Besitzers
+
+**Credential-Format-Konfusion:** Alte GitHub-.env.example zeigt `BUILDER_API_KEY/SECRET/PASS_PHRASE`
+(CLOB-ähnlich). Neue offizielle Docs zeigen `RELAYER_API_KEY + RELAYER_API_KEY_ADDRESS`.
+→ Erst beim tatsächlichen pip install + Test verifizieren welches Format die Lib erwartet.
+
+**T-M04b Aufwand revidiert:** ~1h (nicht 2h) — kein Antrag nötig, nur self-service Key + pip install.
+
+**Builder Program (builders.polymarket.com)** = Grants/Leaderboard-System, kein Zugangssystem.
+Beitritt optional, kein Mehrwert für Auto-Claim. Nur relevant für Volume-Attribution + $2.5M Grant-Pool.

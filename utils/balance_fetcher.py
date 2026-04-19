@@ -9,6 +9,7 @@ import asyncio
 import aiohttp
 import json
 from utils.logger import get_logger
+from utils.retry import retry_with_backoff
 
 logger = get_logger("balance")
 
@@ -46,7 +47,7 @@ async def fetch_usdc_balance(wallet_address: str) -> float:
     payload = _build_balance_payload(wallet_address)
     async with aiohttp.ClientSession() as session:
         for rpc in POLYGON_RPC_ENDPOINTS:
-            try:
+            async def _call_rpc(rpc=rpc):
                 async with session.post(
                     rpc,
                     json=payload,
@@ -54,18 +55,23 @@ async def fetch_usdc_balance(wallet_address: str) -> float:
                     timeout=aiohttp.ClientTimeout(total=10)
                 ) as resp:
                     if resp.status != 200:
-                        logger.warning(f"Balance-Abfrage fehlgeschlagen ({rpc}): HTTP {resp.status}")
-                        continue
+                        raise ConnectionError(f"HTTP {resp.status}")
                     data = await resp.json()
                     result = data.get("result", "0x0")
-                    # USDC hat 6 Dezimalstellen (nicht 18 wie ETH)
                     balance_wei = int(result, 16)
                     balance_usdc = balance_wei / 1_000_000
-                    if balance_usdc <= 0:
-                        logger.warning(f"RPC {rpc} liefert $0.00 — versuche nächsten RPC")
-                        continue
-                    logger.info(f"💳 Wallet Balance: ${balance_usdc:.2f} USDC (via {rpc})")
                     return balance_usdc
+
+            try:
+                # Retry für transiente Netzwerkfehler (Timeout, Connection-Reset etc.)
+                balance_usdc = await retry_with_backoff(
+                    _call_rpc, max_retries=2, initial_delay=2.0
+                )
+                if balance_usdc <= 0:
+                    logger.warning(f"RPC {rpc} liefert $0.00 — versuche nächsten RPC")
+                    continue
+                logger.info(f"💳 Wallet Balance: ${balance_usdc:.2f} USDC (via {rpc})")
+                return balance_usdc
             except Exception as e:
                 logger.warning(f"Balance-Abfrage Fehler ({rpc}): {e}")
                 continue

@@ -35,6 +35,7 @@ from utils.logger import get_logger
 from utils.config import Config
 from strategies.copy_trading import CopyOrder, get_wallet_name
 from core.position_state import PositionState
+from utils.balance_cli import get_usdc_balance_via_cli as _balance_cli
 
 logger = get_logger("execution")
 
@@ -46,13 +47,17 @@ except ImportError:
 # py-clob-client Import — optional, damit Tests ohne Installation laufen
 try:
     from py_clob_client.client import ClobClient
-    from py_clob_client.clob_types import OrderArgs, OrderType, BalanceAllowanceParams, AssetType
+    from py_clob_client.clob_types import (
+        OrderArgs, OrderType, BalanceAllowanceParams, AssetType,
+        PartialCreateOrderOptions,
+    )
     from py_clob_client.order_builder.constants import BUY
     CLOB_AVAILABLE = True
 except ImportError:
     CLOB_AVAILABLE = False
     BalanceAllowanceParams = None
     AssetType = None
+    PartialCreateOrderOptions = None
     logger.warning("py-clob-client nicht installiert. Nur Dry-Run möglich.")
     logger.warning("Installation: pip install py-clob-client")
 
@@ -331,10 +336,20 @@ class ExecutionEngine:
                 size=shares,
                 side=BUY,
             )
+            # NEG_RISK: Env-Override (true) oder Wert aus Marktdaten (API-Feld neg_risk)
+            import os as _os
+            _env_neg_risk = _os.getenv("NEG_RISK", "false").lower() == "true"
+            _effective_neg_risk = _env_neg_risk or neg_risk
+            order_options = None
+            if PartialCreateOrderOptions is not None:
+                order_options = PartialCreateOrderOptions(
+                    tick_size=str(tick_size_f),
+                    neg_risk=_effective_neg_risk,
+                )
             logger.debug(
                 f"DEBUG: About to call create_and_post_order with "
                 f"token_id={signal.token_id} price={signal.price} "
-                f"size={shares:.4f} side=BUY"
+                f"size={shares:.4f} side=BUY neg_risk={_effective_neg_risk}"
             )
             # run_in_executor: verhindert dass der synchrone requests-Call
             # den asyncio Event-Loop einfriert.
@@ -344,7 +359,10 @@ class ExecutionEngine:
             for attempt in range(1, MAX_RETRIES + 1):
                 try:
                     response = await asyncio.wait_for(
-                        loop.run_in_executor(None, self._client.create_and_post_order, order_args),
+                        loop.run_in_executor(
+                            None,
+                            lambda: self._client.create_and_post_order(order_args, order_options),
+                        ),
                         timeout=30.0,
                     )
                     break
@@ -542,6 +560,12 @@ class ExecutionEngine:
             if usdc < 10:
                 logger.warning(f"⚠️  Wenig USDC! Balance: ${usdc:.2f}")
         except Exception as e:
+            if "invalid hex address" in str(e) or "assetAddress" in str(e):
+                # Fallback auf polymarket-cli wenn CLOB-SDK assetAddress-Fehler wirft
+                cli_bal = _balance_cli()
+                if cli_bal is not None:
+                    logger.info(f"💰 USDC Balance (cli-fallback): ${cli_bal:.2f}")
+                    return
             logger.warning(f"Balance-Check fehlgeschlagen: {e}")
             if _handle_error is not None:
                 try:

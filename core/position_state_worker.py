@@ -1,13 +1,14 @@
 """
 core/position_state_worker.py — T-M08 Phase 2: State-Update-Worker
 
-Polls Polymarket gamma-API alle INTERVAL Sekunden.
+Einzelner data-API-Call (?redeemable=true) statt N gamma-API-Calls.
 Detektiert aufgelöste Märkte und setzt OpenPosition.position_state
 auf PENDING_CLOSE.
 
 Design-Prinzipien:
   - Läuft als eigener asyncio-Task, blockiert Main-Loop NICHT
-  - Schreibt states nach core/exit_state.json-Muster in data/position_states.json
+  - 1 API-Call pro Zyklus statt N (eine Anfrage für alle Positionen)
+  - Schreibt states in data/position_states.json
   - Greift NUR auf engine.open_positions zu (read + state-update)
   - Keine Interferenz mit exit_manager.py (T-M04d/T-M04f UNVERAENDERT)
   - Fehler werden geloggt, nie propagiert
@@ -15,6 +16,7 @@ Design-Prinzipien:
 
 import asyncio
 import json
+import os
 import time
 from pathlib import Path
 
@@ -25,14 +27,18 @@ from utils.logger import get_logger
 
 logger = get_logger("state_worker")
 
-STATES_FILE  = Path("data/position_states.json")
-GAMMA_API    = "https://gamma-api.polymarket.com/markets"
-REQUEST_TIMEOUT = 8
+STATES_FILE     = Path("data/position_states.json")
+DATA_API_BASE   = "https://data-api.polymarket.com"
+REQUEST_TIMEOUT = 12
 
 
 class PositionStateWorker:
     """
     Hintergrund-Worker: prüft alle INTERVAL Sekunden ob Märkte aufgelöst wurden.
+
+    Nutzt einen einzigen API-Call:
+        GET /positions?user={proxy}&redeemable=true
+    → liefert alle aufgelösten Positionen auf einmal (effizienter als N gamma-Calls).
 
     Verwendung in main.py:
         worker = PositionStateWorker(engine, interval=300)
@@ -40,10 +46,11 @@ class PositionStateWorker:
     """
 
     def __init__(self, engine, interval: int = 300):
-        self.engine   = engine
-        self.interval = interval
-        self._states: dict = {}          # "market_id|outcome" → PositionState str
+        self.engine        = engine
+        self.interval      = interval
+        self._states: dict = {}          # "condition_id|outcome" → PositionState str
         self._last_run: float = 0.0
+        self._proxy_addr   = os.getenv("POLYMARKET_ADDRESS", "")
         self._load()
 
     # ── Persistenz ────────────────────────────────────────────────────────────
@@ -84,35 +91,56 @@ class PositionStateWorker:
             self._states[key] = PositionState.RESOLVED
             self._save()
 
-    # ── Polymarket API Check ───────────────────────────────────────────────────
+    # ── Batch Redeemable Fetch ─────────────────────────────────────────────────
 
-    async def _is_market_resolved(self, session: aiohttp.ClientSession, token_id: str) -> bool:
+    async def _fetch_redeemable_set(self, session: aiohttp.ClientSession) -> set:
         """
-        True wenn der Markt aufgelöst ist.
-        Nutzt gamma-API: resolved=true oder resolutionTime gesetzt.
+        Holt alle redeemable Positionen in einem einzigen API-Call.
+        Gibt ein Set von "conditionId|outcome"-Strings zurück.
+
+        Effizienz: 1 HTTP-Call statt N gamma-API-Calls pro Position.
         """
+        if not self._proxy_addr:
+            logger.warning("[StateWorker] POLYMARKET_ADDRESS nicht gesetzt — kein Redeemable-Check")
+            return set()
+
+        url = (
+            f"{DATA_API_BASE}/positions"
+            f"?user={self._proxy_addr}&redeemable=true&sizeThreshold=.01&limit=500"
+        )
         try:
-            url    = f"{GAMMA_API}?clob_token_ids={token_id}"
             timeout = aiohttp.ClientTimeout(total=REQUEST_TIMEOUT)
             async with session.get(url, timeout=timeout) as r:
                 if r.status != 200:
-                    return False
+                    logger.warning(f"[StateWorker] data-API Status {r.status}")
+                    return set()
                 data = await r.json()
-                if not isinstance(data, list) or not data:
-                    return False
-                market = data[0]
-                return bool(market.get("resolved") or market.get("resolutionTime"))
+                if not isinstance(data, list):
+                    return set()
+                result = set()
+                for entry in data:
+                    cid     = entry.get("conditionId", "")
+                    outcome = entry.get("outcome", "")
+                    if cid and outcome:
+                        result.add(f"{cid}|{outcome}")
+                logger.debug(
+                    f"[StateWorker] {len(result)} redeemable Positionen von API"
+                )
+                return result
         except asyncio.TimeoutError:
-            logger.debug(f"[StateWorker] Timeout für token_id {token_id[:16]}...")
+            logger.warning("[StateWorker] Timeout beim Redeemable-Fetch")
         except Exception as e:
-            logger.debug(f"[StateWorker] API-Fehler: {e}")
-        return False
+            logger.warning(f"[StateWorker] API-Fehler: {e}")
+        return set()
 
     # ── Haupt-Loop ────────────────────────────────────────────────────────────
 
     async def run(self) -> None:
         """Läuft als asyncio-Task. Pausiert INTERVAL Sekunden zwischen Runs."""
-        logger.info(f"[StateWorker] Gestartet (Interval: {self.interval}s)")
+        logger.info(
+            f"[StateWorker] Gestartet (Interval: {self.interval}s, "
+            f"Proxy: {self._proxy_addr[:10]}...)"
+        )
         while True:
             await asyncio.sleep(self.interval)
             try:
@@ -125,40 +153,32 @@ class PositionStateWorker:
         if not positions:
             return
 
-        changed   = 0
-        checked   = 0
-        start     = time.monotonic()
+        changed = 0
+        start   = time.monotonic()
 
         async with aiohttp.ClientSession() as session:
-            for pos in positions:
-                key     = f"{pos.market_id}|{pos.outcome}"
-                current = self._states.get(key, PositionState.OPEN)
+            # Einziger API-Call für alle Positionen
+            redeemable_set = await self._fetch_redeemable_set(session)
 
-                # RESOLVED Positionen nicht mehr prüfen
-                if current == PositionState.RESOLVED:
-                    continue
+        for pos in positions:
+            key     = f"{pos.market_id}|{pos.outcome}"
+            current = self._states.get(key, PositionState.OPEN)
 
-                token_id = getattr(pos, "token_id", "")
-                if not token_id:
-                    continue
+            if current == PositionState.RESOLVED:
+                continue
 
-                checked += 1
-                resolved = await self._is_market_resolved(session, token_id)
+            is_redeemable = key in redeemable_set
 
-                if resolved and current != PositionState.PENDING_CLOSE:
-                    self._states[key]   = PositionState.PENDING_CLOSE
-                    pos.position_state  = PositionState.PENDING_CLOSE
-                    changed += 1
-                    logger.info(
-                        f"[StateWorker] 🕐 PENDING_CLOSE: {pos.outcome} | "
-                        f"{pos.market_question[:55]}"
-                    )
-                elif not resolved and current == PositionState.OPEN:
-                    # Explizit im State speichern falls noch nicht vorhanden
-                    self._states[key] = PositionState.OPEN
-
-                # Rate-limit: kurze Pause zwischen API-Calls
-                await asyncio.sleep(0.3)
+            if is_redeemable and current != PositionState.PENDING_CLOSE:
+                self._states[key]  = PositionState.PENDING_CLOSE
+                pos.position_state = PositionState.PENDING_CLOSE
+                changed += 1
+                logger.info(
+                    f"[StateWorker] 🕐 PENDING_CLOSE: {pos.outcome} | "
+                    f"{pos.market_question[:55]}"
+                )
+            elif not is_redeemable and key not in self._states:
+                self._states[key] = PositionState.OPEN
 
         elapsed = time.monotonic() - start
 
@@ -166,11 +186,13 @@ class PositionStateWorker:
             self._save()
             logger.info(
                 f"[StateWorker] {changed} State(s) → PENDING_CLOSE | "
-                f"{checked} geprüft | {elapsed:.1f}s"
+                f"{len(positions)} geprüft | {elapsed:.1f}s"
             )
         else:
             logger.debug(
-                f"[StateWorker] Keine Änderungen | {checked} geprüft | {elapsed:.1f}s"
+                f"[StateWorker] Keine Änderungen | {len(positions)} geprüft | "
+                f"{len(redeemable_set) if 'redeemable_set' in dir() else 0} redeemable | "
+                f"{elapsed:.1f}s"
             )
 
         self._last_run = time.time()

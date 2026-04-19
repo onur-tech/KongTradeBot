@@ -146,3 +146,19 @@ Chat-Claude fetcht bei jedem neuen Chat:
 - https://raw.githubusercontent.com/onur-tech/KongTradeBot/main/BACKTEST_RESULTS.md
 
 GUIDELINES.md hat Vorrang bei Widersprüchen.
+
+## WALLET-, STRATEGIE- UND RISK-ENTSCHEIDUNGEN
+
+Für alle Entscheidungen in diesen Domains gilt:
+
+1. **PFLICHT:** Framework-Check nach SKILL.md Punkt 13
+2. **PFLICHT:** Relevante Dokumente lesen (WALLET_SCOUT_BRIEFING.md etc.)
+3. **PFLICHT:** Entscheidung gegen Hard-Filter und KongScore prüfen
+4. **PFLICHT:** Bei Approval — Tier festlegen und in `data/wallet_decisions.jsonl` dokumentieren
+
+**Verboten:**
+- Override ohne Framework-Check
+- Bauchgefühl-Entscheidungen ohne Dokumentation
+- Manuelle Approvals ohne KongScore-Berechnung
+
+Bei Unsicherheit: Lieber Tier B oder Watching als direkte Tier A Approval.

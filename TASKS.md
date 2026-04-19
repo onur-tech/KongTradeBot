@@ -19,6 +19,17 @@ _Stand: 2026-04-19 12:00 Berlin_
 | ID | Titel | Prio | Notiz |
 |----|-------|------|-------|
 | T-039 | weekly_doku_check.py Script (Freitag 17:00, Telegram-Report fuer Events ohne Doku) | NICE | — |
+| T-D70 | Scout v2: 9 Hard-Filter in utils/wallet_scout.py implementieren | WICHTIG | WALLET_SCOUT_BRIEFING.md Teil 4 |
+| T-D71 | KongScore-Engine: 10 Soft-Score-Kategorien (SC-1 bis SC-10) | WICHTIG | WALLET_SCOUT_BRIEFING.md Teil 5 |
+| T-D72 | Tiered System (A/B/C Pools) in core/state_manager integrieren | WICHTIG | Bootstrapping-Modus Toggle |
+| T-D73 | Bootstrapping-Modus Toggle in .env (BOOTSTRAPPING_MODE=true/false) | NICE | Erste 90 Tage |
+| T-D74 | shadow_wallets.db Schema + Tracking (REJECTED 90d, WATCHING unlimitiert) | WICHTIG | KONG_REVIEW_SYSTEM.md |
+| T-D75 | Dashboard-Panel "WalletScout Kandidaten" (Tier A/B/C Übersicht) | NICE | — |
+| T-D76 | Dashboard-Panel "Missed-Profit-Metric" (Shadow vs Active) | NICE | KONG_REVIEW_SYSTEM.md Ebene 3 |
+| T-D77 | scripts/monthly_wallet_audit.py + systemd Timer (1. jeden Monats 06:00) | WICHTIG | KONG_REVIEW_SYSTEM.md |
+| T-D78 | scripts/quarterly_criteria_review.py + Timer (1.4./1.7./1.10./1.1.) | NICE | Claude API + Grok |
+| T-D79 | Post-Mortem-Generator (30-Tage-Review → KNOWLEDGE_BASE.md Eintrag) | WICHTIG | KONG_REVIEW_SYSTEM.md |
+| T-D80 | Grok-Verifikations-Protokoll (nach Grok-Phase-0, T-S01) | NICE | WALLET_SCOUT_BRIEFING.md Teil 9.3 |
 | T-016 | Balance-Chart auf Portfolio-Total | WICHTIG | SQLite Spalte portfolio_total (P008) |
 | T-007 | Telegram-Commands: /balance /health /logs | NICE | telegram_bot.py erweitern |
 | T-017 | Per-Wallet-Performance aus Signal-Counter | NICE | Signale tracken (P015) |

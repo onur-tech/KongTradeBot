@@ -32,6 +32,7 @@ from core.fill_tracker import FillTracker, PendingOrder
 from core.exit_manager import ExitManager, ExitEvent
 from core.position_state_worker import PositionStateWorker
 from core.anomaly_detector import AnomalyDetector, anomaly_detector_loop
+from core.rss_monitor import RSSMonitor
 from strategies.copy_trading import CopyTradingStrategy, CopyOrder
 from claim_all import claim_loop
 from telegram_bot import (send, msg_trade, msg_status, msg_startup,
@@ -600,6 +601,7 @@ async def main():
     strategy         = CopyTradingStrategy(config, risk)
     monitor          = WalletMonitor(config)
     anomaly_detector = AnomalyDetector()
+    rss_monitor      = RSSMonitor(send_fn=send)
 
     # KRITISCH: CLOB Client initialisieren (MUSS vor dem ersten Trade-Aufruf erfolgen!)
     await engine.initialize()
@@ -1220,6 +1222,7 @@ async def main():
                 anomaly_detector, engine, send,
                 interval_seconds=int(os.getenv("ANOMALY_SCAN_INTERVAL_SECONDS", "300"))
             )),
+            asyncio.create_task(rss_monitor.run()),     # T-NEWS Phase 1B
             asyncio.create_task(poll_commands(
                 callback_status=send_status_now,
                 callback_resolve=check_resolved_markets_and_notify,

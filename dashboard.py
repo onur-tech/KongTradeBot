@@ -1196,6 +1196,51 @@ def api_slippage():
         return _cors(jsonify({"error": str(e)})), 500
 
 
+@app.route("/api/wallet_performance")
+def api_wallet_performance():
+    """
+    GET /api/wallet_performance
+    Query params:
+      wallet=0x...          (single wallet; omit for all wallets)
+      view=stats|category|timeframe|all   (default: stats)
+      since=30              (days lookback, default 30)
+    """
+    since = int(request.args.get("since", 30))
+    wallet = request.args.get("wallet", "").strip()
+    view   = request.args.get("view", "stats")
+    try:
+        sys.path.insert(0, str(BASE_DIR))
+        from utils.wallet_performance import (
+            compute_wallet_stats, compute_by_category,
+            compute_by_timeframe, compute_all_wallets,
+        )
+
+        if not wallet:
+            data = compute_all_wallets(since_days=since)
+            return _cors(jsonify({"view": "all_wallets", "since_days": since, "wallets": data}))
+
+        if view == "stats":
+            return _cors(jsonify({"view": "stats", "since_days": since, "data": compute_wallet_stats(wallet, since)}))
+        elif view == "category":
+            return _cors(jsonify({"view": "category", "since_days": since, "data": compute_by_category(wallet, since)}))
+        elif view == "timeframe":
+            return _cors(jsonify({"view": "timeframe", "since_days": since, "data": compute_by_timeframe(wallet, since)}))
+        elif view == "all":
+            return _cors(jsonify({
+                "view":      "all",
+                "since_days": since,
+                "stats":     compute_wallet_stats(wallet, since),
+                "category":  compute_by_category(wallet, since),
+                "timeframe": compute_by_timeframe(wallet, since),
+            }))
+        else:
+            return _cors(jsonify({"error": f"Unbekannte view: {view}"})), 400
+    except ImportError as e:
+        return _cors(jsonify({"error": f"wallet_performance nicht verfügbar: {e}"})), 500
+    except Exception as e:
+        return _cors(jsonify({"error": str(e)})), 500
+
+
 # ── Mutable Endpoints ─────────────────────────────────────────────────────────
 
 @app.route("/api/env", methods=["POST"])

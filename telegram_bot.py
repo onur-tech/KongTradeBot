@@ -653,25 +653,26 @@ async def _handle_menu_callback(action: str, callback_status) -> str:
             await send(_DASHBOARD_ERR, urgent=True)
             return "⚠️"
         today_count   = int(summary.get("today_trades", 0))
-        # Portfolio-Delta seit Mitternacht (Snapshot-basiert, genauer als nur resolved P&L)
-        port_pnl      = float((port or {}).get("today_pnl_portfolio", 0))
-        snap_val      = float((port or {}).get("snapshot_value", 0))
-        total_val     = float((port or {}).get("total_value", 0))
-        resolved_pnl  = float(summary.get("today_pnl", 0))
-        pnl_sign = "+" if port_pnl >= 0 else ""
-        pnl_icon = "🟢" if port_pnl >= 0 else "🔴"
+        wins          = int(summary.get("wins_today", 0))
+        losses        = int(summary.get("losses_today", 0))
+        won_usdc      = float(summary.get("won_usdc_today", 0))
+        lost_usdc     = float(summary.get("lost_usdc_today", 0))
+        net_pnl       = float(summary.get("pnl_today", 0))
+        portfolio_total = float((port or {}).get("total_value", 0))
+        pnl_sign = "+" if net_pnl >= 0 else ""
+        pnl_icon = "🟢" if net_pnl >= 0 else "🔴"
         lines = [
             f"📅 <b>HEUTE — {date.today().strftime('%d.%m.%Y')}</b>",
             "━━━━━━━━━━━━━━━━━━━━",
-            f"📋 Trades: <b>{today_count}</b>",
+            f"💰 <b>Realisierter P&L</b>",
+            f"✅ Gewonnen: <b>+${won_usdc:.2f} USDC</b> ({wins}×)",
+            f"❌ Verloren: <b>${lost_usdc:.2f} USDC</b> ({losses}×)",
+            "─────────────────",
+            f"{pnl_icon} Netto: <b>{pnl_sign}${net_pnl:.2f} USDC</b>",
+            f"📋 Signale heute: {today_count}",
         ]
-        if snap_val > 0:
-            lines += [
-                f"{pnl_icon} Portfolio-Delta: <b>{pnl_sign}${port_pnl:.2f} USDC</b>",
-                f"   Morgen: ${snap_val:.2f} → Jetzt: ${total_val:.2f}",
-            ]
-        else:
-            lines.append(f"💰 Resolved P&L heute: <b>{'+' if resolved_pnl>=0 else ''}${resolved_pnl:.2f}</b>")
+        if portfolio_total > 0:
+            lines.append(f"💼 Portfolio gesamt: ${portfolio_total:.2f} USDC")
         await send("\n".join(lines), urgent=True)
         return "📅 Heute gesendet"
 

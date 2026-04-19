@@ -842,6 +842,8 @@ def api_stats_session():
     today_wins    = [t for t in today_filled if t.get("ergebnis") == "GEWINN"]
     today_losses  = [t for t in today_filled if t.get("ergebnis") == "VERLUST"]
     today_pnl     = sum(float(t.get("gewinn_verlust_usdc", 0) or 0) for t in today_filled)
+    today_won_usdc  = sum(float(t.get("gewinn_verlust_usdc", 0) or 0) for t in today_wins)
+    today_lost_usdc = sum(float(t.get("gewinn_verlust_usdc", 0) or 0) for t in today_losses)
 
     best  = max(today_filled, key=lambda t: float(t.get("gewinn_verlust_usdc", 0) or 0), default=None)
     worst = min(today_filled, key=lambda t: float(t.get("gewinn_verlust_usdc", 0) or 0), default=None)
@@ -873,6 +875,8 @@ def api_stats_session():
         "wins_today":       len(today_wins),
         "losses_today":     len(today_losses),
         "pnl_today":        round(today_pnl, 2),
+        "won_usdc_today":   round(today_won_usdc, 2),
+        "lost_usdc_today":  round(today_lost_usdc, 2),
         "win_rate_today":   round(len(today_wins) / max(1, len(today_filled)) * 100, 1),
         "streak":           streak,
         "best_trade":       {

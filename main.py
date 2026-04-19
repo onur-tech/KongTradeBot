@@ -738,7 +738,8 @@ async def main():
             token_id  = str(getattr(sig, "token_id", "")  or "")
 
             _order_id = str(result.order_id or "")
-            _tx_hash  = f"pending_{_order_id}" if _order_id else ""
+            # T-M06 Phase 1: order_id direkt als Bestätigung — kein pending_-Präfix
+            _tx_hash  = _order_id
             log_trade(
                 market_question=str(getattr(sig, "market_question", "Unknown") or "Unknown")[:100],
                 outcome=str(getattr(sig, "outcome", "")),

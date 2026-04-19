@@ -719,14 +719,26 @@ def api_portfolio():
                         or enddate_map.get(p.get("conditionId", "")))
         mkt_title = p.get("title") or p.get("question") or p.get("market") or ""
         ci_label, ci_class = _closes_in_label(end_date_str, market_title=mkt_title)
+        redeemable = bool(any(p.get(k) for k in ("redeemable", "isRedeemable", "is_redeemable")))
+        if redeemable and cur_value > 0.01:
+            pos_state = "RESOLVED_WON"
+        elif redeemable:
+            pos_state = "RESOLVED_LOST"
+        elif cur_price < 0.005 and cur_value < 0.01:
+            pos_state = "TRADING_ENDED"
+        else:
+            pos_state = "ACTIVE"
         result[-1].update({
-            "redeemable":      bool(any(p.get(k) for k in ("redeemable", "isRedeemable", "is_redeemable"))),
+            "redeemable":      redeemable,
+            "position_state":  pos_state,
             "asset_id":        p.get("asset_id") or p.get("tokenId") or "",
             "closes_in_label": ci_label,
             "closes_in_class": ci_class,
             "wallet":          wallet_map.get(p.get("conditionId", ""), "—"),
         })
     result.sort(key=lambda x: x["current_value"], reverse=True)
+    active   = [r for r in result if r["position_state"] == "ACTIVE"]
+    inactive = [r for r in result if r["position_state"] != "ACTIVE"]
     total_value  = round(sum(r["current_value"] for r in result), 2)
     total_traded = round(sum(r["traded"] for r in result), 2)
     total_to_win = round(sum(r["to_win"] for r in result), 2)
@@ -738,8 +750,10 @@ def api_portfolio():
     today_pnl_portfolio = round(total_value - snap["snapshot_value"], 2)
 
     return _cors(jsonify({
-        "positions":            result,
-        "count":                len(result),
+        "positions":            active,
+        "inactive_positions":   inactive,
+        "count":                len(active),
+        "count_all":            len(result),
         "total_value":          total_value,
         "total_traded":         total_traded,
         "total_to_win":         total_to_win,

@@ -927,3 +927,16 @@ CSS ergänzt: `.status-lost{color:#ff4444;font-size:0.85em;font-weight:bold;font
 **Lesson:** UI-States immer mit allen Kombinationen durchspielen.
 "redeemable" heißt nicht automatisch "claimable mit Wert > 0".
 Claim-Chain auf Polymarket: `resolved → redeemable → payout (kann $0 sein)`
+
+## P060 — Auto-Doc-Pipeline mit 3-Ebenen-Struktur (2026-04-19)
+**Status:** FIXED via `85e6e33`
+**Scope:** automation
+
+**Root Cause:** Manuelle Doku-Sync kostete 30+ Min pro Bug-Fix-Runde.
+
+**Impact:** Bei heutiger Power-Session (37 Commits) waere Doku-Overhead
+
+**Fix:** 3-Ebenen-Automatik deployed:
+
+**Lesson:** Doku-Aufwand eliminieren durch Struktur am Source (Commit-Message)
+

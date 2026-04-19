@@ -102,9 +102,13 @@ class WalletMonitor:
     def __init__(self, config: Config):
         self.config = config
         self.on_new_trade: Optional[Callable[[TradeSignal], None]] = None
+        # T-M03: Whale-Exit-Copy — Callback bei SELL-Signal einer tracked Wallet
+        self.on_whale_sell: Optional[Callable[[TradeSignal], None]] = None
 
         # Deduplizierung: alle gesehenen Transaction Hashes
         self._seen_tx_hashes: Set[str] = set()
+        # T-M03: separate Dedup-Menge für SELL-Signale
+        self._seen_sell_hashes: Set[str] = set()
 
         # First Entry Tracking: pro Wallet bekannte Märkte (conditionId)
         self._wallet_markets: dict = {}
@@ -119,6 +123,7 @@ class WalletMonitor:
             "trades_detected": 0,
             "trades_skipped_duplicate": 0,
             "early_entry_signals": 0,
+            "whale_sells_detected": 0,
             "errors": 0,
         }
 
@@ -235,6 +240,18 @@ class WalletMonitor:
                     logger.info(f"🆕 NEUER TRADE erkannt: {signal}")
                 if self.on_new_trade:
                     await self._safe_callback(signal)
+
+            # T-M03: SELL-Erkennung für Whale-Exit-Copy
+            if self.on_whale_sell and getattr(self.config, "whale_exit_copy_enabled", False):
+                for activity in activities:
+                    sell_signal = self._parse_sell_activity(activity, wallet)
+                    if sell_signal:
+                        self.stats["whale_sells_detected"] += 1
+                        logger.info(
+                            f"🐋 WHALE SELL erkannt: [{wallet[:10]}] "
+                            f"{sell_signal.outcome} auf '{sell_signal.market_question[:50]}'"
+                        )
+                        await self._safe_callback(sell_signal, callback=self.on_whale_sell)
 
         except aiohttp.ClientError as e:
             self.stats["errors"] += 1
@@ -423,15 +440,75 @@ class WalletMonitor:
             logger.warning(f"Trade konnte nicht geparst werden: {e} | Raw: {activity}")
             return None
 
-    async def _safe_callback(self, signal: TradeSignal):
+    async def _safe_callback(self, signal: TradeSignal, callback=None):
         """Ruft den Callback auf — fängt Fehler damit der Monitor weiterläuft."""
+        cb = callback or self.on_new_trade
+        if not cb:
+            return
         try:
-            if asyncio.iscoroutinefunction(self.on_new_trade):
-                await self.on_new_trade(signal)
+            if asyncio.iscoroutinefunction(cb):
+                await cb(signal)
             else:
-                self.on_new_trade(signal)
+                cb(signal)
         except Exception as e:
             logger.error(f"Fehler im Trade-Callback: {e}", exc_info=True)
+
+    def _parse_sell_activity(self, activity: dict, source_wallet: str) -> Optional[TradeSignal]:
+        """
+        T-M03: Parst SELL-Aktivitäten als TradeSignal (side='SELL').
+        Gibt None zurück wenn kein neues/relevantes SELL-Signal.
+        Zeitfilter: nur SELLs der letzten 15 Minuten (verhindert false exits nach Restart).
+        """
+        try:
+            activity_type = activity.get("type", "").upper()
+            if activity_type not in ("SELL", "REDEEM"):
+                return None
+
+            tx_hash = activity.get("transactionHash") or activity.get("id", "")
+            if not tx_hash or tx_hash in self._seen_sell_hashes:
+                return None
+
+            # Zeitfilter: nur SELL-Events der letzten 15 Minuten
+            ts_raw = activity.get("timestamp") or activity.get("createdAt") or activity.get("time")
+            if ts_raw:
+                try:
+                    ts = float(ts_raw) if str(ts_raw).replace(".", "").isdigit() else (
+                        datetime.fromisoformat(str(ts_raw).replace("Z", "+00:00")).timestamp()
+                    )
+                    if time.time() - ts > 900:  # älter als 15 Minuten → ignorieren
+                        self._seen_sell_hashes.add(tx_hash)  # trotzdem markieren
+                        return None
+                except Exception:
+                    pass
+
+            price = float(activity.get("price", 0))
+            size_usdc = float(activity.get("usdcSize", 0) or activity.get("size", 0))
+            market_id = activity.get("conditionId", "")
+            token_id = activity.get("asset", activity.get("tokenId", ""))
+            outcome = activity.get("outcome", activity.get("side", "Unknown"))
+
+            if not market_id or size_usdc <= 0:
+                return None
+
+            self._seen_sell_hashes.add(tx_hash)
+            if len(self._seen_sell_hashes) > 5_000:
+                oldest = list(self._seen_sell_hashes)[:500]
+                for h in oldest:
+                    self._seen_sell_hashes.discard(h)
+
+            return TradeSignal(
+                tx_hash=tx_hash,
+                source_wallet=source_wallet,
+                market_id=market_id,
+                token_id=token_id,
+                side="SELL",
+                price=max(price, 0.001),
+                size_usdc=size_usdc,
+                market_question=activity.get("title", activity.get("question", "")),
+                outcome=str(outcome),
+            )
+        except (ValueError, TypeError, KeyError):
+            return None
 
     async def _backoff_on_error(self, base_wait: float = 5.0):
         """Exponential Backoff bei Fehlern — verhindert API-Bans."""

@@ -73,6 +73,9 @@ class Config:
     # Crypto-Daily Single-Signal
     crypto_daily_single_signal: bool = True
 
+    # T-M03: Whale-Exit-Copy
+    whale_exit_copy_enabled: bool = True
+
     # API
     clob_host: str = "https://clob.polymarket.com"
     gamma_host: str = "https://gamma-api.polymarket.com"
@@ -155,6 +158,7 @@ def load_config() -> Config:
         exit_sl_max_events_per_hour=int(os.getenv("EXIT_SL_MAX_PER_HOUR", "3")),
         exit_sl_spread_max=float(os.getenv("EXIT_SL_SPREAD_MAX", "0.05")),
         crypto_daily_single_signal=os.getenv("CRYPTO_DAILY_SINGLE_SIGNAL", "true").lower() == "true",
+        whale_exit_copy_enabled=os.getenv("WHALE_EXIT_COPY_ENABLED", "true").lower() == "true",
         clob_host=os.getenv("CLOB_HOST", "https://clob.polymarket.com"),
         gamma_host=os.getenv("GAMMA_HOST", "https://gamma-api.polymarket.com"),
         chain_id=int(os.getenv("CHAIN_ID", "137")),

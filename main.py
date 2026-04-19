@@ -871,6 +871,88 @@ async def main():
     strategy.on_herd_alert     = on_herd_alert
     monitor.on_new_trade       = strategy.handle_signal
 
+    # ── T-M03: Whale-Exit-Copy ────────────────────────────────────────────────
+
+    async def on_whale_exit(pos, sell_signal):
+        """Sofortiger Exit wenn tracked Wallet ihre Position verkauft hat."""
+        wallet_name = get_wallet_name(pos.source_wallet)
+        market_short = (pos.market_question or sell_signal.market_question or "")[:60]
+        try:
+            if config.exit_dry_run:
+                logger.info(
+                    f"[whale_exit_copy] 🧪 DRY-RUN: würde {pos.outcome} auf "
+                    f"'{market_short}' verkaufen ({pos.shares:.4f} shares)"
+                )
+                log_trade(
+                    market_question=market_short,
+                    outcome=pos.outcome, side="SELL",
+                    price=sell_signal.price,
+                    size_usdc=pos.size_usdc, shares=pos.shares,
+                    source_wallet=pos.source_wallet,
+                    tx_hash=f"whale_exit_{pos.order_id[:12]}",
+                    category="exit_whale_exit_copy",
+                    market_id=pos.market_id,
+                    token_id=pos.token_id,
+                    realized_pnl=round((sell_signal.price - pos.entry_price) * pos.shares, 4),
+                    mark_resolved=True,
+                    is_dry_run=True,
+                )
+            else:
+                result = await engine.create_and_post_sell_order(
+                    asset_id=pos.token_id,
+                    shares=pos.shares,
+                    min_price=max(0.01, sell_signal.price * 0.97),
+                    exit_dry_run=False,
+                )
+                if result["success"]:
+                    realized_pnl = round(
+                        result["usdc_received"] - pos.size_usdc, 4
+                    )
+                    log_trade(
+                        market_question=market_short,
+                        outcome=pos.outcome, side="SELL",
+                        price=result.get("filled_price", sell_signal.price),
+                        size_usdc=result["usdc_received"],
+                        shares=result["shares_sold"],
+                        source_wallet=pos.source_wallet,
+                        tx_hash=result.get("order_id", ""),
+                        category="exit_whale_exit_copy",
+                        market_id=pos.market_id,
+                        token_id=pos.token_id,
+                        realized_pnl=realized_pnl,
+                        mark_resolved=True,
+                        is_dry_run=False,
+                    )
+                    engine.open_positions.pop(pos.order_id, None)
+                    exit_manager._remove_state(pos.market_id, pos.outcome)
+                    logger.info(
+                        f"[whale_exit_copy] ✅ Exit erfolgreich: "
+                        f"${result['usdc_received']:.2f} | PnL {realized_pnl:+.2f}"
+                    )
+                else:
+                    logger.error(
+                        f"[whale_exit_copy] Sell-Order fehlgeschlagen: {result['error']}"
+                    )
+                    return
+
+            pnl_val = round((sell_signal.price - pos.entry_price) * pos.shares, 2)
+            pnl_sign = "+" if pnl_val >= 0 else ""
+            dry_tag = "🧪 <b>DRY-RUN</b> " if config.exit_dry_run else ""
+            await send("\n".join([
+                f"{dry_tag}🐋 <b>WHALE-EXIT KOPIERT</b>",
+                "━━━━━━━━━━━━━━━━━━━━",
+                f"👛 Wallet: <b>{wallet_name}</b> verkauft",
+                f"🏪 {market_short}",
+                f"🎯 {pos.outcome} | Entry: ${pos.entry_price:.3f} → Exit: ${sell_signal.price:.3f}",
+                f"{'🟢' if pnl_val >= 0 else '🔴'} PnL: <b>{pnl_sign}${pnl_val:.2f}</b>",
+            ]))
+        except Exception as e:
+            logger.error(f"[whale_exit_copy] Fehler: {e}", exc_info=True)
+
+    strategy.get_open_positions = lambda: engine.open_positions
+    strategy.on_whale_exit      = on_whale_exit
+    monitor.on_whale_sell       = strategy.handle_whale_sell
+
     # ── Exit-Manager Setup ────────────────────────────────────────────────────
 
     async def _fetch_live_prices(token_ids: list) -> tuple:

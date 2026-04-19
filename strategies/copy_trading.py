@@ -318,6 +318,10 @@ class CopyTradingStrategy:
         # Callback: gibt aktuelle Anzahl offener Positionen zurück (für MAX_POSITIONS_TOTAL)
         self.get_open_positions_count: Optional[callable] = None
 
+        # T-M03: Whale-Exit-Copy Callbacks
+        self.get_open_positions: Optional[callable] = None   # () → Dict[str, OpenPosition]
+        self.on_whale_exit: Optional[callable] = None        # (pos, signal) → coroutine
+
         # Callback für Wallet-Warnungen (Trend-Decline) → Telegram
         self.on_wallet_warning: Optional[callable] = None
 
@@ -592,6 +596,40 @@ class CopyTradingStrategy:
                     await _handle_error(e, context=ctx, severity="ERROR", telegram_alert=True, reraise=False)
                 except Exception:
                     pass
+
+    async def handle_whale_sell(self, signal: TradeSignal):
+        """
+        T-M03: Wird aufgerufen wenn eine tracked Wallet verkauft.
+        Prüft ob wir dieselbe Position halten und triggert sofortigen Exit.
+        """
+        if signal.side != "SELL":
+            return
+        if not getattr(self.config, "whale_exit_copy_enabled", False):
+            return
+        if not self.get_open_positions or not self.on_whale_exit:
+            return
+
+        open_positions = self.get_open_positions()
+        wallet_name = get_wallet_name(signal.source_wallet)
+        market_short = signal.market_question[:50] if signal.market_question else signal.market_id[:16]
+
+        for pos in open_positions.values():
+            if pos.market_id != signal.market_id:
+                continue
+            if pos.source_wallet.lower() != signal.source_wallet.lower():
+                continue
+            logger.info(
+                f"[whale_exit_copy] 🐋 {wallet_name} verkauft "
+                f"'{market_short}' → wir folgen (Exit {pos.outcome})"
+            )
+            try:
+                if asyncio.iscoroutinefunction(self.on_whale_exit):
+                    await self.on_whale_exit(pos, signal)
+                else:
+                    self.on_whale_exit(pos, signal)
+            except Exception as e:
+                logger.error(f"[whale_exit_copy] on_whale_exit Fehler: {e}", exc_info=True)
+            return  # nur erste Match-Position — weitere Iterationen unnötig
 
     def get_status(self) -> dict:
         """Gibt aktuellen Status der Strategie zurück."""

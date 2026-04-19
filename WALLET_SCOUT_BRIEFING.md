@@ -157,6 +157,22 @@ als okay-System mit 5 Wallets.
 
 ## Teil 4: Hard Filters (K.O.-Kriterien)
 
+### ⚠ V1-HYPOTHESEN-DISCLAIMER
+
+Die spezifischen Zahlen in den Hard-Filtern (50 Trades, 30% Drawdown,
+14 Tage Aktivität, 20% Profit-Konzentration etc.) sind **informed starting
+points, KEINE empirisch validierten Schwellenwerte.**
+
+Begründung:
+- Quellen nennen Zahlen-Ranges (50–200 Trades, 10–35% Drawdown)
+- Wir haben den mittleren/konservativen Wert gewählt
+- Validierung erfolgt durch 90-Tage-Shadow-Tracking + Quarterly Criteria Review
+
+**Regel:** Diese Zahlen werden in v2.0 empirisch angepasst basierend auf
+Shadow-Daten. Bis dahin sind sie Hypothesen, keine Gesetze.
+
+---
+
 Alle 9 Filter müssen für Tier A erfüllt sein. Für Tier B 7 von 9.
 
 ### HF-1: Mindest-Sample-Size
@@ -234,6 +250,32 @@ Skala: 0–100 Punkte. Tier A braucht >= 70, Tier B >= 50.
 | SC-10 | Scale-In-Pattern (gestaffelte Entries = 5P) Bonus | 5 | Ratio Blog |
 
 **Total möglich: 125 Punkte (inkl. Bonus)**
+
+### Pool-Size-abhängige KongScore-Anwendung
+
+V1.2 differenziert zwischen kleinen und großen Kandidaten-Pools:
+
+**Small-Pool-KongScore (< 20 Kandidaten) — 5 Kategorien, max 100 Punkte:**
+
+| ID | Kriterium | Max Punkte |
+|----|-----------|-----------|
+| SC-1 | Sample-Size | 25 |
+| SC-2 | Kategorie-Fokus | 25 |
+| SC-3 | Entry-Preis-Zone | 20 |
+| SC-4 | ROI:MDD-Ratio | 20 |
+| SC-7 | Exit-Evidence | 10 |
+
+Begründung: Bei wenigen Kandidaten ist Differenzierung auf 10 Kategorien
+Rauschen. 5 klare Kategorien reichen für die Entscheidung.
+
+**Large-Pool-KongScore (≥ 20 Kandidaten) — Full-Score mit 10 Kategorien (wie oben)**
+
+Begründung: Bei Discovery-Scan mit 500+ Kandidaten braucht man feingranulare
+Differenzierung um die Top-5% zu identifizieren.
+
+**Aktueller Kontext (April 2026):**
+- 8 TARGET_WALLETS + ~10 Watchlist = Small-Pool → 5-Kategorien-Score
+- Nach T-D106 Discovery-Scan eventuell Large-Pool → Full-Score
 
 ---
 
@@ -375,6 +417,22 @@ Siehe separates Dokument: KONG_REVIEW_SYSTEM.md
 - Bootstrapping-Modus für erste 90 Tage
 - Integration der Polymarket-Anpassungen
 - Grok-Verifikations-Protokoll (Roadmap)
+
+### Version 1.2 (2026-04-19, abends) — Peer-Review Integration
+
+Grund: Externe Review durch Alex's Claude deckte drei Schwächen auf:
+1. Pseudo-Präzision der Hard-Filter-Zahlen
+2. KongScore zu komplex für kleine Pools
+3. Token-Overhead durch Always-Loading
+
+Änderungen:
+- V1-Hypothesen-Disclaimer in Teil 4 (Zahlen sind Hypothesen, keine Gesetze)
+- Small-Pool vs Large-Pool KongScore in Teil 5 (5 oder 10 Kategorien)
+- Smart-Loading in SKILL.md Punkt 13 (Relevanz-Matrix statt alle 4 immer)
+- Smart-Bootstrap in GUIDELINES.md (3 Pflicht-Docs + kontextabhängig)
+- Anti-Zeremonie-Regel als SKILL.md Punkt 15
+
+Danke an Alex's Claude für die ehrliche Kritik.
 
 ### Version 1.1 (2026-04-19) — Post-Audit-Erkenntnisse
 Änderungen basierend auf erstem Audit (3 Wallets entfernt, 10 beobachtet):

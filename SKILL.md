@@ -47,26 +47,28 @@ zwischen Frameworks: Chat-Claude dokumentiert die Abwägung explizit.
 
 ---
 
-## Explicit Invocation Pattern (13–14) — PFLICHT
+## Explicit Invocation Pattern (13–15) — PFLICHT
 
-13. Bei Aufgaben zu Wallet-Selection, Position-Sizing, Exit-Strategien,
-    Portfolio-Konstruktion oder Risk-Management MUSS jede Claude-Instanz
-    die folgenden Schritte abarbeiten:
+13. **EXPLICIT INVOCATION PATTERN (kontextbezogen)**
 
-    **Schritt 1: Framework-Check (vor Beginn der Aufgabe)**
+    Bei Wallet/Strategie/Exit/Risk-Aufgaben die **RELEVANTEN** Skills
+    aktivieren — nicht pauschal alle 4.
 
-    Aktiviere bewusst die 4 relevanten Skills:
+    **Relevanz-Matrix:**
 
-    a) **Ray Dalio:** Was sagt das Principles-Framework dazu?
-       — Diversifikation? Unkorrelierte Bets? System vs Intuition?
+    | Aufgabe | Dalio | Marks | Taleb | Crypto-Analyst |
+    |---------|-------|-------|-------|----------------|
+    | Wallet-Selektion | ✓ | ✓ | ✓ | — |
+    | Portfolio-Construction | ✓✓ | — | ✓ | — |
+    | Exit-Strategie | — | ✓ | ✓ | ✓✓ |
+    | Risk-Management | ✓ | — | ✓✓ | ✓ |
+    | Neue Asset-Klasse | ✓ | ✓ | ✓ | ✓ |
+    | Kriterien-Änderung | ✓✓ | ✓ | — | — |
+    | Infrastruktur/Bug-Fix | — | — | — | — |
 
-    b) **Howard Marks:** Welche Marktzyklus/Contrarian-Perspektive fehlt?
-       — Was wissen alle? (Dann kein Edge) Ist die Wallet stress-getestet?
+    ✓✓ = Primär (immer aktivieren) | ✓ = Sekundär (wenn relevant) | — = überspringen
 
-    c) **Nassim Taleb:** Ist das antifragil oder fragil?
-       — Wo ist Ruin-Risiko? Asymmetrischer Upside? Via-Negativa-Denken?
-
-    d) **Crypto-Analyst:** Wie passt das zu unserem Portfolio-Kontext?
+    **Schritt 1: Relevanz-Check** — Welche ✓-markierten Skills für diese Aufgabe?
 
     **Schritt 2: Kontext-Anker prüfen**
 
@@ -77,22 +79,35 @@ zwischen Frameworks: Chat-Claude dokumentiert die Abwägung explizit.
     - Exit-Themen: `STRATEGY.md` (Abschnitt Exit)
     - Risiko-Themen: `GUIDELINES.md` (Abschnitt Risk)
 
-    **Schritt 3: Externe Recherche**
+    **Schritt 3: Externe Recherche** — Erst nach Schritt 1+2.
 
-    Erst NACH Framework-Check und Kontext-Anker externe Quellen.
-    Andernfalls Gefahr von Best-Practice ohne Prinzipien.
-
-    **Schritt 4: Synthese**
-
-    Kombiniere Framework-Insights + Kontext-Wissen + aktuelle Recherche.
-    Dokumentiere welche Quelle welches Argument liefert.
+    **Schritt 4: Synthese** — Welche Quelle liefert welches Argument?
 
 14. **SESSION-START-RITUAL** — Zu Beginn jeder komplexen Aufgabe
     (>15 Min erwarteter Aufwand) explizit fragen:
 
-    1. Welche der 4 Skills sind hier relevant?
+    1. Welche der 4 Skills sind hier relevant? (Relevanz-Matrix)
     2. Welche Dokumente aus dem docs-Repo sollten gelesen werden?
     3. Ist dies eine Wallet/Strategie/Exit/Risk-Frage?
-       → Dann Framework-Check Pflicht.
+       → Dann Framework-Check Pflicht (Relevanz-Matrix).
     4. Ist dies eine Infrastruktur/Bug-Fix/Deploy-Frage?
-       → Dann Framework-Check optional.
+       → Dann Framework-Check entfällt.
+
+15. **ANTI-ZEREMONIE-REGEL**
+
+    Skill-Invocation ist KEIN Legitimations-Stempel.
+
+    **Verboten:**
+    - "Laut Taleb's Via Negativa entscheiden wir..."
+    - "Dalio sagt X, deshalb machen wir Y"
+    - Framework-Citations als Begründungs-Ersatz ohne echten Inhalt
+
+    **Erlaubt:**
+    - Bei ECHTER Anwendung: "Das Ruin-Risiko-Argument ist hier zentral
+      weil konkret [X] eintreten kann."
+    - Bei ECHTEN Gegensätzen: "Dalio würde X sagen, Taleb würde Y —
+      hier priorisieren wir Y weil [konkreter Grund]."
+
+    **Test-Frage:** Würde Dalio/Marks/Taleb dieser spezifischen Entscheidung
+    zustimmen? Wenn "wahrscheinlich zu wenig Daten" → Framework als Kompass,
+    nicht als Kochrezept.

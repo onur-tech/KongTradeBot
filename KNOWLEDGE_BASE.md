@@ -1009,3 +1009,38 @@ Duplikate T-D70–T-D80 (manuell) umbenannt auf T-M10–T-M20.
 Automation und Mensch parallel in dasselbe System schreiben.
 Retroaktive Bereinigung (11 Einträge heute) kostet mehr als Prävention.
 
+---
+
+## P067 — Briefing v1.2 Peer-Review durch Alex's Claude (19.04.2026)
+
+**Status:** EINGEARBEITET — v1.2 live
+
+**Kontext:** Alex ließ seine Claude-Instanz das WALLET_SCOUT_BRIEFING.md v1.1 reviewen
+und schickte das Feedback. Erste externe Peer-Review des Systems.
+
+**Erkenntnisse (6 Änderungen):**
+
+1. **V1-Hypothesen-Disclaimer (Teil 4):** Zahlen wie "50 Trades, 30% Drawdown" sind
+   informed starting points, keine empirisch validierten Schwellenwerte. Ohne Disclaimer
+   riskiert man False Confidence bei der Anwendung.
+
+2. **Pool-Size-abhängige KongScore-Anwendung (Teil 5):** Bei <20 Trades voller 10-Kategorie-Score
+   misleading. Small-Pool (<20): 5 reduzierte Kategorien. Large-Pool (≥20): voller Score.
+
+3. **SKILL.md Relevanz-Matrix (Punkt 13):** "Immer alle 4 Frameworks" ist Zeremonie, nicht
+   Analyse. Neu: Aufgaben-abhängige Aktivierung via Matrix (Wallet, Portfolio, Exit, Risk etc.)
+
+4. **Smart-Loading SESSION-START (GUIDELINES.md):** Alle 9 Docs immer laden verbrennt Tokens.
+   Neu: Minimum 3 (GUIDELINES + STATUS + TASKS) + kontextabhängige Extras.
+
+5. **Anti-Zeremonie-Regel (SKILL.md Punkt 15):** Framework-Zitate als Legitimationsstempel
+   ohne echten Inhalt verboten. Echter Test: Würde das Framework dieser spezifischen
+   Entscheidung zustimmen? Wenn unklar → Kompass, nicht Kochrezept.
+
+6. **Version-History im Briefing (Teil 11):** v1.2 Eintrag mit Datum + Peer-Review-Quelle.
+
+**Lesson:** Externe Reviews (auch von anderen Claude-Instanzen) bringen frischen Blick.
+Besonders wertvoll wenn das System komplex genug ist dass der Autor blind für strukturelle
+Schwächen wird. Alex's Claude identifizierte "Token-Verbrennung" und "False Confidence"
+als zwei unabhängige Risiken — beide nicht offensichtlich von innen.
+

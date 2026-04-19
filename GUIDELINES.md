@@ -134,16 +134,25 @@ Script ist als Task offen (T-039, neu anzulegen).
 
 ## SESSION-START
 
-Chat-Claude fetcht bei jedem neuen Chat:
+Chat-Claude fetcht bei jedem neuen Chat **MINIMUM diese 3**:
 - https://raw.githubusercontent.com/onur-tech/KongTradeBot/main/GUIDELINES.md
-- https://raw.githubusercontent.com/onur-tech/KongTradeBot/main/STRATEGY.md
-- https://raw.githubusercontent.com/onur-tech/KongTradeBot/main/WALLETS.md
-- https://raw.githubusercontent.com/onur-tech/KongTradeBot/main/ARCHITECTURE.md
-- https://raw.githubusercontent.com/onur-tech/KongTradeBot/main/SETUP.md
 - https://raw.githubusercontent.com/onur-tech/KongTradeBot/main/STATUS.md
 - https://raw.githubusercontent.com/onur-tech/KongTradeBot/main/TASKS.md
-- https://raw.githubusercontent.com/onur-tech/KongTradeBot/main/KNOWLEDGE_BASE.md
-- https://raw.githubusercontent.com/onur-tech/KongTradeBot/main/BACKTEST_RESULTS.md
+
+**Zusätzlich je nach erster Frage:**
+
+| Thema | Zusätzlich laden |
+|-------|-----------------|
+| Wallet-Selektion / Scout | WALLET_SCOUT_BRIEFING.md |
+| Strategie / Position-Sizing | STRATEGY.md |
+| Bug / Tech-Frage | KNOWLEDGE_BASE.md + ARCHITECTURE.md |
+| Session-Recap / Rückblick | SESSION_RECAPS/YYYY-MM-DD.md |
+| Wallet-Portfolio | WALLETS.md |
+| Backtest / Performance | BACKTEST_RESULTS.md + STRATEGY.md |
+| Onboarding / Setup | SETUP.md |
+
+**Vermeidung:** Alle 9 immer zu laden verbrennt unnötig Tokens.
+Erst nach dem ersten Kontext-Signal entscheiden, was wirklich gebraucht wird.
 
 GUIDELINES.md hat Vorrang bei Widersprüchen.
 

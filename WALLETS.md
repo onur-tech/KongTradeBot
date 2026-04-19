@@ -120,10 +120,16 @@ Diese Wallets sind im Code vorkonfiguriert aber nicht aktiv überwacht:
 
 | Adresse | Alias | Multiplier | Status |
 |---------|-------|------------|--------|
-| `0xbddf61af533ff524d27154e589d2d7a81510c684` | Countryside | 3.0x | Historisch — nicht in TARGET_WALLETS |
-| `0xdb27bf2ac5d428a9c63dbc914611036855a6c56e` | DrPufferfish | 3.0x | Historisch — nicht in TARGET_WALLETS |
+| `0xbddf61af533ff524d27154e589d2d7a81510c684` | **Countryside** | 3.0x | **HF-8 FAIL** — wahre WR 48.5% (cointrenches), Haltezeit < 3h (NBA same-day). Shadow bis 2026-05-20. |
+| `0xdb27bf2ac5d428a9c63dbc914611036855a6c56e` | **DrPufferfish** | 3.0x | **HF-8 FAIL** — wahre WR 50.9% (PANews), Basket-Strategie nicht kopierbar. Shadow bis 2026-07-20. |
 | `0xd84c2b6d65dc596f49c7b6aadd6d74ca91e407b9` | BoneReader | 1.5x | Historisch — nicht in TARGET_WALLETS |
 | `0xde17f7144fbd0eddb2679132c10ff5e74b120988` | Crypto Spezialist | 2.0x | REJECTED 19.04 (Portfolio $0, alle Positionen verloren) |
+
+**Verifikation 2026-04-20 (HF-8 Scout):**
+- Beide Wallets haben **artifiziell hohe predicts.guru WR** durch Early-Loss-Selling + Zombie-Orders
+- predicts.guru WR > 80% = Warn-Signal, NICHT Beweis — immer Kreuzcheck mit cointrenches/0xinsider
+- Analyse: `analyses/drpufferfish_countryside_verification.md`
+- Keine .env-Änderungen — beide bleiben außerhalb TARGET_WALLETS
 
 → Bei nächstem Code-Cleanup: Einträge kommentieren oder entfernen.
 
@@ -138,6 +144,12 @@ Schwerpunkte:
 - HOOK: WR-Diskrepanz auflösen → behalten oder entfernen
 - April#1 Sports: 30-Tage-Performance → behalten (0.3x) oder entfernen
 - HorizonSplendidView: Activity-Check → inaktiv seit 19.04?
+- **Countryside Shadow-Review:** 30-Tage-WR via cointrenches/0xinsider (≥56% = Integration)
+- **statwC00KS:** predicts.guru Full-Check + ROI auf Deposits (NBA #18, 96.2% WR, 3.204 Trades)
+
+**Shadow-Watch Dormante Wallets:**
+- Countryside: Review 2026-05-20 — WR-Diskrepanz klären, "15% human" Pattern
+- DrPufferfish: Review 2026-07-20 — Basket-Strategie, kopierbar wenn Bot Basket-Bündelung kann
 
 **Entscheidungs-Kriterien (HF-8):** WR < 45% → sofort entfernen. WR 45-55% → weiter beobachten. WR ≥55% → Upgrade möglich.
 

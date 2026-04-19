@@ -73,7 +73,7 @@ Bei Strategie: `STRATEGY.md` + `STRATEGIC_VISION.md`
 | P052–P066 | **Dokumentation & Kollaboration** — Grok-API, Skill-System, Peer-Modell, Auto-Doc |
 | P067–P073 | **Wallet-Verifikation** — Scout-Briefing Peer-Review, Zeitstempel-Semantik, polymonit-Warnung |
 | P074–P076 | **Feature-Diagnosen** — Bot-Feature-Asymmetrie, Position-State-Bug, ClobClient kein redeem() |
-| P077–P083 | **Polymarket-Infrastruktur** — Multiplier-Audit, Archive-Drift, Relayer-Credentials, Custodial-Architecture, Multiplier-Dual-Source-Pattern |
+| P077–P084 | **Polymarket-Infrastruktur & Exit-Bugs** — Multiplier-Audit, Archive-Drift, Relayer-Credentials, Custodial-Architecture, Multiplier-Dual-Source-Pattern, Duplicate-Trigger-Pattern |
 
 → Vollständige Einträge in `KNOWLEDGE_BASE.md`
 
@@ -106,6 +106,7 @@ Tiefen-Diagnosen wenn ein Thema mehr als einen KB-Eintrag braucht:
 | `hook_april_sports_verification_2026-04-19.md` | HOOK/April#1 Verifikation: Multiplier-Kalibrierung (P077) |
 | `jakgez_verification_and_polymarket_timestamps_2026-04-19.md` | Zeitstempel-Semantik + Wallet-Verifikation (P071) |
 | `manual_candidates_review_2026-04-19.md` | Erasmus + TheSpiritofUkraine: Tier-B-Aufnahme |
+| `duplicate_trigger_bug_diagnosis_2026-04-19.md` | Whale-Exit 5x Re-Trigger Root-Cause + Fix-Plan (P084) |
 
 ---
 

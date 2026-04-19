@@ -1489,3 +1489,55 @@ WALLET_WEIGHTS=...,0x492442...:0.3,...,0x0b7a60...:1.0,...
 ```
 
 Source: T-M09b Implementation Commit f237dbe
+
+---
+
+## P084 — Duplicate-Trigger-Pattern: Exit-Logik braucht Once-Only-Flag (19.04.2026)
+
+**Status:** AKTIV — Fix pending (morgen, nach P083-Compliance)
+
+**Kontext:** Um 14:13 triggerte Whale-Follow-Exit 5x in Folge auf dieselbe Position ("US x Iran
+permanent peace deal"). Daily-Cap $30 verhinderte Katastrophe. Bei $200 Cap wäre erster Sell
+durchgekommen, dann Loop-Abbruch (Position entfernt). Bei API-Fehler: Endlosschleife.
+
+**Root-Cause: Drei zusammenwirkende Faktoren**
+
+```
+1. ExitState hat kein whale_exit_triggered Flag (tp1_done/tp2_done/price_trigger_done existieren ✅)
+2. get_recent_sells(minutes=60) liefert 60 Minuten lang denselben Whale-Sell → 60 Re-Trigger möglich
+3. Bei Cap-Block oder API-Fehler: _execute_exit gibt None zurück, kein Flag wird gesetzt,
+   Position bleibt in open_positions → nächster Loop-Tick triggert identisch
+```
+
+**Warum DRY-RUN besonders gefährdet:**
+Daily-Cap-Check läuft nur bei `exit_dry_run=False`. Im DRY-RUN-Modus gibt es keinen Schutz —
+jeder der ~60 Loop-Ticks in der 60-Minuten-Fenster würde DRY-RUN-Log + Telegram-Alert produzieren.
+
+**Fix (E1 — Once-Only-Flag, ~25 Minuten):**
+```python
+# core/exit_manager.py — ExitState Dataclass:
+whale_exit_triggered: bool = False
+
+# evaluate_all(), whale-exit Block:
+if await self._check_whale_exit(pos):
+    if state.whale_exit_triggered:
+        continue  # bereits versucht — nie wieder feuern
+    event = await self._execute_exit(pos, state, 1.0, "whale_exit", current_price)
+    state.whale_exit_triggered = True  # immer setzen, auch bei Cap-Block
+    state_dirty = True
+    if event:
+        events.append(event)
+        self._remove_state(pos.market_id, pos.outcome)
+    continue
+```
+
+**Warum nicht Cooldown (E2):** Bot-Restart löscht State → Cooldown-Schutz entfällt.
+Once-Only-Flag persistiert mit `_save_state()`.
+
+**Allgemeines Pattern:** Jeder Exit-Trigger der theoretisch mehrfach feuern kann
+(whale_exit, trailing_stop, stop_loss) braucht ein `XYZ_triggered: bool = False` in ExitState.
+Vorbild: `price_trigger_done` (T-M04d) und `tp1_done/tp2_done/tp3_done`.
+
+**Sicherheits-Regel:** Daily-Sell-Cap NICHT erhöhen bevor Once-Only-Fix deployed.
+
+Source: analyses/duplicate_trigger_bug_diagnosis_2026-04-19.md | Commit 99e9b13

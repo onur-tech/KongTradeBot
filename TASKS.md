@@ -22,7 +22,9 @@ _Stand: 2026-04-19 23:59 Berlin_
 
 | ID | Titel | Prio | Notiz |
 |----|-------|------|-------|
-| T-M04b | Claim-Fix v2: relayer-v2 + RELAYER_API_KEY + signer=PRIVATE_KEY | KRITISCH | Server-CC läuft gerade — Credentials in .env, P079 Korrektur umsetzen |
+| T-M08-P4 | T-M08 Phase 4: Migration bestehender Positionen in bot_state.json | KRITISCH | **Prompt ready** (prompts/t_m08_phase4_migration.md) — MORGEN ZUERST |
+| T-M08-P5 | T-M08 Phase 5: ExitManager state-aware Guard (evaluate_all) | KRITISCH | **Prompt ready** (prompts/t_m08_phase5_exit_guard_integration.md) — nach Phase 4 |
+| T-M04b | Claim-Fix v2: relayer-v2 + RELAYER_API_KEY + signer=PRIVATE_KEY | WICHTIG | Credentials in .env — nach T-M08 |
 
 ---
 
@@ -30,11 +32,9 @@ _Stand: 2026-04-19 23:59 Berlin_
 
 | ID | Titel | Prio | Notiz |
 |----|-------|------|-------|
-| T-M04f | Duplicate-Trigger-Fix: whale_exit_triggered Once-Only-Flag in ExitState | KRITISCH | **Prompt ready** (prompts/t_m04f_duplicate_trigger_fix.md) — MORGEN ZUERST, vor Cap-Erhöhung |
-| T-M04d | Take-Profit-Trigger >=95c: Price-Cap in ExitManager + Hold-Ticks + Daily-Sell-Cap | WICHTIG | **Prompt ready** (prompts/t_m04d_take_profit_trigger.md) — nach T-M04f |
-| T-M04e | Stop-Loss-Trigger: Trigger B (24h+15c) + Trigger C (Drawdown 30%/40c) in ExitManager | WICHTIG | **Prompt ready** (prompts/t_m04e_stop_loss.md) — nach T-M04d |
-| T-M09b | Multiplier: April#1 Sports 2.0x→0.3x + HOOK 2.0x→1.0x | WICHTIG | **Prompt ready** (prompts/t_m09b_multiplier_adjust.md) — nach T-M04d |
-| T-M08 | Dashboard position_state-Feld — AKTIV-Zähler auf 11 korrigieren (~3.5h) | WICHTIG | **Prompt ready** (prompts/t_m08_position_state_implementation.md) — nach T-M04e |
+| Cap-Erhöhung | Daily-Sell-Cap $30 → $60 → $100 | WICHTIG | Sofort möglich nach T-M08 Phase 4 — T-M04f deployed |
+| T-M04e | Stop-Loss-Trigger: Trigger B (24h+15c) + Trigger C (Drawdown 30%/40c) in ExitManager | WICHTIG | **Prompt ready** (prompts/t_m04e_stop_loss.md) — nach T-M08 |
+| T-M09b | Multiplier: April#1 Sports 2.0x→0.3x + HOOK 2.0x→1.0x | WICHTIG | **Prompt ready** (prompts/t_m09b_multiplier_adjust.md) |
 | T-M05 | Dashboard-Zeitstempel-Differenzierung (Trading bis / Resolution / Claim ab) | NICE | Zeitstempel-Research done |
 | T-M06 | On-Chain-Reconciliation: Archive gegen live Positionen abgleichen | NICE | Abhängig von T-M04b |
 | T-039 | weekly_doku_check.py Script (Freitag 17:00, Telegram-Report fuer Events ohne Doku) | NICE | — |
@@ -76,6 +76,17 @@ _Stand: 2026-04-19 23:59 Berlin_
 ---
 
 ## DONE
+| T-M04f | Duplicate-Trigger-Fix: whale_exit_triggered Once-Only-Flag in ExitState (4d0b9bf) | 2026-04-19 |
+| T-M04d | Take-Profit-Trigger >=95c + Hold-Ticks + Daily-Sell-Cap (e5d64e8) | 2026-04-19 |
+| T-M08-P1 | T-M08 Phase 1: position_state in api_portfolio() / dashboard.py (9f4ba4b) | 2026-04-19 |
+| T-M08-P2 | T-M08 Phase 2: Dashboard-Frontend RESOLVED_LOST-Trennung (30791e4) | 2026-04-19 |
+| T-M08-P3 | T-M08 Phase 3: Resolver auto-save via check_resolved_markets_and_notify() (9dcd2e0) | 2026-04-19 |
+| Watchdog-Fix | Watchdog Race-Condition-Schutz verbessert (7ed82ac) | 2026-04-19 |
+| Daily-Summary | Daily-Summary Timer 20:00 Berlin aktiv (3364181) | 2026-04-19 |
+| log_trade-Fix | Exit-Events im Archive mit PnL korrekt (4537924) | 2026-04-19 |
+| Legacy-Flag | 13 alte SELL-Einträge ohne tx_hash geflagged (5980e02) | 2026-04-19 |
+| RN1-Diagnose | RN1 Zombie-Signal Diagnose: 296 Pre-Audit Entries, 0 Orders, benign (53809e1) | 2026-04-19 |
+| P085-KB | KB P085: Multi-Signal-Buffer als emergenter Outlier-Filter dokumentiert | 2026-04-19 |
 | T-M09 | Multiplier-Re-Kalibrierung: wan123 2.5x→0.5x, majorexploiter 3.0x→1.5x, denizz 0.5x→1.0x, HorizonSplendidView 2.0x→0.5x, kcnyekchno 2.0x→1.0x | 2026-04-19 |
 | T-M07 | Wallet-Aufnahme Tier B: Erasmus 0.5x (Iran/ME) + TheSpiritofUkraine 0.3x (Geopolitics) (b97d9ef) | 2026-04-19 |
 | T-M04-Ph0 | T-M04 Phase 0 Diagnose: Sell-Code existiert (636-746), EXIT_DRY_RUN Blocker, Claim-Bug, Position-Restore fehlt, Archive-Drift | 2026-04-19 |

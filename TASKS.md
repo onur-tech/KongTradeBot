@@ -1,5 +1,5 @@
 # KongTrade Bot — Task Tracking
-_Stand: 2026-04-19 23:00 Berlin_
+_Stand: 2026-04-19 23:59 Berlin_
 
 **Regeln:**
 - Status: ARBEIT | QUEUE | DONE | BLOCKED | IDEE
@@ -22,6 +22,7 @@ _Stand: 2026-04-19 23:00 Berlin_
 
 | ID | Titel | Prio | Notiz |
 |----|-------|------|-------|
+| T-M04b | Claim-Fix v2: relayer-v2 + RELAYER_API_KEY + signer=PRIVATE_KEY | KRITISCH | Server-CC läuft gerade — Credentials in .env, P079 Korrektur umsetzen |
 
 ---
 
@@ -29,9 +30,8 @@ _Stand: 2026-04-19 23:00 Berlin_
 
 | ID | Titel | Prio | Notiz |
 |----|-------|------|-------|
-| T-M04b | Claim-Fix: py-builder-relayer-client statt client.redeem() — Standard + NegRisk | KRITISCH | Research fertig (82385dc) — Implementation ~2h |
-| T-M04a | Position-Restore nach Restart + EXIT_DRY_RUN=false aktivieren | KRITISCH | T-M04 Phase 0 Diagnose done |
-| T-M04d | Take-Profit-Trigger aktivieren (nach T-M04a) | WICHTIG | Abhängig von Position-Restore |
+| T-M04d | Take-Profit-Trigger aktivieren (nach T-M04b) | WICHTIG | T-M04a done (57ff2e7), TP1-Exits feuern bereits als DRY-RUN |
+| T-M09b | Multiplier: April#1 Sports 2.0x→0.3x + HOOK 2.0x→1.0x | WICHTIG | Verifikation done (5d7d138), noch nicht in TARGET_WALLETS umgesetzt |
 | T-M08 | Dashboard position_state-Feld — AKTIV-Zähler auf 11 korrigieren (~3.5h) | WICHTIG | Diagnose done (f20e29e) |
 | T-M05 | Dashboard-Zeitstempel-Differenzierung (Trading bis / Resolution / Claim ab) | NICE | Zeitstempel-Research done |
 | T-M06 | On-Chain-Reconciliation: Archive gegen live Positionen abgleichen | NICE | Abhängig von T-M04b |
@@ -78,6 +78,14 @@ _Stand: 2026-04-19 23:00 Berlin_
 | T-M04-Ph0 | T-M04 Phase 0 Diagnose: Sell-Code existiert (636-746), EXIT_DRY_RUN Blocker, Claim-Bug, Position-Restore fehlt, Archive-Drift | 2026-04-19 |
 | T-M08-Ph0 | T-M08 Phase 0 Diagnose: 14/25 Positionen beendet aber OPEN, Lifecycle dokumentiert (f20e29e) | 2026-04-19 |
 | T-M04b-R | T-M04b Research: RelayClient-Empfehlung, NegRisk-Bifurkation, Implementation-Plan ~2h (82385dc) | 2026-04-19 |
+| T-M04a | Position-Restore: engine.open_positions aus Data-API bei Bot-Start (57ff2e7) — 23 Positionen synced | 2026-04-19 |
+| T-M04b-Cred | T-M04b Credential-Setup: RELAYER_API_KEY + RELAYER_API_KEY_ADDRESS in .env — Magic.link Key = PRIVATE_KEY bestätigt | 2026-04-19 |
+| T-M04b-N | T-M04b Notification-only Zwischenlösung: broken client.redeem() durch Telegram-Alert ersetzt (3a7b4a9) | 2026-04-19 |
+| Archive-Cleanup | Archive-Cleanup + Heartbeat-Fix: 18 Trades resolved, Schwelle 180s→360s (8bbdc98) | 2026-04-19 |
+| Manual-Claims | Manuelle Claims: Wuning +$50.13 + Busan +$39.00 = +$89.13 USDC realisiert | 2026-04-19 |
+| T-M06-Ph0 | T-M06 Phase 0 Diagnose: Archive-Drift 69%, Ghost-Trades, Steuer-Anforderungen (442185e) | 2026-04-19 |
+| Builder-Research | Builder Program Research: Self-service API-Key, P076-Korrektur (relayer-v2, RELAYER_API_KEY) (3d3b74f) | 2026-04-19 |
+| HOOK-Verif | HOOK + April#1 Sports Verifikation: April#1 Lifetime -$9.8M, Multiplier-Empfehlung dokumentiert (5d7d138) | 2026-04-19 |
 | T-D83-P1.6 | T-D83 Phase 1.6: Discovery-Scan + Kategorie-Bug-Fix (63fc7ba, 8d9b08a) | 2026-04-19 |
 | T-D104 | Audit v1.0: 3 Wallets entfernt (RN1, Gambler1968, sovereign2013) via HF-8 (7c29ac9) | 2026-04-19 |
 | T-D103 | ✨ feat(analytics): Per-Wallet-Performance-Report mit Kategorie- und Zeitfenster-Aufschlüsselung (8689c4e) | 2026-04-19 |

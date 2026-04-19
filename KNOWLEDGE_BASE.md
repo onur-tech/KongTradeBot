@@ -1357,3 +1357,49 @@ client = RelayClient(
 
 **Builder Program (builders.polymarket.com)** = Grants/Leaderboard-System, kein Zugangssystem.
 Beitritt optional, kein Mehrwert für Auto-Claim. Nur relevant für Volume-Attribution + $2.5M Grant-Pool.
+
+---
+
+## P080 — Position-Restore via Data-API bei Bot-Start (T-M04a, 19.04.2026)
+
+**Status:** IMPLEMENTIERT — Commit 57ff2e7
+
+**Problem:** `engine.open_positions` war leer nach jedem Neustart/Tagesübergang.
+`state_manager.py` Zeile 86: bei Datumswechsel wurden `open_positions` gelöscht.
+ExitManager und TP-Trigger fanden keine Positionen → konnten nicht feuern.
+
+**Fix:** Bei Bot-Start werden Positionen aus `data-api.polymarket.com/positions` geladen
+und in `engine.open_positions` geschrieben, bevor der Event-Loop startet.
+
+**Verhalten nach Fix:**
+- Bot startet mit 23 sync-ten Positionen (live verifiziert)
+- ExitManager feuert DRY-RUN TP1-Exits auf wiederhergestellte Positionen
+- `bot_state.json` bleibt als Fallback — Data-API hat Priorität
+
+**Abhängigkeit:** Aktiviert T-M04d (Take-Profit-Trigger) — war vorher wirkungslos.
+
+---
+
+## P081 — Magic.link EOA = PRIVATE_KEY = einziger User-Signer (19.04.2026)
+
+**Status:** BESTÄTIGT — Magic.link Key-Export durch Onur verifiziert
+
+**Erkenntnis:** Die Wallet-Infrastruktur ist einfacher als Server-CC annahm.
+
+```
+Magic.link EOA: 0xd7869A5Cae59FDb6ab306ab332a9340AceC8cbE2
+= PRIVATE_KEY in .env
+= Signer für CLOB API (L1 Auth)
+= Owner des Gnosis Safe (Proxy Wallet 0x700BC5...)
+= Signer für RelayClient (T-M04b)
+```
+
+**Server-CC's CREATE2-Wallet-Hypothese war falsch:** Die Adresse `0x79804817` ist
+vermutlich Gnosis Safe Master Copy Reference, keine eigene User-Wallet.
+
+**Konsequenz für T-M04b:** `signer=PRIVATE_KEY` in RelayClient ist der korrekte Weg.
+Keine separate Owner-EOA, kein zweiter Schlüssel nötig.
+
+**Manuelle Claims als Beweis:** Beide Claims (Wuning +$50.13, Busan +$39.00) erfolgten
+ohne MetaMask-Popup → Polymarket nutzt denselben internen Magic.link-Signer.
+Auto-Claim via demselben Private Key sollte identisch funktionieren.

@@ -1044,3 +1044,58 @@ Besonders wertvoll wenn das System komplex genug ist dass der Autor blind für s
 Schwächen wird. Alex's Claude identifizierte "Token-Verbrennung" und "False Confidence"
 als zwei unabhängige Risiken — beide nicht offensichtlich von innen.
 
+---
+
+## P070 — On-Chain-Scan-Ergebnisse brauchen externe Cross-Validation (19.04.2026)
+
+**Status:** ERKENNTNISGEWINN — keine Aufnahme von jakgez ohne weitere Bestätigung
+
+**Kontext:** T-D83 Phase 1.5 fand `jakgez` (0x9fe5...) als Kandidaten: 88% Politics-Focus,
+60% Win-Rate, 500+ Trades. Multi-Source-Verifikation durchgeführt.
+
+**Kritische Befunde:**
+
+1. **Kategorie-Diskrepanz:** Scan sagte Politics 88% — Realität ist Sports (MLB/NBA).
+   0xinsider Politics-Leaderboard: jakgez nicht vorhanden. Letzte Trades: MLB Over/Under.
+   → Die Kategorie-Klassifizierung des Scans ist fehlerhaft oder basiert auf altem Datenschnitt.
+
+2. **Win-Rate nicht extern verifizierbar:** predicts.guru (Dynamic-JS), polymarketanalytics.com
+   (Dynamic-JS), polymonit.com (Login-Wall), 0xinsider (nicht gefunden) — 0/3 externe Quellen
+   liefern jakgez-Daten. Nur Polymarket-Profil selbst verfügbar.
+
+3. **cashPnL -$1.943 ist harmlos:** ~0.77% des Portfolio-Werts ($253.40), unrealisiert.
+   Bei Sports-Intraday-Bets normales Tages-Drawdown-Niveau.
+
+**Empfehlung:** WATCHING — kein Tier A/B ohne externe Win-Rate-Bestätigung.
+Review: 2026-05-19 (30-Tage-Regel aus WALLET_SCOUT_BRIEFING.md Teil 16).
+
+**Lesson:** On-Chain-Scan-Ergebnisse sind ein Ausgangspunkt, kein Beweis. Wallet-Adresse +
+interne Statistik = nicht ausreichend für Tier-A-Aufnahme. Externe Cross-Validation
+über ≥2 Quellen ist Pflicht — fehlen diese, gilt automatisch WATCHING.
+
+---
+
+## P071 — Polymarket-Zeitstempel-Semantik: acceptingOrders statt endDate (19.04.2026)
+
+**Status:** DOKUMENTIERT — Sell-Feature-Implementierung (T-M05) kann jetzt präziser werden
+
+**Kontext:** Für Dashboard-Differenzierung und Auto-Sell-Feature wurde die vollständige
+Zeitstempel-Semantik der Gamma-API analysiert (Live-Calls + geschlossene Märkte).
+
+**Kernerkenntnis:**
+
+- `acceptingOrdersTimestamp` = Wann Market BEGANN Orders anzunehmen (nicht: bis wann)
+- Es gibt **kein `acceptingOrdersUntil`-Feld** in der Gamma-API
+- `closedTime` erscheint nur nach Trading-Stopp, kann **vor `endDate` liegen** (Biden-Fall: 2 Tage früher)
+- `endDate` = Resolution-Zieldatum, kein garantiertes Trading-Ende
+- `resolutionTime` existiert nicht in Gamma-API
+
+**Für Sell-Feature:**
+- Live-Check Trading möglich: `acceptingOrders` (Boolean) — verlässlicher als `endDate`-Vergleich
+- Dead Zone existiert: zwischen `closedTime` (Trading gestoppt) und Claim-Verfügbarkeit
+- Claim-Timing: on-chain `redeemable`-Check nötig, kein Gamma-API-Feld vorhanden
+
+**Lesson:** `endDate` und "Trading endet" sind NICHT dasselbe. Wer `endDate` als Sell-Deadline
+nutzt, kann zu spät sein (Trading schon gestoppt) oder zu früh (endDate noch in Zukunft aber
+acceptingOrders bereits false). Immer `acceptingOrders` Boolean prüfen.
+

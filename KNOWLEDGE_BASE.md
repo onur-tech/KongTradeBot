@@ -1445,3 +1445,47 @@ Builder-Code (bytes32) — nur ein Label, kein Schlüssel
 - Code: `0xc58cb20...767c6de` (bytes32)
 - Builder-API-Key = RELAYER_API_KEY: `019da5f1-fb1d-790a-802f-46eeb0bc36f5`
 - Integration: zukünftig via T-M10 (niedrige Prio)
+
+---
+
+## P083 — Multiplier-Dual-Source-Pattern: Code + .env müssen beide geändert werden (19.04.2026)
+
+**Status:** AKTIV — Standard-Protokoll für alle Multiplier-Changes
+
+**Kontext:** Bei T-M09b Implementation (Commit f237dbe) entdeckt: Multiplier-Update im Code
+allein wäre wirkungslos gewesen — die `.env`-Werte hätten zur Laufzeit überschrieben.
+
+**Dual-Source-Architektur:**
+
+```
+strategies/copy_trading.py  →  WALLET_MULTIPLIERS (Python Dict)
+                                 Versionsstand im Repo, Default-Werte
+
+.env                         →  WALLET_WEIGHTS (Environment-Variable)
+                                 Runtime-Override — ÜBERSCHREIBT Code-Werte
+```
+
+**Priorität:** `.env` WALLET_WEIGHTS hat immer Vorrang gegenüber `WALLET_MULTIPLIERS` im Code.
+
+**Folge für Multiplier-Changes:**
+- Nur Code-Update = wirkungslos (alte .env-Werte gelten weiter)
+- Nur .env-Update = nicht versioniert, geht bei Server-Reset verloren
+- Beide Stellen müssen synchron gehalten werden
+
+**Standard-Protokoll für Multiplier-Änderungen:**
+1. `strategies/copy_trading.py` → `WALLET_MULTIPLIERS` aktualisieren (Versionierung)
+2. `.env` → `WALLET_WEIGHTS` aktualisieren (Runtime-Effekt)
+3. Bot-Restart
+4. Verifikation per Log: `"Wallet X geladen mit Multiplier Y"`
+
+**Beispiel T-M09b (f237dbe):**
+```
+# Code (copy_trading.py):
+"0x492442...": 0.3,   # April#1 Sports: war 2.0
+"0x0b7a60...": 1.0,   # HOOK: war 2.0
+
+# .env:
+WALLET_WEIGHTS=...,0x492442...:0.3,...,0x0b7a60...:1.0,...
+```
+
+Source: T-M09b Implementation Commit f237dbe

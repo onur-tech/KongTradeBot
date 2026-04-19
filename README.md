@@ -27,6 +27,8 @@ Bei Strategie: `STRATEGY.md` + `STRATEGIC_VISION.md`
 | `ARCHITECTURE.md` | 4-Step-Pipeline, async Tasks, Datenklassen |
 | `STRATEGY.md` | Handelslogik, Multiplier-System, Risiko-Regeln |
 | `WALLETS.md` | Aktive TARGET_WALLETS mit Tier + Multiplier |
+
+> ⚠️ **Multiplier-Dual-Source:** Multiplier stehen in `strategies/copy_trading.py` (WALLET_MULTIPLIERS) UND `.env` (WALLET_WEIGHTS). `.env` überschreibt Code-Werte zur Laufzeit — beide Stellen müssen synchron geändert werden. → KB P083
 | `SETUP.md` | Services, Befehle, Server-Struktur |
 | `LIVE_SETUP.md` | Live-Deployment-Checkliste |
 
@@ -71,7 +73,7 @@ Bei Strategie: `STRATEGY.md` + `STRATEGIC_VISION.md`
 | P052–P066 | **Dokumentation & Kollaboration** — Grok-API, Skill-System, Peer-Modell, Auto-Doc |
 | P067–P073 | **Wallet-Verifikation** — Scout-Briefing Peer-Review, Zeitstempel-Semantik, polymonit-Warnung |
 | P074–P076 | **Feature-Diagnosen** — Bot-Feature-Asymmetrie, Position-State-Bug, ClobClient kein redeem() |
-| P077–P082 | **Polymarket-Infrastruktur** — Multiplier-Audit, Archive-Drift, Relayer-Credentials, Custodial-Architecture |
+| P077–P083 | **Polymarket-Infrastruktur** — Multiplier-Audit, Archive-Drift, Relayer-Credentials, Custodial-Architecture, Multiplier-Dual-Source-Pattern |
 
 → Vollständige Einträge in `KNOWLEDGE_BASE.md`
 

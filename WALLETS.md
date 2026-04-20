@@ -25,7 +25,7 @@ _Stand: 2026-04-20 | Sync-Commit: Deep-Discovery | Multiplier-Review: T-M09 2026
 |---------|-------|-----------|------------|----------|--------|---------------|
 | `0x63d43bbb87f85af03b8f2f9e2fad7b54334fa2f` | **wokerjoesleeper** | Politik/Macro/Fed | **0.5x** | 20.04.2026 | PANews Biteye | Deep-Discovery 2026-04-20 |
 | `0xbacd00c9080a82ded56f504ee8810af732b0ab35` | **ScottyNooo** | Politik/Trump/Iran | **0.3x** | 20.04.2026 | PANews Biteye | Deep-Discovery 2026-04-20 |
-| `0x0f37cb80dee49d55b5f6d9e595d52591d6371410` | **hans323** | Weather (Barbell) | **0.3x ⚠ PENDING** | 20.04.2026 | predictionmarketspicks + predictfolio ✅ | Nacht 2026-04-20 |
+| `0x0f37cb80dee49d55b5f6d9e595d52591d6371410` | **hans323** | Weather (Barbell) | **0.3x** | 20.04.2026 | predictionmarketspicks + predictfolio ✅ | AKTIV — predicts.guru Review 2026-05-05 |
 
 ### Weather-Spezialisten (Tier B, T-WEATHER)
 
@@ -34,18 +34,22 @@ _Stand: 2026-04-20 | Sync-Commit: Deep-Discovery | Multiplier-Review: T-M09 2026
 | `0x0f37cb80dee49d55b5f6d9e595d52591d6371410` | **hans323** | Weather Barbell | **0.3x** | 20.04.2026 | PredictionMarketsPicks + predictfolio ✅ | PENDING predicts.guru |
 | `0x15ceffed7bf820cd2d90f90ea24ae9909f5cd5fa` | **HondaCivic** | Weather Ladder | **0.3x** | 20.04.2026 | PANews Biteye | PENDING predicts.guru |
 
-### PANews Biteye APPROVE-Queue (Review 2026-05-05)
+### PANews Biteye APPROVE-Queue (Server-CC Integration: prompts/integrate_panews_wallets.md)
 
-| Adresse | Alias | Kategorie | Multiplier | Aufnahme | PnL |
-|---------|-------|-----------|------------|----------|-----|
-| `0x38e59b36aae31b164200d0cad7c3fe5e0ee795e7` | **cowcat** | ME-Longshot | **0.3x** | 20.04.2026 | $200K +117% ROI |
-| `0x8c0b024c17831a0dde038547b7e791ae6a0d7aa5` | **EFFICIENCYEXPERT** | Esports/LoL | **0.3x** | 20.04.2026 | $580K |
-| `0x8e0b7ae246205b1ddf79172148a58a3204139e5c` | **synnet** | Tennis | **0.3x** | 20.04.2026 | $290K |
-| `0x6c743aafd813475986dcd930f380a1f50901bd4e` | **middleoftheocean** | Soccer | **0.3x** | 20.04.2026 | $470K, 83% WR |
-| `0xc6587b11a2209e46dfe3928b31c5514a8e33b784` | **Erasmus** | Iran/ME Geopolitics | **0.5x** | 19.04.2026 | polymonit April #4 | Aufnahme-Review b97d9ef |
-| `0x0c0e270cf879583d6a0142fc817e05b768d0434e` | **TheSpiritofUkraine** | Politics/Geopolitics | **0.3x** | 19.04.2026 | polymonit April #3 | Aufnahme-Review b97d9ef |
-| `0x492442eab586f242b53bda933fd5de859c8a3782` | **April#1 Sports** | Sports | **0.3x ⚠ WATCHING** | 17.04.2026 | predicts.guru | T-M09b 2026-04-19 (war 2.0x) |
-| `0x0b7a6030507efe5db145fbb57a25ba0c5f9d86cf` | **HOOK** | Mixed | **1.0x ⚠ WATCHING** | 17.04.2026 | wallet_init | T-M09b 2026-04-19 (war 2.0x) |
+| Adresse | Alias | Kategorie | Multiplier | Aufnahme | PnL | predicts.guru ROI |
+|---------|-------|-----------|------------|----------|-----|------------------|
+| `0x40471b34671887546013ceb58740625c2efe7293` | **Frank0951** | Esports/Valorant | **0.3x** | 20.04.2026 | $292K | **49%** ✅ APPROVE |
+| `0x8c0b024c17831a0dde038547b7e791ae6a0d7aa5` | **EFFICIENCYEXPERT** | Esports/LoL | **0.3x** | 20.04.2026 | $718K | **1.659%** ✅ APPROVE |
+| `0x8e0b7ae246205b1ddf79172148a58a3204139e5c` | **synnet** | Tennis | **0.3x** | 20.04.2026 | $290K | **121%** ✅ APPROVE |
+| `0x6c743aafd813475986dcd930f380a1f50901bd4e` | **middleoftheocean** | Soccer | **0.3x** | 20.04.2026 | $631K | 83.7% WR ✅ APPROVE |
+| `0x15ceffed7bf820cd2d90f90ea24ae9909f5cd5fa` | **HondaCivic** | Weather | **0.3x** | 20.04.2026 | $48K | PENDING 2026-05-05 |
+| `0x38e59b36aae31b164200d0cad7c3fe5e0ee795e7` | **cowcat** | ME-Longshot | ⚠ WATCHING | 20.04.2026 | $160K | 23.76% ≠ +117% — HF-10 prüfen |
+| `0xc6587b11a2209e46dfe3928b31c5514a8e33b784` | **Erasmus** | Iran/ME Geopolitics | **0.5x** | 19.04.2026 | polymonit April #4 | Review 2026-05-19 |
+| `0x0c0e270cf879583d6a0142fc817e05b768d0434e` | **TheSpiritofUkraine** | Politics/Geopolitics | **0.3x** | 19.04.2026 | polymonit April #3 | Review 2026-05-19 |
+| `0x492442eab586f242b53bda933fd5de859c8a3782` | **April#1 Sports** | Sports | **0.3x ⚠ WATCHING** | 17.04.2026 | predicts.guru | T-M09b 2026-04-19 |
+| `0x0b7a6030507efe5db145fbb57a25ba0c5f9d86cf` | **HOOK** | Mixed | **1.0x ⚠ WATCHING** | 17.04.2026 | wallet_init | T-M09b 2026-04-19 |
+
+**T-TELEGRAM Bridge:** PENDING — @GlintAlertsBot in "KongTrade Intelligence" Gruppe einrichten (docs/T_TELEGRAM_BRIDGE_SETUP.md)
 
 ---
 

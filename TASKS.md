@@ -1,5 +1,5 @@
 # KongTrade Bot — Task Tracking
-_Stand: 2026-04-19 23:59 Berlin_
+_Stand: 2026-04-20 (X-Monitor + PANews Verifikation + Weather aktiv)_
 
 **Regeln:**
 - Status: ARBEIT | QUEUE | DONE | BLOCKED | IDEE
@@ -25,9 +25,11 @@ _Stand: 2026-04-19 23:59 Berlin_
 | T-WS | WebSocket WalletMonitor: 10s Poll → 1-3s Echtzeit | KRITISCH | **Prompt ready** (prompts/t_ws_websocket_wallet_monitor.md) — Server-CC nächste Session |
 | T-M-NEW | Anomalie-Detektor: Insider-Signal-Erkennung in Echtzeit | KRITISCH | **Prompt ready** (prompts/t_m_new_anomaly_detector.md) — nach T-WS |
 | T-NEWS | News-Monitor: Spike-Detektor + RSS-Monitor Phase 1 | WICHTIG | **Prompt ready** (prompts/t_news_monitor.md) — Phase 1A kostenlos |
-| T-WEATHER | Weather Market Integration: OpenMeteo + Ladder + Barbell | WICHTIG | **Prompt ready** (prompts/t_weather_strategy.md) — core/weather_scout.py |
+| T-WEATHER | Weather Market Integration: OpenMeteo + Ladder + Barbell | WICHTIG | **Prompt ready** (prompts/t_weather_strategy.md) — **hans323 aktiv kopiert (0.3x)** |
+| T-TELEGRAM | Glint Alerts → KongTradeBot Bridge via Telegram-Gruppe | WICHTIG | Setup-Anleitung: docs/T_TELEGRAM_BRIDGE_SETUP.md — @GlintAlertsBot einrichten |
+| T-X-TWITTER | X/Twitter Trend Monitor: Xquik $22/Mo, 10 Accounts | WICHTIG | **Prompt ready** (prompts/t_x_twitter_monitor.md) — Phase 1: Xquik $22/Mo |
 | T-M21 | Basket-Strategie: SeriouslySirius + beachboy4 | WICHTIG | **Prompt ready** (prompts/t_m21_basket_strategy.md) |
-| T-PANEWS | PANews Biteye Integration: 5 APPROVE-Kandidaten aktivieren | WICHTIG | Review 2026-05-05: cowcat, EFFICIENCYEXPERT, synnet, middleoftheocean, HondaCivic |
+| T-PANEWS | PANews Biteye Integration: 5 APPROVE-Kandidaten aktivieren | WICHTIG | **Verifiziert 2026-04-20**: Frank0951+EE+synnet+middleoftheocean+HondaCivic; Server-CC Prompt: prompts/integrate_panews_wallets.md |
 | T-M08-P4 | T-M08 Phase 4: Migration bestehender Positionen in bot_state.json | KRITISCH | **Prompt ready** (prompts/t_m08_phase4_migration.md) — MORGEN ZUERST |
 | T-M08-P5 | T-M08 Phase 5: ExitManager state-aware Guard (evaluate_all) | KRITISCH | **Prompt ready** (prompts/t_m08_phase5_exit_guard_integration.md) — nach Phase 4 |
 | T-M04b | Claim-Fix v2: relayer-v2 + RELAYER_API_KEY + signer=PRIVATE_KEY | WICHTIG | Credentials in .env — nach T-M08 |

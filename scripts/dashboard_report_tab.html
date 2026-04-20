@@ -1,0 +1,187 @@
+<!-- TAB 4: REPORT -->
+<div id="report-tab" class="tab-content" style="display:none">
+
+  <!-- SEKTION 1: NACHT-ZUSAMMENFASSUNG -->
+  <div class="report-section">
+    <h3 class="section-title">// NACHT-ZUSAMMENFASSUNG</h3>
+    <div class="report-grid">
+      <div class="stat-box">
+        <span class="stat-label">Trades heute</span>
+        <span class="stat-value" id="r-trades">–</span>
+      </div>
+      <div class="stat-box">
+        <span class="stat-label">Käufe / Verkäufe</span>
+        <span class="stat-value" id="r-buysells">–</span>
+      </div>
+      <div class="stat-box">
+        <span class="stat-label">P&amp;L heute</span>
+        <span class="stat-value" id="r-pnl">–</span>
+      </div>
+      <div class="stat-box">
+        <span class="stat-label">Bot-Restarts</span>
+        <span class="stat-value" id="r-restarts">–</span>
+      </div>
+      <div class="stat-box">
+        <span class="stat-label">Letzter Trade</span>
+        <span class="stat-value" id="r-lasttrade">–</span>
+      </div>
+      <div class="stat-box">
+        <span class="stat-label">Uptime</span>
+        <span class="stat-value" id="r-uptime">–</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- SEKTION 2: FEATURE AMPELN -->
+  <div class="report-section">
+    <h3 class="section-title">// FEATURE STATUS</h3>
+    <table class="feature-table">
+      <tr>
+        <th>Feature</th>
+        <th>Status</th>
+        <th>Details</th>
+      </tr>
+      <tr id="f-websocket">
+        <td>WebSocket Monitor</td>
+        <td class="status-dot">–</td>
+        <td class="status-detail">–</td>
+      </tr>
+      <tr id="f-rss">
+        <td>RSS Monitor</td>
+        <td class="status-dot">–</td>
+        <td class="status-detail">–</td>
+      </tr>
+      <tr id="f-weather">
+        <td>Weather Scout</td>
+        <td class="status-dot">–</td>
+        <td class="status-detail">–</td>
+      </tr>
+      <tr id="f-anomaly">
+        <td>Anomalie-Detektor</td>
+        <td class="status-dot">–</td>
+        <td class="status-detail">–</td>
+      </tr>
+      <tr id="f-stoploss">
+        <td>Stop-Loss</td>
+        <td class="status-dot">–</td>
+        <td class="status-detail">–</td>
+      </tr>
+      <tr id="f-whaleexit">
+        <td>Whale-Exit-Copy</td>
+        <td class="status-dot">–</td>
+        <td class="status-detail">–</td>
+      </tr>
+      <tr id="f-blacklist">
+        <td>Iran Blacklist</td>
+        <td class="status-dot">–</td>
+        <td class="status-detail">–</td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- SEKTION 3: WALLET AKTIVITÄT -->
+  <div class="report-section">
+    <h3 class="section-title">// WALLET AKTIVITÄT HEUTE</h3>
+    <table class="wallet-activity-table" id="r-wallets">
+      <tr>
+        <th>Wallet</th>
+        <th>Signale</th>
+        <th>Kopiert</th>
+        <th>Blockiert</th>
+      </tr>
+    </table>
+  </div>
+
+  <!-- SEKTION 4: LETZTE FEHLER -->
+  <div class="report-section">
+    <h3 class="section-title">// LETZTE FEHLER</h3>
+    <div id="r-errors" class="error-list"></div>
+  </div>
+
+</div>
+
+<script>
+async function loadReport() {
+  try {
+    const r = await fetch('/api/report');
+    const d = await r.json();
+
+    // Zusammenfassung
+    document.getElementById('r-trades').textContent =
+      d.trades_today || '0';
+    document.getElementById('r-buysells').textContent =
+      `${d.buys_today || 0} / ${d.sells_today || 0}`;
+    document.getElementById('r-pnl').textContent =
+      d.pnl_today ? `$${d.pnl_today.toFixed(2)}` : '–';
+    document.getElementById('r-restarts').textContent =
+      d.restarts_today || '0';
+    document.getElementById('r-lasttrade').textContent =
+      d.last_trade_time || 'Kein Trade heute';
+    document.getElementById('r-uptime').textContent =
+      d.uptime || '–';
+
+    // Feature Ampeln
+    const features = {
+      'f-websocket': [d.ws_status === 'connected',
+        d.ws_status === 'connected' ? 'Verbunden' : 'Getrennt'],
+      'f-rss': [d.rss_signals_today > 0,
+        `${d.rss_signals_today || 0} Signale heute`],
+      'f-weather': [d.weather_opportunities > 0,
+        `${d.weather_opportunities || 0} Opportunities`],
+      'f-anomaly': [d.anomaly_active,
+        d.anomaly_active ? 'Aktiv' : 'Inaktiv/Hängt'],
+      'f-stoploss': [true,
+        `${d.stop_loss_triggered || 0}x ausgelöst`],
+      'f-whaleexit': [true,
+        `${d.whale_exit_triggered || 0}x ausgelöst`],
+      'f-blacklist': [true,
+        `${d.blacklist_blocked || 0} Trades blockiert`]
+    };
+
+    for (const [id, [ok, detail]] of Object.entries(features)) {
+      const row = document.getElementById(id);
+      if (row) {
+        row.querySelector('.status-dot').textContent =
+          ok ? '🟢' : '🔴';
+        row.querySelector('.status-detail').textContent =
+          detail;
+      }
+    }
+
+    // Wallet Aktivität — Tabelle leeren vor Neubefüllung
+    const table = document.getElementById('r-wallets');
+    while (table.rows.length > 1) table.deleteRow(1);
+    if (d.wallet_activity && d.wallet_activity.length > 0) {
+      d.wallet_activity.forEach(w => {
+        const row = table.insertRow();
+        row.innerHTML = `
+          <td>${w.name}</td>
+          <td>${w.signals}</td>
+          <td>${w.copied}</td>
+          <td>${w.blocked}</td>`;
+      });
+    } else {
+      const row = table.insertRow();
+      row.innerHTML = '<td colspan="4" style="opacity:0.5">Keine Wallet-Daten heute</td>';
+    }
+
+    // Fehler
+    const errDiv = document.getElementById('r-errors');
+    if (d.recent_errors && d.recent_errors.length > 0) {
+      errDiv.innerHTML = d.recent_errors
+        .map(e => `<div class="error-line">${e}</div>`)
+        .join('');
+    } else {
+      errDiv.innerHTML =
+        '<div class="no-errors">✅ Keine Fehler heute</div>';
+    }
+
+  } catch(e) {
+    console.error('Report load failed:', e);
+  }
+}
+
+// Alle 30 Sekunden refreshen
+loadReport();
+setInterval(loadReport, 30000);
+</script>

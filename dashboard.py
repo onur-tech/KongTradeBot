@@ -25,8 +25,12 @@ except ImportError:
     def get_wallet_name(addr): return addr[:10] + "..." if addr else "?"
     WALLET_NAMES = {}
 
+import functools
+import hashlib
+import secrets
+
 try:
-    from flask import Flask, render_template, jsonify, request, send_from_directory
+    from flask import Flask, render_template, jsonify, request, send_from_directory, session, redirect, url_for
     from flask_socketio import SocketIO, emit
 except ImportError:
     print("FEHLER: pip install flask flask-socketio")
@@ -85,8 +89,106 @@ POLYGON_RPCS   = [
 ]
 
 app = Flask(__name__, template_folder=str(BASE_DIR))
-app.config["SECRET_KEY"] = "polymarket-dashboard-2026"
+app.config["SECRET_KEY"] = os.getenv("FLASK_SECRET_KEY", "polymarket-dashboard-2026")
+app.config["PERMANENT_SESSION_LIFETIME"] = 86400 * 7  # 7 Tage
 socketio = SocketIO(app, cors_allowed_origins="*", async_mode="threading")
+
+# ── Login ──────────────────────────────────────────────────────────────────────
+
+def _get_dashboard_password() -> str:
+    """Liest DASHBOARD_PASSWORD aus .env (Klartext)."""
+    env = {}
+    try:
+        for line in ENV_FILE.read_text().splitlines():
+            line = line.strip()
+            if line and not line.startswith("#") and "=" in line:
+                k, _, v = line.partition("=")
+                env[k.strip()] = v.strip().strip('"').strip("'")
+    except Exception:
+        pass
+    return env.get("DASHBOARD_PASSWORD", "")
+
+
+def login_required(f):
+    @functools.wraps(f)
+    def decorated(*args, **kwargs):
+        pwd = _get_dashboard_password()
+        if pwd and not session.get("authenticated"):
+            if request.path.startswith("/api/"):
+                return jsonify({"error": "Unauthorized"}), 401
+            return redirect("/login")
+        return f(*args, **kwargs)
+    return decorated
+
+
+LOGIN_HTML = """<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>KongTrade Login</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#030303;color:#e0e0e0;font-family:monospace;display:flex;align-items:center;justify-content:center;height:100vh}
+.box{background:#0d0d1a;border:1px solid #1a1a3e;border-radius:12px;padding:40px;width:340px;text-align:center}
+.logo{font-size:22px;font-weight:800;letter-spacing:4px;color:#00ff88;margin-bottom:8px}
+.logo span{color:#666;font-weight:300}
+.subtitle{color:#555;font-size:11px;letter-spacing:2px;margin-bottom:30px}
+input{width:100%;padding:12px 16px;background:#0a0a14;border:1px solid #1a1a3e;border-radius:8px;color:#e0e0e0;font-size:14px;font-family:monospace;outline:none;margin-bottom:16px}
+input:focus{border-color:#00ff88}
+button{width:100%;padding:12px;background:transparent;border:1px solid #00ff88;border-radius:8px;color:#00ff88;font-size:13px;font-family:monospace;letter-spacing:2px;cursor:pointer}
+button:hover{background:rgba(0,255,136,.08)}
+.err{color:#ff4444;font-size:12px;margin-top:12px}
+</style>
+</head>
+<body>
+<div class="box">
+  <div class="logo">KONG<span>TRADE</span></div>
+  <div class="subtitle">DASHBOARD ACCESS</div>
+  <form method="POST" action="/login">
+    <input type="password" name="password" placeholder="Passwort" autofocus>
+    <button type="submit">EINLOGGEN</button>
+  </form>
+  {error}
+</div>
+</body>
+</html>"""
+
+
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    pwd = _get_dashboard_password()
+    if not pwd:
+        session["authenticated"] = True
+        return redirect("/")
+    if request.method == "POST":
+        entered = request.form.get("password", "")
+        if entered == pwd:
+            session.permanent = True
+            session["authenticated"] = True
+            return redirect("/")
+        return LOGIN_HTML.replace("{error}", '<div class="err">Falsches Passwort</div>')
+    if session.get("authenticated"):
+        return redirect("/")
+    return LOGIN_HTML.replace("{error}", "")
+
+
+@app.route("/logout")
+def logout():
+    session.clear()
+    return redirect("/login")
+
+
+@app.before_request
+def require_login():
+    public = {"/login", "/logout"}
+    if request.path in public or request.path.startswith("/static/"):
+        return
+    pwd = _get_dashboard_password()
+    if pwd and not session.get("authenticated"):
+        if request.path.startswith("/api/"):
+            return jsonify({"error": "Unauthorized"}), 401
+        return redirect("/login")
+
 
 # ── Gamma endDate cache (condition_id → (ts, end_date_str)) ───────────────────
 _gamma_enddate_cache: dict = {}

@@ -392,6 +392,7 @@ tr.trow:hover td{background:var(--bg3)}
       <span>DRY-RUN</span>
     </div>
     <button class="notif-btn" id="notif-btn" title="Browser-Benachrichtigungen">🔔</button>
+    <a href="/logout" style="color:#555;font-size:11px;letter-spacing:1px;text-decoration:none" title="Ausloggen">LOGOUT</a>
   </div>
 </nav>
 
@@ -468,6 +469,9 @@ tr.trow:hover td{background:var(--bg3)}
         <button class="tab-btn" onclick="switchTab('report',this);fetchReport()">
           REPORT
         </button>
+        <button class="tab-btn" onclick="switchTab('about',this)">
+          ABOUT
+        </button>
       </div>
 
       <!-- OPEN -->
@@ -529,6 +533,49 @@ tr.trow:hover td{background:var(--bg3)}
         <div class="report-section">
           <div class="section-title">Letzte Fehler</div>
           <div id="r-error-list"><span class="no-errors">Keine Fehler</span></div>
+        </div>
+      </div>
+
+      <!-- ABOUT -->
+      <div class="tab-content" id="tab-about">
+        <div class="report-section">
+          <div class="section-title">KongTradeBot v0.6 — Features</div>
+          <table class="feature-table">
+            <thead><tr><th>Modul</th><th>Beschreibung</th><th>Status</th></tr></thead>
+            <tbody>
+              <tr><td>🐋 Copy Trading</td><td>Kopiert Whale-Wallets via WebSocket (19 Targets)</td><td style="color:#00ff88">LIVE</td></tr>
+              <tr><td>📰 RSS Monitor</td><td>Tier-1 News: BBC, Al Jazeera, AP, NYT — Telegram Alerts</td><td style="color:#00ff88">LIVE</td></tr>
+              <tr><td>🎯 Exit Manager</td><td>TP1/TP2/TP3 Take-Profit-Stufen + Whale-Exit-Copy</td><td style="color:#00ff88">LIVE</td></tr>
+              <tr><td>🛡️ Risk Manager</td><td>Budget-Cap, Tages-Verlustlimit, Kategorie-Exposure, Kill-Switch</td><td style="color:#00ff88">LIVE</td></tr>
+              <tr><td>🔍 Anomaly Detector</td><td>Erkennt koordinierte Multi-Wallet Bets (&gt;$200K Cluster)</td><td style="color:#00ff88">LIVE</td></tr>
+              <tr><td>📊 State Worker</td><td>Synchronisiert Positionen mit Polymarket API (alle 5 Min)</td><td style="color:#00ff88">LIVE</td></tr>
+              <tr><td>💎 Auto Claim</td><td>Löst gewonnene Positionen automatisch ein</td><td style="color:#00ff88">LIVE</td></tr>
+              <tr><td>🐕 Watchdog</td><td>Überwacht Bot-Prozess, Heartbeat-Check, Auto-Restart</td><td style="color:#00ff88">LIVE</td></tr>
+              <tr><td>🔑 FillTracker</td><td>WebSocket-Fills für eigene Orders (CLOB L2)</td><td style="color:#00ff88">LIVE</td></tr>
+              <tr><td>🌐 Wallet Scout</td><td>Täglich 09:00 — Top-Performer-Wallets nachladen</td><td style="color:#00ff88">LIVE</td></tr>
+              <tr><td>🌦️ Weather Scout</td><td>Sucht Wettermarkt-Opportunities</td><td style="color:#ffaa00">DRY-RUN</td></tr>
+              <tr><td>📈 Latency Monitor</td><td>Messung Order-Latenz, Tages-Report</td><td style="color:#00ff88">LIVE</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="report-section">
+          <div class="section-title">Konfiguration</div>
+          <div class="report-grid">
+            <div class="stat-box"><span class="stat-label">Max Trade</span><span class="stat-value">$30</span></div>
+            <div class="stat-box"><span class="stat-label">Max Tagesverlust</span><span class="stat-value">$200</span></div>
+            <div class="stat-box"><span class="stat-label">Copy Multiplier</span><span class="stat-value">10%</span></div>
+            <div class="stat-box"><span class="stat-label">Max Positionen</span><span class="stat-value">30</span></div>
+            <div class="stat-box"><span class="stat-label">Portfolio-Cap</span><span class="stat-value">50%</span></div>
+            <div class="stat-box"><span class="stat-label">Kategorie-Cap</span><span class="stat-value">30%</span></div>
+          </div>
+        </div>
+        <div class="report-section">
+          <div class="section-title">Links</div>
+          <div style="display:flex;gap:12px;flex-wrap:wrap;font-size:12px">
+            <a href="https://polymarket.com" target="_blank" style="color:#00ff88;text-decoration:none">Polymarket</a>
+            <a href="https://github.com" target="_blank" style="color:#555;text-decoration:none">GitHub (Token nötig)</a>
+            <a href="/logout" style="color:#ff4444;text-decoration:none">Logout</a>
+          </div>
         </div>
       </div>
     </div>

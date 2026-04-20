@@ -15,6 +15,7 @@ LEKTIONEN AUS DER COMMUNITY:
 import asyncio
 import json
 import os
+import time
 from dataclasses import dataclass, field, replace
 from typing import Dict, List, Optional
 from collections import deque

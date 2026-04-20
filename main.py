@@ -34,6 +34,7 @@ from core.exit_manager import ExitManager, ExitEvent
 from core.position_state_worker import PositionStateWorker
 from core.anomaly_detector import AnomalyDetector, anomaly_detector_loop
 from core.rss_monitor import RSSMonitor
+from core.weather_scout import run_weather_scout
 from strategies.copy_trading import CopyTradingStrategy, CopyOrder
 from claim_all import claim_loop
 from telegram_bot import (send, msg_trade, msg_status, msg_startup,
@@ -1207,6 +1208,29 @@ async def main():
         ))
 
     try:
+        async def weather_loop():
+            """Stündlicher Weather-Market-Scan via OpenMeteo."""
+            enabled = os.getenv("WEATHER_TRADING_ENABLED", "false").lower() == "true"
+            if not enabled:
+                logger.info("[Weather] Deaktiviert (WEATHER_TRADING_ENABLED=false)")
+                return
+            interval = int(os.getenv("WEATHER_SCAN_INTERVAL_SECONDS", "3600"))
+            logger.info(f"[Weather] Scout gestartet — erster Scan in 120s, dann alle {interval}s")
+            await asyncio.sleep(120)
+            while True:
+                try:
+                    opportunities = await asyncio.to_thread(run_weather_scout)
+                    if opportunities:
+                        summary = "\n".join(
+                            f"  {o['direction']} {o['city']} {o['forecast_temp']}°{o['unit']} "
+                            f"@ {o['price']:.2f} (Edge {o['edge']:.0%})"
+                            for o in opportunities[:5]
+                        )
+                        await send(f"🌤 <b>Weather Opportunities ({len(opportunities)})</b>\n{summary}")
+                except Exception as e:
+                    logger.error(f"[Weather] Loop-Fehler: {e}")
+                await asyncio.sleep(interval)
+
         async def heartbeat_loop(interval: int = 300):
             """Writes heartbeat.txt every 5 minutes so watchdog.py can detect offline state."""
             heartbeat_file = os.path.join(os.path.dirname(__file__), "heartbeat.txt")
@@ -1283,6 +1307,7 @@ async def main():
                 interval_seconds=int(os.getenv("ANOMALY_SCAN_INTERVAL_SECONDS", "300"))
             )),
             asyncio.create_task(rss_monitor.run()),     # T-NEWS Phase 1B
+            asyncio.create_task(weather_loop()),         # T-Weather
             asyncio.create_task(poll_commands(
                 callback_status=send_status_now,
                 callback_resolve=check_resolved_markets_and_notify,

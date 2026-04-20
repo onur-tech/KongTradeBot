@@ -278,13 +278,16 @@ async def anomaly_detector_loop(detector: AnomalyDetector,
     logger.info(f"[ANOMALY] Detektor gestartet — Scan-Intervall: {interval_seconds}s")
     while True:
         try:
-            signals = await detector.check_all_trades()
+            signals = await asyncio.wait_for(
+                detector.check_all_trades(), timeout=30.0)
             for signal in signals:
                 detector._alerted_conditions.add(signal.condition_id)
                 alert = detector.format_telegram_alert(signal)
                 await send_fn(alert, urgent=(signal.signal_type == "STRONG"))
                 if signal.signal_type == "STRONG":
                     await detector.execute_signal(signal, execution_engine)
+        except asyncio.TimeoutError:
+            logger.warning("[ANOMALY] Scan-Timeout (>30s) — übersprungen")
         except Exception as e:
             logger.error(f"[ANOMALY] Loop-Fehler: {e}")
         await asyncio.sleep(interval_seconds)

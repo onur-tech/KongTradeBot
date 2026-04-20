@@ -546,9 +546,11 @@ class WalletMonitor:
     WS_URL = "wss://ws-subscriptions-clob.polymarket.com/ws/market"
 
     async def _run_websocket(self):
-        """Äußere Retry-Schleife mit Exponential Backoff."""
+        """Äußere Retry-Schleife mit Exponential Backoff. Läuft immer weiter."""
         self._ws_retries = 0
-        while self._running:
+        while True:
+            if not self._running:
+                break
             try:
                 await self._websocket_session()
                 self._ws_retries = 0  # Reset nach erfolgreichem Reconnect
@@ -562,7 +564,10 @@ class WalletMonitor:
                         f"[WS] {self._ws_retries} Retries erschöpft → "
                         f"Poll-Fallback für {self.ws_fallback_interval}s"
                     )
-                    await self._run_poll_once()
+                    try:
+                        await self._run_poll_once()
+                    except Exception as poll_e:
+                        logger.warning(f"[WS] Poll-Fallback Fehler: {poll_e}")
                     self._ws_retries = 0
                     continue
                 wait = min(2 ** self._ws_retries, 60)

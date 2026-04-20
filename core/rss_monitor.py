@@ -93,7 +93,7 @@ class RSSMonitor:
         signals = []
         for source, url in RSS_FEEDS.items():
             try:
-                feed = feedparser.parse(url)
+                feed = await asyncio.to_thread(feedparser.parse, url)
                 for entry in feed.entries[:10]:
                     title = entry.get("title", "")
                     link = entry.get("link", "")

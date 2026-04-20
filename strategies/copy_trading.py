@@ -156,6 +156,14 @@ WALLET_MULTIPLIERS: Dict[str, float] = {
     # denizz — polymonit April Politics #1 +$751k (UCL-Soccer-Spezialist) → 1.0x
     # RECAL 2026-04-19 T-M09: explizit auf 1.0x (vorher DEFAULT 0.5x)
     "0xbaa2bcb5439e985ce4ccf815b4700027d1b92c73": 1.0,
+
+    # PANews Biteye Smart Money — integriert 2026-04-20, Review 2026-05-05
+    # HF-7 PENDING (predicts.guru Deposit-ROI unverified) → 0.3x konservativ
+    "0x38e59b36aae31b164200d0cad7c3fe5e0ee795e7": 0.3,  # cowcat — ME Longshot +117% ROI
+    "0x15ceffed7bf820cd2d90f90ea24ae9909f5cd5fa": 0.3,  # HondaCivic — Weather 85.7% WR
+    "0x8c0b024c17831a0dde038547b7e791ae6a0d7aa5": 0.3,  # EFFICIENCYEXPERT — Esports $580K
+    "0x8e0b7ae246205b1ddf79172148a58a3204139e5c": 0.3,  # synnet — Tennis $290K Underdogs
+    "0x6c743aafd813475986dcd930f380a1f50901bd4e": 0.3,  # middleoftheocean — Soccer 83.1% WR
 }
 
 # Unbekannte / nicht konfigurierte Wallets bekommen halbe Größe

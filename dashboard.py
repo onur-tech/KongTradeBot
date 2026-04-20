@@ -1560,6 +1560,53 @@ _BANNER = """\
 MAX_RESTARTS = 20
 
 
+@app.route("/api/report")
+def api_report():
+    """Report Tab — Tagesstatistik: Trades, Features, Fehler."""
+    import re as _re
+    from datetime import datetime as _dt
+    today = _dt.now().strftime("%Y-%m-%d")
+    log_file = os.path.join(BASE_DIR, "logs", f"bot_{today}.log")
+
+    data = {
+        "trades_today": 0, "buys_today": 0, "sells_today": 0,
+        "errors_today": 0, "ws_status": "unknown",
+        "rss_signals_today": 0, "weather_opportunities": 0,
+        "stop_loss_triggered": 0, "whale_exit_triggered": 0,
+        "blacklist_blocked": 0, "anomaly_active": False,
+        "recent_errors": [], "last_trade_time": None,
+    }
+    if os.path.exists(log_file):
+        with open(log_file, errors="replace") as f:
+            for line in f:
+                if "CopyOrder[LIVE]" in line or "Order erstellt" in line:
+                    data["trades_today"] += 1
+                    if "BUY" in line: data["buys_today"] += 1
+                    if "SELL" in line: data["sells_today"] += 1
+                    data["last_trade_time"] = line[:19]
+                if " ERROR " in line:
+                    data["errors_today"] += 1
+                    data["recent_errors"].append(line[20:120].strip())
+                if "[WS] Subscribed" in line:
+                    data["ws_status"] = "connected"
+                if "[WS] Disconnect" in line or "[WS] Verbindungs" in line:
+                    data["ws_status"] = "disconnected"
+                if "[RSS]" in line and "Signal" in line:
+                    data["rss_signals_today"] += 1
+                if "[WeatherScout]" in line and "Opportunit" in line:
+                    data["weather_opportunities"] += 1
+                if "EXIT_SL" in line or "stop_loss" in line.lower():
+                    data["stop_loss_triggered"] += 1
+                if "WHALE EXIT" in line or "whale_exit_copy" in line.lower():
+                    data["whale_exit_triggered"] += 1
+                if "BLACKLIST" in line or "blockiert" in line:
+                    data["blacklist_blocked"] += 1
+                if "[ANOMALY] Detektor gestartet" in line:
+                    data["anomaly_active"] = True
+    data["recent_errors"] = data["recent_errors"][-5:]
+    return _cors(jsonify(data))
+
+
 def _run_server():
     socketio.run(app, host="127.0.0.1", port=5000, debug=False, allow_unsafe_werkzeug=True)
 

@@ -353,6 +353,16 @@ tr.trow:hover td{background:var(--bg3)}
   .session-bar{gap:6px}
   .actions-bar .btn{padding:7px 12px;font-size:10px}
 }
+.report-section{margin-bottom:20px}
+.report-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:8px}
+.stat-box{background:var(--bg3);border:1px solid #333;border-radius:6px;padding:10px;display:flex;flex-direction:column}
+.stat-label{font-size:11px;color:#888;margin-bottom:4px}
+.stat-value{font-size:18px;font-weight:bold;color:#fff}
+.feature-table{width:100%;border-collapse:collapse;font-size:13px}
+.feature-table th{text-align:left;color:#888;padding:5px 8px;border-bottom:1px solid #333}
+.feature-table td{padding:6px 8px;border-bottom:1px solid #1a1a2e}
+.error-line{background:#1a0a0a;border-left:3px solid #ff4444;padding:5px 8px;margin-bottom:3px;font-size:11px;font-family:monospace;color:#ff8888}
+.no-errors{color:var(--neon);padding:8px;font-size:13px}
 </style>
 </head>
 <body>
@@ -455,6 +465,9 @@ tr.trow:hover td{background:var(--bg3)}
         <button class="tab-btn" onclick="switchTab('resolved',this)">
           RESOLVED
         </button>
+        <button class="tab-btn" onclick="switchTab('report',this);fetchReport()">
+          REPORT
+        </button>
       </div>
 
       <!-- OPEN -->
@@ -490,6 +503,32 @@ tr.trow:hover td{background:var(--bg3)}
             </tr></thead>
             <tbody id="tbl-resolved-body"><tr><td colspan="7" class="empty-msg">Keine aufgelösten Trades</td></tr></tbody>
           </table>
+        </div>
+      </div>
+
+      <!-- REPORT -->
+      <div class="tab-content" id="tab-report">
+        <div class="report-section">
+          <div class="section-title">Heutige Aktivität</div>
+          <div class="report-grid">
+            <div class="stat-box"><span class="stat-label">Trades</span><span class="stat-value" id="r-trades">—</span></div>
+            <div class="stat-box"><span class="stat-label">Fehler</span><span class="stat-value" id="r-errors">—</span></div>
+            <div class="stat-box"><span class="stat-label">RSS Signale</span><span class="stat-value" id="r-rss">—</span></div>
+            <div class="stat-box"><span class="stat-label">Stop-Loss</span><span class="stat-value" id="r-sl">—</span></div>
+            <div class="stat-box"><span class="stat-label">Whale Exit</span><span class="stat-value" id="r-we">—</span></div>
+            <div class="stat-box"><span class="stat-label">Blacklist</span><span class="stat-value" id="r-bl">—</span></div>
+          </div>
+        </div>
+        <div class="report-section">
+          <div class="section-title">Features</div>
+          <table class="feature-table">
+            <thead><tr><th>Feature</th><th>Status</th><th>Heute</th></tr></thead>
+            <tbody id="r-features-body"><tr><td colspan="3" class="empty-msg">Lade...</td></tr></tbody>
+          </table>
+        </div>
+        <div class="report-section">
+          <div class="section-title">Letzte Fehler</div>
+          <div id="r-error-list"><span class="no-errors">Keine Fehler</span></div>
         </div>
       </div>
     </div>
@@ -1409,6 +1448,42 @@ setInterval(async()=>{
 }, 8000);
 
 init();
+
+async function fetchReport(){
+  try {
+    const d = await fetch('/api/report').then(r=>r.json());
+    document.getElementById('r-trades').textContent = d.trades_today ?? '—';
+    document.getElementById('r-errors').textContent = d.errors_today ?? '—';
+    document.getElementById('r-rss').textContent = d.rss_signals_today ?? '—';
+    document.getElementById('r-sl').textContent = d.stop_loss_triggered ?? '—';
+    document.getElementById('r-we').textContent = d.whale_exit_triggered ?? '—';
+    document.getElementById('r-bl').textContent = d.blacklist_blocked ?? '—';
+
+    const features = [
+      ['WebSocket', d.ws_status === 'connected' ? '🟢' : '🔴', d.ws_status ?? '—'],
+      ['RSS Monitor', d.rss_signals_today > 0 ? '🟢' : '🟡', `${d.rss_signals_today ?? 0} Signale`],
+      ['Weather Scout', d.weather_opportunities > 0 ? '🟢' : '🟡', `${d.weather_opportunities ?? 0} Opps`],
+      ['Anomaly Detector', d.anomaly_active ? '🟢' : '🟡', d.anomaly_active ? 'Aktiv' : 'Inaktiv'],
+      ['Stop-Loss', d.stop_loss_triggered > 0 ? '🟠' : '🟢', `${d.stop_loss_triggered ?? 0}× ausgelöst`],
+      ['Whale Exit Copy', d.whale_exit_triggered > 0 ? '🟠' : '🟢', `${d.whale_exit_triggered ?? 0}× kopiert`],
+    ];
+    const tbody = document.getElementById('r-features-body');
+    tbody.innerHTML = features.map(([name, dot, val]) =>
+      `<tr><td>${name}</td><td>${dot}</td><td>${val}</td></tr>`
+    ).join('');
+
+    const errDiv = document.getElementById('r-error-list');
+    if (!d.recent_errors || d.recent_errors.length === 0) {
+      errDiv.innerHTML = '<span class="no-errors">✅ Keine Fehler heute</span>';
+    } else {
+      errDiv.innerHTML = d.recent_errors.map(e =>
+        `<div class="error-line">${e}</div>`
+      ).join('');
+    }
+  } catch(e) {
+    console.error('fetchReport:', e);
+  }
+}
 </script>
 </body>
 </html>

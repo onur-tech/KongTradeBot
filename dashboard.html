@@ -675,15 +675,21 @@ tr.trow:hover td{background:var(--bg3)}
                               cl==="TODAY"?"#ffa500":
                               (t.closes_in_s && t.closes_in_s < 3600*6)?"#ff4444":
                               (t.closes_in_s && t.closes_in_s < 3600*24)?"#ffa500":"#666";
+              const outcomeColor = t.outcome==="YES"?"#00ff41":"#ff6b6b";
+              const edgeStr = t.edge_pct !== "—" ? `Edge: ${t.edge_pct}%` : "";
+              const q = (t.question||"").length > 60 ? t.question.slice(0,60)+"…" : (t.question||"—");
               return `<div style="padding:8px 0;border-bottom:1px solid #222">
-                <span style="color:#555">${t.timestamp.slice(0,16)}</span>
-                <span style="color:var(--accent);margin:0 8px">${t.city}</span>
-                <span>${t.forecast_temp}°C vs ${t.threshold}°</span>
-                <span style="color:#888;margin:0 8px">@${t.market_price_cents}¢</span>
-                <span style="color:#ffa500">Edge: ${t.edge_pct}%</span>
-                <span style="color:${color};margin-left:12px;font-weight:bold">${icon} ${t.status}</span>
-                <span style="color:#888;margin-left:8px">$${t.simulated_buy_usd} → $${t.potential_win_usd}</span>
-                <span style="color:${clColor};margin-left:10px;font-size:.8em">⏱ ${cl}</span>
+                <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+                  <span style="color:#555">${t.timestamp}</span>
+                  <span style="color:var(--accent);font-weight:600">${t.city}</span>
+                  <span style="color:${outcomeColor};font-size:.8em;padding:1px 6px;border:1px solid ${outcomeColor};border-radius:3px">${t.outcome}</span>
+                  <span style="color:#888">@${t.market_price_cents}¢</span>
+                  ${edgeStr ? `<span style="color:#ffa500">${edgeStr}</span>` : ""}
+                  <span style="color:${color};font-weight:bold">${icon} ${t.status}</span>
+                  <span style="color:#888">$${t.simulated_buy_usd} → $${t.potential_win_usd}</span>
+                  <span style="color:${clColor};font-size:.8em">⏱ ${cl}</span>
+                </div>
+                <div style="color:#555;font-size:.75em;margin-top:2px">${q}</div>
               </div>`;
             }).join("");
           } catch(e) { console.error("Paper trades:", e); }
@@ -709,7 +715,7 @@ tr.trow:hover td{background:var(--bg3)}
               <tr><td>🐕 Watchdog</td><td>Überwacht Bot-Prozess, Heartbeat-Check, Auto-Restart</td><td style="color:#00ff88">LIVE</td></tr>
               <tr><td>🔑 FillTracker</td><td>WebSocket-Fills für eigene Orders (CLOB L2)</td><td style="color:#00ff88">LIVE</td></tr>
               <tr><td>🌐 Wallet Scout</td><td>Täglich 09:00 — Top-Performer-Wallets nachladen</td><td style="color:#00ff88">LIVE</td></tr>
-              <tr><td>🌦️ Weather Scout</td><td>Sucht Wettermarkt-Opportunities</td><td style="color:#ffaa00">DRY-RUN</td></tr>
+              <tr><td>🌦️ Weather Scout</td><td>Sucht Wettermarkt-Opportunities</td><td id="about-weather-status" style="color:#ffaa00">...</td></tr>
               <tr><td>📈 Latency Monitor</td><td>Messung Order-Latenz, Tages-Report</td><td style="color:#00ff88">LIVE</td></tr>
               <tr><td>🚀 Multi-Signal-Boost</td><td>2+ Wallets kaufen gleichen Markt → 1.5× Größe. 3+ Wallets → 2.0× Größe. 60s Signal-Buffer für Aggregation.</td><td style="color:#00ff88">LIVE</td></tr>
             </tbody>
@@ -718,12 +724,12 @@ tr.trow:hover td{background:var(--bg3)}
         <div class="report-section">
           <div class="section-title">Konfiguration</div>
           <div class="report-grid">
-            <div class="stat-box"><span class="stat-label">Max Trade</span><span class="stat-value">$30</span></div>
-            <div class="stat-box"><span class="stat-label">Max Tagesverlust</span><span class="stat-value">$200</span></div>
-            <div class="stat-box"><span class="stat-label">Copy Multiplier</span><span class="stat-value">10%</span></div>
-            <div class="stat-box"><span class="stat-label">Max Positionen</span><span class="stat-value">30</span></div>
-            <div class="stat-box"><span class="stat-label">Portfolio-Cap</span><span class="stat-value">50%</span></div>
-            <div class="stat-box"><span class="stat-label">Kategorie-Cap</span><span class="stat-value">30%</span></div>
+            <div class="stat-box"><span class="stat-label">Max Trade</span><span class="stat-value" id="about-max-trade">$—</span></div>
+            <div class="stat-box"><span class="stat-label">Max Tagesverlust</span><span class="stat-value" id="about-max-loss">$—</span></div>
+            <div class="stat-box"><span class="stat-label">Copy Multiplier</span><span class="stat-value" id="about-copy-mult">—</span></div>
+            <div class="stat-box"><span class="stat-label">Max Positionen</span><span class="stat-value" id="about-max-pos">—</span></div>
+            <div class="stat-box"><span class="stat-label">Portfolio-Cap</span><span class="stat-value" id="about-portfolio-cap">—</span></div>
+            <div class="stat-box"><span class="stat-label">Kategorie-Cap</span><span class="stat-value" id="about-category-cap">—</span></div>
           </div>
         </div>
         <div class="report-section">
@@ -1805,7 +1811,7 @@ async function fetchWalletPerformance() {
         <td style="color:#444;font-size:10px;font-family:monospace">${addrShort}</td>
         <td style="color:${multColor};font-weight:700">${w.multiplier}x</td>
         <td style="text-align:center">${todayBadge}</td>
-        <td style="color:#888;text-align:center">${w.copied_total}</td>
+        <td style="color:#888;text-align:center">${w.copies_total != null ? w.copies_total : '—'}</td>
         <td>${winRate}</td>
         <td style="color:${pnlColor}">${w.total_pnl > 0 ? '+' : ''}$${w.total_pnl.toFixed(2)}</td>
         <td>${lastActive}</td>
@@ -1843,14 +1849,30 @@ async function toggleWeather() {
 
 async function loadWeatherStatus() {
   try {
-    const d = await fetch('/api/health').then(r => r.json())
+    const s = await fetch('/api/summary').then(r => r.json())
+    const set = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val }
+
+    // Weather toggle button + label
+    const isDry = s.weather_dry_run !== false
     const lbl = document.getElementById('weather-status-label')
     const btn = document.getElementById('btn-weather-toggle')
-    const isDry = d.weather_dry_run !== false
     if (lbl) lbl.textContent = isDry ? 'Aktuell: DRY-RUN (kein echtes Trading)' : 'Aktuell: LIVE (echtes Trading aktiv!)'
     if (btn) btn.textContent = isDry ? 'WEATHER LIVE SCHALTEN' : 'AUF DRY-RUN ZURÜCKSETZEN'
     if (btn) btn.style.borderColor = isDry ? '#ffaa00' : '#ff4444'
     if (btn) btn.style.color = isDry ? '#ffaa00' : '#ff4444'
+
+    // About tab Weather Scout status cell
+    const ws = document.getElementById('about-weather-status')
+    if (ws) { ws.textContent = isDry ? 'DRY-RUN' : 'LIVE'; ws.style.color = isDry ? '#ffaa00' : '#00ff88' }
+
+    // About tab config values
+    const mult = parseFloat(s.copy_size_multiplier || 0)
+    set('about-max-trade', s.max_trade_size_usd ? `$${s.max_trade_size_usd}` : '$—')
+    set('about-max-loss', s.max_daily_loss_usd ? `$${s.max_daily_loss_usd}` : '$—')
+    set('about-copy-mult', mult ? `${(mult * 100).toFixed(0)}%` : '—')
+    set('about-max-pos', s.max_positions != null ? s.max_positions : '—')
+    set('about-portfolio-cap', s.max_portfolio_pct != null ? `${Math.round(s.max_portfolio_pct * 100)}%` : '—')
+    set('about-category-cap', s.max_category_pct != null ? `${s.max_category_pct}%` : '—')
   } catch(e) {}
 }
 

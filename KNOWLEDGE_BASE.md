@@ -1030,3 +1030,31 @@ Wenn opp['condition_id'] bereits drin → SKIP.
 
 Wichtig: market_id == condition_id auf
 Polymarket (siehe execution_engine.py:466).
+
+---
+## P033 — Weather Execution fehlte seit Tag 1
+**Status:** ✅ BEHOBEN (21.04.2026)
+**Root-Cause:** weather_loop() hatte keinen Execution-Code.
+**Fix:** on_copy_order() nach Weather-Signal aufgerufen.
+**Erster Trade:** 21.04.2026 — Paris NO +139%, Ankara +902%, Busan +1751%
+
+---
+## P055/P056 — ICAO Korrekturen
+**Status:** ✅ BEHOBEN (21.04.2026)
+**Paris:** LFPB→LFPG (Le Bourget→CDG, Polymarket verifiziert)
+**London:** EGLL→EGLC (Heathrow→City Airport, Polymarket verifiziert)
+**Lesson:** Immer Polymarket Resolution Text prüfen!
+
+---
+## P057 — Tier-Architektur
+**Status:** ✅ DEPLOYED (21.04.2026)
+**Tier 1:** 6 deep (NYC/LON/SEO/CHI/TYO/PAR), min_edge 15%
+**Tier 2:** Alle anderen, YES <12¢ oder NO >50¢
+**Tier 3:** Barbell, edge ≥30% bei price ≤8¢
+
+---
+## P058 — Kelly-Formel YES/NO Split
+**Status:** ✅ DEPLOYED (21.04.2026)
+**YES:** f* = (p_true - price) / (1 - price)
+**NO:**  f* = (price - p_true) / price
+**Quarter:** 0.25 × f* × bankroll, cap 5% bankroll

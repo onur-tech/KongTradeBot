@@ -1370,6 +1370,10 @@ def api_summary():
         "max_trade_size_usd": env.get("MAX_TRADE_SIZE_USD"),
         "copy_size_multiplier": env.get("COPY_SIZE_MULTIPLIER"),
         "max_daily_loss_usd": env.get("MAX_DAILY_LOSS_USD"),
+        "max_positions": env.get("MAX_POSITIONS_TOTAL"),
+        "max_portfolio_pct": max_portfolio_pct,
+        "max_category_pct": int(float(env.get("MAX_CATEGORY_EXPOSURE_PCT", "30"))),
+        "weather_dry_run": env.get("WEATHER_DRY_RUN", "true").lower() == "true",
         "total_invested_usd": round(total_invested_open, 2),
         "max_invested_usd": round(max_invested_usd, 2),
         "budget_utilization_pct": budget_utilization_pct,
@@ -2365,72 +2369,79 @@ def api_report():
 @app.route("/api/weather_paper_trades")
 @login_required
 def api_weather_paper_trades():
-    pt_file = BASE_DIR / "data" / "weather_paper_trades.json"
+    """Serves Shadow v2 WEATHER positions as paper trades."""
+    shadow_file = BASE_DIR / "data" / "shadow_portfolio.json"
     try:
-        trades = json.loads(pt_file.read_text())
+        shadow = json.loads(shadow_file.read_text())
     except Exception:
-        trades = []
+        shadow = {}
 
-    # Fetch end dates for all condition_ids (batched, cached 1h)
-    cids = list({t.get("condition_id", "") for t in trades if t.get("condition_id")})
-    enddate_map = _batch_fetch_gamma_enddates(cids) if cids else {}
+    now_ts = int(time.time())
 
-    def _closes_label(cid):
-        end_str = enddate_map.get(cid)
-        if not end_str:
+    def _closes_label_from_iso(closes_at_str):
+        if not closes_at_str:
             return None, "—"
-        s, _ = _parse_closes_in(end_str)
-        if s is None:
+        try:
+            dt = datetime.fromisoformat(closes_at_str.replace("Z", "+00:00"))
+            s = int((dt.timestamp() - now_ts))
+            if s <= 0:
+                return 0, "ENDED"
+            h = s // 3600; d = h // 24; rh = h % 24
+            if d >= 1:
+                return s, f"in {d}d {rh}h" if rh else f"in {d}d"
+            return s, f"in {h}h"
+        except Exception:
             return None, "—"
-        if s <= 0:
-            # CLOB end_date_iso is midnight UTC of resolution day.
-            # Show "TODAY" if the date is today (market may still be open).
-            try:
-                end_dt = datetime.fromisoformat(end_str.replace("Z", "+00:00"))
-                today = datetime.now(timezone.utc).date()
-                if end_dt.date() == today:
-                    return 0, "TODAY"
-            except Exception:
-                pass
-            return 0, "ENDED"
-        h = int(s) // 3600
-        d = h // 24
-        rh = h % 24
-        if d >= 1:
-            return s, f"in {d}d {rh}h" if rh else f"in {d}d"
-        return s, f"in {h}h"
 
-    enriched = []
-    for t in trades:
-        s, label = _closes_label(t.get("condition_id", ""))
-        enriched.append({**t, "closes_in_s": s, "closes_in_label": label})
+    trades = []
+    # Combine open + closed, filter WEATHER strategy
+    all_positions = list(shadow.get("positions", [])) + list(shadow.get("closed_positions", []))
+    for p in all_positions:
+        if p.get("strategy", "COPY") != "WEATHER":
+            continue
+        status_raw = p.get("status", "OPEN")
+        status = "OPEN" if status_raw == "OPEN" else ("WON" if float(p.get("pnl", 0)) > 0 else "LOST")
+        closes_s, closes_label = _closes_label_from_iso(p.get("closes_at"))
+        invested = float(p.get("invested_usdc", 0))
+        pnl = float(p.get("pnl", 0))
+        potential_win = round(invested + pnl, 2) if status != "OPEN" else round(
+            invested / max(0.001, float(p.get("entry_price", 0.5))), 2
+        )
+        score = float(p.get("signal_score", 0) or 0)
+        trades.append({
+            "timestamp":         p.get("entry_time", "")[:16] if p.get("entry_time") else "—",
+            "city":              p.get("city") or p.get("wallet_alias") or "—",
+            "question":          p.get("question", "—"),
+            "outcome":           p.get("outcome", "YES"),
+            "market_price_cents": round(float(p.get("entry_price", 0)) * 100, 1),
+            "edge_pct":          round(score * 100, 1) if score else "—",
+            "status":            status,
+            "simulated_buy_usd": round(invested, 2),
+            "potential_win_usd": potential_win,
+            "closes_in_s":       closes_s,
+            "closes_in_label":   closes_label,
+        })
 
-    # Sort: OPEN soonest-first, then non-OPEN at the end
-    def _sort_key(t):
-        if t.get("status") != "OPEN":
-            return (1, 0)
-        s = t.get("closes_in_s")
-        return (0, s if s is not None else float("inf"))
+    # Sort: OPEN soonest-first, then closed
+    trades.sort(key=lambda t: (0 if t["status"] == "OPEN" else 1,
+                                t.get("closes_in_s") or float("inf")))
 
-    enriched.sort(key=_sort_key)
+    total_invested = sum(t["simulated_buy_usd"] for t in trades)
+    won  = [t for t in trades if t["status"] == "WON"]
+    lost = [t for t in trades if t["status"] == "LOST"]
+    open_t = [t for t in trades if t["status"] == "OPEN"]
+    total_won = sum(t["potential_win_usd"] - t["simulated_buy_usd"] for t in won)
 
-    total_invested = sum(t.get("simulated_buy_usd", 0) for t in trades)
-    total_won = sum(
-        t.get("potential_win_usd", 0) for t in trades if t.get("status") == "WON"
-    )
-    won  = len([t for t in trades if t.get("status") == "WON"])
-    lost = len([t for t in trades if t.get("status") == "LOST"])
-    open_trades = len([t for t in trades if t.get("status") == "OPEN"])
     return _cors(jsonify({
-        "trades": enriched[:30],
+        "trades": trades[:50],
         "stats": {
             "total_trades":       len(trades),
-            "won":                won,
-            "lost":               lost,
-            "open":               open_trades,
+            "won":                len(won),
+            "lost":               len(lost),
+            "open":               len(open_t),
             "total_invested_usd": round(total_invested, 2),
             "total_won_usd":      round(total_won, 2),
-            "win_rate":           round(won / max(won + lost, 1) * 100, 1),
+            "win_rate":           round(len(won) / max(len(won) + len(lost), 1) * 100, 1),
         },
     }))
 

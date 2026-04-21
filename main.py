@@ -1222,6 +1222,15 @@ async def main():
                             # T-M06 Phase 1: Ghost-Write Fix — Archive NUR nach bestätigtem Sell
                             pos = engine.open_positions.get(ev.position_id)
                             if pos:
+                                # CLOB minimum sell size = $5 — skip sub-minimum positions
+                                if ev.usdc_received < 5.0:
+                                    logger.info(
+                                        f"[exit_loop] SKIP Sell ${ev.usdc_received:.2f} < $5 minimum: "
+                                        f"{ev.condition_id[:12]} — Position zu klein für CLOB"
+                                    )
+                                    engine.open_positions.pop(ev.position_id, None)
+                                    exit_manager._remove_state(ev.condition_id, ev.outcome)
+                                    continue
                                 result = await engine.create_and_post_sell_order(
                                     asset_id=pos.token_id,
                                     shares=ev.shares_sold,

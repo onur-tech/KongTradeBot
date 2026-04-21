@@ -4,10 +4,31 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>KongTrade — Ultimate Dashboard</title>
+<link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+<link rel="shortcut icon" href="/static/favicon.ico">
+<script>
+let userRole = "viewer";
+let userName = "";
+async function _loadUserRole() {
+  try {
+    const r = await fetch("/api/me");
+    if (r.ok) { const d = await r.json(); userRole = d.role || "viewer"; userName = d.name || ""; }
+  } catch(e) {}
+  document.querySelectorAll(".admin-only").forEach(el => {
+    el.style.display = (userRole === "admin") ? "" : "none";
+  });
+}
+document.addEventListener("DOMContentLoaded", _loadUserRole);
+</script>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/socket.io@4.7.2/client-dist/socket.io.min.js"></script>
 <style>
+@media(max-width:768px){
+  .portfolio-logo-wrapper{flex-direction:column!important;align-items:flex-start!important}
+  .positions-table{overflow-x:auto;display:block}
+  body{font-size:13px}
+}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
   --neon:#00ff88;--neon2:#00ffcc;--neon-dim:rgba(0,255,136,0.08);
@@ -115,6 +136,12 @@ nav{position:sticky;top:0;z-index:200;background:rgba(3,3,3,.96);border-bottom:1
 /* ── COMPACT HEADER ── */
 .compact-header{display:flex;gap:0;margin-bottom:20px;
     background:var(--bg1);border:1px solid var(--border2);border-radius:14px;overflow:hidden}
+.ch-logo{display:flex;flex-direction:column;align-items:center;justify-content:center;
+    padding:14px 24px;border-right:1px solid var(--border);min-width:0;flex-shrink:0}
+.ch-logo img{height:130px;width:130px;border-radius:50%;object-fit:cover;
+    border:3px solid #ff6b35;display:block}
+.ch-logo-label{color:#ff6b35;font-family:monospace;font-weight:800;
+    font-size:1.1em;letter-spacing:4px;margin-top:8px;text-align:center}
 .ch-left{flex:6;padding:14px 20px;min-width:0}
 .ch-right{flex:4;padding:14px 20px;border-left:1px solid var(--border);min-width:0}
 .ch-total-row{display:flex;align-items:center;gap:10px;margin-bottom:8px;flex-wrap:wrap}
@@ -142,7 +169,7 @@ nav{position:sticky;top:0;z-index:200;background:rgba(3,3,3,.96);border-bottom:1
 .closes-yellow{color:var(--yellow)}
 .closes-gray{color:var(--muted)}
 .closes-ended{color:var(--neon);font-weight:700}
-@media(max-width:700px){.compact-header{flex-direction:column}.ch-right{border-left:none;border-top:1px solid var(--border)}}
+@media(max-width:700px){.compact-header{flex-direction:column}.ch-right{border-left:none;border-top:1px solid var(--border)}.ch-logo{border-right:none;border-bottom:1px solid var(--border);flex-direction:row;gap:16px;padding:12px 20px}.ch-logo img{height:60px;width:60px}}
 
 /* ── MAIN GRID ── */
 .main-grid{display:grid;grid-template-columns:1fr 340px;gap:20px;margin-bottom:20px}
@@ -363,6 +390,23 @@ tr.trow:hover td{background:var(--bg3)}
 .feature-table td{padding:6px 8px;border-bottom:1px solid #1a1a2e}
 .error-line{background:#1a0a0a;border-left:3px solid #ff4444;padding:5px 8px;margin-bottom:3px;font-size:11px;font-family:monospace;color:#ff8888}
 .no-errors{color:var(--neon);padding:8px;font-size:13px}
+/* ── SIGNAL FEED ── */
+.sig-row{display:flex;align-items:flex-start;gap:8px;padding:5px 8px;border-radius:5px;background:var(--bg3);font-size:11px;font-family:monospace}
+.sig-time{color:#555;min-width:60px;flex-shrink:0}
+.sig-badge{min-width:58px;padding:1px 6px;border-radius:3px;text-align:center;font-size:10px;font-weight:700;letter-spacing:1px;flex-shrink:0}
+.sig-msg{color:#bbb;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sig-WS{background:#0a1a3a;color:#4488ff;border:1px solid #224}
+.sig-RSS{background:#1a1a00;color:#ffcc00;border:1px solid #442}
+.sig-TRADE{background:#001a0a;color:#00ff88;border:1px solid #042}
+.sig-EXIT{background:#1a0a00;color:#ff8800;border:1px solid #420}
+.sig-ANOMALY{background:#1a0000;color:#ff4444;border:1px solid #400}
+.sig-WEATHER{background:#001a1a;color:#00ffcc;border:1px solid #044}
+.sig-INFO{background:#111;color:#888;border:1px solid #222}
+.sig-action{padding:1px 5px;border-radius:3px;font-size:10px;font-weight:600;flex-shrink:0;white-space:nowrap}
+.sig-action-kopiert{color:#00ff88}
+.sig-action-dry-run{color:#ffcc00}
+.sig-action-blockiert{color:#ff4444}
+.sig-reason{color:#666;font-size:10px;font-style:italic;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 </style>
 </head>
 <body>
@@ -381,7 +425,6 @@ tr.trow:hover td{background:var(--bg3)}
 </div>
 
 <nav>
-  <div class="nav-logo">KONG<span>TRADE</span></div>
   <div class="nav-right">
     <span class="nav-time" id="nav-time">--:--:--</span>
     <div class="status-pill offline" id="status-pill">
@@ -399,7 +442,12 @@ tr.trow:hover td{background:var(--bg3)}
 <div class="page">
 
   <!-- 1. COMPACT HEADER -->
-  <div class="compact-header">
+  <div class="compact-header portfolio-logo-wrapper">
+    <!-- Logo-Spalte -->
+    <div class="ch-logo">
+      <img src="/static/logo.png" alt="KongTrade">
+      <div class="ch-logo-label">KONGTRADE</div>
+    </div>
     <!-- Linke Spalte: Portfolio-Zahlen -->
     <div class="ch-left">
       <div class="ch-total-row">
@@ -469,7 +517,13 @@ tr.trow:hover td{background:var(--bg3)}
         <button class="tab-btn" onclick="switchTab('report',this);fetchReport()">
           REPORT
         </button>
-        <button class="tab-btn" onclick="switchTab('about',this)">
+        <button class="tab-btn" onclick="switchTab('signals',this);fetchSignals()">
+          SIGNALS
+        </button>
+        <button class="tab-btn" onclick="switchTab('weather',this);fetchWeatherStatus()">
+          WEATHER
+        </button>
+        <button class="tab-btn" onclick="switchTab('about',this);loadWeatherStatus()">
           ABOUT
         </button>
       </div>
@@ -537,6 +591,107 @@ tr.trow:hover td{background:var(--bg3)}
       </div>
 
       <!-- ABOUT -->
+      <!-- SIGNALS -->
+      <div class="tab-content" id="tab-signals">
+        <div class="report-section">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+            <div class="section-title" style="margin:0">Live Signal Feed</div>
+            <span style="color:#555;font-size:11px" id="signals-updated">—</span>
+          </div>
+          <div id="signals-list" style="display:flex;flex-direction:column;gap:4px;max-height:420px;overflow-y:auto">
+            <div class="empty-msg">Lade Signale...</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- WEATHER -->
+      <div class="tab-content" id="tab-weather">
+        <div class="report-section">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+            <div class="section-title" style="margin:0">Weather Scout</div>
+            <span style="color:#555;font-size:11px" id="weather-updated">—</span>
+          </div>
+          <div id="weather-config-row" style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px"></div>
+          <div id="weather-scan-info" style="font-size:12px;color:#666;margin-bottom:10px"></div>
+          <div id="weather-opps-list">
+            <div class="empty-msg">Lade Weather Opportunities...</div>
+          </div>
+        </div>
+        <div class="report-section">
+          <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap">
+            <span style="font-size:12px;color:#888" id="weather-status-label2">—</span>
+            <button onclick="toggleWeather()"
+              style="padding:8px 18px;background:transparent;border:1px solid #ffaa00;border-radius:6px;color:#ffaa00;font-size:12px;font-family:monospace;cursor:pointer;letter-spacing:1px">
+              WEATHER LIVE / DRY-RUN TOGGLE
+            </button>
+          </div>
+        </div>
+
+        <!-- Paper Trading Stats -->
+        <div class="report-section">
+          <div class="section-title" style="margin-bottom:12px">Paper Trading Tracker</div>
+          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px">
+            <div style="background:var(--card-bg);padding:12px;border:1px solid #333">
+              <div style="color:#666;font-size:.75em;font-family:monospace">SIMULIERTE TRADES</div>
+              <div id="pt-total" style="font-size:1.5em;color:var(--accent);font-family:monospace">-</div>
+            </div>
+            <div style="background:var(--card-bg);padding:12px;border:1px solid #333">
+              <div style="color:#666;font-size:.75em;font-family:monospace">WIN RATE</div>
+              <div id="pt-winrate" style="font-size:1.5em;color:#00ff41;font-family:monospace">-%</div>
+            </div>
+            <div style="background:var(--card-bg);padding:12px;border:1px solid #333">
+              <div style="color:#666;font-size:.75em;font-family:monospace">SIMULIERTER GEWINN</div>
+              <div id="pt-pnl" style="font-size:1.5em;color:#00ff41;font-family:monospace">$-</div>
+            </div>
+            <div style="background:var(--card-bg);padding:12px;border:1px solid #333">
+              <div style="color:#666;font-size:.75em;font-family:monospace">OFFEN</div>
+              <div id="pt-open" style="font-size:1.5em;color:#ffa500;font-family:monospace">-</div>
+            </div>
+          </div>
+          <div id="pt-list" style="background:var(--card-bg);border:1px solid #333;padding:16px;font-family:monospace;font-size:.8em">Lade...</div>
+        </div>
+
+        <script>
+        async function loadPaperTrades() {
+          try {
+            const r = await fetch("/api/weather_paper_trades");
+            const d = await r.json();
+            const s = d.stats;
+            document.getElementById("pt-total").textContent = s.total_trades;
+            document.getElementById("pt-winrate").textContent = s.win_rate + "%";
+            document.getElementById("pt-pnl").textContent = "$" + s.total_won_usd;
+            document.getElementById("pt-open").textContent = s.open;
+            const list = document.getElementById("pt-list");
+            if (!d.trades || !d.trades.length) {
+              list.textContent = "Noch keine simulierten Trades — nächster Scan läuft alle 30 Min";
+              return;
+            }
+            // Backend already sorted: OPEN soonest-first, then closed
+            list.innerHTML = d.trades.map(t => {
+              const color = t.status==="WON"?"#00ff41":t.status==="LOST"?"#ff4444":"#ffa500";
+              const icon  = t.status==="WON"?"✅":t.status==="LOST"?"❌":"⏳";
+              const cl = t.closes_in_label || "—";
+              const clColor = cl==="ENDED"?"#444":
+                              (t.closes_in_s && t.closes_in_s < 3600*6)?"#ff4444":
+                              (t.closes_in_s && t.closes_in_s < 3600*24)?"#ffa500":"#666";
+              return `<div style="padding:8px 0;border-bottom:1px solid #222">
+                <span style="color:#555">${t.timestamp.slice(0,16)}</span>
+                <span style="color:var(--accent);margin:0 8px">${t.city}</span>
+                <span>${t.forecast_temp}°C vs ${t.threshold}°</span>
+                <span style="color:#888;margin:0 8px">@${t.market_price_cents}¢</span>
+                <span style="color:#ffa500">Edge: ${t.edge_pct}%</span>
+                <span style="color:${color};margin-left:12px;font-weight:bold">${icon} ${t.status}</span>
+                <span style="color:#888;margin-left:8px">$${t.simulated_buy_usd} → $${t.potential_win_usd}</span>
+                <span style="color:${clColor};margin-left:10px;font-size:.8em">⏱ ${cl}</span>
+              </div>`;
+            }).join("");
+          } catch(e) { console.error("Paper trades:", e); }
+        }
+        loadPaperTrades();
+        setInterval(loadPaperTrades, 60000);
+        </script>
+      </div>
+
       <div class="tab-content" id="tab-about">
         <div class="report-section">
           <div class="section-title">KongTradeBot v0.6 — Features</div>
@@ -555,6 +710,7 @@ tr.trow:hover td{background:var(--bg3)}
               <tr><td>🌐 Wallet Scout</td><td>Täglich 09:00 — Top-Performer-Wallets nachladen</td><td style="color:#00ff88">LIVE</td></tr>
               <tr><td>🌦️ Weather Scout</td><td>Sucht Wettermarkt-Opportunities</td><td style="color:#ffaa00">DRY-RUN</td></tr>
               <tr><td>📈 Latency Monitor</td><td>Messung Order-Latenz, Tages-Report</td><td style="color:#00ff88">LIVE</td></tr>
+              <tr><td>🚀 Multi-Signal-Boost</td><td>2+ Wallets kaufen gleichen Markt → 1.5× Größe. 3+ Wallets → 2.0× Größe. 60s Signal-Buffer für Aggregation.</td><td style="color:#00ff88">LIVE</td></tr>
             </tbody>
           </table>
         </div>
@@ -567,6 +723,17 @@ tr.trow:hover td{background:var(--bg3)}
             <div class="stat-box"><span class="stat-label">Max Positionen</span><span class="stat-value">30</span></div>
             <div class="stat-box"><span class="stat-label">Portfolio-Cap</span><span class="stat-value">50%</span></div>
             <div class="stat-box"><span class="stat-label">Kategorie-Cap</span><span class="stat-value">30%</span></div>
+          </div>
+        </div>
+        <div class="report-section">
+          <div class="section-title">Weather Trading</div>
+          <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap">
+            <span style="font-size:12px;color:#888" id="weather-status-label">Status wird geladen...</span>
+            <button id="btn-weather-toggle" onclick="toggleWeather()"
+              style="padding:8px 18px;background:transparent;border:1px solid #ffaa00;border-radius:6px;color:#ffaa00;font-size:12px;font-family:monospace;cursor:pointer;letter-spacing:1px">
+              WEATHER LIVE SCHALTEN
+            </button>
+            <span id="weather-toggle-msg" style="font-size:11px;color:#00ff88;display:none"></span>
           </div>
         </div>
         <div class="report-section">
@@ -635,10 +802,38 @@ tr.trow:hover td{background:var(--bg3)}
 
   <!-- 4. ACTIONS -->
   <div class="actions-bar">
-    <button class="btn btn-neon" onclick="doAction('restart')">⟳ Restart Bot</button>
-    <button class="btn btn-red" onclick="doAction('stop')">■ Stop Bot</button>
+    <button class="btn btn-neon admin-only" style="display:none" onclick="doAction('restart')">⟳ Restart Bot</button>
+    <button class="btn btn-red admin-only" style="display:none" onclick="doAction('stop')">■ Stop Bot</button>
     <button class="btn btn-yellow" onclick="doActionModal('auswertung')">📊 Auswertung</button>
     <button class="btn btn-blue" onclick="doActionModal('resolver')">⚡ Resolver</button>
+  </div>
+
+  <!-- WALLET PERFORMANCE PANEL (T-017) -->
+  <div class="card" style="margin-bottom:20px">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+      <div class="section-title" style="margin:0">Wallet Performance</div>
+      <div style="display:flex;gap:16px;align-items:center">
+        <span style="font-size:11px;color:#555" id="wp-summary">Lade...</span>
+        <button onclick="fetchWalletPerformance()" style="background:transparent;border:1px solid #333;border-radius:4px;color:#666;font-size:10px;padding:3px 8px;cursor:pointer;font-family:monospace">⟳</button>
+      </div>
+    </div>
+    <div class="tbl-wrap">
+      <table id="tbl-wallet-perf">
+        <thead><tr>
+          <th>Alias</th>
+          <th>Adresse</th>
+          <th>Multiplier</th>
+          <th>Signale heute</th>
+          <th>Total kopiert</th>
+          <th>Win-Rate</th>
+          <th>Gesamt P&amp;L</th>
+          <th>Zuletzt aktiv</th>
+        </tr></thead>
+        <tbody id="tbl-wp-body">
+          <tr><td colspan="8" class="empty-msg">Lade Wallet-Daten...</td></tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 
   <!-- 5. BALANCE CHART + PER-WALLET -->
@@ -889,7 +1084,7 @@ function updateBalanceDisplay(d){
     const w = document.getElementById('bal-unclaimed-wrap'); if(w) w.style.display = 'none';
     const b = document.getElementById('btn-claim-all'); if(b) b.style.display = 'none';
   }
-  setDelta('bal-delta-total', d.delta_total);
+  setDelta('bal-delta-total', d.delta_since_start ?? d.delta_total);
   setDelta('bal-delta-24h', d.delta_24h);
   if(d.last_fetch_ts){
     const age = Math.round((Date.now()/1000) - d.last_fetch_ts);
@@ -1151,8 +1346,11 @@ async function fetchResolutions(){
       else if(s < 43200){ cdStr = (s/3600).toFixed(1)+'h'; cdClass='yellow'; }
       else { cdStr = (s/3600).toFixed(1)+'h'; cdClass='green'; }
       const profStr = u.profit_if_win > 0 ? '+$'+u.profit_if_win.toFixed(2) : '—';
+      const badge = u.is_weather
+        ? '<span style="color:#87ceeb;font-size:.8em;margin-right:5px">🌤 WEATHER</span>'
+        : '';
       return `<div class="res-item">
-        <div class="res-market">${esc(u.market)}</div>
+        <div class="res-market">${badge}${esc(u.market)}</div>
         <div class="res-meta">
           <span style="color:var(--blue)">${esc(u.outcome)}</span>
           <span>$${u.size_usdc.toFixed(2)} → <span style="color:var(--neon)">${profStr}</span></span>
@@ -1471,6 +1669,7 @@ async function init(){
     fetchPositions(),
     fetchResolutions(),
     fetchWalletPerf(),
+    fetchWalletPerformance(),
   ]);
 }
 
@@ -1481,6 +1680,7 @@ setInterval(fetchPositions, 15000);
 setInterval(fetchPortfolio, 60000);
 setInterval(fetchResolutions, 60000);
 setInterval(fetchWalletPerf, 60000);
+setInterval(fetchWalletPerformance, 120000);
 
 // Fetch log via REST as fallback if websocket is slow
 setInterval(async()=>{
@@ -1529,6 +1729,180 @@ async function fetchReport(){
     }
   } catch(e) {
     console.error('fetchReport:', e);
+  }
+}
+
+// ── SIGNAL FEED ──────────────────────────────────────────────────────────────
+let _signalsTimer = null
+
+async function fetchSignals() {
+  try {
+    const d = await fetch('/api/signals').then(r => r.json())
+    const list = document.getElementById('signals-list')
+    const upd  = document.getElementById('signals-updated')
+    if (!list) return
+    const sigs = d.signals || []
+    if (sigs.length === 0) {
+      list.innerHTML = '<div class="empty-msg">Keine Signale heute</div>'
+    } else {
+      list.innerHTML = sigs.map(s => {
+        const actionBadge = s.action
+          ? `<span class="sig-action sig-action-${s.action}">${
+              s.action==='kopiert' ? '🟢 kopiert' :
+              s.action==='dry-run' ? '🟡 dry-run' : '🔴 blockiert'
+            }</span>` : ''
+        const reasonHint = s.reason ? `<span class="sig-reason">${s.reason}</span>` : ''
+        return `<div class="sig-row">
+          <span class="sig-time">${s.time || '—'}</span>
+          <span class="sig-badge sig-${s.type}">${s.type}</span>
+          ${actionBadge}
+          <span class="sig-msg">${s.message}</span>
+          ${reasonHint}
+        </div>`
+      }).join('')
+    }
+    if (upd) upd.textContent = 'aktualisiert ' + new Date().toLocaleTimeString('de-DE')
+    // auto-refresh alle 10s solange Tab aktiv
+    clearTimeout(_signalsTimer)
+    _signalsTimer = setTimeout(() => {
+      if (document.getElementById('tab-signals')?.classList.contains('active'))
+        fetchSignals()
+    }, 10000)
+  } catch(e) { console.error('fetchSignals:', e) }
+}
+
+// ── WALLET PERFORMANCE (T-017) ───────────────────────────────────────────────
+async function fetchWalletPerformance() {
+  try {
+    const d = await fetch('/api/wallets').then(r => r.json())
+    const tbody = document.getElementById('tbl-wp-body')
+    const summary = document.getElementById('wp-summary')
+    if (!tbody) return
+
+    const wallets = d.wallets || []
+    if (!wallets.length) {
+      tbody.innerHTML = '<tr><td colspan="8" class="empty-msg">Keine Wallet-Daten</td></tr>'
+      return
+    }
+
+    tbody.innerHTML = wallets.map(w => {
+      const multColor = w.multiplier >= 1.0 ? '#00ff88' : w.multiplier >= 0.3 ? '#ffaa00' : '#666'
+      const pnlColor  = w.total_pnl > 0 ? '#00ff88' : w.total_pnl < 0 ? '#ff4444' : '#888'
+      const todayBadge = w.signals_today > 0
+        ? `<span style="background:#001a0a;color:#00ff88;border:1px solid #042;border-radius:3px;padding:1px 6px;font-size:10px">${w.signals_today}</span>`
+        : `<span style="color:#333">—</span>`
+      const winRate = w.win_rate !== null
+        ? `<span style="color:${w.win_rate >= 55 ? '#00ff88' : w.win_rate >= 40 ? '#ffaa00' : '#ff4444'}">${w.win_rate}%</span> <span style="color:#444;font-size:10px">(${w.wins}W/${w.losses}L)</span>`
+        : '<span style="color:#333">—</span>'
+      const lastActive = w.last_active
+        ? `<span style="color:#555;font-size:10px">${w.last_active.slice(5)}</span>`
+        : '<span style="color:#222">nie</span>'
+      const addrShort = w.address ? w.address.slice(0,8)+'...'+w.address.slice(-4) : '—'
+
+      return `<tr>
+        <td style="color:#e0e0e0;font-weight:600">${w.alias}</td>
+        <td style="color:#444;font-size:10px;font-family:monospace">${addrShort}</td>
+        <td style="color:${multColor};font-weight:700">${w.multiplier}x</td>
+        <td style="text-align:center">${todayBadge}</td>
+        <td style="color:#888;text-align:center">${w.copied_total}</td>
+        <td>${winRate}</td>
+        <td style="color:${pnlColor}">${w.total_pnl > 0 ? '+' : ''}$${w.total_pnl.toFixed(2)}</td>
+        <td>${lastActive}</td>
+      </tr>`
+    }).join('')
+
+    if (summary) {
+      const active = d.active_today || 0
+      const top = d.top_wallet || '—'
+      summary.textContent = `${d.total} Wallets | ${active} aktiv heute | Top: ${top}`
+    }
+  } catch(e) { console.error('fetchWalletPerformance:', e) }
+}
+
+// ── WEATHER TOGGLE ───────────────────────────────────────────────────────────
+async function toggleWeather() {
+  const btn = document.getElementById('btn-weather-toggle')
+  const msg = document.getElementById('weather-toggle-msg')
+  if (btn) btn.disabled = true
+  try {
+    const d = await fetch('/api/weather/toggle', {method:'POST'}).then(r => r.json())
+    if (msg) {
+      msg.textContent = d.msg || d.status
+      msg.style.display = 'inline'
+      setTimeout(() => { msg.style.display = 'none' }, 4000)
+    }
+    // Reload weather status label
+    loadWeatherStatus()
+  } catch(e) {
+    if (msg) { msg.textContent = 'Fehler: ' + e; msg.style.display = 'inline' }
+  } finally {
+    if (btn) btn.disabled = false
+  }
+}
+
+async function loadWeatherStatus() {
+  try {
+    const d = await fetch('/api/health').then(r => r.json())
+    const lbl = document.getElementById('weather-status-label')
+    const btn = document.getElementById('btn-weather-toggle')
+    const isDry = d.weather_dry_run !== false
+    if (lbl) lbl.textContent = isDry ? 'Aktuell: DRY-RUN (kein echtes Trading)' : 'Aktuell: LIVE (echtes Trading aktiv!)'
+    if (btn) btn.textContent = isDry ? 'WEATHER LIVE SCHALTEN' : 'AUF DRY-RUN ZURÜCKSETZEN'
+    if (btn) btn.style.borderColor = isDry ? '#ffaa00' : '#ff4444'
+    if (btn) btn.style.color = isDry ? '#ffaa00' : '#ff4444'
+  } catch(e) {}
+}
+
+async function fetchWeatherStatus() {
+  const updEl = document.getElementById('weather-updated')
+  const cfgEl = document.getElementById('weather-config-row')
+  const scanEl = document.getElementById('weather-scan-info')
+  const listEl = document.getElementById('weather-opps-list')
+  try {
+    const d = await fetch('/api/weather_status').then(r => r.json())
+    if (updEl) updEl.textContent = 'Stand: ' + new Date().toLocaleTimeString('de-DE')
+
+    // Config badges
+    const cfg = d.config || {}
+    const isDry = cfg.dry_run !== false
+    const isEnabled = cfg.enabled === true
+    if (cfgEl) cfgEl.innerHTML = [
+      `<div class="stat-box"><span class="stat-label">Modus</span><span class="stat-value" style="color:${isDry?'#ffaa00':'#00ff88'}">${isDry?'DRY-RUN':'LIVE'}</span></div>`,
+      `<div class="stat-box"><span class="stat-label">Aktiviert</span><span class="stat-value" style="color:${isEnabled?'#00ff88':'#666'}">${isEnabled?'JA':'NEIN'}</span></div>`,
+      `<div class="stat-box"><span class="stat-label">Max/Tag</span><span class="stat-value">$${cfg.max_daily_usd||'?'}</span></div>`,
+      `<div class="stat-box"><span class="stat-label">Max Preis</span><span class="stat-value">${parseFloat(cfg.max_price||0)*100}¢</span></div>`,
+    ].join('')
+
+    // Letzter Scan
+    const scan = d.scan || {}
+    if (scanEl) {
+      const lastScan = scan.last_scan ? `Letzter Scan: ${scan.last_scan}` : 'Noch kein Scan in bot.log'
+      scanEl.textContent = `${lastScan} — ${scan.total_markets||0} Opportunities gefunden`
+    }
+
+    // Opportunities
+    const opps = d.opportunities || []
+    if (!opps.length) {
+      listEl.innerHTML = '<div class="empty-msg">Keine aktuellen Weather Opportunities in bot.log</div>'
+      return
+    }
+    listEl.innerHTML = opps.map(o => `
+      <div style="background:#0d1117;border:1px solid #1e3020;border-radius:6px;padding:10px 14px;margin-bottom:6px;font-size:12px">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <span style="color:${o.direction==='YES'?'#00ff88':'#ff6b6b'};font-weight:bold;font-size:13px">
+            ${o.direction} ${o.city}
+          </span>
+          <span style="color:#ffaa00">Edge: ${o.edge}</span>
+          <span style="color:#555">${o.ts}</span>
+        </div>
+        <div style="color:#aaa;margin-top:4px">Forecast: ${o.forecast} | ${o.question}</div>
+      </div>`).join('')
+
+    // also update ABOUT tab status label
+    const lbl2 = document.getElementById('weather-status-label2')
+    if (lbl2) lbl2.textContent = isDry ? 'Aktuell: DRY-RUN' : 'Aktuell: LIVE (echtes Trading!)'
+  } catch(e) {
+    if (listEl) listEl.innerHTML = `<div class="empty-msg">Fehler: ${e.message}</div>`
   }
 }
 </script>

@@ -41,8 +41,38 @@ def bucket_prob(forecast: float, threshold: float, sigma: float) -> float:
     return max(0.0, _norm_cdf(hi) - _norm_cdf(lo))
 
 CALIBRATED_CITIES = [
-    "Seoul", "Dubai", "Moscow", "Mumbai", "Chicago",
-    "Toronto", "Seattle", "London", "Bangkok", "Sydney", "Beijing"
+    "Ankara",
+    "Atlanta",
+    "Austin",
+    "Bangkok",
+    "Beijing",
+    "Berlin",
+    "Busan",
+    "Chicago",
+    "Dallas",
+    "Denver",
+    "Dubai",
+    "Helsinki",
+    "Hong Kong",
+    "Istanbul",
+    "London",
+    "Madrid",
+    "Miami",
+    "Milan",
+    "Moscow",
+    "Mumbai",
+    "NYC",
+    "New York",
+    "Paris",
+    "Seattle",
+    "Seoul",
+    "Shanghai",
+    "Singapore",
+    "Sydney",
+    "Taipei",
+    "Tokyo",
+    "Toronto",
+    "Warsaw"
 ]
 
 WEATHER_KEYWORDS = [
@@ -640,6 +670,7 @@ def run_weather_scout() -> list:
                 })
 
     # ── Phase 2: Einzel-Markt Scouting (bestehende Logik) ──────────────
+    markets = get_all_polymarket_weather_markets()
     # city → {'lat', 'lon', 'forecasts': {date_key: temp_c}}
     city_cache: dict = {}
     if not markets:

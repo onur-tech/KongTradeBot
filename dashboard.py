@@ -95,8 +95,16 @@ socketio = SocketIO(app, cors_allowed_origins="*", async_mode="threading")
 
 # ── Login ──────────────────────────────────────────────────────────────────────
 
+def _load_users() -> list:
+    """Lädt users.json; Fallback auf leere Liste."""
+    try:
+        return json.loads((BASE_DIR / "data" / "users.json").read_text())
+    except Exception:
+        return []
+
+
 def _get_dashboard_password() -> str:
-    """Liest DASHBOARD_PASSWORD aus .env (Klartext)."""
+    """Fallback: liest DASHBOARD_PASSWORD aus .env (Klartext)."""
     env = {}
     try:
         for line in ENV_FILE.read_text().splitlines():
@@ -112,8 +120,7 @@ def _get_dashboard_password() -> str:
 def login_required(f):
     @functools.wraps(f)
     def decorated(*args, **kwargs):
-        pwd = _get_dashboard_password()
-        if pwd and not session.get("authenticated"):
+        if not session.get("authenticated"):
             if request.path.startswith("/api/"):
                 return jsonify({"error": "Unauthorized"}), 401
             return redirect("/login")
@@ -129,13 +136,13 @@ LOGIN_HTML = """<!DOCTYPE html>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{background:#030303;color:#e0e0e0;font-family:monospace;display:flex;align-items:center;justify-content:center;height:100vh}
-.box{background:#0d0d1a;border:1px solid #1a1a3e;border-radius:12px;padding:40px;width:340px;text-align:center}
+.box{background:#0d0d1a;border:1px solid #1a1a3e;border-radius:12px;padding:40px;width:360px;text-align:center}
 .logo{font-size:22px;font-weight:800;letter-spacing:4px;color:#00ff88;margin-bottom:8px}
 .logo span{color:#666;font-weight:300}
 .subtitle{color:#555;font-size:11px;letter-spacing:2px;margin-bottom:30px}
-input{width:100%;padding:12px 16px;background:#0a0a14;border:1px solid #1a1a3e;border-radius:8px;color:#e0e0e0;font-size:14px;font-family:monospace;outline:none;margin-bottom:16px}
+input{width:100%;padding:12px 16px;background:#0a0a14;border:1px solid #1a1a3e;border-radius:8px;color:#e0e0e0;font-size:14px;font-family:monospace;outline:none;margin-bottom:12px}
 input:focus{border-color:#00ff88}
-button{width:100%;padding:12px;background:transparent;border:1px solid #00ff88;border-radius:8px;color:#00ff88;font-size:13px;font-family:monospace;letter-spacing:2px;cursor:pointer}
+button{width:100%;padding:12px;background:transparent;border:1px solid #00ff88;border-radius:8px;color:#00ff88;font-size:13px;font-family:monospace;letter-spacing:2px;cursor:pointer;margin-top:4px}
 button:hover{background:rgba(0,255,136,.08)}
 .err{color:#ff4444;font-size:12px;margin-top:12px}
 </style>
@@ -145,7 +152,8 @@ button:hover{background:rgba(0,255,136,.08)}
   <div class="logo">KONG<span>TRADE</span></div>
   <div class="subtitle">DASHBOARD ACCESS</div>
   <form method="POST" action="/login">
-    <input type="password" name="password" placeholder="Passwort" autofocus>
+    <input type="email" name="email" placeholder="E-Mail" autofocus autocomplete="username">
+    <input type="password" name="password" placeholder="Passwort" autocomplete="current-password">
     <button type="submit">EINLOGGEN</button>
   </form>
   {error}
@@ -156,17 +164,34 @@ button:hover{background:rgba(0,255,136,.08)}
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
-    pwd = _get_dashboard_password()
-    if not pwd:
-        session["authenticated"] = True
-        return redirect("/")
     if request.method == "POST":
-        entered = request.form.get("password", "")
-        if entered == pwd:
+        email    = request.form.get("email", "").strip().lower()
+        pw       = request.form.get("password", "")
+        pw_hash  = hashlib.sha256(pw.encode()).hexdigest()
+
+        user = next(
+            (u for u in _load_users()
+             if u["email"].lower() == email and u["password_hash"] == pw_hash),
+            None,
+        )
+
+        # Fallback: altes Klartext-Passwort (für Übergangszeitraum)
+        if user is None:
+            fallback_pwd = _get_dashboard_password()
+            if fallback_pwd and pw == fallback_pwd:
+                user = {"email": email or "admin", "role": "admin", "name": "Admin"}
+
+        if user:
             session.permanent = True
             session["authenticated"] = True
+            session["email"]          = user["email"]
+            session["role"]           = user.get("role", "viewer")
+            session["name"]           = user.get("name", "User")
             return redirect("/")
-        return LOGIN_HTML.replace("{error}", '<div class="err">Falsches Passwort</div>')
+
+        return LOGIN_HTML.replace(
+            "{error}", '<div class="err">Falsche E-Mail oder Passwort</div>')
+
     if session.get("authenticated"):
         return redirect("/")
     return LOGIN_HTML.replace("{error}", "")
@@ -178,10 +203,72 @@ def logout():
     return redirect("/login")
 
 
+@app.route("/api/me")
+@login_required
+def api_me():
+    return _cors(jsonify({
+        "email": session.get("email", ""),
+        "name":  session.get("name", ""),
+        "role":  session.get("role", "viewer"),
+    }))
+
+
+@app.route("/admin/add-user", methods=["GET", "POST"])
+@login_required
+def add_user():
+    if session.get("role") != "admin":
+        return "Kein Zugriff", 403
+
+    if request.method == "POST":
+        email = request.form.get("email", "").strip()
+        pw    = request.form.get("password", "")
+        name  = request.form.get("name", "")
+        role  = request.form.get("role", "viewer")
+
+        if not email or not pw:
+            return "E-Mail und Passwort erforderlich", 400
+
+        users_file = BASE_DIR / "data" / "users.json"
+        users = _load_users()
+
+        if any(u["email"].lower() == email.lower() for u in users):
+            return "User existiert bereits", 400
+
+        users.append({
+            "email":         email,
+            "password_hash": hashlib.sha256(pw.encode()).hexdigest(),
+            "role":          role,
+            "name":          name,
+        })
+        users_file.write_text(json.dumps(users, indent=2))
+        return f"""<html><body style="font-family:monospace;background:#111;color:#eee;padding:20px">
+        ✅ User <b>{email}</b> ({role}) erstellt.<br><br>
+        <a href="/admin/add-user" style="color:#00ff88">Weiteren hinzufügen</a> |
+        <a href="/" style="color:#00ff88">Dashboard</a>
+        </body></html>"""
+
+    return """<html><body style="font-family:monospace;background:#111;color:#eee;padding:20px">
+    <h2 style="color:#00ff88;margin-bottom:20px">Neuen User hinzufügen</h2>
+    <form method="POST" style="max-width:320px">
+      <input name="name" placeholder="Name" style="display:block;width:100%;margin:6px 0;padding:10px;background:#1a1a2e;color:#eee;border:1px solid #333;border-radius:6px;font-family:monospace">
+      <input name="email" type="email" placeholder="E-Mail" style="display:block;width:100%;margin:6px 0;padding:10px;background:#1a1a2e;color:#eee;border:1px solid #333;border-radius:6px;font-family:monospace">
+      <input name="password" type="password" placeholder="Passwort" style="display:block;width:100%;margin:6px 0;padding:10px;background:#1a1a2e;color:#eee;border:1px solid #333;border-radius:6px;font-family:monospace">
+      <select name="role" style="display:block;width:100%;margin:6px 0;padding:10px;background:#1a1a2e;color:#eee;border:1px solid #333;border-radius:6px;font-family:monospace">
+        <option value="viewer">Viewer</option>
+        <option value="admin">Admin</option>
+      </select>
+      <button type="submit" style="display:block;width:100%;margin-top:12px;padding:10px;background:transparent;border:1px solid #00ff88;color:#00ff88;border-radius:6px;cursor:pointer;font-family:monospace;letter-spacing:1px">USER ERSTELLEN</button>
+    </form>
+    <p style="margin-top:16px"><a href="/" style="color:#555">← Dashboard</a></p>
+    </body></html>"""
+
+
 @app.before_request
 def require_login():
     public = {"/login", "/logout"}
     if request.path in public or request.path.startswith("/static/"):
+        return
+    if request.path.startswith("/internal/") and request.remote_addr in ("127.0.0.1", "::1"):
         return
     pwd = _get_dashboard_password()
     if pwd and not session.get("authenticated"):
@@ -654,6 +741,31 @@ def index():
     return send_from_directory(str(BASE_DIR), "dashboard.html")
 
 
+_START_FILE = BASE_DIR / "portfolio_start_value.json"
+
+def _get_or_create_start_snapshot(portfolio_total: float, cash: float) -> dict:
+    """Lädt oder erstellt einmalig portfolio_start_value.json."""
+    if _START_FILE.exists():
+        try:
+            snap = json.loads(_START_FILE.read_text())
+            if snap.get("start_value", 0) > 0:
+                return snap
+        except Exception:
+            pass
+    if portfolio_total <= 0:
+        return {"start_value": 0.0, "start_cash": 0.0, "start_time": ""}
+    snap = {
+        "start_time":  datetime.now(timezone.utc).isoformat(),
+        "start_value": round(portfolio_total, 2),
+        "start_cash":  round(cash or 0.0, 2),
+    }
+    try:
+        _START_FILE.write_text(json.dumps(snap, indent=2))
+    except Exception:
+        pass
+    return snap
+
+
 @app.route("/api/balance")
 def api_balance():
     env = load_env()
@@ -677,6 +789,12 @@ def api_balance():
     unrealized_pnl = round(sum(float(p.get("unrealizedPnl") or 0) for p in positions), 2)
 
     delta_total_cash = round(cash - initial, 2) if cash is not None else 0
+
+    # SEIT START: portfolio_total vs start-snapshot
+    start_snap = _get_or_create_start_snapshot(portfolio_total, cash)
+    start_value = start_snap.get("start_value", 0)
+    delta_since_start = round(portfolio_total - start_value, 2) if start_value > 0 else None
+
     h1_cut = time.time() - 3600
     h1_pts = [h for h in history_24h if h["ts"] >= h1_cut]
     delta_1h = round(cash - h1_pts[0]["balance"], 2) if h1_pts and cash is not None else 0
@@ -693,6 +811,8 @@ def api_balance():
         "unrealized_pnl":   unrealized_pnl,
         "initial":          initial,
         "delta_total":      delta_total_cash,
+        "delta_since_start": delta_since_start,
+        "start_value":      start_value,
         "delta_24h":        delta_24h_cash,
         "delta_1h":         delta_1h,
         "last_fetch_ts":    last_ts,
@@ -866,6 +986,13 @@ def api_portfolio():
         "snapshot_created_at":  snap.get("created_at", ""),
         "ts":                   _polymarket_positions.get("ts", 0),
     }))
+
+
+@app.route("/internal/portfolio")
+def internal_portfolio():
+    if request.remote_addr not in ("127.0.0.1", "::1"):
+        return jsonify({"error": "forbidden"}), 403
+    return api_portfolio()
 
 
 @app.route("/api/health")
@@ -1054,6 +1181,42 @@ def api_resolutions():
             "size_usdc":     round(size_usdc, 2),
             "profit_if_win": profit_win,
         })
+    # Weather shadow positions resolving within 48h
+    sp_file = BASE_DIR / "data" / "shadow_portfolio.json"
+    try:
+        sp_data = json.loads(sp_file.read_text())
+        weather_open = [
+            p for p in sp_data.get("positions", [])
+            if p.get("strategy") == "WEATHER" and p.get("status") == "OPEN"
+        ]
+    except Exception:
+        weather_open = []
+    if weather_open:
+        w_cids = list({p.get("market_id", "") for p in weather_open if p.get("market_id")})
+        w_end_map = _batch_fetch_gamma_enddates(w_cids)
+        seen_w = set()
+        for p in weather_open:
+            cid = p.get("market_id", "")
+            if cid in seen_w:
+                continue
+            end_str = w_end_map.get(cid)
+            closes_in_s, _ = _parse_closes_in(end_str)
+            if closes_in_s is None or closes_in_s <= 0 or closes_in_s > 48 * 3600:
+                continue
+            seen_w.add(cid)
+            invested = float(p.get("invested_usdc", 0) or 0)
+            shares   = float(p.get("shares", 0) or 0)
+            upcoming.append({
+                "market":        (p.get("question") or "Unknown")[:72],
+                "outcome":       p.get("outcome", ""),
+                "closes_in_s":   closes_in_s,
+                "closes_in_h":   round(closes_in_s / 3600, 2),
+                "closes_at":     end_str or "",
+                "size_usdc":     round(invested, 2),
+                "profit_if_win": round(max(0, shares - invested), 2),
+                "is_weather":    True,
+            })
+
     upcoming.sort(key=lambda x: x["closes_in_s"])
 
     # Recent resolutions
@@ -1188,21 +1351,152 @@ def api_summary():
 
 @app.route("/api/signals")
 def api_signals():
-    n = min(int(request.args.get("n", 100)), 500)
-    archive = load_json(ARCHIVE_FILE) or []
+    """Letzte 30 Bot-Aktionen aus Log (Live Signal Feed)."""
     signals = []
-    for t in archive[-n:]:
+    log_file = LOG_DIR / "bot.log"
+    if not log_file.exists():
+        # fallback: neueste datierte Log-Datei
+        files = sorted(LOG_DIR.glob("bot_*.log"), key=lambda f: f.stat().st_mtime, reverse=True)
+        if files:
+            log_file = files[0]
+        else:
+            return _cors(jsonify({"signals": []}))
+    try:
+        lines = log_file.read_text(errors="replace").splitlines()[-200:]
+    except Exception:
+        return _cors(jsonify({"signals": []}))
+    _BLOCK_KW  = ("blockiert", "rejected", "skip", "budget", "SKIP", "Risk", "blacklist", "Blacklist")
+    _REASON_KW = ("weil", "because", "budget", "blacklist", "Blacklist", "min_size", "cap", "Cap")
+    for line in reversed(lines):
+        if not any(k in line for k in [
+            "[WS]", "[RSS]", "ANOMALY", "Weather",
+            "TRADE", "EXIT", "COPY", "Signal",
+            "BUY", "SELL", "Opportunit",
+            "CopyOrder", "blockiert", "rejected", "skip", "SKIP"]):
+            continue
+        t = line[:19] if len(line) > 19 else ""
+        typ = "INFO"
+        if "[WS]" in line:       typ = "WS"
+        elif "[RSS]" in line:    typ = "RSS"
+        elif "ANOMALY" in line:  typ = "ANOMALY"
+        elif "Weather" in line:  typ = "WEATHER"
+        elif "BUY" in line or "COPY" in line or "CopyOrder" in line: typ = "TRADE"
+        elif "EXIT" in line or "SELL" in line: typ = "EXIT"
+
+        # Determine action badge
+        action = None
+        reason = None
+        if "CopyOrder[LIVE]" in line or ("Order erstellt" in line and "DRY" not in line):
+            action = "kopiert"
+        elif "DRY" in line and any(k in line for k in ("CopyOrder", "Order", "BUY", "SELL")):
+            action = "dry-run"
+        elif any(k in line for k in _BLOCK_KW):
+            action = "blockiert"
+            # Extract reason from line
+            msg = line[30:]
+            for rk in _REASON_KW:
+                idx = msg.find(rk)
+                if idx >= 0:
+                    reason = msg[idx:idx+60].split("\n")[0].strip()
+                    break
+
         signals.append({
-            "datum": t.get("datum"),
-            "zeit": t.get("zeit"),
-            "source_wallet": (t.get("source_wallet") or "")[:12] + "...",
-            "market": t.get("markt", t.get("market_question", ""))[:60],
-            "outcome": t.get("outcome", t.get("ergebnis_seite", "")),
-            "price": t.get("entry_price", t.get("einstiegspreis")),
-            "size_usdc": t.get("einsatz_usdc"),
-            "kategorie": t.get("kategorie"),
+            "time":    t[11:19] if len(t) >= 19 else t,
+            "type":    typ,
+            "action":  action,
+            "reason":  reason,
+            "message": line[30:120].strip(),
         })
-    return _cors(jsonify({"count": len(signals), "signals": signals}))
+        if len(signals) >= 30:
+            break
+    return _cors(jsonify({"signals": signals}))
+
+
+@app.route("/api/weather/toggle", methods=["POST"])
+def toggle_weather():
+    """Schaltet WEATHER_DRY_RUN in .env um und startet Bot neu."""
+    try:
+        env_text = ENV_FILE.read_text()
+        if "WEATHER_DRY_RUN=true" in env_text:
+            env_text = env_text.replace("WEATHER_DRY_RUN=true", "WEATHER_DRY_RUN=false")
+            msg = "Weather Trading LIVE aktiviert!"
+        else:
+            env_text = env_text.replace("WEATHER_DRY_RUN=false", "WEATHER_DRY_RUN=true")
+            msg = "Weather Trading zurück auf DRY-RUN"
+        ENV_FILE.write_text(env_text)
+        os.system("systemctl restart kongtrade-bot &")
+        return _cors(jsonify({"status": "ok", "msg": msg}))
+    except Exception as e:
+        return _cors(jsonify({"status": "error", "msg": str(e)}))
+
+
+@app.route("/api/weather_status")
+def api_weather_status():
+    """Liefert Weather-Scout-Status: Konfiguration + letzte Opportunities aus bot.log."""
+    env_text = ENV_FILE.read_text() if ENV_FILE.exists() else ""
+    def _env(key, default=""):
+        for line in env_text.splitlines():
+            if line.startswith(key + "="):
+                return line.split("=", 1)[1].strip()
+        return default
+
+    config = {
+        "enabled": _env("WEATHER_TRADING_ENABLED", "false").lower() == "true",
+        "dry_run": _env("WEATHER_DRY_RUN", "true").lower() == "true",
+        "max_daily_usd": _env("WEATHER_MAX_DAILY_USD", "10"),
+        "max_price": _env("WEATHER_MAX_PRICE", "0.20"),
+    }
+
+    # Parse bot.log for recent WeatherScout lines (last 2000 lines)
+    log_file = BASE_DIR / "bot.log"
+    opportunities = []
+    scan_info = {"total_markets": 0, "last_scan": None}
+    try:
+        if log_file.exists():
+            lines = log_file.read_text(errors="replace").splitlines()
+            recent = lines[-2000:]
+            for line in reversed(recent):
+                if "[WeatherScout]" not in line:
+                    continue
+                ts = line[:19] if len(line) > 19 else ""
+                if "Total:" in line and "Opportunities" in line:
+                    try:
+                        n = int(line.split("Total:")[1].split()[0])
+                        scan_info["total_markets"] = n
+                        scan_info["last_scan"] = ts
+                    except Exception:
+                        pass
+                elif "✅ Opportunity:" in line:
+                    try:
+                        rest = line.split("✅ Opportunity:")[1].strip()
+                        # format: YES Paris Forecast 28.5°C Edge 15% | question
+                        parts = rest.split("|")[0].strip()
+                        question = rest.split("|")[1].strip() if "|" in rest else ""
+                        direction = parts.split()[0]
+                        city = parts.split()[1]
+                        edge_str = ""
+                        if "Edge" in parts:
+                            edge_str = parts.split("Edge")[1].strip().split()[0]
+                        forecast = ""
+                        if "Forecast" in parts:
+                            forecast = parts.split("Forecast")[1].split("Edge")[0].strip()
+                        opportunities.append({
+                            "ts": ts, "direction": direction, "city": city,
+                            "forecast": forecast, "edge": edge_str,
+                            "question": question[:80],
+                        })
+                        if len(opportunities) >= 20:
+                            break
+                    except Exception:
+                        pass
+    except Exception as e:
+        scan_info["error"] = str(e)
+
+    return _cors(jsonify({
+        "config": config,
+        "scan": scan_info,
+        "opportunities": opportunities,
+    }))
 
 
 @app.route("/api/decisions")
@@ -1374,6 +1668,195 @@ def api_wallet_performance():
         return _cors(jsonify({"error": f"wallet_performance nicht verfügbar: {e}"})), 500
     except Exception as e:
         return _cors(jsonify({"error": str(e)})), 500
+
+
+# ── Wallet Performance (T-017) ────────────────────────────────────────────────
+
+@app.route("/api/wallets")
+def api_wallets():
+    """Per-Wallet Performance: log-basierte Signale + Archiv-Statistiken."""
+    import re as _re
+    from datetime import date as _date
+    from collections import defaultdict
+    today_str = _date.today().isoformat()
+
+    # 1. TARGET_WALLETS + WALLET_WEIGHTS aus .env
+    target_wallets: list[str] = []
+    weights_raw: dict = {}
+    try:
+        env_text = ENV_FILE.read_text()
+        for line in env_text.splitlines():
+            line = line.strip()
+            if line.startswith("TARGET_WALLETS="):
+                raw = line.split("=", 1)[1].strip().strip('"').strip("'")
+                target_wallets = [w.strip() for w in raw.split(",") if w.strip()]
+            if line.startswith("WALLET_WEIGHTS="):
+                try:
+                    weights_raw = json.loads(line.split("=", 1)[1].strip())
+                except Exception:
+                    pass
+    except Exception:
+        pass
+
+    # Multiplier per Adresse auflösen (prefix-match wie copy_trading.py)
+    def _mult(addr: str) -> float:
+        for prefix, w in weights_raw.items():
+            if prefix != "default" and addr.lower().startswith(prefix.lower()):
+                return float(w)
+        return float(weights_raw.get("default", 0.05))
+
+    # 2. WALLET_NAMES aus copy_trading
+    wallet_names: dict[str, str] = {}
+    try:
+        sys.path.insert(0, str(BASE_DIR))
+        from strategies.copy_trading import WALLET_NAMES as _WN
+        wallet_names = {k.lower(): v for k, v in _WN.items()}
+    except Exception:
+        pass
+
+    # 3. Log-basierte Signale (heute): nur Signal-relevante Zeilen
+    SIGNAL_KEYWORDS = ("NEUER TRADE", "FRÜH-SIGNAL", "CopyOrder", "BUY", "SKIP",
+                       "blockiert", "geskipped", "Risk", "Signal")
+    log_file = LOG_DIR / "bot.log"
+    # per wallet: {addr_lower: {"signals": int, "copied": int, "blocked": int, "last_log": str}}
+    log_stats: dict = defaultdict(lambda: {"signals": 0, "copied": 0, "blocked": 0, "last_log": None})
+    try:
+        for line in log_file.read_text(errors="replace").splitlines():
+            if not line.startswith(today_str):
+                continue
+            if not any(k in line for k in SIGNAL_KEYWORDS):
+                continue
+            line_low = line.lower()
+            for addr in target_wallets:
+                if addr.lower()[:16] in line_low:
+                    log_stats[addr.lower()]["signals"] += 1
+                    log_stats[addr.lower()]["last_log"] = line[11:19]
+                    if "SKIP" in line or "blockiert" in line or "geskipped" in line:
+                        log_stats[addr.lower()]["blocked"] += 1
+                    elif "CopyOrder" in line or "BUY" in line:
+                        log_stats[addr.lower()]["copied"] += 1
+    except Exception:
+        pass
+
+    # 4a. Archiv: historische Win-Rate + PnL (aus trades_archive.json falls vorhanden)
+    archive = load_json(ARCHIVE_FILE) or []
+    wallet_trades: dict = defaultdict(list)
+    wallet_trades_today: dict = defaultdict(list)
+    for t in archive:
+        sw = (t.get("source_wallet") or "").lower()
+        if not sw or sw.startswith("["):
+            continue
+        wallet_trades[sw].append(t)
+        if t.get("datum") == today_str:
+            wallet_trades_today[sw].append(t)
+
+    # 4b. all_signals.jsonl: Signal-Totals + copied/skipped per Wallet
+    sig_totals: dict = defaultdict(lambda: {"total": 0, "copied": 0, "skipped": 0})
+    try:
+        sig_file = BASE_DIR / "data" / "all_signals.jsonl"
+        if sig_file.exists():
+            for line in sig_file.read_text(errors="replace").splitlines():
+                try:
+                    s = json.loads(line)
+                    w = (s.get("wallet") or "").lower()
+                    if not w:
+                        continue
+                    sig_totals[w]["total"] += 1
+                    dec = s.get("decision", "")
+                    if "COPY" in dec:
+                        sig_totals[w]["copied"] += 1
+                    elif "SKIP" in dec or "REJECT" in dec:
+                        sig_totals[w]["skipped"] += 1
+                except Exception:
+                    pass
+    except Exception:
+        pass
+
+    # 4c. wallet_decisions.jsonl: Win-Rate aus predicts.guru
+    wd_stats: dict = {}
+    try:
+        wd_file = BASE_DIR / "data" / "wallet_decisions.jsonl"
+        if wd_file.exists():
+            for line in wd_file.read_text(errors="replace").splitlines():
+                try:
+                    wd = json.loads(line)
+                    w = (wd.get("wallet") or "").lower()
+                    if w:
+                        wd_stats[w] = {
+                            "win_rate_pct": wd.get("win_rate_pct"),
+                            "trades_copied": wd.get("trades_copied", 0),
+                            "decision":      wd.get("decision", ""),
+                        }
+                except Exception:
+                    pass
+    except Exception:
+        pass
+
+    # 5. Zusammenbauen
+    result = []
+    for addr in target_wallets:
+        addr_low  = addr.lower()
+        alias     = wallet_names.get(addr_low, addr[:8] + "...")
+        mult      = _mult(addr)
+        ls        = log_stats[addr_low]
+        trades_all   = wallet_trades[addr_low]
+
+        # Zuletzt aktiv: Log-Zeit bevorzugen, sonst Archiv
+        last_active = ls["last_log"]
+        if not last_active and trades_all:
+            last_t = max(trades_all, key=lambda t: f"{t.get('datum','')}{t.get('uhrzeit','')}")
+            d = last_t.get("datum", ""); u = last_t.get("uhrzeit", "")
+            last_active = f"{d[5:]} {u}".strip() if d else None
+
+        resolved  = [t for t in trades_all if t.get("aufgeloest")]
+        wins      = [t for t in resolved if t.get("ergebnis") == "GEWINN"]
+        # P&L from archive first; fallback to predicts.guru win rate from wallet_decisions
+        wd        = wd_stats.get(addr_low, {})
+        win_rate_archive = round(len(wins) / len(resolved) * 100, 1) if resolved else None
+        win_rate  = win_rate_archive or wd.get("win_rate_pct")
+        total_pnl = round(sum(float(t.get("gewinn_verlust_usdc") or 0) for t in resolved), 2)
+
+        # signals_total: archive OR all_signals.jsonl (whichever is larger)
+        st_sig    = sig_totals.get(addr_low, {})
+        sig_total_signals = st_sig.get("total", 0)
+        sig_total_copied  = st_sig.get("copied", 0)
+        signals_total = max(len(trades_all), sig_total_signals)
+        # copies_total: archive trades OR all_signals copied count OR wallet_decisions
+        copies_total = max(
+            len(trades_all),
+            sig_total_copied,
+            wd.get("trades_copied", 0)
+        )
+
+        # signals_today: log-basiert ODER Archiv-Fallback
+        signals_today = ls["signals"] or len(wallet_trades_today[addr_low])
+
+        result.append({
+            "address":       addr,
+            "alias":         alias,
+            "multiplier":    mult,
+            "signals_today": signals_today,
+            "copied_today":  ls["copied"],
+            "blocked_today": ls["blocked"],
+            "signals_total": signals_total,
+            "copies_total":  copies_total,
+            "last_active":   last_active,
+            "win_rate":      win_rate,
+            "total_pnl":     total_pnl,
+            "wins":          len(wins),
+            "losses":        len(resolved) - len(wins),
+            "wd_decision":   wd.get("decision", ""),
+        })
+
+    result.sort(key=lambda w: (-w["signals_today"], -w["signals_total"]))
+    active_today = sum(1 for w in result if w["signals_today"] > 0)
+
+    return _cors(jsonify({
+        "wallets":      result,
+        "total":        len(result),
+        "active_today": active_today,
+        "top_wallet":   result[0]["alias"] if result else None,
+    }))
 
 
 # ── Mutable Endpoints ─────────────────────────────────────────────────────────
@@ -1668,7 +2151,14 @@ def api_report():
     import re as _re
     from datetime import datetime as _dt
     today = _dt.now().strftime("%Y-%m-%d")
+    # Prefer today's dated log; fall back to bot.log (rolling log)
     log_file = os.path.join(BASE_DIR, "logs", f"bot_{today}.log")
+    if not os.path.exists(log_file):
+        fallback = os.path.join(BASE_DIR, "logs", "bot.log")
+        if os.path.exists(fallback):
+            log_file = fallback
+        else:
+            log_file = None
 
     data = {
         "trades_today": 0, "buys_today": 0, "sells_today": 0,
@@ -1678,7 +2168,7 @@ def api_report():
         "blacklist_blocked": 0, "anomaly_active": False,
         "recent_errors": [], "last_trade_time": None,
     }
-    if os.path.exists(log_file):
+    if log_file and os.path.exists(log_file):
         with open(log_file, errors="replace") as f:
             for line in f:
                 if "CopyOrder[LIVE]" in line or "Order erstellt" in line:
@@ -1688,7 +2178,9 @@ def api_report():
                     data["last_trade_time"] = line[:19]
                 if " ERROR " in line:
                     data["errors_today"] += 1
-                    data["recent_errors"].append(line[20:120].strip())
+                    ts = line[:8].strip() if len(line) >= 8 else ""
+                    msg = line[20:120].strip()
+                    data["recent_errors"].append(f"{ts} | {msg}" if ts else msg)
                 if "[WS] Subscribed" in line:
                     data["ws_status"] = "connected"
                 if "[WS] Disconnect" in line or "[WS] Verbindungs" in line:
@@ -1707,6 +2199,70 @@ def api_report():
                     data["anomaly_active"] = True
     data["recent_errors"] = data["recent_errors"][-5:]
     return _cors(jsonify(data))
+
+
+@app.route("/api/weather_paper_trades")
+@login_required
+def api_weather_paper_trades():
+    pt_file = BASE_DIR / "data" / "weather_paper_trades.json"
+    try:
+        trades = json.loads(pt_file.read_text())
+    except Exception:
+        trades = []
+
+    # Fetch end dates for all condition_ids (batched, cached 1h)
+    cids = list({t.get("condition_id", "") for t in trades if t.get("condition_id")})
+    enddate_map = _batch_fetch_gamma_enddates(cids) if cids else {}
+
+    def _closes_label(cid):
+        end_str = enddate_map.get(cid)
+        if not end_str:
+            return None, "—"
+        s, _ = _parse_closes_in(end_str)
+        if s is None:
+            return None, "—"
+        if s <= 0:
+            return 0, "ENDED"
+        h = int(s) // 3600
+        d = h // 24
+        rh = h % 24
+        if d >= 1:
+            return s, f"in {d}d {rh}h" if rh else f"in {d}d"
+        return s, f"in {h}h"
+
+    enriched = []
+    for t in trades:
+        s, label = _closes_label(t.get("condition_id", ""))
+        enriched.append({**t, "closes_in_s": s, "closes_in_label": label})
+
+    # Sort: OPEN soonest-first, then non-OPEN at the end
+    def _sort_key(t):
+        if t.get("status") != "OPEN":
+            return (1, 0)
+        s = t.get("closes_in_s")
+        return (0, s if s is not None else float("inf"))
+
+    enriched.sort(key=_sort_key)
+
+    total_invested = sum(t.get("simulated_buy_usd", 0) for t in trades)
+    total_won = sum(
+        t.get("potential_win_usd", 0) for t in trades if t.get("status") == "WON"
+    )
+    won  = len([t for t in trades if t.get("status") == "WON"])
+    lost = len([t for t in trades if t.get("status") == "LOST"])
+    open_trades = len([t for t in trades if t.get("status") == "OPEN"])
+    return _cors(jsonify({
+        "trades": enriched[:30],
+        "stats": {
+            "total_trades":       len(trades),
+            "won":                won,
+            "lost":               lost,
+            "open":               open_trades,
+            "total_invested_usd": round(total_invested, 2),
+            "total_won_usd":      round(total_won, 2),
+            "win_rate":           round(won / max(won + lost, 1) * 100, 1),
+        },
+    }))
 
 
 def _run_server():

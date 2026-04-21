@@ -889,6 +889,14 @@ async def check_resolved_markets_and_notify():
                     sh = sz / pr if pr > 0 else 0
                     t["gewinn_verlust_usdc"] = round(sh - sz if won else -sz, 4)
 
+                # Shadow Portfolio mitauflösen
+                try:
+                    from core.shadow_portfolio import ShadowPortfolio
+                    _sp = ShadowPortfolio()
+                    _sp.resolve_position(mid, winner.upper())
+                except Exception:
+                    pass
+
             except Exception:
                 continue
             await asyncio.sleep(0.2)

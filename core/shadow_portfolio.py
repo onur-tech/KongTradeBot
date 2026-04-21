@@ -51,7 +51,12 @@ class VirtualPosition:
 
 
 class ShadowPortfolio:
-    def __init__(self):
+    def __init__(self, path=None):
+        global SHADOW_FILE
+        if path:
+            SHADOW_FILE = Path(path) if not Path(path).is_absolute() else Path(path)
+            if not SHADOW_FILE.is_absolute():
+                SHADOW_FILE = Path("/root/KongTradeBot") / path
         self.data = self._load()
 
     def _load(self) -> dict:
@@ -99,6 +104,11 @@ class ShadowPortfolio:
             city: str = "",
             end_date: str = "") -> bool:
         """Öffnet virtuelle Position. Kein Kapital-Limit im Shadow-Mode."""
+        # Duplikat-Check: market_id bereits offen?
+        if any(p.get("market_id") == market_id and p.get("status") == "OPEN"
+               for p in self.data["positions"]):
+            logger.info(f"[Shadow] SKIP Duplikat: {city or question[:30]} bereits im Portfolio")
+            return False
 
         shares = round(
             invested_usdc / max(entry_price, 0.001), 4)
@@ -191,6 +201,78 @@ class ShadowPortfolio:
         if resolved:
             self._save()
         return resolved
+
+    def resolve_closed_markets(self) -> int:
+        """Fragt Gamma API für alle offenen Positionen und löst abgeschlossene Märkte auf."""
+        import urllib.request
+        import json as _json
+
+        resolved_total = 0
+        # Unique offene market_ids sammeln
+        open_mids = list({
+            p["market_id"] for p in self.data["positions"]
+            if p.get("status") == "OPEN" and p.get("market_id")
+        })
+        logger.info(f"[Shadow] Resolution-Check: {len(open_mids)} unique Märkte prüfen...")
+
+        for mid in open_mids:
+            url = f"https://gamma-api.polymarket.com/markets?conditionId={mid}"
+            try:
+                req = urllib.request.Request(url, headers={"User-Agent": "KongTradeBot/1.0"})
+                with urllib.request.urlopen(req, timeout=8) as r:
+                    data = _json.loads(r.read())
+                mkt = data[0] if isinstance(data, list) and data else data
+            except Exception as e:
+                logger.warning(f"[Shadow] Gamma API Fehler {mid[:14]}: {e}")
+                continue
+
+            if not mkt.get("closed", False):
+                continue
+
+            # Gewinner aus outcomePrices bestimmen: ["1.0","0.0"] → YES, ["0.0","1.0"] → NO
+            prices = mkt.get("outcomePrices", [])
+            outcomes = mkt.get("outcomes", ["Yes", "No"])
+            winning_outcome = None
+            try:
+                max_idx = max(range(len(prices)), key=lambda i: float(prices[i]))
+                winning_outcome = outcomes[max_idx].upper()
+            except Exception:
+                pass
+            if winning_outcome is None:
+                continue
+
+            # Alle offenen Positionen dieses Marktes auflösen
+            still_open = [p for p in self.data["positions"]
+                          if p.get("market_id") == mid and p.get("status") == "OPEN"]
+            for pos in still_open:
+                won = pos["outcome"] == winning_outcome
+                pnl = round((pos["shares"] - pos["invested_usdc"]) if won
+                            else -pos["invested_usdc"], 2)
+                pos["status"] = "WON" if won else "LOST"
+                pos["pnl"] = pnl
+                pos["exit_time"] = datetime.now(timezone.utc).isoformat()
+                self.data["stats"]["total_pnl"] = round(
+                    self.data["stats"].get("total_pnl", 0) + pnl, 4)
+                if won:
+                    self.data["stats"]["wins"] = self.data["stats"].get("wins", 0) + 1
+                else:
+                    self.data["stats"]["losses"] = self.data["stats"].get("losses", 0) + 1
+                self.data["closed_positions"].append(pos)
+                resolved_total += 1
+                logger.info(
+                    f"[Shadow] {'✅' if won else '❌'} {pos['question'][:40]} "
+                    f"| {'WON' if won else 'LOST'} | PnL: ${pnl:+.2f}")
+
+            # Aufgelöste aus offenen Positionen entfernen
+            self.data["positions"] = [
+                p for p in self.data["positions"]
+                if not (p.get("market_id") == mid and p.get("status") in ("WON", "LOST"))
+            ]
+
+        if resolved_total > 0:
+            self._save()
+            logger.info(f"[Shadow] {resolved_total} Positionen aufgelöst, gespeichert.")
+        return resolved_total
 
     def get_summary(self) -> dict:
         """Tägliche Zusammenfassung."""

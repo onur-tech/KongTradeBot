@@ -24,6 +24,8 @@ Schutzfilter:
 - MIN_MARKT_VOLUMEN=50.000 — schützt vor Slippage in dünnen Märkten
 - Odds-Filter 15-85% — schützt vor Späteinsteiger-Problem
 - Multi-Signal-Boost nur bei 2+ Wallets — schützt vor Manipulation
+- MAX_PORTFOLIO_PCT: 70% (erhöht von 50% nach vollständiger Kalibrierung am 21.04.2026)
+- COPY_SIZE_MULTIPLIER: 0.15 (bewusst beibehalten)
 
 ## Markt-Priorisierung
 

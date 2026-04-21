@@ -98,8 +98,8 @@ class Config:
         if self.copy_size_multiplier > 0.5:
             errors.append(f"COPY_SIZE_MULTIPLIER={self.copy_size_multiplier} ist zu hoch (max 0.5)")
         # NUR im Live-Modus prüfen — Dry-Run darf 99% haben für maximale Daten
-        if not self.dry_run and self.max_portfolio_pct > 0.5:
-            errors.append(f"MAX_PORTFOLIO_PCT={self.max_portfolio_pct} ist zu hoch (max 50% empfohlen)")
+        if not self.dry_run and self.max_portfolio_pct > 0.9:
+            errors.append(f"MAX_PORTFOLIO_PCT={self.max_portfolio_pct} ist zu hoch (max 90% empfohlen)")
         if errors:
             raise ValueError(f"Config-Fehler:\n" + "\n".join(f"  - {e}" for e in errors))
         return self

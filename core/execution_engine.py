@@ -873,20 +873,21 @@ class ExecutionEngine:
 
             is_recovered = oid.startswith("RECOVERED_")
 
-            # Rule 1: Markt abgelaufen + Position alt genug → EXPIRED
+            # Rule 1: Markt abgelaufen → EXPIRED
+            # RECOVERED_: opened_at = Sync-Zeitpunkt (nicht Trade-Zeit) → kein 48h-Check
+            # Normale Positionen: 48h-Guard damit frische Positionen mit altem closes_at
+            # nicht sofort abgeschrieben werden.
             if pos.market_closes_at and pos.market_closes_at < now:
-                if pos.opened_at < cutoff_48h:
-                    if is_recovered:
-                        pos.position_state = PositionState.EXPIRED
-                        to_remove.append(oid)
-                        expired_count += 1
-                        logger.info(
-                            f"[Cleanup] EXPIRED: {oid[:30]} | "
-                            f"closed={pos.market_closes_at.date()} | "
-                            f"q={pos.market_question[:40]}"
-                        )
-                    else:
-                        skipped += 1
+                age_ok = is_recovered or (pos.opened_at < cutoff_48h)
+                if age_ok:
+                    pos.position_state = PositionState.EXPIRED
+                    to_remove.append(oid)
+                    expired_count += 1
+                    logger.info(
+                        f"[Cleanup] EXPIRED: {oid[:30]} | "
+                        f"closed={pos.market_closes_at.date()} | "
+                        f"${pos.size_usdc:.2f} | {pos.market_question[:40]}"
+                    )
                 else:
                     skipped += 1
 

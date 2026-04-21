@@ -618,10 +618,17 @@ def save_default_multiplier(value):
 
 
 def get_log_lines(n=100):
+    # Prefer undated rolling log (bot.log) — most up-to-date
+    rolling = LOG_DIR / "bot.log"
+    if rolling.exists():
+        try:
+            return rolling.read_text(encoding="utf-8", errors="replace").splitlines()[-n:]
+        except Exception:
+            pass
+    # Fallback: today's dated file, then most recent dated file
     today = date.today().strftime("%Y-%m-%d")
     log_file = LOG_DIR / f"bot_{today}.log"
     if not log_file.exists():
-        # Fallback: neueste log Datei
         try:
             files = sorted(LOG_DIR.glob("bot_*.log"), key=lambda f: f.stat().st_mtime, reverse=True)
             if files:
@@ -631,8 +638,7 @@ def get_log_lines(n=100):
         except Exception:
             return []
     try:
-        lines = log_file.read_text(encoding="utf-8", errors="replace").splitlines()
-        return lines[-n:]
+        return log_file.read_text(encoding="utf-8", errors="replace").splitlines()[-n:]
     except Exception:
         return []
 
@@ -1448,7 +1454,7 @@ def api_weather_status():
     }
 
     # Parse bot.log for recent WeatherScout lines (last 2000 lines)
-    log_file = BASE_DIR / "bot.log"
+    log_file = LOG_DIR / "bot.log"
     opportunities = []
     scan_info = {"total_markets": 0, "last_scan": None}
     try:

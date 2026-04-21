@@ -29,7 +29,7 @@ import math
 import aiohttp
 from dataclasses import dataclass, field
 from typing import Optional, Dict, List, Tuple
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
 
 from utils.logger import get_logger
 from utils.config import Config
@@ -62,6 +62,35 @@ except ImportError:
     logger.warning("Installation: pip install py-clob-client")
 
 MARKET_INFO_CACHE_TTL = 60  # Sekunden — Orderbook-Daten cachen
+
+# Last allowance-alert timestamp — verhindert Spam (max 1x / 30 Min)
+_last_allowance_alert_ts: float = 0.0
+
+
+def _send_allowance_alert(msg: str, config) -> None:
+    """Sendet Telegram-Alert für Allowance = 0. Rate-limited auf 1×/30 Min."""
+    import time as _t, urllib.request as _ur, json as _js
+    global _last_allowance_alert_ts
+    if _t.time() - _last_allowance_alert_ts < 1800:
+        return
+    _last_allowance_alert_ts = _t.time()
+    try:
+        token = getattr(config, "telegram_token", "") or ""
+        chat_id = getattr(config, "telegram_chat_id", "") or "507270873"
+        if not token:
+            import os as _os
+            token = _os.getenv("TELEGRAM_TOKEN", "")
+            chat_id = _os.getenv("TELEGRAM_CHAT_IDS", chat_id).split(",")[0]
+        if not token:
+            logger.warning(f"[Allowance Alert] Kein Telegram-Token — Alert nicht gesendet")
+            return
+        url = f"https://api.telegram.org/bot{token}/sendMessage"
+        data = _js.dumps({"chat_id": chat_id, "text": msg, "parse_mode": "HTML"}).encode()
+        req = _ur.Request(url, data=data, headers={"Content-Type": "application/json"})
+        _ur.urlopen(req, timeout=8)
+        logger.info(f"[Allowance Alert] Telegram gesendet")
+    except Exception as e:
+        logger.warning(f"[Allowance Alert] Telegram-Fehler: {e}")
 
 
 @dataclass
@@ -295,6 +324,12 @@ class ExecutionEngine:
             self.stats["orders_failed"] += 1
             return ExecutionResult(success=False, error="GeoBlock Cooldown aktiv")
 
+        # CTF Exchange Allowance Pre-Trade-Check
+        _allow_ok, _allow_err = await self.check_ctf_allowance_pre_trade()
+        if not _allow_ok:
+            self.stats["orders_failed"] += 1
+            return ExecutionResult(success=False, error=_allow_err)
+
         signal = order.signal
 
         MAX_RETRIES = 3
@@ -313,10 +348,18 @@ class ExecutionEngine:
                     error=f"Size ${order.size_usdc:.2f} unter Minimum ${min_size:.2f}"
                 )
 
-            # Preis auf gültigen Tick runden
-            price = self._round_to_tick(signal.price, tick_size_f)
-            if price != signal.price:
-                logger.debug(f"Preis gerundet: {signal.price:.4f} → {price:.4f} (tick={tick_size_f})")
+            # Limit-Order-Buffer: +3% über Wallet-Preis um Fill sicherzustellen
+            # wenn der Markt sich seit dem Wallet-Trade bewegt hat.
+            import os as _os_buf
+            _buf_pct = float(_os_buf.getenv("BUY_PRICE_BUFFER_PCT", "0.03"))
+            _raw_price = signal.price * (1 + _buf_pct)
+            _capped_price = min(_raw_price, 0.97)  # nie über 97¢
+            price = self._round_to_tick(_capped_price, tick_size_f)
+            if abs(price - signal.price) > 0.0001:
+                logger.info(
+                    f"[Limit+Buffer] {signal.price:.4f} → {price:.4f} "
+                    f"(+{_buf_pct:.0%} Buffer, tick={tick_size_f})"
+                )
 
             logger.info(
                 f"🔴 LIVE ORDER:\n"
@@ -716,6 +759,21 @@ class ExecutionEngine:
                     "error": "py-clob-client fehlt (SELL const)", "dry_run": False,
                 }
 
+            # Cancel existing open orders for this token before selling.
+            # The 400 "not enough balance" error occurs when tokens are already
+            # locked in active orders — cancelling first frees them.
+            try:
+                cancel_result = await asyncio.get_event_loop().run_in_executor(
+                    None,
+                    lambda: self._client.cancel_market_orders(asset_id=asset_id),
+                )
+                cancelled_ids = (cancel_result or {}).get("canceled", []) if isinstance(cancel_result, dict) else []
+                if cancelled_ids:
+                    logger.info(f"[SELL] {len(cancelled_ids)} offene Order(s) gecancelt vor Sell (token={asset_id[:16]})")
+                    await asyncio.sleep(1.0)  # allow API to settle after cancel
+            except Exception as _ce:
+                logger.warning(f"[SELL] Cancel-before-sell fehlgeschlagen (nicht kritisch): {_ce}")
+
             order_args = OrderArgs(
                 token_id=asset_id,
                 price=sell_price,
@@ -786,6 +844,131 @@ class ExecutionEngine:
             }
             for pos in self.open_positions.values()
         ]
+
+    def cleanup_expired_positions(self) -> dict:
+        """
+        Täglicher Cleanup für RECOVERED_ Positionen.
+
+        Regeln:
+          1. market_closes_at ist abgelaufen UND opened_at > 48h ago
+             → position_state = EXPIRED (kein Geld mehr zu erwarten)
+          2. RECOVERED_ Position mit aktuell 0¢ auf Polymarket (RESOLVED_LOST)
+             → position_state = RESOLVED_LOST (Verlust abschreiben)
+
+        Gibt zurück: {"expired": int, "resolved_lost": int, "skipped": int}
+        """
+        from datetime import timezone as _tz
+        now = datetime.now(_tz.utc)
+        cutoff_48h = now - timedelta(hours=48)
+
+        expired_count = 0
+        resolved_lost_count = 0
+        skipped = 0
+
+        to_remove = []
+        for oid, pos in self.open_positions.items():
+            if pos.position_state not in (PositionState.OPEN, "ACTIVE", "OPEN"):
+                skipped += 1
+                continue
+
+            is_recovered = oid.startswith("RECOVERED_")
+
+            # Rule 1: Markt abgelaufen + Position alt genug → EXPIRED
+            if pos.market_closes_at and pos.market_closes_at < now:
+                if pos.opened_at < cutoff_48h:
+                    if is_recovered:
+                        pos.position_state = PositionState.EXPIRED
+                        to_remove.append(oid)
+                        expired_count += 1
+                        logger.info(
+                            f"[Cleanup] EXPIRED: {oid[:30]} | "
+                            f"closed={pos.market_closes_at.date()} | "
+                            f"q={pos.market_question[:40]}"
+                        )
+                    else:
+                        skipped += 1
+                else:
+                    skipped += 1
+
+            # Rule 2: RESOLVED_LOST (bereits beim Sync gesetzt, hier aus open_positions entfernen)
+            elif pos.position_state == "RESOLVED_LOST":
+                to_remove.append(oid)
+                resolved_lost_count += 1
+                logger.info(
+                    f"[Cleanup] RESOLVED_LOST abgeschrieben: {oid[:30]} | "
+                    f"${pos.size_usdc:.2f} | {pos.market_question[:40]}"
+                )
+            else:
+                skipped += 1
+
+        for oid in to_remove:
+            self.open_positions.pop(oid, None)
+
+        if expired_count or resolved_lost_count:
+            logger.info(
+                f"[Cleanup] Fertig — EXPIRED: {expired_count}, "
+                f"RESOLVED_LOST: {resolved_lost_count}, "
+                f"unverändert: {skipped}"
+            )
+        return {
+            "expired": expired_count,
+            "resolved_lost": resolved_lost_count,
+            "skipped": skipped,
+        }
+
+    async def check_ctf_allowance_pre_trade(self) -> tuple[bool, str]:
+        """
+        Prüft CTF Exchange Allowance vor jedem Live-Trade.
+        Gibt (ok, error_msg) zurück.
+        Wenn allowance_usdc == 0 → Trade blockieren + Telegram-Alert.
+        """
+        if not self._client or BalanceAllowanceParams is None:
+            return True, ""  # Kein Client → skip (DRY-RUN)
+        try:
+            loop = asyncio.get_event_loop()
+            params = BalanceAllowanceParams(asset_type=AssetType.COLLATERAL)
+            result = await asyncio.wait_for(
+                loop.run_in_executor(
+                    None,
+                    lambda: self._client.get_balance_allowance(params=params)
+                ),
+                timeout=8.0,
+            )
+            balance_raw = int(result.get("balance", 0) or 0)
+            allowance_raw = int(result.get("allowance", 0) or 0)
+            balance_usdc = balance_raw / 1_000_000
+            allowance_usdc = allowance_raw / 1_000_000
+
+            if allowance_usdc == 0 and balance_usdc == 0:
+                msg = (
+                    "🚨 <b>Allowance = 0 — Trade blockiert!</b>\n"
+                    "CTF Exchange Allowance ist null.\n"
+                    "Manueller Fix nötig: Polymarket → Einzahlen → Approve."
+                )
+                logger.error(f"[Allowance] KRITISCH: allowance=0, balance=0 — Trade geblockt")
+                try:
+                    _send_allowance_alert(msg, self.config)
+                except Exception:
+                    pass
+                return False, "Allowance = 0, manueller Fix nötig"
+
+            if balance_usdc == 0:
+                msg = (
+                    f"⚠️ <b>CLOB-Balance = $0 — kein Trade möglich</b>\n"
+                    f"Allowance: ${allowance_usdc:.2f} vorhanden, aber kein Deposit.\n"
+                    f"Bitte USDC auf Polymarket CLOB einzahlen."
+                )
+                logger.warning(f"[Allowance] Balance=0 (Allowance={allowance_usdc:.2f}) — Trade geblockt")
+                try:
+                    _send_allowance_alert(msg, self.config)
+                except Exception:
+                    pass
+                return False, f"CLOB-Balance = $0"
+
+            return True, ""
+        except Exception as e:
+            logger.warning(f"[Allowance] Pre-Trade-Check fehlgeschlagen: {e} — Trade erlaubt")
+            return True, ""  # Bei Fehler im Check → nicht blockieren
 
     def get_stats(self) -> dict:
         return {

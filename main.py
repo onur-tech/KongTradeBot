@@ -34,7 +34,9 @@ from core.exit_manager import ExitManager, ExitEvent
 from core.position_state_worker import PositionStateWorker
 from core.anomaly_detector import AnomalyDetector, anomaly_detector_loop
 from core.rss_monitor import RSSMonitor
+from core.x_monitor import XMonitor
 from core.weather_scout import run_weather_scout
+from core.shadow_portfolio import ShadowPortfolio
 from strategies.copy_trading import CopyTradingStrategy, CopyOrder
 from claim_all import claim_loop
 from telegram_bot import (send, msg_trade, msg_status, msg_startup,
@@ -604,6 +606,7 @@ async def main():
     monitor          = WalletMonitor(config)
     anomaly_detector = AnomalyDetector()
     rss_monitor      = RSSMonitor(send_fn=send)
+    x_monitor        = XMonitor()
 
     # KRITISCH: CLOB Client initialisieren (MUSS vor dem ersten Trade-Aufruf erfolgen!)
     await engine.initialize()
@@ -1214,9 +1217,9 @@ async def main():
             if not enabled:
                 logger.info("[Weather] Deaktiviert (WEATHER_TRADING_ENABLED=false)")
                 return
-            interval = int(os.getenv("WEATHER_SCAN_INTERVAL_SECONDS", "3600"))
-            logger.info(f"[Weather] Scout gestartet — erster Scan in 120s, dann alle {interval}s")
-            await asyncio.sleep(120)
+            interval = int(os.getenv("WEATHER_SCAN_INTERVAL_SECONDS", "1800"))
+            logger.info(f"[Weather] Scout gestartet — erster Scan in 10s, dann alle {interval}s")
+            await asyncio.sleep(10)
             while True:
                 try:
                     opportunities = await asyncio.to_thread(run_weather_scout)
@@ -1279,6 +1282,29 @@ async def main():
                 except Exception as e:
                     logger.error(f"clob_allowance_monitor Fehler: {e} — weiter")
 
+        async def position_cleanup_loop():
+            """
+            Täglicher Cleanup: RECOVERED_-Positionen die abgelaufen sind als EXPIRED
+            markieren, RESOLVED_LOST aus open_positions entfernen.
+            Läuft einmal beim Start (nach 60s) und dann alle 24h.
+            """
+            await asyncio.sleep(60)  # kurze Verzögerung nach Start
+            while True:
+                try:
+                    result = engine.cleanup_expired_positions()
+                    if result["expired"] or result["resolved_lost"]:
+                        await send(
+                            f"🧹 <b>Position Cleanup</b>\n"
+                            f"EXPIRED: {result['expired']} | "
+                            f"RESOLVED_LOST: {result['resolved_lost']} | "
+                            f"unverändert: {result['skipped']}"
+                        )
+                except asyncio.CancelledError:
+                    break
+                except Exception as e:
+                    logger.error(f"position_cleanup_loop Fehler: {e}")
+                await asyncio.sleep(86400)  # 24h
+
         # FillTracker: WebSocket-basiertes Fill-Tracking (verhindert Phantom-Positionen)
         fill_tracker = FillTracker(config)
         fill_tracker.register_callbacks(
@@ -1298,6 +1324,7 @@ async def main():
             asyncio.create_task(latency_report_loop()),
             asyncio.create_task(heartbeat_loop()),
             asyncio.create_task(clob_allowance_monitor()),
+            asyncio.create_task(position_cleanup_loop()),
             asyncio.create_task(fill_tracker.run()),
             asyncio.create_task(claim_loop(config, interval_s=int(os.getenv("AUTO_CLAIM_INTERVAL_S", "300")))),  # Auto-Claim alle 5min (env: AUTO_CLAIM_INTERVAL_S)
             asyncio.create_task(exit_loop()),
@@ -1307,6 +1334,7 @@ async def main():
                 interval_seconds=int(os.getenv("ANOMALY_SCAN_INTERVAL_SECONDS", "300"))
             )),
             asyncio.create_task(rss_monitor.run()),     # T-NEWS Phase 1B
+            asyncio.create_task(x_monitor.run_loop()),   # T-X-TWITTER
             asyncio.create_task(weather_loop()),         # T-Weather
             asyncio.create_task(poll_commands(
                 callback_status=send_status_now,

@@ -1,43 +1,74 @@
-"""Quarter-Kelly für Polymarket Binary YES/NO."""
+"""Quarter-Kelly Position Sizing für Polymarket Binary YES/NO.
+
+Formeln verifiziert gegen Meister (2024) "Application of the Kelly Criterion
+to Prediction Markets" (arXiv:2412.14144) und den Standard-Kelly (Wikipedia).
+
+Polymarket Payoff-Struktur:
+  - YES @ price P: bei Win +((1-P)/P) pro $, bei Loss -100%
+  - NO  @ price P: bei Win +(P/(1-P)) pro $, bei Loss -100%
+"""
+from __future__ import annotations
 from dataclasses import dataclass
+from typing import Literal
+
+Side = Literal["YES", "NO"]
 
 
 @dataclass
 class KellyResult:
-    side: str
-    f_full: float
-    f_quarter: float
-    stake_usd: float
-    edge: float
-    reason: str
+    side: Side
+    f_full: float         # Full-Kelly fraction
+    f_quarter: float      # Quarter-Kelly fraction
+    stake_usd: float      # tatsächlicher Einsatz nach Caps
+    edge: float           # p_true - price (YES) oder price - p_true (NO)
+    reason: str           # "OK" oder Grund für Ablehnung
 
 
-def kelly_fraction(p_true: float, price: float, side: str = "YES") -> float:
-    if not (0 < price < 1) or not (0 <= p_true <= 1):
+def kelly_fraction_binary(p_true: float, price: float, side: Side) -> float:
+    """Full-Kelly Bruchteil für Polymarket Binary.
+
+    Returns 0.0 wenn kein +EV oder ungültige Inputs.
+    """
+    if not (0.0 < price < 1.0) or not (0.0 <= p_true <= 1.0):
         return 0.0
-    if side.upper() == "YES":
+    if side == "YES":
         edge = p_true - price
-        return edge / (1 - price) if edge > 0 else 0.0
-    else:
+        if edge <= 0.0:
+            return 0.0
+        return edge / (1.0 - price)
+    elif side == "NO":
         edge = price - p_true
-        return edge / price if edge > 0 else 0.0
+        if edge <= 0.0:
+            return 0.0
+        return edge / price
+    raise ValueError(f"side must be YES or NO, got {side!r}")
 
 
 def quarter_kelly_stake(
     p_true: float,
     price: float,
-    bankroll: float,
-    side: str = "YES",
-    kelly_frac: float = 0.25,
-    max_pct: float = 0.05,
+    bankroll_usd: float,
+    side: Side = "YES",
+    *,
+    kelly_fraction: float = 0.25,
+    max_pct_bankroll: float = 0.05,
+    max_pct_liquidity: float = 0.02,
+    available_liquidity_usd: float | None = None,
     min_edge: float = 0.03,
 ) -> KellyResult:
-    f = kelly_fraction(p_true, price, side)
-    edge = (p_true - price) if side.upper() == "YES" else (price - p_true)
-    if f <= 0:
-        return KellyResult(side, 0, 0, 0, edge, "no_edge")
+    """Berechnet den finalen Einsatz mit Risk-Caps."""
+    f_full = kelly_fraction_binary(p_true, price, side)
+    edge = (p_true - price) if side == "YES" else (price - p_true)
+
+    if f_full <= 0.0:
+        return KellyResult(side, 0.0, 0.0, 0.0, edge, "no_positive_edge")
     if edge < min_edge:
-        return KellyResult(side, f, 0, 0, edge, "edge_low")
-    f_q = f * kelly_frac
-    stake = min(f_q * bankroll, max_pct * bankroll)
-    return KellyResult(side, f, f_q, round(stake, 2), edge, "OK")
+        return KellyResult(side, f_full, 0.0, 0.0, edge, "edge_below_minimum")
+
+    f_q = f_full * kelly_fraction
+    stake = f_q * bankroll_usd
+    stake = min(stake, max_pct_bankroll * bankroll_usd)
+    if available_liquidity_usd is not None and available_liquidity_usd > 0:
+        stake = min(stake, max_pct_liquidity * available_liquidity_usd)
+    stake = max(0.0, round(stake, 2))
+    return KellyResult(side, f_full, f_q, stake, edge, "OK")

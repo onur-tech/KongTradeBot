@@ -48,6 +48,10 @@ class AnomalyDetector:
         self.max_probability = float(os.getenv("ANOMALY_MAX_PROBABILITY", "0.15"))
         self.daily_cap = float(os.getenv("ANOMALY_DAILY_CAP_USD", "20"))
         self.copy_size = float(os.getenv("ANOMALY_COPY_SIZE_USD", "2"))
+        # Mindestgröße pro Einzel-Trade (Data-API gibt ~$9 typische Trades zurück)
+        self.min_trade_usd = float(os.getenv("ANOMALY_MIN_TRADE_USD", "500"))
+        # Mindest-Aggregat bevor Wallet-Checks laufen
+        self.min_aggregate_usd = float(os.getenv("ANOMALY_MIN_AGGREGATE_USD", "5000"))
 
         # State
         self._daily_spent = 0.0
@@ -119,12 +123,18 @@ class AnomalyDetector:
             return []
 
         signals = []
+        logger.info("[ANOMALY] Scan gestartet — hole Trades von Data-API...")
         try:
             async with aiohttp.ClientSession() as session:
-                # /trades gibt alle Trades zurück (kein user= erforderlich)
                 url = f"{DATA_API}/trades?limit=500"
                 async with session.get(url, timeout=aiohttp.ClientTimeout(total=10)) as r:
-                    trades = await r.json()
+                    if r.status != 200:
+                        logger.warning(f"[ANOMALY] Data-API HTTP {r.status} — überspringe")
+                        return []
+                    trades = await asyncio.wait_for(r.json(), timeout=10.0)
+        except asyncio.TimeoutError:
+            logger.warning("[ANOMALY] API Timeout beim Laden — überspringe")
+            return []
         except Exception as e:
             logger.warning(f"[ANOMALY] Data-API Fehler: {e}")
             return []
@@ -132,6 +142,8 @@ class AnomalyDetector:
         if not isinstance(trades, list):
             logger.warning(f"[ANOMALY] Unerwartetes API-Format: {str(trades)[:100]}")
             return []
+
+        logger.info(f"[ANOMALY] {len(trades)} Trades geladen — filtere auf Anomalie-Muster...")
 
         # Gruppieren nach condition_id
         by_market: dict[str, list] = defaultdict(list)
@@ -144,22 +156,22 @@ class AnomalyDetector:
             if not cid:
                 continue
             price = float(trade.get("price", 1.0))
-            # size = Shares, size*price = USDC-Einsatz
             shares = float(trade.get("size", 0))
             amount = shares * price  # USDC
             wallet = trade.get("proxyWallet") or trade.get("maker") or trade.get("user", "")
             side = trade.get("side", "BUY")
-            # Nur BUY-Signale auf YES (Low-Price = LOW Probability)
             if side.upper() not in ("BUY", "YES"):
                 continue
             if price > self.max_probability:
                 continue
-            if amount < 50_000:
+            if amount < self.min_trade_usd:  # war hardcoded 50_000 — viel zu hoch!
                 continue
             by_market[cid].append({
                 "wallet": wallet, "price": price, "amount": amount,
                 "question": trade.get("title", cid[:20])
             })
+
+        logger.info(f"[ANOMALY] {len(by_market)} Märkte mit verdächtigen Trades nach Filter")
 
         # Signale auswerten
         for cid, bets in by_market.items():
@@ -170,14 +182,15 @@ class AnomalyDetector:
             avg_price = sum(b["price"] for b in bets) / len(bets)
             question = bets[0].get("question", cid[:30])
 
-            if total_bet < 50_000:
+            if total_bet < self.min_aggregate_usd:  # war hardcoded 50_000
                 continue
 
-            # Wallet-Alter für alle unique Wallets holen
-            wallets_data = []
-            for w in unique_wallets[:5]:  # Max 5 prüfen
-                days, trade_count = await self._get_wallet_age_and_trades(w)
-                wallets_data.append((days, trade_count))
+            # Wallet-Alter für alle unique Wallets PARALLEL holen
+            wallet_tasks = [
+                self._get_wallet_age_and_trades(w)
+                for w in unique_wallets[:5]
+            ]
+            wallets_data = list(await asyncio.gather(*wallet_tasks, return_exceptions=False))
 
             score = self._calculate_score(
                 wallets_data, avg_price, total_bet,

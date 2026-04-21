@@ -878,3 +878,55 @@ Implikation:
 
 Lesson: Bei Familie/Freunden nie Chef spielen.
 Strukturen so bauen dass sie OHNE dich weiter funktionieren.
+
+## Session 21. April 2026
+
+### K-W01: negRisk Bucket-Logik
+**Problem:** P(T≥X) statt P(T∈Bucket) berechnet.
+**Fix:** bucket_prob() in weather_scout.py korrigiert.
+**Impact:** Win Rate von 95.6% (Artefakt) auf 67.2% (real) korrigiert.
+
+### K-W02: ICAO-Mapping (kritisch)
+Paris = LFPB (Le Bourget) NICHT LFPG (CDG)!
+London = EGLC (City Airport)
+Seoul = RKSI (Incheon)
+Toronto = CYYZ (Pearson)
+US-Städte = °F! (Chicago KORD, NYC KLGA, Miami KMIA)
+TODO: Paris noch nicht korrigiert im Script.
+
+### K-W03: Seoul April-Bias
+Open-Meteo unterschätzt Incheon Airport um -5.23°C im April.
+Formel: fc_corrected = fc_raw - monthly_bias (bias ist negativ → addiert sich)
+Sigma Seoul = 2.3 (empirisch), April-σ = 2.74 (Föhn-Effekte)
+
+### K-W04: Bucket Sum Arbitrage ist illusorisch
+Sum < $1.00 sieht nach risikofreiem Gewinn aus.
+Realität: Penny-Buckets haben fast keine Liquidität.
+Beispiel: Buenos Aires 12.9% ROI = $38 Tiefe = $4.55 maximal.
+Keine echte Arb-Möglichkeit bei kleinen Positionen.
+
+### K-W05: Sigma-Kalibrierung (empirisch, 77 Tage)
+calc_station_sigma.py berechnet σ aus Residuen (actual - fc_corrected).
+Ergebnis: Fast alle Städte σ=1.0–1.5 (ECMWF sehr präzise).
+Ausreißer: Seoul=2.3, Toronto=2.2, Denver=2.1, Chicago=1.8.
+Moscow/Dubai: waren manuell 2.5 gesetzt, empirisch nur 1.1.
+Alle 30 Städte in polymarket_stations.json aktualisiert.
+
+### K-W06: Insider-Wallets sind One-Time-Events
+Echter Insider = einmaliges Ereignis, neues Wallet, verschwindet.
+Nicht: Wallet langfristig beobachten.
+Richtig: MUSTER erkennen (frisches Wallet + groß + niedrig + Geopolitik).
+
+### K-W07: Polygonscan Key
+Key: IAYXP5NMRQCUHWF3T3346U277JD1YDUJD6
+In .env und hardcoded im Script. Aktiv seit letztem Run.
+
+### K-W08: Insider-Analyse Pagination-Bug
+Streaming-Version lädt Endlos-Seiten wenn geo/niche-Bucket voll sind.
+Fix benötigt: break wenn beide Buckets voll (geo>=3000 AND niche>=500).
+Zeile in get_resolved_markets() nach dem Batch-Loop einfügen:
+  if len(geo_markets) >= 3000 and len(niche_markets) >= 500: break
+
+### K-W09: GitHub Support
+Repo KongTradeBot-Template enthält inappropriate contents → löschen.
+Kontakt: support.github.com Portal (nicht per Email).

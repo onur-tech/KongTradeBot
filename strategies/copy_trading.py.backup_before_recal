@@ -15,7 +15,6 @@ LEKTIONEN AUS DER COMMUNITY:
 import asyncio
 import json
 import os
-import time
 from dataclasses import dataclass, field, replace
 from typing import Dict, List, Optional
 from collections import deque
@@ -61,68 +60,6 @@ EARLY_ENTRY_MULTIPLIER: float = 1.5
 EARLY_ENTRY_VOLUME_USD: float = 10_000
 
 # ---------------------------------------------------------------------------
-# Wallet-Kategorie-Spezialisierung
-# Jedes Wallet wird nur für seine Stärke-Kategorien kopiert.
-# Wallets ohne Eintrag (oder mit "broad") handeln in allen Märkten.
-# ---------------------------------------------------------------------------
-WALLET_CATEGORIES: Dict[str, list] = {
-    # Sports-Spezialisten
-    "0x492442eab586f242b53bda933fd5de859c8a3782": ["sports"],
-    "0x02227b8f5a9636e895607edd3185ed6ee5598ff7": ["sports", "macro"],
-    "0xefbc5fec8d7b0acdc8911bdd9a98d6964308f9a2": ["sports"],
-    "0xc2e7800b5af46e6093872b177b7a5e7f0563be51": ["sports"],
-    "0xbddf61af533ff524d27154e589d2d7a81510c684": ["sports"],
-    "0x2005d16a84ceefa912d4e380cd32e7ff827875ea": ["sports", "politics", "broad"],
-    "0x2a2c53bd278c04da9962fcf96490e17f3dfb9bc1": ["sports", "broad"],
-    # Politik-Spezialisten
-    "0xbaa2bcb5439e985ce4ccf815b4700027d1b92c73": ["politics", "geopolitics", "sports"],
-    "0x0c0e270cf879583d6a0142fc817e05b768d0434e": ["politics", "geopolitics"],
-    "0xc6587b11a2209e46dfe3928b31c5514a8e33b784": ["politics", "geopolitics"],
-    # Crypto-Spezialisten
-    "0xde17f7144fbd0eddb2679132c10ff5e74b120988": ["crypto"],
-    "0xd84c2b6d65dc596f49c7b6aadd6d74ca91e407b9": ["crypto"],
-    "0x63ce342161250d705dc0b16df89036c8e5f9ba9a": ["crypto"],
-    # Allrounder (kein Filter)
-    "0x019782cab5d844f02bafb71f512758be78579f3c": ["broad"],
-}
-
-_CAT_KEYWORDS: Dict[str, list] = {
-    "sports":      ["nba", "nfl", "nhl", "mlb", "soccer", "football", "basketball",
-                    "tennis", "golf", "masters", "game", "match", "championship",
-                    "score", "tournament", "ucl", "champions league", "premier league",
-                    "bundesliga", "serie a", "la liga"],
-    "crypto":      ["bitcoin", "btc", "ethereum", "eth", "crypto", "coin", "token",
-                    "blockchain", "defi", "nft"],
-    "politics":    ["trump", "biden", "election", "president", "congress", "senate",
-                    "vote", "poll", "resign"],
-    "geopolitics": ["iran", "ukraine", "russia", "israel", "ceasefire", "war",
-                    "military", "nuclear", "sanctions", "attack", "nato"],
-    "macro":       ["fed", "rate", "inflation", "gdp", "jobs", "unemployment",
-                    "recession", "cpi", "fomc"],
-    "weather":     ["temperature", "celsius", "fahrenheit", "highest temp", "weather"],
-}
-
-
-def _detect_market_category(question: str) -> str:
-    q = question.lower()
-    for cat, keywords in _CAT_KEYWORDS.items():
-        if any(k in q for k in keywords):
-            return cat
-    return "other"
-
-
-def should_copy_trade(wallet_addr: str, market_question: str) -> tuple:
-    """Returns (should_copy: bool, reason: str)."""
-    allowed = WALLET_CATEGORIES.get(wallet_addr.lower(), [])
-    if not allowed or "broad" in allowed:
-        return True, "Allrounder"
-    market_cat = _detect_market_category(market_question)
-    if market_cat in allowed:
-        return True, f"Kategorie-Match: {market_cat}"
-    return False, f"Kategorie {market_cat!r} nicht in Spezialgebiet {allowed}"
-
-
-# ---------------------------------------------------------------------------
 # Defensive Config (aus .env)
 # ---------------------------------------------------------------------------
 MAX_POSITIONS_TOTAL: int = int(os.environ.get("MAX_POSITIONS_TOTAL", "999"))
@@ -130,28 +67,6 @@ MIN_MARKT_VOLUMEN_USD: float = float(os.environ.get("MIN_MARKT_VOLUMEN", "0"))
 _CATEGORY_BLACKLIST: list = [
     s.strip() for s in os.environ.get("CATEGORY_BLACKLIST", "").split(",") if s.strip()
 ]
-_CRYPTO_DAILY_SINGLE_SIGNAL: bool = os.environ.get("CRYPTO_DAILY_SINGLE_SIGNAL", "true").lower() == "true"
-
-
-# ---------------------------------------------------------------------------
-# Crypto-Daily Erkennung
-# ---------------------------------------------------------------------------
-
-def is_crypto_daily(signal: "TradeSignal") -> bool:
-    """Erkennt tägliche Crypto-Preis-Märkte (BTC/ETH above/below, daily price bets)."""
-    slug = getattr(signal, "market_slug", "") or ""
-    question = getattr(signal, "market_question", "") or ""
-    text = (slug + " " + question).lower()
-    crypto_keywords = [
-        "bitcoin-above", "ethereum-above", "btc-above", "eth-above",
-        "bitcoin-up-or-down", "ethereum-up-or-down",
-        "what-price-will-bitcoin", "what-price-will-ethereum",
-        "bitcoin-price-on", "ethereum-price-on",
-        "crypto-above", "btc-daily", "eth-daily",
-        "bitcoin above", "ethereum above", "btc above", "eth above",
-        "bitcoin price", "ethereum price",
-    ]
-    return any(kw in text for kw in crypto_keywords)
 
 
 # ---------------------------------------------------------------------------
@@ -160,27 +75,20 @@ def is_crypto_daily(signal: "TradeSignal") -> bool:
 # Wallets die hier nicht aufgeführt sind bekommen DEFAULT_WALLET_MULTIPLIER.
 # ---------------------------------------------------------------------------
 WALLET_MULTIPLIERS: Dict[str, float] = {
-    # majorexploiter — Sports/UCL (nicht Geopolitics wie angenommen) → 1.5x
-    # RECAL 2026-04-19 T-M09: Bug-Fix 8d9b08a zeigte Sports 100% (UCL), war 3.0x
-    "0x019782cab5d844f02bafb71f512758be78579f3c": 1.5,
+    # majorexploiter — 76% Win Rate → 3x
+    "0x019782cab5d844f02bafb71f512758be78579f3c": 3.0,
 
-    # April#1 Sports — WATCHING 0.3x
-    # RECAL 2026-04-19 T-M09b: Extern WR 46.7% (Cointrenches), Lifetime PnL -$9.8M
-    # HF-8 FAIL + HF-10 HFT-Bot. Review: T-D109 (2026-05-19). Siehe KB P077. Ref: 5d7d138
-    "0x492442eab586f242b53bda933fd5de859c8a3782": 0.3,
+    # April#1 Sports — 65% Win Rate → 2x
+    "0x492442eab586f242b53bda933fd5de859c8a3782": 2.0,
 
-    # HorizonSplendidView → 0.5x (0 Activity erkannt, inaktiv)
-    # RECAL 2026-04-19 T-M09: 0 Activity-Records via API, war 2.0x
-    "0x02227b8f5a9636e895607edd3185ed6ee5598ff7": 0.5,
+    # HorizonSplendidView → 2x
+    "0x02227b8f5a9636e895607edd3185ed6ee5598ff7": 2.0,
 
-    # reachingthesky — Tier B 1.0x
-    # RECAL 2026-04-19: Code war 2.0x veraltet, .env gewann mit 1.0x - sync aligned (P083)
-    "0xefbc5fec8d7b0acdc8911bdd9a98d6964308f9a2": 1.0,
+    # reachingthesky → 2x
+    "0xefbc5fec8d7b0acdc8911bdd9a98d6964308f9a2": 2.0,
 
-    # HOOK — Tier B 1.0x
-    # RECAL 2026-04-19 T-M09b: Nur 46 Trades (unter HF-1 100-Trade-Minimum),
-    # WR diskrepant (38.5% vs 67%). Review: T-D109 (2026-05-19). Siehe KB P077. Ref: 5d7d138
-    "0x0b7a6030507efe5db145fbb57a25ba0c5f9d86cf": 1.0,
+    # HOOK → 2x
+    "0x0b7a6030507efe5db145fbb57a25ba0c5f9d86cf": 2.0,
 
     # REMOVED 2026-04-19 Audit v1.0 HF-8 FAIL (49% WR)
     # "0xee613b3fc183ee44f9da9c05f53e2da107e3debf": 0.3,  # sovereign2013
@@ -197,13 +105,11 @@ WALLET_MULTIPLIERS: Dict[str, float] = {
     # DrPufferfish — 92% Win Rate (predicts.guru) → 3x
     "0xdb27bf2ac5d428a9c63dbc914611036855a6c56e": 3.0,
 
-    # wan123 — negative ROI-Flag, Moonshot-Pattern → 0.5x
-    # RECAL 2026-04-19 T-M09: negative ROI in KNOWLEDGE_BASE, war 2.5x
-    "0xde7be6d489bce070a959e0cb813128ae659b5f4b": 0.5,
+    # wan123 — 90% Win Rate → 2.5x
+    "0xde7be6d489bce070a959e0cb813128ae659b5f4b": 2.5,
 
-    # kcnyekchno — 81% Win Rate → 1x (bisher 0 Trades kopiert, konservativ)
-    # RECAL 2026-04-19 T-M09: 0 kopierte Trades bisher, war 2.0x
-    "0x7177a7f5c216809c577c50c77b12aae81f81ddef": 1.0,
+    # kcnyekchno — 81% Win Rate → 2x
+    "0x7177a7f5c216809c577c50c77b12aae81f81ddef": 2.0,
 
     # REMOVED 2026-04-19 Audit v1.0 HF-8 FAIL (45% WR)
     # "0x7a6192ea6815d3177e978dd3f8c38be5f575af24": 0.3,  # Gambler1968
@@ -214,18 +120,6 @@ WALLET_MULTIPLIERS: Dict[str, float] = {
     # ADDED 2026-04-19: Manual Discovery (Commit 38bbb5c Windows-CC)
     "0xc6587b11a2209e46dfe3928b31c5514a8e33b784": 0.5,  # Erasmus - Geopolitics/Iran, Tier B
     "0x0c0e270cf879583d6a0142fc817e05b768d0434e": 0.3,  # TheSpiritofUkraine - Geopolitics seit 2021, Tier B
-
-    # denizz — polymonit April Politics #1 +$751k (UCL-Soccer-Spezialist) → 1.0x
-    # RECAL 2026-04-19 T-M09: explizit auf 1.0x (vorher DEFAULT 0.5x)
-    "0xbaa2bcb5439e985ce4ccf815b4700027d1b92c73": 1.0,
-
-    # PANews Biteye Smart Money — integriert 2026-04-20, Review 2026-05-05
-    # HF-7 PENDING (predicts.guru Deposit-ROI unverified) → 0.3x konservativ
-    "0x38e59b36aae31b164200d0cad7c3fe5e0ee795e7": 0.3,  # cowcat — ME Longshot +117% ROI
-    "0x15ceffed7bf820cd2d90f90ea24ae9909f5cd5fa": 0.3,  # HondaCivic — Weather 85.7% WR
-    "0x8c0b024c17831a0dde038547b7e791ae6a0d7aa5": 0.3,  # EFFICIENCYEXPERT — Esports $580K
-    "0x8e0b7ae246205b1ddf79172148a58a3204139e5c": 0.3,  # synnet — Tennis $290K Underdogs
-    "0x6c743aafd813475986dcd930f380a1f50901bd4e": 0.3,  # middleoftheocean — Soccer 83.1% WR
 }
 
 # Unbekannte / nicht konfigurierte Wallets bekommen halbe Größe
@@ -389,10 +283,6 @@ class CopyTradingStrategy:
         # Callback: gibt aktuelle Anzahl offener Positionen zurück (für MAX_POSITIONS_TOTAL)
         self.get_open_positions_count: Optional[callable] = None
 
-        # T-M03: Whale-Exit-Copy Callbacks
-        self.get_open_positions: Optional[callable] = None   # () → Dict[str, OpenPosition]
-        self.on_whale_exit: Optional[callable] = None        # (pos, signal) → coroutine
-
         # Callback für Wallet-Warnungen (Trend-Decline) → Telegram
         self.on_wallet_warning: Optional[callable] = None
 
@@ -491,21 +381,6 @@ class CopyTradingStrategy:
         else:
             multi_multiplier = MULTI_SIGNAL_MULTIPLIERS.get(count, 2.0)  # 3+ → 2x
 
-        # Min-Wallet-Check: Crypto-Daily = 1 Wallet reicht; alle anderen = 2 Wallets benötigt
-        if _CRYPTO_DAILY_SINGLE_SIGNAL:
-            min_signals_required = 1 if is_crypto_daily(base_signal) else 2
-        else:
-            min_signals_required = 1
-        if count < min_signals_required:
-            wallet_name = get_wallet_name(base_signal.source_wallet)
-            logger.info(
-                f"⏭️ SKIP: nur {count} Wallet ({wallet_name}) — min {min_signals_required} "
-                f"für diesen Markt | {base_signal.outcome} auf '{market_short}'"
-            )
-            self.stats["orders_skipped"] += 1
-            log_signal(base_signal, "SKIPPED", f"MIN_WALLETS:{count}<{min_signals_required}")
-            return
-
         if count >= 2:
             self.stats["multi_signals"] += 1
             names = " + ".join(get_wallet_name(s.source_wallet) for s in signals)
@@ -522,13 +397,6 @@ class CopyTradingStrategy:
                     )
                 except Exception:
                     pass
-        else:
-            # count == 1, Crypto-Daily — explizit loggen
-            wallet_name = get_wallet_name(base_signal.source_wallet)
-            logger.info(
-                f"₿ CRYPTO-DAILY SINGLE-SIGNAL [{wallet_name}]: "
-                f"{base_signal.outcome} auf '{market_short}'"
-            )
 
         await self._process_signal(base_signal, extra_multiplier=multi_multiplier)
 
@@ -546,18 +414,6 @@ class CopyTradingStrategy:
                     self.stats["orders_skipped"] += 1
                     log_signal(signal, "SKIPPED", f"CATEGORY_BLACKLIST:{prefix}")
                     return
-
-        # 0a2. WALLET_CATEGORY_FILTER — nur in Spezialgebiet des Wallets handeln
-        _mq = signal.market_question or ""
-        _copy_ok, _copy_reason = should_copy_trade(signal.source_wallet, _mq)
-        if not _copy_ok:
-            logger.info(
-                f"⏭️ SKIP: reason=WALLET_CATEGORY wallet={signal.source_wallet[:18]} "
-                f"| {_copy_reason} | {_mq[:50]}"
-            )
-            self.stats["orders_skipped"] += 1
-            log_signal(signal, "SKIPPED", f"WALLET_CATEGORY:{_copy_reason}")
-            return
 
         # 0b. MIN_MARKT_VOLUMEN-Check (nur wenn Volumen explizit bekannt und > 0)
         market_vol = getattr(signal, "market_volume_usd", None)
@@ -679,40 +535,6 @@ class CopyTradingStrategy:
                     await _handle_error(e, context=ctx, severity="ERROR", telegram_alert=True, reraise=False)
                 except Exception:
                     pass
-
-    async def handle_whale_sell(self, signal: TradeSignal):
-        """
-        T-M03: Wird aufgerufen wenn eine tracked Wallet verkauft.
-        Prüft ob wir dieselbe Position halten und triggert sofortigen Exit.
-        """
-        if signal.side != "SELL":
-            return
-        if not getattr(self.config, "whale_exit_copy_enabled", False):
-            return
-        if not self.get_open_positions or not self.on_whale_exit:
-            return
-
-        open_positions = self.get_open_positions()
-        wallet_name = get_wallet_name(signal.source_wallet)
-        market_short = signal.market_question[:50] if signal.market_question else signal.market_id[:16]
-
-        for pos in open_positions.values():
-            if pos.market_id != signal.market_id:
-                continue
-            if pos.source_wallet.lower() != signal.source_wallet.lower():
-                continue
-            logger.info(
-                f"[whale_exit_copy] 🐋 {wallet_name} verkauft "
-                f"'{market_short}' → wir folgen (Exit {pos.outcome})"
-            )
-            try:
-                if asyncio.iscoroutinefunction(self.on_whale_exit):
-                    await self.on_whale_exit(pos, signal)
-                else:
-                    self.on_whale_exit(pos, signal)
-            except Exception as e:
-                logger.error(f"[whale_exit_copy] on_whale_exit Fehler: {e}", exc_info=True)
-            return  # nur erste Match-Position — weitere Iterationen unnötig
 
     def get_status(self) -> dict:
         """Gibt aktuellen Status der Strategie zurück."""

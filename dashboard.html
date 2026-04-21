@@ -50,7 +50,7 @@ body{
   overflow:hidden;
   display:grid;
   grid-template-rows:auto auto 1fr;
-  grid-template-columns:240px 1fr 214px;
+  grid-template-columns:260px 1fr 260px;
   grid-template-areas:
     "hdr hdr hdr"
     "nav nav nav"
@@ -67,14 +67,17 @@ body{
   border-bottom:1px solid var(--border);
   display:flex;
   align-items:center;
-  gap:18px;
-  padding:18px 20px;
+  gap:22px;
+  padding:0 24px;
+  height:120px;
+  min-height:120px;
 }
 #logo{
-  font-size:28px;font-weight:700;
-  color:var(--acc);text-shadow:0 0 14px var(--acc);
+  font-size:42px;font-weight:700;
+  color:var(--acc);text-shadow:0 0 18px var(--acc);
   letter-spacing:2px;white-space:nowrap;
   transition:color .3s,text-shadow .3s;
+  display:flex;align-items:center;gap:12px;
 }
 .livepill{
   font-size:8px;padding:2px 6px;
@@ -87,8 +90,8 @@ body{
 
 .hstats{display:flex;gap:28px;flex:1}
 .hs{display:flex;flex-direction:column;gap:1px}
-.hs-lbl{font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--muted)}
-.hs-val{font-size:20px;font-weight:700;color:var(--acc);transition:color .3s}
+.hs-lbl{font-size:12px;text-transform:uppercase;letter-spacing:1px;color:var(--muted)}
+.hs-val{font-size:26px;font-weight:700;color:var(--acc);transition:color .3s}
 .pos{color:#00ff88!important}
 .neg{color:var(--red)!important}
 .warn{color:var(--orange)!important}
@@ -118,12 +121,12 @@ body{
   grid-area:nav;background:var(--bg2);
   border-bottom:1px solid var(--border);
 }
-#plat-bar{display:flex;gap:2px;padding:6px 12px 0}
+#plat-bar{display:flex;gap:2px;padding:4px 12px 0;height:52px;align-items:flex-end}
 .ptab{
   background:transparent;
   border:1px solid var(--border);border-bottom:none;
-  color:var(--muted);font-family:var(--mono);font-size:15px;
-  padding:10px 22px;cursor:pointer;letter-spacing:.8px;
+  color:var(--muted);font-family:var(--mono);font-size:18px;
+  padding:14px 24px;cursor:pointer;letter-spacing:.8px;
   transition:all .15s;display:flex;align-items:center;gap:5px;
 }
 .ptab:hover{color:var(--text);border-color:var(--dim)}
@@ -143,8 +146,8 @@ body{
 .stab{
   background:transparent;
   border:1px solid transparent;
-  color:var(--muted);font-family:var(--mono);font-size:11px;
-  padding:5px 14px;cursor:pointer;letter-spacing:.5px;
+  color:var(--muted);font-family:var(--mono);font-size:16px;
+  padding:10px 18px;cursor:pointer;letter-spacing:.5px;
   border-radius:2px;display:flex;align-items:center;gap:5px;
   transition:all .15s;
 }
@@ -158,18 +161,18 @@ body{
 #sb{
   grid-area:sb;background:var(--bg2);
   border-right:1px solid var(--border);
-  overflow-y:auto;padding:11px;
+  overflow-y:auto;padding:12px;
   display:flex;flex-direction:column;gap:14px;
 }
 .sect{display:flex;flex-direction:column;gap:10px}
 .stitle{
-  font-size:11px;text-transform:uppercase;letter-spacing:2px;
+  font-size:13px;text-transform:uppercase;letter-spacing:2px;
   color:var(--muted);border-bottom:1px solid var(--border);
   padding-bottom:3px;
 }
 
 .arow{display:flex;flex-direction:column;gap:2px}
-.albl{display:flex;justify-content:space-between;font-size:12px}
+.albl{display:flex;justify-content:space-between;font-size:13px}
 .abar{height:4px;background:var(--dim);border-radius:2px;overflow:hidden}
 .afill{height:100%;border-radius:2px;transition:width .5s}
 .fp{background:var(--poly);   box-shadow:0 0 6px var(--poly)}
@@ -179,15 +182,15 @@ body{
 .fm{background:var(--muted)}
 
 .rrow{display:flex;flex-direction:column;gap:2px;margin-bottom:5px}
-.rlbl{display:flex;justify-content:space-between;font-size:12px}
+.rlbl{display:flex;justify-content:space-between;font-size:13px}
 .rbar{height:5px;background:var(--dim);border-radius:3px;overflow:hidden}
 .rfill{height:100%;border-radius:3px}
 .rok  {background:var(--poly)}
 .rwarn{background:var(--orange)}
 .rdng {background:var(--red);animation:kr 1s infinite}
 
-.kv{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-top:3px}
-.kv span:last-child{color:var(--text)}
+.kv{display:flex;justify-content:space-between;font-size:13px;color:var(--muted);margin-top:3px}
+.kv span:last-child{color:var(--text);font-size:16px}
 .ks-off{font-size:8px;color:var(--poly);border:1px solid var(--poly);padding:1px 5px;border-radius:2px}
 
 /* ══ MAIN ════════════════════════════════════════════════════ */
@@ -201,7 +204,7 @@ body{
 .g6{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
 
 /* widget */
-.w{background:var(--bg2);border:1px solid var(--border);padding:18px;border-radius:2px}
+.w{background:var(--bg2);border:1px solid var(--border);padding:12px 14px;border-radius:2px;min-height:90px}
 .w.acp{border-color:color-mix(in srgb,var(--acc) 25%,transparent)}
 .wtitle{
   font-size:11px;text-transform:uppercase;letter-spacing:1.5px;
@@ -210,7 +213,7 @@ body{
 }
 .dot{width:5px;height:5px;border-radius:50%;background:var(--acc);box-shadow:0 0 5px var(--acc);transition:background .3s,box-shadow .3s}
 
-.big{font-size:48px;font-weight:700;color:var(--acc);line-height:1;transition:color .3s}
+.big{font-size:44px;font-weight:700;color:var(--acc);line-height:1;transition:color .3s}
 .sub{font-size:13px;color:var(--muted);margin-top:5px}
 .cbar{height:7px;background:var(--dim);border-radius:4px;overflow:hidden;margin:5px 0}
 .cfill{height:100%;border-radius:4px}
@@ -287,14 +290,14 @@ body{
 #rt{
   grid-area:rt;background:var(--bg2);
   border-left:1px solid var(--border);
-  overflow-y:auto;padding:11px;
+  overflow-y:auto;padding:12px;
   display:flex;flex-direction:column;gap:14px;
 }
-.ri{display:flex;flex-direction:column;gap:2px;padding:5px 0;border-bottom:1px solid var(--border)}
+.ri{display:flex;flex-direction:column;gap:2px;padding:8px 0;border-bottom:1px solid var(--border)}
 .ri:last-child{border-bottom:none}
-.rmkt{font-size:9px;color:var(--text);line-height:1.3}
-.rmeta{display:flex;justify-content:space-between;font-size:8px;color:var(--muted)}
-.rtimer{color:var(--orange);font-weight:700}
+.rmkt{font-size:14px;color:var(--text);line-height:1.3}
+.rmeta{display:flex;justify-content:space-between;font-size:13px;color:var(--muted)}
+.rtimer{color:var(--orange);font-weight:700;font-size:15px}
 .rtimer.urg{color:var(--red);animation:blink .8s infinite}
 
 .svc{display:flex;justify-content:space-between;align-items:center;padding:3px 0;font-size:9px}
@@ -316,7 +319,7 @@ body{
 
 <!-- ══════════ HEADER ══════════════════════════════════════════ -->
 <header id="hdr">
-  <div id="logo"><img src="/static/logo.png" alt="Kong" style="height:28px;width:28px;border-radius:50%;object-fit:cover;vertical-align:middle;margin-right:7px">KONGTERMINAL</div>
+  <div id="logo"><img src="/static/logo.png" alt="Kong" style="height:60px;width:60px;border-radius:50%;object-fit:cover;vertical-align:middle;margin-right:7px">KONGTERMINAL</div>
   <span class="livepill">● LIVE</span>
 
   <div class="hstats">

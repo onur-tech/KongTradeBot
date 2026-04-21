@@ -2222,6 +2222,15 @@ def api_weather_paper_trades():
         if s is None:
             return None, "—"
         if s <= 0:
+            # CLOB end_date_iso is midnight UTC of resolution day.
+            # Show "TODAY" if the date is today (market may still be open).
+            try:
+                end_dt = datetime.fromisoformat(end_str.replace("Z", "+00:00"))
+                today = datetime.now(timezone.utc).date()
+                if end_dt.date() == today:
+                    return 0, "TODAY"
+            except Exception:
+                pass
             return 0, "ENDED"
         h = int(s) // 3600
         d = h // 24

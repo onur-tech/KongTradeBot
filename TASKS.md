@@ -64,3 +64,9 @@
 - [x] Shadow Portfolio city-Feld + Penny-Filter gefixt
 - [x] Daily Datapoints Cron aktiv (18:05 UTC täglich)
 - [x] ICAO-Mapping für 29/30 Städte verifiziert (Paris offen)
+- [x] T-033: Sigma-Kalibrierung v2.0 — 2 Jahre ERA5-Archiv, 30 Städte, monatliche Sigma (calc_station_sigma.py)
+- [x] T-036: CALIBRATED_CITIES Live-Filter (32 Städte), unkalibrierte → Shadow-Only
+- [x] T-037: wan123 Multiplier auf 0.5x (negative ROI bestätigt — war 2.5x)
+- [x] Shadow Portfolio: Kapital unbegrenzt ($999,999), alle Kapital-Checks entfernt
+- [x] METAR Lock: check_metar_lock() in weather_scout.py, 2× Sizing + 88% Konfidenz
+- [x] T-D50: Health Monitor stündlich (health_monitor.py + systemd Timer, Telegram + E-Mail)

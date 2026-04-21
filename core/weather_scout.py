@@ -34,6 +34,43 @@ def _norm_cdf(x: float) -> float:
     return 0.5 * (1.0 + math.erf(x / math.sqrt(2)))
 
 
+def check_metar_lock(icao: str, threshold: float, direction: str) -> dict:
+    """
+    Prüft ob der aktuelle Tages-Maximalwert aus METAR-Beobachtungen
+    eine Markt-Richtung mit hoher Konfidenz bestätigt.
+
+    Nur nach 13:00 UTC sinnvoll (Tageshöchstwert weitgehend bekannt).
+    Returns: {"lock": bool, "confidence": float, "observed_max": float, "reason": str}
+    """
+    import urllib.request as _ureq
+    from datetime import datetime as _dt, timezone as _tz
+    now_utc = _dt.now(_tz.utc)
+    if now_utc.hour < 13:
+        return {"lock": False, "reason": "too_early"}
+    if not icao:
+        return {"lock": False, "reason": "no_icao"}
+    url = (f"https://aviationweather.gov/api/data/metar"
+           f"?ids={icao}&format=json&hours=12")
+    try:
+        with _ureq.urlopen(url, timeout=5) as r:
+            data = json.loads(r.read())
+    except Exception as e:
+        return {"lock": False, "reason": str(e)}
+    if not data:
+        return {"lock": False, "reason": "no_data"}
+    temps = [float(o["tmpC"]) for o in data if o.get("tmpC") is not None]
+    if not temps:
+        return {"lock": False, "reason": "no_temps"}
+    observed_max = max(temps)
+    if direction == "over" and observed_max >= threshold:
+        return {"lock": True, "confidence": 0.88,
+                "observed_max": observed_max, "reason": "observed_above"}
+    elif direction == "under" and observed_max < threshold:
+        return {"lock": True, "confidence": 0.88,
+                "observed_max": observed_max, "reason": "observed_below"}
+    return {"lock": False, "observed_max": observed_max, "reason": "not_confirmed"}
+
+
 def bucket_prob(forecast: float, threshold: float, sigma: float) -> float:
     """P(threshold-0.5 < T <= threshold+0.5) under N(forecast, sigma)."""
     lo = (threshold - 0.5 - forecast) / sigma
@@ -814,6 +851,26 @@ def run_weather_scout() -> list:
             if opp['price'] < 0.05:
                 logger.debug(f"[WeatherScout] Penny skip: {city} {opp['price']:.3f}")
             else:
+                # METAR Lock — Beobachteter Tageswert als Confirmation Signal
+                _metar_lock = False
+                _effective_edge = abs(opp['edge'])
+                _bet_multiplier = 1.0
+                _icao = _STATIONS.get(city, {}).get("icao", "")
+                if _icao and not shadow_only:
+                    _metar_dir = "over" if opp['direction'] == "YES" and direction == "above" else \
+                                 "under" if opp['direction'] == "YES" and direction == "below" else \
+                                 "under" if opp['direction'] == "NO" and direction == "above" else \
+                                 "over"
+                    _lock_result = check_metar_lock(_icao, threshold, _metar_dir)
+                    if _lock_result.get("lock"):
+                        _metar_lock = True
+                        _effective_edge = max(_effective_edge, 0.88)
+                        _bet_multiplier = 2.0
+                        logger.info(
+                            f"[METAR LOCK] {city} ({_icao}) "
+                            f"obs_max={_lock_result.get('observed_max', '?')}°C "
+                            f"→ 88% conf, 2× size")
+
                 # Shadow Portfolio — Quarter-Kelly sizing
                 try:
                     import sys as _sys
@@ -821,19 +878,21 @@ def run_weather_scout() -> list:
                     from core.shadow_portfolio import ShadowPortfolio
                     _sp = ShadowPortfolio()
                     _mkt_price = opp['price']
-                    _edge = abs(opp['edge'])
+                    _edge = _effective_edge
                     # Quarter-Kelly: f = edge/(1-p) * 0.25, cap 10%
                     _kf = min((_edge / max(1 - _mkt_price, 0.01)) * 0.25, 0.10) if _edge > 0 else 0
-                    _bankroll = _sp.data.get("current_capital", 850.0)
-                    _bet = round(max(2.0, min(_bankroll * _kf, 25.0)), 2)
+                    _bankroll = _sp.data.get("current_capital", 999_999.0)
+                    _bet = round(max(2.0, min(_bankroll * _kf, 25.0)) * _bet_multiplier, 2)
                     _score = round(min(100, int(_edge * 200)))
+                    if _metar_lock:
+                        _score = max(_score, 88)
                     _sp.open_position(
                         market_id=m['condition_id'],
                         question=m.get('question', city),
                         outcome=opp['direction'],
                         entry_price=_mkt_price,
                         invested_usdc=_bet,
-                        strategy="WEATHER",
+                        strategy="WEATHER" if not _metar_lock else "WEATHER_METAR",
                         signal_score=_score,
                         city=city,
                     )

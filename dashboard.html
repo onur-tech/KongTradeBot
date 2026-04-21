@@ -672,6 +672,7 @@ tr.trow:hover td{background:var(--bg3)}
               const icon  = t.status==="WON"?"✅":t.status==="LOST"?"❌":"⏳";
               const cl = t.closes_in_label || "—";
               const clColor = cl==="ENDED"?"#444":
+                              cl==="TODAY"?"#ffa500":
                               (t.closes_in_s && t.closes_in_s < 3600*6)?"#ff4444":
                               (t.closes_in_s && t.closes_in_s < 3600*24)?"#ffa500":"#666";
               return `<div style="padding:8px 0;border-bottom:1px solid #222">

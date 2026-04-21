@@ -263,10 +263,14 @@ def add_user():
     </body></html>"""
 
 
+_PUBLIC_API_PATHS = {"/api/shadow", "/api/today_summary", "/api/health"}
+
 @app.before_request
 def require_login():
     public = {"/login", "/logout"}
     if request.path in public or request.path.startswith("/static/"):
+        return
+    if request.path in _PUBLIC_API_PATHS:
         return
     if request.path.startswith("/internal/") and request.remote_addr in ("127.0.0.1", "::1"):
         return

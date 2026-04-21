@@ -175,6 +175,23 @@ body{
 .pnotes{font-size:9px;color:var(--muted);line-height:1.8}
 .pnotes li{list-style:none;padding-left:12px}
 .pnotes li::before{content:'› ';color:var(--acc-dim)}
+/* ══ NEWS CARDS ══════════════════════════════════════════════ */
+.nc{display:flex;gap:12px;padding:10px 12px;background:var(--bg3);border:1px solid var(--border);border-radius:3px;cursor:pointer;transition:border-color .15s,background .15s;text-decoration:none;color:inherit}
+.nc:hover{border-color:var(--poly);background:#0d120d}
+.nc-thumb{width:64px;height:64px;min-width:64px;border-radius:3px;object-fit:cover;background:var(--bg2);display:flex;align-items:center;justify-content:center;font-size:26px;overflow:hidden;flex-shrink:0}
+.nc-thumb img{width:64px;height:64px;object-fit:cover;border-radius:3px}
+.nc-body{flex:1;display:flex;flex-direction:column;gap:3px;overflow:hidden;min-width:0}
+.nc-top{display:flex;justify-content:space-between;align-items:center}
+.nc-src{font-size:11px;font-weight:700;letter-spacing:.5px}
+.nc-time{font-size:11px;color:var(--muted);white-space:nowrap}
+.nc-title{font-size:13px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.nc-title.hl{color:var(--text);font-weight:500}
+.nc-desc{font-size:11px;color:#555;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.nc-tag{display:inline-block;font-size:9px;padding:1px 5px;background:rgba(0,255,136,.08);color:var(--poly);border:1px solid rgba(0,255,136,.2);border-radius:2px;margin-right:3px}
+.nc-tag.geo{background:rgba(255,140,0,.08);color:var(--orange);border-color:rgba(255,140,0,.2)}
+.nc-tag.pol{background:rgba(0,170,255,.08);color:#00aaff;border-color:rgba(0,170,255,.2)}
+.nc-tag.mac{background:rgba(255,215,0,.08);color:#ffd700;border-color:rgba(255,215,0,.2)}
+/* ═════════════════════════════════════════════════════════════ */
 .rsec{margin-bottom:14px}
 .rtitle{font-size:11px;text-transform:uppercase;letter-spacing:2px;color:var(--muted);border-bottom:1px solid var(--border);padding-bottom:3px;margin-bottom:10px}
 .rgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:8px}
@@ -1006,6 +1023,14 @@ async function fetchReport(){
 }
 
 // ── News ──────────────────────────────────────────────────────
+const _NC={
+  BBC:{color:'#bb1919',emoji:'🇬🇧'},
+  NYT:{color:'#e8e8e8',emoji:'🗞'},
+  AP: {color:'#0066cc',emoji:'📡'},
+  AJ: {color:'#ff6600',emoji:'🌍'},
+};
+const _CAT_CLS={geopolitics:'geo',us_politics:'pol',macro:'mac',crypto:'',sports:''};
+
 async function fetchNews(){
   try{
     const d=await fetch('/api/news').then(r=>r.json());
@@ -1013,28 +1038,41 @@ async function fetchNews(){
     const upd=document.getElementById('news-updated');
     if(!feed) return;
     set('news-count',d.total||0);
-    set('news-relevant',d.relevant||0);
+    const relEl=document.getElementById('news-relevant');
+    if(relEl){relEl.textContent=d.relevant||0;relEl.style.color=(d.relevant||0)>0?'var(--poly)':'var(--muted)';}
     const news=d.news||[];
     if(!news.length){
-      feed.innerHTML='<div style="color:var(--muted);font-size:12px;padding:20px;text-align:center">Keine News heute</div>';
+      feed.innerHTML='<div style="color:var(--muted);font-size:12px;padding:20px;text-align:center">Keine News verfügbar</div>';
       if(upd) upd.textContent='keine Daten'; return;
     }
-    const srcColor={BBC:'#ff6b35',NYT:'#00aaff',AJ:'#ff9900',AP:'var(--poly)'};
     feed.innerHTML=news.map(n=>{
-      const sc=srcColor[n.source]||'var(--muted)';
+      const {color,emoji}=_NC[n.source]||{color:'var(--poly)',emoji:'📰'};
       const lb=n.relevant?'border-left:3px solid var(--poly)':'border-left:3px solid var(--border)';
-      const tc=n.relevant?'color:var(--text)':'color:var(--muted)';
-      const cats=(n.categories||[]).map(c=>`<span style="font-size:9px;padding:1px 5px;background:var(--bg2);color:var(--muted);border-radius:2px">${esc(c)}</span>`).join(' ');
-      return `<div style="${lb};background:var(--bg3);padding:8px 12px;border-radius:2px">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:3px">
-          <span style="color:${sc};font-size:11px;font-weight:700;letter-spacing:1px">${esc(n.source)}</span>
-          <div style="display:flex;gap:4px;align-items:center">${cats}<span style="color:var(--muted);font-size:11px">${n.time?n.time.substring(11,16):'—'}</span></div>
+      const tags=(n.categories||[]).slice(0,3).map(c=>{
+        const cls=_CAT_CLS[c]||'';
+        return `<span class="nc-tag ${cls}">${esc(c)}</span>`;
+      }).join('');
+      const thumb=n.image_url
+        ?`<img src="${esc(n.image_url)}" loading="lazy" onerror="this.parentNode.textContent='${emoji}'">`
+        :`${emoji}`;
+      const href=n.url||'#';
+      const target=n.url?'target="_blank" rel="noopener noreferrer"':'';
+      const timeStr=n.time?(n.time.length>10?n.time.substring(11,16):n.time):'—';
+      return `<a href="${esc(href)}" ${target} class="nc" style="${lb}">
+        <div class="nc-thumb">${thumb}</div>
+        <div class="nc-body">
+          <div class="nc-top">
+            <span class="nc-src" style="color:${color}">${esc(n.source)}</span>
+            <span class="nc-time">${timeStr}</span>
+          </div>
+          <div class="nc-title${n.relevant?' hl':''}">${esc(n.title)}</div>
+          ${n.description?`<div class="nc-desc">${esc(n.description)}</div>`:''}
+          ${tags?`<div style="margin-top:3px">${tags}</div>`:''}
         </div>
-        <div style="font-size:13px;${tc}">${esc(n.title)}</div>
-      </div>`;
+      </a>`;
     }).join('');
-    if(upd) upd.textContent='aktualisiert '+new Date().toLocaleTimeString('de-DE');
-  }catch(e){}
+    if(upd) upd.textContent=(d.cached?'Cache ':'')+'aktualisiert '+new Date().toLocaleTimeString('de-DE');
+  }catch(e){console.warn('fetchNews',e);}
 }
 
 // ── Signals ───────────────────────────────────────────────────

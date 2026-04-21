@@ -2552,64 +2552,115 @@ def api_performance():
         return _cors(jsonify({"error": str(e)})), 500
 
 
+_news_cache: dict = {"ts": 0, "data": []}   # modul-level 5-min cache
+
 @app.route("/api/news")
 @login_required
 def api_news():
-    """Letzte RSS-Signale aus bot.log — BBC/AP/NYT/AJ, kategorisiert."""
-    import re as _re
+    """RSS-Feeds live fetchen (BBC/AP/NYT/AJ) — 5-Min-Cache, Thumbnails, Links."""
+    import time as _time, re as _re, feedparser as _fp
+    global _news_cache
+
+    _RSS_FEEDS = {
+        "BBC": "https://feeds.bbci.co.uk/news/world/rss.xml",
+        "AJ":  "https://www.aljazeera.com/xml/rss/all.xml",
+        "AP":  "https://feeds.npr.org/1001/rss.xml",
+        "NYT": "https://rss.nytimes.com/services/xml/rss/nyt/World.xml",
+    }
+    _KEYWORDS = {
+        "geopolitics": ["iran","ceasefire","tehran","israel","hezbollah","hamas",
+                        "ukraine","russia","nato","sanctions","hormuz","khamenei"],
+        "us_politics": ["trump","white house","executive order","congress","senate",
+                        "tariff","trade war","oval office","president"],
+        "macro":       ["federal reserve","fed ","interest rate","powell","fomc",
+                        "inflation","recession","gdp","rate hike","rate cut"],
+        "crypto":      ["bitcoin","btc","ethereum","crypto","sec","etf","coinbase"],
+        "geopolitics2":["china","taiwan","north korea","myanmar","pakistan","india",
+                        "middle east","gaza","west bank","ceasefire","deal"],
+    }
+    _HIGH = {"geopolitics", "us_politics", "macro", "crypto", "geopolitics2"}
+
+    # Cache gültig für 5 Minuten
+    now = _time.time()
+    if now - _news_cache["ts"] < 300 and _news_cache["data"]:
+        cached = _news_cache["data"]
+        return _cors(jsonify({
+            "news": cached, "total": len(cached),
+            "relevant": sum(1 for n in cached if n["relevant"]),
+            "cached": True,
+        }))
+
     try:
-        rolling = LOG_DIR / "bot.log"
-        dated   = LOG_DIR / f"bot_{date.today().isoformat()}.log"
-        log_file = rolling if rolling.exists() else (dated if dated.exists() else None)
-        if not log_file:
-            return _cors(jsonify({"news": [], "total": 0, "relevant": 0}))
-
-        lines = log_file.read_text(encoding="utf-8", errors="replace").splitlines()
-
-        _SKIP = {"Monitor initialisiert", "Monitor gestartet",
-                 "neue Signale", "Loop-Fehler", "Fehler:", "Telegram"}
-        _SRC_MAP = {
-            "BBC World": "BBC", "Al Jazeera": "AJ",
-            "AP News": "AP",   "NYT World":  "NYT",
-        }
-        _HIGH_VALUE = {"geopolitics", "us_politics", "macro", "crypto"}
-
-        news, seen = [], set()
-        for line in lines:
-            if "[RSS]" not in line or "rss_monitor" not in line:
-                continue
-            if any(w in line for w in _SKIP):
-                continue
+        articles, seen_titles = [], set()
+        for source, url in _RSS_FEEDS.items():
             try:
-                ts = line[:19]
-                rss_part = line.split("[RSS]", 1)[1].strip()
-                item_part, cats_part = (rss_part.split(" → ", 1)
-                                        if " → " in rss_part else (rss_part, "[]"))
-                if ": " not in item_part:
-                    continue
-                source_raw, title = item_part.split(": ", 1)
-                title = title.strip()[:120]
-                if not title or title in seen:
-                    continue
-                seen.add(title)
-                source = _SRC_MAP.get(source_raw.strip(), source_raw.strip()[:12])
-                cats   = _re.findall(r"'(\w+)'", cats_part)
-                news.append({
-                    "time":       ts,
-                    "source":     source,
-                    "title":      title,
-                    "categories": cats,
-                    "relevant":   bool(_HIGH_VALUE & set(cats)),
-                })
+                feed = _fp.parse(url)
+                for entry in feed.entries[:15]:
+                    title = (entry.get("title") or "").strip()[:130]
+                    if not title or title in seen_titles:
+                        continue
+                    seen_titles.add(title)
+
+                    link = entry.get("link", "")
+                    summary = (entry.get("summary") or entry.get("description") or "").strip()
+                    # Strip HTML tags from summary
+                    summary = _re.sub(r"<[^>]+>", "", summary)[:160]
+
+                    # Thumbnail: BBC + NYT have media_thumbnail
+                    thumb = ""
+                    mt = entry.get("media_thumbnail", [])
+                    if mt and isinstance(mt, list):
+                        thumb = mt[0].get("url", "")
+                    if not thumb:
+                        mc = entry.get("media_content", [])
+                        if mc and isinstance(mc, list):
+                            thumb = mc[0].get("url", "")
+
+                    # Published time
+                    pub = entry.get("published", "")
+                    try:
+                        import email.utils as _eu
+                        ts_struct = entry.get("published_parsed")
+                        if ts_struct:
+                            from datetime import datetime as _dt
+                            pub = _dt(*ts_struct[:6]).strftime("%Y-%m-%d %H:%M")
+                    except Exception:
+                        pub = pub[:16]
+
+                    # Categories
+                    text_lower = (title + " " + summary).lower()
+                    cats = [cat for cat, kws in _KEYWORDS.items()
+                            if any(kw in text_lower for kw in kws)]
+                    # deduplicate geopolitics2 → geopolitics
+                    if "geopolitics2" in cats:
+                        cats = [c for c in cats if c != "geopolitics2"] + (
+                            ["geopolitics"] if "geopolitics" not in cats else [])
+
+                    articles.append({
+                        "time":        pub,
+                        "source":      source,
+                        "title":       title,
+                        "description": summary,
+                        "url":         link,
+                        "image_url":   thumb,
+                        "categories":  cats,
+                        "relevant":    bool(_HIGH & set(cats)),
+                    })
             except Exception:
                 continue
 
-        news.reverse()          # neueste zuerst
-        news = news[:50]
+        # Sortiere nach Zeit (neueste zuerst), max 40
+        articles.sort(key=lambda x: x["time"], reverse=True)
+        articles = articles[:40]
+
+        _news_cache["ts"]   = now
+        _news_cache["data"] = articles
+
         return _cors(jsonify({
-            "news":     news,
-            "total":    len(news),
-            "relevant": sum(1 for n in news if n["relevant"]),
+            "news":     articles,
+            "total":    len(articles),
+            "relevant": sum(1 for n in articles if n["relevant"]),
+            "cached":   False,
         }))
     except Exception as e:
         return _cors(jsonify({"error": str(e), "news": [], "total": 0})), 500

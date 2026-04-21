@@ -776,6 +776,14 @@ def run_weather_scout() -> list:
         if temp_c is None:
             continue
 
+        # Multi-Model-Gate: mind. 75% Ensemble-Konsens erforderlich
+        _min_conf = float(os.getenv("WEATHER_MIN_ENSEMBLE_CONF", "0.75"))
+        if ens_conf < _min_conf:
+            logger.info(
+                f"[WeatherScout] SKIP Multi-Model: {city} "
+                f"conf={ens_conf:.0%} < {_min_conf:.0%} — GFS/ECMWF/MET uneinig")
+            continue
+
         forecast_temp = celsius_to_fahrenheit(temp_c) if unit == 'F' else temp_c
 
         logger.info(

@@ -1218,60 +1218,98 @@ async def main():
                 logger.info("[Weather] Deaktiviert (WEATHER_TRADING_ENABLED=false)")
                 return
             interval = int(os.getenv("WEATHER_SCAN_INTERVAL_SECONDS", "1800"))
-            logger.info(f"[Weather] Scout gestartet — erster Scan in 10s, dann alle {interval}s")
+            logger.info(f"[Weather] Scout gestartet — erster Scan in 10s, dann alle {interval}s + GFS/ECMWF Trigger")
             await asyncio.sleep(10)
+            _last_scan_ts = 0.0
+            _last_model_run_hour = -1  # verhindert Doppel-Trigger im gleichen Fenster
+            while True:
+                now = datetime.now(timezone.utc)
+                is_model_run = (
+                    now.hour in (0, 6, 12, 18)
+                    and 5 <= now.minute <= 10
+                    and now.hour != _last_model_run_hour
+                )
+                elapsed = asyncio.get_event_loop().time() - _last_scan_ts
+                if is_model_run or elapsed >= interval:
+                    if is_model_run:
+                        logger.info(
+                            f"[WeatherScout] 🔭 MODEL_RUN TRIGGER {now.hour:02d}:05 UTC (GFS/ECMWF)")
+                        _last_model_run_hour = now.hour
+                    try:
+                        opportunities = await asyncio.to_thread(run_weather_scout)
+                        if opportunities:
+                            summary = "\n".join(
+                                f"  {o['direction']} {o['city']} {o['forecast_temp']}°{o['unit']} "
+                                f"@ {o['price']:.2f} (Edge {o['edge']:.0%})"
+                                for o in opportunities[:5]
+                            )
+                            await send(f"🌤 <b>Weather Opportunities ({len(opportunities)})</b>\n{summary}")
+                            # Execute live trades for calibrated cities
+                            live_opps = [o for o in opportunities if not o.get('shadow_only') and o.get('token_id')]
+                            open_condition_ids = {pos.market_id for pos in engine.open_positions.values()}
+                            for opp in live_opps:
+                                try:
+                                    # Duplikat-Check: condition_id bereits im Portfolio?
+                                    if opp['condition_id'] in open_condition_ids:
+                                        logger.info(f"[Weather] SKIP Duplikat: {opp['city']} ({opp['condition_id'][:12]}...) bereits im Portfolio")
+                                        continue
+                                    from core.wallet_monitor import TradeSignal
+                                    from strategies.copy_trading import CopyOrder
+                                    _end = opp.get('end_date', '')
+                                    _closes_at = None
+                                    if _end:
+                                        try:
+                                            _closes_at = datetime.fromisoformat(_end).replace(
+                                                hour=23, minute=59, tzinfo=timezone.utc)
+                                        except Exception:
+                                            pass
+                                    sig = TradeSignal(
+                                        tx_hash=f"weather_{opp['condition_id'][:16]}_{datetime.now().strftime('%H%M%S')}",
+                                        source_wallet="[weather-bot]",
+                                        market_id=opp['condition_id'],
+                                        token_id=str(opp['token_id']),
+                                        side="BUY",
+                                        price=float(opp['price']),
+                                        size_usdc=float(config.max_trade_size_usd),
+                                        market_question=opp.get('market', opp.get('city', '')),
+                                        outcome=opp['direction'],
+                                        market_closes_at=_closes_at,
+                                    )
+                                    order = CopyOrder(signal=sig, size_usdc=float(config.max_trade_size_usd), dry_run=config.dry_run)
+                                    await on_copy_order(order)
+                                    logger.info(
+                                        f"[Weather] 🌤 LIVE ORDER routed: {opp['direction']} {opp['city']} "
+                                        f"@ {opp['price']:.3f} edge={opp['edge']:.0%}"
+                                    )
+                                except Exception as _we:
+                                    logger.error(f"[Weather] Trade-Fehler {opp.get('city','?')}: {_we}", exc_info=True)
+                    except Exception as e:
+                        logger.error(f"[Weather] Loop-Fehler: {e}", exc_info=True)
+                    _last_scan_ts = asyncio.get_event_loop().time()
+                await asyncio.sleep(60)
+
+        async def weather_exit_loop():
+            """Alle 15 Minuten: prüft ob Weather-Positionen 60% Edge eingefangen haben."""
+            from core.exit_strategy import check_weather_exit_signals
+            from core.shadow_portfolio import ShadowPortfolio
+            await asyncio.sleep(120)  # Erst nach 2 Min starten
             while True:
                 try:
-                    opportunities = await asyncio.to_thread(run_weather_scout)
-                    if opportunities:
-                        summary = "\n".join(
-                            f"  {o['direction']} {o['city']} {o['forecast_temp']}°{o['unit']} "
-                            f"@ {o['price']:.2f} (Edge {o['edge']:.0%})"
-                            for o in opportunities[:5]
+                    sp = ShadowPortfolio()
+                    alerts = check_weather_exit_signals(sp.data)
+                    for a in alerts:
+                        msg = (
+                            f"💰 <b>Weather Exit Signal</b>\n"
+                            f"Stadt: {a['city']} {a['outcome']}\n"
+                            f"Entry: {a['entry_price']:.3f} → Jetzt: {a['current_price']:.3f}\n"
+                            f"Edge eingefangen: <b>{a['edge_captured_pct']:.0%}</b>\n"
+                            f"Investiert: ${a['invested_usdc']:.2f}\n"
+                            f"<i>Kein Auto-Sell — manueller Review empfohlen</i>"
                         )
-                        await send(f"🌤 <b>Weather Opportunities ({len(opportunities)})</b>\n{summary}")
-                        # Execute live trades for calibrated cities
-                        live_opps = [o for o in opportunities if not o.get('shadow_only') and o.get('token_id')]
-                        open_condition_ids = {pos.market_id for pos in engine.open_positions.values()}
-                        for opp in live_opps:
-                            try:
-                                # Duplikat-Check: condition_id bereits im Portfolio?
-                                if opp['condition_id'] in open_condition_ids:
-                                    logger.info(f"[Weather] SKIP Duplikat: {opp['city']} ({opp['condition_id'][:12]}...) bereits im Portfolio")
-                                    continue
-                                from core.wallet_monitor import TradeSignal
-                                from strategies.copy_trading import CopyOrder
-                                _end = opp.get('end_date', '')
-                                _closes_at = None
-                                if _end:
-                                    try:
-                                        _closes_at = datetime.fromisoformat(_end).replace(
-                                            hour=23, minute=59, tzinfo=timezone.utc)
-                                    except Exception:
-                                        pass
-                                sig = TradeSignal(
-                                    tx_hash=f"weather_{opp['condition_id'][:16]}_{datetime.now().strftime('%H%M%S')}",
-                                    source_wallet="[weather-bot]",
-                                    market_id=opp['condition_id'],
-                                    token_id=str(opp['token_id']),
-                                    side="BUY",
-                                    price=float(opp['price']),
-                                    size_usdc=float(config.max_trade_size_usd),
-                                    market_question=opp.get('market', opp.get('city', '')),
-                                    outcome=opp['direction'],
-                                    market_closes_at=_closes_at,
-                                )
-                                order = CopyOrder(signal=sig, size_usdc=float(config.max_trade_size_usd), dry_run=config.dry_run)
-                                await on_copy_order(order)
-                                logger.info(
-                                    f"[Weather] 🌤 LIVE ORDER routed: {opp['direction']} {opp['city']} "
-                                    f"@ {opp['price']:.3f} edge={opp['edge']:.0%}"
-                                )
-                            except Exception as _we:
-                                logger.error(f"[Weather] Trade-Fehler {opp.get('city','?')}: {_we}", exc_info=True)
-                except Exception as e:
-                    logger.error(f"[Weather] Loop-Fehler: {e}", exc_info=True)
-                await asyncio.sleep(interval)
+                        await send(msg)
+                except Exception as _we:
+                    logger.debug(f"[WeatherExit] Check-Fehler: {_we}")
+                await asyncio.sleep(900)  # 15 Minuten
 
         async def heartbeat_loop(interval: int = 60):
             """Writes heartbeat.txt every 60s so watchdog.py can detect offline state quickly."""
@@ -1375,6 +1413,7 @@ async def main():
             asyncio.create_task(rss_monitor.run()),     # T-NEWS Phase 1B
             asyncio.create_task(x_monitor.run_loop()),   # T-X-TWITTER
             asyncio.create_task(weather_loop()),         # T-Weather
+            asyncio.create_task(weather_exit_loop()),    # T-WeatherExit
             asyncio.create_task(poll_commands(
                 callback_status=send_status_now,
                 callback_resolve=check_resolved_markets_and_notify,

@@ -11,7 +11,9 @@ ExitType:
   FLIP    — Whale flippt auf Gegenseite → Position schließen + ggf. reverse
 """
 
+import json
 import logging
+import urllib.request
 from dataclasses import dataclass, field
 from enum import Enum
 from typing import Optional
@@ -198,3 +200,81 @@ class ExitStrategy:
             if mid == market_id:
                 return pos
         return None
+
+
+def check_weather_exit_signals(shadow_data: dict) -> list:
+    """
+    Prüft laufende Weather-Positionen auf 60% Edge-Capture.
+    Kein automatischer Verkauf — gibt Alert-Liste zurück.
+
+    edge_captured = (current_price - entry_price) / (1.0 - entry_price)
+    → 60% des maximal möglichen Gewinns bereits realisierbar.
+
+    Aufrufen alle 15 Minuten aus weather_exit_loop() in main.py.
+    """
+    GAMMA_API = "https://gamma-api.polymarket.com"
+    EDGE_CAPTURE_THRESHOLD = 0.60
+
+    alerts = []
+    positions = shadow_data.get("positions", [])
+    weather_positions = [
+        p for p in positions
+        if p.get("strategy") in ("WEATHER", "BUCKET_ARB", "COMBINED")
+        and p.get("status") == "OPEN"
+    ]
+
+    if not weather_positions:
+        return []
+
+    for pos in weather_positions:
+        condition_id = pos.get("market_id", "")
+        entry_price = float(pos.get("entry_price", 0))
+        outcome = pos.get("outcome", "YES")
+        city = pos.get("city") or pos.get("question", "")[:20]
+
+        if entry_price <= 0 or entry_price >= 0.99:
+            continue
+
+        # Aktuellen Preis von Gamma API holen
+        try:
+            url = f"{GAMMA_API}/markets?conditionId={condition_id}"
+            req = urllib.request.Request(
+                url, headers={"User-Agent": "KongTradeBot/1.0"})
+            with urllib.request.urlopen(req, timeout=8) as r:
+                mkt_data = json.loads(r.read())
+            mkt = mkt_data[0] if isinstance(mkt_data, list) and mkt_data else {}
+            prices = mkt.get("outcomePrices", [])
+            outcomes = mkt.get("outcomes", ["Yes", "No"])
+            current_price = None
+            for i, oc in enumerate(outcomes):
+                if oc.upper() == outcome.upper() and i < len(prices):
+                    current_price = float(prices[i])
+                    break
+        except Exception as e:
+            logger.debug(f"[ExitStrategy] Preis-Fetch {condition_id[:14]}: {e}")
+            continue
+
+        if current_price is None or current_price <= entry_price:
+            continue
+
+        # edge_captured: wie viel % des max. möglichen Gewinns ist schon drin?
+        full_potential = 1.0 - entry_price
+        edge_captured = (current_price - entry_price) / full_potential
+
+        if edge_captured >= EDGE_CAPTURE_THRESHOLD:
+            alert = {
+                "city": city,
+                "outcome": outcome,
+                "entry_price": round(entry_price, 3),
+                "current_price": round(current_price, 3),
+                "edge_captured_pct": round(edge_captured, 3),
+                "condition_id": condition_id,
+                "invested_usdc": pos.get("invested_usdc", 0),
+            }
+            alerts.append(alert)
+            logger.info(
+                f"[ExitStrategy] 💰 60% EDGE CAPTURED: {city} {outcome} "
+                f"entry={entry_price:.3f} → now={current_price:.3f} "
+                f"captured={edge_captured:.0%} — Telegram-Alert empfohlen")
+
+    return alerts

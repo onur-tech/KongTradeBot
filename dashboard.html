@@ -4,8 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>🦍 KongTerminal</title>
+<script src="/socket.io/socket.io.js"></script>
 <style>
-/* ── RESET & BASE ───────────────────────────────────────────── */
+/* ── RESET & BASE ─────────────────────────────────────────── */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
   --bg:   #070b09;
@@ -13,212 +14,122 @@
   --bg3:  #101810;
   --border:#192619;
   --dim:  #263d2a;
-
-  --poly:       #00ff88;
-  --poly-dim:   #00a855;
-  --poly-glow:  rgba(0,255,136,.12);
-
-  --crypto:     #ffd700;
-  --crypto-dim: #a88e00;
-  --crypto-glow:rgba(255,215,0,.12);
-
-  --kalshi:     #00aaff;
-  --kalshi-dim: #006faa;
-  --kalshi-glow:rgba(0,170,255,.12);
-
-  --airdrop:    #aa00ff;
-  --airdrop-dim:#7700bb;
-  --airdrop-glow:rgba(170,0,255,.12);
-
-  --red:    #ff3d3d;
-  --orange: #ff8c00;
-  --text:   #b0ceb6;
-  --muted:  #3d5e42;
-  --mono:   'Courier New',monospace;
-
-  /* active accent – swapped by JS */
-  --acc:    var(--poly);
-  --acc-dim:var(--poly-dim);
-  --acc-gl: var(--poly-glow);
+  --poly:       #00ff88;  --poly-dim:   #00a855;  --poly-glow:  rgba(0,255,136,.12);
+  --crypto:     #ffd700;  --crypto-dim: #a88e00;  --crypto-glow:rgba(255,215,0,.12);
+  --kalshi:     #00aaff;  --kalshi-dim: #006faa;  --kalshi-glow:rgba(0,170,255,.12);
+  --airdrop:    #aa00ff;  --airdrop-dim:#7700bb;  --airdrop-glow:rgba(170,0,255,.12);
+  --auswert:    #ff8c00;  --auswert-dim:#c06000;  --auswert-glow:rgba(255,140,0,.12);
+  --red:#ff3d3d; --orange:#ff8c00; --text:#b0ceb6; --muted:#3d5e42;
+  --mono:'Courier New',monospace;
+  --acc:var(--poly); --acc-dim:var(--poly-dim); --acc-gl:var(--poly-glow);
 }
 body{
-  background:var(--bg);
-  color:var(--text);
-  font-family:var(--mono);
-  font-size:14px;
-  height:100vh;
-  overflow:hidden;
-  display:grid;
+  background:var(--bg); color:var(--text);
+  font-family:var(--mono); font-size:14px;
+  height:100vh; overflow:hidden; display:grid;
   grid-template-rows:auto auto 1fr;
-  grid-template-columns:260px 1fr 260px;
-  grid-template-areas:
-    "hdr hdr hdr"
-    "nav nav nav"
-    "sb  main rt";
+  grid-template-columns:280px 1fr 300px;
+  grid-template-areas:"hdr hdr hdr" "nav nav nav" "sb  main rt";
 }
 ::-webkit-scrollbar{width:3px}
 ::-webkit-scrollbar-track{background:var(--bg2)}
 ::-webkit-scrollbar-thumb{background:var(--dim);border-radius:2px}
 
-/* ══ HEADER ═══════════════════════════════════════════════════ */
+/* ══ HEADER ══════════════════════════════════════════════════ */
 #hdr{
-  grid-area:hdr;
-  background:var(--bg2);
-  border-bottom:1px solid var(--border);
-  display:flex;
-  align-items:center;
-  gap:22px;
-  padding:0 24px;
-  height:120px;
-  min-height:120px;
+  grid-area:hdr; background:var(--bg2); border-bottom:1px solid var(--border);
+  display:flex; align-items:center; gap:22px;
+  padding:0 24px; height:120px; min-height:120px;
 }
 #logo{
-  font-size:42px;font-weight:700;
-  color:var(--acc);text-shadow:0 0 18px var(--acc);
-  letter-spacing:2px;white-space:nowrap;
-  transition:color .3s,text-shadow .3s;
-  display:flex;align-items:center;gap:12px;
+  font-size:42px; font-weight:700; color:var(--acc);
+  text-shadow:0 0 18px var(--acc); letter-spacing:2px; white-space:nowrap;
+  transition:color .3s,text-shadow .3s; display:flex; align-items:center; gap:12px;
 }
 .livepill{
-  font-size:8px;padding:2px 6px;
-  background:rgba(0,255,136,.08);
-  border:1px solid var(--poly);
-  color:var(--poly);
-  animation:blink 1.4s infinite;
+  font-size:13px; padding:4px 8px;
+  background:rgba(0,255,136,.08); border:1px solid var(--poly); color:var(--poly);
+  animation:blink 1.4s infinite; white-space:nowrap;
 }
 @keyframes blink{0%,100%{opacity:1}50%{opacity:.45}}
-
 .hstats{display:flex;gap:28px;flex:1}
 .hs{display:flex;flex-direction:column;gap:1px}
-.hs-lbl{font-size:12px;text-transform:uppercase;letter-spacing:1px;color:var(--muted)}
-.hs-val{font-size:26px;font-weight:700;color:var(--acc);transition:color .3s}
-.pos{color:#00ff88!important}
-.neg{color:var(--red)!important}
-.warn{color:var(--orange)!important}
-
-#ctx-badge{
-  margin-left:auto;font-size:12px;letter-spacing:1px;
-  padding:3px 10px;font-weight:700;
-  transition:all .25s;
-}
+.hs-lbl{font-size:13px;text-transform:uppercase;letter-spacing:1px;color:var(--muted)}
+.hs-val{font-size:24px;font-weight:700;color:var(--acc);transition:color .3s}
+.pos{color:#00ff88!important} .neg{color:var(--red)!important} .warn{color:var(--orange)!important}
+#ctx-badge{margin-left:auto;font-size:12px;letter-spacing:1px;padding:3px 10px;font-weight:700;transition:all .25s}
 #clock{font-size:12px;color:var(--muted);white-space:nowrap}
-
 .kill{
-  background:transparent;
-  border:1px solid var(--red);
-  color:var(--red);
-  font-family:var(--mono);font-size:15px;
-  padding:9px 18px;cursor:pointer;
-  letter-spacing:1px;
-  animation:kr 2s infinite;
-  transition:all .15s;
+  background:transparent; border:1px solid var(--red); color:var(--red);
+  font-family:var(--mono); font-size:15px; padding:9px 18px; cursor:pointer;
+  letter-spacing:1px; animation:kr 2s infinite; transition:all .15s;
 }
 .kill:hover{background:rgba(255,61,61,.15);box-shadow:0 0 18px rgba(255,61,61,.5)}
 @keyframes kr{0%,100%{box-shadow:0 0 4px rgba(255,61,61,.2)}50%{box-shadow:0 0 14px rgba(255,61,61,.5)}}
 
 /* ══ NAV ══════════════════════════════════════════════════════ */
-#nav{
-  grid-area:nav;background:var(--bg2);
-  border-bottom:1px solid var(--border);
-}
+#nav{grid-area:nav;background:var(--bg2);border-bottom:1px solid var(--border)}
 #plat-bar{display:flex;gap:2px;padding:4px 12px 0;height:52px;align-items:flex-end}
 .ptab{
-  background:transparent;
-  border:1px solid var(--border);border-bottom:none;
-  color:var(--muted);font-family:var(--mono);font-size:18px;
-  padding:14px 24px;cursor:pointer;letter-spacing:.8px;
-  transition:all .15s;display:flex;align-items:center;gap:5px;
+  background:transparent; border:1px solid var(--border); border-bottom:none;
+  color:var(--muted); font-family:var(--mono); font-size:18px;
+  padding:14px 24px; cursor:pointer; letter-spacing:.8px;
+  transition:all .15s; display:flex; align-items:center; gap:5px;
 }
 .ptab:hover{color:var(--text);border-color:var(--dim)}
-.ptab .pill{font-size:7px;padding:1px 4px;border-radius:2px;background:var(--dim);color:var(--muted)}
+.ptab .pill{font-size:9px;padding:1px 4px;border-radius:2px;background:var(--dim);color:var(--muted)}
 .ptab.plive .pill{background:rgba(0,255,136,.1);color:var(--poly);border:1px solid var(--poly)}
-
-/* active colour is set inline by JS */
 .ptab.active{border-bottom:none}
-
-#strat-bar{
-  display:flex;gap:4px;
-  padding:4px 12px;
-  background:var(--bg3);
-  border-top:1px solid var(--border);
-  min-height:28px;
-}
+#strat-bar{display:flex;gap:4px;padding:4px 12px;background:var(--bg3);border-top:1px solid var(--border);min-height:36px;flex-wrap:wrap}
 .stab{
-  background:transparent;
-  border:1px solid transparent;
-  color:var(--muted);font-family:var(--mono);font-size:16px;
-  padding:10px 18px;cursor:pointer;letter-spacing:.5px;
-  border-radius:2px;display:flex;align-items:center;gap:5px;
-  transition:all .15s;
+  background:transparent; border:1px solid transparent;
+  color:var(--muted); font-family:var(--mono); font-size:16px;
+  padding:10px 18px; cursor:pointer; letter-spacing:.5px;
+  border-radius:2px; display:flex; align-items:center; gap:5px; transition:all .15s;
 }
 .stab.slive{color:var(--text);border-color:var(--border)}
 .stab.slive:hover{border-color:var(--acc);color:var(--acc)}
 .stab.slive.active{border-color:var(--acc);color:var(--acc);background:var(--acc-gl)}
-.stab.splanned{opacity:.38;cursor:default}
-.pbadge{font-size:7px;padding:1px 4px;background:var(--dim);color:var(--muted);border-radius:2px}
+.stab.splanned{opacity:.7;cursor:default;color:#888;font-size:15px}
+.pbadge{font-size:9px;padding:1px 4px;background:var(--dim);color:var(--muted);border-radius:2px}
 
 /* ══ LEFT SIDEBAR ════════════════════════════════════════════ */
-#sb{
-  grid-area:sb;background:var(--bg2);
-  border-right:1px solid var(--border);
-  overflow-y:auto;padding:12px;
-  display:flex;flex-direction:column;gap:14px;
-}
+#sb{grid-area:sb;background:var(--bg2);border-right:1px solid var(--border);overflow-y:auto;padding:12px;display:flex;flex-direction:column;gap:14px}
 .sect{display:flex;flex-direction:column;gap:10px}
-.stitle{
-  font-size:13px;text-transform:uppercase;letter-spacing:2px;
-  color:var(--muted);border-bottom:1px solid var(--border);
-  padding-bottom:3px;
-}
-
+.stitle{font-size:13px;text-transform:uppercase;letter-spacing:2px;color:var(--muted);border-bottom:1px solid var(--border);padding-bottom:3px}
 .arow{display:flex;flex-direction:column;gap:2px}
 .albl{display:flex;justify-content:space-between;font-size:13px}
 .abar{height:4px;background:var(--dim);border-radius:2px;overflow:hidden}
 .afill{height:100%;border-radius:2px;transition:width .5s}
-.fp{background:var(--poly);   box-shadow:0 0 6px var(--poly)}
-.fc{background:var(--crypto); box-shadow:0 0 6px var(--crypto)}
-.fk{background:var(--kalshi); box-shadow:0 0 6px var(--kalshi)}
+.fp{background:var(--poly);box-shadow:0 0 6px var(--poly)}
+.fc{background:var(--crypto);box-shadow:0 0 6px var(--crypto)}
+.fk{background:var(--kalshi);box-shadow:0 0 6px var(--kalshi)}
 .fa{background:var(--airdrop);box-shadow:0 0 6px var(--airdrop)}
 .fm{background:var(--muted)}
-
 .rrow{display:flex;flex-direction:column;gap:2px;margin-bottom:5px}
 .rlbl{display:flex;justify-content:space-between;font-size:13px}
 .rbar{height:5px;background:var(--dim);border-radius:3px;overflow:hidden}
 .rfill{height:100%;border-radius:3px}
-.rok  {background:var(--poly)}
-.rwarn{background:var(--orange)}
-.rdng {background:var(--red);animation:kr 1s infinite}
-
+.rok{background:var(--poly)} .rwarn{background:var(--orange)} .rdng{background:var(--red);animation:kr 1s infinite}
 .kv{display:flex;justify-content:space-between;font-size:13px;color:var(--muted);margin-top:3px}
-.kv span:last-child{color:var(--text);font-size:16px}
-.ks-off{font-size:8px;color:var(--poly);border:1px solid var(--poly);padding:1px 5px;border-radius:2px}
+.kv span:last-child{color:var(--text);font-size:15px}
+.ks-off{font-size:9px;color:var(--poly);border:1px solid var(--poly);padding:1px 5px;border-radius:2px}
 
 /* ══ MAIN ════════════════════════════════════════════════════ */
-#main{grid-area:main;overflow-y:auto;padding:18px;display:flex;flex-direction:column;gap:16px}
+#main{grid-area:main;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:16px}
 .panel{display:none;flex-direction:column;gap:16px}
 .panel.active{display:flex}
-
-/* grid layouts */
 .g2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 .g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
 .g6{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-
-/* widget */
-.w{background:var(--bg2);border:1px solid var(--border);padding:12px 14px;border-radius:2px;min-height:90px}
+.w{background:var(--bg2);border:1px solid var(--border);padding:12px 14px;border-radius:2px;min-height:100px}
 .w.acp{border-color:color-mix(in srgb,var(--acc) 25%,transparent)}
-.wtitle{
-  font-size:11px;text-transform:uppercase;letter-spacing:1.5px;
-  color:var(--muted);margin-bottom:9px;
-  display:flex;align-items:center;gap:5px;
-}
+.wtitle{font-size:11px;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);margin-bottom:9px;display:flex;align-items:center;gap:5px}
 .dot{width:5px;height:5px;border-radius:50%;background:var(--acc);box-shadow:0 0 5px var(--acc);transition:background .3s,box-shadow .3s}
-
-.big{font-size:44px;font-weight:700;color:var(--acc);line-height:1;transition:color .3s}
+.big{font-size:40px;font-weight:700;color:var(--acc);line-height:1;transition:color .3s}
 .sub{font-size:13px;color:var(--muted);margin-top:5px}
 .cbar{height:7px;background:var(--dim);border-radius:4px;overflow:hidden;margin:5px 0}
 .cfill{height:100%;border-radius:4px}
-
-/* station cards */
 .scard{background:var(--bg3);border:1px solid var(--border);padding:16px;border-radius:2px;min-height:170px}
 .sicao{font-size:16px;color:var(--acc);font-weight:700;transition:color .3s}
 .scity{font-size:12px;color:var(--muted);margin-bottom:6px}
@@ -226,210 +137,180 @@ body{
 .sfcast{font-size:12px;color:var(--muted);margin-top:5px}
 .chips{display:flex;gap:3px;margin-top:4px;flex-wrap:wrap}
 .chip{font-size:10px;padding:2px 6px;border-radius:2px;border:1px solid}
-.cok{border-color:var(--poly);color:var(--poly)}
-.csp{border-color:var(--orange);color:var(--orange)}
-.cna{border-color:var(--dim);color:var(--muted)}
-
-/* tables */
-.t{width:100%;border-collapse:collapse;font-size:13px}
-.t th{text-align:left;color:var(--muted);font-weight:400;font-size:11px;
-       padding:3px 5px;border-bottom:1px solid var(--border);text-transform:uppercase;letter-spacing:1px}
-.t td{padding:10px 8px;border-bottom:1px solid var(--border);line-height:1.7}
+.cok{border-color:var(--poly);color:var(--poly)} .csp{border-color:var(--orange);color:var(--orange)} .cna{border-color:var(--dim);color:var(--muted)}
+.t{width:100%;border-collapse:collapse;font-size:14px}
+.t th{text-align:left;color:var(--muted);font-weight:700;font-size:12px;padding:4px 6px;border-bottom:1px solid var(--border);text-transform:uppercase;letter-spacing:1px}
+.t td{padding:10px 8px;border-bottom:1px solid var(--border);line-height:1.6}
 .t tr:hover td{background:var(--bg3)}
-.twrap{overflow-y:auto;max-height:190px}
-
-.badge{font-size:7px;padding:1px 5px;border-radius:2px;display:inline-block;letter-spacing:.5px}
+.twrap{overflow-y:auto;max-height:280px}
+.badge{font-size:8px;padding:2px 5px;border-radius:2px;display:inline-block;letter-spacing:.5px}
 .by{background:rgba(0,255,136,.1);border:1px solid var(--poly);color:var(--poly)}
 .bn{background:rgba(255,61,61,.1);border:1px solid var(--red);color:var(--red)}
 .bw{background:rgba(255,140,0,.1);border:1px solid var(--orange);color:var(--orange)}
 .bp{background:rgba(0,255,136,.1);border:1px solid var(--poly);color:var(--poly)}
 .bf{background:rgba(255,61,61,.1);border:1px solid var(--red);color:var(--red)}
-
-/* kelly rows */
 .kr{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border);font-size:13px;line-height:1.6}
 .kr:last-child{border-bottom:none}
-.kl{color:var(--muted)}.kv2{color:var(--acc);font-weight:700}
-
-/* geo rows */
+.kl{color:var(--muted)} .kv2{color:var(--acc);font-weight:700}
 .gr{display:flex;gap:10px;align-items:center;padding:10px 0;border-bottom:1px solid var(--border);font-size:13px}
 .gr:last-child{border-bottom:none}
-.gf{font-size:20px}
-.gi{flex:1}
-.gm{color:var(--text)}
-.gsb{color:var(--muted);font-size:11px}
-.gp{color:var(--acc);font-weight:700;font-size:12px;transition:color .3s}
-.ge{font-size:8px;color:var(--poly)}
-
-/* planned card */
-.planned{
-  border:1px solid var(--dim);padding:22px;border-radius:2px;
-  background:var(--bg2);position:relative;overflow:hidden;
-}
-.planned::before{
-  content:'';position:absolute;inset:0;
-  background:repeating-linear-gradient(
-    45deg,transparent,transparent 10px,
-    rgba(255,255,255,.008) 10px,rgba(255,255,255,.008) 11px
-  );
-}
+.gf{font-size:20px} .gi{flex:1} .gm{color:var(--text)} .gsb{color:var(--muted);font-size:11px}
+.gp{color:var(--acc);font-weight:700;font-size:12px;transition:color .3s} .ge{font-size:8px;color:var(--poly)}
+.planned{border:1px solid var(--dim);padding:22px;border-radius:2px;background:var(--bg2);position:relative;overflow:hidden}
+.planned::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(45deg,transparent,transparent 10px,rgba(255,255,255,.008) 10px,rgba(255,255,255,.008) 11px)}
 .ptitle{font-size:20px;color:var(--muted);margin-bottom:6px}
-.pphase{
-  font-size:12px;display:inline-block;
-  background:var(--dim);color:var(--muted);
-  padding:3px 9px;margin-bottom:12px;border-radius:2px;
-}
+.pphase{font-size:12px;display:inline-block;background:var(--dim);color:var(--muted);padding:3px 9px;margin-bottom:12px;border-radius:2px}
 .pmeta{display:flex;gap:18px;margin-bottom:12px;font-size:9px}
 .pmeta-item{display:flex;flex-direction:column;gap:2px}
-.pmeta-lbl{color:var(--muted)}
-.pmeta-val{color:var(--text)}
+.pmeta-lbl{color:var(--muted)} .pmeta-val{color:var(--text)}
 .pnotes{font-size:9px;color:var(--muted);line-height:1.8}
 .pnotes li{list-style:none;padding-left:12px}
 .pnotes li::before{content:'› ';color:var(--acc-dim)}
+.rsec{margin-bottom:14px}
+.rtitle{font-size:11px;text-transform:uppercase;letter-spacing:2px;color:var(--muted);border-bottom:1px solid var(--border);padding-bottom:3px;margin-bottom:10px}
+.rgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:8px}
+.rbox{background:var(--bg3);border:1px solid var(--border);padding:10px 12px}
+.rbox-lbl{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px}
+.rbox-val{font-size:20px;font-weight:700;color:var(--acc)}
+.ft{width:100%;border-collapse:collapse;font-size:13px}
+.ft th{text-align:left;color:var(--muted);font-weight:700;font-size:11px;padding:4px 6px;border-bottom:1px solid var(--border);text-transform:uppercase}
+.ft td{padding:8px 6px;border-bottom:1px solid var(--border)}
+.ft tr:hover td{background:var(--bg3)}
+.eline{font-size:11px;color:var(--red);padding:4px 0;border-bottom:1px solid var(--border)}
+.eline:last-child{border-bottom:none}
+.sig-row{display:flex;flex-wrap:wrap;align-items:center;gap:6px;padding:8px 0;border-bottom:1px solid var(--border);font-size:12px}
+.sig-row:last-child{border-bottom:none}
+.sig-time{color:var(--muted);font-size:11px;min-width:50px}
+.sig-badge{font-size:9px;padding:2px 5px;border-radius:2px;border:1px solid}
+.sig-copy{border-color:var(--poly);color:var(--poly);background:rgba(0,255,136,.08)}
+.sig-weather{border-color:var(--kalshi);color:var(--kalshi);background:rgba(0,170,255,.08)}
+.sig-rss{border-color:var(--orange);color:var(--orange);background:rgba(255,140,0,.08)}
+.sig-anomaly{border-color:var(--red);color:var(--red);background:rgba(255,61,61,.08)}
+.sig-action{font-size:9px;padding:2px 5px;border-radius:2px}
+.sig-action-kopiert{color:#00ff88;border:1px solid #00ff88;background:rgba(0,255,136,.08)}
+.sig-action-dry-run{color:#ffd700;border:1px solid #ffd700;background:rgba(255,215,0,.08)}
+.sig-action-blockiert{color:var(--red);border:1px solid var(--red);background:rgba(255,61,61,.08)}
+.sig-msg{color:var(--text);flex:1}
+.sig-reason{color:var(--muted);font-size:11px}
 
 /* ══ RIGHT SIDEBAR ═══════════════════════════════════════════ */
-#rt{
-  grid-area:rt;background:var(--bg2);
-  border-left:1px solid var(--border);
-  overflow-y:auto;padding:12px;
-  display:flex;flex-direction:column;gap:14px;
-}
+#rt{grid-area:rt;background:var(--bg2);border-left:1px solid var(--border);overflow-y:auto;padding:12px;display:flex;flex-direction:column;gap:14px}
 .ri{display:flex;flex-direction:column;gap:2px;padding:8px 0;border-bottom:1px solid var(--border)}
 .ri:last-child{border-bottom:none}
 .rmkt{font-size:14px;color:var(--text);line-height:1.3}
 .rmeta{display:flex;justify-content:space-between;font-size:13px;color:var(--muted)}
 .rtimer{color:var(--orange);font-weight:700;font-size:15px}
 .rtimer.urg{color:var(--red);animation:blink .8s infinite}
-
-.svc{display:flex;justify-content:space-between;align-items:center;padding:3px 0;font-size:9px}
-.svn{color:var(--muted)}
-.svd{width:6px;height:6px;border-radius:50%}
-.sv-ok{background:var(--poly);box-shadow:0 0 4px var(--poly)}
-.sv-wn{background:var(--orange)}
-.sv-dn{background:var(--red);animation:kr 1s infinite}
-.svl{color:var(--muted);font-size:8px}
-
-.ti{padding:5px 0;border-bottom:1px solid var(--border);font-size:9px}
+.svc{display:flex;justify-content:space-between;align-items:center;padding:4px 0;font-size:12px}
+.svn{color:var(--muted)} .svl{color:var(--muted);font-size:11px}
+.svd{width:7px;height:7px;border-radius:50%}
+.sv-ok{background:var(--poly);box-shadow:0 0 4px var(--poly)} .sv-wn{background:var(--orange)} .sv-dn{background:var(--red);animation:kr 1s infinite}
+.ti{padding:6px 0;border-bottom:1px solid var(--border);font-size:12px}
 .ti:last-child{border-bottom:none}
-.th{display:flex;justify-content:space-between;margin-bottom:1px}
-.tm{color:var(--text)}.tt{color:var(--muted);font-size:8px}
-.tb{color:var(--muted);font-size:8px;line-height:1.4}
+.th{display:flex;justify-content:space-between;margin-bottom:2px}
+.tm{color:var(--text)} .tt{color:var(--muted);font-size:11px}
+.tb{color:var(--muted);font-size:11px;line-height:1.4}
+
+/* ══ TOAST ═══════════════════════════════════════════════════ */
+#toast{position:fixed;bottom:20px;right:20px;z-index:9999;display:flex;flex-direction:column;gap:6px}
+.toast{font-family:var(--mono);font-size:12px;padding:8px 14px;border-radius:2px;border:1px solid;animation:fadeIn .2s}
+.toast.win{background:rgba(0,255,136,.1);border-color:var(--poly);color:var(--poly)}
+.toast.error{background:rgba(255,61,61,.1);border-color:var(--red);color:var(--red)}
+.toast.info{background:rgba(255,140,0,.1);border-color:var(--orange);color:var(--orange)}
+@keyframes fadeIn{from{opacity:0;transform:translateX(10px)}to{opacity:1;transform:translateX(0)}}
+
+/* ══ AUSWERTUNG styles ════════════════════════════════════════ */
+.wcard{background:var(--bg3);border:1px solid var(--border);padding:12px 14px;border-radius:2px;margin-bottom:4px}
+.wname{font-size:13px;color:var(--text);font-weight:700}
+.waddr{font-size:11px;color:var(--muted);font-family:monospace}
+.wmult{font-size:16px;font-weight:700}
+.mult-row{display:flex;align-items:center;gap:8px;margin-top:6px}
+.mult-slider{flex:1;accent-color:var(--acc)}
+.mult-val{font-size:13px;color:var(--acc);min-width:36px;text-align:right}
+.mult-save{background:transparent;border:1px solid var(--dim);color:var(--muted);font-family:var(--mono);font-size:11px;padding:3px 8px;cursor:pointer;border-radius:2px}
+.mult-save:hover{border-color:var(--acc);color:var(--acc)}
+.chart-wrap{height:240px;position:relative}
+.time-btns{display:flex;gap:6px}
+.time-btn{background:transparent;border:1px solid var(--dim);color:var(--muted);font-family:var(--mono);font-size:11px;padding:3px 10px;cursor:pointer;border-radius:2px}
+.time-btn.active{border-color:var(--acc);color:var(--acc)}
 </style>
 </head>
 <body>
+<div id="toast"></div>
 
 <!-- ══════════ HEADER ══════════════════════════════════════════ -->
 <header id="hdr">
-  <div id="logo"><img src="/static/logo.png" alt="Kong" style="height:60px;width:60px;border-radius:50%;object-fit:cover;vertical-align:middle;margin-right:7px">KONGTERMINAL</div>
-  <span class="livepill">● LIVE</span>
-
-  <div class="hstats">
-    <div class="hs">
-      <span class="hs-lbl">Portfolio</span>
-      <span class="hs-val">$776.60</span>
-    </div>
-    <div class="hs">
-      <span class="hs-lbl">Heute P&L</span>
-      <span class="hs-val pos">+$91.23</span>
-    </div>
-    <div class="hs">
-      <span class="hs-lbl">Win Rate (30T)</span>
-      <span class="hs-val">55.1%</span>
-    </div>
-    <div class="hs">
-      <span class="hs-lbl">Positionen</span>
-      <span class="hs-val">16</span>
-    </div>
-    <div class="hs">
-      <span class="hs-lbl">Drawdown heute</span>
-      <span class="hs-val pos">$0.00</span>
-    </div>
-    <div class="hs">
-      <span class="hs-lbl">Daily Loss Cap</span>
-      <span class="hs-val">$8.50 / $100</span>
-    </div>
-    <div class="hs">
-      <span class="hs-lbl">Mode</span>
-      <span class="hs-val neg">LIVE</span>
-    </div>
+  <div id="logo">
+    <img src="/static/logo.png" alt="Kong" style="height:80px;width:80px;border-radius:50%;object-fit:cover;vertical-align:middle;margin-right:7px">
+    KONGTERMINAL
   </div>
-
+  <span class="livepill" id="livepill">● LIVE</span>
+  <div class="hstats">
+    <div class="hs"><span class="hs-lbl">Portfolio</span><span class="hs-val" id="h-portfolio">$—</span></div>
+    <div class="hs"><span class="hs-lbl">Heute P&L</span><span class="hs-val" id="h-pnl">—</span></div>
+    <div class="hs"><span class="hs-lbl">Win Rate</span><span class="hs-val" id="h-winrate">—</span></div>
+    <div class="hs"><span class="hs-lbl">Positionen</span><span class="hs-val" id="h-positions">—</span></div>
+    <div class="hs"><span class="hs-lbl">Daily Loss</span><span class="hs-val" id="h-dloss">—</span></div>
+    <div class="hs"><span class="hs-lbl">Modus</span><span class="hs-val" id="h-mode">—</span></div>
+  </div>
   <div id="ctx-badge" style="border:1px solid var(--poly);background:var(--poly-glow);color:var(--poly)">POLYMARKET</div>
-  <span id="clock" class="svl">—</span>
-  <button class="kill" onclick="killAll()">🔴 KILL ALL</button>
+  <span id="clock" style="font-size:12px;color:var(--muted);white-space:nowrap">—</span>
+  <button class="kill" onclick="killAll()">🔴 KILL</button>
 </header>
 
 <!-- ══════════ NAV ══════════════════════════════════════════════ -->
 <div id="nav">
   <div id="plat-bar">
     <button class="ptab plive active" data-p="poly"    onclick="switchPlat('poly')"   >📊 POLYMARKET <span class="pill" style="background:rgba(0,255,136,.1);color:var(--poly);border:1px solid var(--poly)">LIVE</span></button>
-    <button class="ptab"             data-p="crypto"  onclick="switchPlat('crypto')" >💰 CRYPTO     <span class="pill">PLANNED</span></button>
-    <button class="ptab"             data-p="kalshi"  onclick="switchPlat('kalshi')" >⚡ KALSHI     <span class="pill">PLANNED</span></button>
-    <button class="ptab"             data-p="airdrop" onclick="switchPlat('airdrop')">🪂 AIRDROP    <span class="pill">PLANNED</span></button>
+    <button class="ptab"             data-p="auswert" onclick="switchPlat('auswert')">📈 AUSWERTUNG <span class="pill">LIVE</span></button>
+    <button class="ptab"             data-p="crypto"  onclick="switchPlat('crypto')" >💰 CRYPTO <span class="pill">PLANNED</span></button>
+    <button class="ptab"             data-p="kalshi"  onclick="switchPlat('kalshi')" >⚡ KALSHI <span class="pill">PLANNED</span></button>
+    <button class="ptab"             data-p="airdrop" onclick="switchPlat('airdrop')">🪂 AIRDROP <span class="pill">PLANNED</span></button>
   </div>
   <div id="strat-bar"></div>
 </div>
 
 <!-- ══════════ LEFT SIDEBAR ════════════════════════════════════ -->
 <aside id="sb">
-
   <div class="sect">
     <div class="stitle">Portfolio Allokation</div>
     <div class="arow">
-      <div class="albl"><span style="color:var(--poly)">📊 Polymarket</span><span style="color:var(--poly)">$413 · 85%</span></div>
-      <div class="abar"><div class="afill fp" style="width:85%"></div></div>
+      <div class="albl"><span style="color:var(--poly)">📊 Polymarket</span><span id="sb-poly-alloc" style="color:var(--poly)">—</span></div>
+      <div class="abar"><div class="afill fp" id="sb-poly-bar" style="width:0%"></div></div>
     </div>
     <div class="arow">
       <div class="albl"><span>💰 Crypto</span><span style="color:var(--muted)">$0 · 0%</span></div>
       <div class="abar"><div class="afill fc" style="width:0%"></div></div>
-      <span style="font-size:7px;color:var(--muted)">PLANNED</span>
     </div>
     <div class="arow">
-      <div class="albl"><span>⚡ Kalshi</span><span style="color:var(--muted)">$0 · 0%</span></div>
-      <div class="abar"><div class="afill fk" style="width:0%"></div></div>
-      <span style="font-size:7px;color:var(--muted)">PLANNED</span>
-    </div>
-    <div class="arow">
-      <div class="albl"><span>🪂 Airdrop</span><span style="color:var(--muted)">$0 · 0%</span></div>
-      <div class="abar"><div class="afill fa" style="width:0%"></div></div>
-      <span style="font-size:7px;color:var(--muted)">PLANNED</span>
-    </div>
-    <div class="arow">
-      <div class="albl"><span style="color:var(--muted)">💵 Cash</span><span style="color:var(--muted)">$364 · 15%</span></div>
-      <div class="abar"><div class="afill fm" style="width:15%"></div></div>
+      <div class="albl"><span>💵 Cash</span><span id="sb-cash" style="color:var(--muted)">—</span></div>
+      <div class="abar"><div class="afill fm" id="sb-cash-bar" style="width:0%"></div></div>
     </div>
   </div>
-
   <div class="sect">
     <div class="stitle">Global Risk</div>
     <div class="rrow">
-      <div class="rlbl"><span>Daily Loss</span><span style="color:var(--poly)">$8.50 / $100</span></div>
-      <div class="rbar"><div class="rfill rok" style="width:8.5%"></div></div>
+      <div class="rlbl"><span>Daily Loss</span><span id="sb-dloss-lbl" style="color:var(--poly)">—</span></div>
+      <div class="rbar"><div class="rfill rok" id="sb-dloss-bar" style="width:0%"></div></div>
     </div>
     <div class="rrow">
-      <div class="rlbl"><span>Exposure</span><span style="color:var(--orange)">$413 / $776</span></div>
-      <div class="rbar"><div class="rfill rwarn" style="width:53%"></div></div>
+      <div class="rlbl"><span>Exposure</span><span id="sb-exposure-lbl" style="color:var(--orange)">—</span></div>
+      <div class="rbar"><div class="rfill rwarn" id="sb-exposure-bar" style="width:0%"></div></div>
     </div>
-    <div class="rrow">
-      <div class="rlbl"><span>Largest Position</span><span style="color:var(--poly)">$48</span></div>
-      <div class="rbar"><div class="rfill rok" style="width:62%"></div></div>
-    </div>
-    <div class="kv"><span>Total Exposure</span><span>$413</span></div>
-    <div class="kv"><span>Drawdown Heute</span><span style="color:var(--poly)">$0.00</span></div>
-    <div class="kv"><span>Offene Positionen</span><span>16</span></div>
-    <div class="kv"><span>Kill-Switch</span><span class="ks-off">● OFF</span></div>
-    <div class="kv"><span>Avg Slippage</span><span style="color:var(--orange)">0.4%</span></div>
+    <div class="kv"><span>Investiert</span><span id="sb-invested">—</span></div>
+    <div class="kv"><span>Offene Positionen</span><span id="sb-open-pos">—</span></div>
+    <div class="kv"><span>Kill-Switch</span><span id="sb-ks" class="ks-off">● OFF</span></div>
+    <div class="kv"><span>Bot Uptime</span><span id="sb-uptime">—</span></div>
+    <div class="kv"><span>Heartbeat</span><span id="sb-hb">—</span></div>
   </div>
-
   <div class="sect">
     <div class="stitle">Bot Status</div>
-    <div class="kv"><span>Uptime</span><span>14h 32m</span></div>
-    <div class="kv"><span>Monitor Cycle</span><span>10s</span></div>
-    <div class="kv"><span>Letztes Signal</span><span style="color:var(--poly)">2m ago</span></div>
-    <div class="kv"><span>Resolver</span><span style="color:var(--poly)">● OK</span></div>
-    <div class="kv"><span>Telegram</span><span style="color:var(--poly)">● OK</span></div>
-    <div class="kv"><span>Heute Fills</span><span>23</span></div>
+    <div class="kv"><span>WebSocket</span><span id="sb-ws">—</span></div>
+    <div class="kv"><span>Letzter Trade</span><span id="sb-lasttrade">—</span></div>
+    <div class="kv"><span>Resolver</span><span id="sb-resolver">—</span></div>
+    <div class="kv"><span>CPU / RAM</span><span id="sb-sysload">—</span></div>
+    <div class="kv"><span>Weather</span><span id="sb-weather">—</span></div>
   </div>
-
 </aside>
 
 <!-- ══════════ MAIN CONTENT ═════════════════════════════════════ -->
@@ -440,465 +321,367 @@ body{
     <div class="g3">
       <div class="w acp">
         <div class="wtitle"><div class="dot"></div>Aktive Weather Bets</div>
-        <div class="big">8</div>
-        <div class="sub">NYC(2) LON(2) SEO(1) TYO(1) CHI(1) PAR(1)</div>
+        <div class="big" id="pw-count">—</div>
+        <div class="sub" id="pw-cities">Lade...</div>
       </div>
       <div class="w acp">
         <div class="wtitle"><div class="dot"></div>Unrealized P&L</div>
-        <div class="big pos">+$47.20</div>
-        <div class="sub">↑ +11.4% auf $413 deployed</div>
+        <div class="big pos" id="pw-pnl">—</div>
+        <div class="sub" id="pw-pnl-sub">—</div>
       </div>
       <div class="w acp">
-        <div class="wtitle"><div class="dot"></div>Avg Ensemble Conf</div>
-        <div class="big" style="color:var(--orange)">0.64</div>
-        <div class="sub">Gate: 0.55 — 7/8 über Gate</div>
-        <div class="cbar"><div class="cfill" style="width:64%;background:var(--orange)"></div></div>
+        <div class="wtitle"><div class="dot"></div>Weather Modus</div>
+        <div class="big" id="pw-mode">—</div>
+        <div class="sub" id="pw-sub">—</div>
       </div>
     </div>
-
     <div class="w">
       <div class="wtitle"><div class="dot"></div>Tier-1 Stationen — Live Forecast</div>
-      <div class="g6">
-        <div class="scard">
-          <div class="sicao">KLGA</div><div class="scity">New York City</div>
-          <div class="stemp">58°F</div>
-          <div class="sfcast">GFS:57 HRRR:59 ECMWF:58</div>
-          <div class="chips">
-            <span class="chip cok">GFS ✓</span>
-            <span class="chip cok">HRRR ✓</span>
-            <span class="chip cok">ECMWF ✓</span>
-          </div>
-        </div>
-        <div class="scard">
-          <div class="sicao">EGLC</div><div class="scity">London City</div>
-          <div class="stemp">13°C</div>
-          <div class="sfcast">ECMWF:13 ICON:12 GFS:14</div>
-          <div class="chips">
-            <span class="chip cok">ECMWF ✓</span>
-            <span class="chip csp">ICON ±</span>
-            <span class="chip cok">GFS ✓</span>
-          </div>
-        </div>
-        <div class="scard">
-          <div class="sicao">RKSI</div><div class="scity">Seoul Incheon</div>
-          <div class="stemp">9°C</div>
-          <div class="sfcast">GFS:9 (bias −1.98) → 7.0</div>
-          <div class="chips">
-            <span class="chip cok">GFS ✓ b</span>
-            <span class="chip cok">ECMWF ✓</span>
-          </div>
-        </div>
-        <div class="scard">
-          <div class="sicao">KORD</div><div class="scity">Chicago O'Hare</div>
-          <div class="stemp">52°F</div>
-          <div class="sfcast">GFS:51 HRRR:53 NAM:52</div>
-          <div class="chips">
-            <span class="chip cok">GFS ✓</span>
-            <span class="chip cok">HRRR ✓</span>
-            <span class="chip cna">NAM —</span>
-          </div>
-        </div>
-        <div class="scard">
-          <div class="sicao">RJTT</div><div class="scity">Tokyo Haneda</div>
-          <div class="stemp">18°C</div>
-          <div class="sfcast">ECMWF:18 GFS:19 ICON:17</div>
-          <div class="chips">
-            <span class="chip cok">ECMWF ✓</span>
-            <span class="chip csp">GFS ±</span>
-            <span class="chip csp">ICON ±</span>
-          </div>
-        </div>
-        <div class="scard">
-          <div class="sicao">LFPG</div><div class="scity">Paris CDG</div>
-          <div class="stemp">15°C</div>
-          <div class="sfcast">ECMWF:15 ICON:15 GFS:16</div>
-          <div class="chips">
-            <span class="chip cok">ECMWF ✓</span>
-            <span class="chip cok">ICON ✓</span>
-            <span class="chip cna">GFS —</span>
-          </div>
-        </div>
+      <div class="g6" id="pw-stations">
+        <div class="scard"><div class="sicao">KLGA</div><div class="scity">New York City</div><div class="stemp">—°F</div><div class="sfcast">Lade...</div></div>
+        <div class="scard"><div class="sicao">EGLC</div><div class="scity">London City</div><div class="stemp">—°C</div><div class="sfcast">Lade...</div></div>
+        <div class="scard"><div class="sicao">RKSI</div><div class="scity">Seoul Incheon</div><div class="stemp">—°C</div><div class="sfcast">Lade...</div></div>
+        <div class="scard"><div class="sicao">KORD</div><div class="scity">Chicago O'Hare</div><div class="stemp">—°F</div><div class="sfcast">Lade...</div></div>
+        <div class="scard"><div class="sicao">RJTT</div><div class="scity">Tokyo Haneda</div><div class="stemp">—°C</div><div class="sfcast">Lade...</div></div>
+        <div class="scard"><div class="sicao">LFPG</div><div class="scity">Paris CDG</div><div class="stemp">—°C</div><div class="sfcast">Lade...</div></div>
       </div>
     </div>
-
     <div class="g2">
       <div class="w">
-        <div class="wtitle"><div class="dot"></div>Aktive Positionen (8)</div>
-        <div class="twrap">
-          <table class="t">
-            <thead><tr><th>Markt</th><th>Side</th><th>Entry</th><th>Now</th><th>P&L</th></tr></thead>
-            <tbody>
-              <tr><td>NYC &gt;60°F</td><td><span class="badge by">YES</span></td><td>0.38</td><td>0.52</td><td class="pos">+$6.72</td></tr>
-              <tr><td>NYC &lt;62°F</td><td><span class="badge by">YES</span></td><td>0.44</td><td>0.61</td><td class="pos">+$8.50</td></tr>
-              <tr><td>LON &gt;14°C</td><td><span class="badge bn">NO</span></td><td>0.71</td><td>0.68</td><td class="pos">+$1.80</td></tr>
-              <tr><td>LON &lt;16°C</td><td><span class="badge by">YES</span></td><td>0.55</td><td>0.71</td><td class="pos">+$9.60</td></tr>
-              <tr><td>SEO &lt;10°C</td><td><span class="badge by">YES</span></td><td>0.55</td><td>0.60</td><td class="pos">+$3.40</td></tr>
-              <tr><td>TYO &gt;19°C</td><td><span class="badge bn">NO</span></td><td>0.62</td><td>0.64</td><td class="neg">−$1.98</td></tr>
-              <tr><td>CHI &gt;55°F</td><td><span class="badge by">YES</span></td><td>0.41</td><td>0.58</td><td class="pos">+$12.40</td></tr>
-              <tr><td>PAR &lt;18°C</td><td><span class="badge by">YES</span></td><td>0.48</td><td>0.53</td><td class="pos">+$6.76</td></tr>
-            </tbody>
-          </table>
-        </div>
+        <div class="wtitle"><div class="dot"></div>Weather Opportunities</div>
+        <div id="pw-opps"><div style="color:var(--muted);font-size:12px">Lade Opportunities...</div></div>
       </div>
       <div class="w">
-        <div class="wtitle"><div class="dot"></div>Quarter-Kelly — Letztes Signal</div>
-        <div style="font-size:9px;color:var(--muted);margin-bottom:7px">NYC High &gt;60°F · YES @ 0.38 · P_true=0.62</div>
-        <div class="kr"><span class="kl">Edge (YES)</span><span class="kv2">+0.24</span></div>
-        <div class="kr"><span class="kl">Full-Kelly f</span><span class="kv2">0.387</span></div>
-        <div class="kr"><span class="kl">Quarter-Kelly f</span><span class="kv2">0.097</span></div>
-        <div class="kr"><span class="kl">Raw Stake</span><span class="kv2">$74.80</span></div>
-        <div class="kr"><span class="kl">Bankroll Cap 5%</span><span class="kv2">$38.83 ✂</span></div>
-        <div class="kr"><span class="kl">Final Stake</span><span class="kv2 pos">$38.00</span></div>
-        <div class="kr"><span class="kl">Ensemble Gate</span><span class="badge bp">PASS 0.71</span></div>
-        <div class="kr"><span class="kl">Models</span><span class="kv2">GFS · HRRR · ECMWF</span></div>
+        <div class="wtitle"><div class="dot"></div>Weather Toggle</div>
+        <div style="margin-bottom:10px;font-size:13px;color:var(--muted)" id="pw-toggle-lbl">Status wird geladen...</div>
+        <button onclick="toggleWeather()" id="pw-toggle-btn"
+          style="padding:8px 18px;background:transparent;border:1px solid var(--orange);color:var(--orange);font-family:var(--mono);font-size:13px;cursor:pointer;letter-spacing:1px">
+          WEATHER TOGGLE
+        </button>
+        <div id="pw-toggle-msg" style="font-size:11px;color:var(--poly);display:none;margin-top:6px"></div>
       </div>
     </div>
-  </div><!-- /poly-weather -->
+  </div>
 
   <!-- ─── POLY / GEOPOLITIK ────────────────────────────────────── -->
   <div class="panel" id="pnl-poly-geo">
     <div class="g3">
-      <div class="w acp">
-        <div class="wtitle"><div class="dot"></div>Geo Bets Aktiv</div>
-        <div class="big">5</div>
-        <div class="sub">US(2) EU(2) Global(1)</div>
-      </div>
-      <div class="w acp">
-        <div class="wtitle"><div class="dot"></div>Geo P&L</div>
-        <div class="big pos">+$44.03</div>
-        <div class="sub">↑ vom heutigen +$91.23</div>
-      </div>
-      <div class="w acp">
-        <div class="wtitle"><div class="dot"></div>Pipeline</div>
-        <div class="big">3</div>
-        <div class="sub">2 kein Edge · 1 Gate fail</div>
-      </div>
+      <div class="w acp"><div class="wtitle"><div class="dot"></div>Geo Bets Aktiv</div><div class="big">5</div><div class="sub">US(2) EU(2) Global(1)</div></div>
+      <div class="w acp"><div class="wtitle"><div class="dot"></div>Geo P&L</div><div class="big pos">+$44.03</div><div class="sub">Mockup — Live-Daten folgen</div></div>
+      <div class="w acp"><div class="wtitle"><div class="dot"></div>Pipeline</div><div class="big">3</div><div class="sub">2 kein Edge · 1 Gate fail</div></div>
     </div>
     <div class="w">
       <div class="wtitle"><div class="dot"></div>Geopolitik Signale</div>
-      <div class="gr">
-        <span class="gf">🇺🇸</span>
-        <div class="gi"><div class="gm">Trump Approval &gt;44% Ende April?</div><div class="gsb">Closes 2026-04-30 · Vol $84k</div></div>
-        <div><div class="gp">0.58</div><div class="ge">edge +0.09</div></div>
-        <span class="badge by">YES</span>
+      <div class="gr"><span class="gf">🇺🇸</span><div class="gi"><div class="gm">Trump Approval &gt;44% Ende April?</div><div class="gsb">Closes 2026-04-30 · Vol $84k</div></div><div><div class="gp">0.58</div><div class="ge">edge +0.09</div></div><span class="badge by">YES</span></div>
+      <div class="gr"><span class="gf">🇷🇺</span><div class="gi"><div class="gm">Russia-Ukraine Ceasefire Q2 2026?</div><div class="gsb">Closes 2026-06-30 · Vol $241k</div></div><div><div class="gp">0.31</div><div class="ge">edge +0.06</div></div><span class="badge by">YES</span></div>
+      <div class="gr"><span class="gf">🇩🇪</span><div class="gi"><div class="gm">Merz bleibt Kanzler bis 2027?</div><div class="gsb">Closes 2027-01-01 · Vol $38k</div></div><div><div class="gp">0.74</div><div class="ge" style="color:var(--muted)">gate fail</div></div><span class="badge bw">SKIP</span></div>
+    </div>
+  </div>
+
+  <!-- ─── POLY / POSITIONEN (LIVE) ─────────────────────────────── -->
+  <div class="panel" id="pnl-poly-positions">
+    <div class="w">
+      <div style="display:flex;gap:4px;margin-bottom:10px;flex-wrap:wrap">
+        <button class="stab slive active" id="ptab-open"    onclick="switchPosTab('open',this)">OPEN <span id="ptc-open">(0)</span></button>
+        <button class="stab slive"        id="ptab-pending" onclick="switchPosTab('pending',this)">PENDING <span id="ptc-pending">(0)</span></button>
+        <button class="stab slive"        id="ptab-resolved"onclick="switchPosTab('resolved',this)">RESOLVED</button>
       </div>
-      <div class="gr">
-        <span class="gf">🇷🇺</span>
-        <div class="gi"><div class="gm">Russia-Ukraine Ceasefire Q2 2026?</div><div class="gsb">Closes 2026-06-30 · Vol $241k</div></div>
-        <div><div class="gp">0.31</div><div class="ge">edge +0.06</div></div>
-        <span class="badge by">YES</span>
+      <div id="pos-open" class="twrap">
+        <table class="t"><thead><tr><th>Markt</th><th>Side</th><th>Entry→Jetzt</th><th>Shares</th><th>Investiert</th><th>Aktuell</th><th>To Win</th><th>P&L%</th><th>Claim</th><th>Schließt</th><th>Wallet</th></tr></thead>
+        <tbody id="tbl-open-body"><tr><td colspan="11" style="color:var(--muted);text-align:center;padding:20px">Lade...</td></tr></tbody></table>
       </div>
-      <div class="gr">
-        <span class="gf">🇩🇪</span>
-        <div class="gi"><div class="gm">Merz bleibt Kanzler bis 2027?</div><div class="gsb">Closes 2027-01-01 · Vol $38k</div></div>
-        <div><div class="gp">0.74</div><div class="ge" style="color:var(--muted)">gate fail 0.42</div></div>
-        <span class="badge bw">SKIP</span>
+      <div id="pos-pending" style="display:none" class="twrap">
+        <table class="t"><thead><tr><th>Order-ID</th><th>Markt</th><th>Side</th><th>Preis</th><th>Investiert</th><th>Alter</th></tr></thead>
+        <tbody id="tbl-pending-body"><tr><td colspan="6" style="color:var(--muted);text-align:center;padding:20px">Keine Pending Orders</td></tr></tbody></table>
       </div>
-      <div class="gr">
-        <span class="gf">🇫🇷</span>
-        <div class="gi"><div class="gm">Macron Zustimmung &gt;30% Q2?</div><div class="gsb">Closes 2026-06-30 · Vol $18k</div></div>
-        <div><div class="gp">0.62</div><div class="ge">edge +0.11</div></div>
-        <span class="badge by">YES</span>
-      </div>
-      <div class="gr">
-        <span class="gf">🇨🇳</span>
-        <div class="gi"><div class="gm">US–China Tariff Deal vor Juli?</div><div class="gsb">Closes 2026-07-01 · Vol $112k</div></div>
-        <div><div class="gp" style="color:var(--red)">0.22</div><div class="ge" style="color:var(--muted)">no edge</div></div>
-        <span class="badge bw">SKIP</span>
+      <div id="pos-resolved" style="display:none" class="twrap">
+        <table class="t"><thead><tr><th>Zeit</th><th>Markt</th><th>Side</th><th>Ergebnis</th><th>P&L</th><th>ROI</th><th>Wallet</th></tr></thead>
+        <tbody id="tbl-resolved-body"><tr><td colspan="7" style="color:var(--muted);text-align:center;padding:20px">Keine aufgelösten Trades</td></tr></tbody></table>
       </div>
     </div>
   </div>
 
-  <!-- ─── POLY / SPORTS — PLANNED ────────────────────────────── -->
-  <div class="panel" id="pnl-poly-sports">
-    <div class="planned">
-      <div class="ptitle">⚽ Sports Markets</div>
-      <div class="pphase">COMING — PHASE 3</div>
-      <div class="pmeta">
-        <div class="pmeta-item"><div class="pmeta-lbl">Est. Start</div><div class="pmeta-val">Q3 2026</div></div>
-        <div class="pmeta-item"><div class="pmeta-lbl">Est. Edge</div><div class="pmeta-val">4–8% p.a.</div></div>
-        <div class="pmeta-item"><div class="pmeta-lbl">Priorität</div><div class="pmeta-val">Mittel</div></div>
+  <!-- ─── POLY / REPORT ─────────────────────────────────────────── -->
+  <div class="panel" id="pnl-poly-report">
+    <div class="w">
+      <div class="rsec">
+        <div class="rtitle">Heutige Aktivität</div>
+        <div class="rgrid">
+          <div class="rbox"><div class="rbox-lbl">Trades</div><div class="rbox-val" id="r-trades">—</div></div>
+          <div class="rbox"><div class="rbox-lbl">Fehler</div><div class="rbox-val" id="r-errors">—</div></div>
+          <div class="rbox"><div class="rbox-lbl">RSS Signale</div><div class="rbox-val" id="r-rss">—</div></div>
+          <div class="rbox"><div class="rbox-lbl">Stop-Loss</div><div class="rbox-val" id="r-sl">—</div></div>
+          <div class="rbox"><div class="rbox-lbl">Whale Exit</div><div class="rbox-val" id="r-we">—</div></div>
+          <div class="rbox"><div class="rbox-lbl">Blacklist</div><div class="rbox-val" id="r-bl">—</div></div>
+        </div>
       </div>
-      <ul class="pnotes">
-        <li>Target: Bundesliga / Champions League Wettbewerbe</li>
-        <li>Datenquelle: Opta API + historical Polymarket accuracy</li>
-        <li>Signal: Kelly nur wenn Implied Prob &gt;5% unter Opta-Modell</li>
-        <li>Blocker: Opta API-Lizenz — evaluiere kostenlose Alternativen (SofaScore)</li>
-        <li>ETA: nach Weather-Phase-2-Stabilisierung (Q3 2026)</li>
-      </ul>
+      <div class="rsec">
+        <div class="rtitle">Feature Status</div>
+        <table class="ft">
+          <thead><tr><th>Feature</th><th>Status</th><th>Heute</th></tr></thead>
+          <tbody id="r-features-body"><tr><td colspan="3" style="color:var(--muted);padding:12px">Lade...</td></tr></tbody>
+        </table>
+      </div>
+      <div class="rsec">
+        <div class="rtitle">Letzte Fehler</div>
+        <div id="r-error-list"><span style="color:var(--muted);font-size:12px">Keine Fehler</span></div>
+      </div>
     </div>
   </div>
 
-  <!-- ─── POLY / ENTERTAINMENT — PLANNED ─────────────────────── -->
-  <div class="panel" id="pnl-poly-ent">
-    <div class="planned">
-      <div class="ptitle">🎭 Entertainment Markets</div>
-      <div class="pphase">COMING — PHASE 4</div>
-      <div class="pmeta">
-        <div class="pmeta-item"><div class="pmeta-lbl">Est. Start</div><div class="pmeta-val">Q4 2026</div></div>
-        <div class="pmeta-item"><div class="pmeta-lbl">Est. Edge</div><div class="pmeta-val">3–6% p.a.</div></div>
-        <div class="pmeta-item"><div class="pmeta-lbl">Priorität</div><div class="pmeta-val">Niedrig</div></div>
+  <!-- ─── POLY / SIGNALE ────────────────────────────────────────── -->
+  <div class="panel" id="pnl-poly-signals">
+    <div class="w">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+        <div class="wtitle" style="margin:0"><div class="dot"></div>Live Signal Feed</div>
+        <span style="color:var(--muted);font-size:11px" id="signals-updated">—</span>
       </div>
-      <ul class="pnotes">
-        <li>Oscar / Grammy / Emmy — Prediction Markets mit hohem Volumen</li>
-        <li>Signal: Sentiment-Score aus Rotten Tomatoes + Twitter-Volume-Delta</li>
-        <li>Hohe Volatilität vor Announcement → Kelly konservativ (0.10×)</li>
-        <li>Pilot: Cannes Palme-d'Or 2026 als Testlauf</li>
-      </ul>
+      <div id="signals-list" style="display:flex;flex-direction:column;max-height:480px;overflow-y:auto">
+        <div style="color:var(--muted);font-size:12px;padding:20px;text-align:center">Lade Signale...</div>
+      </div>
     </div>
   </div>
 
-  <!-- ─── POLY / CRYPTO-MACRO — PLANNED ──────────────────────── -->
-  <div class="panel" id="pnl-poly-macro">
-    <div class="planned">
-      <div class="ptitle">📈 Crypto/Macro Markets</div>
-      <div class="pphase">COMING — PHASE 3</div>
-      <div class="pmeta">
-        <div class="pmeta-item"><div class="pmeta-lbl">Est. Start</div><div class="pmeta-val">Q3 2026</div></div>
-        <div class="pmeta-item"><div class="pmeta-lbl">Est. Edge</div><div class="pmeta-val">6–12% p.a.</div></div>
-        <div class="pmeta-item"><div class="pmeta-lbl">Priorität</div><div class="pmeta-val">Hoch</div></div>
+  <!-- ─── POLY / WEATHER PAPER ─────────────────────────────────── -->
+  <div class="panel" id="pnl-poly-weatherpaper">
+    <div class="g3" style="margin-bottom:4px">
+      <div class="w acp"><div class="wtitle"><div class="dot"></div>Simulierte Trades</div><div class="big" id="pt-total">—</div></div>
+      <div class="w acp"><div class="wtitle"><div class="dot"></div>Win Rate</div><div class="big pos" id="pt-winrate">—</div></div>
+      <div class="w acp"><div class="wtitle"><div class="dot"></div>Simulierter Gewinn</div><div class="big pos" id="pt-pnl">—</div></div>
+    </div>
+    <div class="w">
+      <div class="wtitle"><div class="dot"></div>Paper Trading Tracker</div>
+      <div id="pt-list" style="max-height:380px;overflow-y:auto;font-size:13px">
+        <div style="color:var(--muted);padding:20px;text-align:center">Lade Paper Trades...</div>
       </div>
-      <ul class="pnotes">
-        <li>BTC End-of-Month Preis, ETH ATH-Märkte — hochliquide, gut kalibriert</li>
-        <li>Fed Rate Decision, CPI Miss/Beat — Cross-Reference mit Kalshi-Events</li>
-        <li>Signal: Kointegration Implied-P vs. CME Futures Pricing</li>
-        <li>Edge-Quelle: Polymarket typisch 3–8% hinter Institutional-Pricing</li>
-        <li>Datenquelle: Crypto.com MCP (bereits verbunden) + FRED API</li>
-      </ul>
     </div>
   </div>
 
-  <!-- ─── CRYPTO / FUNDING ARB — PLANNED ─────────────────────── -->
-  <div class="panel" id="pnl-crypto-funding">
-    <div class="planned" style="border-color:rgba(255,215,0,.2)">
-      <div class="ptitle" style="color:var(--crypto-dim)">📈 Funding Rate Arbitrage</div>
-      <div class="pphase">COMING — PHASE 2</div>
-      <div class="pmeta">
-        <div class="pmeta-item"><div class="pmeta-lbl">Est. Start</div><div class="pmeta-val">Q4 2026</div></div>
-        <div class="pmeta-item"><div class="pmeta-lbl">Est. Edge</div><div class="pmeta-val">8–15% p.a.</div></div>
-        <div class="pmeta-item"><div class="pmeta-lbl">Min Capital</div><div class="pmeta-val">$2.000</div></div>
+  <!-- ─── POLY / ABOUT ─────────────────────────────────────────── -->
+  <div class="panel" id="pnl-poly-about">
+    <div class="w">
+      <div class="rtitle">KongTradeBot v0.6 — Features</div>
+      <table class="ft">
+        <thead><tr><th>Modul</th><th>Beschreibung</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td>🐋 Copy Trading</td><td>Kopiert Whale-Wallets via WebSocket</td><td style="color:var(--poly)">LIVE</td></tr>
+          <tr><td>📰 RSS Monitor</td><td>Tier-1 News: BBC, AP, NYT — Telegram Alerts</td><td style="color:var(--poly)">LIVE</td></tr>
+          <tr><td>🎯 Exit Manager</td><td>TP1/TP2/TP3 Take-Profit-Stufen + Whale-Exit-Copy</td><td style="color:var(--poly)">LIVE</td></tr>
+          <tr><td>🛡️ Risk Manager</td><td>Budget-Cap, Tages-Verlustlimit, Kategorie-Exposure, Kill-Switch</td><td style="color:var(--poly)">LIVE</td></tr>
+          <tr><td>🔍 Anomaly Detector</td><td>Erkennt koordinierte Multi-Wallet Bets (&gt;$200K Cluster)</td><td style="color:var(--poly)">LIVE</td></tr>
+          <tr><td>📊 State Worker</td><td>Synchronisiert Positionen mit Polymarket API (alle 5 Min)</td><td style="color:var(--poly)">LIVE</td></tr>
+          <tr><td>💎 Auto Claim</td><td>Löst gewonnene Positionen automatisch ein</td><td style="color:var(--poly)">LIVE</td></tr>
+          <tr><td>🌐 Wallet Scout</td><td>Täglich 09:00 — Top-Performer-Wallets nachladen</td><td style="color:var(--poly)">LIVE</td></tr>
+          <tr><td>🌦️ Weather Scout</td><td>Tier-1/2/3 Temp-Märkte mit Kelly + Bias-Korrektur</td><td id="about-weather-status" style="color:var(--orange)">...</td></tr>
+          <tr><td>🚀 Multi-Signal-Boost</td><td>2+ Wallets → 1.5×. 3+ Wallets → 2.0×. 60s Signal-Buffer</td><td style="color:var(--poly)">LIVE</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="g2">
+      <div class="w">
+        <div class="rtitle">Konfiguration</div>
+        <div class="rgrid">
+          <div class="rbox"><div class="rbox-lbl">Max Trade</div><div class="rbox-val" id="about-max-trade">$—</div></div>
+          <div class="rbox"><div class="rbox-lbl">Max Daily Loss</div><div class="rbox-val" id="about-max-loss">$—</div></div>
+          <div class="rbox"><div class="rbox-lbl">Copy Multiplier</div><div class="rbox-val" id="about-copy-mult">—</div></div>
+          <div class="rbox"><div class="rbox-lbl">Max Positionen</div><div class="rbox-val" id="about-max-pos">—</div></div>
+          <div class="rbox"><div class="rbox-lbl">Portfolio-Cap</div><div class="rbox-val" id="about-portfolio-cap">—</div></div>
+          <div class="rbox"><div class="rbox-lbl">Kategorie-Cap</div><div class="rbox-val" id="about-category-cap">—</div></div>
+        </div>
       </div>
-      <ul class="pnotes">
-        <li>Long Spot / Short Perp wenn Funding &gt;0.05%/8h</li>
-        <li>Target Exchanges: Binance, Bybit, OKX</li>
-        <li>Datenquelle: Crypto.com MCP + coinglass.com API</li>
-        <li>Risk: Liquidation bei extremen Moves → Max 2× Leverage</li>
-        <li>Min Edge: Funding Yield &gt; Gas + Slippage + 0.5% Buffer</li>
-      </ul>
+      <div class="w">
+        <div class="rtitle">Weather Trading</div>
+        <div style="font-size:13px;color:var(--muted);margin-bottom:10px" id="weather-status-label">Lade...</div>
+        <button id="btn-weather-toggle" onclick="toggleWeather()"
+          style="padding:8px 18px;background:transparent;border:1px solid var(--orange);color:var(--orange);font-family:var(--mono);font-size:13px;cursor:pointer;letter-spacing:1px">
+          WEATHER LIVE SCHALTEN
+        </button>
+        <span id="weather-toggle-msg" style="font-size:11px;color:var(--poly);display:none;margin-left:10px"></span>
+        <div style="margin-top:16px;font-size:12px;color:var(--muted)">
+          <div style="margin-bottom:4px"><a href="https://polymarket.com" target="_blank" style="color:var(--poly);text-decoration:none">Polymarket</a></div>
+          <div><a href="/logout" style="color:var(--red);text-decoration:none">Logout</a></div>
+        </div>
+      </div>
     </div>
   </div>
 
-  <!-- ─── CRYPTO / BASIS TRADE — PLANNED ─────────────────────── -->
-  <div class="panel" id="pnl-crypto-basis">
-    <div class="planned" style="border-color:rgba(255,215,0,.2)">
-      <div class="ptitle" style="color:var(--crypto-dim)">⚡ Basis Trade (Cash & Carry)</div>
-      <div class="pphase">COMING — PHASE 2</div>
-      <div class="pmeta">
-        <div class="pmeta-item"><div class="pmeta-lbl">Est. Start</div><div class="pmeta-val">Q4 2026</div></div>
-        <div class="pmeta-item"><div class="pmeta-lbl">Est. Edge</div><div class="pmeta-val">6–10% p.a.</div></div>
-        <div class="pmeta-item"><div class="pmeta-lbl">Min Capital</div><div class="pmeta-val">$5.000</div></div>
+  <!-- ─── POLY planned ────────────────────────────────────────── -->
+  <div class="panel" id="pnl-poly-sports"><div class="planned"><div class="ptitle">⚽ Sports Markets</div><div class="pphase">COMING — PHASE 3</div><div class="pmeta"><div class="pmeta-item"><div class="pmeta-lbl">Est. Start</div><div class="pmeta-val">Q3 2026</div></div><div class="pmeta-item"><div class="pmeta-lbl">Est. Edge</div><div class="pmeta-val">4–8% p.a.</div></div></div><ul class="pnotes"><li>Target: Bundesliga / Champions League</li><li>Datenquelle: Opta API + historical Polymarket accuracy</li><li>Blocker: Opta API-Lizenz — evaluiere SofaScore</li></ul></div></div>
+  <div class="panel" id="pnl-poly-ent"><div class="planned"><div class="ptitle">🎭 Entertainment Markets</div><div class="pphase">COMING — PHASE 4</div><div class="pmeta"><div class="pmeta-item"><div class="pmeta-lbl">Est. Start</div><div class="pmeta-val">Q4 2026</div></div></div><ul class="pnotes"><li>Oscar / Grammy / Emmy — Prediction Markets</li><li>Signal: Sentiment-Score aus Rotten Tomatoes + Twitter</li></ul></div></div>
+  <div class="panel" id="pnl-poly-macro"><div class="planned"><div class="ptitle">📈 Crypto/Macro Markets</div><div class="pphase">COMING — PHASE 3</div><div class="pmeta"><div class="pmeta-item"><div class="pmeta-lbl">Est. Start</div><div class="pmeta-val">Q3 2026</div></div><div class="pmeta-item"><div class="pmeta-lbl">Est. Edge</div><div class="pmeta-val">6–12% p.a.</div></div></div><ul class="pnotes"><li>BTC End-of-Month Preis, ETH ATH-Märkte</li><li>Signal: Kointegration Implied-P vs. CME Futures</li><li>Datenquelle: Crypto.com MCP + FRED API</li></ul></div></div>
+
+  <!-- ─── AUSWERTUNG / WALLETS ─────────────────────────────────── -->
+  <div class="panel" id="pnl-auswert-wallets">
+    <div class="w">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+        <div class="wtitle" style="margin:0"><div class="dot"></div>Wallet Performance</div>
+        <span style="font-size:12px;color:var(--muted)" id="wp-summary">Lade...</span>
       </div>
-      <ul class="pnotes">
-        <li>Long Spot BTC/ETH + Short Quarterly Future bei Contango &gt;8% ann.</li>
-        <li>Rollover-Risk: Spread kann sich bei Crash schließen → Stop-Loss</li>
-        <li>Capital: Separates Wallet, kein Overlap mit Polymarket-Budget</li>
-        <li>Datenquelle: CME Futures via Interactive Brokers API</li>
-      </ul>
+      <div class="twrap" style="max-height:400px">
+        <table class="t">
+          <thead><tr><th>Alias</th><th>Adresse</th><th>Multiplier</th><th>Heute</th><th>Total Kopiert</th><th>Win-Rate</th><th>P&L</th><th>Zuletzt</th></tr></thead>
+          <tbody id="tbl-wp-body"><tr><td colspan="8" style="color:var(--muted);text-align:center;padding:20px">Lade...</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+    <div class="g2">
+      <div class="w">
+        <div class="wtitle"><div class="dot"></div>Per-Wallet Performance</div>
+        <div style="display:flex;gap:6px;margin-bottom:10px">
+          <button class="time-btn active" onclick="sortWallets('pnl',this)">P&L</button>
+          <button class="time-btn" onclick="sortWallets('win_rate',this)">Win-Rate</button>
+          <button class="time-btn" onclick="sortWallets('trades',this)">Trades</button>
+        </div>
+        <div class="twrap" style="max-height:240px">
+          <table class="t">
+            <thead><tr><th>Wallet</th><th>Trades</th><th>Win-Rate</th><th>P&L</th><th>ROI</th></tr></thead>
+            <tbody id="tbl-wallets"><tr><td colspan="5" style="color:var(--muted);text-align:center;padding:12px">Lade...</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+      <div class="w">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+          <div class="wtitle" style="margin:0"><div class="dot"></div>Balance-Verlauf</div>
+          <div class="time-btns">
+            <button class="time-btn active" onclick="setChartRange('24h',this)">24h</button>
+            <button class="time-btn" onclick="setChartRange('7d',this)">7d</button>
+            <button class="time-btn" onclick="setChartRange('30d',this)">30d</button>
+          </div>
+        </div>
+        <div class="chart-wrap"><canvas id="balance-chart"></canvas></div>
+      </div>
     </div>
   </div>
 
-  <!-- ─── KALSHI / TEMPERATURE — PLANNED ─────────────────────── -->
-  <div class="panel" id="pnl-kalshi-temp">
-    <div class="planned" style="border-color:rgba(0,170,255,.2)">
-      <div class="ptitle" style="color:var(--kalshi-dim)">🌡 Kalshi Temperature Markets</div>
-      <div class="pphase">COMING — PHASE 3</div>
-      <div class="pmeta">
-        <div class="pmeta-item"><div class="pmeta-lbl">Est. Start</div><div class="pmeta-val">Q3 2026</div></div>
-        <div class="pmeta-item"><div class="pmeta-lbl">Est. Edge</div><div class="pmeta-val">Cross-Arb 2–5%</div></div>
-        <div class="pmeta-item"><div class="pmeta-lbl">Status</div><div class="pmeta-val" style="color:var(--poly)">Scraper LIVE</div></div>
+  <!-- ─── AUSWERTUNG / MULTIPLIER ──────────────────────────────── -->
+  <div class="panel" id="pnl-auswert-mults">
+    <div class="w">
+      <div class="wtitle"><div class="dot"></div>Wallet Multiplier</div>
+      <div id="wallet-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px"></div>
+      <div style="border-top:1px solid var(--border);padding-top:12px">
+        <div class="rtitle">DEFAULT (unbekannte Wallets)</div>
+        <div class="mult-row" id="default-mult-row"></div>
       </div>
-      <ul class="pnotes">
-        <li>Kalshi-Scraper bereits implementiert (integrations/kalshi_scraper.py)</li>
-        <li>12 NYC High-Temp Brackets für 22. April bereits aktiv gelesen</li>
-        <li>Cross-Market: Kalshi-Implied-P vs. Polymarket-Implied-P → Arb wenn &gt;4%</li>
-        <li>Blocker: Kalshi kein EU-Account → Read-Only bleibt vorerst</li>
-        <li>Option: Kalshi-Daten als Signal-Validator für Polymarket-Bets nutzen (Phase 2)</li>
-      </ul>
     </div>
   </div>
 
-  <!-- ─── KALSHI / EVENTS — PLANNED ───────────────────────────── -->
-  <div class="panel" id="pnl-kalshi-events">
-    <div class="planned" style="border-color:rgba(0,170,255,.2)">
-      <div class="ptitle" style="color:var(--kalshi-dim)">🗳 Kalshi Political Events</div>
-      <div class="pphase">COMING — PHASE 3</div>
-      <div class="pmeta">
-        <div class="pmeta-item"><div class="pmeta-lbl">Est. Start</div><div class="pmeta-val">Q4 2026</div></div>
-        <div class="pmeta-item"><div class="pmeta-lbl">Est. Edge</div><div class="pmeta-val">5–9% p.a.</div></div>
+  <!-- ─── AUSWERTUNG / LOG ─────────────────────────────────────── -->
+  <div class="panel" id="pnl-auswert-log">
+    <div class="w">
+      <div style="display:flex;gap:6px;margin-bottom:10px;flex-wrap:wrap;align-items:center">
+        <div class="wtitle" style="margin:0"><div class="dot"></div>Live Log</div>
+        <button class="time-btn active" onclick="setLogFilter('all',this)">Alle</button>
+        <button class="time-btn" onclick="setLogFilter('orders',this)">Orders</button>
+        <button class="time-btn" onclick="setLogFilter('signals',this)">Signals</button>
+        <button class="time-btn" onclick="setLogFilter('errors',this)">Errors</button>
+        <input type="text" id="log-search" placeholder="Suchen..." oninput="applyLogFilter()"
+          style="background:var(--bg3);border:1px solid var(--border);color:var(--text);font-family:var(--mono);font-size:12px;padding:4px 8px;flex:1">
       </div>
-      <ul class="pnotes">
-        <li>Fed Rate Decision, CPI, NFP — hochliquide, gut-kalibrierte Märkte</li>
-        <li>Cross-Reference mit Polymarket-Geo-Modul für Doppelvalidierung</li>
-        <li>Benötigt US-Account oder EU-kompatible Alternative</li>
-      </ul>
+      <div id="log-container" style="max-height:480px;overflow-y:auto;font-size:12px;font-family:var(--mono)"></div>
     </div>
   </div>
 
-  <!-- ─── AIRDROP — PLANNED ────────────────────────────────────── -->
-  <div class="panel" id="pnl-airdrop-farm">
-    <div class="planned" style="border-color:rgba(170,0,255,.2)">
-      <div class="ptitle" style="color:var(--airdrop-dim)">🪂 Airdrop Farming</div>
-      <div class="pphase">COMING — PHASE 5</div>
-      <div class="pmeta">
-        <div class="pmeta-item"><div class="pmeta-lbl">Est. Start</div><div class="pmeta-val">Q1 2027</div></div>
-        <div class="pmeta-item"><div class="pmeta-lbl">Est. Return</div><div class="pmeta-val">Variable</div></div>
-        <div class="pmeta-item"><div class="pmeta-lbl">Max Budget</div><div class="pmeta-val">10% Portfolio</div></div>
-      </div>
-      <ul class="pnotes">
-        <li>Target Protocols: Eigenlayer, Berachain, Monad (TGE 2026/27)</li>
-        <li>Strategie: On-Chain Aktivität (Swaps, Staking, Bridging) für Snapshot-Eligibility</li>
-        <li>Separates Wallet pro Protokoll — kein Overlap mit Trading-Budget</li>
-        <li>Tracking: Eigener State-Manager für Wallet-Aktivität und Snapshot-Dates</li>
-        <li>Risk: Rug, kein TGE, oder Airdrop unter Break-Even-Schwelle</li>
-      </ul>
-    </div>
-  </div>
+  <!-- ─── CRYPTO planned ───────────────────────────────────────── -->
+  <div class="panel" id="pnl-crypto-funding"><div class="planned" style="border-color:rgba(255,215,0,.2)"><div class="ptitle" style="color:var(--crypto-dim)">📈 Funding Rate Arbitrage</div><div class="pphase">COMING — PHASE 2</div><div class="pmeta"><div class="pmeta-item"><div class="pmeta-lbl">Est. Start</div><div class="pmeta-val">Q4 2026</div></div><div class="pmeta-item"><div class="pmeta-lbl">Est. Edge</div><div class="pmeta-val">8–15% p.a.</div></div></div><ul class="pnotes"><li>Long Spot / Short Perp wenn Funding &gt;0.05%/8h</li><li>Target: Binance, Bybit, OKX</li></ul></div></div>
+  <div class="panel" id="pnl-crypto-basis"><div class="planned" style="border-color:rgba(255,215,0,.2)"><div class="ptitle" style="color:var(--crypto-dim)">⚡ Basis Trade (Cash &amp; Carry)</div><div class="pphase">COMING — PHASE 2</div><div class="pmeta"><div class="pmeta-item"><div class="pmeta-lbl">Est. Start</div><div class="pmeta-val">Q4 2026</div></div></div><ul class="pnotes"><li>Long Spot BTC/ETH + Short Quarterly Future bei Contango &gt;8%</li></ul></div></div>
+  <div class="panel" id="pnl-kalshi-temp"><div class="planned" style="border-color:rgba(0,170,255,.2)"><div class="ptitle" style="color:var(--kalshi-dim)">🌡 Kalshi Temperature Markets</div><div class="pphase">COMING — PHASE 3</div><div class="pmeta"><div class="pmeta-item"><div class="pmeta-lbl">Status</div><div class="pmeta-val" style="color:var(--poly)">Scraper LIVE</div></div></div><ul class="pnotes"><li>Kalshi-Scraper bereits implementiert</li><li>Cross-Market Arb: Kalshi vs Polymarket &gt;4%</li></ul></div></div>
+  <div class="panel" id="pnl-kalshi-events"><div class="planned" style="border-color:rgba(0,170,255,.2)"><div class="ptitle" style="color:var(--kalshi-dim)">🗳 Kalshi Political Events</div><div class="pphase">COMING — PHASE 3</div><ul class="pnotes"><li>Fed Rate Decision, CPI, NFP</li><li>Benötigt US-Account oder EU-Alternative</li></ul></div></div>
+  <div class="panel" id="pnl-airdrop-farm"><div class="planned" style="border-color:rgba(170,0,255,.2)"><div class="ptitle" style="color:var(--airdrop-dim)">🪂 Airdrop Farming</div><div class="pphase">COMING — PHASE 5</div><ul class="pnotes"><li>Target: Eigenlayer, Berachain, Monad (TGE 2026/27)</li><li>Separates Wallet pro Protokoll</li></ul></div></div>
 
 </main>
 
 <!-- ══════════ RIGHT SIDEBAR ═══════════════════════════════════ -->
 <aside id="rt">
-
   <div class="sect">
     <div class="stitle">Nächste Resolutions</div>
-    <div class="ri">
-      <div class="rmkt">NYC High &gt;60°F Apr 22</div>
-      <div class="rmeta"><span>KLGA · YES · $38</span><span class="rtimer urg">3h 46m</span></div>
-    </div>
-    <div class="ri">
-      <div class="rmkt">NYC High &lt;62°F Apr 22</div>
-      <div class="rmeta"><span>KLGA · YES · $32</span><span class="rtimer urg">3h 46m</span></div>
-    </div>
-    <div class="ri">
-      <div class="rmkt">CHI High &gt;55°F Apr 22</div>
-      <div class="rmeta"><span>KORD · YES · $41</span><span class="rtimer">5h 20m</span></div>
-    </div>
-    <div class="ri">
-      <div class="rmkt">LON High &gt;14°C Apr 22</div>
-      <div class="rmeta"><span>EGLC · NO · $28</span><span class="rtimer">6h 12m</span></div>
-    </div>
-    <div class="ri">
-      <div class="rmkt">SEO High &lt;10°C Apr 22</div>
-      <div class="rmeta"><span>RKSI · YES · $22</span><span class="rtimer">8h 55m</span></div>
-    </div>
-    <div class="ri">
-      <div class="rmkt">TYO High &gt;19°C Apr 22</div>
-      <div class="rmeta"><span>RJTT · NO · $34</span><span class="rtimer">11h 03m</span></div>
-    </div>
-    <div class="ri">
-      <div class="rmkt">Trump Approval &gt;44%</div>
-      <div class="rmeta"><span>GEO · YES · $48</span><span class="rtimer">8d 16h</span></div>
-    </div>
+    <div id="rt-resolutions"><div style="color:var(--muted);font-size:12px">Lade...</div></div>
   </div>
-
   <div class="sect">
     <div class="stitle">Service Health</div>
-    <div class="svc"><span class="svn">Polymarket API</span><span class="svl">48ms</span><div class="svd sv-ok"></div></div>
-    <div class="svc"><span class="svn">Polygon RPC</span><span class="svl">120ms</span><div class="svd sv-ok"></div></div>
-    <div class="svc"><span class="svn">Kalshi API</span><span class="svl">210ms</span><div class="svd sv-ok"></div></div>
-    <div class="svc"><span class="svn">Weather API</span><span class="svl">340ms</span><div class="svd sv-wn"></div></div>
+    <div class="svc"><span class="svn">Bot-Prozess</span><span class="svl" id="rt-bot">—</span><div class="svd sv-wn" id="rt-bot-dot"></div></div>
+    <div class="svc"><span class="svn">Heartbeat</span><span class="svl" id="rt-hb">—</span><div class="svd sv-wn" id="rt-hb-dot"></div></div>
+    <div class="svc"><span class="svn">WebSocket</span><span class="svl" id="rt-ws">—</span><div class="svd sv-wn" id="rt-ws-dot"></div></div>
     <div class="svc"><span class="svn">Telegram</span><span class="svl">—</span><div class="svd sv-ok"></div></div>
-    <div class="svc"><span class="svn">Hetzner SSH</span><span class="svl">22ms</span><div class="svd sv-ok"></div></div>
   </div>
-
   <div class="sect">
-    <div class="stitle">Letzte Trades</div>
-    <div class="ti">
-      <div class="th"><span class="tm">NYC &gt;60°F</span><span class="tt">08:12</span></div>
-      <div class="tb">KLGA · YES $38 · Kelly 0.097<br>Conf 0.71 · Gate PASS · +$6.72</div>
-    </div>
-    <div class="ti">
-      <div class="th"><span class="tm">CHI &gt;55°F</span><span class="tt">07:58</span></div>
-      <div class="tb">KORD · YES $41 · Kelly 0.081<br>Conf 0.68 · Gate PASS · +$12.40</div>
-    </div>
-    <div class="ti">
-      <div class="th"><span class="tm">PAR &gt;17°C</span><span class="tt">07:41</span></div>
-      <div class="tb">LFPG · SKIP — Gate 0.42 &lt; 0.55<br>Split: ECMWF 0.72 vs GFS 0.41</div>
-    </div>
-    <div class="ti">
-      <div class="th"><span class="tm">LON &lt;16°C</span><span class="tt">06:30</span></div>
-      <div class="tb">EGLC · YES $35 · Conf 0.68<br>3-Model agree · +$9.60</div>
-    </div>
+    <div class="stitle">Letzte Aktivität</div>
+    <div id="rt-activity"><div style="color:var(--muted);font-size:12px">Lade...</div></div>
   </div>
-
 </aside>
 
 <!-- ══════════ JAVASCRIPT ════════════════════════════════════════ -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js"></script>
 <script>
+// ── Platform/Strategy config ──────────────────────────────────
 const STRATS = {
-  poly:   [
-    {id:'weather', label:'🌤 Weather',      status:'live'},
-    {id:'geo',     label:'🌍 Geopolitik',   status:'live'},
-    {id:'sports',  label:'⚽ Sports',       status:'planned', phase:'3'},
-    {id:'ent',     label:'🎭 Entertainment',status:'planned', phase:'4'},
-    {id:'macro',   label:'📈 Crypto/Macro', status:'planned', phase:'3'},
+  poly: [
+    {id:'weather',      label:'🌤 Weather',       status:'live'},
+    {id:'geo',          label:'🌍 Geopolitik',    status:'live'},
+    {id:'positions',    label:'📋 Positionen',    status:'live'},
+    {id:'report',       label:'📊 Report',        status:'live'},
+    {id:'signals',      label:'📡 Signale',       status:'live'},
+    {id:'weatherpaper', label:'📄 Paper',         status:'live'},
+    {id:'about',        label:'ℹ️ About',         status:'live'},
+    {id:'sports',       label:'⚽ Sports',        status:'planned', phase:'3'},
+    {id:'ent',          label:'🎭 Entertainment', status:'planned', phase:'4'},
+    {id:'macro',        label:'📈 Macro',         status:'planned', phase:'3'},
   ],
-  crypto: [
-    {id:'funding', label:'💸 Funding Arb',  status:'planned', phase:'2'},
-    {id:'basis',   label:'⚡ Basis Trade',  status:'planned', phase:'2'},
+  auswert: [
+    {id:'wallets', label:'💼 Wallets',    status:'live'},
+    {id:'mults',   label:'🎚 Multiplier', status:'live'},
+    {id:'log',     label:'📜 Log',        status:'live'},
   ],
-  kalshi: [
-    {id:'temp',    label:'🌡 Temperature',  status:'planned', phase:'3'},
-    {id:'events',  label:'🗳 Events',       status:'planned', phase:'3'},
-  ],
-  airdrop:[
-    {id:'farm',    label:'🪂 Farming',      status:'planned', phase:'5'},
-  ],
+  crypto:  [{id:'funding',label:'💸 Funding Arb',status:'planned',phase:'2'},{id:'basis',label:'⚡ Basis Trade',status:'planned',phase:'2'}],
+  kalshi:  [{id:'temp',   label:'🌡 Temperature',status:'planned',phase:'3'},{id:'events',label:'🗳 Events',status:'planned',phase:'3'}],
+  airdrop: [{id:'farm',   label:'🪂 Farming',    status:'planned',phase:'5'}],
 };
-
 const COLORS = {
   poly:   {acc:'#00ff88',dim:'#00a855',gl:'rgba(0,255,136,.12)',   label:'POLYMARKET'},
+  auswert:{acc:'#ff8c00',dim:'#c06000',gl:'rgba(255,140,0,.12)',   label:'AUSWERTUNG'},
   crypto: {acc:'#ffd700',dim:'#a88e00',gl:'rgba(255,215,0,.12)',   label:'CRYPTO'},
   kalshi: {acc:'#00aaff',dim:'#006faa',gl:'rgba(0,170,255,.12)',   label:'KALSHI'},
   airdrop:{acc:'#aa00ff',dim:'#7700bb',gl:'rgba(170,0,255,.12)',   label:'AIRDROP'},
 };
-
 let curPlat='poly', curStrat='weather';
 
-function setAccent(plat){
-  const c=COLORS[plat];
-  const r=document.documentElement.style;
-  r.setProperty('--acc',    c.acc);
-  r.setProperty('--acc-dim',c.dim);
-  r.setProperty('--acc-gl', c.gl);
-}
+// ── State ─────────────────────────────────────────────────────
+const S = {
+  logFilter:'all', logLines:[], walletData:[], walletSortKey:'pnl',
+  balanceData:{h24:[],h7d:[],h30d:[]}, chartRange:'24h', posData:null, portfolioData:null,
+};
+let balanceChart = null;
 
+// ── Socket.io ────────────────────────────────────────────────
+const socket = io();
+socket.on('stats', d => {
+  if(d.bot_running !== undefined){
+    const pill = document.getElementById('livepill');
+    if(pill) pill.textContent = d.bot_running ? '● LIVE' : '● OFFLINE';
+  }
+});
+socket.on('log', lines => { S.logLines = lines; renderLog(); });
+socket.on('balance_update', d => {
+  if(d.balance != null) document.getElementById('h-portfolio').textContent = '$'+d.balance.toFixed(2);
+});
+socket.on('multipliers', d => renderMultipliers(d.wallets, d.default));
+
+// ── Accent & Nav ─────────────────────────────────────────────
+function setAccent(p){
+  const c=COLORS[p], r=document.documentElement.style;
+  r.setProperty('--acc',c.acc); r.setProperty('--acc-dim',c.dim); r.setProperty('--acc-gl',c.gl);
+}
 function switchPlat(p){
   curPlat=p;
-  document.querySelectorAll('.ptab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.ptab').forEach(t=>{t.classList.remove('active');t.style.color='';t.style.borderColor='';t.style.background='';});
   const t=document.querySelector(`.ptab[data-p="${p}"]`);
-  t.classList.add('active');
-  t.style.color=COLORS[p].acc;
-  t.style.borderColor=COLORS[p].acc;
-  t.style.background=COLORS[p].gl;
-  // reset others
-  document.querySelectorAll('.ptab:not(.active)').forEach(x=>{
-    x.style.color='';x.style.borderColor='';x.style.background='';
-  });
-
+  t.classList.add('active'); t.style.color=COLORS[p].acc; t.style.borderColor=COLORS[p].acc; t.style.background=COLORS[p].gl;
   setAccent(p);
-
   const ctx=document.getElementById('ctx-badge');
-  ctx.textContent=COLORS[p].label;
-  ctx.style.color=COLORS[p].acc;
-  ctx.style.borderColor=COLORS[p].acc;
-  ctx.style.background=COLORS[p].gl;
-
+  ctx.textContent=COLORS[p].label; ctx.style.color=COLORS[p].acc; ctx.style.borderColor=COLORS[p].acc; ctx.style.background=COLORS[p].gl;
   buildStrats(p);
   const first=STRATS[p].find(s=>s.status==='live')||STRATS[p][0];
   switchStrat(p,first.id);
 }
-
 function buildStrats(p){
   const bar=document.getElementById('strat-bar');
   bar.innerHTML='';
@@ -907,48 +690,501 @@ function buildStrats(p){
     b.className=`stab ${s.status==='live'?'slive':'splanned'}`;
     b.setAttribute('data-s',s.id);
     const badge=s.status==='live'
-      ? `<span class="pbadge" style="background:rgba(0,255,136,.1);color:var(--poly);border:1px solid var(--poly)">LIVE</span>`
-      : `<span class="pbadge">PHASE ${s.phase}</span>`;
+      ?`<span class="pbadge" style="background:rgba(0,255,136,.1);color:var(--poly);border:1px solid var(--poly)">LIVE</span>`
+      :`<span class="pbadge">PHASE ${s.phase}</span>`;
     b.innerHTML=s.label+' '+badge;
-    if(s.status==='live') b.onclick=()=>switchStrat(p,s.id);
+    if(s.status==='live') b.onclick=()=>onStratClick(p,s.id);
     bar.appendChild(b);
   });
 }
-
+function onStratClick(p,s){
+  switchStrat(p,s);
+  if(p==='poly'&&s==='report') fetchReport();
+  if(p==='poly'&&s==='signals') fetchSignals();
+  if(p==='poly'&&s==='weatherpaper') loadPaperTrades();
+  if(p==='poly'&&s==='weather') fetchWeatherStatus();
+  if(p==='poly'&&s==='about') loadWeatherStatus();
+  if(p==='poly'&&s==='positions'){fetchPortfolio();fetchPositions();}
+  if(p==='auswert'&&s==='wallets'){fetchWalletPerformance();fetchWalletPerf();}
+}
 function switchStrat(p,s){
   curStrat=s;
   document.querySelectorAll('.stab').forEach(t=>t.classList.remove('active'));
-  const t=document.querySelector(`.stab[data-s="${s}"]`);
-  if(t) t.classList.add('active');
+  const t=document.querySelector(`.stab[data-s="${s}"]`); if(t) t.classList.add('active');
   document.querySelectorAll('.panel').forEach(x=>x.classList.remove('active'));
-  const pnl=document.getElementById(`pnl-${p}-${s}`);
-  if(pnl) pnl.classList.add('active');
+  const pnl=document.getElementById(`pnl-${p}-${s}`); if(pnl) pnl.classList.add('active');
 }
 
-function killAll(){
-  if(!confirm('⚠️ KILL ALL\n\nAlle 16 offenen Positionen sofort schließen?\nDas kann nicht rückgängig gemacht werden.')) return;
-  const b=document.querySelector('.kill');
-  b.textContent='⏳ CLOSING...';
-  setTimeout(()=>{b.textContent='✅ ALL CLOSED';b.style.color='#00ff88';b.style.borderColor='#00ff88';},1400);
-}
-
-// Clock
+// ── Clock ────────────────────────────────────────────────────
 function tick(){
-  const n=new Date(),pad=x=>String(x).padStart(2,'0');
-  document.getElementById('clock').textContent=
-    `${n.getUTCFullYear()}-${pad(n.getUTCMonth()+1)}-${pad(n.getUTCDate())} `+
-    `${pad(n.getUTCHours())}:${pad(n.getUTCMinutes())}:${pad(n.getUTCSeconds())} UTC`;
+  const n=new Date(),p=x=>String(x).padStart(2,'0');
+  document.getElementById('clock').textContent=`${n.getUTCFullYear()}-${p(n.getUTCMonth()+1)}-${p(n.getUTCDate())} ${p(n.getUTCHours())}:${p(n.getUTCMinutes())}:${p(n.getUTCSeconds())} UTC`;
 }
 setInterval(tick,1000); tick();
 
-// Init
-buildStrats('poly');
-switchStrat('poly','weather');
-setAccent('poly');
-// apply active style to poly tab on load
-(()=>{const t=document.querySelector('.ptab[data-p="poly"]');
-  t.style.color=COLORS.poly.acc;t.style.borderColor=COLORS.poly.acc;t.style.background=COLORS.poly.gl;
-})();
+// ── Summary → Header + Sidebar ───────────────────────────────
+async function fetchSummary(){
+  try{
+    const d=await fetch('/api/summary').then(r=>r.json());
+    const set=(id,v)=>{const el=document.getElementById(id);if(el)el.textContent=v;};
+    const total=(d.cash_balance||0)+(d.total_invested||0);
+    if(total>0) set('h-portfolio','$'+total.toFixed(2));
+    if(d.pnl_today!=null){const el=document.getElementById('h-pnl');if(el){el.textContent=(d.pnl_today>=0?'+$':'-$')+Math.abs(d.pnl_today).toFixed(2);el.className='hs-val '+(d.pnl_today>=0?'pos':'neg');}}
+    if(d.win_rate!=null) set('h-winrate',d.win_rate.toFixed(1)+'%');
+    if(d.position_count!=null) set('h-positions',d.position_count);
+    if(d.daily_loss_usd!=null&&d.max_daily_loss_usd!=null) set('h-dloss','$'+d.daily_loss_usd.toFixed(2)+' / $'+d.max_daily_loss_usd);
+    const dryEl=document.getElementById('h-mode');
+    if(dryEl){dryEl.textContent=d.dry_run?'DRY-RUN':'LIVE';dryEl.className='hs-val '+(d.dry_run?'warn':'neg');}
+    // Sidebar
+    const inv=d.total_invested||0, cash=d.cash_balance||0, ttl=inv+cash||1;
+    const invPct=Math.min(100,(inv/ttl*100)).toFixed(0);
+    const cashPct=Math.min(100,(cash/ttl*100)).toFixed(0);
+    set('sb-poly-alloc','$'+inv.toFixed(0)+' · '+invPct+'%');
+    set('sb-cash','$'+cash.toFixed(0)+' · '+cashPct+'%');
+    const dlBar=document.getElementById('sb-dloss-bar');
+    if(dlBar&&d.max_daily_loss_usd){const p=Math.min(100,(d.daily_loss_usd||0)/d.max_daily_loss_usd*100);dlBar.style.width=p+'%';dlBar.className='rfill '+(p>80?'rdng':p>50?'rwarn':'rok');}
+    set('sb-dloss-lbl','$'+(d.daily_loss_usd||0).toFixed(2)+' / $'+(d.max_daily_loss_usd||0));
+    set('sb-exposure-lbl','$'+inv.toFixed(0)+' / $'+ttl.toFixed(0));
+    const expBar=document.getElementById('sb-exposure-bar');
+    if(expBar){expBar.style.width=invPct+'%';expBar.className='rfill '+(invPct>80?'rdng':invPct>50?'rwarn':'rok');}
+    set('sb-invested','$'+inv.toFixed(2));
+    set('sb-open-pos',d.position_count||0);
+    const ksEl=document.getElementById('sb-ks');
+    if(ksEl){ksEl.textContent=d.kill_switch?'● ON':'● OFF';ksEl.style.color=d.kill_switch?'var(--red)':'var(--poly)';}
+    const isDry=d.weather_dry_run!==false;
+    const wsEl=document.getElementById('sb-weather');
+    if(wsEl){wsEl.textContent=isDry?'DRY-RUN':'LIVE';wsEl.style.color=isDry?'var(--orange)':'var(--poly)';}
+    // About tab
+    if(d.max_trade_size_usd) set('about-max-trade','$'+d.max_trade_size_usd);
+    if(d.max_daily_loss_usd) set('about-max-loss','$'+d.max_daily_loss_usd);
+    if(d.copy_size_multiplier) set('about-copy-mult',(parseFloat(d.copy_size_multiplier)*100).toFixed(0)+'%');
+    if(d.max_positions!=null) set('about-max-pos',d.max_positions);
+    if(d.max_portfolio_pct!=null) set('about-portfolio-cap',Math.round(d.max_portfolio_pct*100)+'%');
+    if(d.max_category_pct!=null) set('about-category-cap',d.max_category_pct+'%');
+    const wsStatus=document.getElementById('about-weather-status');
+    if(wsStatus){wsStatus.textContent=isDry?'DRY-RUN':'LIVE';wsStatus.style.color=isDry?'var(--orange)':'var(--poly)';}
+    const wlbl=document.getElementById('weather-status-label');
+    if(wlbl) wlbl.textContent=isDry?'Aktuell: DRY-RUN (kein echtes Trading)':'Aktuell: LIVE (echtes Trading aktiv!)';
+    const wlbl2=document.getElementById('pw-toggle-lbl');
+    if(wlbl2) wlbl2.textContent=isDry?'Modus: DRY-RUN':'Modus: LIVE';
+    const wtbtn=document.getElementById('btn-weather-toggle');
+    if(wtbtn){wtbtn.textContent=isDry?'WEATHER LIVE SCHALTEN':'AUF DRY-RUN ZURÜCKSETZEN';wtbtn.style.borderColor=isDry?'var(--orange)':'var(--red)';wtbtn.style.color=isDry?'var(--orange)':'var(--red)';}
+    const wtbtn2=document.getElementById('pw-toggle-btn');
+    if(wtbtn2){wtbtn2.style.borderColor=isDry?'var(--orange)':'var(--red)';wtbtn2.style.color=isDry?'var(--orange)':'var(--red)';}
+    // KPI weather panel
+    if(d.weather_bet_count!=null) set('pw-count',d.weather_bet_count);
+    if(d.weather_pnl!=null){const el=document.getElementById('pw-pnl');if(el){el.textContent=(d.weather_pnl>=0?'+$':'-$')+Math.abs(d.weather_pnl).toFixed(2);el.className='big '+(d.weather_pnl>=0?'pos':'neg');}}
+    set('pw-mode',isDry?'DRY-RUN':'LIVE');
+    set('pw-sub',d.weather_trading_enabled?'Aktiviert':'Deaktiviert');
+  }catch(e){}
+}
+
+// ── Health → Sidebar + Right sidebar ─────────────────────────
+async function fetchHealth(){
+  try{
+    const d=await fetch('/api/health').then(r=>r.json());
+    const set=(id,v)=>{const el=document.getElementById(id);if(el)el.textContent=v;};
+    set('sb-uptime',d.uptime_s!=null?formatDuration(d.uptime_s):'—');
+    if(d.heartbeat_ok!=null){
+      const age=d.heartbeat_age_s||0;
+      set('sb-hb',age+'s ago'+(d.heartbeat_ok?'':' ⚠️'));
+      const rtHb=document.getElementById('rt-hb'); if(rtHb) rtHb.textContent=age+'s';
+      const rtHbDot=document.getElementById('rt-hb-dot'); if(rtHbDot) rtHbDot.className='svd '+(d.heartbeat_ok?'sv-ok':'sv-dn');
+    }
+    set('rt-bot',d.bot_running?(d.bot_pid?'PID '+d.bot_pid:'RUNNING'):'STOPPED');
+    const rtBotDot=document.getElementById('rt-bot-dot'); if(rtBotDot) rtBotDot.className='svd '+(d.bot_running?'sv-ok':'sv-dn');
+    if(d.ws_events_recent!=null){
+      set('sb-ws',d.ws_events_recent+' Events/5min');
+      set('rt-ws',d.ws_events_recent+' Events');
+      const rtWsDot=document.getElementById('rt-ws-dot'); if(rtWsDot) rtWsDot.className='svd '+(d.ws_events_recent>0?'sv-ok':'sv-wn');
+    }
+    set('sb-lasttrade',d.last_trade_at||'—');
+    if(d.cpu_pct!=null) set('sb-sysload','CPU:'+d.cpu_pct+'% RAM:'+d.ram_pct+'%');
+    set('sb-resolver',d.resolver_ok?'● OK':'● ERR');
+  }catch(e){}
+}
+
+// ── Resolutions → Right sidebar ───────────────────────────────
+async function fetchResolutions(){
+  try{
+    const d=await fetch('/api/resolutions').then(r=>r.json());
+    const cont=document.getElementById('rt-resolutions');
+    if(!d.upcoming||!d.upcoming.length){cont.innerHTML='<div style="color:var(--muted);font-size:12px">Keine Deadlines</div>';return;}
+    cont.innerHTML=d.upcoming.slice(0,8).map(u=>{
+      const s=u.closes_in_s;
+      let cls='rtimer', str;
+      if(s<3600){str=Math.floor(s/60)+'m '+s%60+'s';cls='rtimer urg';}
+      else if(s<86400) str=(s/3600).toFixed(1)+'h';
+      else str=Math.floor(s/86400)+'d '+(Math.floor(s%86400/3600))+'h';
+      const badge=u.is_weather?'<span style="color:var(--kalshi);font-size:10px">🌤 </span>':'';
+      return `<div class="ri"><div class="rmkt">${badge}${esc(u.market)}</div><div class="rmeta"><span>${esc(u.outcome||'')} · $${(u.size_usdc||0).toFixed(2)}</span><span class="${cls}">${str}</span></div></div>`;
+    }).join('');
+  }catch(e){}
+}
+
+// ── Portfolio (OPEN/RESOLVED) ────────────────────────────────
+async function fetchPortfolio(){
+  try{
+    const d=await fetch('/api/portfolio').then(r=>r.json());
+    S.portfolioData=d;
+    const el=document.getElementById('ptc-open'); if(el) el.textContent='('+d.count+')';
+    const body=document.getElementById('tbl-open-body');
+    if(!d.positions||!d.positions.length){
+      if(body) body.innerHTML='<tr><td colspan="11" style="color:var(--muted);text-align:center;padding:20px">Keine offenen Positionen</td></tr>';
+      renderResolvedTab(); return;
+    }
+    if(body) body.innerHTML=d.positions.map(p=>{
+      const pcls=p.pnl_pct>0?'style="color:var(--poly)"':p.pnl_pct<0?'style="color:var(--red)"':'';
+      const claimCell=p.redeemable&&p.current_value>0.01
+        ?`<button onclick="claimAll()" style="background:transparent;border:1px solid var(--poly);color:var(--poly);font-family:var(--mono);font-size:10px;padding:2px 6px;cursor:pointer">CLAIM $${p.current_value.toFixed(2)}</button>`
+        :p.redeemable?'<span style="color:var(--red);font-size:10px">VERLOREN</span>':'—';
+      const cls=p.closes_in_class||'';
+      const closes=p.redeemable?'<span style="color:var(--muted);font-size:10px">ENDED</span>':`<span style="font-size:11px">${esc(p.closes_in_label||'—')}</span>`;
+      return `<tr><td style="max-width:160px;overflow:hidden;text-overflow:ellipsis;font-size:12px" title="${esc(p.market)}">${esc((p.market||'').substring(0,38))}…</td>
+        <td><span class="badge ${p.outcome==='YES'?'by':'bn'}">${esc(p.outcome)}</span></td>
+        <td style="color:var(--muted)">${p.avg_price_pct}¢→<b>${p.cur_price_pct}¢</b></td>
+        <td>${p.shares.toFixed(2)}</td><td>$${p.traded.toFixed(2)}</td>
+        <td><b>$${p.current_value.toFixed(2)}</b></td>
+        <td style="color:var(--poly)">$${p.to_win.toFixed(2)}</td>
+        <td ${pcls}>${(p.pnl_pct>=0?'+':'')+p.pnl_pct.toFixed(1)}%</td>
+        <td>${claimCell}</td><td>${closes}</td>
+        <td style="color:var(--muted);font-size:11px">${esc(p.wallet||'—')}</td></tr>`;
+    }).join('');
+    renderResolvedTab();
+  }catch(e){console.error('portfolio',e);}
+}
+function renderResolvedTab(){
+  const body=document.getElementById('tbl-resolved-body');
+  if(!body) return;
+  const inactive=(S.portfolioData&&S.portfolioData.inactive_positions)||[];
+  const archived=((S.posData&&S.posData.resolved)||[]);
+  const all=[...inactive,...archived];
+  if(!all.length){body.innerHTML='<tr><td colspan="7" style="color:var(--muted);text-align:center;padding:20px">Keine aufgelösten Trades</td></tr>';return;}
+  body.innerHTML=all.slice(0,50).map(p=>{
+    const pnl=p.pnl_usdc||p.pnl||0;
+    const pcls=pnl>0?'style="color:var(--poly)"':pnl<0?'style="color:var(--red)"':'';
+    const won=p.position_state==='RESOLVED_WON'||p.result==='GEWINN';
+    return `<tr><td style="color:var(--muted);font-size:10px">${esc(p.time||'—')}</td>
+      <td style="max-width:160px;overflow:hidden;text-overflow:ellipsis;font-size:12px">${esc((p.market||'').substring(0,38))}…</td>
+      <td>${esc(p.outcome||'—')}</td>
+      <td><span class="badge ${won?'bp':'bf'}">${won?'GEWINN':'VERLUST'}</span></td>
+      <td ${pcls}>${pnl>=0?'+':''}$${pnl.toFixed(2)}</td>
+      <td ${pcls}>${(p.pnl_pct||p.roi||0)>=0?'+':''}${p.pnl_pct||p.roi||0}%</td>
+      <td style="color:var(--muted);font-size:11px">${esc(p.wallet||'—')}</td></tr>`;
+  }).join('');
+}
+async function fetchPositions(){
+  try{
+    const d=await fetch('/api/positions').then(r=>r.json());
+    S.posData=d;
+    const el=document.getElementById('ptc-pending'); if(el) el.textContent='('+(d.counts?d.counts.pending:0)+')';
+    const pbody=document.getElementById('tbl-pending-body');
+    if(!d.pending||!d.pending.length){if(pbody) pbody.innerHTML='<tr><td colspan="6" style="color:var(--muted);text-align:center;padding:20px">Keine Pending Orders</td></tr>';return;}
+    if(pbody) pbody.innerHTML=d.pending.map(p=>{
+      const age=p.age_s>=60?Math.floor(p.age_s/60)+'m':p.age_s+'s';
+      return `<tr><td style="font-size:10px;color:var(--muted)">${esc(p.order_id)}</td>
+        <td style="font-size:12px">${esc((p.market||'').substring(0,40))}…</td>
+        <td><span class="badge ${p.outcome==='YES'?'by':'bn'}">${esc(p.outcome)}</span></td>
+        <td>${p.entry_price_pct}¢</td><td>$${p.size_usdc.toFixed(2)}</td>
+        <td>${p.stuck?'<span style="color:var(--red)">⚠️ '+age+' HÄNGT</span>':age}</td></tr>`;
+    }).join('');
+    renderResolvedTab();
+    // update right sidebar with recent resolved
+    const recent=(d.resolved||[]).slice(0,5);
+    const rtAct=document.getElementById('rt-activity');
+    if(rtAct&&recent.length) rtAct.innerHTML=recent.map(t=>{
+      const pnl=t.pnl||0;
+      return `<div class="ti"><div class="th"><span class="tm">${esc((t.market||'—').substring(0,22))}</span><span class="tt">${esc(t.time||'')}</span></div><div class="tb">${esc(t.outcome)} · ${pnl>=0?'+$':'-$'}${Math.abs(pnl).toFixed(2)}</div></div>`;
+    }).join('');
+  }catch(e){}
+}
+function switchPosTab(name,btn){
+  document.querySelectorAll('#pnl-poly-positions .stab').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  ['open','pending','resolved'].forEach(n=>{const el=document.getElementById('pos-'+n);if(el)el.style.display=n===name?'':'none';});
+}
+function claimAll(){showToast('Polymarket öffnen → Positions → Claims einlösen','info');window.open('https://polymarket.com','_blank');}
+
+// ── Report ────────────────────────────────────────────────────
+async function fetchReport(){
+  try{
+    const d=await fetch('/api/report').then(r=>r.json());
+    const set=(id,v)=>{const el=document.getElementById(id);if(el)el.textContent=v;};
+    set('r-trades',d.trades_today??'—'); set('r-errors',d.errors_today??'—');
+    set('r-rss',d.rss_signals_today??'—'); set('r-sl',d.stop_loss_triggered??'—');
+    set('r-we',d.whale_exit_triggered??'—'); set('r-bl',d.blacklist_blocked??'—');
+    const features=[
+      ['WebSocket', d.ws_status==='connected'?'🟢':'🔴', d.ws_status??'—'],
+      ['RSS Monitor', d.rss_signals_today>0?'🟢':'🟡', (d.rss_signals_today??0)+' Signale'],
+      ['Weather Scout', d.weather_opportunities>0?'🟢':'🟡', (d.weather_opportunities??0)+' Opps'],
+      ['Anomaly Detector', d.anomaly_active?'🟢':'🟡', d.anomaly_active?'Aktiv':'Inaktiv'],
+      ['Stop-Loss', d.stop_loss_triggered>0?'🟠':'🟢', (d.stop_loss_triggered??0)+'× ausgelöst'],
+      ['Whale Exit', d.whale_exit_triggered>0?'🟠':'🟢', (d.whale_exit_triggered??0)+'× kopiert'],
+    ];
+    const tbody=document.getElementById('r-features-body');
+    if(tbody) tbody.innerHTML=features.map(([n,dot,v])=>`<tr><td>${n}</td><td>${dot}</td><td>${v}</td></tr>`).join('');
+    const errDiv=document.getElementById('r-error-list');
+    if(errDiv) errDiv.innerHTML=(!d.recent_errors||!d.recent_errors.length)
+      ?'<span style="color:var(--muted);font-size:12px">✅ Keine Fehler heute</span>'
+      :d.recent_errors.map(e=>`<div class="eline">${esc(e)}</div>`).join('');
+  }catch(e){}
+}
+
+// ── Signals ───────────────────────────────────────────────────
+let _sigTimer=null;
+async function fetchSignals(){
+  try{
+    const d=await fetch('/api/signals').then(r=>r.json());
+    const list=document.getElementById('signals-list');
+    const upd=document.getElementById('signals-updated');
+    const sigs=d.signals||[];
+    if(!list) return;
+    list.innerHTML=sigs.length?sigs.map(s=>{
+      const ab=s.action?`<span class="sig-action sig-action-${s.action}">${s.action==='kopiert'?'🟢 kopiert':s.action==='dry-run'?'🟡 dry-run':'🔴 blockiert'}</span>`:'';
+      const rh=s.reason?`<span class="sig-reason">${esc(s.reason)}</span>`:'';
+      const tc=s.type?`sig-${s.type}`:'';
+      return `<div class="sig-row"><span class="sig-time">${s.time||'—'}</span><span class="sig-badge ${tc}">${esc(s.type||'—')}</span>${ab}<span class="sig-msg">${esc(s.message)}</span>${rh}</div>`;
+    }).join(''):'<div style="color:var(--muted);font-size:12px;padding:20px;text-align:center">Keine Signale heute</div>';
+    if(upd) upd.textContent='aktualisiert '+new Date().toLocaleTimeString('de-DE');
+    clearTimeout(_sigTimer);
+    _sigTimer=setTimeout(()=>{if(document.getElementById('pnl-poly-signals')?.classList.contains('active'))fetchSignals();},10000);
+  }catch(e){}
+}
+
+// ── Weather Status ────────────────────────────────────────────
+async function fetchWeatherStatus(){
+  try{
+    const d=await fetch('/api/weather_status').then(r=>r.json());
+    const opps=d.opportunities||[];
+    const listEl=document.getElementById('pw-opps');
+    if(listEl) listEl.innerHTML=opps.length
+      ?opps.map(o=>`<div style="background:var(--bg3);border:1px solid var(--border);padding:10px 12px;margin-bottom:6px;font-size:12px">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <span style="color:${o.direction==='YES'?'var(--poly)':'var(--red)'};font-weight:bold;font-size:13px">${esc(o.direction)} ${esc(o.city)}</span>
+          <span style="color:var(--orange)">Edge: ${esc(o.edge)}</span>
+          <span style="color:var(--muted)">${esc(o.ts)}</span>
+        </div>
+        <div style="color:var(--muted);margin-top:4px">Forecast: ${esc(o.forecast)} | ${esc(o.question)}</div>
+      </div>`).join('')
+      :'<div style="color:var(--muted);font-size:12px;padding:12px">Keine aktuellen Opportunities</div>';
+    const scan=d.scan||{}, cfg=d.config||{};
+    const sub=document.getElementById('pw-sub');
+    if(sub) sub.textContent=(scan.last_scan?`Scan: ${scan.last_scan}`:'')+' — '+(scan.total_markets||0)+' Opps';
+    set('pw-cities',cfg.enabled?'Aktiviert':'Deaktiviert');
+  }catch(e){}
+}
+function set(id,v){const el=document.getElementById(id);if(el)el.textContent=v;}
+async function toggleWeather(){
+  const btn=document.getElementById('btn-weather-toggle'), btn2=document.getElementById('pw-toggle-btn');
+  if(btn) btn.disabled=true; if(btn2) btn2.disabled=true;
+  try{
+    const d=await fetch('/api/weather/toggle',{method:'POST'}).then(r=>r.json());
+    const msg=document.getElementById('weather-toggle-msg'), msg2=document.getElementById('pw-toggle-msg');
+    const txt=d.msg||d.status||'OK';
+    if(msg){msg.textContent=txt;msg.style.display='inline';setTimeout(()=>msg.style.display='none',4000);}
+    if(msg2){msg2.textContent=txt;msg2.style.display='block';setTimeout(()=>msg2.style.display='none',4000);}
+    fetchSummary();
+  }catch(e){}finally{if(btn) btn.disabled=false;if(btn2) btn2.disabled=false;}
+}
+
+// ── Paper Trades ──────────────────────────────────────────────
+async function loadPaperTrades(){
+  try{
+    const d=await fetch('/api/weather_paper_trades').then(r=>r.json());
+    const s=d.stats||{};
+    set('pt-total',s.total_trades??'—'); set('pt-winrate',(s.win_rate??'—')+'%'); set('pt-pnl','$'+(s.total_won_usd??'—'));
+    const list=document.getElementById('pt-list');
+    if(!d.trades||!d.trades.length){if(list) list.textContent='Noch keine Paper Trades — Scan läuft alle 30 Min';return;}
+    if(list) list.innerHTML=d.trades.map(t=>{
+      const color=t.status==='WON'?'var(--poly)':t.status==='LOST'?'var(--red)':'var(--orange)';
+      const icon=t.status==='WON'?'✅':t.status==='LOST'?'❌':'⏳';
+      const cl=t.closes_in_label||'—';
+      const oc=t.outcome==='YES'?'var(--poly)':'var(--red)';
+      const q=(t.question||'').length>60?t.question.slice(0,60)+'…':(t.question||'—');
+      return `<div style="padding:8px 0;border-bottom:1px solid var(--border)">
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+          <span style="color:var(--muted)">${esc(t.timestamp)}</span>
+          <span style="color:var(--acc);font-weight:600">${esc(t.city)}</span>
+          <span style="color:${oc};font-size:10px;padding:1px 5px;border:1px solid ${oc};border-radius:2px">${esc(t.outcome)}</span>
+          <span style="color:var(--muted)">@${t.market_price_cents}¢</span>
+          ${t.edge_pct!=='—'?`<span style="color:var(--orange)">Edge: ${t.edge_pct}%</span>`:''}
+          <span style="color:${color};font-weight:bold">${icon} ${esc(t.status)}</span>
+          <span style="color:var(--muted)">$${t.simulated_buy_usd} → $${t.potential_win_usd}</span>
+          <span style="color:var(--muted);font-size:11px">⏱ ${esc(cl)}</span>
+        </div>
+        <div style="color:var(--muted);font-size:11px;margin-top:2px">${esc(q)}</div>
+      </div>`;
+    }).join('');
+  }catch(e){console.error('paper trades',e);}
+}
+
+// ── Wallet Performance (Auswertung) ───────────────────────────
+async function fetchWalletPerformance(){
+  try{
+    const d=await fetch('/api/wallets').then(r=>r.json());
+    const tbody=document.getElementById('tbl-wp-body');
+    const sum=document.getElementById('wp-summary');
+    const wallets=d.wallets||[];
+    if(!tbody) return;
+    if(!wallets.length){tbody.innerHTML='<tr><td colspan="8" style="color:var(--muted);text-align:center;padding:20px">Keine Daten</td></tr>';return;}
+    tbody.innerHTML=wallets.map(w=>{
+      const mc=w.multiplier>=1.0?'var(--poly)':w.multiplier>=0.3?'var(--orange)':'var(--muted)';
+      const pc=w.total_pnl>0?'var(--poly)':w.total_pnl<0?'var(--red)':'var(--muted)';
+      const wrc=w.win_rate>=55?'var(--poly)':w.win_rate>=40?'var(--orange)':'var(--red)';
+      const addr=w.address?w.address.slice(0,8)+'...'+w.address.slice(-4):'—';
+      return `<tr>
+        <td style="font-weight:700">${esc(w.alias)}</td>
+        <td style="color:var(--muted);font-size:11px;font-family:monospace">${addr}</td>
+        <td style="color:${mc};font-weight:700">${w.multiplier}x</td>
+        <td style="text-align:center">${w.signals_today>0?`<span style="color:var(--poly)">${w.signals_today}</span>`:'<span style="color:var(--muted)">—</span>'}</td>
+        <td style="text-align:center;color:var(--muted)">${w.copies_total??'—'}</td>
+        <td><span style="color:${wrc}">${w.win_rate??'—'}%</span></td>
+        <td style="color:${pc}">${(w.total_pnl||0)>=0?'+':''}$${(w.total_pnl||0).toFixed(2)}</td>
+        <td style="color:var(--muted);font-size:11px">${w.last_active?w.last_active.slice(5):'nie'}</td></tr>`;
+    }).join('');
+    if(sum) sum.textContent=`${d.total||0} Wallets | ${d.active_today||0} aktiv heute`;
+  }catch(e){}
+}
+async function fetchWalletPerf(){
+  try{
+    const d=await fetch('/api/stats/wallets').then(r=>r.json());
+    S.walletData=d.wallets||[]; renderWalletTable();
+  }catch(e){}
+}
+function sortWallets(key,btn){
+  S.walletSortKey=key;
+  document.querySelectorAll('.time-btn').forEach(b=>{if(['P&L','Win-Rate','Trades'].includes(b.textContent))b.classList.remove('active');});
+  btn.classList.add('active');
+  renderWalletTable();
+}
+function renderWalletTable(){
+  const sorted=[...S.walletData].sort((a,b)=>b[S.walletSortKey]-a[S.walletSortKey]);
+  const tbody=document.getElementById('tbl-wallets');
+  if(!sorted.length){if(tbody) tbody.innerHTML='<tr><td colspan="5" style="color:var(--muted);text-align:center">Keine Daten</td></tr>';return;}
+  if(tbody) tbody.innerHTML=sorted.map(w=>{
+    const pc=w.pnl>0?'style="color:var(--poly)"':w.pnl<0?'style="color:var(--red)"':'';
+    const wrc=w.win_rate>55?'color:var(--poly)':w.win_rate<45?'color:var(--red)':'color:var(--orange)';
+    return `<tr><td><b>${esc(w.name)}</b><br><span style="color:var(--muted);font-size:10px">${esc(w.address)}</span></td>
+      <td>${w.trades}</td><td><span style="${wrc}">${w.win_rate}%</span></td>
+      <td ${pc}>${w.pnl>=0?'+':''}$${w.pnl.toFixed(2)}</td>
+      <td ${pc}>${w.roi>=0?'+':''}${w.roi}%</td></tr>`;
+  }).join('');
+}
+
+// ── Balance Chart ─────────────────────────────────────────────
+async function fetchBalance(){
+  try{
+    const d=await fetch('/api/balance').then(r=>r.json());
+    const total=(d.portfolio_total??d.current??d.cash)??0;
+    if(total) document.getElementById('h-portfolio').textContent='$'+total.toFixed(2);
+    S.balanceData={h24:d.history_24h||[],h7d:d.history_7d||[],h30d:d.history_30d||[]};
+    renderBalanceChart();
+  }catch(e){}
+}
+function setChartRange(range,btn){
+  S.chartRange=range;
+  document.querySelectorAll('.time-btn').forEach(b=>{if(['24h','7d','30d'].includes(b.textContent))b.classList.remove('active');});
+  btn.classList.add('active'); renderBalanceChart();
+}
+function renderBalanceChart(){
+  const key=S.chartRange==='24h'?'h24':S.chartRange==='7d'?'h7d':'h30d';
+  const data=S.balanceData[key]||[];
+  const labels=data.map(d=>new Date(d.ts*1000).toLocaleTimeString('de-DE',S.chartRange==='24h'?{hour:'2-digit',minute:'2-digit'}:{month:'2-digit',day:'2-digit'}));
+  const vals=data.map(d=>d.value??d.balance??0);
+  const canvas=document.getElementById('balance-chart');
+  if(!canvas) return;
+  if(balanceChart) balanceChart.destroy();
+  balanceChart=new Chart(canvas,{type:'line',data:{labels,datasets:[{data:vals,borderColor:'#00ff88',borderWidth:2,fill:true,backgroundColor:'rgba(0,255,136,.05)',pointRadius:0,tension:.4}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{ticks:{color:'#3d5e42',maxTicksLimit:8,font:{size:10}},grid:{color:'rgba(255,255,255,0.03)'}},y:{ticks:{color:'#3d5e42',font:{size:10},callback:v=>'$'+v.toFixed(0)},grid:{color:'rgba(255,255,255,0.03)'}}}}});
+}
+
+// ── Multipliers ───────────────────────────────────────────────
+function renderMultipliers(wallets,def){
+  const grid=document.getElementById('wallet-grid');
+  if(!grid) return;
+  grid.innerHTML=Object.entries(wallets).map(([addr,w])=>`<div class="wcard">
+    <div class="wname">${esc(w.label)}</div>
+    <div class="waddr">${addr.substring(0,18)}...</div>
+    <div class="mult-row">
+      <input type="range" class="mult-slider" min="0" max="5" step="0.05" value="${w.value}"
+        oninput="this.nextElementSibling.textContent=parseFloat(this.value).toFixed(2)+'x'">
+      <span class="mult-val">${w.value.toFixed(2)}x</span>
+      <button class="mult-save" onclick="saveMultiplier('${addr}',this)">OK</button>
+    </div></div>`).join('');
+  const drow=document.getElementById('default-mult-row');
+  if(drow) drow.innerHTML=`<input type="range" class="mult-slider" style="flex:1" min="0" max="5" step="0.05" value="${def}"
+    oninput="this.nextElementSibling.textContent=parseFloat(this.value).toFixed(2)+'x'">
+    <span class="mult-val">${def.toFixed(2)}x</span>
+    <button class="mult-save" onclick="saveMultiplier('__default__',this)">OK</button>`;
+}
+async function saveMultiplier(wallet,btn){
+  const row=btn.closest('.mult-row')||btn.parentElement;
+  const val=parseFloat(row.querySelector('.mult-slider').value);
+  try{
+    const d=await fetch('/api/multipliers',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({wallet,value:val})}).then(r=>r.json());
+    showToast(d.ok?'✅ Multiplier gespeichert':'❌ '+d.error,d.ok?'win':'error');
+  }catch(e){showToast('❌ Fehler','error');}
+}
+
+// ── Log ───────────────────────────────────────────────────────
+function setLogFilter(f,btn){
+  S.logFilter=f;
+  document.querySelectorAll('#pnl-auswert-log .time-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active'); renderLog();
+}
+function applyLogFilter(){renderLog();}
+function renderLog(){
+  const search=(document.getElementById('log-search')?.value||'').toLowerCase();
+  let lines=S.logLines;
+  if(S.logFilter==='orders') lines=lines.filter(l=>l.includes('LIVE ORDER')||l.includes('DRY-RUN')||l.includes('Order'));
+  else if(S.logFilter==='signals') lines=lines.filter(l=>l.includes('NEUER TRADE')||l.includes('Signal'));
+  else if(S.logFilter==='errors') lines=lines.filter(l=>l.includes('ERROR')||l.includes('WARNING')||l.includes('CRITICAL'));
+  if(search) lines=lines.filter(l=>l.toLowerCase().includes(search));
+  const cont=document.getElementById('log-container');
+  if(!cont) return;
+  cont.innerHTML=lines.map(l=>{
+    let c='var(--muted)';
+    if(l.includes('ERROR')||l.includes('CRITICAL')) c='var(--red)';
+    else if(l.includes('WARNING')) c='var(--orange)';
+    else if(l.includes('LIVE ORDER')) c='var(--poly)';
+    return `<div style="color:${c};padding:1px 0;line-height:1.5">${esc(l)}</div>`;
+  }).join('');
+  cont.scrollTop=cont.scrollHeight;
+}
+
+// ── Kill All ──────────────────────────────────────────────────
+function killAll(){
+  if(!confirm('⚠️ KILL ALL\n\nAlle offenen Positionen sofort schließen?\nDas kann nicht rückgängig gemacht werden.')) return;
+  fetch('/api/action',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'kill_all'})})
+    .then(r=>r.json()).then(d=>showToast(d.ok?'✅ Kill-Switch aktiviert':'❌ '+d.message,d.ok?'win':'error'))
+    .catch(()=>showToast('❌ Netzwerkfehler','error'));
+}
+
+// ── Helpers ───────────────────────────────────────────────────
+function esc(s){if(s==null)return'';return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function formatDuration(s){if(s<60)return s+'s';if(s<3600)return Math.floor(s/60)+'m '+Math.floor(s%60)+'s';return Math.floor(s/3600)+'h '+Math.floor((s%3600)/60)+'m';}
+function showToast(msg,type='win'){
+  const c=document.getElementById('toast'), t=document.createElement('div');
+  t.className='toast '+type; t.textContent=msg; c.appendChild(t);
+  setTimeout(()=>t.remove(),4000);
+}
+
+// ── Init & Polling ────────────────────────────────────────────
+async function init(){
+  buildStrats('poly'); switchStrat('poly','weather'); setAccent('poly');
+  const t=document.querySelector('.ptab[data-p="poly"]');
+  if(t){t.style.color=COLORS.poly.acc;t.style.borderColor=COLORS.poly.acc;t.style.background=COLORS.poly.gl;}
+  await Promise.all([fetchSummary(),fetchHealth(),fetchResolutions(),fetchPortfolio(),fetchPositions(),fetchWeatherStatus(),fetchBalance()]);
+}
+setInterval(fetchSummary,30000);
+setInterval(fetchHealth,8000);
+setInterval(fetchResolutions,60000);
+setInterval(fetchPositions,20000);
+setInterval(fetchPortfolio,60000);
+setInterval(fetchBalance,30000);
+setInterval(async()=>{
+  try{const d=await fetch('/api/logs?filter='+S.logFilter+'&n=80').then(r=>r.json());if(d.lines&&d.lines.length>S.logLines.length){S.logLines=d.lines;renderLog();}}catch(e){}
+},8000);
+init();
 </script>
 </body>
 </html>

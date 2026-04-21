@@ -37,8 +37,10 @@ _Stand: 21.04.2026 | Aktualisiert nach wallet_performance_report.py_
 | 0xd84c...07b9 | BoneReader | 0.2x | REVIEW | — |
 | 0xc658...b784 | Erasmus | 0.2x | ADD_TIER_B | — |
 | 0x0c0e...434e | TheSpiritofUkraine | 0.2x | ADD_TIER_B | — |
-| 0x2005...75ea | RN1 | **0.3x** ← gesenkt | REMOVE | 81 (81 closed) |
+| 0x2005...75ea | RN1 | **1.0x** ← erhöht 21.04 | KEEP | 81 (81 closed) |
 | 0xee61...debf | sovereign2013 | **0.2x** ← neu | REMOVE | 3 |
+| 0xc2e7...be51 | beachboy4 | **0.15x** | KEEP | 149 — 75% WR, +$3.46M April, NBA+Soccer |
+| 0x94f1...c7a | KeyTransporter | **0.05x** | WATCHING | 14 — 69% WR, +$5.71M Soccer |
 
 ---
 
@@ -55,7 +57,9 @@ _Stand: 21.04.2026 | Aktualisiert nach wallet_performance_report.py_
 
 | Datum | Wallet | Änderung | Grund |
 |-------|--------|----------|-------|
-| 21.04.2026 | 0x2005...75ea (RN1) | 0.30 → 0.3 (gleich, aber als Absicht markiert) | 38% WR, -$193 PnL über 81 Trades |
+| 21.04.2026 | 0x2005...75ea (RN1) | 0.3 → 1.0 | April Top-Performer, $3.74M Gewinn, Messfehler korrigiert |
+| 21.04.2026 | 0xc2e7...be51 (beachboy4) | 0.30 → 0.15 + KEEP | 75% WR, 149 Trades, +$3.46M April, NBA+Soccer |
+| 21.04.2026 | 0x94f1...c7a (KeyTransporter) | neu: 0.05x WATCHING | 69% WR, 14 Trades, +$5.71M Soccer |
 | 21.04.2026 | 0xee61...debf (sovereign2013) | neu: 0.2x | 33% WR, -$23, nur 3 Trades, REMOVE-Entscheid vom 19.04. |
 | 19.04.2026 | wan123 | 2.5x → 0.5x | negative ROI bestätigt |
 | 19.04.2026 | denizz | 0.5x → 1.0x | Post-Bug-Fix Rekalibrierung |

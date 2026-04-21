@@ -2087,6 +2087,61 @@ def api_skipped_signals():
     return _cors(jsonify(stats))
 
 
+@app.route("/api/today_summary")
+def api_today_summary():
+    """
+    GET /api/today_summary
+    Tages-Übersicht mit Weather-spezifischer Auswertung.
+    Returns: weather_pnl_today, weather_trades_today, weather_wr_today, last_win
+    """
+    archive = load_json(ARCHIVE_FILE) or []
+    today = date.today().isoformat()
+    today_all = [t for t in archive if t.get("datum") == today]
+
+    # Weather-Trades: source_wallet == "[weather-bot]"
+    weather_today = [t for t in today_all
+                     if t.get("source_wallet", "") == "[weather-bot]"]
+    weather_resolved = [t for t in weather_today if t.get("aufgeloest")]
+    weather_wins  = [t for t in weather_resolved if t.get("ergebnis") == "GEWINN"]
+    weather_pnl   = round(sum(float(t.get("gewinn_verlust_usdc", 0) or 0)
+                              for t in weather_resolved), 2)
+    weather_wr    = round(len(weather_wins) / max(len(weather_resolved), 1) * 100, 1)
+
+    # Letzter Gewinn (alle Strategien)
+    last_win = None
+    for t in reversed(archive):
+        if t.get("ergebnis") == "GEWINN" and t.get("gewinn_verlust_usdc", 0) > 0:
+            last_win = {
+                "market":  t.get("markt", "?")[:55],
+                "pnl":     round(float(t.get("gewinn_verlust_usdc", 0)), 2),
+                "time":    f"{t.get('datum','')} {t.get('uhrzeit','')}".strip(),
+                "outcome": t.get("outcome", ""),
+                "wallet":  t.get("source_wallet", "")[:16],
+            }
+            break
+
+    # Gesamt-Tages-Stats
+    today_resolved = [t for t in today_all if t.get("aufgeloest")]
+    today_pnl = round(sum(float(t.get("gewinn_verlust_usdc", 0) or 0)
+                          for t in today_resolved), 2)
+    today_wins = sum(1 for t in today_resolved if t.get("ergebnis") == "GEWINN")
+    today_losses = sum(1 for t in today_resolved if t.get("ergebnis") == "VERLUST")
+
+    return _cors(jsonify({
+        "date":                  today,
+        "weather_pnl_today":     weather_pnl,
+        "weather_trades_today":  len(weather_resolved),
+        "weather_wr_today":      weather_wr,
+        "weather_wins":          len(weather_wins),
+        "weather_open":          len([t for t in weather_today if not t.get("aufgeloest")]),
+        "last_win":              last_win,
+        "total_pnl_today":       today_pnl,
+        "total_wins_today":      today_wins,
+        "total_losses_today":    today_losses,
+        "total_trades_today":    len(today_all),
+    }))
+
+
 # ── WebSocket Push ─────────────────────────────────────────────────────────────
 
 _last_log_count = 0

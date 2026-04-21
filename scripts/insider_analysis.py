@@ -38,7 +38,7 @@ POLYGONSCAN_API  = "https://api.polygonscan.com/api"
 POLYGONSCAN_KEY  = os.getenv("POLYGONSCAN_KEY", "IAYXP5NMRQCUHWF3T3346U277JD1YDUJD6")
 
 # ── Insider-Erkennungs-Parameter ───────────────────
-MAX_WALLET_AGE_DAYS   = 7
+MAX_WALLET_AGE_DAYS   = 999
 MIN_TRADE_USD         = 500
 MAX_LIFETIME_TRADES   = 10
 MAX_ENTRY_PRICE       = 0.20
@@ -220,25 +220,16 @@ async def get_suspicious_trades(
                 ["SELL","SHORT"]:
             continue
 
-        ts_str = t.get(
-            "timestamp", t.get("createdAt",""))
-        if not ts_str:
-            continue
-
-        try:
-            ts = datetime.fromisoformat(
-                ts_str.replace("Z","+00:00")
-            ).timestamp()
-        except:
+        ts = float(t.get("timestamp", 0))
+        if not ts:
             continue
 
         if not (window_start <= ts <= resolution_ts):
             continue
 
         price = float(t.get("price", 1))
-        size = float(t.get(
-            "usdcSize", t.get("amount", 0)))
-        wallet = t.get("user", t.get("maker",""))
+        size = float(t.get("size", 0))
+        wallet = t.get("proxyWallet", "")
 
         if (price <= MAX_ENTRY_PRICE and
                 size >= MIN_TRADE_USD and
@@ -250,7 +241,7 @@ async def get_suspicious_trades(
                 "price": round(price, 4),
                 "size_usd": round(size, 2),
                 "trade_ts": ts,
-                "trade_time": ts_str,
+                "trade_time": datetime.fromtimestamp(ts, tz=timezone.utc).isoformat(),
                 "resolution_ts": resolution_ts,
                 "hours_before": round(
                     (resolution_ts - ts) / 3600, 1)
@@ -290,29 +281,136 @@ def calculate_score(
         lifetime_trades: int,
         price: float,
         size_usd: float,
-        hours_before: float) -> int:
+        hours_before: float,
+        question: str = "") -> int:
 
     score = 0
 
-    if wallet_age < 1:      score += 40
-    elif wallet_age < 3:    score += 30
-    elif wallet_age < 7:    score += 20
-    elif wallet_age < 14:   score += 10
+    # Timing — Haupt-Signal (max 35)
+    if hours_before < 0.5:    score += 35
+    elif hours_before < 2:    score += 25
+    elif hours_before < 6:    score += 15
+    elif hours_before < 12:   score += 10
+    elif hours_before < 24:   score += 5
 
-    if lifetime_trades == 1: score += 30
-    elif lifetime_trades <= 3: score += 20
-    elif lifetime_trades <= 10: score += 10
+    # Trade-Größe (max 20)
+    if size_usd >= 5000:      score += 20
+    elif size_usd >= 2000:    score += 15
+    elif size_usd >= 1000:    score += 10
+    elif size_usd >= 500:     score += 5
 
-    if price < 0.05:        score += 20
-    elif price < 0.10:      score += 15
-    elif price < 0.15:      score += 10
-    elif price < 0.20:      score += 5
+    # Preis (max 20)
+    if price < 0.05:          score += 20
+    elif price < 0.10:        score += 15
+    elif price < 0.15:        score += 10
+    elif price < 0.20:        score += 5
 
-    if hours_before < 6:    score += 10
-    elif hours_before < 12: score += 7
-    elif hours_before < 24: score += 5
+    # Geopolitik-Bonus (max 10)
+    if question and any(k in question.lower() for k in GEO_KEYWORDS):
+        score += 10
+
+    # Wallet-Alter — nur Bonus, kein Pflicht-Kriterium (max 15)
+    if wallet_age < 7:        score += 15
+    elif wallet_age < 30:     score += 10
+    elif wallet_age < 90:     score += 5
+
+    # Wenig Trades = suspicious (max 10)
+    if lifetime_trades == 1:  score += 10
+    elif lifetime_trades <= 3: score += 7
+    elif lifetime_trades <= 10: score += 3
 
     return score
+
+
+# ── Multi-Wallet Cluster Detection ────────────────
+def detect_wallet_clusters(all_suspicious: list) -> list:
+    """
+    Sucht koordinierte Multi-Wallet-Cluster:
+    - 2-8 Wallets kaufen denselben Markt
+    - Innerhalb von 60 Minuten
+    - Ähnliche Größe (±20%)
+    - Preis < 20¢
+    """
+    from collections import defaultdict
+
+    by_market = defaultdict(list)
+    for t in all_suspicious:
+        by_market[t["condition_id"]].append(t)
+
+    clusters = []
+    for market_id, trades in by_market.items():
+        trades_sorted = sorted(
+            trades, key=lambda t: float(t.get("trade_ts", 0)))
+
+        seen_keys = set()
+        for i, t1 in enumerate(trades_sorted):
+            cluster = [t1]
+            t1_time = float(t1.get("trade_ts", 0))
+            t1_size = float(t1.get("size_usd", 0))
+
+            for t2 in trades_sorted[i + 1:]:
+                t2_time = float(t2.get("trade_ts", 0))
+                t2_size = float(t2.get("size_usd", 0))
+
+                if t2_time - t1_time > 3600:
+                    break
+
+                if t2.get("wallet") == t1.get("wallet"):
+                    continue
+
+                if t1_size > 0:
+                    size_diff = abs(t2_size - t1_size) / t1_size
+                    if size_diff <= 0.20:
+                        cluster.append(t2)
+
+            if len(cluster) < 2:
+                continue
+
+            wallets_key = frozenset(t["wallet"] for t in cluster)
+            dedup_key = (market_id, wallets_key)
+            if dedup_key in seen_keys:
+                continue
+            seen_keys.add(dedup_key)
+
+            total_invested = sum(
+                float(t.get("size_usd", 0)) for t in cluster)
+            avg_price = (
+                sum(float(t.get("price", 0.01)) for t in cluster)
+                / len(cluster))
+            if avg_price < 0.05:
+                continue  # Last-Minute-Arb (<5¢), kein echter Insider
+
+            potential_profit = round(
+                total_invested * (1 / max(avg_price, 0.001) - 1), 2)
+            hours = round(float(cluster[0].get("hours_before", 0)), 1)
+
+            clusters.append({
+                "market_id": market_id,
+                "market": cluster[0].get("question", "Unknown"),
+                "wallets": len(cluster),
+                "total_invested": round(total_invested, 2),
+                "potential_profit": potential_profit,
+                "avg_price": round(avg_price, 4),
+                "hours_before": hours,
+                "wallets_list": [
+                    t.get("wallet", "")[:20] for t in cluster],
+                "confidence": (
+                    "HIGH_CLUSTER"
+                    if len(cluster) >= 3
+                    else "MEDIUM_CLUSTER"),
+            })
+
+    # Besten Cluster pro Markt behalten
+    best = {}
+    for c in clusters:
+        mid = c["market_id"]
+        if mid not in best or c["wallets"] > best[mid]["wallets"]:
+            best[mid] = c
+
+    return sorted(
+        best.values(),
+        key=lambda x: x["potential_profit"],
+        reverse=True)
 
 
 # ── Haupt-Analyse ──────────────────────────────────
@@ -412,16 +510,17 @@ async def run_analysis():
                     lifetime,
                     trade["price"],
                     trade["size_usd"],
-                    trade["hours_before"]
+                    trade["hours_before"],
+                    trade.get("question", "")
                 )
 
                 classification = (
                     "PUMP_DUMP"
                     if behavior == "SOLD_BEFORE_RESOLUTION"
                     else "HIGH_CONFIDENCE_INSIDER"
-                    if score >= 70
+                    if score >= 60
                     else "MEDIUM_CONFIDENCE_INSIDER"
-                    if score >= 45
+                    if score >= 35
                     else "LOW_SIGNAL"
                 )
 
@@ -445,6 +544,8 @@ async def run_analysis():
             print(
                 f"  {len(results)} Wallets analysiert...")
             await asyncio.sleep(1)
+
+        clusters = detect_wallet_clusters(all_suspicious)
 
         insider_high = sorted(
             [r for r in results
@@ -495,7 +596,8 @@ async def run_analysis():
                         len(insider_mid) -
                         len(pump_dump)
                 },
-                "top_50_insider_wallets": insider_high[:50]
+                "top_50_insider_wallets": insider_high[:50],
+                "top_clusters": clusters[:20],
             }, f, indent=2)
 
         print("\n" + "=" * 65)
@@ -508,6 +610,7 @@ async def run_analysis():
         print(f"🔴 HIGH-CONFIDENCE INSIDER: {len(insider_high)}")
         print(f"🟡 MEDIUM-CONFIDENCE:       {len(insider_mid)}")
         print(f"⚡ PUMP & DUMP:             {len(pump_dump)}")
+        print(f"🕸️  WALLET-CLUSTER:         {len(clusters)}")
         print()
 
         if insider_high:
@@ -553,6 +656,22 @@ async def run_analysis():
             print(
                 f"  Ø Einsatz: "
                 f"${sum(r['size_usd'] for r in pump_dump)/len(pump_dump):,.0f}")
+
+        if clusters:
+            print()
+            print("TOP-10 WALLET-CLUSTER:")
+            print(f"  {'Wallets':>7} {'Invested':>10} {'Pot.Profit':>12} "
+                  f"{'Price':>7} {'h.before':>8}  Markt")
+            print("  " + "-" * 63)
+            for c in clusters[:10]:
+                conf = "🔴" if c["confidence"] == "HIGH_CLUSTER" else "🟡"
+                print(
+                    f"  {conf} {c['wallets']:>5}  "
+                    f"${c['total_invested']:>9,.0f}  "
+                    f"${c['potential_profit']:>11,.0f}  "
+                    f"{c['avg_price']*100:>5.1f}¢  "
+                    f"{c['hours_before']:>6.1f}h  "
+                    f"{c['market'][:45]}")
 
         print()
         print(f"📁 CSV: {csv_path}")

@@ -908,6 +908,23 @@ async def check_resolved_markets_and_notify():
                 market=r["question"], outcome=r["outcome"],
                 won=r["won"], size=r["size"], pnl=r["pnl"],
             ))
+            if r["won"] and r["pnl"] > 0:
+                entry_price = float(r["trades"][0].get("preis_usdc", 0.5) or 0.5)
+                roi = round(r["pnl"] / max(r["size"], 0.01) * 100, 0)
+                try:
+                    import json as _j
+                    _bc = _j.loads(open("data/balance_cache.json").read())
+                    total_portfolio = round(_bc.get("balance_usdc", 0), 2)
+                except Exception:
+                    total_portfolio = 0.0
+                await send("\n".join([
+                    "🔔🔔🔔 <b>GEWINN GEBONGT!</b> 🔔🔔🔔",
+                    "━━━━━━━━━━━━━━━━━━━━",
+                    f"📈 <b>{r['question'][:55]}</b>",
+                    f"✅ {r['outcome']} @ {entry_price:.2f}¢ → 1.00¢",
+                    f"💵 PnL: <b>+${r['pnl']:.2f} (+{roi:.0f}%)</b>",
+                    f"🏦 Portfolio: <b>${total_portfolio:.2f}</b>",
+                ]), urgent=True)
         if len(newly_resolved) > 1:
             wins = [r for r in newly_resolved if r["won"]]
             losses = [r for r in newly_resolved if not r["won"]]

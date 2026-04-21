@@ -52,6 +52,10 @@
 | T-036 | Weather Live-Trading: Nur kalibrierte Städte (Seoul, Dubai, Moscow + sigma>2.5 Städte) | KRITISCH | Unkalibrierte Städte bleiben im Shadow Mode |
 | T-037 | wan123 Multiplier auf 0.5x senken | WICHTIG | 90% WR aber -71% ROI bestätigt |
 | T-038 | simple_tail_scanner.py --live --save ausführen (erster echter Weather-Trade) | KRITISCH | Script bereit, Toronto oder Seoul bevorzugt |
+| T-039 | shadow_vs_live_compare.py — wöchentlich Freitag 09:00 via systemd Timer | WICHTIG | Script erstellt 21.04., wartet auf Shadow-Abschlüsse |
+| T-040 | wallet_performance_report.py — wöchentlich Freitag 09:00 | WICHTIG | Script erstellt 21.04. |
+| T-041 | auto_sigma_recalibrate.py — wöchentlich Sonntag 08:00 | WICHTIG | Script erstellt 21.04., braucht >3 Weather-Resolutions pro Stadt |
+| T-042 | slippage_tracker.py — täglich 09:00 nach WalletScout | NICE | Script erstellt 21.04., 24 Einträge, Ø -0.17¢ (OK) |
 
 ## ✅ ERLEDIGT (21. April 2026)
 
@@ -68,5 +72,6 @@
 - [x] T-036: CALIBRATED_CITIES Live-Filter (32 Städte), unkalibrierte → Shadow-Only
 - [x] T-037: wan123 Multiplier auf 0.5x (negative ROI bestätigt — war 2.5x)
 - [x] Shadow Portfolio: Kapital unbegrenzt ($999,999), alle Kapital-Checks entfernt
+- [x] T-D51: Scripts erstellt (shadow_vs_live, wallet_perf, sigma_recal, slippage) — 21.04.2026
 - [x] METAR Lock: check_metar_lock() in weather_scout.py, 2× Sizing + 88% Konfidenz
 - [x] T-D50: Health Monitor stündlich (health_monitor.py + systemd Timer, Telegram + E-Mail)

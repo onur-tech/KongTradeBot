@@ -203,75 +203,136 @@ class ShadowPortfolio:
         return resolved
 
     def resolve_closed_markets(self) -> int:
-        """Fragt Gamma API für alle offenen Positionen und löst abgeschlossene Märkte auf."""
+        """
+        Löst abgeschlossene Shadow-Positionen auf.
+
+        Ansatz: Gamma-API liefert geschlossene Märkte seitenweise.
+        Wir bauen ein Lookup-Dict {conditionId → winner} aus den ersten
+        N Seiten und gleichen unsere offenen market_ids dagegen ab.
+
+        Hintergrund: CLOB API = 403, data-api/gamma-api ignorieren beide
+        den conditionId-Filter vom Server-IP. Pagination ist der
+        einzige zuverlässige Weg für per-Markt-Resolution.
+        """
         import urllib.request
         import json as _json
 
+        GAMMA_API = "https://gamma-api.polymarket.com"
         resolved_total = 0
-        # Unique offene market_ids sammeln
-        open_mids = list({
+
+        # Unique offene market_ids als Such-Set
+        open_mids = {
             p["market_id"] for p in self.data["positions"]
             if p.get("status") == "OPEN" and p.get("market_id")
-        })
-        logger.info(f"[Shadow] Resolution-Check: {len(open_mids)} unique Märkte prüfen...")
+        }
+        if not open_mids:
+            return 0
 
-        for mid in open_mids:
-            url = f"https://gamma-api.polymarket.com/markets?conditionId={mid}"
+        logger.info(
+            f"[Shadow] Resolution-Check: {len(open_mids)} unique Märkte, "
+            f"scanne geschlossene Gamma-Märkte...")
+
+        # Pagination: geschlossene Märkte durchsuchen
+        # Aufhören wenn alle unsere IDs gefunden oder 50 Seiten durch
+        winner_map: dict = {}  # conditionId → winning_outcome (upper)
+        offset = 0
+        max_pages = 50
+
+        for page in range(max_pages):
+            url = (f"{GAMMA_API}/markets"
+                   f"?closed=true&limit=100&offset={offset}")
             try:
-                req = urllib.request.Request(url, headers={"User-Agent": "KongTradeBot/1.0"})
-                with urllib.request.urlopen(req, timeout=8) as r:
-                    data = _json.loads(r.read())
-                mkt = data[0] if isinstance(data, list) and data else data
+                req = urllib.request.Request(
+                    url, headers={"User-Agent": "Mozilla/5.0"})
+                with urllib.request.urlopen(req, timeout=10) as r:
+                    batch = _json.loads(r.read())
             except Exception as e:
-                logger.warning(f"[Shadow] Gamma API Fehler {mid[:14]}: {e}")
-                continue
+                logger.warning(
+                    f"[Shadow] Gamma-API Fehler (Seite {page}): {e}")
+                break
 
-            if not mkt.get("closed", False):
-                continue
+            if not batch:
+                break
 
-            # Gewinner aus outcomePrices bestimmen: ["1.0","0.0"] → YES, ["0.0","1.0"] → NO
-            prices = mkt.get("outcomePrices", [])
-            outcomes = mkt.get("outcomes", ["Yes", "No"])
-            winning_outcome = None
-            try:
-                max_idx = max(range(len(prices)), key=lambda i: float(prices[i]))
-                winning_outcome = outcomes[max_idx].upper()
-            except Exception:
-                pass
-            if winning_outcome is None:
-                continue
+            for mkt in batch:
+                cid = mkt.get("conditionId", "")
+                if cid not in open_mids:
+                    continue
+                # Gewinner aus outcomePrices (["1.0","0.0"] → YES)
+                prices = mkt.get("outcomePrices", [])
+                outcomes = mkt.get("outcomes", ["Yes", "No"])
+                try:
+                    max_idx = max(
+                        range(len(prices)),
+                        key=lambda i: float(prices[i]))
+                    winner = outcomes[max_idx].upper()
+                    winner_map[cid] = winner
+                except Exception:
+                    pass
 
-            # Alle offenen Positionen dieses Marktes auflösen
-            still_open = [p for p in self.data["positions"]
-                          if p.get("market_id") == mid and p.get("status") == "OPEN"]
+            offset += 100
+
+            # Alle unsere IDs gefunden?
+            if open_mids.issubset(winner_map.keys()):
+                logger.info(
+                    f"[Shadow] Alle {len(open_mids)} Märkte gefunden "
+                    f"nach {page + 1} Seiten.")
+                break
+
+        if not winner_map:
+            logger.info("[Shadow] Keine aufgelösten Märkte gefunden.")
+            return 0
+
+        logger.info(
+            f"[Shadow] {len(winner_map)} aufgelöste Märkte gefunden "
+            f"(von {len(open_mids)} gesuchten)")
+
+        # Positionen auflösen
+        for mid, winning_outcome in winner_map.items():
+            still_open = [
+                p for p in self.data["positions"]
+                if p.get("market_id") == mid
+                and p.get("status") == "OPEN"
+            ]
             for pos in still_open:
-                won = pos["outcome"] == winning_outcome
-                pnl = round((pos["shares"] - pos["invested_usdc"]) if won
-                            else -pos["invested_usdc"], 2)
-                pos["status"] = "WON" if won else "LOST"
-                pos["pnl"] = pnl
+                won = pos.get("outcome", "").upper() == winning_outcome
+                invested = float(pos.get("invested_usdc", 0))
+                shares   = float(pos.get("shares", 0))
+                pnl = round(
+                    (shares - invested) if won else -invested, 2)
+
+                pos["status"]    = "WON" if won else "LOST"
+                pos["pnl"]       = pnl
                 pos["exit_time"] = datetime.now(timezone.utc).isoformat()
+
                 self.data["stats"]["total_pnl"] = round(
                     self.data["stats"].get("total_pnl", 0) + pnl, 4)
                 if won:
-                    self.data["stats"]["wins"] = self.data["stats"].get("wins", 0) + 1
+                    self.data["stats"]["wins"] = (
+                        self.data["stats"].get("wins", 0) + 1)
                 else:
-                    self.data["stats"]["losses"] = self.data["stats"].get("losses", 0) + 1
+                    self.data["stats"]["losses"] = (
+                        self.data["stats"].get("losses", 0) + 1)
+
                 self.data["closed_positions"].append(pos)
                 resolved_total += 1
                 logger.info(
-                    f"[Shadow] {'✅' if won else '❌'} {pos['question'][:40]} "
+                    f"[Shadow] {'✅' if won else '❌'} "
+                    f"{pos.get('city') or pos.get('question','?')[:30]} "
+                    f"{pos.get('outcome','')} "
                     f"| {'WON' if won else 'LOST'} | PnL: ${pnl:+.2f}")
 
             # Aufgelöste aus offenen Positionen entfernen
             self.data["positions"] = [
                 p for p in self.data["positions"]
-                if not (p.get("market_id") == mid and p.get("status") in ("WON", "LOST"))
+                if not (p.get("market_id") == mid
+                        and p.get("status") in ("WON", "LOST"))
             ]
 
         if resolved_total > 0:
             self._save()
-            logger.info(f"[Shadow] {resolved_total} Positionen aufgelöst, gespeichert.")
+            logger.info(
+                f"[Shadow] {resolved_total} Positionen aufgelöst.")
         return resolved_total
 
     def get_summary(self) -> dict:

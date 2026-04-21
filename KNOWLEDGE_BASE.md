@@ -970,3 +970,40 @@ blockierten Budget-Cap (max $500).
 48h-Guard für RECOVERED_ verhinderte Cleanup.
 Fix: 48h-Guard für RECOVERED_ entfernt,
 $180 freigegeben.
+
+---
+
+## P033 — Weather Execution komplett fehlte (seit Bot-Start)
+Status: ✅ BEHOBEN — 21.04.2026
+
+Symptom: Bot fand täglich 20+ Opportunities,
+handelte aber nie einen einzigen Weather-Trade.
+WEATHER_DRY_RUN=false war korrekt gesetzt —
+trotzdem 0 echte Trades seit Bot-Start.
+
+Root-Cause: weather_loop() in main.py hatte
+keinen Execution-Code. Nur Telegram-Alert +
+Shadow-Portfolio. on_copy_order() wurde nie
+aufgerufen. Außerdem: Opportunity-Dicts hatten
+kein token_id-Feld (nötig für TradeSignal),
+weil get_all_polymarket_weather_markets() die
+clobTokenIds aus der Gamma API nicht
+weitergereicht hat.
+
+Fix (3 Teile):
+1. weather_scout.py: clobTokenIds aus Gamma API
+   in token_ids-Feld übernommen.
+2. weather_scout.py: token_id zu jedem
+   Opportunity-Dict (YES=token[0], NO=token[1]).
+3. main.py weather_loop(): Nach Telegram-Summary
+   live_opps filtern (nicht shadow_only + hat
+   token_id) → TradeSignal + CopyOrder bauen
+   → on_copy_order() routen (Budget-Check +
+   Telegram-Confirmation + Execution).
+
+Erster echter Weather-Trade: 21.04.2026 ~12:06 UTC
+  Paris NO @ 34¢ (Order 0xaa64...ec8e)
+  Dallas YES @ 22¢ (Order 0x7bc1...40ff)
+
+Wichtig: Immer prüfen ob weather_loop() nach
+run_weather_scout() auch on_copy_order() aufruft.

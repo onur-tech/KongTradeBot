@@ -253,6 +253,12 @@ def get_all_polymarket_weather_markets() -> list:
         rs = m.get('resolutionSource', '')
         wu_station, wu_country = _parse_wu_station(rs)
 
+        _raw_tids = m.get('clobTokenIds', [])
+        if isinstance(_raw_tids, str):
+            try:
+                import json as _j; _raw_tids = _j.loads(_raw_tids)
+            except Exception:
+                _raw_tids = []
         results.append({
             'question':      q,
             'city':          city,
@@ -266,6 +272,7 @@ def get_all_polymarket_weather_markets() -> list:
             'wu_station':    wu_station,
             'wu_country':    wu_country,
             'resolution_source': rs,
+            'token_ids':     _raw_tids,
         })
 
     results.sort(key=lambda x: x['volume'], reverse=True)
@@ -824,6 +831,8 @@ def run_weather_scout() -> list:
                 opp = {'direction': 'NO', 'price': no_price, 'edge': edge}
 
         if opp:
+            _tids = m.get('token_ids', [])
+            _token_id = _tids[0] if opp['direction'] == 'YES' and _tids else (_tids[1] if len(_tids) > 1 else '')
             all_opportunities.append({
                 'market':     question,
                 'condition_id': m['condition_id'],
@@ -837,6 +846,7 @@ def run_weather_scout() -> list:
                 'threshold':  threshold,
                 'unit':       unit,
                 'end_date':   m['end_date'],
+                'token_id':   _token_id,
                 'shadow_only': city not in CALIBRATED_CITIES,
             })
             logger.info(

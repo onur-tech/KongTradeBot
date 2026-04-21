@@ -1230,6 +1230,31 @@ async def main():
                             for o in opportunities[:5]
                         )
                         await send(f"🌤 <b>Weather Opportunities ({len(opportunities)})</b>\n{summary}")
+                        # Execute live trades for calibrated cities
+                        live_opps = [o for o in opportunities if not o.get('shadow_only') and o.get('token_id')]
+                        for opp in live_opps:
+                            try:
+                                from core.wallet_monitor import TradeSignal
+                                from strategies.copy_trading import CopyOrder
+                                sig = TradeSignal(
+                                    tx_hash=f"weather_{opp['condition_id'][:16]}_{datetime.now().strftime('%H%M%S')}",
+                                    source_wallet="[weather-bot]",
+                                    market_id=opp['condition_id'],
+                                    token_id=str(opp['token_id']),
+                                    side="BUY",
+                                    price=float(opp['price']),
+                                    size_usdc=float(config.max_trade_size_usd),
+                                    market_question=opp.get('market', opp.get('city', '')),
+                                    outcome=opp['direction'],
+                                )
+                                order = CopyOrder(signal=sig, size_usdc=float(config.max_trade_size_usd), dry_run=config.dry_run)
+                                await on_copy_order(order)
+                                logger.info(
+                                    f"[Weather] 🌤 LIVE ORDER routed: {opp['direction']} {opp['city']} "
+                                    f"@ {opp['price']:.3f} edge={opp['edge']:.0%}"
+                                )
+                            except Exception as _we:
+                                logger.error(f"[Weather] Trade-Fehler {opp.get('city','?')}: {_we}", exc_info=True)
                 except Exception as e:
                     logger.error(f"[Weather] Loop-Fehler: {e}", exc_info=True)
                 await asyncio.sleep(interval)

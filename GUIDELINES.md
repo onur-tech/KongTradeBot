@@ -104,3 +104,21 @@ ANTHROPIC_API_KEY=sk-ant-...
 - Fills immer on-chain verifizieren, nie API-Response allein vertrauen
 - TX-Hash-Dedup-Set ist auf 10.000 Einträge begrenzt
 - DRY_RUN ist default — `--live` Flag für echte Trades
+
+---
+
+## ZWEI CLAUDE CODE INSTANZEN
+
+### Daumenregel: Welcher CC für welche Aufgabe?
+
+| Aufgabe | CC |
+|---------|-----|
+| Python-Code der auf dem Server läuft | → Server CC |
+| Bot-Fixes, Systemd, Git-Commits, Repo-Dateien | → Server CC |
+| Lokale Windows-Scripts (z.B. calc_station_sigma.py) | → Windows CC |
+| Gmail Drafts, lokale Dateien auf C:\ | → Windows CC |
+| Sigma-Berechnung (braucht Internet, kein Server-DNS) | → Windows CC |
+| Neues Feature reviewen bevor deploy | → Windows CC schreibt, Server CC deployed |
+
+**Faustregel:** Wenn die Datei am Ende auf dem Server laufen muss → Server CC.
+Wenn sie lokal bleibt oder Internet-Zugang braucht den der Server nicht hat → Windows CC.

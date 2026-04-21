@@ -470,20 +470,44 @@ body{
   <!-- ─── POLY / ABOUT ─────────────────────────────────────────── -->
   <div class="panel" id="pnl-poly-about">
     <div class="w">
-      <div class="rtitle">KongTradeBot v0.6 — Features</div>
+      <div class="rtitle">KongTradeBot v0.6 — Module &amp; Status</div>
       <table class="ft">
         <thead><tr><th>Modul</th><th>Beschreibung</th><th>Status</th></tr></thead>
         <tbody>
-          <tr><td>🐋 Copy Trading</td><td>Kopiert Whale-Wallets via WebSocket</td><td style="color:var(--poly)">LIVE</td></tr>
-          <tr><td>📰 RSS Monitor</td><td>Tier-1 News: BBC, AP, NYT — Telegram Alerts</td><td style="color:var(--poly)">LIVE</td></tr>
-          <tr><td>🎯 Exit Manager</td><td>TP1/TP2/TP3 Take-Profit-Stufen + Whale-Exit-Copy</td><td style="color:var(--poly)">LIVE</td></tr>
+          <tr style="background:rgba(0,255,136,.03)">
+            <td colspan="3" style="font-size:10px;text-transform:uppercase;letter-spacing:2px;color:var(--muted);padding:6px 8px">── Core Trading ────────────────</td>
+          </tr>
+          <tr><td>🐋 Copy Trading</td><td>Kopiert Whale-Wallets proportional — 25 aktive Targets, 60s Signal-Buffer</td><td style="color:var(--poly)">LIVE</td></tr>
+          <tr><td>🚀 Multi-Signal-Boost</td><td>2+ Wallets → 1.5×, 3+ Wallets → 2.0× Positions-Größe</td><td style="color:var(--poly)">LIVE</td></tr>
           <tr><td>🛡️ Risk Manager</td><td>Budget-Cap, Tages-Verlustlimit, Kategorie-Exposure, Kill-Switch</td><td style="color:var(--poly)">LIVE</td></tr>
-          <tr><td>🔍 Anomaly Detector</td><td>Erkennt koordinierte Multi-Wallet Bets (&gt;$200K Cluster)</td><td style="color:var(--poly)">LIVE</td></tr>
-          <tr><td>📊 State Worker</td><td>Synchronisiert Positionen mit Polymarket API (alle 5 Min)</td><td style="color:var(--poly)">LIVE</td></tr>
-          <tr><td>💎 Auto Claim</td><td>Löst gewonnene Positionen automatisch ein</td><td style="color:var(--poly)">LIVE</td></tr>
-          <tr><td>🌐 Wallet Scout</td><td>Täglich 09:00 — Top-Performer-Wallets nachladen</td><td style="color:var(--poly)">LIVE</td></tr>
-          <tr><td>🌦️ Weather Scout</td><td>Tier-1/2/3 Temp-Märkte mit Kelly + Bias-Korrektur</td><td id="about-weather-status" style="color:var(--orange)">...</td></tr>
-          <tr><td>🚀 Multi-Signal-Boost</td><td>2+ Wallets → 1.5×. 3+ Wallets → 2.0×. 60s Signal-Buffer</td><td style="color:var(--poly)">LIVE</td></tr>
+          <tr><td>⚙️ Execution Engine</td><td>CLOB-Order-Erstellung + On-Chain-Fill-Verifikation (create_and_post)</td><td style="color:var(--poly)">LIVE</td></tr>
+          <tr><td>📡 Fill Tracker</td><td>WebSocket User-Channel: Orders pending→open, verhindert Phantom-Positionen</td><td style="color:var(--poly)">LIVE</td></tr>
+          <tr style="background:rgba(0,255,136,.03)">
+            <td colspan="3" style="font-size:10px;text-transform:uppercase;letter-spacing:2px;color:var(--muted);padding:6px 8px">── Exit &amp; Position Management ──</td>
+          </tr>
+          <tr><td>🎯 Exit Manager</td><td>TP1/TP2/TP3 Take-Profit-Stufen + Trailing-Stop ab TP1</td><td style="color:var(--poly)">LIVE</td></tr>
+          <tr><td>🔀 Exit Strategy</td><td>Whale-Position-Monitoring → Gradual / Full / Flip-Exit</td><td style="color:var(--poly)">LIVE</td></tr>
+          <tr><td>💎 Auto Claim</td><td>Löst gewonnene Positionen automatisch ein (ENDED-Detection)</td><td style="color:var(--poly)">LIVE</td></tr>
+          <tr><td>📊 State Worker</td><td>Synchronisiert Positionen mit Polymarket API alle 5 Min</td><td style="color:var(--poly)">LIVE</td></tr>
+          <tr style="background:rgba(0,255,136,.03)">
+            <td colspan="3" style="font-size:10px;text-transform:uppercase;letter-spacing:2px;color:var(--muted);padding:6px 8px">── Intelligence &amp; Scouting ──────</td>
+          </tr>
+          <tr><td>🔍 Anomaly Detector</td><td>Erkennt koordinierte Multi-Wallet Bets &gt;$200K — alle 5 Min</td><td style="color:var(--poly)">LIVE</td></tr>
+          <tr><td>🌐 Wallet Scout</td><td>Täglicher 09:00-Scan — Top-Performer-Wallets identifizieren</td><td style="color:var(--poly)">LIVE</td></tr>
+          <tr><td>👥 Wallet Tracker</td><td>Per-Wallet Win-Rate + PnL live in data/wallet_performance.json</td><td style="color:var(--poly)">LIVE</td></tr>
+          <tr><td>📰 RSS Monitor</td><td>Tier-1 News: BBC, AP, NYT — Telegram Alerts bei Breaking News</td><td style="color:var(--poly)">LIVE</td></tr>
+          <tr><td>🐦 X Monitor</td><td>X/Twitter: Elon + Trump Keywords → Echtzeit Markt-Signal</td><td style="color:var(--orange)">OPT</td></tr>
+          <tr style="background:rgba(0,255,136,.03)">
+            <td colspan="3" style="font-size:10px;text-transform:uppercase;letter-spacing:2px;color:var(--muted);padding:6px 8px">── Weather Trading ─────────────</td>
+          </tr>
+          <tr><td>🌦️ Weather Scout</td><td>Tier-1/2/3 Temp-Märkte, Kelly-Sizing, saisonale Bias-Korrektur</td><td id="about-weather-status" style="color:var(--orange)">...</td></tr>
+          <tr><td>📈 Shadow Portfolio</td><td>Virtuelle Parallel-Trades (Paper-Modus) für Backtest-Validierung</td><td style="color:var(--poly)">LIVE</td></tr>
+          <tr style="background:rgba(0,255,136,.03)">
+            <td colspan="3" style="font-size:10px;text-transform:uppercase;letter-spacing:2px;color:var(--muted);padding:6px 8px">── Geplant ─────────────────────</td>
+          </tr>
+          <tr><td>⚡ Market WS Monitor</td><td>WebSocket statt Data-API-Polling — &lt;1s Latenz für Sports/Politics</td><td style="color:var(--dim)">PHASE 2</td></tr>
+          <tr><td>🧠 Ensemble Gate</td><td>Multi-Model Confidence Gate (GFS + ECMWF + ICON Konsens)</td><td style="color:var(--dim)">PHASE 2</td></tr>
+          <tr><td>📋 Performance Tracker</td><td>Win-Rate-Decay-Kontrolle + §22 EStG Steuer-Export</td><td style="color:var(--dim)">PHASE 2</td></tr>
         </tbody>
       </table>
     </div>

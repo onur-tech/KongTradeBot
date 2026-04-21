@@ -13,6 +13,7 @@ import aiohttp
 from datetime import datetime, date
 from pathlib import Path
 import logging
+from core import hrrr_forecast
 
 logger = logging.getLogger("polymarket_bot.weather_scout")
 
@@ -785,6 +786,23 @@ def run_weather_scout() -> list:
             continue
 
         forecast_temp = celsius_to_fahrenheit(temp_c) if unit == 'F' else temp_c
+
+        # HRRR Konsens-Check für US-Städte (3km Auflösung, 0-18h Edge)
+        if city in hrrr_forecast.HRRR_US_CITIES:
+            consensus = hrrr_forecast.hrrr_vs_openmeteo_consensus(
+                city=city,
+                openmeteo_forecast=forecast_temp,
+                threshold=threshold,
+                unit=unit
+            )
+            if not consensus["consensus"]:
+                logger.info(
+                    f"[WeatherScout] SKIP {city}: "
+                    f"HRRR/OpenMeteo kein Konsens "
+                    f"(HRRR={consensus['hrrr']:.1f} "
+                    f"vs OM={consensus['openmeteo']:.1f})"
+                )
+                continue
 
         logger.info(
             f"[WeatherScout] {city}: Forecast {forecast_temp:.1f}°{unit} "

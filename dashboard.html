@@ -92,6 +92,12 @@ body{
 .stab.slive.active{border-color:var(--acc);color:var(--acc);background:var(--acc-gl)}
 .stab.splanned{opacity:.7;cursor:default;color:#888;font-size:15px}
 .pbadge{font-size:9px;padding:1px 4px;background:var(--dim);color:var(--muted);border-radius:2px}
+.btn-claim{background:rgba(0,255,136,.12);color:var(--poly);border:1px solid rgba(0,255,136,.4);border-radius:4px;padding:3px 8px;font-size:11px;cursor:pointer;white-space:nowrap;font-weight:600}
+.btn-claim:hover{background:rgba(0,255,136,.3)}
+.btn-sell{background:rgba(255,50,80,.1);color:#ff4466;border:1px solid rgba(255,50,80,.35);border-radius:4px;padding:3px 8px;font-size:11px;cursor:pointer;white-space:nowrap;font-weight:600}
+.btn-sell:hover{background:rgba(255,50,80,.25)}
+.redeemable-row{background:rgba(0,255,136,.04)!important}
+.redeemable-row td:first-child{border-left:2px solid var(--poly)}
 
 /* ══ LEFT SIDEBAR ════════════════════════════════════════════ */
 #sb{grid-area:sb;background:var(--bg2);border-right:1px solid var(--border);overflow-y:auto;padding:12px;display:flex;flex-direction:column;gap:14px}
@@ -142,7 +148,10 @@ body{
 .t th{text-align:left;color:var(--muted);font-weight:700;font-size:12px;padding:4px 6px;border-bottom:1px solid var(--border);text-transform:uppercase;letter-spacing:1px}
 .t td{padding:10px 8px;border-bottom:1px solid var(--border);line-height:1.6}
 .t tr:hover td{background:var(--bg3)}
-.twrap{overflow-y:auto;max-height:280px}
+.twrap{overflow-x:auto}
+#pnl-poly-positions{flex-direction:column}
+#pnl-poly-positions .w{flex:1;overflow-y:auto;min-height:520px}
+#pnl-poly-positions .twrap{overflow-y:auto;max-height:none}
 .badge{font-size:8px;padding:2px 5px;border-radius:2px;display:inline-block;letter-spacing:.5px}
 .by{background:rgba(0,255,136,.1);border:1px solid var(--poly);color:var(--poly)}
 .bn{background:rgba(255,61,61,.1);border:1px solid var(--red);color:var(--red)}
@@ -176,7 +185,7 @@ body{
 .ft th{text-align:left;color:var(--muted);font-weight:700;font-size:11px;padding:4px 6px;border-bottom:1px solid var(--border);text-transform:uppercase}
 .ft td{padding:8px 6px;border-bottom:1px solid var(--border)}
 .ft tr:hover td{background:var(--bg3)}
-.eline{font-size:11px;color:var(--red);padding:4px 0;border-bottom:1px solid var(--border)}
+.eline{font-size:13px;color:var(--red);padding:4px 0;border-bottom:1px solid var(--border)}
 .eline:last-child{border-bottom:none}
 .sig-row{display:flex;flex-wrap:wrap;align-items:center;gap:6px;padding:8px 0;border-bottom:1px solid var(--border);font-size:12px}
 .sig-row:last-child{border-bottom:none}
@@ -241,12 +250,13 @@ body{
 <!-- ══════════ HEADER ══════════════════════════════════════════ -->
 <header id="hdr">
   <div id="logo">
-    <img src="/static/logo.png" alt="Kong" style="height:80px;width:80px;border-radius:50%;object-fit:cover;vertical-align:middle;margin-right:7px">
+    <img src="/static/logo.png" alt="Kong" style="height:72px;width:72px;border-radius:50%;object-fit:cover;vertical-align:middle;margin-right:7px">
     KongBot
   </div>
   <span class="livepill" id="livepill">● LIVE</span>
   <div class="hstats">
-    <div class="hs"><span class="hs-lbl">Portfolio</span><span class="hs-val" id="h-portfolio">$—</span></div>
+    <div class="hs"><span class="hs-lbl">Total</span><span class="hs-val" id="h-portfolio">$—</span></div>
+    <div class="hs"><span class="hs-lbl">Cash</span><span class="hs-val" id="h-cash">$—</span></div>
     <div class="hs"><span class="hs-lbl">Heute P&L</span><span class="hs-val" id="h-pnl">—</span></div>
     <div class="hs"><span class="hs-lbl">Win Rate</span><span class="hs-val" id="h-winrate">—</span></div>
     <div class="hs"><span class="hs-lbl">Positionen</span><span class="hs-val" id="h-positions">—</span></div>
@@ -387,8 +397,8 @@ body{
         <button class="stab slive"        id="ptab-resolved"onclick="switchPosTab('resolved',this)">RESOLVED</button>
       </div>
       <div id="pos-open" class="twrap">
-        <table class="t"><thead><tr><th>Markt</th><th>Side</th><th>Entry→Jetzt</th><th>Shares</th><th>Investiert</th><th>Aktuell</th><th>To Win</th><th>P&L%</th><th>Claim</th><th>Schließt</th><th>Wallet</th></tr></thead>
-        <tbody id="tbl-open-body"><tr><td colspan="11" style="color:var(--muted);text-align:center;padding:20px">Lade...</td></tr></tbody></table>
+        <table class="t"><thead><tr><th>Markt</th><th>Side</th><th>Entry→Jetzt</th><th>Investiert</th><th>Aktuell</th><th>To Win</th><th>P&L%</th><th>Claim</th><th>Sell</th><th>Schließt</th></tr></thead>
+        <tbody id="tbl-open-body"><tr><td colspan="10" style="color:var(--muted);text-align:center;padding:20px">Lade...</td></tr></tbody></table>
       </div>
       <div id="pos-pending" style="display:none" class="twrap">
         <table class="t"><thead><tr><th>Order-ID</th><th>Markt</th><th>Side</th><th>Preis</th><th>Investiert</th><th>Alter</th></tr></thead>
@@ -424,7 +434,7 @@ body{
       </div>
       <div class="rsec">
         <div class="rtitle">Letzte Fehler</div>
-        <div id="r-error-list"><span style="color:var(--muted);font-size:12px">Keine Fehler</span></div>
+        <div id="r-error-list"><span style="color:var(--muted);font-size:13px">Keine Fehler</span></div>
       </div>
     </div>
   </div>
@@ -620,7 +630,7 @@ const STRATS = {
     {id:'geo',          label:'🌍 Geopolitik',    status:'live'},
     {id:'signals',      label:'📡 Signale',       status:'live'},
     {id:'report',       label:'📊 Report',        status:'live'},
-    {id:'weatherpaper', label:'📄 Paper',         status:'live'},
+    {id:'weatherpaper', label:'📄 W-Paper',        status:'live'},
     {id:'about',        label:'ℹ️ About',         status:'live'},
     {id:'sports',       label:'⚽ Sports',        status:'planned', phase:'3'},
     {id:'ent',          label:'🎭 Entertainment', status:'planned', phase:'4'},
@@ -835,25 +845,31 @@ async function fetchPortfolio(){
     const el=document.getElementById('ptc-open'); if(el) el.textContent='('+d.count+')';
     const body=document.getElementById('tbl-open-body');
     if(!d.positions||!d.positions.length){
-      if(body) body.innerHTML='<tr><td colspan="11" style="color:var(--muted);text-align:center;padding:20px">Keine offenen Positionen</td></tr>';
+      if(body) body.innerHTML='<tr><td colspan="10" style="color:var(--muted);text-align:center;padding:20px">Keine offenen Positionen</td></tr>';
       renderResolvedTab(); return;
     }
     if(body) body.innerHTML=d.positions.map(p=>{
       const pcls=p.pnl_pct>0?'style="color:var(--poly)"':p.pnl_pct<0?'style="color:var(--red)"':'';
+      // CLAIM — nur bei redeemable (ENDED) Positionen
       const claimCell=p.redeemable&&p.current_value>0.01
-        ?`<button onclick="claimAll()" style="background:transparent;border:1px solid var(--poly);color:var(--poly);font-family:var(--mono);font-size:10px;padding:2px 6px;cursor:pointer">CLAIM $${p.current_value.toFixed(2)}</button>`
+        ?`<button class="btn-claim" onclick="claimAll()">CLAIM $${p.current_value.toFixed(2)}</button>`
         :p.redeemable?'<span style="color:var(--red);font-size:10px">VERLOREN</span>':'—';
-      const cls=p.closes_in_class||'';
+      // SELL — nur bei aktiven (nicht-redeemable) Positionen
+      const cid=esc(p.condition_id||'');
+      const sellCell=(!p.redeemable&&p.position_state==='ACTIVE'&&cid)
+        ?`<button class="btn-sell" onclick="sellPosition('${cid}',this)">SELL</button>`:'—';
       const closes=p.redeemable?'<span style="color:var(--muted);font-size:10px">ENDED</span>':`<span style="font-size:11px">${esc(p.closes_in_label||'—')}</span>`;
-      return `<tr><td style="max-width:160px;overflow:hidden;text-overflow:ellipsis;font-size:12px" title="${esc(p.market)}">${esc((p.market||'').substring(0,38))}…</td>
+      return `<tr class="${p.redeemable?'redeemable-row':''}">
+        <td style="max-width:180px;overflow:hidden;text-overflow:ellipsis;font-size:12px" title="${esc(p.market)}">${esc((p.market||'').substring(0,44))}…</td>
         <td><span class="badge ${p.outcome==='YES'?'by':'bn'}">${esc(p.outcome)}</span></td>
         <td style="color:var(--muted)">${p.avg_price_pct}¢→<b>${p.cur_price_pct}¢</b></td>
-        <td>${p.shares.toFixed(2)}</td><td>$${p.traded.toFixed(2)}</td>
+        <td>$${(p.traded||0).toFixed(2)}</td>
         <td><b>$${p.current_value.toFixed(2)}</b></td>
         <td style="color:var(--poly)">$${p.to_win.toFixed(2)}</td>
         <td ${pcls}>${(p.pnl_pct>=0?'+':'')+p.pnl_pct.toFixed(1)}%</td>
-        <td>${claimCell}</td><td>${closes}</td>
-        <td style="color:var(--muted);font-size:11px">${esc(p.wallet||'—')}</td></tr>`;
+        <td>${claimCell}</td>
+        <td>${sellCell}</td>
+        <td>${closes}</td></tr>`;
     }).join('');
     renderResolvedTab();
   }catch(e){console.error('portfolio',e);}
@@ -909,6 +925,16 @@ function switchPosTab(name,btn){
   ['open','pending','resolved'].forEach(n=>{const el=document.getElementById('pos-'+n);if(el)el.style.display=n===name?'':'none';});
 }
 function claimAll(){showToast('Polymarket öffnen → Positions → Claims einlösen','info');window.open('https://polymarket.com','_blank');}
+async function sellPosition(cid,btn){
+  if(!confirm('Position schließen / Exit einreihen?')) return;
+  btn.disabled=true; btn.textContent='…';
+  try{
+    const d=await fetch('/api/manual_exit',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({condition_id:cid,reason:'manual_sell'})}).then(r=>r.json());
+    if(d.ok) showToast(d.message||'Exit eingereiht ✓','info');
+    else showToast(d.error||'Fehler beim Exit','warn');
+  }catch(e){ showToast('Netzwerkfehler: '+e,'warn'); }
+  btn.disabled=false; btn.textContent='SELL';
+}
 
 // ── Report ────────────────────────────────────────────────────
 async function fetchReport(){
@@ -1096,6 +1122,7 @@ async function fetchBalance(){
     const total=(d.portfolio_total??cash)??0;
     _currentCash=cash;
     if(total>0) document.getElementById('h-portfolio').textContent='$'+total.toFixed(2);
+    const hcash=document.getElementById('h-cash'); if(hcash) hcash.textContent='$'+cash.toFixed(2);
     // Update sidebar cash now that we have real value
     const inv=parseFloat(document.getElementById('sb-invested')?.textContent?.replace('$','')||0);
     const ttl=Math.max(cash+inv,1);

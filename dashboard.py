@@ -1534,10 +1534,42 @@ def api_weather_status():
     except Exception as e:
         scan_info["error"] = str(e)
 
+    # Station forecasts — read latest fc_*.json from forecast_history/
+    _ICAO_CITY = {
+        "KLGA": "New York",   "EGLC": "London",
+        "RKSI": "Seoul",      "KORD": "Chicago",
+        "RJTT": "Tokyo",      "LFPG": "Paris",
+    }
+    _CITY_ALIASES = {"New York": ["New York", "NYC", "New York City"]}
+    stations = {}
+    try:
+        fc_dir = BASE_DIR / "data" / "forecast_history"
+        if fc_dir.exists():
+            fc_files = sorted(fc_dir.glob("fc_*.json"), reverse=True)
+            if fc_files:
+                fc_data = json.loads(fc_files[0].read_text())
+                forecasts = fc_data.get("forecasts", {})
+                for icao, city in _ICAO_CITY.items():
+                    candidates = _CITY_ALIASES.get(city, [city])
+                    for c in candidates:
+                        if c in forecasts:
+                            f = forecasts[c]
+                            stations[icao] = {
+                                "city": city,
+                                "temp": f"{f['today']:.1f}°{f['unit']}",
+                                "tomorrow": f"{f['tomorrow']:.1f}°{f['unit']}",
+                                "forecast": f"Morgen: {f['tomorrow']:.1f}°{f['unit']}",
+                                "ts": fc_data.get("timestamp", "")[:19],
+                            }
+                            break
+    except Exception:
+        pass
+
     return _cors(jsonify({
         "config": config,
         "scan": scan_info,
         "opportunities": opportunities,
+        "stations": stations,
     }))
 
 

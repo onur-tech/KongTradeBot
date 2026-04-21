@@ -37,6 +37,8 @@ from core.rss_monitor import RSSMonitor
 from core.x_monitor import XMonitor
 from core.weather_scout import run_weather_scout
 from core.shadow_portfolio import ShadowPortfolio
+from core.exit_strategy import ExitStrategy, ExitType
+from core.wallet_tracker import WalletTracker
 from strategies.copy_trading import CopyTradingStrategy, CopyOrder
 from claim_all import claim_loop
 from telegram_bot import (send, msg_trade, msg_status, msg_startup,
@@ -686,6 +688,8 @@ async def main():
         await send(f"♻️ <b>Wiederhergestellt:</b> {', '.join(msg_parts)}")
 
     _cap_alert_last = [None]  # throttle: max 1 Telegram-Alert pro Stunde
+    _wallet_tracker  = WalletTracker()
+    _exit_strategy   = ExitStrategy(engine=engine)
 
     async def on_copy_order(order: CopyOrder):
         positions = engine.get_open_positions_summary()
@@ -911,11 +915,25 @@ async def main():
         wallet_name = get_wallet_name(pos.source_wallet)
         market_short = (pos.market_question or sell_signal.market_question or "")[:60]
         try:
+            # ExitStrategy: Signal klassifizieren (FULL bei Whale-Sell)
+            _es = _exit_strategy.process_whale_activity(
+                market_id=pos.market_id,
+                wallet=pos.source_wallet,
+                old_outcome=pos.outcome,
+                old_size=float(getattr(pos, "size_usdc", 0) or 0),
+                new_outcome=None,
+                new_size=0.0,
+            )
+            logger.info(
+                f"[ExitStrategy] {_es.exit_type.value} | "
+                f"conf={_es.confidence:.0%} | {wallet_name} | {market_short[:40]}"
+            )
             if config.exit_dry_run:
                 logger.info(
                     f"[whale_exit_copy] 🧪 DRY-RUN: würde {pos.outcome} auf "
                     f"'{market_short}' verkaufen ({pos.shares:.4f} shares)"
                 )
+                _dry_pnl = round((sell_signal.price - pos.entry_price) * pos.shares, 4)
                 log_trade(
                     market_question=market_short,
                     outcome=pos.outcome, side="SELL",
@@ -926,10 +944,14 @@ async def main():
                     category="exit_whale_exit_copy",
                     market_id=pos.market_id,
                     token_id=pos.token_id,
-                    realized_pnl=round((sell_signal.price - pos.entry_price) * pos.shares, 4),
+                    realized_pnl=_dry_pnl,
                     mark_resolved=True,
                     is_dry_run=True,
                 )
+                _wallet_tracker.record_trade(
+                    wallet=pos.source_wallet, market_id=pos.market_id,
+                    outcome=pos.outcome, won=_dry_pnl > 0,
+                    pnl=_dry_pnl, size_usdc=pos.size_usdc, strategy="COPY")
             else:
                 result = await engine.create_and_post_sell_order(
                     asset_id=pos.token_id,
@@ -958,6 +980,10 @@ async def main():
                     )
                     engine.open_positions.pop(pos.order_id, None)
                     exit_manager._remove_state(pos.market_id, pos.outcome)
+                    _wallet_tracker.record_trade(
+                        wallet=pos.source_wallet, market_id=pos.market_id,
+                        outcome=pos.outcome, won=realized_pnl > 0,
+                        pnl=realized_pnl, size_usdc=pos.size_usdc, strategy="COPY")
                     logger.info(
                         f"[whale_exit_copy] ✅ Exit erfolgreich: "
                         f"${result['usdc_received']:.2f} | PnL {realized_pnl:+.2f}"
@@ -1117,6 +1143,11 @@ async def main():
                     realized_pnl=event.pnl_usdc, mark_resolved=True,
                 )
                 log_trade(**_log_kwargs)
+                _wallet_tracker.record_trade(
+                    wallet=getattr(_pos, "source_wallet", ""),
+                    market_id=cid, outcome=event.outcome,
+                    won=event.pnl_usdc > 0, pnl=event.pnl_usdc,
+                    size_usdc=event.usdc_received, strategy="COPY")
                 engine.close_position(event.position_id)
                 logger.info(f"[ManualExit] ✅ {cid[:20]} | {reason} | PnL ${event.pnl_usdc:+.2f}")
             else:
@@ -1161,6 +1192,11 @@ async def main():
                             log_trade(**_log_kwargs,
                                       tx_hash=f"exit_{ev.exit_type}_{ev.position_id[:12]}",
                                       is_dry_run=True)
+                            _wallet_tracker.record_trade(
+                                wallet=getattr(_pos, "source_wallet", ""),
+                                market_id=ev.condition_id, outcome=ev.outcome,
+                                won=ev.pnl_usdc > 0, pnl=ev.pnl_usdc,
+                                size_usdc=ev.usdc_received, strategy="COPY")
                         else:
                             # T-M06 Phase 1: Ghost-Write Fix — Archive NUR nach bestätigtem Sell
                             pos = engine.open_positions.get(ev.position_id)
@@ -1175,6 +1211,11 @@ async def main():
                                     log_trade(**_log_kwargs,
                                               tx_hash=result.get("order_id", ""),
                                               is_dry_run=False)
+                                    _wallet_tracker.record_trade(
+                                        wallet=getattr(_pos, "source_wallet", ""),
+                                        market_id=ev.condition_id, outcome=ev.outcome,
+                                        won=ev.pnl_usdc > 0, pnl=ev.pnl_usdc,
+                                        size_usdc=ev.usdc_received, strategy="COPY")
                                     pos.shares = round(pos.shares - result["shares_sold"], 6)
                                     if pos.shares <= 0:
                                         engine.open_positions.pop(ev.position_id, None)

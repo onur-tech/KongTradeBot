@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>🦍 KongTerminal</title>
-<script src="/socket.io/socket.io.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/socket.io@4.7.2/client-dist/socket.io.min.js"></script>
 <style>
 /* ── RESET & BASE ─────────────────────────────────────────── */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -615,11 +615,11 @@ body{
 // ── Platform/Strategy config ──────────────────────────────────
 const STRATS = {
   poly: [
+    {id:'positions',    label:'📋 Positionen',    status:'live'},
     {id:'weather',      label:'🌤 Weather',       status:'live'},
     {id:'geo',          label:'🌍 Geopolitik',    status:'live'},
-    {id:'positions',    label:'📋 Positionen',    status:'live'},
-    {id:'report',       label:'📊 Report',        status:'live'},
     {id:'signals',      label:'📡 Signale',       status:'live'},
+    {id:'report',       label:'📊 Report',        status:'live'},
     {id:'weatherpaper', label:'📄 Paper',         status:'live'},
     {id:'about',        label:'ℹ️ About',         status:'live'},
     {id:'sports',       label:'⚽ Sports',        status:'planned', phase:'3'},
@@ -649,10 +649,13 @@ const S = {
   logFilter:'all', logLines:[], walletData:[], walletSortKey:'pnl',
   balanceData:{h24:[],h7d:[],h30d:[]}, chartRange:'24h', posData:null, portfolioData:null,
 };
+let _currentCash = 0;  // updated by fetchBalance(), used by fetchSummary()
 let balanceChart = null;
 
 // ── Socket.io ────────────────────────────────────────────────
-const socket = io();
+let socket = null;
+try { socket = io(); } catch(e) { console.warn('Socket.IO unavailable, using polling only'); }
+if(socket){
 socket.on('stats', d => {
   if(d.bot_running !== undefined){
     const pill = document.getElementById('livepill');
@@ -664,6 +667,7 @@ socket.on('balance_update', d => {
   if(d.balance != null) document.getElementById('h-portfolio').textContent = '$'+d.balance.toFixed(2);
 });
 socket.on('multipliers', d => renderMultipliers(d.wallets, d.default));
+} // end if(socket)
 
 // ── Accent & Nav ─────────────────────────────────────────────
 function setAccent(p){
@@ -727,34 +731,36 @@ async function fetchSummary(){
   try{
     const d=await fetch('/api/summary').then(r=>r.json());
     const set=(id,v)=>{const el=document.getElementById(id);if(el)el.textContent=v;};
-    const total=(d.cash_balance||0)+(d.total_invested||0);
-    if(total>0) set('h-portfolio','$'+total.toFixed(2));
-    if(d.pnl_today!=null){const el=document.getElementById('h-pnl');if(el){el.textContent=(d.pnl_today>=0?'+$':'-$')+Math.abs(d.pnl_today).toFixed(2);el.className='hs-val '+(d.pnl_today>=0?'pos':'neg');}}
+    // ── Header stats (correct field names from /api/summary) ──
+    // Portfolio: comes from fetchBalance() — skip here to avoid conflict
+    const todayPnl=d.today_pnl??null;
+    if(todayPnl!=null){const el=document.getElementById('h-pnl');if(el){el.textContent=(todayPnl>=0?'+$':'-$')+Math.abs(todayPnl).toFixed(2);el.className='hs-val '+(todayPnl>=0?'pos':'neg');}}
     if(d.win_rate!=null) set('h-winrate',d.win_rate.toFixed(1)+'%');
-    if(d.position_count!=null) set('h-positions',d.position_count);
-    if(d.daily_loss_usd!=null&&d.max_daily_loss_usd!=null) set('h-dloss','$'+d.daily_loss_usd.toFixed(2)+' / $'+d.max_daily_loss_usd);
+    set('h-positions',d.open??0);                                     // 'open' not 'position_count'
+    if(d.max_daily_loss_usd) set('h-dloss','— / $'+d.max_daily_loss_usd);
     const dryEl=document.getElementById('h-mode');
     if(dryEl){dryEl.textContent=d.dry_run?'DRY-RUN':'LIVE';dryEl.className='hs-val '+(d.dry_run?'warn':'neg');}
-    // Sidebar
-    const inv=d.total_invested||0, cash=d.cash_balance||0, ttl=inv+cash||1;
+    // ── Sidebar ───────────────────────────────────────────────
+    const inv=d.invested??d.total_invested_usd??0;               // 'invested' is correct field
+    const cash=_currentCash;                                      // set by fetchBalance()
+    const ttl=Math.max(inv+cash,1);
     const invPct=Math.min(100,(inv/ttl*100)).toFixed(0);
     const cashPct=Math.min(100,(cash/ttl*100)).toFixed(0);
     set('sb-poly-alloc','$'+inv.toFixed(0)+' · '+invPct+'%');
     set('sb-cash','$'+cash.toFixed(0)+' · '+cashPct+'%');
-    const dlBar=document.getElementById('sb-dloss-bar');
-    if(dlBar&&d.max_daily_loss_usd){const p=Math.min(100,(d.daily_loss_usd||0)/d.max_daily_loss_usd*100);dlBar.style.width=p+'%';dlBar.className='rfill '+(p>80?'rdng':p>50?'rwarn':'rok');}
-    set('sb-dloss-lbl','$'+(d.daily_loss_usd||0).toFixed(2)+' / $'+(d.max_daily_loss_usd||0));
-    set('sb-exposure-lbl','$'+inv.toFixed(0)+' / $'+ttl.toFixed(0));
     const expBar=document.getElementById('sb-exposure-bar');
     if(expBar){expBar.style.width=invPct+'%';expBar.className='rfill '+(invPct>80?'rdng':invPct>50?'rwarn':'rok');}
+    set('sb-exposure-lbl','$'+inv.toFixed(0)+' / $'+ttl.toFixed(0));
     set('sb-invested','$'+inv.toFixed(2));
-    set('sb-open-pos',d.position_count||0);
-    const ksEl=document.getElementById('sb-ks');
-    if(ksEl){ksEl.textContent=d.kill_switch?'● ON':'● OFF';ksEl.style.color=d.kill_switch?'var(--red)':'var(--poly)';}
+    set('sb-open-pos',d.open??0);                                 // 'open' not 'position_count'
+    if(d.max_daily_loss_usd){
+      set('sb-dloss-lbl','— / $'+d.max_daily_loss_usd);           // daily loss not in summary
+    }
+    // kill-switch: not in summary, keep static display
     const isDry=d.weather_dry_run!==false;
     const wsEl=document.getElementById('sb-weather');
     if(wsEl){wsEl.textContent=isDry?'DRY-RUN':'LIVE';wsEl.style.color=isDry?'var(--orange)':'var(--poly)';}
-    // About tab
+    // ── About tab ─────────────────────────────────────────────
     if(d.max_trade_size_usd) set('about-max-trade','$'+d.max_trade_size_usd);
     if(d.max_daily_loss_usd) set('about-max-loss','$'+d.max_daily_loss_usd);
     if(d.copy_size_multiplier) set('about-copy-mult',(parseFloat(d.copy_size_multiplier)*100).toFixed(0)+'%');
@@ -764,19 +770,18 @@ async function fetchSummary(){
     const wsStatus=document.getElementById('about-weather-status');
     if(wsStatus){wsStatus.textContent=isDry?'DRY-RUN':'LIVE';wsStatus.style.color=isDry?'var(--orange)':'var(--poly)';}
     const wlbl=document.getElementById('weather-status-label');
-    if(wlbl) wlbl.textContent=isDry?'Aktuell: DRY-RUN (kein echtes Trading)':'Aktuell: LIVE (echtes Trading aktiv!)';
+    if(wlbl) wlbl.textContent=isDry?'Aktuell: DRY-RUN':'Aktuell: LIVE (echtes Trading!)';
     const wlbl2=document.getElementById('pw-toggle-lbl');
     if(wlbl2) wlbl2.textContent=isDry?'Modus: DRY-RUN':'Modus: LIVE';
     const wtbtn=document.getElementById('btn-weather-toggle');
     if(wtbtn){wtbtn.textContent=isDry?'WEATHER LIVE SCHALTEN':'AUF DRY-RUN ZURÜCKSETZEN';wtbtn.style.borderColor=isDry?'var(--orange)':'var(--red)';wtbtn.style.color=isDry?'var(--orange)':'var(--red)';}
     const wtbtn2=document.getElementById('pw-toggle-btn');
     if(wtbtn2){wtbtn2.style.borderColor=isDry?'var(--orange)':'var(--red)';wtbtn2.style.color=isDry?'var(--orange)':'var(--red)';}
-    // KPI weather panel
-    if(d.weather_bet_count!=null) set('pw-count',d.weather_bet_count);
-    if(d.weather_pnl!=null){const el=document.getElementById('pw-pnl');if(el){el.textContent=(d.weather_pnl>=0?'+$':'-$')+Math.abs(d.weather_pnl).toFixed(2);el.className='big '+(d.weather_pnl>=0?'pos':'neg');}}
+    // ── Weather KPI panel ─────────────────────────────────────
+    // weather_bet_count / weather_pnl not in /api/summary → shown by fetchWeatherStatus()
     set('pw-mode',isDry?'DRY-RUN':'LIVE');
-    set('pw-sub',d.weather_trading_enabled?'Aktiviert':'Deaktiviert');
-  }catch(e){}
+    set('pw-sub',!isDry?'LIVE Trading aktiv':'Paper-Modus');
+  }catch(e){ console.error('fetchSummary',e); }
 }
 
 // ── Health → Sidebar + Right sidebar ─────────────────────────
@@ -1075,8 +1080,17 @@ function renderWalletTable(){
 async function fetchBalance(){
   try{
     const d=await fetch('/api/balance').then(r=>r.json());
-    const total=(d.portfolio_total??d.current??d.cash)??0;
-    if(total) document.getElementById('h-portfolio').textContent='$'+total.toFixed(2);
+    const cash=d.cash??d.current??d.balance??0;
+    const total=(d.portfolio_total??cash)??0;
+    _currentCash=cash;
+    if(total>0) document.getElementById('h-portfolio').textContent='$'+total.toFixed(2);
+    // Update sidebar cash now that we have real value
+    const inv=parseFloat(document.getElementById('sb-invested')?.textContent?.replace('$','')||0);
+    const ttl=Math.max(cash+inv,1);
+    const cashPct=Math.min(100,(cash/ttl*100)).toFixed(0);
+    const invPct=Math.min(100,(inv/ttl*100)).toFixed(0);
+    const sbCash=document.getElementById('sb-cash'); if(sbCash) sbCash.textContent='$'+cash.toFixed(0)+' · '+cashPct+'%';
+    const sbAlloc=document.getElementById('sb-poly-alloc'); if(sbAlloc) sbAlloc.textContent='$'+inv.toFixed(0)+' · '+invPct+'%';
     S.balanceData={h24:d.history_24h||[],h7d:d.history_7d||[],h30d:d.history_30d||[]};
     renderBalanceChart();
   }catch(e){}
@@ -1170,7 +1184,8 @@ function showToast(msg,type='win'){
 
 // ── Init & Polling ────────────────────────────────────────────
 async function init(){
-  buildStrats('poly'); switchStrat('poly','weather'); setAccent('poly');
+  buildStrats('poly'); switchStrat('poly','positions'); setAccent('poly');
+  fetchPortfolio(); fetchPositions();
   const t=document.querySelector('.ptab[data-p="poly"]');
   if(t){t.style.color=COLORS.poly.acc;t.style.borderColor=COLORS.poly.acc;t.style.background=COLORS.poly.gl;}
   await Promise.all([fetchSummary(),fetchHealth(),fetchResolutions(),fetchPortfolio(),fetchPositions(),fetchWeatherStatus(),fetchBalance()]);

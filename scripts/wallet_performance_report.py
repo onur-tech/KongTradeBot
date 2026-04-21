@@ -27,25 +27,22 @@ def load_json(path):
         return None
 
 
+PSEUDO_WALLETS = {"[polymarket-sync]", "[manual-claim]", "unknown"}
+
 def load_env_weights() -> dict:
-    """Liest WALLET_WEIGHTS aus .env — Format: wallet:weight,wallet2:weight2"""
+    """Liest WALLET_WEIGHTS aus .env — Format: JSON {"0xABCD...":1.5,"default":1.0}"""
     env_path = os.path.join(BASE_DIR, ".env")
-    weights = {}
     try:
         for line in open(env_path):
             line = line.strip()
             if line.startswith("WALLET_WEIGHTS="):
                 val = line.split("=", 1)[1].strip()
-                for pair in val.split(","):
-                    parts = pair.strip().split(":")
-                    if len(parts) == 2:
-                        try:
-                            weights[parts[0].strip().lower()] = float(parts[1])
-                        except ValueError:
-                            pass
+                raw = json.loads(val)
+                # Prefix-Match: Schlüssel sind erste 18 Zeichen der Adresse
+                return {k.lower(): float(v) for k, v in raw.items() if k != "default"}
     except Exception:
         pass
-    return weights
+    return {}
 
 
 def load_wallet_names() -> dict:
@@ -101,9 +98,14 @@ def analyze():
     for d in decision_log:
         w = d.get("wallet", "").lower()
         if w:
-            current_multipliers[w] = d.get("new_multiplier", 1.0)
+            # new_multiplier for RECAL, multiplier for REMOVE/REVIEW
+            current_multipliers[w] = d.get("new_multiplier") or d.get("multiplier") or 1.0
 
-    closed = [t for t in archive_all if t.get("aufgeloest")]
+    closed = [
+        t for t in archive_all
+        if t.get("aufgeloest")
+        and (t.get("source_wallet") or "").startswith("0x")
+    ]
 
     stats: dict = defaultdict(lambda: {
         "trades": 0, "wins": 0, "losses": 0,
@@ -142,7 +144,10 @@ def analyze():
         win_rate = s["wins"] / s["trades"] * 100 if s["trades"] else 0
         roi = s["pnl"] / s["invested"] * 100 if s["invested"] else 0
         avg_size = sum(s["trade_sizes"]) / len(s["trade_sizes"]) if s["trade_sizes"] else 0
-        current_w = current_multipliers.get(wallet, env_weights.get(wallet, 1.0))
+        # ENV-Weight (Prefix-Match, 18 Zeichen) ist führend — spiegelt aktuelle .env wieder
+        env_w = next((v for k, v in env_weights.items() if wallet.lower().startswith(k.lower())), None)
+        decisions_w = current_multipliers.get(wallet)
+        current_w = env_w if env_w is not None else (decisions_w if decisions_w is not None else 1.0)
         rec = recommend(win_rate, roi, s["trades"], current_w)
 
         rows.append({

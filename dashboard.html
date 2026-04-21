@@ -18,6 +18,7 @@
   --crypto:     #ffd700;  --crypto-dim: #a88e00;  --crypto-glow:rgba(255,215,0,.12);
   --kalshi:     #00aaff;  --kalshi-dim: #006faa;  --kalshi-glow:rgba(0,170,255,.12);
   --airdrop:    #aa00ff;  --airdrop-dim:#7700bb;  --airdrop-glow:rgba(170,0,255,.12);
+  --news:       #ff4444;  --news-dim:   #cc2222;  --news-glow:   rgba(255,68,68,.12);
   --auswert:    #ff8c00;  --auswert-dim:#c06000;  --auswert-glow:rgba(255,140,0,.12);
   --red:#ff3d3d; --orange:#ff8c00; --text:#b0ceb6; --muted:#3d5e42;
   --mono:'Courier New',monospace;
@@ -293,6 +294,7 @@ body{
     <button class="ptab"             data-p="crypto"  onclick="switchPlat('crypto')" >💰 CRYPTO <span class="pill">PLANNED</span></button>
     <button class="ptab"             data-p="kalshi"  onclick="switchPlat('kalshi')" >⚡ KALSHI <span class="pill">PLANNED</span></button>
     <button class="ptab"             data-p="airdrop" onclick="switchPlat('airdrop')">🪂 AIRDROP <span class="pill">PLANNED</span></button>
+    <button class="ptab plive"       data-p="news"    onclick="switchPlat('news')"   >📰 NEWS <span class="pill" style="background:rgba(255,68,68,.1);color:#ff4444;border:1px solid #ff4444">LIVE</span></button>
   </div>
   <div id="strat-bar"></div>
 </div>
@@ -469,8 +471,8 @@ body{
     </div>
   </div>
 
-  <!-- ─── POLY / NEWS ─────────────────────────────────────────── -->
-  <div class="panel" id="pnl-poly-news">
+  <!-- ─── NEWS / FEED ─────────────────────────────────────────── -->
+  <div class="panel" id="pnl-news-feed">
     <div class="g3" style="margin-bottom:12px">
       <div class="w acp"><div class="wtitle"><div class="dot"></div>RSS Signale heute</div><div class="big" id="news-count">—</div><div class="sub">dedupliziert</div></div>
       <div class="w acp"><div class="wtitle"><div class="dot"></div>Relevant für Trades</div><div class="big pos" id="news-relevant">—</div><div class="sub">Geo · Macro · Politik · Crypto</div></div>
@@ -688,7 +690,6 @@ const STRATS = {
     {id:'weather',      label:'🌤 Weather',       status:'live'},
     {id:'geo',          label:'🌍 Geopolitik',    status:'live'},
     {id:'signals',      label:'📡 Signale',       status:'live'},
-    {id:'news',         label:'📰 News',          status:'live'},
     {id:'report',       label:'📊 Report',        status:'live'},
     {id:'weatherpaper', label:'📄 W-Paper',        status:'live'},
     {id:'about',        label:'ℹ️ About',         status:'live'},
@@ -704,6 +705,7 @@ const STRATS = {
   crypto:  [{id:'funding',label:'💸 Funding Arb',status:'planned',phase:'2'},{id:'basis',label:'⚡ Basis Trade',status:'planned',phase:'2'}],
   kalshi:  [{id:'temp',   label:'🌡 Temperature',status:'planned',phase:'3'},{id:'events',label:'🗳 Events',status:'planned',phase:'3'}],
   airdrop: [{id:'farm',   label:'🪂 Farming',    status:'planned',phase:'5'}],
+  news:    [{id:'feed',  label:'📰 Feed',       status:'live'}],
 };
 const COLORS = {
   poly:   {acc:'#00ff88',dim:'#00a855',gl:'rgba(0,255,136,.12)',   label:'POLYMARKET'},
@@ -711,6 +713,7 @@ const COLORS = {
   crypto: {acc:'#ffd700',dim:'#a88e00',gl:'rgba(255,215,0,.12)',   label:'CRYPTO'},
   kalshi: {acc:'#00aaff',dim:'#006faa',gl:'rgba(0,170,255,.12)',   label:'KALSHI'},
   airdrop:{acc:'#aa00ff',dim:'#7700bb',gl:'rgba(170,0,255,.12)',   label:'AIRDROP'},
+  news:   {acc:'#ff4444',dim:'#cc2222',gl:'rgba(255,68,68,.12)',   label:'NEWS'},
 };
 let curPlat='poly', curStrat='weather';
 
@@ -775,7 +778,7 @@ function onStratClick(p,s){
   switchStrat(p,s);
   if(p==='poly'&&s==='report') fetchReport();
   if(p==='poly'&&s==='signals') fetchSignals();
-  if(p==='poly'&&s==='news') fetchNews();
+  if(p==='news') fetchNews();
   if(p==='poly'&&s==='weatherpaper') loadPaperTrades();
   if(p==='poly'&&s==='weather') fetchWeatherStatus();
   if(p==='poly'&&s==='about') loadWeatherStatus();

@@ -268,6 +268,12 @@ async def sync_positions_from_polymarket(engine, config):
                 is_redeemable  = bool(p.get("redeemable", False))
                 current_val    = float(p.get("currentValue") or 0)
                 _pos_state     = "RESOLVED_LOST" if (is_redeemable and current_val == 0) else "ACTIVE"
+                # Skip already-closed markets — avoids re-adding positions that
+                # cleanup_expired_positions() already removed on a previous run.
+                if closes_at and closes_at < datetime.now(timezone.utc):
+                    continue
+                if is_redeemable and current_val == 0:
+                    continue
                 pos = OpenPosition(
                     order_id=synth_id,
                     market_id=condition_id,
@@ -580,14 +586,8 @@ async def main():
             print(f"Steuer-CSV: {filename} | Trades: {summary['total_trades']} | P&L: ${summary['total_pnl']:.2f}")
         return
 
-    # Lock file: prevent multiple instances running simultaneously
-    if os.path.exists(LOCK_FILE):
-        print(f"\n❌ Bot läuft bereits! Beende den anderen Prozess zuerst.")
-        print(f"   (Lock-Datei: {LOCK_FILE})")
-        print(f"   Falls der Bot abgestürzt ist: Datei manuell löschen und neu starten.\n")
-        sys.exit(1)
-    with open(LOCK_FILE, "w") as f:
-        f.write(str(os.getpid()))
+    # Lock file: prevent multiple instances (PID-aware, with atexit cleanup)
+    check_and_create_lock()
 
     config = load_config()
     if args.live:
@@ -1231,11 +1231,11 @@ async def main():
                         )
                         await send(f"🌤 <b>Weather Opportunities ({len(opportunities)})</b>\n{summary}")
                 except Exception as e:
-                    logger.error(f"[Weather] Loop-Fehler: {e}")
+                    logger.error(f"[Weather] Loop-Fehler: {e}", exc_info=True)
                 await asyncio.sleep(interval)
 
-        async def heartbeat_loop(interval: int = 300):
-            """Writes heartbeat.txt every 5 minutes so watchdog.py can detect offline state."""
+        async def heartbeat_loop(interval: int = 60):
+            """Writes heartbeat.txt every 60s so watchdog.py can detect offline state quickly."""
             heartbeat_file = os.path.join(os.path.dirname(__file__), "heartbeat.txt")
             while True:
                 try:

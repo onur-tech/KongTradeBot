@@ -930,3 +930,43 @@ Zeile in get_resolved_markets() nach dem Batch-Loop einfügen:
 ### K-W09: GitHub Support
 Repo KongTradeBot-Template enthält inappropriate contents → löschen.
 Kontakt: support.github.com Portal (nicht per Email).
+
+---
+
+## P030 — Lock-File Race Condition (Cascade-Loop 19.-21.04.2026)
+Status: ✅ BEHOBEN
+
+Symptom: 532 von 665 Bot-Starts fehlgeschlagen.
+Bot lief 2 Tage in permanentem Crash-Loop.
+Root-Cause: main() ohne atexit-Cleanup →
+bot.lock blieb nach Crash zurück →
+nächster Start: "Bot läuft bereits!" → Exit.
+Fix: check_and_create_lock() mit atexit +
+SIGTERM-Handler. Heartbeat 300s → 60s.
+Impact: 2 Tage Signalausfall, trotzdem +$67
+durch bestehende Positionen.
+
+---
+
+## P031 — Weather Loop markets not defined (Recurring)
+Status: ✅ BEHOBEN
+
+Symptom: 109+ Fehler akkumuliert,
+"name 'markets' is not defined" alle ~10s.
+Root-Cause: markets-Variable in mehreren
+Weather-Loops ohne vorherige Definition nach
+Code-Refactoring.
+Fix: get_all_polymarket_weather_markets()
+vor jeder Nutzung von markets eingefügt.
+
+---
+
+## P032 — Budget-Cap blockierte alle Trades seit 19.04.
+Status: ✅ BEHOBEN
+
+Symptom: Alle neuen Trades abgelehnt seit April 19.
+Root-Cause: RECOVERED_-Positionen ($538 invested)
+blockierten Budget-Cap (max $500).
+48h-Guard für RECOVERED_ verhinderte Cleanup.
+Fix: 48h-Guard für RECOVERED_ entfernt,
+$180 freigegeben.

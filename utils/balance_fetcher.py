@@ -96,6 +96,15 @@ async def update_budget_from_chain(config) -> float:
             f"💳 Budget aktualisiert: ${balance:.2f} USDC | "
             f"Max investierbar: ${max_invest:.2f} USDC ({config.max_portfolio_pct*100:.0f}%)"
         )
+        # Write balance to cache so dashboard can read actual value
+        try:
+            import json as _json, os as _os
+            _cache = _os.path.join(_os.path.dirname(_os.path.dirname(__file__)), "data", "balance_cache.json")
+            _os.makedirs(_os.path.dirname(_cache), exist_ok=True)
+            with open(_cache, "w") as _f:
+                _json.dump({"balance_usdc": balance, "max_portfolio_pct": config.max_portfolio_pct}, _f)
+        except Exception:
+            pass
     else:
         logger.warning("Balance konnte nicht gelesen werden — benutze manuellen Wert aus .env")
 

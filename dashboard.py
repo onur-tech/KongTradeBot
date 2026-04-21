@@ -1325,12 +1325,22 @@ def api_summary():
     total_invested_open = 0.0
     max_invested_usd = 0.0
     budget_utilization_pct = 0.0
+    open_positions = []
     try:
         state = load_json(STATE_FILE) or {}
         open_positions = state.get("open_positions", [])
         total_invested_open = sum(float(p.get("size_usdc", 0) or 0) for p in open_positions)
-        portfolio_budget = float(env.get("PORTFOLIO_BUDGET_USD", "1000") or "1000")
-        max_portfolio_pct = float(env.get("MAX_PORTFOLIO_PCT", "0.2") or "0.2")
+        # Read actual on-chain balance from cache written by balance_fetcher
+        balance_cache = load_json(BASE_DIR / "data" / "balance_cache.json") or {}
+        if balance_cache.get("balance_usdc", 0) > 0:
+            portfolio_budget = float(balance_cache["balance_usdc"])
+            max_portfolio_pct = float(balance_cache.get("max_portfolio_pct",
+                                      env.get("MAX_PORTFOLIO_PCT", "0.5")))
+        else:
+            # Fallback: PORTFOLIO_BUDGET_USD is a 100M sentinel → use 1000 as default
+            _raw = float(env.get("PORTFOLIO_BUDGET_USD", "1000") or "1000")
+            portfolio_budget = _raw if _raw < 100_000 else 1000.0
+            max_portfolio_pct = float(env.get("MAX_PORTFOLIO_PCT", "0.5") or "0.5")
         max_invested_usd = portfolio_budget * max_portfolio_pct
         budget_utilization_pct = round(
             total_invested_open / max(0.01, max_invested_usd) * 100, 1
@@ -1349,8 +1359,10 @@ def api_summary():
         "total_invested_usd": round(total_invested_open, 2),
         "max_invested_usd": round(max_invested_usd, 2),
         "budget_utilization_pct": budget_utilization_pct,
-        **{k: stats[k] for k in ("total_trades", "open", "closed", "wins", "losses",
-                                  "win_rate", "pnl", "invested", "today_trades", "today_pnl")},
+        **{k: stats[k] for k in ("total_trades", "closed", "wins", "losses",
+                                  "win_rate", "pnl", "today_trades", "today_pnl")},
+        "open":     len(open_positions),
+        "invested": round(total_invested_open, 2),
     }
     return _cors(jsonify(data))
 

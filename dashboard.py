@@ -2451,6 +2451,75 @@ def api_weather_paper_trades():
     }))
 
 
+@app.route("/api/performance")
+@login_required
+def api_performance():
+    try:
+        from datetime import date as _date
+
+        # ── Einzahlungen ──────────────────────────────────────────────
+        deposits_f = BASE_DIR / "data" / "deposits.json"
+        deposits_data = load_json(deposits_f) or {"total_deposited": 1000.0, "deposits": []}
+        total_deposited = float(deposits_data.get("total_deposited", 1000.0))
+
+        # ── Aktueller Kontostand ─────────────────────────────────────
+        balance_cache = load_json(BASE_DIR / "data" / "balance_cache.json") or {}
+        cash = float(balance_cache.get("balance_usdc", 0))
+
+        state = load_json(STATE_FILE) or {}
+        _inactive = {"PENDING_CLOSE", "ENDED", "CLOSED", "RESOLVED", "EXPIRED", "RESOLVED_LOST"}
+        active_pos = [
+            p for p in state.get("open_positions", [])
+            if p.get("position_state", "OPEN") not in _inactive
+        ]
+        invested = sum(float(p.get("size_usdc", 0) or 0) for p in active_pos)
+        wallet_total = cash + invested
+
+        # ── Tages-Snapshot ───────────────────────────────────────────
+        today_str = _date.today().isoformat()
+        snapshots_f = BASE_DIR / "data" / "daily_snapshots.json"
+        daily_start = wallet_total  # Fallback: kein Verlust heute
+        snaps = (load_json(snapshots_f) or {}).get("snapshots", [])
+        today_snap = [s for s in snaps if s.get("date") == today_str]
+        if today_snap:
+            daily_start = float(today_snap[0]["wallet_start"])
+
+        # ── Berechnungen ─────────────────────────────────────────────
+        net_pnl = wallet_total - total_deposited
+        roi_pct = (net_pnl / total_deposited * 100) if total_deposited > 0 else 0.0
+        daily_pnl = wallet_total - daily_start
+        break_even = max(0.0, total_deposited - wallet_total)
+
+        # 7-Tage Durchschnitt (täglicher Gewinn)
+        avg_daily_7d = 0.0
+        days_to_break_even = None
+        if len(snaps) >= 2:
+            recent = sorted(snaps, key=lambda x: x["date"])[-7:]
+            if len(recent) >= 2:
+                span_gain = wallet_total - float(recent[0]["wallet_start"])
+                avg_daily_7d = round(span_gain / len(recent), 2)
+        if avg_daily_7d > 0 and break_even > 0:
+            days_to_break_even = round(break_even / avg_daily_7d)
+
+        return _cors(jsonify({
+            "total_deposited":      round(total_deposited, 2),
+            "deposits":             deposits_data.get("deposits", []),
+            "wallet_total":         round(wallet_total, 2),
+            "cash_available":       round(cash, 2),
+            "invested":             round(invested, 2),
+            "net_pnl":              round(net_pnl, 2),
+            "roi_pct":              round(roi_pct, 1),
+            "daily_pnl":            round(daily_pnl, 2),
+            "daily_start":          round(daily_start, 2),
+            "break_even_remaining": round(break_even, 2),
+            "avg_daily_7d":         avg_daily_7d,
+            "days_to_break_even":   days_to_break_even,
+            "snapshot_date":        today_str,
+        }))
+    except Exception as e:
+        return _cors(jsonify({"error": str(e)})), 500
+
+
 def _run_server():
     socketio.run(app, host="127.0.0.1", port=5000, debug=False, allow_unsafe_werkzeug=True)
 

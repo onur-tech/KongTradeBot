@@ -422,6 +422,8 @@ def msg_status(
     signals, orders_sent, open_pos, total_invested, pnl, categories, archive_count,
     skipped_min_size=0, rejected_api=0, filled=0, pending=0,
     pnl_today: dict | None = None,
+    portfolio_total: float | None = None,
+    cash: float | None = None,
     # legacy compat: old callers pass orders as 2nd arg — treat as orders_sent
 ):
     cat_lines = []
@@ -491,6 +493,20 @@ def msg_status(
     lines.extend([
         "━━━━━━━━━━━━━━━━━━━━━━",
         pnl_line,
+    ])
+    if portfolio_total is not None and cash is not None:
+        pnl_sign = "+" if pnl >= 0 else ""
+        lines.extend([
+            "━━━━━━━━━━━━━━━━━━━━━━",
+            "💼 <b>Portfolio-Wert:</b>",
+            f"  📊 Total:      <b>${portfolio_total:.2f} USDC</b>",
+            f"  💵 Cash:       <b>${cash:.2f} USDC</b>",
+            f"  📈 Positionen: <b>${total_invested:.2f} USDC</b>",
+            f"  ⚠️ Hinweis: {pnl_sign}${pnl:.2f} real. ≠ Portfolio-Delta",
+            f"  (Unrealisierte Pos. beeinflussen Gesamtwert)",
+        ])
+    lines.extend([
+        "━━━━━━━━━━━━━━━━━━━━━━",
         f"🗄️ Archiv:   <b>{archive_count} Trades</b>",
     ])
     return "\n".join(lines)

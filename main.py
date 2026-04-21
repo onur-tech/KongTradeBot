@@ -507,6 +507,17 @@ async def status_reporter(strategy, risk, engine, config, interval, state_worker
         last = getattr(status_reporter, "_last_telegram", None)
         if last is None or (now - last).seconds >= 3600:
             cat_simple = {k.split()[-1]: v for k, v in categories.items()}
+            _cash = None
+            _ptotal = None
+            try:
+                import json as _j
+                _bc = _j.loads(open(
+                    os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                                 "data", "balance_cache.json")).read())
+                _cash   = round(float(_bc.get("balance_usdc", 0)), 2)
+                _ptotal = round(_cash + total_invested, 2)
+            except Exception:
+                pass
             await send(msg_status(
                 signals=s["signals_received"],
                 orders_sent=s["orders_created"],
@@ -516,6 +527,8 @@ async def status_reporter(strategy, risk, engine, config, interval, state_worker
                 categories=cat_simple,
                 archive_count=tax_summary["total_trades"],
                 pnl_today=pnl_today,
+                portfolio_total=_ptotal,
+                cash=_cash,
             ))
             status_reporter._last_telegram = now
 
@@ -1199,6 +1212,17 @@ async def main():
             categories[cat] += amt
         tax_summary = get_summary()
         pnl_today = get_pnl_today()
+        _cash2 = None
+        _ptotal2 = None
+        try:
+            import json as _j2
+            _bc2 = _j2.loads(open(
+                os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                             "data", "balance_cache.json")).read())
+            _cash2   = round(float(_bc2.get("balance_usdc", 0)), 2)
+            _ptotal2 = round(_cash2 + total_invested, 2)
+        except Exception:
+            pass
         await send(msg_status(
             signals=s["signals_received"],
             orders_sent=s["orders_created"],
@@ -1208,6 +1232,8 @@ async def main():
             categories=dict(categories),
             archive_count=tax_summary["total_trades"],
             pnl_today=pnl_today,
+            portfolio_total=_ptotal2,
+            cash=_cash2,
         ))
 
     try:

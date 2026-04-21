@@ -144,6 +144,78 @@ class ShadowPortfolio:
             f"Strategie: {strategy}")
         return True
 
+    def close_position(
+            self,
+            market_id: str,
+            exit_price: float,
+            reason: str = "exit") -> bool:
+        """
+        Schließt offene Shadow-Position vorzeitig (TP/Stop/Whale-Exit).
+        PnL-basiert: pnl > 0 → wins, pnl <= 0 → losses.
+        Status: CLOSED_EXIT (kein WON/LOST — kein Gamma-Outcome bekannt).
+        """
+        for pos in self.data["positions"]:
+            if pos.get("market_id") != market_id:
+                continue
+            if pos.get("status") != "OPEN":
+                continue
+
+            shares   = float(pos.get("shares", 0))
+            invested = float(pos.get("invested_usdc", 0))
+            pnl      = round(shares * exit_price - invested, 2)
+            won      = pnl > 0
+
+            pos["status"]    = "CLOSED_EXIT"
+            pos["exit_price"] = round(exit_price, 4)
+            pos["pnl"]       = pnl
+            pos["exit_time"] = datetime.now(timezone.utc).isoformat()
+            pos["exit_reason"] = reason
+
+            self.data["stats"]["total_pnl"] = round(
+                self.data["stats"].get("total_pnl", 0) + pnl, 4)
+            if won:
+                self.data["stats"]["wins"] = \
+                    self.data["stats"].get("wins", 0) + 1
+            else:
+                self.data["stats"]["losses"] = \
+                    self.data["stats"].get("losses", 0) + 1
+
+            if pnl > self.data["stats"].get("best_trade", 0):
+                self.data["stats"]["best_trade"] = pnl
+            if pnl < self.data["stats"].get("worst_trade", 0):
+                self.data["stats"]["worst_trade"] = pnl
+
+            self.data["closed_positions"].append(pos)
+            self.data["positions"].remove(pos)
+            self._save()
+
+            logger.info(
+                f"[Shadow] {'✅' if won else '❌'} CLOSED_EXIT: "
+                f"{pos.get('question','?')[:40]} | "
+                f"exit@{exit_price:.3f} | PnL: ${pnl:+.2f} | {reason}")
+            return True
+        return False
+
+    def get_stats_by_strategy(self) -> dict:
+        """Aufschlüsselung nach Strategie (COPY / WEATHER) für Dashboard."""
+        result = {}
+        all_closed = self.data.get("closed_positions", [])
+        for pos in all_closed:
+            strat = pos.get("strategy", "COPY")
+            if strat not in result:
+                result[strat] = {"trades": 0, "wins": 0, "losses": 0, "pnl": 0.0}
+            result[strat]["trades"] += 1
+            pnl = float(pos.get("pnl", 0))
+            result[strat]["pnl"] = round(result[strat]["pnl"] + pnl, 2)
+            if pnl > 0:
+                result[strat]["wins"] += 1
+            else:
+                result[strat]["losses"] += 1
+        for strat, s in result.items():
+            s["win_rate"] = round(
+                s["wins"] / max(s["wins"] + s["losses"], 1), 3)
+        return result
+
     def resolve_position(
             self,
             market_id: str,
@@ -344,13 +416,16 @@ class ShadowPortfolio:
             stats["wins"] /
             max(stats["wins"] + stats["losses"], 1))
 
+        by_strategy = self.get_stats_by_strategy()
         return {
             "virtual_pnl":     round(virtual_pnl, 2),
             "total_trades":    stats["total_trades"],
             "win_rate":        round(win_rate, 3),
             "open_positions":  len(self.data["positions"]),
+            "closed_positions": len(self.data.get("closed_positions", [])),
             "best_trade":      stats["best_trade"],
             "worst_trade":     stats["worst_trade"],
+            "by_strategy":     by_strategy,
             # kept for compat
             "virtual_portfolio": round(VIRTUAL_START_CAPITAL + virtual_pnl, 2),
             "real_portfolio":    0.0,

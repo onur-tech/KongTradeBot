@@ -690,6 +690,7 @@ async def main():
     _cap_alert_last = [None]  # throttle: max 1 Telegram-Alert pro Stunde
     _wallet_tracker  = WalletTracker()
     _exit_strategy   = ExitStrategy(engine=engine)
+    _shadow          = ShadowPortfolio()
 
     async def on_copy_order(order: CopyOrder):
         positions = engine.get_open_positions_summary()
@@ -793,6 +794,20 @@ async def main():
             risk.record_market_investment(market_id, float(getattr(order, "size_usdc", 0) or 0))
             risk.record_category_investment(cat, float(getattr(order, "size_usdc", 0) or 0))
             record_fill(sig, result)
+            # Shadow Mirror: 10× Größe
+            try:
+                _real_size = float(getattr(order, "size_usdc", 0) or 0)
+                _shadow.open_position(
+                    market_id=market_id,
+                    question=str(getattr(sig, "market_question", "") or "")[:60],
+                    outcome=str(getattr(sig, "outcome", "") or ""),
+                    entry_price=float(getattr(sig, "price", 0.5) or 0.5),
+                    invested_usdc=round(_real_size * 10, 2),
+                    strategy="COPY",
+                    wallet_alias=str(getattr(sig, "source_wallet", "") or "")[:16],
+                )
+            except Exception as _se:
+                logger.debug(f"[Shadow] Copy-Mirror fehlgeschlagen: {_se}")
 
             try:
                 _detected_at = getattr(sig, "detected_at", None)
@@ -1005,6 +1020,12 @@ async def main():
                 f"🎯 {pos.outcome} | Entry: ${pos.entry_price:.3f} → Exit: ${sell_signal.price:.3f}",
                 f"{'🟢' if pnl_val >= 0 else '🔴'} PnL: <b>{pnl_sign}${pnl_val:.2f}</b>",
             ]))
+            # Shadow Mirror: Exit spiegeln
+            try:
+                _shadow.close_position(
+                    pos.market_id, sell_signal.price, "whale_exit")
+            except Exception as _se:
+                logger.debug(f"[Shadow] Whale-Exit-Mirror fehlgeschlagen: {_se}")
         except Exception as e:
             logger.error(f"[whale_exit_copy] Fehler: {e}", exc_info=True)
 
@@ -1216,6 +1237,12 @@ async def main():
                                         market_id=ev.condition_id, outcome=ev.outcome,
                                         won=ev.pnl_usdc > 0, pnl=ev.pnl_usdc,
                                         size_usdc=ev.usdc_received, strategy="COPY")
+                                    try:
+                                        _shadow.close_position(
+                                            ev.condition_id, ev.exit_price,
+                                            ev.exit_type)
+                                    except Exception as _se:
+                                        logger.debug(f"[Shadow] Exit-Mirror: {_se}")
                                     pos.shares = round(pos.shares - result["shares_sold"], 6)
                                     if pos.shares <= 0:
                                         engine.open_positions.pop(ev.position_id, None)
@@ -1344,6 +1371,20 @@ async def main():
                                     )
                                     order = CopyOrder(signal=sig, size_usdc=float(config.max_trade_size_usd), dry_run=config.dry_run)
                                     await on_copy_order(order)
+                                    # Shadow Mirror: 5× (Weather-spezifisch)
+                                    try:
+                                        _shadow.open_position(
+                                            market_id=opp['condition_id'],
+                                            question=opp.get('market', opp.get('city', ''))[:60],
+                                            outcome=opp['direction'],
+                                            entry_price=float(opp['price']),
+                                            invested_usdc=round(float(config.max_trade_size_usd) * 5, 2),
+                                            strategy="WEATHER",
+                                            city=opp.get('city', ''),
+                                            end_date=opp.get('end_date', ''),
+                                        )
+                                    except Exception as _se:
+                                        logger.debug(f"[Shadow] Weather-Mirror: {_se}")
                                     logger.info(
                                         f"[Weather] 🌤 LIVE ORDER routed: {opp['direction']} {opp['city']} "
                                         f"@ {opp['price']:.3f} edge={opp['edge']:.0%}"
@@ -1358,12 +1399,11 @@ async def main():
         async def weather_exit_loop():
             """Alle 15 Minuten: prüft ob Weather-Positionen 60% Edge eingefangen haben."""
             from core.exit_strategy import check_weather_exit_signals
-            from core.shadow_portfolio import ShadowPortfolio
             await asyncio.sleep(120)  # Erst nach 2 Min starten
             while True:
                 try:
-                    sp = ShadowPortfolio()
-                    alerts = check_weather_exit_signals(sp.data)
+                    _shadow.data = _shadow._load()  # frische Daten
+                    alerts = check_weather_exit_signals(_shadow.data)
                     for a in alerts:
                         msg = (
                             f"💰 <b>Weather Exit Signal</b>\n"

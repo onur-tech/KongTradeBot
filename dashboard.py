@@ -2087,6 +2087,72 @@ def api_skipped_signals():
     return _cors(jsonify(stats))
 
 
+@app.route("/api/shadow")
+def api_shadow():
+    """
+    GET /api/shadow
+    Shadow Portfolio v2 Stats — Mirror 10x (Copy) / 5x (Weather).
+    """
+    sp_file = BASE_DIR / "data" / "shadow_portfolio.json"
+    try:
+        sp_data = json.loads(sp_file.read_text())
+    except Exception:
+        return _cors(jsonify({"error": "shadow_portfolio.json nicht gefunden"}))
+
+    stats   = sp_data.get("stats", {})
+    pos     = sp_data.get("positions", [])
+    closed  = sp_data.get("closed_positions", [])
+    total_pnl = float(stats.get("total_pnl", 0))
+    wins    = int(stats.get("wins", 0))
+    losses  = int(stats.get("losses", 0))
+    win_rate = round(wins / max(wins + losses, 1), 3)
+
+    # Per-Strategie-Breakdown aus closed_positions
+    by_strategy = {}
+    for p in closed:
+        strat = p.get("strategy", "COPY")
+        if strat not in by_strategy:
+            by_strategy[strat] = {"trades": 0, "wins": 0, "losses": 0, "pnl": 0.0}
+        pnl = float(p.get("pnl", 0))
+        by_strategy[strat]["trades"] += 1
+        by_strategy[strat]["pnl"] = round(by_strategy[strat]["pnl"] + pnl, 2)
+        if pnl > 0:
+            by_strategy[strat]["wins"] += 1
+        else:
+            by_strategy[strat]["losses"] += 1
+    for s in by_strategy.values():
+        s["win_rate"] = round(s["wins"] / max(s["wins"] + s["losses"], 1), 3)
+
+    # Letzte 5 Trades
+    last_5 = []
+    for p in reversed(closed[-10:]):
+        last_5.append({
+            "question":   (p.get("question") or p.get("city") or "?")[:50],
+            "outcome":    p.get("outcome", ""),
+            "strategy":   p.get("strategy", ""),
+            "pnl":        round(float(p.get("pnl", 0)), 2),
+            "status":     p.get("status", ""),
+            "exit_reason": p.get("exit_reason", "resolution"),
+        })
+        if len(last_5) >= 5:
+            break
+
+    return _cors(jsonify({
+        "virtual_pnl":      round(total_pnl, 2),
+        "total_trades":     int(stats.get("total_trades", 0)),
+        "open_positions":   len(pos),
+        "closed_positions": len(closed),
+        "wins":             wins,
+        "losses":           losses,
+        "win_rate":         win_rate,
+        "best_trade":       float(stats.get("best_trade", 0)),
+        "worst_trade":      float(stats.get("worst_trade", 0)),
+        "by_strategy":      by_strategy,
+        "last_5":           last_5,
+        "mirror_multiplier": {"COPY": "10x", "WEATHER": "5x"},
+    }))
+
+
 @app.route("/api/today_summary")
 def api_today_summary():
     """

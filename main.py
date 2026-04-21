@@ -313,7 +313,7 @@ async def balance_updater(config, engine=None, interval=300):
             # portfolio_budget_usd = CLOB-Cash + investierter Betrag in Positionen
             # (CLOB allein unterschätzt das Portfolio wenn Cash in Positionen gebunden ist)
             if engine is not None:
-                _invested = sum(float(p.size_usdc or 0) for p in engine.open_positions.values())
+                _invested = engine.get_total_invested_usd()
                 config.portfolio_budget_usd += _invested
         except asyncio.CancelledError:
             break
@@ -632,9 +632,8 @@ async def main():
     synced = await sync_positions_from_polymarket(engine, config)
 
     # Budget-Cap: Risk Manager mit wiederhergestellten Positionen synchronisieren
-    _startup_invested = sum(
-        float(pos.size_usdc or 0) for pos in engine.open_positions.values()
-    )
+    # Nur OPEN/ACTIVE Positionen zählen — PENDING_CLOSE/ENDED nicht
+    _startup_invested = engine.get_total_invested_usd()
     risk.update_total_invested(_startup_invested)
     # portfolio_budget_usd = CLOB-Cash + Positionen → korrekte Gesamtgröße
     config.portfolio_budget_usd += _startup_invested

@@ -831,8 +831,11 @@ class ExecutionEngine:
                 "error": str(exc), "dry_run": False,
             }
 
+    # States that still have capital at risk — used for budget calculations
+    _ACTIVE_STATES = {"OPEN", "ACTIVE"}
+
     def get_open_positions_summary(self) -> List[dict]:
-        """Gibt eine Zusammenfassung aller offenen Positionen zurück."""
+        """Gibt eine Zusammenfassung aktiver Positionen zurück (ENDED/PENDING_CLOSE ausgeschlossen)."""
         return [
             {
                 "order_id": pos.order_id[:12] + "...",
@@ -841,9 +844,19 @@ class ExecutionEngine:
                 "entry_price": f"${pos.entry_price:.3f}",
                 "invested": f"${pos.size_usdc:.2f}",
                 "closes_in": f"{pos.time_to_close_hours:.1f}h" if hasattr(pos, 'time_to_close_hours') else "?",
+                "source": getattr(pos, "source_wallet", "")[:10],
             }
             for pos in self.open_positions.values()
+            if pos.position_state in self._ACTIVE_STATES
         ]
+
+    def get_total_invested_usd(self) -> float:
+        """Kapital in aktiven Positionen — ENDED/PENDING_CLOSE zählen nicht."""
+        return sum(
+            float(pos.size_usdc or 0)
+            for pos in self.open_positions.values()
+            if pos.position_state in self._ACTIVE_STATES
+        )
 
     def cleanup_expired_positions(self) -> dict:
         """

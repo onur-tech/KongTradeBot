@@ -1342,7 +1342,12 @@ def api_summary():
     open_positions = []
     try:
         state = load_json(STATE_FILE) or {}
-        open_positions = state.get("open_positions", [])
+        _all_positions = state.get("open_positions", [])
+        _inactive = {"PENDING_CLOSE", "ENDED", "CLOSED", "RESOLVED", "EXPIRED", "RESOLVED_LOST"}
+        open_positions = [
+            p for p in _all_positions
+            if p.get("position_state", "OPEN") not in _inactive
+        ]
         total_invested_open = sum(float(p.get("size_usdc", 0) or 0) for p in open_positions)
         # Read actual on-chain balance from cache written by balance_fetcher
         balance_cache = load_json(BASE_DIR / "data" / "balance_cache.json") or {}

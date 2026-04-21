@@ -843,9 +843,13 @@ def api_positions():
     state   = load_json(STATE_FILE) or {}
     archive = load_json(ARCHIVE_FILE) or []
 
-    # OPEN positions
+    # OPEN positions — filter out ENDED/CLOSED/PENDING_CLOSE
+    _ended_states = {"PENDING_CLOSE", "ENDED", "CLOSED"}
     open_pos = []
     for p in state.get("open_positions", []):
+        pos_state = p.get("position_state", "ACTIVE")
+        if pos_state in _ended_states:
+            continue
         closes_in_s, closes_in_h = _parse_closes_in(p.get("market_closes_at"))
         entry_price = float(p.get("entry_price", 0) or 0)
         size_usdc   = float(p.get("size_usdc", 0) or 0)
@@ -863,6 +867,7 @@ def api_positions():
             "closes_in_s":   closes_in_s,
             "wallet":        get_wallet_name(p.get("source_wallet", "")),
             "opened_at":     p.get("opened_at", ""),
+            "position_state": pos_state,
         })
     open_pos.sort(key=lambda x: (x.get("closes_in_h") or 9999))
 
@@ -2111,12 +2116,12 @@ def api_shadow():
     losses  = int(stats.get("losses", 0))
     win_rate = round(wins / max(wins + losses, 1), 3)
 
-    # Per-Strategie-Breakdown aus closed_positions
+    # Per-Strategie-Breakdown: closed + open positions zählen
     by_strategy = {}
     for p in closed:
         strat = p.get("strategy", "COPY")
         if strat not in by_strategy:
-            by_strategy[strat] = {"trades": 0, "wins": 0, "losses": 0, "pnl": 0.0}
+            by_strategy[strat] = {"trades": 0, "wins": 0, "losses": 0, "pnl": 0.0, "open": 0}
         pnl = float(p.get("pnl", 0))
         by_strategy[strat]["trades"] += 1
         by_strategy[strat]["pnl"] = round(by_strategy[strat]["pnl"] + pnl, 2)
@@ -2124,6 +2129,13 @@ def api_shadow():
             by_strategy[strat]["wins"] += 1
         else:
             by_strategy[strat]["losses"] += 1
+    for p in pos:
+        if p.get("status") != "OPEN":
+            continue
+        strat = p.get("strategy", "COPY")
+        if strat not in by_strategy:
+            by_strategy[strat] = {"trades": 0, "wins": 0, "losses": 0, "pnl": 0.0, "open": 0}
+        by_strategy[strat]["open"] = by_strategy[strat].get("open", 0) + 1
     for s in by_strategy.values():
         s["win_rate"] = round(s["wins"] / max(s["wins"] + s["losses"], 1), 3)
 

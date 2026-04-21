@@ -14,6 +14,13 @@ from datetime import datetime, date
 from pathlib import Path
 import logging
 from core import hrrr_forecast
+try:
+    from core.weather_tiers import should_trade as _tier_should_trade, get_tier as _get_tier
+except ImportError:
+    def _tier_should_trade(city, edge_pct, price, outcome="YES"):
+        return True, "no_tier_module"
+    def _get_tier(city):
+        return 2
 
 logger = logging.getLogger("polymarket_bot.weather_scout")
 
@@ -101,6 +108,7 @@ CALIBRATED_CITIES = [
     "Mumbai",
     "NYC",
     "New York",
+    "New York City",
     "Paris",
     "Seattle",
     "Seoul",
@@ -883,6 +891,17 @@ def run_weather_scout() -> list:
             shadow_only = city not in CALIBRATED_CITIES
             if shadow_only:
                 logger.info(f"[WeatherScout] SHADOW-ONLY: {city} nicht kalibriert, kein echter Trade")
+            # Tier-Gate: prüfe ob Trade die Tier-Kriterien erfüllt (Tier1/2/3)
+            if not shadow_only:
+                _tier_ok, _tier_reason = _tier_should_trade(
+                    city=city,
+                    edge_pct=abs(opp['edge']),
+                    price=opp['price'],
+                    outcome=opp['direction'],
+                )
+                if not _tier_ok:
+                    logger.info(f"[WeatherScout] TIER-SKIP {city} (Tier{_get_tier(city)}): {_tier_reason}")
+                    shadow_only = True
             # Skip penny markets — no CLOB liquidity
             if opp['price'] < 0.05:
                 logger.debug(f"[WeatherScout] Penny skip: {city} {opp['price']:.3f}")

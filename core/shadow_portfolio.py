@@ -203,7 +203,7 @@ class ShadowPortfolio:
         for pos in all_closed:
             strat = pos.get("strategy", "COPY")
             if strat not in result:
-                result[strat] = {"trades": 0, "wins": 0, "losses": 0, "pnl": 0.0}
+                result[strat] = {"trades": 0, "wins": 0, "losses": 0, "pnl": 0.0, "open": 0}
             result[strat]["trades"] += 1
             pnl = float(pos.get("pnl", 0))
             result[strat]["pnl"] = round(result[strat]["pnl"] + pnl, 2)
@@ -211,6 +211,14 @@ class ShadowPortfolio:
                 result[strat]["wins"] += 1
             else:
                 result[strat]["losses"] += 1
+        # Also count open positions per strategy
+        for pos in self.data.get("positions", []):
+            if pos.get("status") != "OPEN":
+                continue
+            strat = pos.get("strategy", "COPY")
+            if strat not in result:
+                result[strat] = {"trades": 0, "wins": 0, "losses": 0, "pnl": 0.0, "open": 0}
+            result[strat]["open"] = result[strat].get("open", 0) + 1
         for strat, s in result.items():
             s["win_rate"] = round(
                 s["wins"] / max(s["wins"] + s["losses"], 1), 3)

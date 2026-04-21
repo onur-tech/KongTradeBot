@@ -1007,3 +1007,26 @@ Erster echter Weather-Trade: 21.04.2026 ~12:06 UTC
 
 Wichtig: Immer prüfen ob weather_loop() nach
 run_weather_scout() auch on_copy_order() aufruft.
+
+---
+
+## P034 — Weather Duplikat-Trades (21.04.2026)
+Status: ✅ BEHOBEN
+
+Symptom: Dallas YES zweimal gekauft (@ 0.22
+und @ 0.27, selbe condition_id) im ersten
+Live-Trading-Tag.
+
+Root-Cause: weather_loop() prüfte nicht ob
+condition_id bereits in open_positions.
+Bei jedem 30-Min-Scan wurde dieselbe
+Opportunity erneut als Order platziert.
+
+Fix: Vor on_copy_order() wird ein Set aller
+offenen condition_ids gebaut:
+  open_condition_ids = {pos.market_id for pos
+    in engine.open_positions.values()}
+Wenn opp['condition_id'] bereits drin → SKIP.
+
+Wichtig: market_id == condition_id auf
+Polymarket (siehe execution_engine.py:466).

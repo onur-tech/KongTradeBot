@@ -1232,8 +1232,13 @@ async def main():
                         await send(f"🌤 <b>Weather Opportunities ({len(opportunities)})</b>\n{summary}")
                         # Execute live trades for calibrated cities
                         live_opps = [o for o in opportunities if not o.get('shadow_only') and o.get('token_id')]
+                        open_condition_ids = {pos.market_id for pos in engine.open_positions.values()}
                         for opp in live_opps:
                             try:
+                                # Duplikat-Check: condition_id bereits im Portfolio?
+                                if opp['condition_id'] in open_condition_ids:
+                                    logger.info(f"[Weather] SKIP Duplikat: {opp['city']} ({opp['condition_id'][:12]}...) bereits im Portfolio")
+                                    continue
                                 from core.wallet_monitor import TradeSignal
                                 from strategies.copy_trading import CopyOrder
                                 sig = TradeSignal(

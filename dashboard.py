@@ -2552,6 +2552,69 @@ def api_performance():
         return _cors(jsonify({"error": str(e)})), 500
 
 
+@app.route("/api/news")
+@login_required
+def api_news():
+    """Letzte RSS-Signale aus bot.log — BBC/AP/NYT/AJ, kategorisiert."""
+    import re as _re
+    try:
+        rolling = LOG_DIR / "bot.log"
+        dated   = LOG_DIR / f"bot_{date.today().isoformat()}.log"
+        log_file = rolling if rolling.exists() else (dated if dated.exists() else None)
+        if not log_file:
+            return _cors(jsonify({"news": [], "total": 0, "relevant": 0}))
+
+        lines = log_file.read_text(encoding="utf-8", errors="replace").splitlines()
+
+        _SKIP = {"Monitor initialisiert", "Monitor gestartet",
+                 "neue Signale", "Loop-Fehler", "Fehler:", "Telegram"}
+        _SRC_MAP = {
+            "BBC World": "BBC", "Al Jazeera": "AJ",
+            "AP News": "AP",   "NYT World":  "NYT",
+        }
+        _HIGH_VALUE = {"geopolitics", "us_politics", "macro", "crypto"}
+
+        news, seen = [], set()
+        for line in lines:
+            if "[RSS]" not in line or "rss_monitor" not in line:
+                continue
+            if any(w in line for w in _SKIP):
+                continue
+            try:
+                ts = line[:19]
+                rss_part = line.split("[RSS]", 1)[1].strip()
+                item_part, cats_part = (rss_part.split(" → ", 1)
+                                        if " → " in rss_part else (rss_part, "[]"))
+                if ": " not in item_part:
+                    continue
+                source_raw, title = item_part.split(": ", 1)
+                title = title.strip()[:120]
+                if not title or title in seen:
+                    continue
+                seen.add(title)
+                source = _SRC_MAP.get(source_raw.strip(), source_raw.strip()[:12])
+                cats   = _re.findall(r"'(\w+)'", cats_part)
+                news.append({
+                    "time":       ts,
+                    "source":     source,
+                    "title":      title,
+                    "categories": cats,
+                    "relevant":   bool(_HIGH_VALUE & set(cats)),
+                })
+            except Exception:
+                continue
+
+        news.reverse()          # neueste zuerst
+        news = news[:50]
+        return _cors(jsonify({
+            "news":     news,
+            "total":    len(news),
+            "relevant": sum(1 for n in news if n["relevant"]),
+        }))
+    except Exception as e:
+        return _cors(jsonify({"error": str(e), "news": [], "total": 0})), 500
+
+
 def _run_server():
     socketio.run(app, host="127.0.0.1", port=5000, debug=False, allow_unsafe_werkzeug=True)
 

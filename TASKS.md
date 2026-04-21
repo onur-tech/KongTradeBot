@@ -1,162 +1,66 @@
-# KongTrade Bot — Task Tracking
-_Stand: 2026-04-18 07:30 Berlin_
+# KongTrade — Offene Tasks
 
-**Regeln:**
-- Status: ARBEIT | QUEUE | DONE | BLOCKED | IDEE
-- Prioritaet: KRITISCH | WICHTIG | NICE-TO-HAVE
+**Stand:** 21. April 2026
 
----
+## 🔴 SOFORT (heute)
 
-## IN ARBEIT
+- [ ] Insider-Scan Pagination-Bug fixen
+  ```python
+  # in get_resolved_markets(), nach dem Batch-Loop:
+  if len(geo_markets) >= 3000 and len(niche_markets) >= 500:
+      break
+  ```
+  Dann laufenden PID 442096 killen und neu starten.
 
-| ID | Titel | Prio | Notiz |
-|----|-------|------|-------|
+- [ ] GitHub Account entsperren
+  → support.github.com → Ticket antworten
+  → "Bitte Repo KongTradeBot-Template löschen"
 
----
+## 🟡 DIESE WOCHE
 
-## QUEUE
+- [ ] Ersten echten Weather-Trade dokumentieren
+  WEATHER_DRY_RUN=false seit heute — Seoul Apr22 Signal war stark.
 
-| ID | Titel | Prio | Notiz |
-|----|-------|------|-------|
-| T-010 | Balance-Delta SEIT START reparieren | KRITISCH | Portfolio-Snapshot beim Start fehlt (P007) |
+- [ ] Paris ICAO korrigieren
+  Aktuell: LFPG (CDG) | Soll: LFPB (Le Bourget)
 
-| T-012 | Alle 37 Positionen anzeigen (tbl-wrap CSS) | WICHTIG | Braucht Dashboard-Neustart - DONE, aber Restart noetig |
-| T-013 | Resolutions Panel aus Portfolio-Cache | WICHTIG | /api/resolutions auf _polymarket_positions (P010) |
-| T-015 | P&L HEUTE = Portfolio-Delta seit Mitternacht | WICHTIG | Mitternacht-Snapshot fehlt (P014) |
-| T-016 | Balance-Chart auf Portfolio-Total | WICHTIG | SQLite Spalte portfolio_total (P008) |
-| T-007 | Telegram-Commands: /balance /health /logs | NICE | telegram_bot.py erweitern |
-| T-017 | Per-Wallet-Performance aus Signal-Counter | NICE | Signale tracken (P015) |
-| T-018 | Log-Rotation TimedRotatingFileHandler | NICE | Kein Prozess-Neustart noetig (P018) |
-| T-019 | WS-Events Counter verbessern | NICE | P013 - bereits deployed |
-| T-020 | Timezone Berlin vereinheitlichen | NICE | P016 |
+- [ ] Latenz-Fenster messen
+  Wann updatet Open-Meteo? Wie lange reagiert Polymarket?
 
----
+## 🟢 NÄCHSTE 2 WOCHEN
 
-## BLOCKED
+- [ ] XGBoost statt Gauss-Modell
+  8 kostenlose Features identifiziert, ~50% Edge-Verbesserung erwartet.
 
-| ID | Titel | Blocker |
-|----|-------|---------|
+- [ ] Live-Insider-Monitor
+  frisches Wallet + $5k+ + unter 20¢ + Geopolitik → Telegram-Alert
 
+- [ ] Monatliche Sigma-Neukalibrierung automatisieren
+  calc_station_sigma.py als Cron (1x/Monat)
 
+## 📋 QUEUE — Nächste Tasks
 
+| ID | Aufgabe | Priorität | Notiz |
+|----|---------|-----------|-------|
+| T-029 | KONZEPT.md als 10. Bootstrap-Datei in SKILL.md/GUIDELINES.md verankern | KRITISCH | Chat-Claude muss sie bei jedem Start lesen |
+| T-030 | Insider-Scan Checkpoint implementieren (robust, nicht abstürzen) | WICHTIG | War bei 12840/32265 eingefroren, PID 445411 läuft |
+| T-031 | GitHub Support kontaktieren: support.github.com (Portal!) | WICHTIG | Template-Repo löschen lassen, Account entsperren |
+| T-032 | ICAO-Mapping verifizieren: Resolution-Kriterien aller aktiven Märkte gegen unsere Stationen abgleichen | KRITISCH | Paris LFPB vs LFPG bewiesen, andere unklar |
+| T-033 | Sigma kalibrieren für alle 30 Städte (calc_station_sigma.py lokal ausführen) | WICHTIG | 20 Städte noch DEFAULT 1.8, DNS-blockiert auf Server |
+| T-034 | Orderbuch-Tiefe-Check vor jedem Weather-Trade (max 20% der verfügbaren Liquidität) | WICHTIG | Tail-Buckets oft nur $200-500 tief |
+| T-035 | Saisonale Performance-Analyse der 809 Backtest-Trades | WICHTIG | Sind Winter-Monate schlechter? |
+| T-036 | Weather Live-Trading: Nur kalibrierte Städte (Seoul, Dubai, Moscow + sigma>2.5 Städte) | KRITISCH | Unkalibrierte Städte bleiben im Shadow Mode |
+| T-037 | wan123 Multiplier auf 0.5x senken | WICHTIG | 90% WR aber -71% ROI bestätigt |
+| T-038 | simple_tail_scanner.py --live --save ausführen (erster echter Weather-Trade) | KRITISCH | Script bereit, Toronto oder Seoul bevorzugt |
 
----
+## ✅ ERLEDIGT (21. April 2026)
 
-## DONE
-
-| ID | Titel | Datum |
-|----|-------|-------|
-| T-D01 | Server Setup Hetzner Helsinki | 2026-04-17 |
-| T-D02 | Magic-Link Proxy-Deploy via Norwegen-VPN | 2026-04-17 |
-| T-D03 | signature_type=1 Fix deployed | 2026-04-17 |
-| T-D04 | Min-Size-Check Fix deployed | 2026-04-17 |
-| T-D05 | FillTracker condition_id Fix deployed | 2026-04-17 |
-| T-D06 | Dashboard live (screen dash :5000) | 2026-04-17 |
-| T-D07 | SSH-Key-Login eingerichtet | 2026-04-17 |
-| T-D08 | /api/portfolio Endpoint + fetchPortfolio JS | 2026-04-18 |
-| T-D09 | Dashboard: TOTAL PORTFOLIO VALUE Hauptzahl | 2026-04-18 |
-| T-D10 | Dashboard: Cash + In Positionen Sub-Zahlen | 2026-04-18 |
-| T-D11 | Dashboard: CLAIM ALL Button | 2026-04-18 |
-| T-D12 | logger.py: propagate=False (Duplikat-Fix) | 2026-04-18 |
-| T-D13 | balance_fetcher.py: Skip $0 RPCs | 2026-04-18 |
-| T-D14 | dashboard.py: API-Fehler lesbar uebersetzen | 2026-04-18 |
-| T-D15 | KNOWLEDGE_BASE.md P009-P021 (13 neue Bugs) | 2026-04-18 |
-| T-D16 | Dynamic Subscribe FillTracker nach Orders | 2026-04-18 |
-| T-D17 | Stale-Position-Recovery via Polymarket Data-API | 2026-04-18 |
-| T-D18 | Auto-Claim alle 30min (claim_all.py) | 2026-04-18 |
-| T-D19 | systemd kongtrade-bot.service enabled (Restart=always) | 2026-04-18 |
-| T-D20 | Watchdog-Timer aktiviert (alle 60s) | 2026-04-18 |
-| T-D21 | Morning-Report 08:00 Berlin + Portfolio-Daten | 2026-04-18 |
-| T-D22 | CLAIM-Button: redeemable || isRedeemable | 2026-04-18 |
-| T-D23 | Positionen-Tabelle: max-height 600px (alle 37 sichtbar) | 2026-04-18 |
-| T-D24 | Commit b1c413a mit allen Nacht-Aenderungen | 2026-04-18 |
-| T-D25 | Auto-Claim Script: $11.29 geclaimed (Brrudi manuell + Script Nacht) | 2026-04-18 |
-| T-D26 | Bot-Neustart Nacht-Fixes aktiv (claim_loop, sync, dynamic subscribe) | 2026-04-18 |
-| T-D27 | GitHub-Credentials + PAT auf Server gespeichert | 2026-04-18 |
-| T-D28 | Public Repo KongTradeBot-Status angelegt + Initial-Push | 2026-04-18 |
-| T-D29 | generate_status.py + push_status.sh deployed | 2026-04-18 |
-| T-D30 | systemd Timer kongtrade-status-push alle 5min aktiv | 2026-04-18 |
-| T-D31 | Defensive Config: Multiplier 0.15->0.05, MAX_POS=15, BLACKLIST, MIN_VOL | 2026-04-18 |
-| T-D32 | WALLET_WEIGHTS env-Override in copy_trading.py implementiert | 2026-04-18 |
-| T-D33 | Cloudflare Quick Tunnel kongtrade-tunnel.service aktiv | 2026-04-18 |
-| T-D34 | tunnel_watcher.py + Timer -> Telegram-Alert bei URL-Aenderung | 2026-04-18 |
-| T-D35 | generate_status.py: Dashboard-URL Abschnitt hinzugefuegt | 2026-04-18 |
-| T-D36 | P022 struktureller Fix: PID-Lock + atexit + ExecStartPre (3 Ebenen) | 2026-04-18 |
-| T-D37 | P026: Watchdog-HB-Fix + MIN_VOL-Bug (vol=0 fuelschlicherweise skip) | 2026-04-18 |
-| T-D38 | T-010: token_id-Guard in _verify_order_onchain + restore + recover | 2026-04-18 |
-| T-D39 | T-022: Auto-Claim 5min + is_claimable() alle 3 redeemable-Varianten | 2026-04-18 |
-| T-D40 | T-006: Duplikat-Wallet-Check — OBSOLETE, 15 unique Eintraege, kein Duplikat | 2026-04-18 |
-| T-D41 | Signal-Filter: MIN_TRADE_SIZE 0.50 + MIN_WHALE_SIZE 5.00 reduziert Micro-Noise | 2026-04-18 |
-| T-D42 | Dashboard: Compact-Header (80px statt 30% Hoehe) + Countdown-Spalte (T-014) | 2026-04-18 |
-| T-D43 | Paket A: tx_hash in tax_archive + Auto-Claim Fehler Telegram-Alert | 2026-04-18 |
-| T-D44 | Paket B: Tunnel-Broadcast + Weekly-Tax-Export + Blockpit-Timestamp | 2026-04-18 |
-| T-D45 | Dashboard-Verbesserungen: OAuth-Popup-Fix + Schrift +20% + Countdown-Fallbacks | 2026-04-18 |
-| T-D46 | Wallet-Scout Historisierung: SQLite + Trend-Analyse + Weekly-Report | 2026-04-18 |
-| T-D47 | Telegram Callbacks + Restart-Loop-Fix + Persistent Keyboard | 2026-04-18 |
-| T-D48 | Exit-Strategie: TP-Staffel + Trailing-Stop + Whale-Follow-Exit (3 Teile) | 2026-04-18 | → 35c3f43 (Part 1), 5e53632 (Part 2), Part 3 pending |
-
----
-
-## IDEEN
-
-| ID | Idee | Aufwand |
-|----|------|---------|
-| T-I01 | Telegram-Alert wenn Claim verfuegbar | Klein |
-| T-I02 | Stop-Loss per Position (verkaufe wenn -50%) | Mittel |
-| T-I03 | Wallet-Blacklist (Win-Rate < 30% -> stoppe Kopieren) | Klein |
-| T-I04 | Multi-Bot Support (mehrere Proxy-Wallets) | Sehr hoch |
-| T-I05 | Grafana/Prometheus fuer Metriken | Mittel |
-
-## 🚀 STRATEGISCHE ROADMAP-TASKS
-
-### Infrastruktur für Multi-Asset
-
-| ID | Task | Aufwand |
-|----|------|---------|
-| T-S01 | Grok API Integration als universelles signal_source Modul | Mittel |
-| T-S02 | Config-Management zentralisieren (configs/*.yml pro Bot) | Klein |
-| T-S03 | Dashboard erweitern um "Bot-Selector" (Polymarket/Manifold/...) | Mittel |
-| T-S04 | Mini-PC als Manifold-Shadow-Node aufsetzen | Mittel |
-| T-S05 | utils/grok_monitor.py mit X-Search + RSS + Reddit-Clients | Mittel-Groß |
-
-### Neue Bot-Kandidaten (Reihenfolge nach Priorität)
-
-| ID | Task | Aufwand |
-|----|------|---------|
-| T-S10 | KongFunding — Crypto Futures Funding-Rate Arbitrage | Groß |
-| T-S11 | KongCrypto — Solana-Whale-Copy-Trading | Groß |
-| T-S12 | KongSentiment — News-triggered Trading via Grok | Sehr Groß |
-| T-S13 | KongStock-Insider — SEC EDGAR Monitor (13F, Form 4) | Mittel |
-| T-S14 | KongSignals as a Service — B2B Signal-Verkauf | Sehr Groß |
-
-### Meta-Plattform
-
-| ID | Task | Aufwand |
-|----|------|---------|
-| T-S20 | KongHub Multi-Bot-Dashboard mit zentraler Kapital-Allokation | Groß |
-| T-S21 | Gemeinsame Telegram-Integration für alle Bots | Klein |
-
-## 🐝 COLLECTIVE TASKS
-
-| ID | Task | Aufwand | Ziel |
-|----|------|---------|------|
-| T-C01 | GitHub-Org "kongtrade-collective" anlegen | Klein | Q2 |
-| T-C02 | Shared KNOWLEDGE_BASE migrieren | Klein | Q2 |
-| T-C03 | Shared WALLET_RESEARCH.md anlegen | Klein | Q2 |
-| T-C04 | STRATEGY_TEMPLATES als eigenes Repo | Mittel | Q2 |
-| T-C05 | Grok/xAI-Shared-Account Setup + Abrechnung | Mittel | Q2-Q3 |
-| T-C06 | Polymarket-Data-Proxy zentral auf Hetzner | Mittel | Q3 |
-| T-C07 | Schwarm-Datenbank Schema + API | Groß | Q3 |
-| T-C08 | Anonymisiertes Trade-Logging im eigenen Bot | Mittel | Q3 |
-| T-C09 | Performance-Vergleichs-Dashboard | Groß | Q4 |
-| T-C10 | Telegram-Collective-Channel für Alerts | Klein | Q2 |
-
-## T-027 — Template-Repo vorbereiten [DONE]
-- /root/template-ready/ vollständig: README, SETUP, ARCHITEKTUR, CONTRIBUTING, .env.example, LICENSE
-- Privacy-Audit bestanden, alle sensitiven Daten entfernt
-- Warte auf GitHub-Account-Entsperrung für Push
-
-## T-028 — Alex/Tunay/Dietmar einladen [BLOCKED]
-- Blocked by: GitHub-Account KongTradeBot gesperrt (P028)
-- Action: support.github.com kontaktieren
-- Resume: Template-Repo pushen sobald Account entsperrt
+- [x] WEATHER_DRY_RUN=false gesetzt → Weather Trading live
+- [x] negRisk Bucket-Logik korrigiert (bucket_prob)
+- [x] Weather Backtest: 809 Trades, 67.2% WR, +$1.091
+- [x] Sigma-Kalibrierung 30 Städte (empirisch aus 77 Tagen)
+- [x] scan_bucket_arbitrage() implementiert
+- [x] insider_analysis.py mit Checkpoint + Streaming gebaut
+- [x] Shadow Portfolio city-Feld + Penny-Filter gefixt
+- [x] Daily Datapoints Cron aktiv (18:05 UTC täglich)
+- [x] ICAO-Mapping für 29/30 Städte verifiziert (Paris offen)

@@ -1263,10 +1263,18 @@ async def main():
                 logger.error(f"[exit_loop] Fehler: {exc}", exc_info=True)
 
     async def resolver_loop():
+        _sync_counter = 0
         while True:
             try:
                 await asyncio.sleep(900)  # 15 Minuten
                 await check_resolved_markets_and_notify()
+                # T-SYNC: Polymarket-Positionen alle 30 Min nachladen
+                # (sync_positions_from_polymarket hat guard: already=True → skip)
+                _sync_counter += 1
+                if _sync_counter % 2 == 0:
+                    synced = await sync_positions_from_polymarket(engine, config)
+                    if synced > 0:
+                        logger.info(f"[SYNC] resolver_loop: {synced} neue Positionen importiert")
             except asyncio.CancelledError:
                 break
             except Exception as e:

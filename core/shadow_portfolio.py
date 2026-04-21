@@ -96,7 +96,8 @@ class ShadowPortfolio:
             strategy: str,
             signal_score: int = 0,
             wallet_alias: str = None,
-            city: str = "") -> bool:
+            city: str = "",
+            end_date: str = "") -> bool:
         """Öffnet virtuelle Position. Kein Kapital-Limit im Shadow-Mode."""
 
         shares = round(
@@ -115,6 +116,7 @@ class ShadowPortfolio:
             "signal_score": signal_score,
             "wallet_alias": wallet_alias,
             "city": city,
+            "closes_at": f"{end_date}T23:59:00Z" if end_date else "",
             "status": "OPEN",
             "pnl": 0.0
         }

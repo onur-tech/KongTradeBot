@@ -1241,6 +1241,14 @@ async def main():
                                     continue
                                 from core.wallet_monitor import TradeSignal
                                 from strategies.copy_trading import CopyOrder
+                                _end = opp.get('end_date', '')
+                                _closes_at = None
+                                if _end:
+                                    try:
+                                        _closes_at = datetime.fromisoformat(_end).replace(
+                                            hour=23, minute=59, tzinfo=timezone.utc)
+                                    except Exception:
+                                        pass
                                 sig = TradeSignal(
                                     tx_hash=f"weather_{opp['condition_id'][:16]}_{datetime.now().strftime('%H%M%S')}",
                                     source_wallet="[weather-bot]",
@@ -1251,6 +1259,7 @@ async def main():
                                     size_usdc=float(config.max_trade_size_usd),
                                     market_question=opp.get('market', opp.get('city', '')),
                                     outcome=opp['direction'],
+                                    market_closes_at=_closes_at,
                                 )
                                 order = CopyOrder(signal=sig, size_usdc=float(config.max_trade_size_usd), dry_run=config.dry_run)
                                 await on_copy_order(order)

@@ -688,7 +688,10 @@ def get_stats():
     win_rate = len(wins) / len(closed) * 100 if closed else 0
     today   = date.today().isoformat()
     today_trades = [t for t in archive if t.get("datum") == today]
-    today_pnl    = sum(float(t.get("gewinn_verlust_usdc", 0) or 0) for t in today_trades if t.get("aufgeloest"))
+    today_resolved = [t for t in today_trades if t.get("aufgeloest")]
+    today_pnl    = sum(float(t.get("gewinn_verlust_usdc", 0) or 0) for t in today_resolved)
+    today_wins   = sum(1 for t in today_resolved if t.get("ergebnis") == "GEWINN")
+    today_losses = sum(1 for t in today_resolved if t.get("ergebnis") == "VERLUST")
     cats = {}
     for t in archive:
         cat = t.get("kategorie", "Sonstiges") or "Sonstiges"
@@ -712,8 +715,10 @@ def get_stats():
         "pnl":          round(pnl, 2),
         "invested":     round(invested, 2),
         "win_rate":     round(win_rate, 1),
-        "today_trades": len(today_trades),
-        "today_pnl":    round(today_pnl, 2),
+        "today_trades":  len(today_trades),
+        "today_pnl":     round(today_pnl, 2),
+        "today_wins":    today_wins,
+        "today_losses":  today_losses,
         "categories":   cats,
         "wallet_perf":  {k[:10] + "...": v for k, v in wallet_perf.items()},
     }
@@ -1360,7 +1365,8 @@ def api_summary():
         "max_invested_usd": round(max_invested_usd, 2),
         "budget_utilization_pct": budget_utilization_pct,
         **{k: stats[k] for k in ("total_trades", "closed", "wins", "losses",
-                                  "win_rate", "pnl", "today_trades", "today_pnl")},
+                                  "win_rate", "pnl", "today_trades", "today_pnl",
+                                  "today_wins", "today_losses")},
         "open":     len(open_positions),
         "invested": round(total_invested_open, 2),
     }

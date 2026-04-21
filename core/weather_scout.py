@@ -905,6 +905,7 @@ def run_weather_scout() -> list:
                         strategy="WEATHER" if not _metar_lock else "WEATHER_METAR",
                         signal_score=_score,
                         city=city,
+                        end_date=m.get('end_date', ''),
                     )
                 except Exception as _e:
                     logger.warning(f"[WeatherScout] Shadow Portfolio Fehler: {_e}")

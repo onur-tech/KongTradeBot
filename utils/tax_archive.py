@@ -26,6 +26,7 @@ logger = get_logger("tax")
 TRADE_LOG_FILE    = "trades_archive.json"
 TAX_CSV_FILE      = "steuer_export_{year}.csv"
 BLOCKPIT_CSV_FILE = "blockpit_import_{year}.csv"
+_DAILY_STATS_FILE = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "data", "daily_stats.json")
 
 
 # ── EUR/USD Kurs-Abruf ────────────────────────────────────────────────────────
@@ -105,6 +106,30 @@ def _get_rate(rates: Dict[str, float], date: str) -> float:
 
 # ── Trade-Logging ─────────────────────────────────────────────────────────────
 
+def _write_daily_stats() -> None:
+    """Schreibt tagesaktuellen Stats-Cache nach data/daily_stats.json."""
+    try:
+        today = date.today().isoformat()
+        trades = _load_trades()
+        today_all      = [t for t in trades if t.get("datum") == today]
+        today_resolved = [t for t in today_all if t.get("aufgeloest")]
+        today_wins     = sum(1 for t in today_resolved if t.get("ergebnis") == "GEWINN")
+        today_losses   = sum(1 for t in today_resolved if t.get("ergebnis") == "VERLUST")
+        today_pnl      = round(sum(float(t.get("gewinn_verlust_usdc", 0) or 0) for t in today_resolved), 2)
+        stats = {
+            "date":         today,
+            "today_pnl":    today_pnl,
+            "today_trades": len(today_all),
+            "today_wins":   today_wins,
+            "today_losses": today_losses,
+        }
+        os.makedirs(os.path.dirname(_DAILY_STATS_FILE), exist_ok=True)
+        with open(_DAILY_STATS_FILE, "w", encoding="utf-8") as f:
+            json.dump(stats, f, indent=2)
+    except Exception as e:
+        logger.warning(f"daily_stats schreiben fehlgeschlagen: {e}")
+
+
 def log_trade(
     market_question: str,
     outcome: str,
@@ -153,6 +178,7 @@ def log_trade(
 
         trades.append(trade)
         _save_trades(trades)
+        _write_daily_stats()
 
     except Exception as e:
         logger.error(f"Trade archivieren fehlgeschlagen: {e}")
@@ -169,6 +195,7 @@ def resolve_trade(trade_id: int, won: bool, payout_usdc: float) -> None:
                 trade["gewinn_verlust_usdc"] = round(payout_usdc - trade["einsatz_usdc"], 4)
                 break
         _save_trades(trades)
+        _write_daily_stats()
         logger.info(f"Trade #{trade_id} aufgelöst: {'GEWINN' if won else 'VERLUST'} ${payout_usdc:.2f}")
     except Exception as e:
         logger.error(f"Trade auflösen fehlgeschlagen: {e}")

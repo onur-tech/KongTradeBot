@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🦍 KongTerminal</title>
+<title>🦍 KongBot</title>
 <script src="https://cdn.jsdelivr.net/npm/socket.io@4.7.2/client-dist/socket.io.min.js"></script>
 <style>
 /* ── RESET & BASE ─────────────────────────────────────────── */
@@ -28,7 +28,7 @@ body{
   font-family:var(--mono); font-size:14px;
   height:100vh; overflow:hidden; display:grid;
   grid-template-rows:auto auto 1fr;
-  grid-template-columns:280px 1fr 300px;
+  grid-template-columns:270px 1fr 300px;
   grid-template-areas:"hdr hdr hdr" "nav nav nav" "sb  main rt";
 }
 ::-webkit-scrollbar{width:3px}
@@ -54,7 +54,7 @@ body{
 @keyframes blink{0%,100%{opacity:1}50%{opacity:.45}}
 .hstats{display:flex;gap:28px;flex:1}
 .hs{display:flex;flex-direction:column;gap:1px}
-.hs-lbl{font-size:13px;text-transform:uppercase;letter-spacing:1px;color:var(--muted)}
+.hs-lbl{font-size:14px;text-transform:uppercase;letter-spacing:1px;color:var(--muted)}
 .hs-val{font-size:24px;font-weight:700;color:var(--acc);transition:color .3s}
 .pos{color:#00ff88!important} .neg{color:var(--red)!important} .warn{color:var(--orange)!important}
 #ctx-badge{margin-left:auto;font-size:12px;letter-spacing:1px;padding:3px 10px;font-weight:700;transition:all .25s}
@@ -96,9 +96,9 @@ body{
 /* ══ LEFT SIDEBAR ════════════════════════════════════════════ */
 #sb{grid-area:sb;background:var(--bg2);border-right:1px solid var(--border);overflow-y:auto;padding:12px;display:flex;flex-direction:column;gap:14px}
 .sect{display:flex;flex-direction:column;gap:10px}
-.stitle{font-size:13px;text-transform:uppercase;letter-spacing:2px;color:var(--muted);border-bottom:1px solid var(--border);padding-bottom:3px}
+.stitle{font-size:14px;text-transform:uppercase;letter-spacing:2px;color:var(--muted);border-bottom:1px solid var(--border);padding-bottom:3px}
 .arow{display:flex;flex-direction:column;gap:2px}
-.albl{display:flex;justify-content:space-between;font-size:13px}
+.albl{display:flex;justify-content:space-between;font-size:14px}
 .abar{height:4px;background:var(--dim);border-radius:2px;overflow:hidden}
 .afill{height:100%;border-radius:2px;transition:width .5s}
 .fp{background:var(--poly);box-shadow:0 0 6px var(--poly)}
@@ -107,18 +107,18 @@ body{
 .fa{background:var(--airdrop);box-shadow:0 0 6px var(--airdrop)}
 .fm{background:var(--muted)}
 .rrow{display:flex;flex-direction:column;gap:2px;margin-bottom:5px}
-.rlbl{display:flex;justify-content:space-between;font-size:13px}
+.rlbl{display:flex;justify-content:space-between;font-size:14px}
 .rbar{height:5px;background:var(--dim);border-radius:3px;overflow:hidden}
 .rfill{height:100%;border-radius:3px}
 .rok{background:var(--poly)} .rwarn{background:var(--orange)} .rdng{background:var(--red);animation:kr 1s infinite}
-.kv{display:flex;justify-content:space-between;font-size:13px;color:var(--muted);margin-top:3px}
+.kv{display:flex;justify-content:space-between;font-size:14px;color:var(--muted);margin-top:3px}
 .kv span:last-child{color:var(--text);font-size:15px}
 .ks-off{font-size:9px;color:var(--poly);border:1px solid var(--poly);padding:1px 5px;border-radius:2px}
 
 /* ══ MAIN ════════════════════════════════════════════════════ */
 #main{grid-area:main;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:16px}
 .panel{display:none;flex-direction:column;gap:16px}
-.panel.active{display:flex}
+.panel.active{display:flex;flex:1}
 .g2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 .g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
 .g6{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
@@ -242,7 +242,7 @@ body{
 <header id="hdr">
   <div id="logo">
     <img src="/static/logo.png" alt="Kong" style="height:80px;width:80px;border-radius:50%;object-fit:cover;vertical-align:middle;margin-right:7px">
-    KONGTERMINAL
+    KongBot
   </div>
   <span class="livepill" id="livepill">● LIVE</span>
   <div class="hstats">
@@ -684,7 +684,7 @@ function switchPlat(p){
   ctx.textContent=COLORS[p].label; ctx.style.color=COLORS[p].acc; ctx.style.borderColor=COLORS[p].acc; ctx.style.background=COLORS[p].gl;
   buildStrats(p);
   const first=STRATS[p].find(s=>s.status==='live')||STRATS[p][0];
-  switchStrat(p,first.id);
+  onStratClick(p,first.id);
 }
 function buildStrats(p){
   const bar=document.getElementById('strat-bar');
@@ -976,6 +976,18 @@ async function fetchWeatherStatus(){
     const sub=document.getElementById('pw-sub');
     if(sub) sub.textContent=(scan.last_scan?`Scan: ${scan.last_scan}`:'')+' — '+(scan.total_markets||0)+' Opps';
     set('pw-cities',cfg.enabled?'Aktiviert':'Deaktiviert');
+    // stations: API liefert keinen Forecast-Cache → "Lade..." durch "—" ersetzen
+    const stations=d.stations||{};
+    document.querySelectorAll('#pw-stations .scard').forEach(card=>{
+      const icao=card.querySelector('.sicao')?.textContent;
+      const s=stations[icao];
+      if(s){
+        const tEl=card.querySelector('.stemp'); if(tEl) tEl.textContent=s.temp;
+        const fEl=card.querySelector('.sfcast'); if(fEl) fEl.textContent=s.forecast;
+      } else {
+        const fEl=card.querySelector('.sfcast'); if(fEl&&fEl.textContent==='Lade...') fEl.textContent='— kein Cache';
+      }
+    });
   }catch(e){}
 }
 function set(id,v){const el=document.getElementById(id);if(el)el.textContent=v;}

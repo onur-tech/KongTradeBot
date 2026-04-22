@@ -129,7 +129,9 @@ body{
 .sect{display:flex;flex-direction:column;gap:10px}
 .stitle{font-size:14px;text-transform:uppercase;letter-spacing:2px;color:var(--muted);border-bottom:1px solid var(--border);padding-bottom:3px}
 .arow{display:flex;flex-direction:column;gap:2px}
-.albl{display:flex;justify-content:space-between;font-size:14px}
+.albl{display:grid;grid-template-columns:1fr auto auto;gap:0 10px;align-items:baseline;font-size:14px;font-variant-numeric:tabular-nums}
+.albl .row-amt{text-align:right;min-width:44px}
+.albl .row-pct{text-align:right;min-width:32px;color:var(--muted);font-size:12px}
 .abar{height:4px;background:var(--dim);border-radius:2px;overflow:hidden}
 .afill{height:100%;border-radius:2px;transition:width .5s}
 .fp{background:var(--poly);box-shadow:0 0 6px var(--poly)}
@@ -138,12 +140,15 @@ body{
 .fa{background:var(--airdrop);box-shadow:0 0 6px var(--airdrop)}
 .fm{background:var(--muted)}
 .rrow{display:flex;flex-direction:column;gap:2px;margin-bottom:5px}
-.rlbl{display:flex;justify-content:space-between;font-size:14px}
+.rlbl{display:grid;grid-template-columns:1fr auto auto auto;gap:0 4px;align-items:baseline;font-size:14px;font-variant-numeric:tabular-nums}
+.rlbl .row-amt{text-align:right;min-width:44px}
+.rlbl .row-slash{color:#555;padding:0 2px}
+.rlbl .row-cap{text-align:right;min-width:44px}
 .rbar{height:5px;background:var(--dim);border-radius:3px;overflow:hidden}
 .rfill{height:100%;border-radius:3px}
 .rok{background:var(--poly)} .rwarn{background:var(--orange)} .rdng{background:var(--red);animation:kr 1s infinite}
-.kv{display:flex;justify-content:space-between;font-size:14px;color:var(--muted);margin-top:4px}
-.kv span:last-child{color:var(--text);font-size:16px}
+.kv{display:flex;justify-content:space-between;font-size:14px;color:var(--muted);margin-top:4px;font-variant-numeric:tabular-nums}
+.kv span:last-child{color:var(--text);font-size:16px;text-align:right}
 .ks-off{font-size:9px;color:var(--poly);border:1px solid var(--poly);padding:1px 5px;border-radius:2px}
 
 /* ══ MAIN ════════════════════════════════════════════════════ */
@@ -250,6 +255,32 @@ body{
 .gm-rm-name{flex:1;font-size:12px;color:var(--text)}
 .gm-rm-phase{font-size:10px;color:var(--muted)}
 .gm-rm-badge{font-size:9px;padding:1px 6px;border-radius:2px}
+/* ══ OBSERVATORY CARDS ══════════════════════════════════════ */
+.gc-badge-build{background:rgba(0,255,136,.12);color:var(--poly);border:1px solid var(--poly)}
+.gc-badge-integrated{background:rgba(0,170,255,.12);color:#00aaff;border:1px solid #00aaff}
+.gc-badge-deferred{background:var(--dim);color:var(--muted);border:1px solid transparent}
+.obs-hdr{background:rgba(255,107,53,.06);border:1px solid rgba(255,107,53,.25);border-radius:3px;padding:12px 16px;margin-bottom:16px;display:grid;grid-template-columns:1fr auto;gap:4px 20px;font-size:11px;line-height:1.7}
+.obs-hdr-title{font-size:13px;color:var(--glitch);font-weight:700;grid-column:1/-1}
+.obs-hdr-kv{color:var(--muted)}
+.obs-hdr-kv span{color:var(--text)}
+.obs-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(400px,1fr));gap:20px}
+.obs-card{border:1px solid var(--border);background:var(--bg2);border-radius:3px;padding:20px;display:flex;flex-direction:column;gap:12px}
+.obs-card[data-status="build"]{border-color:rgba(0,255,136,.18)}
+.obs-card[data-status="integrated"]{border-color:rgba(0,170,255,.18)}
+.obs-card[data-status="deferred"]{opacity:.7}
+.obs-card-hdr{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.obs-card-name{flex:1;font-size:17px;color:var(--text);font-weight:600}
+.obs-summary{font-size:13px;color:#8aaa90;line-height:1.65;border-left:2px solid var(--glitch-dim);padding-left:10px}
+.obs-thresh{background:var(--bg3);border:1px solid var(--border);border-radius:2px;padding:10px 14px}
+.obs-thresh-title{font-size:10px;color:var(--muted);letter-spacing:.5px;text-transform:uppercase;margin-bottom:7px}
+.obs-thresh-row{display:grid;grid-template-columns:80px 1fr;gap:4px 10px;font-size:12px;padding:3px 0;border-bottom:1px solid var(--border);font-variant-numeric:tabular-nums}
+.obs-thresh-row:last-child{border-bottom:none}
+.obs-thresh-lbl{color:var(--glitch);font-weight:700}
+.obs-thresh-val{color:var(--text)}
+.obs-meta{font-size:11px;color:var(--muted);display:flex;flex-direction:column;gap:3px;line-height:1.6}
+.obs-meta span{color:#8aaa90}
+.obs-footer{display:flex;gap:12px;font-size:11px;color:var(--muted);flex-wrap:wrap}
+.obs-footer a{color:var(--glitch-dim);text-decoration:none}
 /* ═════════════════════════════════════════════════════════════ */
 .rsec{margin-bottom:14px}
 .rtitle{font-size:11px;text-transform:uppercase;letter-spacing:2px;color:var(--muted);border-bottom:1px solid var(--border);padding-bottom:3px;margin-bottom:10px}
@@ -405,15 +436,27 @@ table.t th,table.ft th{font-size:12px}
     <div class="stitle">■ Portfolio</div>
     <div id="sb-total" style="font-size:18px;color:var(--acc);font-weight:700;margin-bottom:8px">$—</div>
     <div class="arow">
-      <div class="albl"><span style="color:var(--poly)">📊 Polymarket</span><span id="sb-poly-alloc" style="color:var(--poly)">—</span></div>
+      <div class="albl">
+        <span style="color:var(--poly)">📊 Polymarket</span>
+        <span id="sb-poly-amt" class="row-amt" style="color:var(--poly)">—</span>
+        <span id="sb-poly-pct" class="row-pct">—</span>
+      </div>
       <div class="abar"><div class="afill fp" id="sb-poly-bar" style="width:0%"></div></div>
     </div>
     <div class="arow">
-      <div class="albl"><span>💰 Crypto</span><span style="color:var(--muted)">$0 · 0%</span></div>
+      <div class="albl">
+        <span>💰 Crypto</span>
+        <span class="row-amt" style="color:var(--muted)">$0</span>
+        <span class="row-pct">0%</span>
+      </div>
       <div class="abar"><div class="afill fc" style="width:0%"></div></div>
     </div>
     <div class="arow">
-      <div class="albl"><span>💵 Cash</span><span id="sb-cash" style="color:var(--muted)">—</span></div>
+      <div class="albl">
+        <span>💵 Cash</span>
+        <span id="sb-cash-amt" class="row-amt" style="color:var(--muted)">—</span>
+        <span id="sb-cash-pct" class="row-pct">—</span>
+      </div>
       <div class="abar"><div class="afill fm" id="sb-cash-bar" style="width:0%"></div></div>
     </div>
   </div>
@@ -421,11 +464,21 @@ table.t th,table.ft th{font-size:12px}
   <div class="sect">
     <div class="stitle">■ Risiko</div>
     <div class="rrow">
-      <div class="rlbl"><span>Exposure</span><span id="sb-exposure-lbl" style="color:var(--orange)">—</span></div>
+      <div class="rlbl">
+        <span>Exposure</span>
+        <span id="sb-exposure-amt" class="row-amt" style="color:var(--orange)">—</span>
+        <span class="row-slash">/</span>
+        <span id="sb-exposure-cap" class="row-cap" style="color:var(--muted)">—</span>
+      </div>
       <div class="rbar"><div class="rfill rwarn" id="sb-exposure-bar" style="width:0%"></div></div>
     </div>
     <div class="rrow">
-      <div class="rlbl"><span>Daily Loss</span><span id="sb-dloss-lbl" style="color:var(--poly)">—</span></div>
+      <div class="rlbl">
+        <span>Daily Loss</span>
+        <span id="sb-dloss-amt" class="row-amt" style="color:var(--poly)">—</span>
+        <span class="row-slash">/</span>
+        <span id="sb-dloss-cap" class="row-cap" style="color:var(--muted)">—</span>
+      </div>
       <div class="rbar"><div class="rfill rok" id="sb-dloss-bar" style="width:0%"></div></div>
     </div>
     <div class="kv"><span>Investiert</span><span id="sb-invested">—</span></div>
@@ -768,6 +821,7 @@ table.t th,table.ft th{font-size:12px}
   <div class="panel" id="pnl-glitch-yield"><div style="color:var(--muted);font-size:12px">Lade...</div></div>
   <div class="panel" id="pnl-glitch-accum"><div style="color:var(--muted);font-size:12px">Lade...</div></div>
   <div class="panel" id="pnl-glitch-events"><div style="color:var(--muted);font-size:12px">Lade...</div></div>
+  <div class="panel" id="pnl-glitch-observatory"><div style="color:var(--muted);font-size:12px">Lade...</div></div>
 
   <!-- ══ COHORTS ══════════════════════════════════════════════ -->
   <div class="panel" id="pnl-cohorts-category">
@@ -835,6 +889,7 @@ const STRATS = {
     {id:'yield',       label:'🏛 Yield',       status:'inactive'},
     {id:'accum',       label:'📦 Accum.',      status:'inactive'},
     {id:'events',      label:'⚡ Event-Driven', status:'inactive'},
+    {id:'observatory', label:'🔭 Observatory',  status:'roadmap'},
   ],
   news:    [{id:'feed',  label:'📰 Feed',       status:'live'}],
   cohorts: [
@@ -968,15 +1023,19 @@ async function fetchSummary(){
     const ttl=Math.max(inv+cash,1);
     const invPct=Math.min(100,(inv/ttl*100)).toFixed(0);
     const cashPct=Math.min(100,(cash/ttl*100)).toFixed(0);
-    set('sb-poly-alloc','$'+inv.toFixed(0)+' · '+invPct+'%');
-    set('sb-cash','$'+cash.toFixed(0)+' · '+cashPct+'%');
+    set('sb-poly-amt','$'+inv.toFixed(0));
+    set('sb-poly-pct',invPct+'%');
+    set('sb-cash-amt','$'+cash.toFixed(0));
+    set('sb-cash-pct',cashPct+'%');
     const expBar=document.getElementById('sb-exposure-bar');
     if(expBar){expBar.style.width=invPct+'%';expBar.className='rfill '+(invPct>80?'rdng':invPct>50?'rwarn':'rok');}
-    set('sb-exposure-lbl','$'+inv.toFixed(0)+' / $'+ttl.toFixed(0));
+    set('sb-exposure-amt','$'+inv.toFixed(0));
+    set('sb-exposure-cap','$'+ttl.toFixed(0));
     set('sb-invested','$'+inv.toFixed(2));
-    set('sb-open-pos',d.open??0);                                 // 'open' not 'position_count'
+    set('sb-open-pos',d.open??0);
     if(d.max_daily_loss_usd){
-      set('sb-dloss-lbl','— / $'+d.max_daily_loss_usd);           // daily loss not in summary
+      set('sb-dloss-amt','—');
+      set('sb-dloss-cap','$'+d.max_daily_loss_usd);
     }
     // kill-switch: not in summary, keep static display
     const isDry=d.weather_dry_run!==false;
@@ -1284,6 +1343,7 @@ async function fetchGlitchMatrix(){
   renderGlitchPanel(curStrat);
 }
 function renderGlitchPanel(subTab){
+  if(subTab==='observatory'){renderObservatoryPanel();return;}
   const cats=_glitchData.categories||[];
   if(subTab==='overview'){
     const el=document.getElementById('pnl-glitch-overview');
@@ -1342,6 +1402,116 @@ function gcCard(g){
     ${risks?`<div><div class="gc-sec-lbl">⚠ Risiken</div><ul class="gc-risks">${risks}</ul></div>`:''}
     ${g.next_steps?`<div><div class="gc-sec-lbl">→ Next Steps</div><p class="gc-next">${esc(g.next_steps)}</p></div>`:''}
   </div>`;
+}
+
+// ── Observatory ───────────────────────────────────────────────
+const OBSERVATORY_DATA=[
+  {id:1,status:'build',name:'Funding-Rate-Arbitrage',
+   summary:'Beobachtung von Funding-Rate-Spreads zwischen Binance, Bybit und OKX auf Perpetual Futures. Bei genügend großem Spread kann delta-neutral über beide Exchanges die Funding-Differenz eingefangen werden. Retail-realistisch 10–30% APR. Integriert Basis-Trade-View (Perp–Spot) als sekundären Datenpunkt.',
+   thresholds:[
+     {lbl:'Observe', val:'Cross-Exchange-Spread > 0.02%/8h (~22% APR) → loggen'},
+     {lbl:'Notable', val:'Spread > 0.05%/8h (~55% APR) für 2+ Perioden → Telegram-Info'},
+     {lbl:'Alert',   val:'Spread > 0.1%/8h (~110% APR) → Telegram-Critical'},
+   ],
+   sources:'Binance + Bybit + OKX Public Perp APIs (kein Key)',
+   symbols:'BTC, ETH, SOL, DOGE, PEPE',
+   polling:'alle 15 Minuten',
+   impl:'~Sprint 1 Phase 7 (~Aug 2026)'},
+  {id:2,status:'build',name:'Stablecoin-Depeg-Monitor',
+   summary:'Beobachtung aller großen Stablecoins auf Peg-Abweichungen. Fiat-backed Stables (USDT/USDC/DAI) recovern meist in 72h — Buy-the-dip-Opportunity. Algo-Stables (USDe/USDX) oft terminal (vgl. USDX collapse Nov 2025). Beide Kategorien separat dokumentiert für empirische Entscheidungsgrundlage.',
+   thresholds:[
+     {lbl:'Normal',  val:'< 30 bps → nur loggen'},
+     {lbl:'Minor',   val:'30–100 bps für 10+ min → loggen'},
+     {lbl:'Depeg',   val:'> 100 bps für 15+ min → Telegram-Info'},
+     {lbl:'Severe',  val:'> 300 bps/5min ODER > 500 bps sofort → Telegram-Critical'},
+   ],
+   sources:'CoinGecko + Binance (Cross-Check, 2 unabhängige Quellen)',
+   symbols:'USDT, USDC, DAI, FRAX, TUSD, USDD, USDe, USDX',
+   polling:'alle 2 Minuten',
+   impl:'~Sprint 1 Phase 7 (~Aug 2026)'},
+  {id:3,status:'build',name:'Cross-Platform-Arbitrage',
+   summary:'Identische Events auf Polymarket und Kalshi weisen häufig Preisdivergenzen auf. Bei Spread > 2.5% nach Fees ist risiko-reduziertes Arbitrage möglich. Retail-Sweet-Spot: Events mit 7+ Tagen Laufzeit. LLM-basiertes Event-Matching mit manueller Bestätigung für unsichere Matches.',
+   thresholds:[
+     {lbl:'Observe', val:'Spread > 1pp, alle Events → loggen'},
+     {lbl:'Notable', val:'Net-Spread > 2% UND Duration > 7d → Telegram-Info'},
+     {lbl:'Alert',   val:'Net-Spread > 5% UND Duration > 7d UND Vol > $100k → Critical'},
+   ],
+   sources:'Polymarket Gamma API + Kalshi v2 API',
+   symbols:'Politics, Macro, Sports, Crypto, Culture',
+   polling:'15 Min Standard, 5 Min bei Hi-Vol-Events',
+   impl:'~Sprint 2 Phase 7 (~Sep 2026)'},
+  {id:4,status:'build',name:'Liquidation-Cascade-Indicator',
+   summary:'Market-Regime-Signal das den Copy-Trading-Circuit-Breaker informiert — keine eigenständige Trading-Strategie. WebSocket-Streams von Binance/Bybit liefern Echtzeit-Liquidationen. Rolling-1h-Summen klassifizieren Marktstress in 4 Regime und passen Position-Sizing dynamisch an.',
+   thresholds:[
+     {lbl:'NORMAL',   val:'< $10M/h → Size × 1.0'},
+     {lbl:'ELEVATED', val:'$10–50M/h → Size × 0.7'},
+     {lbl:'STRESS',   val:'$50–200M/h → Size × 0.5 + Telegram-Info'},
+     {lbl:'CASCADE',  val:'> $200M/15min → Trading-Pause 60 Min + Critical'},
+   ],
+   sources:'Binance + Bybit WebSocket (Live-Stream)',
+   symbols:'BTC, ETH, SOL, DOGE, PEPE',
+   polling:'Live WebSocket-Stream',
+   impl:'~Sprint 3 Phase 7 (~Okt 2026)',
+   extra:'Circuit-Breaker-Integration: JA (direkte Size-Anpassung)'},
+  {id:5,status:'integrated',name:'Basis-Trade',
+   summary:'Mathematisch äquivalent zu Funding-Rate-Arbitrage. Basis (Perp − Spot) konvergiert über Funding-Zahlungen zur Expiry. Separate Observation redundant — in Observer #1 als Feld basis_pct integriert und im Funding-Dashboard als sekundärer View gezeigt.',
+   thresholds:[{lbl:'Alle',val:'→ siehe Funding-Rate-Arbitrage (Observer #1)'}],
+   sources:'in Observer #1 enthalten',symbols:'',polling:'',
+   impl:'Integriert in Observer #1'},
+  {id:6,status:'deferred',name:'Yield / Governance',
+   summary:'Observer-Pattern ungeeignet für semi-stabile Asset-Klasse mit qualitativen Risiken (Smart-Contract-Exploits, Impermanent Loss, Protokoll-Rugs). Externe Tools sind hier überlegen: DefiLlama Yields, APY.vision, De.Fi. Kein in-house Observer geplant.',
+   thresholds:[{lbl:'n/a',val:'Kein Threshold-System — externe Tools nutzen'}],
+   sources:'DefiLlama, APY.vision, De.Fi',symbols:'',polling:'',
+   impl:'Re-Evaluation nach 200+ Trades PSR > 0.95 UND Bankroll > $10k'},
+  {id:7,status:'deferred',name:'Airdrop-Farming',
+   summary:'Erfordert aktive on-chain Teilnahme (Bridges, Swaps, Governance-Votes) — nicht passive Observation. Externe Tracker (Drop.wtf, Earni.fi, DefiLlama Airdrops) decken dies besser ab. Bei Aktivierung: dedicated farming-Wallet, niemals Trading-Kapital mischen.',
+   thresholds:[{lbl:'n/a',val:'Kein Threshold-System — externe Tools nutzen'}],
+   sources:'Drop.wtf, Earni.fi, DefiLlama Airdrops',symbols:'',polling:'',
+   impl:'Re-Evaluation nach Bankroll > $5k UND mental-bandwidth frei'},
+];
+function gcObsCard(g){
+  const badgeCls=g.status==='build'?'gc-badge-build':g.status==='integrated'?'gc-badge-integrated':'gc-badge-deferred';
+  const badgeTxt=g.status==='build'?'BUILD':g.status==='integrated'?'INTEGRATED':'DEFERRED';
+  const thresh=g.thresholds.map(t=>`<div class="obs-thresh-row"><span class="obs-thresh-lbl">${esc(t.lbl)}</span><span class="obs-thresh-val">${esc(t.val)}</span></div>`).join('');
+  const meta=[
+    g.sources?`<div><b>Datenquellen:</b> <span>${esc(g.sources)}</span></div>`:'',
+    g.symbols?`<div><b>Symbols:</b> <span>${esc(g.symbols)}</span></div>`:'',
+    g.polling?`<div><b>Polling:</b> <span>${esc(g.polling)}</span></div>`:'',
+    g.extra ?`<div><b>Note:</b> <span>${esc(g.extra)}</span></div>`:'',
+  ].filter(Boolean).join('');
+  return `<div class="obs-card" data-status="${esc(g.status)}">
+    <div class="obs-card-hdr">
+      <span class="gc-badge ${badgeCls}">${badgeTxt}</span>
+      <span class="gc-id">#${g.id}</span>
+      <span class="obs-card-name">${esc(g.name)}</span>
+    </div>
+    <p class="obs-summary">${esc(g.summary)}</p>
+    <div class="obs-thresh">
+      <div class="obs-thresh-title">Thresholds</div>
+      ${thresh}
+    </div>
+    ${meta?`<div class="obs-meta">${meta}</div>`:''}
+    <div class="obs-footer"><span>Implementation: ${esc(g.impl)}</span></div>
+  </div>`;
+}
+function renderObservatoryPanel(){
+  const el=document.getElementById('pnl-glitch-observatory');
+  if(!el) return;
+  const builds=OBSERVATORY_DATA.filter(g=>g.status==='build').length;
+  const integ=OBSERVATORY_DATA.filter(g=>g.status==='integrated').length;
+  const deferred=OBSERVATORY_DATA.filter(g=>g.status==='deferred').length;
+  const cards=OBSERVATORY_DATA.map(gcObsCard).join('');
+  el.innerHTML=`
+    <div class="obs-hdr">
+      <div class="obs-hdr-title">🔭 Observatory Status: Design-Phase</div>
+      <div class="obs-hdr-kv"><span>${builds} Observer geplant (BUILD)</span></div>
+      <div class="obs-hdr-kv"><span>${integ} integriert</span></div>
+      <div class="obs-hdr-kv"><span>${deferred} deferred</span></div>
+      <div class="obs-hdr-kv">Spec: <span>docs/OBSERVATORY_SPEC_v1.md</span></div>
+      <div class="obs-hdr-kv">Implementation-Start: <span>nach Foundation Phase 7 (~Aug 2026)</span></div>
+      <div class="obs-hdr-kv">Erste Re-Evaluation: <span>90 Tage nach Go-Live</span></div>
+    </div>
+    <div class="obs-grid">${cards}</div>`;
 }
 
 // ── Signals ───────────────────────────────────────────────────
@@ -1514,8 +1684,10 @@ async function fetchBalance(){
     const ttl=Math.max(cash+inv,1);
     const cashPct=Math.min(100,(cash/ttl*100)).toFixed(0);
     const invPct=Math.min(100,(inv/ttl*100)).toFixed(0);
-    const sbCash=document.getElementById('sb-cash'); if(sbCash) sbCash.textContent='$'+cash.toFixed(0)+' · '+cashPct+'%';
-    const sbAlloc=document.getElementById('sb-poly-alloc'); if(sbAlloc) sbAlloc.textContent='$'+inv.toFixed(0)+' · '+invPct+'%';
+    const sbCashAmt=document.getElementById('sb-cash-amt'); if(sbCashAmt) sbCashAmt.textContent='$'+cash.toFixed(0);
+    const sbCashPct=document.getElementById('sb-cash-pct'); if(sbCashPct) sbCashPct.textContent=cashPct+'%';
+    const sbPolyAmt=document.getElementById('sb-poly-amt'); if(sbPolyAmt) sbPolyAmt.textContent='$'+inv.toFixed(0);
+    const sbPolyPct=document.getElementById('sb-poly-pct'); if(sbPolyPct) sbPolyPct.textContent=invPct+'%';
     S.balanceData={h24:d.history_24h||[],h7d:d.history_7d||[],h30d:d.history_30d||[]};
     renderBalanceChart();
   }catch(e){}

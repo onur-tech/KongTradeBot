@@ -24,7 +24,7 @@ import asyncio
 from dataclasses import dataclass, asdict
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
-from typing import Callable, Coroutine, Optional
+from typing import Callable, Coroutine, List, Literal, Optional
 
 from utils.logger import get_logger
 
@@ -52,10 +52,19 @@ class CircuitBreaker:
     Call is_blocked() before submitting new entries.
     """
 
-    def __init__(self, telegram_send: Optional[Callable] = None):
+    def __init__(
+        self,
+        telegram_send: Optional[Callable] = None,
+        mode: Literal["live", "simulation"] = "live",
+    ):
+        if mode not in ("live", "simulation"):
+            raise ValueError(f"Invalid mode '{mode}'")
+        self._mode = mode
         self._state = CBState()
         self._send = telegram_send
-        self._load()
+        self._sim_log: List[str] = []
+        if self._mode == "live":
+            self._load()
 
     # ── Public API ────────────────────────────────────────────────────────────
 
@@ -147,34 +156,41 @@ class CircuitBreaker:
             reason=reason,
             pause_until=pause_until,
         )
-        self._save()
+        if self._mode == "live":
+            self._save()
 
         if level == 3:
             logger.critical(f"[CB] ⛔ {reason}")
-            if self._send:
+            if self._mode == "live" and self._send:
                 await self._send(
                     f"🚨 <b>Circuit Breaker LEVEL 3 — HALT</b>\n"
                     f"{reason}\n"
                     f"Alle neuen Entries gestoppt. Manueller Reset erforderlich.\n"
                     f"<code>/cb_reset</code> zum Entsperren."
                 )
+            elif self._mode == "simulation":
+                self._sim_log.append(f"[SIM CB L3 HALT] {reason}")
         elif level == 2:
             logger.warning(f"[CB] ⚠️ {reason}")
             expiry_short = pause_until[:16] if pause_until else "?"
-            if self._send:
+            if self._mode == "live" and self._send:
                 await self._send(
                     f"⚠️ <b>Circuit Breaker Level 2 — Pause 1h</b>\n"
                     f"{reason}\n"
                     f"Neue Entries pausiert bis {expiry_short} UTC"
                 )
+            elif self._mode == "simulation":
+                self._sim_log.append(f"[SIM CB L2 PAUSE until {expiry_short}] {reason}")
         elif level == 1:
             logger.warning(f"[CB] ⚠️ {reason}")
-            if self._send:
+            if self._mode == "live" and self._send:
                 await self._send(
                     f"⚠️ <b>Circuit Breaker Level 1 — Warnung</b>\n"
                     f"{reason}\n"
                     f"Trading läuft weiter."
                 )
+            elif self._mode == "simulation":
+                self._sim_log.append(f"[SIM CB L1 WARN] {reason}")
 
     def _load(self):
         try:
@@ -189,6 +205,8 @@ class CircuitBreaker:
             logger.debug(f"[CB] Could not load state: {exc}")
 
     def _save(self):
+        if self._mode == "simulation":
+            return
         try:
             CB_STATE_PATH.parent.mkdir(parents=True, exist_ok=True)
             CB_STATE_PATH.write_text(json.dumps(asdict(self._state), indent=2))

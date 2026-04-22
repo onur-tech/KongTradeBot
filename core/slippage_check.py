@@ -14,11 +14,13 @@ On orderbook fetch failure: allows trade (fail-open), logs debug.
 import os
 import asyncio
 import aiohttp
-from typing import Optional, Tuple
+from typing import List, Literal, Optional, Tuple
 
 from utils.logger import get_logger
 
 logger = get_logger("slippage_check")
+
+_sim_log: List[str] = []
 
 WARN_BPS   = float(os.getenv("SLIPPAGE_WARN_BPS",   "300"))
 REJECT_BPS = float(os.getenv("SLIPPAGE_REJECT_BPS", "500"))
@@ -93,12 +95,18 @@ async def check_slippage(
     signal_price: float,
     size_usdc: float,
     side: str = "BUY",
+    mode: Literal["live", "simulation"] = "live",
 ) -> Tuple[bool, float, str]:
     """
     Main entry point.
     Returns (allowed, slippage_bps, reason).
     Fail-open: if orderbook unavailable, returns (True, 0.0, 'skipped').
+    In simulation mode: skips HTTP fetch, returns (True, 0.0, 'sim mode').
     """
+    if mode == "simulation":
+        _sim_log.append(f"[SIM SlippageCheck] token={token_id[:16]} price={signal_price} size={size_usdc}")
+        return True, 0.0, "sim mode"
+
     if not token_id or signal_price <= 0 or size_usdc <= 0:
         return True, 0.0, "check skipped (missing params)"
 

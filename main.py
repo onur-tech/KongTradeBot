@@ -32,6 +32,7 @@ from core.execution_engine import ExecutionEngine, OpenPosition
 from core.fill_tracker import FillTracker, PendingOrder
 from core.exit_manager import ExitManager, ExitEvent
 from core.position_state_worker import PositionStateWorker
+from core.trade_logger import get_trade_logger, migrate_from_archive
 from core.anomaly_detector import AnomalyDetector, anomaly_detector_loop
 from core.rss_monitor import RSSMonitor
 from core.x_monitor import XMonitor
@@ -623,6 +624,13 @@ async def main():
     rss_monitor      = RSSMonitor(send_fn=send)
     x_monitor        = XMonitor()
 
+    # Trade-Logger initialisieren + Migration aus trades_archive.json
+    _trade_logger = get_trade_logger()
+    _migrated = migrate_from_archive()
+    if _migrated:
+        logger.info(f"[TradeLogger] Migration: {_migrated} Einträge aus trades_archive.json importiert")
+    logger.info(f"[TradeLogger] DB ready — {_trade_logger.stats()}")
+
     # KRITISCH: CLOB Client initialisieren (MUSS vor dem ersten Trade-Aufruf erfolgen!)
     await engine.initialize()
 
@@ -790,6 +798,22 @@ async def main():
                 token_id=token_id,
             )
             logger.info(f"Trade | {cat} | {market_id[:12] if market_id else 'n/a'}")
+            # Phase-1: Trade-Metadaten-Schema
+            try:
+                _tl_sig_id = _trade_logger.log_signal(sig)
+                _trade_logger.log_trade_entry(
+                    signal_id=_tl_sig_id,
+                    order_id=_order_id,
+                    signal=sig, order=order, result=result,
+                    category=cat,
+                    is_dry_run=config.dry_run,
+                    bankroll=config.portfolio_budget_usd,
+                    extra={
+                        "signal_count": getattr(order, "is_multi_signal", False) and 2 or 1,
+                    },
+                )
+            except Exception as _tle:
+                logger.debug(f"[TradeLogger] entry fehlgeschlagen: {_tle}")
             risk.record_market_investment(market_id, float(getattr(order, "size_usdc", 0) or 0))
             risk.record_category_investment(cat, float(getattr(order, "size_usdc", 0) or 0))
             record_fill(sig, result)
@@ -966,6 +990,14 @@ async def main():
                     wallet=pos.source_wallet, market_id=pos.market_id,
                     outcome=pos.outcome, won=_dry_pnl > 0,
                     pnl=_dry_pnl, size_usdc=pos.size_usdc, strategy="COPY")
+                try:
+                    _trade_logger.log_trade_exit(
+                        pos.order_id, exit_price=sell_signal.price,
+                        exit_size=pos.size_usdc, exit_reason="WHALE_EXIT_GRADUAL",
+                        realized_pnl_usd=_dry_pnl, entry_price=pos.entry_price,
+                        entry_size=pos.size_usdc)
+                except Exception as _tle:
+                    logger.debug(f"[TradeLogger] whale_exit dry exit: {_tle}")
             else:
                 result = await engine.create_and_post_sell_order(
                     asset_id=pos.token_id,
@@ -992,6 +1024,16 @@ async def main():
                         mark_resolved=True,
                         is_dry_run=False,
                     )
+                    try:
+                        _trade_logger.log_trade_exit(
+                            pos.order_id,
+                            exit_price=result.get("filled_price", sell_signal.price),
+                            exit_size=result["usdc_received"],
+                            exit_reason="WHALE_EXIT_GRADUAL",
+                            realized_pnl_usd=realized_pnl,
+                            entry_price=pos.entry_price, entry_size=pos.size_usdc)
+                    except Exception as _tle:
+                        logger.debug(f"[TradeLogger] whale_exit live exit: {_tle}")
                     engine.open_positions.pop(pos.order_id, None)
                     exit_manager._remove_state(pos.market_id, pos.outcome)
                     _wallet_tracker.record_trade(
@@ -1168,6 +1210,16 @@ async def main():
                     market_id=cid, outcome=event.outcome,
                     won=event.pnl_usdc > 0, pnl=event.pnl_usdc,
                     size_usdc=event.usdc_received, strategy="COPY")
+                try:
+                    _trade_logger.log_trade_exit(
+                        getattr(_pos, "order_id", cid),
+                        exit_price=event.exit_price, exit_size=event.usdc_received,
+                        exit_reason="MANUAL",
+                        realized_pnl_usd=event.pnl_usdc,
+                        entry_price=getattr(_pos, "entry_price", None),
+                        entry_size=getattr(_pos, "size_usdc", None))
+                except Exception as _tle:
+                    logger.debug(f"[TradeLogger] manual exit: {_tle}")
                 engine.close_position(event.position_id)
                 logger.info(f"[ManualExit] ✅ {cid[:20]} | {reason} | PnL ${event.pnl_usdc:+.2f}")
             else:
@@ -1217,6 +1269,16 @@ async def main():
                                 market_id=ev.condition_id, outcome=ev.outcome,
                                 won=ev.pnl_usdc > 0, pnl=ev.pnl_usdc,
                                 size_usdc=ev.usdc_received, strategy="COPY")
+                            try:
+                                _trade_logger.log_trade_exit(
+                                    getattr(_pos, "order_id", ev.position_id),
+                                    exit_price=ev.exit_price, exit_size=ev.usdc_received,
+                                    exit_reason=str(ev.exit_type).upper(),
+                                    realized_pnl_usd=ev.pnl_usdc,
+                                    entry_price=getattr(_pos, "entry_price", None),
+                                    entry_size=getattr(_pos, "size_usdc", None))
+                            except Exception as _tle:
+                                logger.debug(f"[TradeLogger] exit_loop dry exit: {_tle}")
                         else:
                             # T-M06 Phase 1: Ghost-Write Fix — Archive NUR nach bestätigtem Sell
                             pos = engine.open_positions.get(ev.position_id)
@@ -1245,6 +1307,17 @@ async def main():
                                         market_id=ev.condition_id, outcome=ev.outcome,
                                         won=ev.pnl_usdc > 0, pnl=ev.pnl_usdc,
                                         size_usdc=ev.usdc_received, strategy="COPY")
+                                    try:
+                                        _trade_logger.log_trade_exit(
+                                            getattr(_pos, "order_id", ev.position_id),
+                                            exit_price=result.get("filled_price", ev.exit_price),
+                                            exit_size=result.get("usdc_received", ev.usdc_received),
+                                            exit_reason=str(ev.exit_type).upper(),
+                                            realized_pnl_usd=ev.pnl_usdc,
+                                            entry_price=getattr(_pos, "entry_price", None),
+                                            entry_size=getattr(_pos, "size_usdc", None))
+                                    except Exception as _tle:
+                                        logger.debug(f"[TradeLogger] exit_loop live exit: {_tle}")
                                     try:
                                         _shadow.close_position(
                                             ev.condition_id, ev.exit_price,
@@ -1332,10 +1405,24 @@ async def main():
             await asyncio.sleep(10)
             _last_scan_ts = 0.0
             _last_model_run_hour = -1  # verhindert Doppel-Trigger im gleichen Fenster
-            # In-memory set: condition_ids die in dieser Session bereits geordert wurden.
-            # Ergänzt open_positions (erst nach FillTracker-WS-Confirm gefüllt) um
-            # Duplikate in aufeinanderfolgenden Scan-Zyklen zu blockieren.
+            # Persistiertes Set: condition_ids die in dieser oder vorherigen Sessions geordert wurden.
+            # Überlebt Bot-Restarts — schützt gegen Duplikate bei Crash-vor-FillTracker-Confirm.
+            _ORDERED_CIDS_FILE = Path("data/weather_ordered_cids.json")
+            _max_age = 24 * 3600  # 24h TTL — Weather-Märkte resolven nach ~24h
             _weather_ordered_cids: set = set()
+            if _ORDERED_CIDS_FILE.exists():
+                try:
+                    stored = json.loads(_ORDERED_CIDS_FILE.read_text())
+                    now_ts = datetime.now(timezone.utc).timestamp()
+                    _weather_ordered_cids = {
+                        cid for cid, ts in stored.items()
+                        if now_ts - float(ts) < _max_age
+                    }
+                    if _weather_ordered_cids:
+                        logger.info(f"[Weather] {len(_weather_ordered_cids)} georderte CIDs aus vorheriger Session geladen (24h TTL)")
+                except Exception as e:
+                    logger.warning(f"[Weather] weather_ordered_cids.json korrupt, starte mit leerem Set: {e}")
+                    _weather_ordered_cids = set()
             while True:
                 now = datetime.now(timezone.utc)
                 is_model_run = (
@@ -1408,6 +1495,15 @@ async def main():
                                     order = CopyOrder(signal=sig, size_usdc=float(config.max_trade_size_usd), dry_run=config.dry_run)
                                     await on_copy_order(order)
                                     _weather_ordered_cids.add(cid)
+                                    try:
+                                        _tmp = _ORDERED_CIDS_FILE.with_suffix(".json.tmp")
+                                        _now = datetime.now(timezone.utc).timestamp()
+                                        _tmp.write_text(json.dumps(
+                                            {c: _now for c in _weather_ordered_cids}, indent=2
+                                        ))
+                                        _tmp.replace(_ORDERED_CIDS_FILE)
+                                    except Exception as _e:
+                                        logger.warning(f"[Weather] Konnte weather_ordered_cids.json nicht schreiben: {_e}")
                                     # Shadow Mirror: 5× (Weather-spezifisch)
                                     try:
                                         _shadow.open_position(

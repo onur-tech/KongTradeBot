@@ -1011,6 +1011,22 @@ def internal_portfolio():
     return api_portfolio()
 
 
+@app.route("/api/cohorts")
+@login_required
+def api_cohorts():
+    try:
+        from core.trade_logger import get_trade_logger
+        tl = get_trade_logger()
+        return _cors(jsonify({
+            "by_category":      tl.query_cohort_by_category(),
+            "wallet_attribution": tl.query_wallet_attribution(),
+            "slippage":         tl.query_slippage_histogram(),
+            "stats":            tl.stats(),
+        }))
+    except Exception as e:
+        return _cors(jsonify({"error": str(e), "by_category": [], "wallet_attribution": [], "slippage": [], "stats": {}}))
+
+
 @app.route("/api/health")
 def api_health():
     running, pid = is_bot_running()

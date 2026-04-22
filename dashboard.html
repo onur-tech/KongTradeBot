@@ -393,6 +393,7 @@ table.t th,table.ft th{font-size:12px}
     <button class="ptab"             data-p="auswert" onclick="switchPlat('auswert')">📈 AUSWERTUNG <span class="pill">LIVE</span></button>
     <button class="ptab"             data-p="glitch"  onclick="switchPlat('glitch')" >🧬 GLITCH-MATRIX <span class="pill" style="background:rgba(255,107,53,.1);color:#ff6b35;border:1px solid #ff6b35">ROADMAP</span></button>
     <button class="ptab plive"       data-p="news"    onclick="switchPlat('news')"   >📰 NEWS <span class="pill" style="background:rgba(255,68,68,.1);color:#ff4444;border:1px solid #ff4444">LIVE</span></button>
+    <button class="ptab"             data-p="cohorts" onclick="switchPlat('cohorts')">📊 COHORTS <span class="pill">LIVE</span></button>
   </div>
   <div id="strat-bar"></div>
 </div>
@@ -768,6 +769,21 @@ table.t th,table.ft th{font-size:12px}
   <div class="panel" id="pnl-glitch-accum"><div style="color:var(--muted);font-size:12px">Lade...</div></div>
   <div class="panel" id="pnl-glitch-events"><div style="color:var(--muted);font-size:12px">Lade...</div></div>
 
+  <!-- ══ COHORTS ══════════════════════════════════════════════ -->
+  <div class="panel" id="pnl-cohorts-category">
+    <div style="font-size:13px;color:var(--muted);font-weight:700;letter-spacing:.06em;margin-bottom:10px">COHORT-ANALYSE — BY CATEGORY</div>
+    <div id="cohort-stats" style="display:flex;gap:20px;margin-bottom:14px;flex-wrap:wrap"></div>
+    <div id="cohort-cat-table" style="overflow-x:auto"><div style="color:var(--muted);font-size:12px">Lade...</div></div>
+  </div>
+  <div class="panel" id="pnl-cohorts-wallets-attr">
+    <div style="font-size:13px;color:var(--muted);font-weight:700;letter-spacing:.06em;margin-bottom:10px">WALLET ATTRIBUTION — PnL / Stake</div>
+    <div id="cohort-wallet-table" style="overflow-x:auto"><div style="color:var(--muted);font-size:12px">Lade...</div></div>
+  </div>
+  <div class="panel" id="pnl-cohorts-slippage">
+    <div style="font-size:13px;color:var(--muted);font-weight:700;letter-spacing:.06em;margin-bottom:10px">SLIPPAGE-HISTOGRAMM</div>
+    <div id="cohort-slip-table" style="overflow-x:auto"><div style="color:var(--muted);font-size:12px">Lade...</div></div>
+  </div>
+
 </main>
 
 <!-- ══════════ RIGHT SIDEBAR ═══════════════════════════════════ -->
@@ -821,12 +837,18 @@ const STRATS = {
     {id:'events',      label:'⚡ Event-Driven', status:'inactive'},
   ],
   news:    [{id:'feed',  label:'📰 Feed',       status:'live'}],
+  cohorts: [
+    {id:'category',    label:'📂 By Category',    status:'live'},
+    {id:'wallets-attr',label:'💼 Wallet Attribution', status:'live'},
+    {id:'slippage',    label:'📉 Slippage',        status:'live'},
+  ],
 };
 const COLORS = {
   poly:   {acc:'#00ff88',dim:'#00a855',gl:'rgba(0,255,136,.12)',   label:'POLYMARKET'},
   auswert:{acc:'#ff8c00',dim:'#c06000',gl:'rgba(255,140,0,.12)',   label:'AUSWERTUNG'},
   glitch: {acc:'#ff6b35',dim:'#cc4400',gl:'rgba(255,107,53,.12)', label:'GLITCH-MATRIX'},
   news:   {acc:'#ff4444',dim:'#cc2222',gl:'rgba(255,68,68,.12)',   label:'NEWS'},
+  cohorts:{acc:'#00aaff',dim:'#0077cc',gl:'rgba(0,170,255,.12)',   label:'COHORTS'},
 };
 let curPlat='poly', curStrat='weather';
 
@@ -909,6 +931,7 @@ function onStratClick(p,s){
   if(p==='poly'&&s==='positions'){fetchPortfolio();fetchPositions();}
   if(p==='auswert'&&s==='wallets'){fetchWalletPerformance();fetchWalletPerf();}
   if(p==='glitch') fetchGlitchMatrix();
+  if(p==='cohorts') fetchCohorts();
 }
 function switchStrat(p,s){
   curStrat=s;
@@ -1599,7 +1622,7 @@ async function init(){
   fetchPortfolio(); fetchPositions();
   const t=document.querySelector('.ptab[data-p="poly"]');
   if(t){t.style.color=COLORS.poly.acc;t.style.borderColor=COLORS.poly.acc;t.style.background=COLORS.poly.gl;}
-  await Promise.all([fetchSummary(),fetchHealth(),fetchResolutions(),fetchPortfolio(),fetchPositions(),fetchWeatherStatus(),fetchBalance(),fetchWhoami()]);
+  await Promise.all([fetchSummary(),fetchHealth(),fetchResolutions(),fetchPortfolio(),fetchPositions(),fetchWeatherStatus(),fetchBalance(),fetchWhoami(),fetchCohorts()]);
 }
 setInterval(fetchSummary,30000);
 setInterval(fetchHealth,8000);
@@ -1611,6 +1634,74 @@ setInterval(fetchNews,60000);
 setInterval(async()=>{
   try{const d=await fetch('/api/logs?filter='+S.logFilter+'&n=80').then(r=>r.json());if(d.lines&&d.lines.length>S.logLines.length){S.logLines=d.lines;renderLog();}}catch(e){}
 },8000);
+
+// ── Cohorts ───────────────────────────────────────────────────
+function _tbl(cols, rows, emptyMsg='Keine Daten'){
+  if(!rows||!rows.length) return `<div style="color:var(--muted);font-size:12px;padding:8px">${emptyMsg}</div>`;
+  const hdr=cols.map(c=>`<th style="padding:6px 10px;text-align:left;border-bottom:1px solid #1a2a1a;color:#666;font-size:11px;letter-spacing:.06em;white-space:nowrap">${c.label}</th>`).join('');
+  const bdy=rows.map(r=>{
+    const tds=cols.map(c=>{
+      let v=r[c.key]??'—';
+      if(c.fmt) v=c.fmt(v,r);
+      return `<td style="padding:5px 10px;border-bottom:1px solid #0d1a0d;font-size:12px;white-space:nowrap">${v}</td>`;
+    }).join('');
+    return `<tr style="transition:background .1s" onmouseover="this.style.background='#0d1a0d'" onmouseout="this.style.background=''">${tds}</tr>`;
+  }).join('');
+  return `<table style="width:100%;border-collapse:collapse"><thead><tr>${hdr}</tr></thead><tbody>${bdy}</tbody></table>`;
+}
+async function fetchCohorts(){
+  try{
+    const d=await fetch('/api/cohorts').then(r=>r.json());
+    if(d.error){console.warn('Cohorts API error:',d.error);return;}
+
+    // Stats bar
+    const st=d.stats||{};
+    document.getElementById('cohort-stats').innerHTML=[
+      ['TOTAL TRADES', st.total_trades??'—'],
+      ['CLOSED', st.closed_trades??'—'],
+      ['OPEN', st.open_trades??'—'],
+      ['TOTAL P&L', st.total_pnl!=null?`$${st.total_pnl}`:'—'],
+      ['LIVE', st.live_trades??'—'],
+      ['PAPER', st.paper_trades??'—'],
+      ['SIGNALS', st.total_signals??'—'],
+    ].map(([l,v])=>`<div style="font-size:11px;color:#666">${l}<br><b style="font-size:14px;color:#e0e0e0">${v}</b></div>`).join('');
+
+    // Category table
+    const catCols=[
+      {key:'event_category', label:'KATEGORIE'},
+      {key:'total_trades',   label:'TOTAL'},
+      {key:'closed_trades',  label:'CLOSED'},
+      {key:'open_trades',    label:'OPEN'},
+      {key:'win_rate_pct',   label:'WR%', fmt:v=>v!=null?`${v}%`:'—'},
+      {key:'roi',            label:'ROI', fmt:v=>v!=null?`${(v*100).toFixed(1)}%`:'—'},
+      {key:'total_pnl_usd',  label:'P&L', fmt:v=>v!=null?`$${v}`:'—'},
+      {key:'avg_slippage_bps',label:'AVG SLIP', fmt:v=>v!=null?`${v} bps`:'—'},
+      {key:'avg_holding_hours',label:'HOLD AVG', fmt:v=>v!=null?`${v}h`:'—'},
+    ];
+    document.getElementById('cohort-cat-table').innerHTML=_tbl(catCols, d.by_category, 'Noch keine Trades');
+
+    // Wallet attribution table
+    const walCols=[
+      {key:'wallet',          label:'WALLET', fmt:v=>v?`<span style="font-size:11px;font-family:monospace;color:#aaa">${String(v).slice(0,14)}…</span>`:'—'},
+      {key:'attributed_trades',label:'TRADES'},
+      {key:'win_rate_pct',    label:'WR%',  fmt:v=>v!=null?`${v}%`:'—'},
+      {key:'roi',             label:'ROI',  fmt:v=>v!=null?`${(v*100).toFixed(1)}%`:'—'},
+      {key:'total_pnl_usd',   label:'P&L',  fmt:(v)=>{const n=Number(v);return `<span style="color:${n>0?'#00ff88':n<0?'#ff4444':'#aaa'}">${n>0?'+':''}$${n.toFixed(2)}</span>`}},
+      {key:'total_stake_usd', label:'STAKE', fmt:v=>`$${Number(v).toFixed(2)}`},
+      {key:'avg_edge_expected',label:'EDGE', fmt:v=>v!=null?`${(Number(v)*100).toFixed(1)}pp`:'—'},
+    ];
+    document.getElementById('cohort-wallet-table').innerHTML=_tbl(walCols, d.wallet_attribution, 'Noch keine Exits');
+
+    // Slippage histogram
+    const slipCols=[
+      {key:'bucket', label:'BUCKET'},
+      {key:'count',  label:'COUNT'},
+      {key:'pct',    label:'%', fmt:v=>`${v??0}%`},
+    ];
+    document.getElementById('cohort-slip-table').innerHTML=_tbl(slipCols, d.slippage, 'Noch keine Slippage-Daten');
+  }catch(e){console.error('fetchCohorts',e);}
+}
+setInterval(fetchCohorts,60000);
 init();
 </script>
 </body>

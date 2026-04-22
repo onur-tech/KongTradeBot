@@ -430,6 +430,17 @@ table.t th,table.ft th{font-size:12px}
   #main{max-width:2400px;margin:0 auto}
 }
 
+/* Very small phones (< 500px) */
+@media (max-width:499px){
+  .rgrid{grid-template-columns:1fr}
+  .obs-card{min-width:0;word-break:break-word}
+  #hdr{padding:8px 10px;gap:6px}
+  #main{padding:6px;gap:6px}
+  .stat-value-xl{font-size:20px}
+  .ptab{font-size:11px;padding:6px 8px}
+  .stab{font-size:11px;padding:5px 8px}
+}
+
 /* Mobile sidebar toggle button — hidden on desktop */
 #mob-sb-toggle{
   display:none;

@@ -133,9 +133,10 @@ body{
 .sect{display:flex;flex-direction:column;gap:10px}
 .stitle{font-size:14px;text-transform:uppercase;letter-spacing:2px;color:var(--muted);border-bottom:1px solid var(--border);padding-bottom:3px}
 .arow{display:flex;flex-direction:column;gap:2px}
-.albl{display:grid;grid-template-columns:1fr auto auto;gap:0 10px;align-items:baseline;font-size:14px;font-variant-numeric:tabular-nums}
-.albl .row-amt{text-align:right;min-width:44px}
-.albl .row-pct{text-align:right;min-width:32px;color:var(--muted);font-size:12px}
+.albl{display:grid;grid-template-columns:1fr auto auto;gap:0 6px;align-items:baseline;font-size:14px;font-variant-numeric:tabular-nums}
+.albl>span:first-child{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.albl .row-amt{text-align:right;min-width:44px;white-space:nowrap}
+.albl .row-pct{text-align:right;min-width:32px;white-space:nowrap;color:var(--muted);font-size:12px}
 .abar{height:4px;background:var(--dim);border-radius:2px;overflow:hidden}
 .afill{height:100%;border-radius:2px;transition:width .5s}
 .fp{background:var(--poly);box-shadow:0 0 6px var(--poly)}
@@ -145,9 +146,10 @@ body{
 .fm{background:var(--muted)}
 .rrow{display:flex;flex-direction:column;gap:2px;margin-bottom:5px}
 .rlbl{display:grid;grid-template-columns:1fr auto auto auto;gap:0 4px;align-items:baseline;font-size:14px;font-variant-numeric:tabular-nums}
-.rlbl .row-amt{text-align:right;min-width:44px}
-.rlbl .row-slash{color:#555;padding:0 2px}
-.rlbl .row-cap{text-align:right;min-width:44px}
+.rlbl>span:first-child{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.rlbl .row-amt{text-align:right;min-width:44px;white-space:nowrap}
+.rlbl .row-slash{color:#555;padding:0 2px;white-space:nowrap}
+.rlbl .row-cap{text-align:right;min-width:44px;white-space:nowrap}
 .rbar{height:5px;background:var(--dim);border-radius:3px;overflow:hidden}
 .rfill{height:100%;border-radius:3px}
 .rok{background:var(--poly)} .rwarn{background:var(--orange)} .rdng{background:var(--red);animation:kr 1s infinite}

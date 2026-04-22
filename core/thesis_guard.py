@@ -23,7 +23,7 @@ Design decisions:
 import os
 from dataclasses import dataclass
 from datetime import datetime, timezone
-from typing import Dict, List, Optional
+from typing import Dict, List, Literal, Optional
 
 from utils.logger import get_logger
 
@@ -47,13 +47,17 @@ class ThesisGuard:
     Thread-safe only within a single asyncio event loop (no cross-thread sharing).
     """
 
-    def __init__(self):
+    def __init__(self, mode: Literal["live", "simulation"] = "live"):
+        if mode not in ("live", "simulation"):
+            raise ValueError(f"Invalid mode '{mode}'")
+        self._mode = mode
         # order_id → ThesisViolation (once set, stays until clear_position)
         self._violations: Dict[str, ThesisViolation] = {}
         # source_wallet → [order_ids] for whale-exit cross-reference
         self._wallet_orders: Dict[str, List[str]] = {}
         # order_id → entry_price for hard-stop calculation
         self._entry_prices: Dict[str, float] = {}
+        self._sim_log: List[str] = []
 
     # ── Registration ─────────────────────────────────────────────────────────
 
@@ -94,10 +98,15 @@ class ThesisGuard:
                 self._violations[oid] = v
 
         if affected:
+            prefix = "[SIM ThesisGuard]" if self._mode == "simulation" else "[ThesisGuard]"
             logger.warning(
-                f"[ThesisGuard] Whale exit: wallet={source_wallet[:12]} "
+                f"{prefix} Whale exit: wallet={source_wallet[:12]} "
                 f"→ {len(affected)} position(s) invalidated: {[o[:12] for o in affected]}"
             )
+            if self._mode == "simulation":
+                self._sim_log.append(
+                    f"{prefix} whale exit {source_wallet[:12]} → {len(affected)} invalidated"
+                )
         return affected
 
     def check_hard_stop(
@@ -131,11 +140,14 @@ class ThesisGuard:
             triggered_at=datetime.now(timezone.utc),
         )
         self._violations[order_id] = v
+        prefix = "[SIM ThesisGuard]" if self._mode == "simulation" else "[ThesisGuard]"
         logger.warning(
-            f"[ThesisGuard] Hard-stop: {order_id[:12]} "
+            f"{prefix} Hard-stop: {order_id[:12]} "
             f"entry={entry_price:.4f} current={current_price:.4f} "
             f"loss={loss_pct:.1%}"
         )
+        if self._mode == "simulation":
+            self._sim_log.append(f"{prefix} hard-stop {order_id[:12]} loss={loss_pct:.1%}")
         return v
 
     # ── Query / cleanup ───────────────────────────────────────────────────────

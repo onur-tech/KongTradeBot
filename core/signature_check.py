@@ -10,15 +10,17 @@ SIGNATURE_TYPE:
 """
 import os
 import re
+from typing import List, Literal
 from utils.logger import get_logger
 
 logger = get_logger("signature_check")
 
 _ADDR_RE = re.compile(r"^0x[0-9a-fA-F]{40}$")
 _DEFAULT_SIG_TYPE = 1
+_sim_log: List[str] = []
 
 
-def run_self_check() -> bool:
+def run_self_check(mode: Literal["live", "simulation"] = "live") -> bool:
     """
     Runs startup signature configuration check.
     Returns True if all checks pass, False if any warning was emitted.
@@ -73,13 +75,16 @@ def run_self_check() -> bool:
             "Using EOA mode — ensure PRIVATE_KEY is the direct wallet key, not a Polymarket key."
         )
 
+    prefix = "[SIM SigCheck]" if mode == "simulation" else "[SigCheck]"
     if ok:
         addr_short = poly_address[:10] + "..." if len(poly_address) > 10 else poly_address
-        logger.info(f"[SigCheck] OK — address={addr_short} sig_type={sig_type}")
+        logger.info(f"{prefix} OK — address={addr_short} sig_type={sig_type}")
     else:
         logger.warning(
-            "[SigCheck] One or more credential checks failed. "
+            f"{prefix} One or more credential checks failed. "
             "Verify .env before switching to live trading."
         )
+    if mode == "simulation":
+        _sim_log.append(f"{prefix} result={ok}")
 
     return ok

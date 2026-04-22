@@ -1,0 +1,216 @@
+{
+  "categories": [
+    {
+      "id": "funding_basis",
+      "name": "Funding & Basis",
+      "definition": "Strukturelle Preisunterschiede zwischen Spot- und Derivatmärkten, die durch Kapitalkosten und Marktnachfrage entstehen.",
+      "glitches": [
+        {
+          "id": 1,
+          "name": "Funding Rate Arbitrage (Cross-Exchange)",
+          "phase": "Phase 3",
+          "phase_months": "Monate 6-7",
+          "status": "inactive",
+          "phenomenon": "Perpetual-Futures auf verschiedenen Börsen zahlen unterschiedliche Funding Rates an Long- oder Short-Halter. Wenn Binance +0.08% und Bybit -0.02% zahlt, kann man Long auf Bybit und Short auf Binance halten — delta-neutral, kassiert die Differenz alle 8 Stunden.",
+          "expected_return": "15-40% APY auf das eingesetzte Kapital, dokumentiert in Lit. 2021-2024",
+          "capital_requirement": "Minimum $20k (Split auf 2 Exchanges, je $10k Puffer für Margin)",
+          "risks": [
+            "Funding-Rate konvergiert innerhalb weniger Stunden → Fenster schließt schnell",
+            "Exchange-Kollaps / Withdrawal-Freeze (FTX-Szenario)",
+            "Liquidation bei starken direktionalen Moves trotz Hedge"
+          ],
+          "next_steps": "Exchange-APIs anbinden: Binance, Bybit, OKX. Paper-Trade auf 1 Paar (BTC-PERP). Funding-Rate-Monitor bauen (Cron alle 5 Min). Min $10k Kapital-Puffer pro Exchange einplanen.",
+          "roadmap_position": 6
+        },
+        {
+          "id": 2,
+          "name": "Basis Trade (Spot vs. Perpetual)",
+          "phase": "Phase 4",
+          "phase_months": "Monate 8-9",
+          "status": "inactive",
+          "phenomenon": "Perpetuals handeln strukturell mit einem Aufschlag (Contango) gegenüber Spot, weil Longs die Kosten der Hebelwirkung tragen. Spot long + Perpetual short = risikofreier Carry im Normalmarkt.",
+          "expected_return": "8-20% APY, stabil aber enger als Funding-Arb",
+          "capital_requirement": "Minimum $50k (Spot-Kauf + Short-Margin gebunden)",
+          "risks": [
+            "Basis kann sich umkehren (Backwardation) bei Panik-Sells",
+            "Korrelation beider Legs bricht bei Liquidations-Kaskaden",
+            "Steuerliche Komplexität (realisierter Gain auf Spot bei Auflösung)"
+          ],
+          "next_steps": "Basis-Spread historisch analysieren (2020-2025). Threshold definieren: ab wann ist Spread groß genug für Entry. Delta-neutral halten über automatisches Rebalancing.",
+          "roadmap_position": 8
+        },
+        {
+          "id": 9,
+          "name": "Funding Rate Mean-Reversion",
+          "phase": "Phase 4+",
+          "phase_months": "Monate 9+",
+          "status": "inactive",
+          "phenomenon": "Funding Rates tendieren zur Rückkehr zum langfristigen Mittel. Bei extremen Werten (>0.3% oder <-0.3%) ist eine Positionierung entgegen der dominanten Seite historisch profitabel — man nimmt die Gegenseite ein und kassiert, während Rate normalisiert.",
+          "expected_return": "Variabel, 20-60% in kurzen Fenstern aber mit hoher Volatilität",
+          "capital_requirement": "Minimum $10k, skalierbar",
+          "risks": [
+            "Extreme Rates können noch extremer werden (Squeeze-Szenario)",
+            "Timing-Risiko: Rate dreht erst nach mehreren Funding-Perioden",
+            "Liquidation bei Gegenbewegung vor Rückkehr zum Mean"
+          ],
+          "next_steps": "Backtesting auf 2020-2025 Funding-Rate-History. Z-Score-basierter Einstieg (>2σ). Kombination mit Glitch #1 als ergänzendes Signal.",
+          "roadmap_position": 9
+        }
+      ]
+    },
+    {
+      "id": "prediction_latency",
+      "name": "Prediction & Latency",
+      "definition": "Informationsvorsprünge und Prognosekanten gegenüber dem Markt, die durch bessere Modelle, schnelleren Datenzugang oder strukturelle Blindstellen entstehen.",
+      "glitches": [
+        {
+          "id": "kongweather",
+          "name": "KongWeather (Prediction Markets)",
+          "phase": "Aktive Phase",
+          "phase_months": "Jetzt — Paper",
+          "status": "paper",
+          "phenomenon": "Polymarket-Temperaturbrackets werden von Retail ineffizient bepreist. Ein Multi-Modell-Ensemble (GFS, ECMWF, MET Norway) liefert eine bessere Punktprognose als der implizite Marktmittelwert. Die Kante liegt bei 10-40% Edge auf Nicht-Tier-1-Städte, die weniger beobachtet werden.",
+          "expected_return": "Ziel: 55%+ Win Rate bei durchschnittlichem Edge >15%. Erste 30 Paper-Trades werden ausgewertet.",
+          "capital_requirement": "$10 pro Trade (aktuell). Skalierung auf $20-50 pro Trade bei WR>57% über 50 Trades.",
+          "risks": [
+            "Modell-Disagreement bei Wetterlagen mit hohem Spread → kein Trade",
+            "Temperatur-Einheitenfehler bei US-Märkten (°F vs °C Vergleich)",
+            "Liquidity-Probleme bei Tier-2/3-Städten (Slippage)"
+          ],
+          "next_steps": "30+ Paper-Trades sammeln. Kalibrierung nach Stadt und Saison. Bei WR>57% über 30 Trades: Rückkehr zu $10 LIVE. Duplicate-Check-Fix bereits deployed (2026-04-22).",
+          "roadmap_position": 1
+        },
+        {
+          "id": 3,
+          "name": "Latency Arbitrage Crypto",
+          "phase": "Phase 5",
+          "phase_months": "Monate 10-12",
+          "status": "inactive",
+          "phenomenon": "Preisinformationen verbreiten sich zwischen Exchanges mit Millisekunden-Verzögerung. Ein Bot der zuerst auf Exchange A eine Bewegung sieht und auf Exchange B handelt, bevor der Preis dort ankommt, realisiert eine risikoarme Kante.",
+          "expected_return": "Hohe Sharpe Ratio, aber stark skalierungsabhängig — ab ~$100k Volumen wettbewerbsfähig",
+          "capital_requirement": "Minimum $100k + dedizierte Low-Latency-Infrastruktur (Co-Location)",
+          "risks": [
+            "Arb-Fenster schrumpfen durch HFT-Konkurrenz auf <1ms",
+            "Co-Location-Kosten (~$2-5k/Monat pro Exchange)",
+            "API-Ratenlimits blockieren bei Hochfrequenz"
+          ],
+          "next_steps": "Latenz-Baseline messen: aktuell wie schnell erreicht uns ein Tick von Binance? Infrastruktur-Research: Helsinki vs. Frankfurt Co-Lo. Voraussetzung: KongWeather-Infrastruktur als Prototyp.",
+          "roadmap_position": 10
+        }
+      ]
+    },
+    {
+      "id": "peg_stability",
+      "name": "Peg-Stability",
+      "definition": "Stablecoins und pegged Assets weichen periodisch von ihrem Ankerkurs ab — die Rückkehr zum Peg ist vorhersehbar und handelbar.",
+      "glitches": [
+        {
+          "id": 4,
+          "name": "Stablecoin Depeg Arbitrage",
+          "phase": "Kein festes Datum",
+          "phase_months": "Opportunistisch",
+          "status": "inactive",
+          "phenomenon": "USDC, USDT oder DAI handeln kurzzeitig unter $1.00 auf DEXs (z.B. $0.97 in Panikphasen). Wer kauft und auf Rückkehr zum Peg wartet, macht 3% in Stunden bis Tagen — wenn der Emittent solvent ist.",
+          "expected_return": "1-5% pro Ereignis, aber Ereignisse sind selten (1-4× im Jahr)",
+          "capital_requirement": "Variabel, min $10k für bedeutsame Rendite",
+          "risks": [
+            "Emittent ist tatsächlich insolvent (UST-Szenario → Totalverlust)",
+            "Depeg vertieft sich weiter bevor Erholung",
+            "Onchain-Gas-Kosten fressen Marge bei kleinen Positionen"
+          ],
+          "next_steps": "Depeg-Alert bauen: Cron prüft USDC/USDT/DAI Preise alle 5 Min auf Curve/Uniswap. Telegram-Alert bei >0.5% Abweichung. Manueller Entscheid danach — kein Auto-Trade.",
+          "roadmap_position": 7
+        }
+      ]
+    },
+    {
+      "id": "yield_governance",
+      "name": "Yield & Governance",
+      "definition": "Strukturelle Renditen durch Protokoll-Mechanismen und Governance-Macht, die über normale Marktrenditen hinausgehen.",
+      "glitches": [
+        {
+          "id": 8,
+          "name": "Governance Token Voting Power",
+          "phase": "Kein festes Datum",
+          "phase_months": "Langfristig",
+          "status": "inactive",
+          "phenomenon": "Viele DeFi-Protokolle vergüten aktive Governance-Teilnahme mit Tokens oder erhöhtem Yield. Wer strategisch akkumuliert und abstimmt, kann Protokoll-Parameter zu eigenem Vorteil beeinflussen (z.B. bevorzugte Liquidity-Pools) oder Abstimmungsmacht verkaufen.",
+          "expected_return": "5-15% zusätzlicher APY durch Voting-Belohnungen, abhängig von Protokoll",
+          "capital_requirement": "Protokoll-abhängig, oft $10k-100k für signifikante Voting-Power",
+          "risks": [
+            "Governance-Angriffe durch andere Akteure können Protokoll destabilisieren",
+            "Token-Preis-Risiko der gehaltenen Governance-Token",
+            "Regulatorisches Risiko (Governance-Teilnahme als Wertpapierhandel?)"
+          ],
+          "next_steps": "Protokoll-Liste erstellen: welche haben transparente Governance-Rewards? Compound, Curve, Uniswap analysieren. Steuerberater vor Umsetzung konsultieren.",
+          "roadmap_position": 11
+        }
+      ]
+    },
+    {
+      "id": "accumulation",
+      "name": "Accumulation",
+      "definition": "Systematisches Aufbauen von Positionen in Assets, die strukturell unterschätzt oder durch Mechanismen begünstigt werden.",
+      "glitches": [
+        {
+          "id": 5,
+          "name": "Systematisches Airdrop-Farming",
+          "phase": "Phase 6",
+          "phase_months": "Nach Bali (Monate 12+)",
+          "status": "inactive",
+          "phenomenon": "Protokolle verteilen Token an frühe Nutzer als Wachstums-Anreiz. Wer systematisch mit mehreren Wallets interagiert, häuft Airdrop-Berechtigungen an — der durchschnittliche Uniswap-Airdrop 2020 war >$5k pro Wallet für frühe Nutzer.",
+          "expected_return": "Sehr variabel: $0 bis $50k+ pro Airdrop-Event, nicht planbar",
+          "capital_requirement": "Gas-Kosten: $20-200 pro Wallet pro Protokoll. Multiple Wallets nötig.",
+          "risks": [
+            "Steuerliches Risiko (Airdrops sind in DE als Einkommen steuerpflichtig — Steuerberater PFLICHT)",
+            "Sybil-Erkennung durch Protokolle → Ausschluss",
+            "Zeit-Investment hoch, Rendite unsicher"
+          ],
+          "next_steps": "ERST Steuerberater konsultieren (Onur: vor Bali). Dann: Liste aktiver Protokolle ohne Token. Wallet-Rotation-Strategie entwickeln. Onchain-Aktivität diversifizieren.",
+          "roadmap_position": 12
+        }
+      ]
+    },
+    {
+      "id": "event_driven",
+      "name": "Event-Driven",
+      "definition": "Kurzfristige Preisanomalien bei vorhersehbaren Marktereignissen — Listings, Liquidationen, Auflösungen.",
+      "glitches": [
+        {
+          "id": 6,
+          "name": "Liquidation Cascade Hunting",
+          "phase": "Phase 3+",
+          "phase_months": "Monate 7-8",
+          "status": "inactive",
+          "phenomenon": "Großvolumige Liquidationen auf Derivatbörsen erzeugen kurze, vorhersehbare Preisbewegungen in Richtung der Liquidations-Cluster. Wer die Cluster aus öffentlichen Orderbook-Daten ableitet, kann Positionen aufbauen und beim Cascade-Event schließen.",
+          "expected_return": "5-20% in Stunden, aber Ereignisse sind unregelmäßig",
+          "capital_requirement": "Minimum $5k, höhere Größen empfohlen für Slippage-Absorb",
+          "risks": [
+            "Liquidations-Cluster kann sich vor Event auflösen (Hedge-Aktivität)",
+            "Gegenläufige Liquidationen können Stack überwältigen",
+            "Hohe emotionale Belastung (schnelle Entscheidungen nötig)"
+          ],
+          "next_steps": "Liquidation-Heatmaps von Coinglass/CoinGecko analysieren. Alert bei >$100M Liquidations-Cluster. Paper-Trade 3 Events bevor Live.",
+          "roadmap_position": 7
+        },
+        {
+          "id": 7,
+          "name": "New Listing Arbitrage",
+          "phase": "Experimentell",
+          "phase_months": "Kein Zeitplan",
+          "status": "inactive",
+          "phenomenon": "Neue Token-Listings auf Tier-1-Exchanges (Binance, Coinbase) erzeugen strukturell überhöhte erste Handelsstunden. Wer schnell genug auf Pre-Listing-Märkten oder direkt nach Listing kauft und nach dem ersten Spike verkauft, realisiert oft 20-100% in Stunden.",
+          "expected_return": "20-100% pro Ereignis, aber Fenster schließt in Minuten",
+          "capital_requirement": "Minimum $1k (kleine Größen wegen hoher Risiken)",
+          "risks": [
+            "Pump-and-Dump-Schemata imitieren das Muster → schwer unterscheidbar",
+            "Exchange-API-Latenz verhindert rechtzeitigen Einstieg",
+            "Regulatorisches Risiko bei Insider-Information"
+          ],
+          "next_steps": "Listing-Ankündigungs-Monitor (Binance Announcements RSS). Historische Listing-Performance analysieren (2020-2025). Nur für Exchanges mit öffentlicher Ankündigung 48h vorher.",
+          "roadmap_position": 11
+        }
+      ]
+    }
+  ]
+}

@@ -2666,6 +2666,22 @@ def api_news():
         return _cors(jsonify({"error": str(e), "news": [], "total": 0})), 500
 
 
+@app.route("/api/glitch_matrix")
+@login_required
+def api_glitch_matrix():
+    """Glitch-Matrix: liest data/glitch_matrix.json."""
+    import json as _json
+    _path = os.path.join(os.path.dirname(__file__), "data", "glitch_matrix.json")
+    try:
+        with open(_path, "r", encoding="utf-8") as f:
+            data = _json.load(f)
+        return _cors(jsonify(data))
+    except FileNotFoundError:
+        return _cors(jsonify({"categories": [], "error": "glitch_matrix.json not found"})), 404
+    except Exception as e:
+        return _cors(jsonify({"categories": [], "error": str(e)})), 500
+
+
 def _run_server():
     socketio.run(app, host="127.0.0.1", port=5000, debug=False, allow_unsafe_werkzeug=True)
 

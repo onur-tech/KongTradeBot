@@ -3,7 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🦍 KongBot</title>
+<title>KongTrade</title>
+<link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+<link rel="apple-touch-icon" href="/static/apple-touch-icon.png">
 <script src="https://cdn.jsdelivr.net/npm/socket.io@4.7.2/client-dist/socket.io.min.js"></script>
 <style>
 /* ── RESET & BASE ─────────────────────────────────────────── */
@@ -15,9 +17,8 @@
   --border:#192619;
   --dim:  #263d2a;
   --poly:       #00ff88;  --poly-dim:   #00a855;  --poly-glow:  rgba(0,255,136,.12);
-  --crypto:     #ffd700;  --crypto-dim: #a88e00;  --crypto-glow:rgba(255,215,0,.12);
-  --kalshi:     #00aaff;  --kalshi-dim: #006faa;  --kalshi-glow:rgba(0,170,255,.12);
-  --airdrop:    #aa00ff;  --airdrop-dim:#7700bb;  --airdrop-glow:rgba(170,0,255,.12);
+  --glitch:     #ff6b35;  --glitch-dim: #cc4400;  --glitch-glow: rgba(255,107,53,.12);
+  --crypto:     #ffd700;  --kalshi:     #00aaff;  --airdrop:    #aa00ff;
   --news:       #ff4444;  --news-dim:   #cc2222;  --news-glow:   rgba(255,68,68,.12);
   --auswert:    #ff8c00;  --auswert-dim:#c06000;  --auswert-glow:rgba(255,140,0,.12);
   --red:#ff3d3d; --orange:#ff8c00; --text:#b0ceb6; --muted:#3d5e42;
@@ -192,6 +193,39 @@ body{
 .nc-tag.geo{background:rgba(255,140,0,.08);color:var(--orange);border-color:rgba(255,140,0,.2)}
 .nc-tag.pol{background:rgba(0,170,255,.08);color:#00aaff;border-color:rgba(0,170,255,.2)}
 .nc-tag.mac{background:rgba(255,215,0,.08);color:#ffd700;border-color:rgba(255,215,0,.2)}
+/* ══ GLITCH MATRIX CARDS ════════════════════════════════════ */
+.gm-warn{background:rgba(255,107,53,.08);border:1px solid rgba(255,107,53,.3);border-radius:3px;padding:12px 16px;font-size:11px;color:var(--glitch-dim);margin-bottom:14px;line-height:1.6}
+.gm-warn strong{color:var(--glitch)}
+.gm-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(360px,1fr));gap:12px}
+.gc{border:1px solid var(--border);background:var(--bg2);border-radius:3px;padding:16px;display:flex;flex-direction:column;gap:10px;position:relative}
+.gc[data-status="paper"]{border-color:rgba(0,255,136,.2)}
+.gc[data-status="inactive"]{opacity:.85}
+.gc-hdr{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.gc-badge{font-size:9px;padding:2px 7px;border-radius:2px;font-weight:700;letter-spacing:.5px}
+.gc-badge-paper{background:rgba(0,255,136,.1);color:var(--poly);border:1px solid var(--poly)}
+.gc-badge-inactive{background:var(--dim);color:var(--muted);border:1px solid transparent}
+.gc-id{font-size:11px;color:var(--glitch);font-weight:700;min-width:32px}
+.gc-name{flex:1;font-size:13px;color:var(--text);font-weight:600}
+.gc-phase{font-size:10px;color:var(--muted);margin-left:auto;white-space:nowrap}
+.gc-phenom{font-size:11px;color:#8aaa90;line-height:1.6;border-left:2px solid var(--glitch-dim);padding-left:10px}
+.gc-meta-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.gc-meta-item{background:var(--bg3);padding:6px 10px;border-radius:2px}
+.gc-meta-lbl{font-size:9px;color:var(--muted);margin-bottom:2px}
+.gc-meta-val{font-size:11px;color:var(--text)}
+.gc-sec-lbl{font-size:9px;color:var(--muted);letter-spacing:.5px;margin-bottom:4px}
+.gc-risks{list-style:none;display:flex;flex-direction:column;gap:3px}
+.gc-risks li{font-size:11px;color:#7a9a80;padding-left:14px;position:relative;line-height:1.4}
+.gc-risks li::before{content:'⚠';position:absolute;left:0;font-size:9px;color:var(--orange)}
+.gc-next{font-size:11px;color:#7a9a80;line-height:1.5;border-left:2px solid rgba(0,255,136,.2);padding-left:8px}
+.gm-cat-hdr{margin-bottom:12px}
+.gm-cat-name{font-size:16px;color:var(--glitch);margin-bottom:4px}
+.gm-cat-def{font-size:11px;color:var(--muted);line-height:1.5}
+.gm-roadmap{display:flex;flex-direction:column;gap:6px;margin-top:4px}
+.gm-rm-item{display:flex;align-items:center;gap:10px;padding:8px 12px;background:var(--bg2);border:1px solid var(--border);border-radius:3px}
+.gm-rm-pos{font-size:11px;color:var(--glitch);font-weight:700;min-width:24px;text-align:center}
+.gm-rm-name{flex:1;font-size:12px;color:var(--text)}
+.gm-rm-phase{font-size:10px;color:var(--muted)}
+.gm-rm-badge{font-size:9px;padding:1px 6px;border-radius:2px}
 /* ═════════════════════════════════════════════════════════════ */
 .rsec{margin-bottom:14px}
 .rtitle{font-size:11px;text-transform:uppercase;letter-spacing:2px;color:var(--muted);border-bottom:1px solid var(--border);padding-bottom:3px;margin-bottom:10px}
@@ -291,9 +325,7 @@ body{
   <div id="plat-bar">
     <button class="ptab plive active" data-p="poly"    onclick="switchPlat('poly')"   >📊 POLYMARKET <span class="pill" style="background:rgba(0,255,136,.1);color:var(--poly);border:1px solid var(--poly)">LIVE</span></button>
     <button class="ptab"             data-p="auswert" onclick="switchPlat('auswert')">📈 AUSWERTUNG <span class="pill">LIVE</span></button>
-    <button class="ptab"             data-p="crypto"  onclick="switchPlat('crypto')" >💰 CRYPTO <span class="pill">PLANNED</span></button>
-    <button class="ptab"             data-p="kalshi"  onclick="switchPlat('kalshi')" >⚡ KALSHI <span class="pill">PLANNED</span></button>
-    <button class="ptab"             data-p="airdrop" onclick="switchPlat('airdrop')">🪂 AIRDROP <span class="pill">PLANNED</span></button>
+    <button class="ptab"             data-p="glitch"  onclick="switchPlat('glitch')" >🧬 GLITCH-MATRIX <span class="pill" style="background:rgba(255,107,53,.1);color:#ff6b35;border:1px solid #ff6b35">ROADMAP</span></button>
     <button class="ptab plive"       data-p="news"    onclick="switchPlat('news')"   >📰 NEWS <span class="pill" style="background:rgba(255,68,68,.1);color:#ff4444;border:1px solid #ff4444">LIVE</span></button>
   </div>
   <div id="strat-bar"></div>
@@ -652,12 +684,14 @@ body{
     </div>
   </div>
 
-  <!-- ─── CRYPTO planned ───────────────────────────────────────── -->
-  <div class="panel" id="pnl-crypto-funding"><div class="planned" style="border-color:rgba(255,215,0,.2)"><div class="ptitle" style="color:var(--crypto-dim)">📈 Funding Rate Arbitrage</div><div class="pphase">COMING — PHASE 2</div><div class="pmeta"><div class="pmeta-item"><div class="pmeta-lbl">Est. Start</div><div class="pmeta-val">Q4 2026</div></div><div class="pmeta-item"><div class="pmeta-lbl">Est. Edge</div><div class="pmeta-val">8–15% p.a.</div></div></div><ul class="pnotes"><li>Long Spot / Short Perp wenn Funding &gt;0.05%/8h</li><li>Target: Binance, Bybit, OKX</li></ul></div></div>
-  <div class="panel" id="pnl-crypto-basis"><div class="planned" style="border-color:rgba(255,215,0,.2)"><div class="ptitle" style="color:var(--crypto-dim)">⚡ Basis Trade (Cash &amp; Carry)</div><div class="pphase">COMING — PHASE 2</div><div class="pmeta"><div class="pmeta-item"><div class="pmeta-lbl">Est. Start</div><div class="pmeta-val">Q4 2026</div></div></div><ul class="pnotes"><li>Long Spot BTC/ETH + Short Quarterly Future bei Contango &gt;8%</li></ul></div></div>
-  <div class="panel" id="pnl-kalshi-temp"><div class="planned" style="border-color:rgba(0,170,255,.2)"><div class="ptitle" style="color:var(--kalshi-dim)">🌡 Kalshi Temperature Markets</div><div class="pphase">COMING — PHASE 3</div><div class="pmeta"><div class="pmeta-item"><div class="pmeta-lbl">Status</div><div class="pmeta-val" style="color:var(--poly)">Scraper LIVE</div></div></div><ul class="pnotes"><li>Kalshi-Scraper bereits implementiert</li><li>Cross-Market Arb: Kalshi vs Polymarket &gt;4%</li></ul></div></div>
-  <div class="panel" id="pnl-kalshi-events"><div class="planned" style="border-color:rgba(0,170,255,.2)"><div class="ptitle" style="color:var(--kalshi-dim)">🗳 Kalshi Political Events</div><div class="pphase">COMING — PHASE 3</div><ul class="pnotes"><li>Fed Rate Decision, CPI, NFP</li><li>Benötigt US-Account oder EU-Alternative</li></ul></div></div>
-  <div class="panel" id="pnl-airdrop-farm"><div class="planned" style="border-color:rgba(170,0,255,.2)"><div class="ptitle" style="color:var(--airdrop-dim)">🪂 Airdrop Farming</div><div class="pphase">COMING — PHASE 5</div><ul class="pnotes"><li>Target: Eigenlayer, Berachain, Monad (TGE 2026/27)</li><li>Separates Wallet pro Protokoll</li></ul></div></div>
+  <!-- ─── GLITCH-MATRIX panels ─────────────────────────────────── -->
+  <div class="panel" id="pnl-glitch-overview"><div style="color:var(--muted);font-size:12px">Lade...</div></div>
+  <div class="panel" id="pnl-glitch-funding"><div style="color:var(--muted);font-size:12px">Lade...</div></div>
+  <div class="panel" id="pnl-glitch-prediction"><div style="color:var(--muted);font-size:12px">Lade...</div></div>
+  <div class="panel" id="pnl-glitch-peg"><div style="color:var(--muted);font-size:12px">Lade...</div></div>
+  <div class="panel" id="pnl-glitch-yield"><div style="color:var(--muted);font-size:12px">Lade...</div></div>
+  <div class="panel" id="pnl-glitch-accum"><div style="color:var(--muted);font-size:12px">Lade...</div></div>
+  <div class="panel" id="pnl-glitch-events"><div style="color:var(--muted);font-size:12px">Lade...</div></div>
 
 </main>
 
@@ -702,17 +736,21 @@ const STRATS = {
     {id:'mults',   label:'🎚 Multiplier', status:'live'},
     {id:'log',     label:'📜 Log',        status:'live'},
   ],
-  crypto:  [{id:'funding',label:'💸 Funding Arb',status:'planned',phase:'2'},{id:'basis',label:'⚡ Basis Trade',status:'planned',phase:'2'}],
-  kalshi:  [{id:'temp',   label:'🌡 Temperature',status:'planned',phase:'3'},{id:'events',label:'🗳 Events',status:'planned',phase:'3'}],
-  airdrop: [{id:'farm',   label:'🪂 Farming',    status:'planned',phase:'5'}],
+  glitch: [
+    {id:'overview',    label:'🗂 Overview',    status:'live'},
+    {id:'funding',     label:'💰 Funding',     status:'live'},
+    {id:'prediction',  label:'🔮 Prediction',  status:'live'},
+    {id:'peg',         label:'🪙 Peg-Stab',    status:'live'},
+    {id:'yield',       label:'🏛 Yield',       status:'live'},
+    {id:'accum',       label:'📦 Accum.',      status:'live'},
+    {id:'events',      label:'⚡ Event-Driven', status:'live'},
+  ],
   news:    [{id:'feed',  label:'📰 Feed',       status:'live'}],
 };
 const COLORS = {
   poly:   {acc:'#00ff88',dim:'#00a855',gl:'rgba(0,255,136,.12)',   label:'POLYMARKET'},
   auswert:{acc:'#ff8c00',dim:'#c06000',gl:'rgba(255,140,0,.12)',   label:'AUSWERTUNG'},
-  crypto: {acc:'#ffd700',dim:'#a88e00',gl:'rgba(255,215,0,.12)',   label:'CRYPTO'},
-  kalshi: {acc:'#00aaff',dim:'#006faa',gl:'rgba(0,170,255,.12)',   label:'KALSHI'},
-  airdrop:{acc:'#aa00ff',dim:'#7700bb',gl:'rgba(170,0,255,.12)',   label:'AIRDROP'},
+  glitch: {acc:'#ff6b35',dim:'#cc4400',gl:'rgba(255,107,53,.12)', label:'GLITCH-MATRIX'},
   news:   {acc:'#ff4444',dim:'#cc2222',gl:'rgba(255,68,68,.12)',   label:'NEWS'},
 };
 let curPlat='poly', curStrat='weather';
@@ -784,6 +822,7 @@ function onStratClick(p,s){
   if(p==='poly'&&s==='about') loadWeatherStatus();
   if(p==='poly'&&s==='positions'){fetchPortfolio();fetchPositions();}
   if(p==='auswert'&&s==='wallets'){fetchWalletPerformance();fetchWalletPerf();}
+  if(p==='glitch') fetchGlitchMatrix();
 }
 function switchStrat(p,s){
   curStrat=s;
@@ -1076,6 +1115,81 @@ async function fetchNews(){
     }).join('');
     if(upd) upd.textContent=(d.cached?'Cache ':'')+'aktualisiert '+new Date().toLocaleTimeString('de-DE');
   }catch(e){console.warn('fetchNews',e);}
+}
+
+// ── Glitch Matrix ────────────────────────────────────────────
+const GLITCH_CAT_MAP={
+  funding:'funding_basis', prediction:'prediction_latency',
+  peg:'peg_stability', yield:'yield_governance',
+  accum:'accumulation', events:'event_driven'
+};
+let _glitchData=null;
+async function fetchGlitchMatrix(){
+  if(!_glitchData){
+    try{_glitchData=await fetch('/api/glitch_matrix').then(r=>r.json());}
+    catch(e){console.warn('fetchGlitchMatrix',e);return;}
+  }
+  renderGlitchPanel(curStrat);
+}
+function renderGlitchPanel(subTab){
+  const cats=_glitchData.categories||[];
+  if(subTab==='overview'){
+    const el=document.getElementById('pnl-glitch-overview');
+    if(!el) return;
+    // Roadmap: all glitches sorted by roadmap_position
+    const all=cats.flatMap(c=>c.glitches);
+    all.sort((a,b)=>(a.roadmap_position||99)-(b.roadmap_position||99));
+    const roadmap=all.map(g=>{
+      const badge=g.status==='paper'
+        ?`<span class="gc-badge gc-badge-paper gm-rm-badge">PAPER</span>`
+        :`<span class="gc-badge gc-badge-inactive gm-rm-badge">PLANNED</span>`;
+      const idStr=typeof g.id==='number'?`#${g.id}`:g.id;
+      return `<div class="gm-rm-item">
+        <span class="gm-rm-pos">${g.roadmap_position||'—'}</span>
+        <span class="gm-rm-name">${esc(g.name)}</span>
+        <span class="gm-rm-phase">${esc(g.phase_months||g.phase)}</span>
+        ${badge}
+      </div>`;
+    }).join('');
+    el.innerHTML=`
+      <div class="gm-warn"><strong>⚠ Glitch-Matrix</strong> — Diese Seite dokumentiert zukünftige Handelsstrategien (Phase 1–5). Alle Glitches außer KongWeather sind inaktiv. Keine dieser Strategien wird ohne explizite Aktivierung ausgeführt.</div>
+      <div class="gm-cat-hdr"><div class="gm-cat-name">🗺 Roadmap</div><div class="gm-cat-def">Alle ${all.length} Glitches nach Implementierungsreihenfolge</div></div>
+      <div class="gm-roadmap">${roadmap}</div>`;
+  } else {
+    const catId=GLITCH_CAT_MAP[subTab];
+    const cat=cats.find(c=>c.id===catId);
+    const el=document.getElementById(`pnl-glitch-${subTab}`);
+    if(!el||!cat) return;
+    const cards=cat.glitches.map(g=>gcCard(g)).join('');
+    el.innerHTML=`
+      <div class="gm-cat-hdr">
+        <div class="gm-cat-name">${esc(cat.name)}</div>
+        <div class="gm-cat-def">${esc(cat.definition)}</div>
+      </div>
+      <div class="gm-grid">${cards}</div>`;
+  }
+}
+function gcCard(g){
+  const isBadge=g.status==='paper'
+    ?`<span class="gc-badge gc-badge-paper">PAPER</span>`
+    :`<span class="gc-badge gc-badge-inactive">PLANNED</span>`;
+  const idStr=typeof g.id==='number'?`#${g.id}`:g.id;
+  const risks=(g.risks||[]).map(r=>`<li>${esc(r)}</li>`).join('');
+  return `<div class="gc" data-status="${esc(g.status)}">
+    <div class="gc-hdr">
+      ${isBadge}
+      <span class="gc-id">${esc(idStr)}</span>
+      <span class="gc-name">${esc(g.name)}</span>
+      <span class="gc-phase">${esc(g.phase_months||g.phase)}</span>
+    </div>
+    <p class="gc-phenom">${esc(g.phenomenon)}</p>
+    <div class="gc-meta-grid">
+      <div class="gc-meta-item"><div class="gc-meta-lbl">Expected Return</div><div class="gc-meta-val">${esc(g.expected_return)}</div></div>
+      <div class="gc-meta-item"><div class="gc-meta-lbl">Capital Req.</div><div class="gc-meta-val">${esc(g.capital_requirement)}</div></div>
+    </div>
+    ${risks?`<div><div class="gc-sec-lbl">⚠ Risiken</div><ul class="gc-risks">${risks}</ul></div>`:''}
+    ${g.next_steps?`<div><div class="gc-sec-lbl">→ Next Steps</div><p class="gc-next">${esc(g.next_steps)}</p></div>`:''}
+  </div>`;
 }
 
 // ── Signals ───────────────────────────────────────────────────

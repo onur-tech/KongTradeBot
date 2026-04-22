@@ -547,6 +547,34 @@ class CopyTradingStrategy:
                     log_signal(signal, "SKIPPED", f"CATEGORY_BLACKLIST:{prefix}")
                     return
 
+        # 0a1. OPPOSING_SIDE + EVENT_CAP Guard
+        if self.get_open_positions is not None:
+            _open = self.get_open_positions()
+            _mkt_id = signal.market_id
+            # Block: gegenseitige Seite auf derselben condition_id bereits offen
+            for _pos in _open.values():
+                if _pos.market_id == _mkt_id and _pos.outcome != signal.outcome:
+                    logger.info(
+                        f"⏭️ SKIP: reason=OPPOSING_SIDE_BLOCKED "
+                        f"market={_mkt_id[:16]} already_hold={_pos.outcome} new={signal.outcome}"
+                    )
+                    self.stats["orders_skipped"] += 1
+                    log_signal(signal, "SKIPPED", "OPPOSING_SIDE_BLOCKED")
+                    return
+            # Block: mehr als EVENT_CAP Outcomes des gleichen neg_risk Events
+            _neg_risk_id = getattr(signal, "neg_risk_market_id", "") or ""
+            if _neg_risk_id:
+                _event_cap = int(os.environ.get("COPY_EVENT_CAP", "3"))
+                _held = sum(1 for _p in _open.values() if getattr(_p, "neg_risk_market_id", "") == _neg_risk_id)
+                if _held >= _event_cap:
+                    logger.info(
+                        f"⏭️ SKIP: reason=EVENT_CAP_REACHED event={_neg_risk_id[:16]} "
+                        f"held={_held}/{_event_cap}"
+                    )
+                    self.stats["orders_skipped"] += 1
+                    log_signal(signal, "SKIPPED", f"EVENT_CAP:{_held}/{_event_cap}")
+                    return
+
         # 0a2. WALLET_CATEGORY_FILTER — nur in Spezialgebiet des Wallets handeln
         _mq = signal.market_question or ""
         _copy_ok, _copy_reason = should_copy_trade(signal.source_wallet, _mq)

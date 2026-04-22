@@ -1332,6 +1332,10 @@ async def main():
             await asyncio.sleep(10)
             _last_scan_ts = 0.0
             _last_model_run_hour = -1  # verhindert Doppel-Trigger im gleichen Fenster
+            # In-memory set: condition_ids die in dieser Session bereits geordert wurden.
+            # Ergänzt open_positions (erst nach FillTracker-WS-Confirm gefüllt) um
+            # Duplikate in aufeinanderfolgenden Scan-Zyklen zu blockieren.
+            _weather_ordered_cids: set = set()
             while True:
                 now = datetime.now(timezone.utc)
                 is_model_run = (
@@ -1359,10 +1363,26 @@ async def main():
                             open_condition_ids = {pos.market_id for pos in engine.open_positions.values()}
                             for opp in live_opps:
                                 try:
-                                    # Duplikat-Check: condition_id bereits im Portfolio?
-                                    if opp['condition_id'] in open_condition_ids:
-                                        logger.info(f"[Weather] SKIP Duplikat: {opp['city']} ({opp['condition_id'][:12]}...) bereits im Portfolio")
+                                    cid = opp['condition_id']
+                                    # Duplikat-Check 1: bereits in open_positions (FillTracker bestätigt)
+                                    if cid in open_condition_ids:
+                                        logger.info(f"[Weather] SKIP Duplikat: {opp['city']} ({cid[:12]}...) bereits im Portfolio")
                                         continue
+                                    # Duplikat-Check 2: bereits in dieser Session geordert (FillTracker noch pending)
+                                    if cid in _weather_ordered_cids:
+                                        logger.info(f"[Weather] SKIP Session-Duplikat: {opp['city']} ({cid[:12]}...) bereits geordert diese Session")
+                                        continue
+                                    # Event-Cap: max 3 Outcomes desselben neg_risk Events halten
+                                    _event_id = opp.get('event_id') or opp.get('neg_risk_market_id') or ''
+                                    if _event_id:
+                                        _event_count = sum(
+                                            1 for _cid in _weather_ordered_cids | open_condition_ids
+                                            if _cid.startswith(_event_id[:20])
+                                        )
+                                        _event_cap = int(os.getenv("WEATHER_EVENT_CAP", "3"))
+                                        if _event_count >= _event_cap:
+                                            logger.info(f"[Weather] SKIP EVENT_CAP_REACHED: event={_event_id[:16]} bereits {_event_count}/{_event_cap} Outcomes")
+                                            continue
                                     from core.wallet_monitor import TradeSignal
                                     from strategies.copy_trading import CopyOrder
                                     _end = opp.get('end_date', '')
@@ -1387,6 +1407,7 @@ async def main():
                                     )
                                     order = CopyOrder(signal=sig, size_usdc=float(config.max_trade_size_usd), dry_run=config.dry_run)
                                     await on_copy_order(order)
+                                    _weather_ordered_cids.add(cid)
                                     # Shadow Mirror: 5× (Weather-spezifisch)
                                     try:
                                         _shadow.open_position(

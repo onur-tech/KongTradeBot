@@ -37,7 +37,7 @@
             "Steuerliche Komplexität (realisierter Gain auf Spot bei Auflösung)"
           ],
           "next_steps": "Basis-Spread historisch analysieren (2020-2025). Threshold definieren: ab wann ist Spread groß genug für Entry. Delta-neutral halten über automatisches Rebalancing.",
-          "roadmap_position": 8
+          "roadmap_position": 9
         },
         {
           "id": 9,
@@ -54,7 +54,7 @@
             "Liquidation bei Gegenbewegung vor Rückkehr zum Mean"
           ],
           "next_steps": "Backtesting auf 2020-2025 Funding-Rate-History. Z-Score-basierter Einstieg (>2σ). Kombination mit Glitch #1 als ergänzendes Signal.",
-          "roadmap_position": 9
+          "roadmap_position": 10
         }
       ]
     },
@@ -95,7 +95,7 @@
             "API-Ratenlimits blockieren bei Hochfrequenz"
           ],
           "next_steps": "Latenz-Baseline messen: aktuell wie schnell erreicht uns ein Tick von Binance? Infrastruktur-Research: Helsinki vs. Frankfurt Co-Lo. Voraussetzung: KongWeather-Infrastruktur als Prototyp.",
-          "roadmap_position": 10
+          "roadmap_position": 11
         }
       ]
     },
@@ -143,7 +143,7 @@
             "Regulatorisches Risiko (Governance-Teilnahme als Wertpapierhandel?)"
           ],
           "next_steps": "Protokoll-Liste erstellen: welche haben transparente Governance-Rewards? Compound, Curve, Uniswap analysieren. Steuerberater vor Umsetzung konsultieren.",
-          "roadmap_position": 11
+          "roadmap_position": 12
         }
       ]
     },
@@ -167,7 +167,7 @@
             "Zeit-Investment hoch, Rendite unsicher"
           ],
           "next_steps": "ERST Steuerberater konsultieren (Onur: vor Bali). Dann: Liste aktiver Protokolle ohne Token. Wallet-Rotation-Strategie entwickeln. Onchain-Aktivität diversifizieren.",
-          "roadmap_position": 12
+          "roadmap_position": 14
         }
       ]
     },
@@ -191,7 +191,7 @@
             "Hohe emotionale Belastung (schnelle Entscheidungen nötig)"
           ],
           "next_steps": "Liquidation-Heatmaps von Coinglass/CoinGecko analysieren. Alert bei >$100M Liquidations-Cluster. Paper-Trade 3 Events bevor Live.",
-          "roadmap_position": 7
+          "roadmap_position": 8
         },
         {
           "id": 7,
@@ -208,7 +208,7 @@
             "Regulatorisches Risiko bei Insider-Information"
           ],
           "next_steps": "Listing-Ankündigungs-Monitor (Binance Announcements RSS). Historische Listing-Performance analysieren (2020-2025). Nur für Exchanges mit öffentlicher Ankündigung 48h vorher.",
-          "roadmap_position": 11
+          "roadmap_position": 13
         }
       ]
     }

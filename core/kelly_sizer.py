@@ -17,11 +17,13 @@ of bankroll (non-zero floor keeps copy-trade discipline intact).
 Returns (size_usdc, kelly_fraction_applied, cap_hit_flag).
 """
 import os
-from typing import Optional, Tuple
+from typing import List, Literal, Optional, Tuple
 
 from utils.logger import get_logger
 
 logger = get_logger("kelly_sizer")
+
+_sim_log: List[str] = []
 
 KELLY_FRACTION      = float(os.getenv("KELLY_FRACTION",         "0.25"))
 ASSUMED_WIN_PROB    = float(os.getenv("KELLY_ASSUMED_WIN_PROB",  "0.55"))
@@ -40,6 +42,7 @@ def kelly_size(
     max_market_pct: float = MAX_MARKET_PCT,
     win_prob: float = ASSUMED_WIN_PROB,
     floor_pct: float = FLOOR_PCT,
+    mode: Literal["live", "simulation"] = "live",
 ) -> Tuple[float, float, Optional[str]]:
     """
     Compute Quarter-Kelly position size.
@@ -88,9 +91,14 @@ def kelly_size(
 
     size = round(size, 2)
 
+    prefix = "[SIM Kelly]" if mode == "simulation" else "[Kelly]"
     logger.debug(
-        f"[Kelly] price={price:.3f} b={b:.3f} full_kelly={full_kelly:.4f} "
+        f"{prefix} price={price:.3f} b={b:.3f} full_kelly={full_kelly:.4f} "
         f"applied_frac={applied_fraction:.4f} → ${size:.2f} cap={cap_flag}"
     )
+    if mode == "simulation":
+        _sim_log.append(
+            f"{prefix} price={price:.3f} → ${size:.2f} cap={cap_flag}"
+        )
 
     return size, round(applied_fraction, 6), cap_flag

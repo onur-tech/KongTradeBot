@@ -10,7 +10,7 @@ Safe to run in dry-run mode (read-only, no trading action taken).
 import asyncio
 import aiohttp
 from datetime import datetime, timezone
-from typing import Callable, Coroutine, Optional, Any
+from typing import Callable, Coroutine, List, Literal, Optional, Any
 
 from utils.logger import get_logger
 
@@ -28,13 +28,23 @@ class ReconciliationLoop:
     telegram_send is the async send() coroutine from telegram_bot.
     """
 
-    def __init__(self, engine, config, telegram_send: Optional[Callable] = None):
+    def __init__(
+        self,
+        engine,
+        config,
+        telegram_send: Optional[Callable] = None,
+        mode: Literal["live", "simulation"] = "live",
+    ):
+        if mode not in ("live", "simulation"):
+            raise ValueError(f"Invalid mode '{mode}'")
+        self._mode = mode
         self._engine = engine
         self._config = config
         self._send = telegram_send
         self._phantom_total = 0
         self._last_check_ts: Optional[float] = None
         self._last_check_ok = True
+        self._sim_log: List[str] = []
 
     # ── Public API ────────────────────────────────────────────────────────────
 
@@ -65,8 +75,12 @@ class ReconciliationLoop:
 
         self._last_check_ts = datetime.now(timezone.utc).timestamp()
 
-        # Fetch live holdings from Polymarket Data-API
-        api_tokens = await self._fetch_api_tokens(address)
+        # In simulation mode: skip external API call, compare against empty set
+        if self._mode == "simulation":
+            self._sim_log.append(f"[SIM Reconcile] skipping API fetch for {address[:12]}")
+            api_tokens = set()
+        else:
+            api_tokens = await self._fetch_api_tokens(address)
         if api_tokens is None:
             # Network failure — don't cry wolf, just log
             logger.debug("[Reconcile] API fetch failed — skipping this cycle")
@@ -134,8 +148,10 @@ class ReconciliationLoop:
             + f"\nSession total: {self._phantom_total}"
         )
         logger.warning(f"[Reconcile] {len(phantoms)} phantom(s): {[o for o, _ in phantoms]}")
-        if self._send:
+        if self._mode == "live" and self._send:
             try:
                 asyncio.get_running_loop().create_task(self._send(msg))
             except RuntimeError:
                 pass  # no running loop in test context
+        elif self._mode == "simulation":
+            self._sim_log.append(f"[SIM Reconcile ALERT] {len(phantoms)} phantom(s)")

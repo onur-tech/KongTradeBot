@@ -10,18 +10,34 @@ never crashes the main bot event loop.
 """
 import os
 import asyncio
+from typing import List, Literal
 from utils.logger import get_logger
 
 logger = get_logger("heartbeat")
 
 _MAX_CONSECUTIVE_FAIL = 3
+_sim_log: List[str] = []
 
 
-async def run(interval_s: int = 30) -> None:
+async def run(
+    interval_s: int = 30,
+    mode: Literal["live", "simulation"] = "live",
+) -> None:
     """
     Async task — runs forever inside the main event loop.
     Designed to be launched via asyncio.create_task(heartbeat.run()).
+    In simulation mode: sleeps on schedule but skips HTTP pings.
     """
+    if mode == "simulation":
+        logger.info(f"[Heartbeat] SIM mode — ping suppressed (interval={interval_s}s)")
+        tick = 0
+        while True:
+            await asyncio.sleep(interval_s)
+            tick += 1
+            _sim_log.append(f"[SIM Heartbeat] tick {tick}")
+            logger.debug(f"[Heartbeat] SIM tick {tick}")
+        return  # unreachable — satisfies type checkers
+
     url = os.getenv("HEALTHCHECKS_PING_URL", "").strip()
     if not url:
         logger.warning("[Heartbeat] HEALTHCHECKS_PING_URL not set — heartbeat disabled")

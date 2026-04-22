@@ -1,6 +1,6 @@
 #!/bin/bash
 set -e
-cd /root/KongTradeBot
+cd /home/claudeuser/KongTradeBot
 LOG=/var/log/kongtrade-deploy.log
 
 git fetch origin main 2>>"$LOG"

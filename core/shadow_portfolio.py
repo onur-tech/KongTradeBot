@@ -25,7 +25,7 @@ logger = logging.getLogger(
     "polymarket_bot.shadow_portfolio")
 
 SHADOW_FILE = Path(
-    "/root/KongTradeBot/data/shadow_portfolio.json")
+    "/home/claudeuser/KongTradeBot/data/shadow_portfolio.json")
 SHADOW_FILE.parent.mkdir(exist_ok=True)
 
 VIRTUAL_START_CAPITAL = 999_999.0
@@ -56,7 +56,7 @@ class ShadowPortfolio:
         if path:
             SHADOW_FILE = Path(path) if not Path(path).is_absolute() else Path(path)
             if not SHADOW_FILE.is_absolute():
-                SHADOW_FILE = Path("/root/KongTradeBot") / path
+                SHADOW_FILE = Path("/home/claudeuser/KongTradeBot") / path
         self.data = self._load()
 
     def _load(self) -> dict:

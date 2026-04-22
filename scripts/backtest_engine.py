@@ -31,7 +31,7 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-DATA_DIR = Path("/root/KongTradeBot/data/backtest")
+DATA_DIR = Path("/home/claudeuser/KongTradeBot/data/backtest")
 DATA_DIR.mkdir(parents=True, exist_ok=True)
 
 # ── Datenstrukturen ────────────────────────────
@@ -692,7 +692,7 @@ async def main():
         # Wallets aus .env laden
         wallets: dict = {}
         try:
-            env_path = Path("/root/KongTradeBot/.env")
+            env_path = Path("/home/claudeuser/KongTradeBot/.env")
             env: dict = {}
             for line in env_path.read_text().splitlines():
                 line = line.strip()

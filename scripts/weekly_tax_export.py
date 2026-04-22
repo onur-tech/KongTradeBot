@@ -4,7 +4,7 @@ weekly_tax_export.py — Wöchentlicher Steuer-CSV-Export
 
 Wird von kongtrade-tax-export.timer (Freitag 23:55 Berlin) ausgeführt.
 Exportiert steuer_export_<YYYY>.csv + blockpit_import_<YYYY>.csv
-in /root/KongTradeBot/exports/ und sendet Telegram-Summary.
+in /home/claudeuser/KongTradeBot/exports/ und sendet Telegram-Summary.
 """
 import os
 import sys
@@ -19,8 +19,8 @@ from utils.logger import get_logger
 
 logger = get_logger("weekly_tax_export")
 
-EXPORT_DIR = Path(os.getenv("TAX_EXPORT_DIR", "/root/KongTradeBot/exports"))
-WORK_DIR   = Path(os.getenv("BOT_DIR", "/root/KongTradeBot"))
+EXPORT_DIR = Path(os.getenv("TAX_EXPORT_DIR", "/home/claudeuser/KongTradeBot/exports"))
+WORK_DIR   = Path(os.getenv("BOT_DIR", "/home/claudeuser/KongTradeBot"))
 
 
 def send_telegram_summary(text: str) -> None:

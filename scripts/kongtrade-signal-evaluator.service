@@ -5,8 +5,8 @@ After=network.target
 [Service]
 Type=oneshot
 User=root
-WorkingDirectory=/root/KongTradeBot
-ExecStart=/usr/bin/python3 /root/KongTradeBot/scripts/run_signal_evaluator.py
-EnvironmentFile=/root/KongTradeBot/.env
+WorkingDirectory=/home/claudeuser/KongTradeBot
+ExecStart=/usr/bin/python3 /home/claudeuser/KongTradeBot/scripts/run_signal_evaluator.py
+EnvironmentFile=/home/claudeuser/KongTradeBot/.env
 StandardOutput=journal
 StandardError=journal

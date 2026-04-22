@@ -19,7 +19,7 @@ def get_service_status():
 
 def get_dashboard_url():
     try:
-        with open("/root/KongTradeBot/.current_tunnel_url") as f:
+        with open("/home/claudeuser/KongTradeBot/.current_tunnel_url") as f:
             return f.read().strip()
     except Exception:
         return "nicht verfuegbar"
@@ -56,7 +56,7 @@ def get_watchdog_timer_info():
 
 
 def get_watchdog_heartbeat():
-    hb = "/root/KongTradeBot/heartbeat.txt"
+    hb = "/home/claudeuser/KongTradeBot/heartbeat.txt"
     if not os.path.exists(hb):
         return "Kein Heartbeat-File"
     age = int(datetime.now().timestamp() - os.path.getmtime(hb))
@@ -95,7 +95,7 @@ def get_cash_balance():
     except Exception:
         return None
 
-log = "/root/KongTradeBot/logs/service-bot.log"
+log = "/home/claudeuser/KongTradeBot/logs/service-bot.log"
 pdata = get_portfolio()
 cash_usdc = get_cash_balance()
 

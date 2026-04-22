@@ -144,6 +144,10 @@ input{width:100%;padding:12px 16px;background:#0a0a14;border:1px solid #1a1a3e;b
 input:focus{border-color:#00ff88}
 button{width:100%;padding:12px;background:transparent;border:1px solid #00ff88;border-radius:8px;color:#00ff88;font-size:13px;font-family:monospace;letter-spacing:2px;cursor:pointer;margin-top:4px}
 button:hover{background:rgba(0,255,136,.08)}
+.pw-wrap{position:relative;margin-bottom:12px}
+.pw-wrap input{margin-bottom:0;padding-right:40px}
+.pw-toggle{position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;color:#555;cursor:pointer;font-size:15px;width:auto;padding:0;letter-spacing:0}
+.pw-toggle:hover{color:#00ff88}
 .err{color:#ff4444;font-size:12px;margin-top:12px}
 </style>
 </head>
@@ -154,11 +158,17 @@ button:hover{background:rgba(0,255,136,.08)}
   <div class="subtitle">DASHBOARD ACCESS</div>
   <form method="POST" action="/login">
     <input type="text" name="username" placeholder="USERNAME" autofocus autocomplete="username">
-    <input type="password" name="password" placeholder="PASSWORD" autocomplete="current-password">
+    <div class="pw-wrap">
+      <input type="password" name="password" id="pw-login" placeholder="PASSWORD" autocomplete="current-password">
+      <button type="button" class="pw-toggle" onclick="togglePw('pw-login',this)" aria-label="Passwort anzeigen">👁</button>
+    </div>
     <button type="submit">// ACCESS</button>
   </form>
   {error}
 </div>
+<script>
+function togglePw(id,btn){var el=document.getElementById(id);el.type=el.type==='password'?'text':'password';btn.style.color=el.type==='text'?'#00ff88':'#555';}
+</script>
 </body>
 </html>"""
 
@@ -248,7 +258,10 @@ def add_user():
     <form method="POST" style="max-width:320px">
       <input name="name" placeholder="Name" style="display:block;width:100%;margin:6px 0;padding:10px;background:#1a1a2e;color:#eee;border:1px solid #333;border-radius:6px;font-family:monospace">
       <input name="username" type="text" placeholder="Username" style="display:block;width:100%;margin:6px 0;padding:10px;background:#1a1a2e;color:#eee;border:1px solid #333;border-radius:6px;font-family:monospace">
-      <input name="password" type="password" placeholder="Passwort" style="display:block;width:100%;margin:6px 0;padding:10px;background:#1a1a2e;color:#eee;border:1px solid #333;border-radius:6px;font-family:monospace">
+      <div style="position:relative;margin:6px 0">
+        <input name="password" type="password" id="pw-adduser" placeholder="Passwort" style="display:block;width:100%;padding:10px 36px 10px 10px;background:#1a1a2e;color:#eee;border:1px solid #333;border-radius:6px;font-family:monospace">
+        <button type="button" onclick="togglePw('pw-adduser',this)" style="position:absolute;right:8px;top:50%;transform:translateY(-50%);background:none;border:none;color:#555;cursor:pointer;font-size:15px" aria-label="Passwort anzeigen">👁</button>
+      </div>
       <select name="role" style="display:block;width:100%;margin:6px 0;padding:10px;background:#1a1a2e;color:#eee;border:1px solid #333;border-radius:6px;font-family:monospace">
         <option value="viewer">Viewer</option>
         <option value="admin">Admin</option>
@@ -256,6 +269,7 @@ def add_user():
       <button type="submit" style="display:block;width:100%;margin-top:12px;padding:10px;background:transparent;border:1px solid #00ff88;color:#00ff88;border-radius:6px;cursor:pointer;font-family:monospace;letter-spacing:1px">USER ERSTELLEN</button>
     </form>
     <p style="margin-top:16px"><a href="/" style="color:#555">← Dashboard</a></p>
+    <script>function togglePw(id,btn){var el=document.getElementById(id);el.type=el.type==='password'?'text':'password';btn.style.color=el.type==='text'?'#00ff88':'#555';}</script>
     </body></html>"""
 
 

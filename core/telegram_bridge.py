@@ -114,7 +114,7 @@ class TelegramBridge:
             return
 
         logger.info("[TGBridge] Starte Telegram UserBot...")
-        session_file = "/root/KongTradeBot/telegram_bridge_session"
+        session_file = "/home/claudeuser/KongTradeBot/telegram_bridge_session"
 
         self.client = TelegramClient(session_file, API_ID, API_HASH)
         await self.client.start()

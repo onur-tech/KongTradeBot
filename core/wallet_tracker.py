@@ -20,7 +20,7 @@ from typing import Optional
 
 logger = logging.getLogger("polymarket_bot.wallet_tracker")
 
-WALLET_PERF_FILE = Path("/root/KongTradeBot/data/wallet_performance.json")
+WALLET_PERF_FILE = Path("/home/claudeuser/KongTradeBot/data/wallet_performance.json")
 WALLET_PERF_FILE.parent.mkdir(exist_ok=True)
 
 

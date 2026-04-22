@@ -8,10 +8,10 @@ import asyncio, aiohttp, json
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
 
-DB_DIR = Path("/root/KongTradeBot/data/daily_datapoints")
+DB_DIR = Path("/home/claudeuser/KongTradeBot/data/daily_datapoints")
 DB_DIR.mkdir(exist_ok=True)
 
-with open("/root/KongTradeBot/data/polymarket_stations.json") as f:
+with open("/home/claudeuser/KongTradeBot/data/polymarket_stations.json") as f:
     STATIONS = json.load(f)
 
 def parse_token_ids(raw):

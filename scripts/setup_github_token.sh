@@ -1,8 +1,8 @@
 #!/bin/bash
 # setup_github_token.sh — Setzt GitHub-Token aus .env in die Remote-URL
-# Aufruf: bash /root/KongTradeBot/scripts/setup_github_token.sh
+# Aufruf: bash /home/claudeuser/KongTradeBot/scripts/setup_github_token.sh
 
-ENV_FILE="/root/KongTradeBot/.env"
+ENV_FILE="/home/claudeuser/KongTradeBot/.env"
 STATUS_REPO="/root/status-repo"
 
 # Token aus .env lesen

@@ -31,7 +31,7 @@ MIN_EDGE_PCT = 0.40
 _coord_cache: dict = {}
 
 # Station config with sigma overrides
-_STATIONS_FILE = Path("/root/KongTradeBot/data/polymarket_stations.json")
+_STATIONS_FILE = Path("/home/claudeuser/KongTradeBot/data/polymarket_stations.json")
 try:
     _STATIONS: dict = json.loads(_STATIONS_FILE.read_text())
 except Exception:
@@ -619,7 +619,7 @@ def _open_bucket_arb_in_shadow(arb: dict):
     """Öffnet virtuelle Shadow-Positionen für alle Buckets eines Arb-Markts."""
     try:
         import sys as _sys
-        _sys.path.insert(0, "/root/KongTradeBot")
+        _sys.path.insert(0, "/home/claudeuser/KongTradeBot")
         from core.shadow_portfolio import ShadowPortfolio
         _sp = ShadowPortfolio()
         city = arb["city"]
@@ -929,7 +929,7 @@ def run_weather_scout() -> list:
                 # Shadow Portfolio — Quarter-Kelly sizing
                 try:
                     import sys as _sys
-                    _sys.path.insert(0, '/root/KongTradeBot')
+                    _sys.path.insert(0, '/home/claudeuser/KongTradeBot')
                     from core.shadow_portfolio import ShadowPortfolio
                     _sp = ShadowPortfolio()
                     _mkt_price = opp['price']

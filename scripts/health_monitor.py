@@ -10,7 +10,7 @@ from email.mime.text import MIMEText
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
 
-BOT_ROOT = Path("/root/KongTradeBot")
+BOT_ROOT = Path("/home/claudeuser/KongTradeBot")
 LOG_FILE = BOT_ROOT / "logs/bot.log"
 LOCK_FILE = BOT_ROOT / "bot.lock"
 SHADOW_FILE = BOT_ROOT / "data/shadow_portfolio.json"

@@ -46,7 +46,7 @@ def get_service_state():
 
 
 def get_heartbeat_age():
-    hb = "/root/KongTradeBot/heartbeat.txt"
+    hb = "/home/claudeuser/KongTradeBot/heartbeat.txt"
     if not os.path.exists(hb):
         return None
     return int(datetime.now().timestamp() - os.path.getmtime(hb))

@@ -8,8 +8,8 @@ import re
 from pathlib import Path
 from datetime import datetime
 
-LOG   = Path("/root/KongTradeBot/logs/bot.log")
-ARCH  = Path("/root/KongTradeBot/trades_archive.json")
+LOG   = Path("/home/claudeuser/KongTradeBot/logs/bot.log")
+ARCH  = Path("/home/claudeuser/KongTradeBot/trades_archive.json")
 
 # Opportunitäten aus Log parsen
 OPP_PATTERN = re.compile(

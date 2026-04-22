@@ -329,7 +329,7 @@ async def main():
 
     print(f"\nVERDICT: {verdict}")
 
-    Path("/root/KongTradeBot/data/backtest/"
+    Path("/home/claudeuser/KongTradeBot/data/backtest/"
          "weather_walkforward.json").write_text(
         json.dumps({
             "method": "walk_forward_no_lookahead",

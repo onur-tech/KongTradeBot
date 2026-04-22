@@ -67,3 +67,17 @@ STATUS.md
 Liu
 .env.*
 bot_state.json
+
+# === Foundation Cleanup 2026-04-22 ===
+backups/
+*.tar.gz
+*.zip
+bot.log
+dashboard.log
+.last_startup_alert
+heartbeat.txt
+bot.lock
+__pycache__/
+*.pyc
+.env
+.env.*

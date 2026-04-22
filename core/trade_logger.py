@@ -242,7 +242,9 @@ def _get_conn() -> sqlite3.Connection:
     conn = sqlite3.connect(str(DB_PATH), timeout=10)
     conn.row_factory = sqlite3.Row
     conn.execute("PRAGMA journal_mode=WAL")
-    conn.execute("PRAGMA foreign_keys=ON")
+    # FK enforcement intentionally OFF: parent_signal_id is a soft reference.
+    # Enabling it causes silent INSERT aborts when signals table is out of sync
+    # (e.g. bot restart loses _order_trade_map, no signal pre-logged).
     return conn
 
 

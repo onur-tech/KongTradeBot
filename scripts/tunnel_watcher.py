@@ -8,9 +8,9 @@ import urllib.parse
 import logging
 from datetime import datetime, timezone
 
-LOG_FILE = "/root/KongTradeBot/logs/tunnel_watcher.log"
-LAST_URL_FILE = "/root/KongTradeBot/.last_tunnel_url"
-CURRENT_URL_FILE = "/root/KongTradeBot/.current_tunnel_url"
+LOG_FILE = "/home/claudeuser/KongTradeBot/logs/tunnel_watcher.log"
+LAST_URL_FILE = "/home/claudeuser/KongTradeBot/.last_tunnel_url"
+CURRENT_URL_FILE = "/home/claudeuser/KongTradeBot/.current_tunnel_url"
 
 logging.basicConfig(
     filename=LOG_FILE,
@@ -61,7 +61,7 @@ def send_telegram(token, chat_id, message):
 def load_env():
     env = {}
     try:
-        with open("/root/KongTradeBot/.env") as f:
+        with open("/home/claudeuser/KongTradeBot/.env") as f:
             for line in f:
                 line = line.strip()
                 if "=" in line and not line.startswith("#"):

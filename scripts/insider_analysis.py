@@ -29,7 +29,7 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 # ── Konfiguration ──────────────────────────────────
-OUTPUT_DIR = Path("/root/KongTradeBot/data/insider_analysis")
+OUTPUT_DIR = Path("/home/claudeuser/KongTradeBot/data/insider_analysis")
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
 POLYMARKET_API   = "https://data-api.polymarket.com"

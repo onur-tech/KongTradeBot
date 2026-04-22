@@ -34,6 +34,14 @@ from core.exit_manager import ExitManager, ExitEvent
 from core.position_state_worker import PositionStateWorker
 from core.trade_logger import get_trade_logger, migrate_from_archive
 from core.anomaly_detector import AnomalyDetector, anomaly_detector_loop
+# Phase 2 Safety Modules
+from core.signature_check import run_self_check as _sig_check
+from core.reconciliation import ReconciliationLoop
+from core.slippage_check import check_slippage as _slippage_check
+from core.kelly_sizer import kelly_size as _kelly_size
+from core.thesis_guard import ThesisGuard
+from core.circuit_breaker import CircuitBreaker
+import core.heartbeat as _heartbeat
 from core.rss_monitor import RSSMonitor
 from core.x_monitor import XMonitor
 from core.weather_scout import run_weather_scout
@@ -616,6 +624,12 @@ async def main():
     cprint("║    🚀 POLYMARKET COPY TRADING BOT v0.6 + TELEGRAM           ║", C_CYAN)
     cprint("╚══════════════════════════════════════════════════════════════╝", C_CYAN)
 
+    # Phase 2.2 — Signature-Type-Self-Check
+    try:
+        _sig_check()
+    except Exception as _sce:
+        logger.warning(f"[SigCheck] Startup check error: {_sce}")
+
     risk             = RiskManager(config)
     engine           = ExecutionEngine(config)
     strategy         = CopyTradingStrategy(config, risk)
@@ -623,6 +637,11 @@ async def main():
     anomaly_detector = AnomalyDetector()
     rss_monitor      = RSSMonitor(send_fn=send)
     x_monitor        = XMonitor()
+
+    # Phase 2 Safety — init singletons
+    _thesis_guard   = ThesisGuard()
+    _circuit_breaker = CircuitBreaker(telegram_send=send)
+    _reconcile_loop  = ReconciliationLoop(engine, config, telegram_send=send)
 
     # Trade-Logger initialisieren + Migration aus trades_archive.json
     _trade_logger = get_trade_logger()
@@ -757,6 +776,32 @@ async def main():
             order = _replace(order, size_usdc=order.size_usdc / 2)
             logger.info(f"Trade per Telegram HALBIERT: ${order.size_usdc:.2f}")
 
+        # Phase 2.5 — Circuit Breaker check
+        try:
+            if _circuit_breaker.is_blocked():
+                _cb_st = _circuit_breaker.status()
+                logger.warning(f"[CB] Trade blockiert: Level {_cb_st['level']} — {_cb_st['reason']}")
+                return
+        except Exception as _cbe:
+            logger.debug(f"[CB] check error: {_cbe}")
+
+        # Phase 2.3 — Slippage Pre-Check
+        try:
+            _sig_sc   = getattr(order, "signal", None)
+            _token_sc = str(getattr(_sig_sc, "token_id", "") or "")
+            _price_sc = float(getattr(_sig_sc, "price", 0) or 0)
+            _size_sc  = float(getattr(order, "size_usdc", 0) or 0)
+            _side_sc  = str(getattr(_sig_sc, "side", "BUY") or "BUY")
+            if _token_sc and _price_sc > 0:
+                _sl_ok, _sl_bps, _sl_reason = await _slippage_check(
+                    _token_sc, _price_sc, _size_sc, _side_sc
+                )
+                if not _sl_ok:
+                    logger.warning(f"[SlippageCheck] Trade rejected: {_sl_reason}")
+                    return
+        except Exception as _sce2:
+            logger.debug(f"[SlippageCheck] error: {_sce2}")
+
         result = await engine.execute(order)
         if result and not result.success and not result.dry_run:
             error_msg = str(getattr(result, 'error', '') or '')
@@ -801,6 +846,11 @@ async def main():
             # Phase-1: Trade-Metadaten-Schema
             try:
                 _tl_sig_id = _trade_logger.log_signal(sig)
+                # Phase 2.4: Kelly sizing metadata
+                _k_size, _k_frac, _k_cap = _kelly_size(
+                    float(getattr(sig, "price", 0.5) or 0.5),
+                    config.portfolio_budget_usd,
+                )
                 _trade_logger.log_trade_entry(
                     signal_id=_tl_sig_id,
                     order_id=_order_id,
@@ -810,10 +860,22 @@ async def main():
                     bankroll=config.portfolio_budget_usd,
                     extra={
                         "signal_count": getattr(order, "is_multi_signal", False) and 2 or 1,
+                        "kelly_fraction_applied": _k_frac,
+                        "cap_hit_flag": _k_cap,
                     },
                 )
             except Exception as _tle:
                 logger.debug(f"[TradeLogger] entry fehlgeschlagen: {_tle}")
+
+            # Phase 2.7: Register with Thesis Guard
+            try:
+                _thesis_guard.register_position(
+                    order_id=_order_id,
+                    source_wallet=str(getattr(sig, "source_wallet", "") or ""),
+                    entry_price=float(getattr(sig, "price", 0) or 0),
+                )
+            except Exception as _tge:
+                logger.debug(f"[ThesisGuard] register error: {_tge}")
             risk.record_market_investment(market_id, float(getattr(order, "size_usdc", 0) or 0))
             risk.record_category_investment(cat, float(getattr(order, "size_usdc", 0) or 0))
             record_fill(sig, result)
@@ -952,6 +1014,18 @@ async def main():
         """Sofortiger Exit wenn tracked Wallet ihre Position verkauft hat."""
         wallet_name = get_wallet_name(pos.source_wallet)
         market_short = (pos.market_question or sell_signal.market_question or "")[:60]
+
+        # Phase 2.7: Thesis invalidation on whale exit
+        try:
+            _invalidated = _thesis_guard.on_whale_exit(
+                pos.source_wallet,
+                getattr(pos, "market_id", ""),
+            )
+            if _invalidated:
+                logger.info(f"[ThesisGuard] Whale exit → {len(_invalidated)} position(s) invalidated")
+        except Exception as _tge2:
+            logger.debug(f"[ThesisGuard] on_whale_exit error: {_tge2}")
+
         try:
             # ExitStrategy: Signal klassifizieren (FULL bei Whale-Sell)
             _es = _exit_strategy.process_whale_activity(
@@ -1622,6 +1696,21 @@ async def main():
                     logger.error(f"position_cleanup_loop Fehler: {e}")
                 await asyncio.sleep(86400)  # 24h
 
+        async def circuit_breaker_loop():
+            """Phase 2.5: Circuit Breaker — checks daily loss every 60s."""
+            while True:
+                await asyncio.sleep(60)
+                try:
+                    _risk_st = risk.status()
+                    _daily_loss = _risk_st.get("daily_loss_usd", 0.0)
+                    _bankroll   = max(config.portfolio_budget_usd, 1.0)
+                    await _circuit_breaker.update(_daily_loss, _bankroll)
+                    # Daily reset at midnight
+                    if _risk_st.get("daily_loss_usd", 0) == 0 and _circuit_breaker.status()["level"] in (1, 2):
+                        _circuit_breaker.daily_reset()
+                except Exception as _cbe:
+                    logger.debug(f"[CB] loop error: {_cbe}")
+
         # FillTracker: WebSocket-basiertes Fill-Tracking (verhindert Phantom-Positionen)
         fill_tracker = FillTracker(config)
         fill_tracker.register_callbacks(
@@ -1650,9 +1739,12 @@ async def main():
                 anomaly_detector, engine, send,
                 interval_seconds=int(os.getenv("ANOMALY_SCAN_INTERVAL_SECONDS", "300"))
             )),
-            asyncio.create_task(rss_monitor.run()),     # T-NEWS Phase 1B
-            asyncio.create_task(x_monitor.run_loop()),   # T-X-TWITTER
-            asyncio.create_task(weather_loop()),         # T-Weather
+            asyncio.create_task(rss_monitor.run()),                     # T-NEWS Phase 1B
+            asyncio.create_task(x_monitor.run_loop()),               # T-X-TWITTER
+            asyncio.create_task(weather_loop()),                     # T-Weather
+            asyncio.create_task(_heartbeat.run(interval_s=30)),        # Phase 2.6: Dead-Man-Switch
+            asyncio.create_task(_reconcile_loop.run(interval_s=60)),  # Phase 2.1: Reconciliation
+            asyncio.create_task(circuit_breaker_loop()),               # Phase 2.5: Circuit Breaker
             asyncio.create_task(weather_exit_loop()),    # T-WeatherExit
             asyncio.create_task(poll_commands(
                 callback_status=send_status_now,

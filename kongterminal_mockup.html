@@ -1,0 +1,951 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🦍 KongTerminal</title>
+<style>
+/* ── RESET & BASE ───────────────────────────────────────────── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:   #070b09;
+  --bg2:  #0c1210;
+  --bg3:  #101810;
+  --border:#192619;
+  --dim:  #263d2a;
+
+  --poly:       #00ff88;
+  --poly-dim:   #00a855;
+  --poly-glow:  rgba(0,255,136,.12);
+
+  --crypto:     #ffd700;
+  --crypto-dim: #a88e00;
+  --crypto-glow:rgba(255,215,0,.12);
+
+  --kalshi:     #00aaff;
+  --kalshi-dim: #006faa;
+  --kalshi-glow:rgba(0,170,255,.12);
+
+  --airdrop:    #aa00ff;
+  --airdrop-dim:#7700bb;
+  --airdrop-glow:rgba(170,0,255,.12);
+
+  --red:    #ff3d3d;
+  --orange: #ff8c00;
+  --text:   #b0ceb6;
+  --muted:  #3d5e42;
+  --mono:   'Courier New',monospace;
+
+  /* active accent – swapped by JS */
+  --acc:    var(--poly);
+  --acc-dim:var(--poly-dim);
+  --acc-gl: var(--poly-glow);
+}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:var(--mono);
+  font-size:12px;
+  height:100vh;
+  overflow:hidden;
+  display:grid;
+  grid-template-rows:auto auto 1fr;
+  grid-template-columns:196px 1fr 214px;
+  grid-template-areas:
+    "hdr hdr hdr"
+    "nav nav nav"
+    "sb  main rt";
+}
+::-webkit-scrollbar{width:3px}
+::-webkit-scrollbar-track{background:var(--bg2)}
+::-webkit-scrollbar-thumb{background:var(--dim);border-radius:2px}
+
+/* ══ HEADER ═══════════════════════════════════════════════════ */
+#hdr{
+  grid-area:hdr;
+  background:var(--bg2);
+  border-bottom:1px solid var(--border);
+  display:flex;
+  align-items:center;
+  gap:18px;
+  padding:9px 14px;
+}
+#logo{
+  font-size:15px;font-weight:700;
+  color:var(--acc);text-shadow:0 0 14px var(--acc);
+  letter-spacing:2px;white-space:nowrap;
+  transition:color .3s,text-shadow .3s;
+}
+.livepill{
+  font-size:8px;padding:2px 6px;
+  background:rgba(0,255,136,.08);
+  border:1px solid var(--poly);
+  color:var(--poly);
+  animation:blink 1.4s infinite;
+}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.45}}
+
+.hstats{display:flex;gap:18px;flex:1}
+.hs{display:flex;flex-direction:column;gap:1px}
+.hs-lbl{font-size:8px;text-transform:uppercase;letter-spacing:1px;color:var(--muted)}
+.hs-val{font-size:13px;font-weight:700;color:var(--acc);transition:color .3s}
+.pos{color:#00ff88!important}
+.neg{color:var(--red)!important}
+.warn{color:var(--orange)!important}
+
+#ctx-badge{
+  margin-left:auto;font-size:9px;letter-spacing:1px;
+  padding:3px 10px;font-weight:700;
+  transition:all .25s;
+}
+#clock{font-size:9px;color:var(--muted);white-space:nowrap}
+
+.kill{
+  background:transparent;
+  border:1px solid var(--red);
+  color:var(--red);
+  font-family:var(--mono);font-size:11px;
+  padding:7px 14px;cursor:pointer;
+  letter-spacing:1px;
+  animation:kr 2s infinite;
+  transition:all .15s;
+}
+.kill:hover{background:rgba(255,61,61,.15);box-shadow:0 0 18px rgba(255,61,61,.5)}
+@keyframes kr{0%,100%{box-shadow:0 0 4px rgba(255,61,61,.2)}50%{box-shadow:0 0 14px rgba(255,61,61,.5)}}
+
+/* ══ NAV ══════════════════════════════════════════════════════ */
+#nav{
+  grid-area:nav;background:var(--bg2);
+  border-bottom:1px solid var(--border);
+}
+#plat-bar{display:flex;gap:2px;padding:6px 12px 0}
+.ptab{
+  background:transparent;
+  border:1px solid var(--border);border-bottom:none;
+  color:var(--muted);font-family:var(--mono);font-size:11px;
+  padding:6px 14px;cursor:pointer;letter-spacing:.8px;
+  transition:all .15s;display:flex;align-items:center;gap:5px;
+}
+.ptab:hover{color:var(--text);border-color:var(--dim)}
+.ptab .pill{font-size:7px;padding:1px 4px;border-radius:2px;background:var(--dim);color:var(--muted)}
+.ptab.plive .pill{background:rgba(0,255,136,.1);color:var(--poly);border:1px solid var(--poly)}
+
+/* active colour is set inline by JS */
+.ptab.active{border-bottom:none}
+
+#strat-bar{
+  display:flex;gap:4px;
+  padding:4px 12px;
+  background:var(--bg3);
+  border-top:1px solid var(--border);
+  min-height:28px;
+}
+.stab{
+  background:transparent;
+  border:1px solid transparent;
+  color:var(--muted);font-family:var(--mono);font-size:9px;
+  padding:3px 10px;cursor:pointer;letter-spacing:.5px;
+  border-radius:2px;display:flex;align-items:center;gap:5px;
+  transition:all .15s;
+}
+.stab.slive{color:var(--text);border-color:var(--border)}
+.stab.slive:hover{border-color:var(--acc);color:var(--acc)}
+.stab.slive.active{border-color:var(--acc);color:var(--acc);background:var(--acc-gl)}
+.stab.splanned{opacity:.38;cursor:default}
+.pbadge{font-size:7px;padding:1px 4px;background:var(--dim);color:var(--muted);border-radius:2px}
+
+/* ══ LEFT SIDEBAR ════════════════════════════════════════════ */
+#sb{
+  grid-area:sb;background:var(--bg2);
+  border-right:1px solid var(--border);
+  overflow-y:auto;padding:11px;
+  display:flex;flex-direction:column;gap:14px;
+}
+.sect{display:flex;flex-direction:column;gap:7px}
+.stitle{
+  font-size:8px;text-transform:uppercase;letter-spacing:2px;
+  color:var(--muted);border-bottom:1px solid var(--border);
+  padding-bottom:3px;
+}
+
+.arow{display:flex;flex-direction:column;gap:2px}
+.albl{display:flex;justify-content:space-between;font-size:9px}
+.abar{height:4px;background:var(--dim);border-radius:2px;overflow:hidden}
+.afill{height:100%;border-radius:2px;transition:width .5s}
+.fp{background:var(--poly);   box-shadow:0 0 6px var(--poly)}
+.fc{background:var(--crypto); box-shadow:0 0 6px var(--crypto)}
+.fk{background:var(--kalshi); box-shadow:0 0 6px var(--kalshi)}
+.fa{background:var(--airdrop);box-shadow:0 0 6px var(--airdrop)}
+.fm{background:var(--muted)}
+
+.rrow{display:flex;flex-direction:column;gap:2px;margin-bottom:5px}
+.rlbl{display:flex;justify-content:space-between;font-size:9px}
+.rbar{height:5px;background:var(--dim);border-radius:3px;overflow:hidden}
+.rfill{height:100%;border-radius:3px}
+.rok  {background:var(--poly)}
+.rwarn{background:var(--orange)}
+.rdng {background:var(--red);animation:kr 1s infinite}
+
+.kv{display:flex;justify-content:space-between;font-size:9px;color:var(--muted);margin-top:2px}
+.kv span:last-child{color:var(--text)}
+.ks-off{font-size:8px;color:var(--poly);border:1px solid var(--poly);padding:1px 5px;border-radius:2px}
+
+/* ══ MAIN ════════════════════════════════════════════════════ */
+#main{grid-area:main;overflow-y:auto;padding:12px;display:flex;flex-direction:column;gap:10px}
+.panel{display:none;flex-direction:column;gap:10px}
+.panel.active{display:flex}
+
+/* grid layouts */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:9px}
+.g6{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+
+/* widget */
+.w{background:var(--bg2);border:1px solid var(--border);padding:11px;border-radius:2px}
+.w.acp{border-color:color-mix(in srgb,var(--acc) 25%,transparent)}
+.wtitle{
+  font-size:8px;text-transform:uppercase;letter-spacing:1.5px;
+  color:var(--muted);margin-bottom:9px;
+  display:flex;align-items:center;gap:5px;
+}
+.dot{width:5px;height:5px;border-radius:50%;background:var(--acc);box-shadow:0 0 5px var(--acc);transition:background .3s,box-shadow .3s}
+
+.big{font-size:26px;font-weight:700;color:var(--acc);line-height:1;transition:color .3s}
+.sub{font-size:9px;color:var(--muted);margin-top:3px}
+.cbar{height:7px;background:var(--dim);border-radius:4px;overflow:hidden;margin:5px 0}
+.cfill{height:100%;border-radius:4px}
+
+/* station cards */
+.scard{background:var(--bg3);border:1px solid var(--border);padding:7px;border-radius:2px}
+.sicao{font-size:10px;color:var(--acc);font-weight:700;transition:color .3s}
+.scity{font-size:8px;color:var(--muted);margin-bottom:4px}
+.stemp{font-size:17px;color:var(--text);font-weight:700}
+.sfcast{font-size:8px;color:var(--muted);margin-top:2px}
+.chips{display:flex;gap:3px;margin-top:4px;flex-wrap:wrap}
+.chip{font-size:7px;padding:1px 4px;border-radius:2px;border:1px solid}
+.cok{border-color:var(--poly);color:var(--poly)}
+.csp{border-color:var(--orange);color:var(--orange)}
+.cna{border-color:var(--dim);color:var(--muted)}
+
+/* tables */
+.t{width:100%;border-collapse:collapse;font-size:9px}
+.t th{text-align:left;color:var(--muted);font-weight:400;font-size:8px;
+       padding:3px 5px;border-bottom:1px solid var(--border);text-transform:uppercase;letter-spacing:1px}
+.t td{padding:4px 5px;border-bottom:1px solid var(--border)}
+.t tr:hover td{background:var(--bg3)}
+.twrap{overflow-y:auto;max-height:190px}
+
+.badge{font-size:7px;padding:1px 5px;border-radius:2px;display:inline-block;letter-spacing:.5px}
+.by{background:rgba(0,255,136,.1);border:1px solid var(--poly);color:var(--poly)}
+.bn{background:rgba(255,61,61,.1);border:1px solid var(--red);color:var(--red)}
+.bw{background:rgba(255,140,0,.1);border:1px solid var(--orange);color:var(--orange)}
+.bp{background:rgba(0,255,136,.1);border:1px solid var(--poly);color:var(--poly)}
+.bf{background:rgba(255,61,61,.1);border:1px solid var(--red);color:var(--red)}
+
+/* kelly rows */
+.kr{display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid var(--border);font-size:9px}
+.kr:last-child{border-bottom:none}
+.kl{color:var(--muted)}.kv2{color:var(--acc);font-weight:700}
+
+/* geo rows */
+.gr{display:flex;gap:7px;align-items:center;padding:5px 0;border-bottom:1px solid var(--border);font-size:9px}
+.gr:last-child{border-bottom:none}
+.gf{font-size:13px}
+.gi{flex:1}
+.gm{color:var(--text)}
+.gsb{color:var(--muted);font-size:8px}
+.gp{color:var(--acc);font-weight:700;font-size:10px;transition:color .3s}
+.ge{font-size:8px;color:var(--poly)}
+
+/* planned card */
+.planned{
+  border:1px solid var(--dim);padding:22px;border-radius:2px;
+  background:var(--bg2);position:relative;overflow:hidden;
+}
+.planned::before{
+  content:'';position:absolute;inset:0;
+  background:repeating-linear-gradient(
+    45deg,transparent,transparent 10px,
+    rgba(255,255,255,.008) 10px,rgba(255,255,255,.008) 11px
+  );
+}
+.ptitle{font-size:20px;color:var(--muted);margin-bottom:6px}
+.pphase{
+  font-size:10px;display:inline-block;
+  background:var(--dim);color:var(--muted);
+  padding:3px 9px;margin-bottom:12px;border-radius:2px;
+}
+.pmeta{display:flex;gap:18px;margin-bottom:12px;font-size:9px}
+.pmeta-item{display:flex;flex-direction:column;gap:2px}
+.pmeta-lbl{color:var(--muted)}
+.pmeta-val{color:var(--text)}
+.pnotes{font-size:9px;color:var(--muted);line-height:1.8}
+.pnotes li{list-style:none;padding-left:12px}
+.pnotes li::before{content:'› ';color:var(--acc-dim)}
+
+/* ══ RIGHT SIDEBAR ═══════════════════════════════════════════ */
+#rt{
+  grid-area:rt;background:var(--bg2);
+  border-left:1px solid var(--border);
+  overflow-y:auto;padding:11px;
+  display:flex;flex-direction:column;gap:14px;
+}
+.ri{display:flex;flex-direction:column;gap:2px;padding:5px 0;border-bottom:1px solid var(--border)}
+.ri:last-child{border-bottom:none}
+.rmkt{font-size:9px;color:var(--text);line-height:1.3}
+.rmeta{display:flex;justify-content:space-between;font-size:8px;color:var(--muted)}
+.rtimer{color:var(--orange);font-weight:700}
+.rtimer.urg{color:var(--red);animation:blink .8s infinite}
+
+.svc{display:flex;justify-content:space-between;align-items:center;padding:3px 0;font-size:9px}
+.svn{color:var(--muted)}
+.svd{width:6px;height:6px;border-radius:50%}
+.sv-ok{background:var(--poly);box-shadow:0 0 4px var(--poly)}
+.sv-wn{background:var(--orange)}
+.sv-dn{background:var(--red);animation:kr 1s infinite}
+.svl{color:var(--muted);font-size:8px}
+
+.ti{padding:5px 0;border-bottom:1px solid var(--border);font-size:9px}
+.ti:last-child{border-bottom:none}
+.th{display:flex;justify-content:space-between;margin-bottom:1px}
+.tm{color:var(--text)}.tt{color:var(--muted);font-size:8px}
+.tb{color:var(--muted);font-size:8px;line-height:1.4}
+</style>
+</head>
+<body>
+
+<!-- ══════════ HEADER ══════════════════════════════════════════ -->
+<header id="hdr">
+  <div id="logo">🦍 KONGTERMINAL</div>
+  <span class="livepill">● LIVE</span>
+
+  <div class="hstats">
+    <div class="hs">
+      <span class="hs-lbl">Portfolio</span>
+      <span class="hs-val">$776.60</span>
+    </div>
+    <div class="hs">
+      <span class="hs-lbl">Heute P&L</span>
+      <span class="hs-val pos">+$91.23</span>
+    </div>
+    <div class="hs">
+      <span class="hs-lbl">Win Rate (30T)</span>
+      <span class="hs-val">55.1%</span>
+    </div>
+    <div class="hs">
+      <span class="hs-lbl">Positionen</span>
+      <span class="hs-val">16</span>
+    </div>
+    <div class="hs">
+      <span class="hs-lbl">Drawdown heute</span>
+      <span class="hs-val pos">$0.00</span>
+    </div>
+    <div class="hs">
+      <span class="hs-lbl">Daily Loss Cap</span>
+      <span class="hs-val">$8.50 / $100</span>
+    </div>
+    <div class="hs">
+      <span class="hs-lbl">Mode</span>
+      <span class="hs-val neg">LIVE</span>
+    </div>
+  </div>
+
+  <div id="ctx-badge" style="border:1px solid var(--poly);background:var(--poly-glow);color:var(--poly)">POLYMARKET</div>
+  <span id="clock" class="svl">—</span>
+  <button class="kill" onclick="killAll()">🔴 KILL ALL</button>
+</header>
+
+<!-- ══════════ NAV ══════════════════════════════════════════════ -->
+<div id="nav">
+  <div id="plat-bar">
+    <button class="ptab plive active" data-p="poly"    onclick="switchPlat('poly')"   >📊 POLYMARKET <span class="pill" style="background:rgba(0,255,136,.1);color:var(--poly);border:1px solid var(--poly)">LIVE</span></button>
+    <button class="ptab"             data-p="crypto"  onclick="switchPlat('crypto')" >💰 CRYPTO     <span class="pill">PLANNED</span></button>
+    <button class="ptab"             data-p="kalshi"  onclick="switchPlat('kalshi')" >⚡ KALSHI     <span class="pill">PLANNED</span></button>
+    <button class="ptab"             data-p="airdrop" onclick="switchPlat('airdrop')">🪂 AIRDROP    <span class="pill">PLANNED</span></button>
+  </div>
+  <div id="strat-bar"></div>
+</div>
+
+<!-- ══════════ LEFT SIDEBAR ════════════════════════════════════ -->
+<aside id="sb">
+
+  <div class="sect">
+    <div class="stitle">Portfolio Allokation</div>
+    <div class="arow">
+      <div class="albl"><span style="color:var(--poly)">📊 Polymarket</span><span style="color:var(--poly)">$413 · 85%</span></div>
+      <div class="abar"><div class="afill fp" style="width:85%"></div></div>
+    </div>
+    <div class="arow">
+      <div class="albl"><span>💰 Crypto</span><span style="color:var(--muted)">$0 · 0%</span></div>
+      <div class="abar"><div class="afill fc" style="width:0%"></div></div>
+      <span style="font-size:7px;color:var(--muted)">PLANNED</span>
+    </div>
+    <div class="arow">
+      <div class="albl"><span>⚡ Kalshi</span><span style="color:var(--muted)">$0 · 0%</span></div>
+      <div class="abar"><div class="afill fk" style="width:0%"></div></div>
+      <span style="font-size:7px;color:var(--muted)">PLANNED</span>
+    </div>
+    <div class="arow">
+      <div class="albl"><span>🪂 Airdrop</span><span style="color:var(--muted)">$0 · 0%</span></div>
+      <div class="abar"><div class="afill fa" style="width:0%"></div></div>
+      <span style="font-size:7px;color:var(--muted)">PLANNED</span>
+    </div>
+    <div class="arow">
+      <div class="albl"><span style="color:var(--muted)">💵 Cash</span><span style="color:var(--muted)">$364 · 15%</span></div>
+      <div class="abar"><div class="afill fm" style="width:15%"></div></div>
+    </div>
+  </div>
+
+  <div class="sect">
+    <div class="stitle">Global Risk</div>
+    <div class="rrow">
+      <div class="rlbl"><span>Daily Loss</span><span style="color:var(--poly)">$8.50 / $100</span></div>
+      <div class="rbar"><div class="rfill rok" style="width:8.5%"></div></div>
+    </div>
+    <div class="rrow">
+      <div class="rlbl"><span>Exposure</span><span style="color:var(--orange)">$413 / $776</span></div>
+      <div class="rbar"><div class="rfill rwarn" style="width:53%"></div></div>
+    </div>
+    <div class="rrow">
+      <div class="rlbl"><span>Largest Position</span><span style="color:var(--poly)">$48</span></div>
+      <div class="rbar"><div class="rfill rok" style="width:62%"></div></div>
+    </div>
+    <div class="kv"><span>Total Exposure</span><span>$413</span></div>
+    <div class="kv"><span>Drawdown Heute</span><span style="color:var(--poly)">$0.00</span></div>
+    <div class="kv"><span>Offene Positionen</span><span>16</span></div>
+    <div class="kv"><span>Kill-Switch</span><span class="ks-off">● OFF</span></div>
+    <div class="kv"><span>Avg Slippage</span><span style="color:var(--orange)">0.4%</span></div>
+  </div>
+
+  <div class="sect">
+    <div class="stitle">Bot Status</div>
+    <div class="kv"><span>Uptime</span><span>14h 32m</span></div>
+    <div class="kv"><span>Monitor Cycle</span><span>10s</span></div>
+    <div class="kv"><span>Letztes Signal</span><span style="color:var(--poly)">2m ago</span></div>
+    <div class="kv"><span>Resolver</span><span style="color:var(--poly)">● OK</span></div>
+    <div class="kv"><span>Telegram</span><span style="color:var(--poly)">● OK</span></div>
+    <div class="kv"><span>Heute Fills</span><span>23</span></div>
+  </div>
+
+</aside>
+
+<!-- ══════════ MAIN CONTENT ═════════════════════════════════════ -->
+<main id="main">
+
+  <!-- ─── POLY / WEATHER ──────────────────────────────────────── -->
+  <div class="panel active" id="pnl-poly-weather">
+    <div class="g3">
+      <div class="w acp">
+        <div class="wtitle"><div class="dot"></div>Aktive Weather Bets</div>
+        <div class="big">8</div>
+        <div class="sub">NYC(2) LON(2) SEO(1) TYO(1) CHI(1) PAR(1)</div>
+      </div>
+      <div class="w acp">
+        <div class="wtitle"><div class="dot"></div>Unrealized P&L</div>
+        <div class="big pos">+$47.20</div>
+        <div class="sub">↑ +11.4% auf $413 deployed</div>
+      </div>
+      <div class="w acp">
+        <div class="wtitle"><div class="dot"></div>Avg Ensemble Conf</div>
+        <div class="big" style="color:var(--orange)">0.64</div>
+        <div class="sub">Gate: 0.55 — 7/8 über Gate</div>
+        <div class="cbar"><div class="cfill" style="width:64%;background:var(--orange)"></div></div>
+      </div>
+    </div>
+
+    <div class="w">
+      <div class="wtitle"><div class="dot"></div>Tier-1 Stationen — Live Forecast</div>
+      <div class="g6">
+        <div class="scard">
+          <div class="sicao">KLGA</div><div class="scity">New York City</div>
+          <div class="stemp">58°F</div>
+          <div class="sfcast">GFS:57 HRRR:59 ECMWF:58</div>
+          <div class="chips">
+            <span class="chip cok">GFS ✓</span>
+            <span class="chip cok">HRRR ✓</span>
+            <span class="chip cok">ECMWF ✓</span>
+          </div>
+        </div>
+        <div class="scard">
+          <div class="sicao">EGLC</div><div class="scity">London City</div>
+          <div class="stemp">13°C</div>
+          <div class="sfcast">ECMWF:13 ICON:12 GFS:14</div>
+          <div class="chips">
+            <span class="chip cok">ECMWF ✓</span>
+            <span class="chip csp">ICON ±</span>
+            <span class="chip cok">GFS ✓</span>
+          </div>
+        </div>
+        <div class="scard">
+          <div class="sicao">RKSI</div><div class="scity">Seoul Incheon</div>
+          <div class="stemp">9°C</div>
+          <div class="sfcast">GFS:9 (bias −1.98) → 7.0</div>
+          <div class="chips">
+            <span class="chip cok">GFS ✓ b</span>
+            <span class="chip cok">ECMWF ✓</span>
+          </div>
+        </div>
+        <div class="scard">
+          <div class="sicao">KORD</div><div class="scity">Chicago O'Hare</div>
+          <div class="stemp">52°F</div>
+          <div class="sfcast">GFS:51 HRRR:53 NAM:52</div>
+          <div class="chips">
+            <span class="chip cok">GFS ✓</span>
+            <span class="chip cok">HRRR ✓</span>
+            <span class="chip cna">NAM —</span>
+          </div>
+        </div>
+        <div class="scard">
+          <div class="sicao">RJTT</div><div class="scity">Tokyo Haneda</div>
+          <div class="stemp">18°C</div>
+          <div class="sfcast">ECMWF:18 GFS:19 ICON:17</div>
+          <div class="chips">
+            <span class="chip cok">ECMWF ✓</span>
+            <span class="chip csp">GFS ±</span>
+            <span class="chip csp">ICON ±</span>
+          </div>
+        </div>
+        <div class="scard">
+          <div class="sicao">LFPG</div><div class="scity">Paris CDG</div>
+          <div class="stemp">15°C</div>
+          <div class="sfcast">ECMWF:15 ICON:15 GFS:16</div>
+          <div class="chips">
+            <span class="chip cok">ECMWF ✓</span>
+            <span class="chip cok">ICON ✓</span>
+            <span class="chip cna">GFS —</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="g2">
+      <div class="w">
+        <div class="wtitle"><div class="dot"></div>Aktive Positionen (8)</div>
+        <div class="twrap">
+          <table class="t">
+            <thead><tr><th>Markt</th><th>Side</th><th>Entry</th><th>Now</th><th>P&L</th></tr></thead>
+            <tbody>
+              <tr><td>NYC &gt;60°F</td><td><span class="badge by">YES</span></td><td>0.38</td><td>0.52</td><td class="pos">+$6.72</td></tr>
+              <tr><td>NYC &lt;62°F</td><td><span class="badge by">YES</span></td><td>0.44</td><td>0.61</td><td class="pos">+$8.50</td></tr>
+              <tr><td>LON &gt;14°C</td><td><span class="badge bn">NO</span></td><td>0.71</td><td>0.68</td><td class="pos">+$1.80</td></tr>
+              <tr><td>LON &lt;16°C</td><td><span class="badge by">YES</span></td><td>0.55</td><td>0.71</td><td class="pos">+$9.60</td></tr>
+              <tr><td>SEO &lt;10°C</td><td><span class="badge by">YES</span></td><td>0.55</td><td>0.60</td><td class="pos">+$3.40</td></tr>
+              <tr><td>TYO &gt;19°C</td><td><span class="badge bn">NO</span></td><td>0.62</td><td>0.64</td><td class="neg">−$1.98</td></tr>
+              <tr><td>CHI &gt;55°F</td><td><span class="badge by">YES</span></td><td>0.41</td><td>0.58</td><td class="pos">+$12.40</td></tr>
+              <tr><td>PAR &lt;18°C</td><td><span class="badge by">YES</span></td><td>0.48</td><td>0.53</td><td class="pos">+$6.76</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="w">
+        <div class="wtitle"><div class="dot"></div>Quarter-Kelly — Letztes Signal</div>
+        <div style="font-size:9px;color:var(--muted);margin-bottom:7px">NYC High &gt;60°F · YES @ 0.38 · P_true=0.62</div>
+        <div class="kr"><span class="kl">Edge (YES)</span><span class="kv2">+0.24</span></div>
+        <div class="kr"><span class="kl">Full-Kelly f</span><span class="kv2">0.387</span></div>
+        <div class="kr"><span class="kl">Quarter-Kelly f</span><span class="kv2">0.097</span></div>
+        <div class="kr"><span class="kl">Raw Stake</span><span class="kv2">$74.80</span></div>
+        <div class="kr"><span class="kl">Bankroll Cap 5%</span><span class="kv2">$38.83 ✂</span></div>
+        <div class="kr"><span class="kl">Final Stake</span><span class="kv2 pos">$38.00</span></div>
+        <div class="kr"><span class="kl">Ensemble Gate</span><span class="badge bp">PASS 0.71</span></div>
+        <div class="kr"><span class="kl">Models</span><span class="kv2">GFS · HRRR · ECMWF</span></div>
+      </div>
+    </div>
+  </div><!-- /poly-weather -->
+
+  <!-- ─── POLY / GEOPOLITIK ────────────────────────────────────── -->
+  <div class="panel" id="pnl-poly-geo">
+    <div class="g3">
+      <div class="w acp">
+        <div class="wtitle"><div class="dot"></div>Geo Bets Aktiv</div>
+        <div class="big">5</div>
+        <div class="sub">US(2) EU(2) Global(1)</div>
+      </div>
+      <div class="w acp">
+        <div class="wtitle"><div class="dot"></div>Geo P&L</div>
+        <div class="big pos">+$44.03</div>
+        <div class="sub">↑ vom heutigen +$91.23</div>
+      </div>
+      <div class="w acp">
+        <div class="wtitle"><div class="dot"></div>Pipeline</div>
+        <div class="big">3</div>
+        <div class="sub">2 kein Edge · 1 Gate fail</div>
+      </div>
+    </div>
+    <div class="w">
+      <div class="wtitle"><div class="dot"></div>Geopolitik Signale</div>
+      <div class="gr">
+        <span class="gf">🇺🇸</span>
+        <div class="gi"><div class="gm">Trump Approval &gt;44% Ende April?</div><div class="gsb">Closes 2026-04-30 · Vol $84k</div></div>
+        <div><div class="gp">0.58</div><div class="ge">edge +0.09</div></div>
+        <span class="badge by">YES</span>
+      </div>
+      <div class="gr">
+        <span class="gf">🇷🇺</span>
+        <div class="gi"><div class="gm">Russia-Ukraine Ceasefire Q2 2026?</div><div class="gsb">Closes 2026-06-30 · Vol $241k</div></div>
+        <div><div class="gp">0.31</div><div class="ge">edge +0.06</div></div>
+        <span class="badge by">YES</span>
+      </div>
+      <div class="gr">
+        <span class="gf">🇩🇪</span>
+        <div class="gi"><div class="gm">Merz bleibt Kanzler bis 2027?</div><div class="gsb">Closes 2027-01-01 · Vol $38k</div></div>
+        <div><div class="gp">0.74</div><div class="ge" style="color:var(--muted)">gate fail 0.42</div></div>
+        <span class="badge bw">SKIP</span>
+      </div>
+      <div class="gr">
+        <span class="gf">🇫🇷</span>
+        <div class="gi"><div class="gm">Macron Zustimmung &gt;30% Q2?</div><div class="gsb">Closes 2026-06-30 · Vol $18k</div></div>
+        <div><div class="gp">0.62</div><div class="ge">edge +0.11</div></div>
+        <span class="badge by">YES</span>
+      </div>
+      <div class="gr">
+        <span class="gf">🇨🇳</span>
+        <div class="gi"><div class="gm">US–China Tariff Deal vor Juli?</div><div class="gsb">Closes 2026-07-01 · Vol $112k</div></div>
+        <div><div class="gp" style="color:var(--red)">0.22</div><div class="ge" style="color:var(--muted)">no edge</div></div>
+        <span class="badge bw">SKIP</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── POLY / SPORTS — PLANNED ────────────────────────────── -->
+  <div class="panel" id="pnl-poly-sports">
+    <div class="planned">
+      <div class="ptitle">⚽ Sports Markets</div>
+      <div class="pphase">COMING — PHASE 3</div>
+      <div class="pmeta">
+        <div class="pmeta-item"><div class="pmeta-lbl">Est. Start</div><div class="pmeta-val">Q3 2026</div></div>
+        <div class="pmeta-item"><div class="pmeta-lbl">Est. Edge</div><div class="pmeta-val">4–8% p.a.</div></div>
+        <div class="pmeta-item"><div class="pmeta-lbl">Priorität</div><div class="pmeta-val">Mittel</div></div>
+      </div>
+      <ul class="pnotes">
+        <li>Target: Bundesliga / Champions League Wettbewerbe</li>
+        <li>Datenquelle: Opta API + historical Polymarket accuracy</li>
+        <li>Signal: Kelly nur wenn Implied Prob &gt;5% unter Opta-Modell</li>
+        <li>Blocker: Opta API-Lizenz — evaluiere kostenlose Alternativen (SofaScore)</li>
+        <li>ETA: nach Weather-Phase-2-Stabilisierung (Q3 2026)</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ─── POLY / ENTERTAINMENT — PLANNED ─────────────────────── -->
+  <div class="panel" id="pnl-poly-ent">
+    <div class="planned">
+      <div class="ptitle">🎭 Entertainment Markets</div>
+      <div class="pphase">COMING — PHASE 4</div>
+      <div class="pmeta">
+        <div class="pmeta-item"><div class="pmeta-lbl">Est. Start</div><div class="pmeta-val">Q4 2026</div></div>
+        <div class="pmeta-item"><div class="pmeta-lbl">Est. Edge</div><div class="pmeta-val">3–6% p.a.</div></div>
+        <div class="pmeta-item"><div class="pmeta-lbl">Priorität</div><div class="pmeta-val">Niedrig</div></div>
+      </div>
+      <ul class="pnotes">
+        <li>Oscar / Grammy / Emmy — Prediction Markets mit hohem Volumen</li>
+        <li>Signal: Sentiment-Score aus Rotten Tomatoes + Twitter-Volume-Delta</li>
+        <li>Hohe Volatilität vor Announcement → Kelly konservativ (0.10×)</li>
+        <li>Pilot: Cannes Palme-d'Or 2026 als Testlauf</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ─── POLY / CRYPTO-MACRO — PLANNED ──────────────────────── -->
+  <div class="panel" id="pnl-poly-macro">
+    <div class="planned">
+      <div class="ptitle">📈 Crypto/Macro Markets</div>
+      <div class="pphase">COMING — PHASE 3</div>
+      <div class="pmeta">
+        <div class="pmeta-item"><div class="pmeta-lbl">Est. Start</div><div class="pmeta-val">Q3 2026</div></div>
+        <div class="pmeta-item"><div class="pmeta-lbl">Est. Edge</div><div class="pmeta-val">6–12% p.a.</div></div>
+        <div class="pmeta-item"><div class="pmeta-lbl">Priorität</div><div class="pmeta-val">Hoch</div></div>
+      </div>
+      <ul class="pnotes">
+        <li>BTC End-of-Month Preis, ETH ATH-Märkte — hochliquide, gut kalibriert</li>
+        <li>Fed Rate Decision, CPI Miss/Beat — Cross-Reference mit Kalshi-Events</li>
+        <li>Signal: Kointegration Implied-P vs. CME Futures Pricing</li>
+        <li>Edge-Quelle: Polymarket typisch 3–8% hinter Institutional-Pricing</li>
+        <li>Datenquelle: Crypto.com MCP (bereits verbunden) + FRED API</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ─── CRYPTO / FUNDING ARB — PLANNED ─────────────────────── -->
+  <div class="panel" id="pnl-crypto-funding">
+    <div class="planned" style="border-color:rgba(255,215,0,.2)">
+      <div class="ptitle" style="color:var(--crypto-dim)">📈 Funding Rate Arbitrage</div>
+      <div class="pphase">COMING — PHASE 2</div>
+      <div class="pmeta">
+        <div class="pmeta-item"><div class="pmeta-lbl">Est. Start</div><div class="pmeta-val">Q4 2026</div></div>
+        <div class="pmeta-item"><div class="pmeta-lbl">Est. Edge</div><div class="pmeta-val">8–15% p.a.</div></div>
+        <div class="pmeta-item"><div class="pmeta-lbl">Min Capital</div><div class="pmeta-val">$2.000</div></div>
+      </div>
+      <ul class="pnotes">
+        <li>Long Spot / Short Perp wenn Funding &gt;0.05%/8h</li>
+        <li>Target Exchanges: Binance, Bybit, OKX</li>
+        <li>Datenquelle: Crypto.com MCP + coinglass.com API</li>
+        <li>Risk: Liquidation bei extremen Moves → Max 2× Leverage</li>
+        <li>Min Edge: Funding Yield &gt; Gas + Slippage + 0.5% Buffer</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ─── CRYPTO / BASIS TRADE — PLANNED ─────────────────────── -->
+  <div class="panel" id="pnl-crypto-basis">
+    <div class="planned" style="border-color:rgba(255,215,0,.2)">
+      <div class="ptitle" style="color:var(--crypto-dim)">⚡ Basis Trade (Cash & Carry)</div>
+      <div class="pphase">COMING — PHASE 2</div>
+      <div class="pmeta">
+        <div class="pmeta-item"><div class="pmeta-lbl">Est. Start</div><div class="pmeta-val">Q4 2026</div></div>
+        <div class="pmeta-item"><div class="pmeta-lbl">Est. Edge</div><div class="pmeta-val">6–10% p.a.</div></div>
+        <div class="pmeta-item"><div class="pmeta-lbl">Min Capital</div><div class="pmeta-val">$5.000</div></div>
+      </div>
+      <ul class="pnotes">
+        <li>Long Spot BTC/ETH + Short Quarterly Future bei Contango &gt;8% ann.</li>
+        <li>Rollover-Risk: Spread kann sich bei Crash schließen → Stop-Loss</li>
+        <li>Capital: Separates Wallet, kein Overlap mit Polymarket-Budget</li>
+        <li>Datenquelle: CME Futures via Interactive Brokers API</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ─── KALSHI / TEMPERATURE — PLANNED ─────────────────────── -->
+  <div class="panel" id="pnl-kalshi-temp">
+    <div class="planned" style="border-color:rgba(0,170,255,.2)">
+      <div class="ptitle" style="color:var(--kalshi-dim)">🌡 Kalshi Temperature Markets</div>
+      <div class="pphase">COMING — PHASE 3</div>
+      <div class="pmeta">
+        <div class="pmeta-item"><div class="pmeta-lbl">Est. Start</div><div class="pmeta-val">Q3 2026</div></div>
+        <div class="pmeta-item"><div class="pmeta-lbl">Est. Edge</div><div class="pmeta-val">Cross-Arb 2–5%</div></div>
+        <div class="pmeta-item"><div class="pmeta-lbl">Status</div><div class="pmeta-val" style="color:var(--poly)">Scraper LIVE</div></div>
+      </div>
+      <ul class="pnotes">
+        <li>Kalshi-Scraper bereits implementiert (integrations/kalshi_scraper.py)</li>
+        <li>12 NYC High-Temp Brackets für 22. April bereits aktiv gelesen</li>
+        <li>Cross-Market: Kalshi-Implied-P vs. Polymarket-Implied-P → Arb wenn &gt;4%</li>
+        <li>Blocker: Kalshi kein EU-Account → Read-Only bleibt vorerst</li>
+        <li>Option: Kalshi-Daten als Signal-Validator für Polymarket-Bets nutzen (Phase 2)</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ─── KALSHI / EVENTS — PLANNED ───────────────────────────── -->
+  <div class="panel" id="pnl-kalshi-events">
+    <div class="planned" style="border-color:rgba(0,170,255,.2)">
+      <div class="ptitle" style="color:var(--kalshi-dim)">🗳 Kalshi Political Events</div>
+      <div class="pphase">COMING — PHASE 3</div>
+      <div class="pmeta">
+        <div class="pmeta-item"><div class="pmeta-lbl">Est. Start</div><div class="pmeta-val">Q4 2026</div></div>
+        <div class="pmeta-item"><div class="pmeta-lbl">Est. Edge</div><div class="pmeta-val">5–9% p.a.</div></div>
+      </div>
+      <ul class="pnotes">
+        <li>Fed Rate Decision, CPI, NFP — hochliquide, gut-kalibrierte Märkte</li>
+        <li>Cross-Reference mit Polymarket-Geo-Modul für Doppelvalidierung</li>
+        <li>Benötigt US-Account oder EU-kompatible Alternative</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ─── AIRDROP — PLANNED ────────────────────────────────────── -->
+  <div class="panel" id="pnl-airdrop-farm">
+    <div class="planned" style="border-color:rgba(170,0,255,.2)">
+      <div class="ptitle" style="color:var(--airdrop-dim)">🪂 Airdrop Farming</div>
+      <div class="pphase">COMING — PHASE 5</div>
+      <div class="pmeta">
+        <div class="pmeta-item"><div class="pmeta-lbl">Est. Start</div><div class="pmeta-val">Q1 2027</div></div>
+        <div class="pmeta-item"><div class="pmeta-lbl">Est. Return</div><div class="pmeta-val">Variable</div></div>
+        <div class="pmeta-item"><div class="pmeta-lbl">Max Budget</div><div class="pmeta-val">10% Portfolio</div></div>
+      </div>
+      <ul class="pnotes">
+        <li>Target Protocols: Eigenlayer, Berachain, Monad (TGE 2026/27)</li>
+        <li>Strategie: On-Chain Aktivität (Swaps, Staking, Bridging) für Snapshot-Eligibility</li>
+        <li>Separates Wallet pro Protokoll — kein Overlap mit Trading-Budget</li>
+        <li>Tracking: Eigener State-Manager für Wallet-Aktivität und Snapshot-Dates</li>
+        <li>Risk: Rug, kein TGE, oder Airdrop unter Break-Even-Schwelle</li>
+      </ul>
+    </div>
+  </div>
+
+</main>
+
+<!-- ══════════ RIGHT SIDEBAR ═══════════════════════════════════ -->
+<aside id="rt">
+
+  <div class="sect">
+    <div class="stitle">Nächste Resolutions</div>
+    <div class="ri">
+      <div class="rmkt">NYC High &gt;60°F Apr 22</div>
+      <div class="rmeta"><span>KLGA · YES · $38</span><span class="rtimer urg">3h 46m</span></div>
+    </div>
+    <div class="ri">
+      <div class="rmkt">NYC High &lt;62°F Apr 22</div>
+      <div class="rmeta"><span>KLGA · YES · $32</span><span class="rtimer urg">3h 46m</span></div>
+    </div>
+    <div class="ri">
+      <div class="rmkt">CHI High &gt;55°F Apr 22</div>
+      <div class="rmeta"><span>KORD · YES · $41</span><span class="rtimer">5h 20m</span></div>
+    </div>
+    <div class="ri">
+      <div class="rmkt">LON High &gt;14°C Apr 22</div>
+      <div class="rmeta"><span>EGLC · NO · $28</span><span class="rtimer">6h 12m</span></div>
+    </div>
+    <div class="ri">
+      <div class="rmkt">SEO High &lt;10°C Apr 22</div>
+      <div class="rmeta"><span>RKSI · YES · $22</span><span class="rtimer">8h 55m</span></div>
+    </div>
+    <div class="ri">
+      <div class="rmkt">TYO High &gt;19°C Apr 22</div>
+      <div class="rmeta"><span>RJTT · NO · $34</span><span class="rtimer">11h 03m</span></div>
+    </div>
+    <div class="ri">
+      <div class="rmkt">Trump Approval &gt;44%</div>
+      <div class="rmeta"><span>GEO · YES · $48</span><span class="rtimer">8d 16h</span></div>
+    </div>
+  </div>
+
+  <div class="sect">
+    <div class="stitle">Service Health</div>
+    <div class="svc"><span class="svn">Polymarket API</span><span class="svl">48ms</span><div class="svd sv-ok"></div></div>
+    <div class="svc"><span class="svn">Polygon RPC</span><span class="svl">120ms</span><div class="svd sv-ok"></div></div>
+    <div class="svc"><span class="svn">Kalshi API</span><span class="svl">210ms</span><div class="svd sv-ok"></div></div>
+    <div class="svc"><span class="svn">Weather API</span><span class="svl">340ms</span><div class="svd sv-wn"></div></div>
+    <div class="svc"><span class="svn">Telegram</span><span class="svl">—</span><div class="svd sv-ok"></div></div>
+    <div class="svc"><span class="svn">Hetzner SSH</span><span class="svl">22ms</span><div class="svd sv-ok"></div></div>
+  </div>
+
+  <div class="sect">
+    <div class="stitle">Letzte Trades</div>
+    <div class="ti">
+      <div class="th"><span class="tm">NYC &gt;60°F</span><span class="tt">08:12</span></div>
+      <div class="tb">KLGA · YES $38 · Kelly 0.097<br>Conf 0.71 · Gate PASS · +$6.72</div>
+    </div>
+    <div class="ti">
+      <div class="th"><span class="tm">CHI &gt;55°F</span><span class="tt">07:58</span></div>
+      <div class="tb">KORD · YES $41 · Kelly 0.081<br>Conf 0.68 · Gate PASS · +$12.40</div>
+    </div>
+    <div class="ti">
+      <div class="th"><span class="tm">PAR &gt;17°C</span><span class="tt">07:41</span></div>
+      <div class="tb">LFPG · SKIP — Gate 0.42 &lt; 0.55<br>Split: ECMWF 0.72 vs GFS 0.41</div>
+    </div>
+    <div class="ti">
+      <div class="th"><span class="tm">LON &lt;16°C</span><span class="tt">06:30</span></div>
+      <div class="tb">EGLC · YES $35 · Conf 0.68<br>3-Model agree · +$9.60</div>
+    </div>
+  </div>
+
+</aside>
+
+<!-- ══════════ JAVASCRIPT ════════════════════════════════════════ -->
+<script>
+const STRATS = {
+  poly:   [
+    {id:'weather', label:'🌤 Weather',      status:'live'},
+    {id:'geo',     label:'🌍 Geopolitik',   status:'live'},
+    {id:'sports',  label:'⚽ Sports',       status:'planned', phase:'3'},
+    {id:'ent',     label:'🎭 Entertainment',status:'planned', phase:'4'},
+    {id:'macro',   label:'📈 Crypto/Macro', status:'planned', phase:'3'},
+  ],
+  crypto: [
+    {id:'funding', label:'💸 Funding Arb',  status:'planned', phase:'2'},
+    {id:'basis',   label:'⚡ Basis Trade',  status:'planned', phase:'2'},
+  ],
+  kalshi: [
+    {id:'temp',    label:'🌡 Temperature',  status:'planned', phase:'3'},
+    {id:'events',  label:'🗳 Events',       status:'planned', phase:'3'},
+  ],
+  airdrop:[
+    {id:'farm',    label:'🪂 Farming',      status:'planned', phase:'5'},
+  ],
+};
+
+const COLORS = {
+  poly:   {acc:'#00ff88',dim:'#00a855',gl:'rgba(0,255,136,.12)',   label:'POLYMARKET'},
+  crypto: {acc:'#ffd700',dim:'#a88e00',gl:'rgba(255,215,0,.12)',   label:'CRYPTO'},
+  kalshi: {acc:'#00aaff',dim:'#006faa',gl:'rgba(0,170,255,.12)',   label:'KALSHI'},
+  airdrop:{acc:'#aa00ff',dim:'#7700bb',gl:'rgba(170,0,255,.12)',   label:'AIRDROP'},
+};
+
+let curPlat='poly', curStrat='weather';
+
+function setAccent(plat){
+  const c=COLORS[plat];
+  const r=document.documentElement.style;
+  r.setProperty('--acc',    c.acc);
+  r.setProperty('--acc-dim',c.dim);
+  r.setProperty('--acc-gl', c.gl);
+}
+
+function switchPlat(p){
+  curPlat=p;
+  document.querySelectorAll('.ptab').forEach(t=>t.classList.remove('active'));
+  const t=document.querySelector(`.ptab[data-p="${p}"]`);
+  t.classList.add('active');
+  t.style.color=COLORS[p].acc;
+  t.style.borderColor=COLORS[p].acc;
+  t.style.background=COLORS[p].gl;
+  // reset others
+  document.querySelectorAll('.ptab:not(.active)').forEach(x=>{
+    x.style.color='';x.style.borderColor='';x.style.background='';
+  });
+
+  setAccent(p);
+
+  const ctx=document.getElementById('ctx-badge');
+  ctx.textContent=COLORS[p].label;
+  ctx.style.color=COLORS[p].acc;
+  ctx.style.borderColor=COLORS[p].acc;
+  ctx.style.background=COLORS[p].gl;
+
+  buildStrats(p);
+  const first=STRATS[p].find(s=>s.status==='live')||STRATS[p][0];
+  switchStrat(p,first.id);
+}
+
+function buildStrats(p){
+  const bar=document.getElementById('strat-bar');
+  bar.innerHTML='';
+  STRATS[p].forEach(s=>{
+    const b=document.createElement('button');
+    b.className=`stab ${s.status==='live'?'slive':'splanned'}`;
+    b.setAttribute('data-s',s.id);
+    const badge=s.status==='live'
+      ? `<span class="pbadge" style="background:rgba(0,255,136,.1);color:var(--poly);border:1px solid var(--poly)">LIVE</span>`
+      : `<span class="pbadge">PHASE ${s.phase}</span>`;
+    b.innerHTML=s.label+' '+badge;
+    if(s.status==='live') b.onclick=()=>switchStrat(p,s.id);
+    bar.appendChild(b);
+  });
+}
+
+function switchStrat(p,s){
+  curStrat=s;
+  document.querySelectorAll('.stab').forEach(t=>t.classList.remove('active'));
+  const t=document.querySelector(`.stab[data-s="${s}"]`);
+  if(t) t.classList.add('active');
+  document.querySelectorAll('.panel').forEach(x=>x.classList.remove('active'));
+  const pnl=document.getElementById(`pnl-${p}-${s}`);
+  if(pnl) pnl.classList.add('active');
+}
+
+function killAll(){
+  if(!confirm('⚠️ KILL ALL\n\nAlle 16 offenen Positionen sofort schließen?\nDas kann nicht rückgängig gemacht werden.')) return;
+  const b=document.querySelector('.kill');
+  b.textContent='⏳ CLOSING...';
+  setTimeout(()=>{b.textContent='✅ ALL CLOSED';b.style.color='#00ff88';b.style.borderColor='#00ff88';},1400);
+}
+
+// Clock
+function tick(){
+  const n=new Date(),pad=x=>String(x).padStart(2,'0');
+  document.getElementById('clock').textContent=
+    `${n.getUTCFullYear()}-${pad(n.getUTCMonth()+1)}-${pad(n.getUTCDate())} `+
+    `${pad(n.getUTCHours())}:${pad(n.getUTCMinutes())}:${pad(n.getUTCSeconds())} UTC`;
+}
+setInterval(tick,1000); tick();
+
+// Init
+buildStrats('poly');
+switchStrat('poly','weather');
+setAccent('poly');
+// apply active style to poly tab on load
+(()=>{const t=document.querySelector('.ptab[data-p="poly"]');
+  t.style.color=COLORS.poly.acc;t.style.borderColor=COLORS.poly.acc;t.style.background=COLORS.poly.gl;
+})();
+</script>
+</body>
+</html>

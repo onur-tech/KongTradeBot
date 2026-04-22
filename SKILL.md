@@ -18,3 +18,6 @@ arbeiten und entscheiden soll.
     oder zum Collective-Modell:
     - COLLECTIVE_VISION.md (Governance, Roadmap, Entscheidungslogik)
     Peer-Modell gilt — keine Chef-Empfehlungen.
+13. Vor jedem größeren Feature/Refactor: docs/AUDIT_INDEX.md konsultieren.
+    Verbindlicher Audit: docs/AUDIT_2026-04-22.md (Strategic Audit 22.04.2026).
+    Audit-Empfehlung > kurzfristiger Wunsch; Abweichung begründen.

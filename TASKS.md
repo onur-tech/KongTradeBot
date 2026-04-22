@@ -1,5 +1,41 @@
 # KongTrade Bot — Task Tracking
-_Stand: 2026-04-21 23:00 Berlin_
+_Stand: 2026-04-22 | Audit-Roadmap ergänzt_
+
+---
+
+## PRIORITÄT 1 — AUDIT-ROADMAP (aus Strategic Audit 22.04.2026)
+
+### Nächste 7 Tage
+- [ ] Trade-Metadaten-Schema implementieren (SQLite, 40+ Felder)
+- [ ] Reconciliation-Loop gegen Data-API (60s)
+- [ ] Signature-Type-Self-Check beim Bot-Start
+- [ ] Edge-Realized-Metrik auf Dashboard (statt WR-Prominenz)
+- [ ] WR + ROI nebeneinander auf Wallet-Tracker
+
+### Nächste 30 Tage
+- [ ] Slippage-Protection mit VWAP-Pre-Check
+- [ ] Dead-Man-Switch extern (Healthchecks.io)
+- [ ] Circuit Breaker 3-Level-Kaskade
+- [ ] Fractional-Kelly-Sizing (Quarter-Kelly)
+- [ ] Hard-Stop mit Thesis-Invalidation-Hook
+- [ ] Latency-Monitoring via OpenTelemetry
+- [ ] Erste Auswertung nach 50 Trades
+- [ ] Signal-Score-System live
+
+### Nächste 90 Tage
+- [ ] Wallet-Decay-Detection (CUSUM + Rolling Sharpe)
+- [ ] Correlation-Filter (Cluster-Exposure)
+- [ ] Whale-Deposit/Withdrawal-Tracking
+- [ ] News-Impact-Dampener
+- [ ] A/B-Test via Shadow Portfolio
+- [ ] Walk-Forward-OOS-Validation monatlich
+- [ ] Probabilistic Sharpe Ratio im Dashboard
+- [ ] Shadow-Live-Phase ($5–10/Trade)
+- [ ] Live-Transition-Entscheidung
+
+> Referenz: docs/AUDIT_2026-04-22.md
+
+---
 
 ## DONE — 19. April 2026
 

@@ -149,12 +149,13 @@ button:hover{background:rgba(0,255,136,.08)}
 </head>
 <body>
 <div class="box">
+  <img src="/static/logo.png" alt="Kong" style="width:80px;height:80px;border-radius:50%;object-fit:cover;display:block;margin:0 auto 16px">
   <div class="logo">KONG<span>TRADE</span></div>
   <div class="subtitle">DASHBOARD ACCESS</div>
   <form method="POST" action="/login">
-    <input type="email" name="email" placeholder="E-Mail" autofocus autocomplete="username">
-    <input type="password" name="password" placeholder="Passwort" autocomplete="current-password">
-    <button type="submit">EINLOGGEN</button>
+    <input type="text" name="username" placeholder="USERNAME" autofocus autocomplete="username">
+    <input type="password" name="password" placeholder="PASSWORD" autocomplete="current-password">
+    <button type="submit">// ACCESS</button>
   </form>
   {error}
 </div>
@@ -165,32 +166,26 @@ button:hover{background:rgba(0,255,136,.08)}
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "POST":
-        email    = request.form.get("email", "").strip().lower()
+        username = request.form.get("username", "").strip().lower()
         pw       = request.form.get("password", "")
         pw_hash  = hashlib.sha256(pw.encode()).hexdigest()
 
         user = next(
             (u for u in _load_users()
-             if u["email"].lower() == email and u["password_hash"] == pw_hash),
+             if u["username"].lower() == username and u["password_hash"] == pw_hash),
             None,
         )
-
-        # Fallback: altes Klartext-Passwort (für Übergangszeitraum)
-        if user is None:
-            fallback_pwd = _get_dashboard_password()
-            if fallback_pwd and pw == fallback_pwd:
-                user = {"email": email or "admin", "role": "admin", "name": "Admin"}
 
         if user:
             session.permanent = True
             session["authenticated"] = True
-            session["email"]          = user["email"]
+            session["username"]       = user["username"]
             session["role"]           = user.get("role", "viewer")
             session["name"]           = user.get("name", "User")
             return redirect("/")
 
         return LOGIN_HTML.replace(
-            "{error}", '<div class="err">Falsche E-Mail oder Passwort</div>')
+            "{error}", '<div class="err">Falscher Username oder Passwort</div>')
 
     if session.get("authenticated"):
         return redirect("/")
@@ -204,12 +199,13 @@ def logout():
 
 
 @app.route("/api/me")
+@app.route("/api/whoami")
 @login_required
 def api_me():
     return _cors(jsonify({
-        "email": session.get("email", ""),
-        "name":  session.get("name", ""),
-        "role":  session.get("role", "viewer"),
+        "username": session.get("username", ""),
+        "name":     session.get("name", ""),
+        "role":     session.get("role", "viewer"),
     }))
 
 
@@ -220,29 +216,29 @@ def add_user():
         return "Kein Zugriff", 403
 
     if request.method == "POST":
-        email = request.form.get("email", "").strip()
-        pw    = request.form.get("password", "")
-        name  = request.form.get("name", "")
-        role  = request.form.get("role", "viewer")
+        username = request.form.get("username", "").strip().lower()
+        pw       = request.form.get("password", "")
+        name     = request.form.get("name", "")
+        role     = request.form.get("role", "viewer")
 
-        if not email or not pw:
-            return "E-Mail und Passwort erforderlich", 400
+        if not username or not pw:
+            return "Username und Passwort erforderlich", 400
 
         users_file = BASE_DIR / "data" / "users.json"
         users = _load_users()
 
-        if any(u["email"].lower() == email.lower() for u in users):
+        if any(u["username"].lower() == username for u in users):
             return "User existiert bereits", 400
 
         users.append({
-            "email":         email,
+            "username":      username,
             "password_hash": hashlib.sha256(pw.encode()).hexdigest(),
             "role":          role,
             "name":          name,
         })
         users_file.write_text(json.dumps(users, indent=2))
         return f"""<html><body style="font-family:monospace;background:#111;color:#eee;padding:20px">
-        ✅ User <b>{email}</b> ({role}) erstellt.<br><br>
+        ✅ User <b>{username}</b> ({role}) erstellt.<br><br>
         <a href="/admin/add-user" style="color:#00ff88">Weiteren hinzufügen</a> |
         <a href="/" style="color:#00ff88">Dashboard</a>
         </body></html>"""
@@ -251,7 +247,7 @@ def add_user():
     <h2 style="color:#00ff88;margin-bottom:20px">Neuen User hinzufügen</h2>
     <form method="POST" style="max-width:320px">
       <input name="name" placeholder="Name" style="display:block;width:100%;margin:6px 0;padding:10px;background:#1a1a2e;color:#eee;border:1px solid #333;border-radius:6px;font-family:monospace">
-      <input name="email" type="email" placeholder="E-Mail" style="display:block;width:100%;margin:6px 0;padding:10px;background:#1a1a2e;color:#eee;border:1px solid #333;border-radius:6px;font-family:monospace">
+      <input name="username" type="text" placeholder="Username" style="display:block;width:100%;margin:6px 0;padding:10px;background:#1a1a2e;color:#eee;border:1px solid #333;border-radius:6px;font-family:monospace">
       <input name="password" type="password" placeholder="Passwort" style="display:block;width:100%;margin:6px 0;padding:10px;background:#1a1a2e;color:#eee;border:1px solid #333;border-radius:6px;font-family:monospace">
       <select name="role" style="display:block;width:100%;margin:6px 0;padding:10px;background:#1a1a2e;color:#eee;border:1px solid #333;border-radius:6px;font-family:monospace">
         <option value="viewer">Viewer</option>
@@ -1064,6 +1060,27 @@ def api_health():
     # Count WS MATCHED events in recent logs
     ws_events_min = sum(1 for l in lines[-60:] if "CONFIRMED" in l or "MATCHED" in l or "NEUER TRADE" in l or "Signal buffered" in l or "Order erstellt" in l)
 
+    # Resolver OK: bot running + (uptime < 20min OR last resolver log < 25min ago)
+    resolver_ok = False
+    if running:
+        if uptime_s is not None and uptime_s < 1200:
+            resolver_ok = True  # Bot gerade gestartet, erster Lauf noch nicht fällig
+        else:
+            import re as _re
+            _ts_pat = _re.compile(r'^(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})')
+            now_dt = datetime.now(timezone.utc).replace(tzinfo=None)
+            for l in reversed(lines):
+                if "resolver_loop" in l or "check_resolved" in l or "aufgelöst" in l.lower():
+                    m = _ts_pat.match(l.strip())
+                    if m:
+                        try:
+                            lt = datetime.strptime(m.group(1), "%Y-%m-%d %H:%M:%S")
+                            if (now_dt - lt).total_seconds() < 1500:
+                                resolver_ok = True
+                            break
+                        except Exception:
+                            pass
+
     return _cors(jsonify({
         "bot_running":    running,
         "bot_pid":        pid,
@@ -1076,6 +1093,7 @@ def api_health():
         "cpu_pct":        cpu_pct,
         "ram_pct":        ram_pct,
         "ws_events_recent": ws_events_min,
+        "resolver_ok":    resolver_ok,
         "balance":        _current_balance.get("value"),
         "balance_ts":     _current_balance.get("ts"),
         "ts":             int(time.time()),
@@ -1556,9 +1574,9 @@ def api_weather_status():
                             f = forecasts[c]
                             stations[icao] = {
                                 "city": city,
-                                "temp": f"{f['today']:.1f}°{f['unit']}",
-                                "tomorrow": f"{f['tomorrow']:.1f}°{f['unit']}",
-                                "forecast": f"Morgen: {f['tomorrow']:.1f}°{f['unit']}",
+                                "temp": f"{f['today']:.1f}°C",
+                                "tomorrow": f"{f['tomorrow']:.1f}°C",
+                                "forecast": f"Morgen: {f['tomorrow']:.1f}°C",
                                 "ts": fc_data.get("timestamp", "")[:19],
                             }
                             break
@@ -2024,6 +2042,9 @@ def api_manual_exit():
     Schreibt Exit-Request in manual_exit_queue.json — der Bot verarbeitet ihn im exit_loop.
     Body: { "condition_id": "0x...", "reason": "profit_taking" }
     """
+    if load_env().get("DRY_RUN", "false").lower() == "true":
+        return jsonify({"ok": False, "error": "DRY_RUN aktiv — manueller Exit gesperrt"}), 403
+
     data         = request.json or {}
     condition_id = (data.get("condition_id") or "").strip()
     reason       = (data.get("reason") or "manual").strip()[:50]

@@ -181,6 +181,7 @@ class ExecutionEngine:
             "orders_attempted": 0,
             "orders_filled": 0,
             "orders_failed": 0,
+            "orders_below_minimum": 0,  # hotfix-2026-04-24: separate from failed
             "orders_pending": 0,
             "dry_run_orders": 0,
             "total_invested_usdc": 0.0,
@@ -342,10 +343,10 @@ class ExecutionEngine:
                     f"⏭️  Order übersprungen (unter Minimum): "
                     f"${order.size_usdc:.2f} < ${min_size:.2f} | {signal.market_question[:50]}"
                 )
-                self.stats["orders_failed"] += 1
+                self.stats["orders_below_minimum"] += 1  # hotfix-2026-04-24: skip, not fail
                 return ExecutionResult(
                     success=False,
-                    error=f"Size ${order.size_usdc:.2f} unter Minimum ${min_size:.2f}"
+                    error=f"BELOW_MIN:${order.size_usdc:.2f}<${min_size:.2f}"
                 )
 
             # Limit-Order-Buffer: +3% über Wallet-Preis um Fill sicherzustellen
@@ -535,7 +536,8 @@ class ExecutionEngine:
         except Exception as e:
             logger.debug(f"Orderbook-Fetch fehlgeschlagen für {token_id[:12]}: {e}")
 
-        return 5.0, 0.01, False  # Safe defaults
+        min_fallback = float(os.getenv("MIN_ORDER_USDC", "5.0"))
+        return min_fallback, 0.01, False  # Safe defaults
 
     @staticmethod
     def _round_to_tick(price: float, tick_size: float) -> float:
@@ -566,20 +568,19 @@ class ExecutionEngine:
             # NIEMALS update_balance_allowance() aufrufen nach einem Fill!
             # Das überschreibt den internen CLOB-State!
             loop = asyncio.get_event_loop()
-            if BalanceAllowanceParams is not None:
-                params = BalanceAllowanceParams(asset_type=AssetType.CONDITIONAL, token_id=token_id)
-                balance = await asyncio.wait_for(
-                    loop.run_in_executor(
-                        None,
-                        lambda: self._client.get_balance_allowance(params=params)
-                    ),
-                    timeout=10.0,
-                )
-            else:
-                balance = await asyncio.wait_for(
-                    loop.run_in_executor(None, self._client.get_balance_allowance),
-                    timeout=10.0,
-                )
+            if BalanceAllowanceParams is None:
+                # hotfix-2026-04-24: calling get_balance_allowance() without BalanceAllowanceParams
+                # causes 'dict has no attribute signature_type' inside py_clob_client.
+                logger.warning("_verify_order_onchain: BalanceAllowanceParams not available — skip")
+                return False
+            params = BalanceAllowanceParams(asset_type=AssetType.CONDITIONAL, token_id=token_id)
+            balance = await asyncio.wait_for(
+                loop.run_in_executor(
+                    None,
+                    lambda: self._client.get_balance_allowance(params=params)
+                ),
+                timeout=10.0,
+            )
             # Wenn Balance > 0, haben wir Tokens erhalten → Order war erfolgreich
             holdings = float(balance.get("balance", 0) or 0)
             return holdings > 0

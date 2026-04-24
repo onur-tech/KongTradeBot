@@ -579,8 +579,8 @@ class WalletMonitor:
         """Eine WS-Session: verbinden, subscriben, Nachrichten empfangen."""
         async with websockets.connect(
             self.WS_URL,
-            ping_interval=None,
-            ping_timeout=None,
+            ping_interval=20,   # hotfix-2026-04-24: WS-level ping so dead connections are detected
+            ping_timeout=15,
             close_timeout=5,
         ) as ws:
             logger.info(f"[WS] Verbunden mit {self.WS_URL}")

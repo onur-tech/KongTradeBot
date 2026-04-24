@@ -1635,14 +1635,22 @@ async def main():
 
         async def heartbeat_loop(interval: int = 60):
             """Writes heartbeat.txt every 60s so watchdog.py can detect offline state quickly."""
-            heartbeat_file = os.path.join(os.path.dirname(__file__), "heartbeat.txt")
+            # hotfix-2026-04-24: write to ROOT dir (watchdog.py + status scripts expect ROOT/heartbeat.txt)
+            # Before Phase-3 refactor, __file__ pointed to root; now it's live_engine/ so we go up one level.
+            heartbeat_file = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "heartbeat.txt")
+            # Write immediately on startup so watchdog sees a fresh timestamp right away
+            try:
+                with open(heartbeat_file, "w", encoding="utf-8") as f:
+                    f.write(datetime.now(timezone.utc).isoformat())
+            except Exception as e:
+                logger.warning(f"Heartbeat initial write failed: {e}")
             while True:
+                await asyncio.sleep(interval)
                 try:
                     with open(heartbeat_file, "w", encoding="utf-8") as f:
                         f.write(datetime.now(timezone.utc).isoformat())
                 except Exception as e:
                     logger.warning(f"Heartbeat write failed: {e}")
-                await asyncio.sleep(interval)
 
         async def clob_allowance_monitor():
             """Prüft alle 15 Min die CLOB-Allowance. Alert nur bei State-Wechsel."""

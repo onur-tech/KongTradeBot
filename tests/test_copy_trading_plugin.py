@@ -421,3 +421,97 @@ def test_plugin_with_production_yaml(monkeypatch):
     p = CopyTradingPlugin(config=cfg, risk=risk, mode="simulation", scfg=scfg)
     assert p._wallet_multiplier("0xbddf61af533ff524d27154e589d2d7a81510c684") == pytest.approx(3.0)
     assert p._wallet_name("0xbddf61af533ff524d27154e589d2d7a81510c684") == "Countryside"
+
+
+# ---------------------------------------------------------------------------
+# 10. Phase 5A: Signal-Scoring, Decay, Category-WR integration
+# ---------------------------------------------------------------------------
+
+@pytest.mark.asyncio
+async def test_phase5a_scoring_enabled_by_default(monkeypatch):
+    """SIGNAL_SCORING_ENABLED=true → scoring layer is active."""
+    monkeypatch.setenv("SIGNAL_SCORING_ENABLED", "true")
+    p = _make_plugin(wallets=[WALLET_C])
+    assert p._scoring_enabled is True
+
+
+@pytest.mark.asyncio
+async def test_phase5a_scoring_disabled_via_env(monkeypatch):
+    """SIGNAL_SCORING_ENABLED=false → scoring layer inactive."""
+    monkeypatch.setenv("SIGNAL_SCORING_ENABLED", "false")
+    p = _make_plugin(wallets=[WALLET_C])
+    assert p._scoring_enabled is False
+
+
+@pytest.mark.asyncio
+async def test_phase5a_category_wr_skip(monkeypatch):
+    """Category-WR check: wallet with poor WR in detected category → signal skipped."""
+    monkeypatch.setenv("CRYPTO_DAILY_SINGLE_SIGNAL", "true")
+    monkeypatch.setenv("SIGNAL_SCORING_ENABLED", "true")
+
+    p = _make_plugin(wallets=[WALLET_C])
+    orders: List[CopyOrder] = []
+    p.on_copy_order = AsyncMock(side_effect=lambda o: orders.append(o))
+
+    # Mock category tracker to reject
+    from unittest.mock import MagicMock
+    p._cat_tracker.should_accept_signal = MagicMock(return_value=False)
+
+    sig = _make_signal(wallet=WALLET_C, question="bitcoin-above 70k today",
+                       token_id="btc_tok", outcome="Yes")
+    await p.handle_signal(sig)
+    await asyncio.sleep(0.01)
+
+    assert len(orders) == 0
+    assert p.stats["orders_skipped"] >= 1
+
+
+@pytest.mark.asyncio
+async def test_phase5a_decay_multiplier_applied(monkeypatch):
+    """Decay monitor adjusting wallet_mult is reflected in order path (no crash)."""
+    monkeypatch.setenv("CRYPTO_DAILY_SINGLE_SIGNAL", "true")
+    monkeypatch.setenv("SIGNAL_SCORING_ENABLED", "true")
+
+    p = _make_plugin(wallets=[WALLET_C])
+    orders: List[CopyOrder] = []
+    p.on_copy_order = AsyncMock(side_effect=lambda o: orders.append(o))
+
+    # Mock decay to return hard downgrade
+    from unittest.mock import MagicMock
+    from core.wallet_decay import WalletDecayDecision
+    p._decay_monitor.evaluate = MagicMock(
+        return_value=WalletDecayDecision(WALLET_C, 1.0, 0.2, "hard_downgrade_roi_below_minus20", {})
+    )
+
+    sig = _make_signal(wallet=WALLET_C, question="bitcoin-above 70k today",
+                       token_id="btc_tok", outcome="Yes")
+    await p.handle_signal(sig)
+    await asyncio.sleep(0.01)
+
+    # Order still created (decay reduces size but doesn't block)
+    assert len(orders) == 1
+    # wallet_multiplier on the order should reflect the decayed value (0.2)
+    assert orders[0].wallet_multiplier == pytest.approx(0.2)
+
+
+@pytest.mark.asyncio
+async def test_phase5a_scoring_disabled_no_decay_applied(monkeypatch):
+    """When scoring disabled, decay monitor is not called."""
+    monkeypatch.setenv("CRYPTO_DAILY_SINGLE_SIGNAL", "true")
+    monkeypatch.setenv("SIGNAL_SCORING_ENABLED", "false")
+
+    p = _make_plugin(wallets=[WALLET_C])
+    orders: List[CopyOrder] = []
+    p.on_copy_order = AsyncMock(side_effect=lambda o: orders.append(o))
+
+    from unittest.mock import MagicMock
+    p._decay_monitor.evaluate = MagicMock()
+
+    sig = _make_signal(wallet=WALLET_C, question="bitcoin-above 70k today",
+                       token_id="btc_tok", outcome="Yes")
+    await p.handle_signal(sig)
+    await asyncio.sleep(0.01)
+
+    # Decay monitor should NOT have been called
+    p._decay_monitor.evaluate.assert_not_called()
+    assert len(orders) == 1

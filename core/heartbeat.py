@@ -45,6 +45,8 @@ async def run(
 
     logger.info(f"[Heartbeat] Started (interval={interval_s}s url={url[:30]}...)")
     consecutive_failures = 0
+    total_pings = 0
+    _LOG_EVERY = max(1, 300 // interval_s)  # INFO-log every ~5 minutes
 
     while True:
         await asyncio.sleep(interval_s)
@@ -54,7 +56,11 @@ async def run(
                 resp = await client.get(url)
                 if resp.status_code == 200:
                     consecutive_failures = 0
-                    logger.debug("[Heartbeat] Ping OK")
+                    total_pings += 1
+                    if total_pings % _LOG_EVERY == 0:
+                        logger.info(f"[Heartbeat] Ping OK (total={total_pings})")
+                    else:
+                        logger.debug("[Heartbeat] Ping OK")
                 else:
                     raise RuntimeError(f"HTTP {resp.status_code}")
         except Exception as exc:

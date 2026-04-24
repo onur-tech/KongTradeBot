@@ -18,7 +18,10 @@ from typing import Dict, List, Optional
 
 from core.plugin_base import Fill, Order, Signal, StrategyPlugin, Tick
 from core.risk_manager import RiskDecision, RiskManager
+from core.signal_scorer import SignalScorer, WalletStats
 from core.strategy_config import StrategyConfig, get as get_strategy_config
+from core.wallet_categories import MarketCategory, WalletCategoryTracker, classify_market
+from core.wallet_decay import WalletDecayMonitor
 from core.wallet_monitor import TradeSignal
 from utils.config import Config
 from utils.logger import get_logger
@@ -148,6 +151,14 @@ class CopyTradingPlugin(StrategyPlugin):
             "orders_skipped": 0,
             "multi_signals": 0,
         }
+
+        # Phase 5A: Optimization Layer (optional — only active when db_path is set)
+        _db = os.environ.get("TRADE_LOGGER_DB", "data/kongtrade.db")
+        self._scorer = SignalScorer()
+        self._decay_monitor = WalletDecayMonitor(db_path=_db)
+        self._cat_tracker = WalletCategoryTracker(db_path=_db)
+        # Set to False to disable 5A features without code changes
+        self._scoring_enabled: bool = os.environ.get("SIGNAL_SCORING_ENABLED", "true").lower() == "true"
 
     # ── helpers ──────────────────────────────────────────────────────────────
 
@@ -401,6 +412,28 @@ class CopyTradingPlugin(StrategyPlugin):
                     perf.win_rate, perf.recent_win_rate, original, wallet_mult,
                 ))
 
+        # 2a. Phase 5A: Wallet-Decay-Check (adjusts wallet_mult via 30d DB stats)
+        if self._scoring_enabled:
+            decay = self._decay_monitor.evaluate(signal.source_wallet, wallet_mult)
+            if decay.adjusted_multiplier != wallet_mult:
+                logger.info(
+                    f"📉 Decay-Adjust [{self._wallet_name(signal.source_wallet)}] "
+                    f"{decay.reason}: {wallet_mult}x → {decay.adjusted_multiplier}x"
+                )
+            wallet_mult = decay.adjusted_multiplier
+
+        # 2b. Phase 5A: Category-WR-Check (skip if wallet below threshold in market's category)
+        if self._scoring_enabled:
+            market_cat = classify_market(signal.market_question or "")
+            if not self._cat_tracker.should_accept_signal(signal.source_wallet, market_cat):
+                logger.info(
+                    f"⏭️ SKIP: reason=CATEGORY_WR_BELOW_THRESHOLD "
+                    f"wallet={signal.source_wallet[:18]} cat={market_cat.value}"
+                )
+                self.stats["orders_skipped"] += 1
+                self._log_signal(signal, "SKIPPED", f"CATEGORY_WR:{market_cat.value}")
+                return
+
         # Early-Entry Bonus
         early_bonus = 1.0
         if getattr(signal, "is_early_entry", False):
@@ -410,7 +443,25 @@ class CopyTradingPlugin(StrategyPlugin):
                 f"Vol: ${getattr(signal, 'market_volume_usd', 0):,.0f}"
             )
 
-        combined = wallet_mult * extra_multiplier * early_bonus
+        # 2c. Phase 5A: Signal-Score → size multiplier
+        score_mult = 1.0
+        if self._scoring_enabled:
+            ws = WalletStats(
+                win_rate=perf.win_rate if perf else 0.5,
+                roi_pct=0.0,           # live ROI not yet tracked in plugin context
+                stddev_returns=0.0,
+                last_trade_days_ago=0,
+                trades_total=perf.trades_total if perf else 0,
+            )
+            score = self._scorer.score(ws)
+            score_mult = self._scorer.score_to_multiplier(score)
+            if score_mult != 1.0:
+                logger.debug(
+                    f"🎯 Signal-Score {score:.0f}/100 → {score_mult}x "
+                    f"[{self._wallet_name(signal.source_wallet)}]"
+                )
+
+        combined = wallet_mult * extra_multiplier * early_bonus * score_mult
         scaled = replace(signal, size_usdc=signal.size_usdc * combined)
 
         if combined != 1.0:

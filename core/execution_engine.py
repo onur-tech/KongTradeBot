@@ -566,20 +566,19 @@ class ExecutionEngine:
             # NIEMALS update_balance_allowance() aufrufen nach einem Fill!
             # Das überschreibt den internen CLOB-State!
             loop = asyncio.get_event_loop()
-            if BalanceAllowanceParams is not None:
-                params = BalanceAllowanceParams(asset_type=AssetType.CONDITIONAL, token_id=token_id)
-                balance = await asyncio.wait_for(
-                    loop.run_in_executor(
-                        None,
-                        lambda: self._client.get_balance_allowance(params=params)
-                    ),
-                    timeout=10.0,
-                )
-            else:
-                balance = await asyncio.wait_for(
-                    loop.run_in_executor(None, self._client.get_balance_allowance),
-                    timeout=10.0,
-                )
+            if BalanceAllowanceParams is None:
+                # hotfix-2026-04-24: calling get_balance_allowance() without BalanceAllowanceParams
+                # causes 'dict has no attribute signature_type' inside py_clob_client.
+                logger.warning("_verify_order_onchain: BalanceAllowanceParams not available — skip")
+                return False
+            params = BalanceAllowanceParams(asset_type=AssetType.CONDITIONAL, token_id=token_id)
+            balance = await asyncio.wait_for(
+                loop.run_in_executor(
+                    None,
+                    lambda: self._client.get_balance_allowance(params=params)
+                ),
+                timeout=10.0,
+            )
             # Wenn Balance > 0, haben wir Tokens erhalten → Order war erfolgreich
             holdings = float(balance.get("balance", 0) or 0)
             return holdings > 0

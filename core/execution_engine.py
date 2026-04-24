@@ -181,6 +181,7 @@ class ExecutionEngine:
             "orders_attempted": 0,
             "orders_filled": 0,
             "orders_failed": 0,
+            "orders_below_minimum": 0,  # hotfix-2026-04-24: separate from failed
             "orders_pending": 0,
             "dry_run_orders": 0,
             "total_invested_usdc": 0.0,
@@ -342,10 +343,10 @@ class ExecutionEngine:
                     f"⏭️  Order übersprungen (unter Minimum): "
                     f"${order.size_usdc:.2f} < ${min_size:.2f} | {signal.market_question[:50]}"
                 )
-                self.stats["orders_failed"] += 1
+                self.stats["orders_below_minimum"] += 1  # hotfix-2026-04-24: skip, not fail
                 return ExecutionResult(
                     success=False,
-                    error=f"Size ${order.size_usdc:.2f} unter Minimum ${min_size:.2f}"
+                    error=f"BELOW_MIN:${order.size_usdc:.2f}<${min_size:.2f}"
                 )
 
             # Limit-Order-Buffer: +3% über Wallet-Preis um Fill sicherzustellen
@@ -535,7 +536,8 @@ class ExecutionEngine:
         except Exception as e:
             logger.debug(f"Orderbook-Fetch fehlgeschlagen für {token_id[:12]}: {e}")
 
-        return 5.0, 0.01, False  # Safe defaults
+        min_fallback = float(os.getenv("MIN_ORDER_USDC", "5.0"))
+        return min_fallback, 0.01, False  # Safe defaults
 
     @staticmethod
     def _round_to_tick(price: float, tick_size: float) -> float:

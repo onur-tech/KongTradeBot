@@ -56,7 +56,7 @@ from core.weather_scout import run_weather_scout
 from core.shadow_portfolio import ShadowPortfolio
 from core.exit_strategy import ExitStrategy, ExitType
 from core.wallet_tracker import WalletTracker
-from strategies.copy_trading import CopyTradingStrategy, CopyOrder
+from strategies.copy_trading_plugin import CopyTradingPlugin, CopyOrder
 from claim_all import claim_loop
 from telegram_bot import (send, msg_trade, msg_status, msg_startup,
                            msg_shutdown, msg_morning_summary, msg_warning,
@@ -640,7 +640,7 @@ async def main():
 
     risk             = RiskManager(config)
     engine           = ExecutionEngine(config)
-    strategy         = CopyTradingStrategy(config, risk)
+    strategy         = CopyTradingPlugin(config, risk, mode="live" if not config.dry_run else "simulation")
     monitor          = WalletMonitor(config)
     anomaly_detector = AnomalyDetector()
     rss_monitor      = RSSMonitor(send_fn=send)
@@ -757,14 +757,13 @@ async def main():
         sig = getattr(order, "signal", None)
         order_id = str(getattr(sig, "tx_hash", "") or id(order))[:16]
         cat = get_category(getattr(sig, "market_question", "") or "")
-        from strategies.copy_trading import get_wallet_name as _gwn
         decision = await send_trade_confirmation(
             order_id         = order_id,
             market           = str(getattr(sig, "market_question", "") or ""),
             outcome          = str(getattr(sig, "outcome", "") or ""),
             size             = float(getattr(order, "size_usdc", 0) or 0),
             price            = float(getattr(sig, "price", 0) or 0),
-            wallet_name      = _gwn(str(getattr(sig, "source_wallet", "") or "")),
+            wallet_name      = strategy._wallet_name(str(getattr(sig, "source_wallet", "") or "")),
             category         = cat,
             dry_run          = config.dry_run,
             is_multi_signal  = getattr(order, "is_multi_signal", False),
@@ -1020,7 +1019,7 @@ async def main():
 
     async def on_whale_exit(pos, sell_signal):
         """Sofortiger Exit wenn tracked Wallet ihre Position verkauft hat."""
-        wallet_name = get_wallet_name(pos.source_wallet)
+        wallet_name = strategy._wallet_name(pos.source_wallet)
         market_short = (pos.market_question or sell_signal.market_question or "")[:60]
 
         # Phase 2.7: Thesis invalidation on whale exit
@@ -1553,7 +1552,7 @@ async def main():
                                             logger.info(f"[Weather] SKIP EVENT_CAP_REACHED: event={_event_id[:16]} bereits {_event_count}/{_event_cap} Outcomes")
                                             continue
                                     from core.wallet_monitor import TradeSignal
-                                    from strategies.copy_trading import CopyOrder
+                                    from strategies.copy_trading_plugin import CopyOrder
                                     _end = opp.get('end_date', '')
                                     _closes_at = None
                                     if _end:

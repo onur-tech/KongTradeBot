@@ -1,0 +1,240 @@
+# KongTrade Copy-Trading Strategy Configuration
+# Editierbar ohne Code-Änderung — Bot-Neustart erforderlich für Reload.
+#
+# wallet_multipliers: Kapital-Multiplikator pro Wallet (0.1 = 10% von COPY_SIZE_MULTIPLIER)
+# wallet_categories:  Spezialisierungs-Filter — Wallet wird nur in diesen Märkten kopiert
+#                     "broad" = kein Filter (handelt alles)
+# wallet_names:       Lesbare Namen für Logs und Telegram-Alerts
+#
+# Env-Vars überschreiben diese Werte zur Laufzeit (WALLET_WEIGHTS als JSON).
+
+# ---------------------------------------------------------------------------
+# Aggregations-Parameter
+# ---------------------------------------------------------------------------
+aggregation:
+  window_s: 60
+  multi_signal_multipliers:
+    1: 1.0
+    2: 1.5
+    3: 2.0
+  herd_fraction: 0.50
+  early_entry_multiplier: 1.5
+  early_entry_volume_usd: 10000
+
+# ---------------------------------------------------------------------------
+# Wallet-Multiplikatoren
+# Unbekannte Wallets bekommen default_multiplier.
+# ---------------------------------------------------------------------------
+default_multiplier: 0.5
+
+wallet_multipliers:
+  # majorexploiter — Sports/UCL, RECAL 2026-04-19 T-M09
+  "0x019782cab5d844f02bafb71f512758be78579f3c": 1.5
+
+  # April#1 Sports — WATCHING 0.3x, WR 46.7%, PnL -$9.8M, Review 2026-05-19
+  "0x492442eab586f242b53bda933fd5de859c8a3782": 0.3
+
+  # HorizonSplendidView — 0 Activity, inaktiv
+  "0x02227b8f5a9636e895607edd3185ed6ee5598ff7": 0.5
+
+  # reachingthesky — Tier B
+  "0xefbc5fec8d7b0acdc8911bdd9a98d6964308f9a2": 1.0
+
+  # HOOK — Tier B, nur 46 Trades, Review 2026-05-19
+  "0x0b7a6030507efe5db145fbb57a25ba0c5f9d86cf": 1.0
+
+  # Countryside — 92% Win Rate
+  "0xbddf61af533ff524d27154e589d2d7a81510c684": 3.0
+
+  # Crypto Spezialist — 65.6% Win Rate
+  "0xde17f7144fbd0eddb2679132c10ff5e74b120988": 2.0
+
+  # BoneReader — 72% Win Rate
+  "0xd84c2b6d65dc596f49c7b6aadd6d74ca91e407b9": 1.5
+
+  # DrPufferfish — 92% Win Rate
+  "0xdb27bf2ac5d428a9c63dbc914611036855a6c56e": 3.0
+
+  # wan123 — negative ROI, Moonshot-Pattern
+  "0xde7be6d489bce070a959e0cb813128ae659b5f4b": 0.5
+
+  # kcnyekchno — 81% Win Rate, konservativ (0 Trades bisher)
+  "0x7177a7f5c216809c577c50c77b12aae81f81ddef": 1.0
+
+  # Erasmus — Geopolitics/Iran, Tier B
+  "0xc6587b11a2209e46dfe3928b31c5514a8e33b784": 0.5
+
+  # TheSpiritofUkraine — Geopolitics seit 2021, Tier B
+  "0x0c0e270cf879583d6a0142fc817e05b768d0434e": 0.3
+
+  # denizz — UCL-Soccer-Spezialist, April Politics #1 +$751k
+  "0xbaa2bcb5439e985ce4ccf815b4700027d1b92c73": 1.0
+
+  # cowcat — ME Longshot +117% ROI, Review 2026-05-05
+  "0x38e59b36aae31b164200d0cad7c3fe5e0ee795e7": 0.3
+
+  # HondaCivic — Weather 85.7% WR
+  "0x15ceffed7bf820cd2d90f90ea24ae9909f5cd5fa": 0.3
+
+  # EFFICIENCYEXPERT — Esports $580K
+  "0x8c0b024c17831a0dde038547b7e791ae6a0d7aa5": 0.3
+
+  # synnet — Tennis $290K Underdogs
+  "0x8e0b7ae246205b1ddf79172148a58a3204139e5c": 0.3
+
+  # middleoftheocean — Soccer 83.1% WR
+  "0x6c743aafd813475986dcd930f380a1f50901bd4e": 0.3
+
+# ---------------------------------------------------------------------------
+# Wallet-Kategorien (Spezialisierungs-Filter)
+# Wallets ohne Eintrag oder mit "broad" handeln in allen Märkten.
+# ---------------------------------------------------------------------------
+wallet_categories:
+  # Sports-Spezialisten
+  "0x492442eab586f242b53bda933fd5de859c8a3782": ["sports"]
+  "0x02227b8f5a9636e895607edd3185ed6ee5598ff7": ["sports", "macro"]
+  "0xefbc5fec8d7b0acdc8911bdd9a98d6964308f9a2": ["sports"]
+  "0xc2e7800b5af46e6093872b177b7a5e7f0563be51": ["sports"]
+  "0xbddf61af533ff524d27154e589d2d7a81510c684": ["sports"]
+  "0x2005d16a84ceefa912d4e380cd32e7ff827875ea": ["sports", "politics", "broad"]
+  "0x2a2c53bd278c04da9962fcf96490e17f3dfb9bc1": ["sports", "broad"]
+
+  # Politik-Spezialisten
+  "0xbaa2bcb5439e985ce4ccf815b4700027d1b92c73": ["politics", "geopolitics", "sports"]
+  "0x0c0e270cf879583d6a0142fc817e05b768d0434e": ["politics", "geopolitics"]
+  "0xc6587b11a2209e46dfe3928b31c5514a8e33b784": ["politics", "geopolitics"]
+
+  # Crypto-Spezialisten
+  "0xde17f7144fbd0eddb2679132c10ff5e74b120988": ["crypto"]
+  "0xd84c2b6d65dc596f49c7b6aadd6d74ca91e407b9": ["crypto"]
+  "0x63ce342161250d705dc0b16df89036c8e5f9ba9a": ["crypto"]
+
+  # Allrounder
+  "0x019782cab5d844f02bafb71f512758be78579f3c": ["broad"]
+
+# ---------------------------------------------------------------------------
+# Wallet-Namen (für Logs und Telegram)
+# ---------------------------------------------------------------------------
+wallet_names:
+  "0x019782cab5d844f02bafb71f512758be78579f3c": "majorexploiter"
+  "0x492442eab586f242b53bda933fd5de859c8a3782": "April#1 Sports"
+  "0x02227b8f5a9636e895607edd3185ed6ee5598ff7": "HorizonSplendidView"
+  "0xefbc5fec8d7b0acdc8911bdd9a98d6964308f9a2": "reachingthesky"
+  "0x0b7a6030507efe5db145fbb57a25ba0c5f9d86cf": "HOOK"
+  "0xee613b3fc183ee44f9da9c05f53e2da107e3debf": "sovereign2013"
+  "0xbaa2bcb5439e985ce4ccf815b4700027d1b92c73": "denizz"
+  "0xde7be6d489bce070a959e0cb813128ae659b5f4b": "wan123"
+  "0x7a6192ea6815d3177e978dd3f8c38be5f575af24": "Gambler1968"
+  "0x7177a7f5c216809c577c50c77b12aae81f81ddef": "kcnyekchno"
+  "0x2005d16a84ceefa912d4e380cd32e7ff827875ea": "RN1"
+  "0xbddf61af533ff524d27154e589d2d7a81510c684": "Countryside"
+  "0xde17f7144fbd0eddb2679132c10ff5e74b120988": "Crypto Spezialist"
+  "0xd84c2b6d65dc596f49c7b6aadd6d74ca91e407b9": "BoneReader"
+  "0xdb27bf2ac5d428a9c63dbc914611036855a6c56e": "DrPufferfish"
+  "0xc6587b11a2209e46dfe3928b31c5514a8e33b784": "Erasmus"
+  "0x0c0e270cf879583d6a0142fc817e05b768d0434e": "TheSpiritofUkraine"
+  "0x38e59b36aae31b164200d0cad7c3fe5e0ee795e7": "cowcat"
+  "0x15ceffed7bf820cd2d90f90ea24ae9909f5cd5fa": "HondaCivic"
+  "0x8c0b024c17831a0dde038547b7e791ae6a0d7aa5": "EFFICIENCYEXPERT"
+  "0x8e0b7ae246205b1ddf79172148a58a3204139e5c": "synnet"
+  "0x6c743aafd813475986dcd930f380a1f50901bd4e": "middleoftheocean"
+
+# ---------------------------------------------------------------------------
+# Kategorie-Keywords (Markt-Erkennung)
+# ---------------------------------------------------------------------------
+category_keywords:
+  sports:
+    - "nba"
+    - "nfl"
+    - "nhl"
+    - "mlb"
+    - "soccer"
+    - "football"
+    - "basketball"
+    - "tennis"
+    - "golf"
+    - "masters"
+    - "game"
+    - "match"
+    - "championship"
+    - "score"
+    - "tournament"
+    - "ucl"
+    - "champions league"
+    - "premier league"
+    - "bundesliga"
+    - "serie a"
+    - "la liga"
+  crypto:
+    - "bitcoin"
+    - "btc"
+    - "ethereum"
+    - "eth"
+    - "crypto"
+    - "coin"
+    - "token"
+    - "blockchain"
+    - "defi"
+    - "nft"
+  politics:
+    - "trump"
+    - "biden"
+    - "election"
+    - "president"
+    - "congress"
+    - "senate"
+    - "vote"
+    - "poll"
+    - "resign"
+  geopolitics:
+    - "iran"
+    - "ukraine"
+    - "russia"
+    - "israel"
+    - "ceasefire"
+    - "war"
+    - "military"
+    - "nuclear"
+    - "sanctions"
+    - "attack"
+    - "nato"
+  macro:
+    - "fed"
+    - "rate"
+    - "inflation"
+    - "gdp"
+    - "jobs"
+    - "unemployment"
+    - "recession"
+    - "cpi"
+    - "fomc"
+  weather:
+    - "temperature"
+    - "celsius"
+    - "fahrenheit"
+    - "highest temp"
+    - "weather"
+
+# ---------------------------------------------------------------------------
+# Crypto-Daily Keywords (Erkennung tägl. BTC/ETH Preis-Märkte)
+# ---------------------------------------------------------------------------
+crypto_daily_keywords:
+  - "bitcoin-above"
+  - "ethereum-above"
+  - "btc-above"
+  - "eth-above"
+  - "bitcoin-up-or-down"
+  - "ethereum-up-or-down"
+  - "what-price-will-bitcoin"
+  - "what-price-will-ethereum"
+  - "bitcoin-price-on"
+  - "ethereum-price-on"
+  - "crypto-above"
+  - "btc-daily"
+  - "eth-daily"
+  - "bitcoin above"
+  - "ethereum above"
+  - "btc above"
+  - "eth above"
+  - "bitcoin price"
+  - "ethereum price"

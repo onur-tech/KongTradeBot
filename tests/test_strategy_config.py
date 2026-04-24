@@ -81,7 +81,8 @@ def test_multi_signal_multipliers(yaml_path):
     assert cfg.aggregation.multi_signal_multipliers == {1: 1.0, 2: 1.5, 3: 2.0}
 
 
-def test_default_multiplier(yaml_path):
+def test_default_multiplier(yaml_path, monkeypatch):
+    monkeypatch.setenv("WALLET_WEIGHTS", "")
     cfg = load(yaml_path)
     assert cfg.default_multiplier == pytest.approx(0.7)
 
@@ -133,7 +134,8 @@ def test_addresses_lowercased(yaml_path):
 # Missing / empty fields → defaults
 # ---------------------------------------------------------------------------
 
-def test_empty_yaml_uses_defaults(tmp_path):
+def test_empty_yaml_uses_defaults(tmp_path, monkeypatch):
+    monkeypatch.setenv("WALLET_WEIGHTS", "")
     p = tmp_path / "empty.yaml"
     p.write_text("")
     cfg = load(p)
@@ -202,8 +204,9 @@ def test_production_yaml_loads():
     assert cfg.aggregation.window_s > 0
 
 
-def test_production_countryside_multiplier():
-    """Countryside must have 3.0x (high-WR wallet)."""
+def test_production_countryside_multiplier(monkeypatch):
+    """Countryside must have 3.0x per YAML (env WALLET_WEIGHTS cleared)."""
+    monkeypatch.setenv("WALLET_WEIGHTS", "")
     from pathlib import Path
     prod_path = Path(__file__).parent.parent / "config" / "strategies" / "copy_trading.yaml"
     cfg = load(prod_path)

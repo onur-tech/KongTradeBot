@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-04-27 09:41:10 UTC
+> 2026-04-27 09:46:13 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-OK — lief vor 21s | HB: OK (308s alt)
+OK — lief vor 14s | HB: OK (35s alt)
 ```
 
 ## Portfolio
@@ -28,18 +28,18 @@ PnL heute:     $281.71
 
 ## Letzte Trades (5)
 ```
-2026-04-27 07:29:14 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.156 | $10.00 USDC | Will Spain win the 2026 FIFA World Cup?)
-2026-04-27 07:29:14 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.156 | $156.00 USDC | Will Spain win the 2026 FIFA World Cup?)
-2026-04-27 07:29:14 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.156 | $6.00 USDC | Will Spain win the 2026 FIFA World Cup?)
-2026-04-27 07:29:14 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.156 | $9.68 USDC | Will Spain win the 2026 FIFA World Cup?)
-2026-04-27 07:29:14 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.156 | $100.00 USDC | Will Spain win the 2026 FIFA World Cup?)
+2026-04-27 09:44:39 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Lilli Tagger @ $0.960 | $1026.21 USDC | Saint-Malo: Sarah Rakotomanga vs Lilli Tagger)
+2026-04-27 09:44:39 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Leylah Fernandez @ $0.750 | $86.99 USDC | Madrid Open: Ann Li vs Leylah Fernandez)
+2026-04-27 09:44:39 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Ann Li @ $0.240 | $218.16 USDC | Madrid Open: Ann Li vs Leylah Fernandez)
+2026-04-27 09:44:39 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Leylah Fernandez @ $0.760 | $15.83 USDC | Madrid Open: Ann Li vs Leylah Fernandez)
+2026-04-27 09:44:40 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY DN SOOPers Challengers @ $0.690 | $4297.10 USDC | LoL: DN SOOPers Challengers vs Gen.G Global Academy - Game 1)
 ```
 
 ## Letzte Fehler (3)
 ```
-2026-04-27 08:36:47 | WARNING  | polymarket_bot.fill_tracker | WebSocket-Fehler: unhandled errors in a TaskGroup (1 sub-exception) — Reconnect in 30s
 2026-04-27 08:59:27 | WARNING  | polymarket_bot.fill_tracker | WebSocket-Fehler: unhandled errors in a TaskGroup (1 sub-exception) — Reconnect in 30s
 2026-04-27 09:22:01 | WARNING  | polymarket_bot.fill_tracker | WebSocket-Fehler: unhandled errors in a TaskGroup (1 sub-exception) — Reconnect in 30s
+2026-04-27 09:44:37 | WARNING  | polymarket_bot.fill_tracker | WebSocket-Fehler: unhandled errors in a TaskGroup (1 sub-exception) — Reconnect in 30s
 ```
 
 ---

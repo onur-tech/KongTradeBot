@@ -1115,3 +1115,23 @@ Counterfactual-PnL-Formel (services/resolution_tracker.py:_counterfactual):
 - prediction_correct=TRUE  → cf = size_usdc * (1.0/entry_price - 1.0)
 - prediction_correct=FALSE → cf = -size_usdc
 - prediction_correct=NULL  → cf = NULL (nicht 0)
+
+## P037 — JS-Syntax-Fehler beim Deploy bricht Boot-Chain ohne Server-Error-Log (2026-04-27)
+**Status:** ✅ BEHOBEN — eval.js fix + cache-busting in templates_v2/index.html
+**Symptom (Brrudi via Chrome DevTools, 27.04. 15:30 UTC):**
+- Header EQ/PnL/POS/WR/DD/VAR alle "—" trotz funktionierender Backend-Endpoints
+- Console: `Uncaught SyntaxError: missing ) after argument list` in eval.js:131
+- Network: 503 auf /api/v2/overview, /portfolio/timeline, /eval/cohort-sharpe, /health (intermittent)
+
+**Root-Cause-1 (JS):** static_v2/js/components/eval.js:131 hatte `<code>trades.db mode=\\'shadow\\'</code>` in einem JS-String mit Single-Quotes. `\\` ist ein Backslash-Escape (= ein Backslash), und das nachfolgende `'` terminiert den String → der Parser zerhaute die ganze Funktion. Boot-Chain (api.js → router → app → komponenten) brach am Punkt des Fehlers ab. Da der Fehler im Frontend liegt, gibt es im systemd-Journal NICHTS — Server lief 5h+ stabil, alle Endpoints lieferten 200, aber UI blieb leer. Klassischer "Healthchecks grün, User sieht nix"-Drift.
+
+**Root-Cause-2 (503er):** nginx-Rate-Limit auf zone "kongtrade" (siehe /var/log/nginx/error.log: `limiting requests, excess: 20.503`). Konsequenz, nicht Ursache: durch den JS-Crash polled irgendetwas (alter EventSource oder Browser-Tab-Stack) im Loop, kam über das Limit und triggerte 503er. Mit Fix-1 gehen die 503er weg.
+
+**Root-Cause-3 (warum kam der Fix nicht durch):** static_v2/js/* hatte KEIN Cache-Busting in templates_v2/index.html. `<script src="static_v2/js/components/eval.js"></script>` ohne `?v=…` → Browser cached die kaputte Version, neue Deploys waren unsichtbar bis Hard-Reload.
+
+**Fix-Triple:**
+1. `eval.js:131`: `\\'shadow\\'` → `&#39;shadow&#39;` (HTML-Entity statt JS-Escape — string lebt eh in `<code>`)
+2. `dashboard_v2.py`: neue `_asset_version()` berechnet md5-Hash aller static_v2-mtimes, `index()` reicht ihn an Template
+3. `templates_v2/index.html`: alle `<script src=…>` und `<link href=…>` bekommen `?v={{ asset_ver }}` — bei JEDEM File-Change wechselt der Hash → forcierter Cache-Bust
+
+**Lehre:** Backend-200 ≠ Funktional. Healthchecks haben das nicht gefangen weil sie nur den Server prüfen, nicht den Browser-Render. Ohne Cache-Busting läuft jeder JS-Fix Russisch-Roulette mit Browser-Caches. Permanent-Fix: server-side asset_ver stellt sicher, dass Cache-Drift nie wieder Symptom-verschleiernd wirkt.

@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-04-27 16:59:12 UTC
+> 2026-04-27 17:04:12 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-OK — lief vor 3s | HB: WARNUNG 464s alt
+OK — lief vor 3s | HB: OK (45s alt)
 ```
 
 ## Portfolio
@@ -28,18 +28,18 @@ PnL heute:     $563.43
 
 ## Letzte Trades (5)
 ```
-2026-04-27 14:42:49 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Linda Noskova @ $0.550 | $389.95 USDC | Madrid Open: Linda Noskova vs Coco Gauff)
-2026-04-27 14:42:49 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Linda Noskova @ $0.550 | $1755.14 USDC | Madrid Open: Linda Noskova vs Coco Gauff)
-2026-04-27 14:42:49 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Delhi Capitals @ $0.030 | $292.58 USDC | Indian Premier League: Delhi Capitals vs Royal Challengers B)
-2026-04-27 14:42:49 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Delhi Capitals @ $0.080 | $800.00 USDC | Indian Premier League: Delhi Capitals vs Royal Challengers B)
-2026-04-27 14:42:49 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Delhi Capitals @ $0.080 | $126.47 USDC | Indian Premier League: Delhi Capitals vs Royal Challengers B)
+2026-04-27 17:00:29 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Linda Noskova @ $0.530 | $548.09 USDC | Madrid Open: Linda Noskova vs Coco Gauff)
+2026-04-27 17:00:29 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Delhi Capitals @ $0.040 | $400.00 USDC | Indian Premier League: Delhi Capitals vs Royal Challengers B)
+2026-04-27 17:00:29 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Down @ $0.990 | $87.16 USDC | Dogecoin Up or Down - April 5, 2:00AM-2:05AM ET)
+2026-04-27 17:00:29 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Down @ $0.990 | $99.00 USDC | Dogecoin Up or Down - April 5, 2:00AM-2:05AM ET)
+2026-04-27 17:00:30 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $95.32 USDC | Will Arsenal FC win on 2026-02-22?)
 ```
 
 ## Letzte Fehler (3)
 ```
-2026-04-27 15:51:21 | WARNING  | polymarket_bot.fill_tracker | WebSocket-Fehler: unhandled errors in a TaskGroup (1 sub-exception) — Reconnect in 30s
-2026-04-27 16:14:15 | WARNING  | polymarket_bot.fill_tracker | WebSocket-Fehler: unhandled errors in a TaskGroup (1 sub-exception) — Reconnect in 30s
-2026-04-27 16:37:27 | WARNING  | polymarket_bot.fill_tracker | WebSocket-Fehler: unhandled errors in a TaskGroup (1 sub-exception) — Reconnect in 30s
+NameError: name 'time' is not defined. Did you forget to import 'time'
+[_safe_call(on_multi_signal)] NameError: name 'time' is not defined
+NameError: name 'time' is not defined. Did you forget to import 'time'
 ```
 
 ---

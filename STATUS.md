@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-04-27 05:13:31 UTC
+> 2026-04-27 05:18:32 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-OK — lief vor 52s | HB: OK (325s alt)
+OK — lief vor 52s | HB: OK (37s alt)
 ```
 
 ## Portfolio
@@ -28,18 +28,18 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-04-27 01:55:50 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Lightning @ $0.870 | $12.36 USDC | Lightning vs. Canadiens)
-2026-04-27 01:55:50 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Lightning @ $0.880 | $299.87 USDC | Lightning vs. Canadiens)
-2026-04-27 01:55:50 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Lightning @ $0.890 | $242.05 USDC | Lightning vs. Canadiens)
-2026-04-27 01:55:50 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Lakers @ $0.390 | $10229.60 USDC | Lakers vs. Rockets)
-2026-04-27 01:55:50 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Rockets @ $0.590 | $67155.88 USDC | Lakers vs. Rockets)
+2026-04-27 05:15:55 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.156 | $15.75 USDC | Will Spain win the 2026 FIFA World Cup?)
+2026-04-27 05:15:55 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.156 | $17.01 USDC | Will Spain win the 2026 FIFA World Cup?)
+2026-04-27 05:15:55 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.156 | $8.11 USDC | Will Spain win the 2026 FIFA World Cup?)
+2026-04-27 05:15:55 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.156 | $15.60 USDC | Will Spain win the 2026 FIFA World Cup?)
+2026-04-27 05:15:56 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $31.43 USDC | Will Arsenal FC win on 2026-02-22?)
 ```
 
 ## Letzte Fehler (3)
 ```
-2026-04-27 04:10:28 | WARNING  | polymarket_bot.fill_tracker | WebSocket-Fehler: unhandled errors in a TaskGroup (1 sub-exception) — Reconnect in 4s
 2026-04-27 04:32:17 | WARNING  | polymarket_bot.fill_tracker | WebSocket-Fehler: unhandled errors in a TaskGroup (1 sub-exception) — Reconnect in 8s
 2026-04-27 04:54:06 | WARNING  | polymarket_bot.fill_tracker | WebSocket-Fehler: unhandled errors in a TaskGroup (1 sub-exception) — Reconnect in 16s
+2026-04-27 05:15:54 | WARNING  | polymarket_bot.fill_tracker | WebSocket-Fehler: unhandled errors in a TaskGroup (1 sub-exception) — Reconnect in 30s
 ```
 
 ---

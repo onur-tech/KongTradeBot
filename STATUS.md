@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-04-27 22:45:20 UTC
+> 2026-04-27 22:50:24 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-OK — lief vor 41s | HB: OK (322s alt)
+OK — lief vor 27s | HB: OK (47s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $295.11
 
 ## Letzte Trades (5)
 ```
-2026-04-27 19:18:27 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Timberwolves @ $0.500 | $5.00 USDC | Spread: Nuggets (-11.5))
-2026-04-27 19:18:27 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.510 | $31.22 USDC | Will Manchester United FC win on 2026-04-27?)
-2026-04-27 19:18:27 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.510 | $604.29 USDC | Will Manchester United FC win on 2026-04-27?)
-2026-04-27 19:18:27 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.510 | $140.76 USDC | Will Manchester United FC win on 2026-04-27?)
-2026-04-27 19:18:27 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Timberwolves @ $0.500 | $41.42 USDC | Spread: Nuggets (-11.5))
+2026-04-27 22:48:40 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Pistons @ $0.590 | $28.78 USDC | Pistons vs. Magic)
+2026-04-27 22:48:40 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Pistons @ $0.590 | $42.19 USDC | Pistons vs. Magic)
+2026-04-27 22:48:40 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Pistons @ $0.590 | $479.20 USDC | Pistons vs. Magic)
+2026-04-27 22:48:40 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Pistons @ $0.590 | $16.38 USDC | Pistons vs. Magic)
+2026-04-27 22:48:40 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Pistons @ $0.590 | $6.54 USDC | Pistons vs. Magic)
 ```
 
 ## Letzte Fehler (3)

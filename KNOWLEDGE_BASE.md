@@ -1116,7 +1116,7 @@ Counterfactual-PnL-Formel (services/resolution_tracker.py:_counterfactual):
 - prediction_correct=FALSE → cf = -size_usdc
 - prediction_correct=NULL  → cf = NULL (nicht 0)
 
-## P037 — JS-Syntax-Fehler beim Deploy bricht Boot-Chain ohne Server-Error-Log (2026-04-27)
+## P059 — JS-Syntax-Fehler beim Deploy bricht Boot-Chain ohne Server-Error-Log (2026-04-27)
 **Status:** ✅ BEHOBEN — eval.js fix + cache-busting in templates_v2/index.html
 **Symptom (Brrudi via Chrome DevTools, 27.04. 15:30 UTC):**
 - Header EQ/PnL/POS/WR/DD/VAR alle "—" trotz funktionierender Backend-Endpoints
@@ -1135,3 +1135,6 @@ Counterfactual-PnL-Formel (services/resolution_tracker.py:_counterfactual):
 3. `templates_v2/index.html`: alle `<script src=…>` und `<link href=…>` bekommen `?v={{ asset_ver }}` — bei JEDEM File-Change wechselt der Hash → forcierter Cache-Bust
 
 **Lehre:** Backend-200 ≠ Funktional. Healthchecks haben das nicht gefangen weil sie nur den Server prüfen, nicht den Browser-Render. Ohne Cache-Busting läuft jeder JS-Fix Russisch-Roulette mit Browser-Caches. Permanent-Fix: server-side asset_ver stellt sicher, dass Cache-Drift nie wieder Symptom-verschleiernd wirkt.
+
+## TODO — KB-Renumbering (post-live)
+P030/P031/P032/P033/P034 sind doppelt vergeben (18.-21.04.2026 UND 24.-26.04.2026). P037 wurde zwischenzeitlich ebenfalls doppelt vergeben und am 27.04. korrigiert (eval.js-Hotfix → P059). Nach Live-Switch + 1 Woche stabil: Renumbering auf eindeutige IDs. Keine Eile — Cross-Refs in Code/Reports/Telegram-Logs müssen erhalten bleiben, also Mapping-Tabelle (alt→neu) mitführen und erst dann Bulk-Sed.

@@ -12,7 +12,17 @@ _Stand: 2026-04-27_
 
 ## QUEUE (Priorität absteigend)
 
-### Kritisch
+### Kritisch — V2-Cutover 2026-04-28 (alle erfordern GO via Telegram von Brrudi)
+| ID | Titel | Prio | Notiz |
+|----|-------|------|-------|
+| T-D101 | Phase B1 Pre-Cutover-Verify — code/packages/staging-smoke clean | KRITISCH | 28.04. 09:00 Berlin · GO erforderlich |
+| T-D102 | Phase C1 V2-Activation: USE_V2_SDK=true in .env, bot-restart DRY_RUN=true | KRITISCH | 28.04. 13:30 Berlin (post-cutover ~11 UTC) · GO erforderlich |
+| T-D103 | Phase C2 pUSD-Wrap-Verify: balance reads, allowance, USDC→pUSD swap path | KRITISCH | 28.04. 13:45 Berlin · GO erforderlich |
+| T-D104 | Phase D1 Live-Config: $80 Bankroll, COPY_SIZE_MULTIPLIER 0.02, MAX_TRADE_USD 8, Weather-only | KRITISCH | 28.04. 15:00 Berlin · GO erforderlich |
+| T-D105 | Phase D2 Live-Restart: MODE=live DRY_RUN=false MAKER_ONLY=true | KRITISCH | 28.04. 15:05 · GO erforderlich + Brrudi-aktive-Aufsicht |
+| T-D106 | Phase D3 60-Min Post-Live-Monitoring: Daily-Stop $50, watch maker-fills, latency, slippage | KRITISCH | 28.04. 15:05–16:05 · live-watch |
+
+### Kritisch (laufend)
 | ID | Titel | Prio | Notiz |
 |----|-------|------|-------|
 | T-200 | Live-verify SHADOW/PAPER decisions in /api/v2/ops/mode-stats post-restart | KRITISCH | nach 24h Whale-Signals beobachten |
@@ -54,6 +64,9 @@ _Stand: 2026-04-27_
 - T-D95 UI-Audit Track C: 40 Sub-Endpoints kartiert (17 live / 17 stub / 5 leer / 1 broken), reports/ui_audit_2026-04-27.md
 - T-D96 STATUS.md drift fix: hard reset /root/status-repo (2103 stale auto-commits), push_status.sh komplett neu (fetch+ff-only-merge, fail-loud)
 - T-D97 CAPABILITIES.md + services/trend_monitor/ skeleton + systemd unit (dormant, daemon-reload'd)
+- T-D98 Doku-Sync: KB neuer Eintrag (P059), STATUS push, TASKS update, STRATEGY Live-Switch Hard Rules
+- T-D99 Hotfix eval.js Syntax-Bug (`\\'shadow\\'` → `&#39;shadow&#39;`) + Cache-Busting `?v={{ asset_ver }}` für JS+CSS
+- T-D100 Phantom-503 root-cause: nginx-Rate-Limit Zone "kongtrade" durch JS-Crash-Retry-Storm — kein Backend-Crash, kein Cloudflare (gibt's nicht in der Architektur)
 
 ## DONE 2026-04-26
 - T-D70 Block C — UI redesign V2 deployed at /v2/ (Cyberpunk-Matrix, 9 tabs × 40 sub-tabs)

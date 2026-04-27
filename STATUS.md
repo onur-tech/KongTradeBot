@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-04-27 07:25:00 UTC
+> 2026-04-27 07:30:00 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-OK — lief vor 46s | HB: OK (244s alt)
+OK — lief vor 45s | HB: OK (48s alt)
 ```
 
 ## Portfolio
@@ -28,18 +28,18 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-04-27 05:15:55 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.156 | $15.75 USDC | Will Spain win the 2026 FIFA World Cup?)
-2026-04-27 05:15:55 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.156 | $17.01 USDC | Will Spain win the 2026 FIFA World Cup?)
-2026-04-27 05:15:55 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.156 | $8.11 USDC | Will Spain win the 2026 FIFA World Cup?)
-2026-04-27 05:15:55 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.156 | $15.60 USDC | Will Spain win the 2026 FIFA World Cup?)
-2026-04-27 05:15:56 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $31.43 USDC | Will Arsenal FC win on 2026-02-22?)
+2026-04-27 07:29:14 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.156 | $10.00 USDC | Will Spain win the 2026 FIFA World Cup?)
+2026-04-27 07:29:14 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.156 | $156.00 USDC | Will Spain win the 2026 FIFA World Cup?)
+2026-04-27 07:29:14 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.156 | $6.00 USDC | Will Spain win the 2026 FIFA World Cup?)
+2026-04-27 07:29:14 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.156 | $9.68 USDC | Will Spain win the 2026 FIFA World Cup?)
+2026-04-27 07:29:14 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.156 | $100.00 USDC | Will Spain win the 2026 FIFA World Cup?)
 ```
 
 ## Letzte Fehler (3)
 ```
 [TG] Dashboard fetch failed /api/summary: HTTP Error 401: UNAUTHORIZED
-[TG] Dashboard fetch failed /api/summary: HTTP Error 401: UNAUTHORIZED
 [TG] Dashboard fetch failed /api/portfolio: HTTP Error 401: UNAUTHORIZED
+2026-04-27 07:29:12 | WARNING  | polymarket_bot.fill_tracker | WebSocket-Fehler: unhandled errors in a TaskGroup (1 sub-exception) — Reconnect in 30s
 ```
 
 ---

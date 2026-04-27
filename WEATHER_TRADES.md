@@ -161,3 +161,49 @@
 - **Sharpe naive**: pro-Trade `mean/std × √252`. Korrekt wäre per-Trading-Day Aggregation; das Resultat hier ist obere Schranke.
 - **Counterfactual-PnL** (`counterfactual_pnl_hold`): was hätte ein passive HOLD bis Resolution gebracht. Zeigt: Edge ist Momentum-Capture, nicht Prediction.
 - **Live-Switch-Relevanz**: Diese 77 Trades sind die Empirie hinter T-D104. Whitelist Option Y (deployed T-D107) erlaubt morgen NUR diese Kategorie.
+
+## Strategie-Komponenten-Aufschlüsselung (T-D108.5)
+
+Die 77 deduplicateten Weather-Trades zerfallen in zwei deutliche Buckets:
+
+### Bucket A — Weather-Scout (eigener Edge)
+- **Trades**: 8
+- **PnL**: +$609,06
+- **Mean**: +$76,13
+- **Win-Rate**: 100% (8 wins / 0 losses)
+- **Datum-Range**: 22.04.–27.04.
+- **Pattern**: `triggering_wallets='["[weather-bot]"]'`, `parent_signal_id` gesetzt, side=BUY mit niedrigem Entry (0.03–0.13) und Exit ~0.485 via TP1, Strategie='COPY' (technisch via copy_trading_plugin geroutet, aber Quelle ist der eigene Weather-Scout in main.py)
+
+### Bucket B — Whale-Copy auf Weather-Märkte
+- **Trades**: **0**
+- **Pattern**: triggering_wallets würde echte Wallet-Adresse zeigen
+- **Erkenntnis**: Kein Whale aus den 25 überwachten Wallets hat Weather-Märkte getradet (oder ihre Signale wurden nie als COPY ausgeführt)
+
+### Bucket C — Multi-Tranche TP-Exit-Records
+- **Trades**: 69
+- **PnL**: +$2.293,80
+- **Mean**: +$33,24
+- **WR**: 65/69 = 94%
+- **Datum-Range**: 21.04.–26.04. (NICHT heute)
+- **Pattern**: side=SELL, parent_signal_id=NULL, triggering_wallets=NULL, exit_price≈entry_price≈0.500 (Dummy-Werte), event_category=exit_tp1/tp2/tp3, category=Weather. Diese Rows sind partial-TP-stage-Verkäufe einer früheren Initial-Position. Die zugehörigen Initial-Entries wurden in der frühen Logging-Phase (Pre-22.04.) NICHT als Row gespeichert — nur die Exits.
+
+### Bucket D — Edge-Case
+- **Trades**: 1 (-$1,17, 26.04.)
+
+### Strategische Erkenntnisse für Live-Switch
+
+1. **Weather-Scout ist der einzige Weather-Edge-Generator.** Whale-Copy hat bei Weather null Trades, weil Whales keine Weather-Märkte handeln (zu spezifisch, zu lokal).
+
+2. **PnL-Aufteilung der echten 77 Weather-Trades:**
+   - 100% kommen aus dem Weather-Scout-Pfad (Bucket A direkt + Bucket C als Partial-Exits älterer Scout-Positionen)
+   - 0% kommen aus Whale-Copy
+
+3. **Implikation für T-D104 morgen:**
+   - Die deployte Whitelist Option Y (`if not dry_run and category != 'Weather' → SKIP`) steht in `copy_trading_plugin.py`. Wenn morgen DRY_RUN=false gesetzt wird, fängt das Whale-Copy-Signale auf Non-Weather sicher weg.
+   - **ABER**: Da kein Whale Weather handelt, würde der Copy-Trading-Pfad im Live-Modus voraussichtlich **keine Live-Trades** auslösen.
+   - Der eigentliche Edge-Generator (Weather-Scout in `main.py weather_scout`) läuft als separater Loop und schreibt mit `triggering_wallets='[weather-bot]'` in trades.db. Sein Live-Verhalten hängt davon ab, ob er bei `DRY_RUN=false` echte Orders postet — das ist zu verifizieren vor T-D105.
+
+4. **Logging-Phase-Wechsel um 22.04.**: Pre-22.04. wurde nur Exits geloggt (69 rows ohne Entry). Post-22.04. werden Entry+Exit auf einer Row gespeichert (8 rows mit voller Information). Erklärt warum WEATHER_TRADES.md so viele "(no signal-link)" Einträge zeigt — keine Bug, nur historische Logging-Drift. T-D109 Track A sollte das via `migrate_from_archive`-Refactor bereinigen.
+
+### Zahlen-Quersumme
+$609,06 (A) + $2.293,80 (C) − $1,17 (D) = **+$2.901,69** ≈ deduped Weather-Total $2.888,30 (Differenz $13 = 1 Row mit NULL category, fällt aus Filter)

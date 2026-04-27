@@ -1,10 +1,10 @@
 # KongTradeBot Live Status
 
-> 2026-04-27 03:07:23 UTC
+> 2026-04-27 03:12:24 UTC
 
 ## Bot-Status
 ```
-RUNNING (seit Mon 2026-04-27 02:45:23 UTC)
+DOWN deactivating/stop-sigterm
 ```
 
 ## Dashboard-URL
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-OK — lief vor 44s | HB: OK (13s alt)
+OK — lief vor 36s | HB: OK (114s alt)
 ```
 
 ## Portfolio
@@ -33,9 +33,9 @@ Dashboard nicht erreichbar: HTTP Error 401: UNAUTHORIZED
 
 ## Letzte Fehler (3)
 ```
-2026-04-27 02:39:06 | WARNING  | polymarket_bot.fill_tracker | WebSocket-Fehler: unhandled errors in a TaskGroup (1 sub-exception) — Reconnect in 30s
-2026-04-27 02:45:22 | INFO     | polymarket_bot.wallet_monitor | WalletMonitor gestoppt | Stats: {'polls': 75, 'trades_detected': 138, 'trades_skipped_duplicate': 799, 'early_entry_signals': 0, 'whale_sells_detected': 1, 'ws_messages': 0, 'ws_reconnects': 20, 'errors': 0}
-2026-04-27 02:54:09 | WARNING  | polymarket_bot.fill_tracker | WebSocket-Fehler: unhandled errors in a TaskGroup (1 sub-exception) — Reconnect in 1s
+2026-04-27 03:07:39 | INFO     | polymarket_bot.wallet_monitor | WalletMonitor gestoppt | Stats: {'polls': 0, 'trades_detected': 0, 'trades_skipped_duplicate': 0, 'early_entry_signals': 0, 'whale_sells_detected': 0, 'ws_messages': 0, 'ws_reconnects': 1, 'errors': 0}
+2026-04-27 03:07:57 | INFO     | polymarket_bot.wallet_monitor | WalletMonitor gestoppt | Stats: {'polls': 0, 'trades_detected': 0, 'trades_skipped_duplicate': 0, 'early_entry_signals': 0, 'whale_sells_detected': 0, 'ws_messages': 0, 'ws_reconnects': 0, 'errors': 0}
+2026-04-27 03:11:06 | INFO     | polymarket_bot.wallet_monitor | WalletMonitor gestoppt | Stats: {'polls': 0, 'trades_detected': 0, 'trades_skipped_duplicate': 0, 'early_entry_signals': 0, 'whale_sells_detected': 0, 'ws_messages': 0, 'ws_reconnects': 0, 'errors': 0}
 ```
 
 ---

@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-04-27 10:31:24 UTC
+> 2026-04-27 10:36:24 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-OK — lief vor 57s | HB: WARNUNG 483s alt
+OK — lief vor 56s | HB: OK (22s alt)
 ```
 
 ## Portfolio
@@ -37,9 +37,9 @@ PnL heute:     $563.43
 
 ## Letzte Fehler (3)
 ```
-2026-04-27 09:44:37 | WARNING  | polymarket_bot.fill_tracker | WebSocket-Fehler: unhandled errors in a TaskGroup (1 sub-exception) — Reconnect in 30s
 2026-04-27 10:07:24 | WARNING  | polymarket_bot.fill_tracker | WebSocket-Fehler: unhandled errors in a TaskGroup (1 sub-exception) — Reconnect in 30s
 2026-04-27 10:21:09 | INFO     | polymarket_bot.wallet_monitor | WalletMonitor gestoppt | Stats: {'polls': 75, 'trades_detected': 132, 'trades_skipped_duplicate': 783, 'early_entry_signals': 0, 'whale_sells_detected': 3, 'ws_messages': 0, 'ws_reconnects': 19, 'errors': 0}
+2026-04-27 10:32:02 | WARNING  | polymarket_bot.fill_tracker | WebSocket-Fehler: unhandled errors in a TaskGroup (1 sub-exception) — Reconnect in 1s
 ```
 
 ---

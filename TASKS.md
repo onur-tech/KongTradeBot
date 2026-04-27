@@ -45,6 +45,16 @@ _Stand: 2026-04-27_
 | T-205 | Merge feat/ui-redesign-v2 → main (after restart-verification) | NORMAL | |
 | T-218 | Mode-resolver autoflush-Frequenz: in 615s nur 3× gefeuert statt 10× — diagnose | NORMAL | funktional, max 60s state-lag |
 
+## DONE 2026-04-27
+- T-D90 Domain migration: nginx basic_auth (kongview/kong-view2026) + V1 entfernt aus public, V2 primary @ kong-trade.com
+- T-D91 Auth-Strategy Layer 1-5: write-protection (@localhost_only), rate-limit (60r/m), robots.txt+meta noindex, basic_auth removal, Tests A-E grün
+- T-D92 Mode-Resolver live-cache-bump fix + SHADOW_MIN_SAMPLE 5→3 (1× Restart, 9 wallets prewarmed/86 entries)
+- T-D93 Stop-Loss Trigger D (drawdown ≥50% AND >24h-to-close) in exit_manager.py + config (EXIT_SL_FAR_*)
+- T-D94 Manual stop-loss (real) für 3 Iran/Hormuz RECOVERED positions: -$135.96 realized, capital freed $142.72
+- T-D95 UI-Audit Track C: 40 Sub-Endpoints kartiert (17 live / 17 stub / 5 leer / 1 broken), reports/ui_audit_2026-04-27.md
+- T-D96 STATUS.md drift fix: hard reset /root/status-repo (2103 stale auto-commits), push_status.sh komplett neu (fetch+ff-only-merge, fail-loud)
+- T-D97 CAPABILITIES.md + services/trend_monitor/ skeleton + systemd unit (dormant, daemon-reload'd)
+
 ## DONE 2026-04-26
 - T-D70 Block C — UI redesign V2 deployed at /v2/ (Cyberpunk-Matrix, 9 tabs × 40 sub-tabs)
 - T-D71 Iter1 — 15 data-verified UI bug fixes (5 commits)

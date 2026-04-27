@@ -377,14 +377,28 @@ Named Tunnel mit eigener Domain -> feste URL ohne Watcher noetig.
 
 ---
 
-## P029 — Balance-Check 400: assetAddress invalid hex address (T-010)
-**Problem:** Bot wirft alle ~3 Minuten `PolyApiException[status_code=400, 'GetBalanceAndAllowance invalid params: assetAddress invalid hex address ']`. Portfolio-Wert zeigt $0.00 im Dashboard.
-**Root Cause:** `_verify_order_onchain()` ruft `get_balance_allowance(asset_type="CONDITIONAL", token_id=token_id)` auf. `token_id` ist leer (`""`) bei Positionen die aus dem Recovery-Flow (`recover_stale_positions`) oder aus `bot_state.json` restauriert wurden, wenn die REST-API kein `token_id`/`asset_id`-Feld zurückgibt. Die ~3-Minuten-Periode entspricht dem Watchdog-`RESTART_COOLDOWN=180`.
-**Fix (deployed 2026-04-18):**
-1. `execution_engine.py _verify_order_onchain`: Guard vor API-Call — leeres `token_id` → WARNING + `return False` statt 400-Fehler.
-2. `main.py restore_positions`: Filtert Positionen mit leerem `token_id` vor Restore (Stale-Cleanup).
-3. `main.py recover_stale_positions`: Filtert Orders ohne `token_id` vor Eintrag in `_pending_data`.
-**Status:** DEPLOYED — verifiziert via `/api/logs` ca. 09:35 UTC.
+## P029 — T-010: Leere token_id triggert API 400 alle ~3min
+
+**Status:** BEHOBEN (2026-04-18)
+
+**Problem:** Bot loggte alle ~3 Minuten:
+`PolyApiException[status_code=400, 'GetBalanceAndAllowance invalid params: assetAddress invalid hex address']`
+
+**Root-Cause:**
+`_verify_order_onchain()` wurde mit leerem `token_id=""` aufgerufen.
+Ursache: `recover_stale_positions()` und `restore_positions()` injizierten Positionen
+aus REST-API-Antworten die kein `token_id`/`asset_id` enthielten.
+Watchdog-RestartCooldown 180s erklaert das ~3-Minuten-Intervall der Fehler.
+
+**Fix (3 Ebenen):**
+1. `core/execution_engine.py` — Guard in `_verify_order_onchain()`:
+   Wenn `token_id` leer/`0x`/`0x0` → `return False` ohne API-Call
+2. `main.py restore_positions()` — Filter vor Loop:
+   Positionen ohne gueltigen `token_id` werden beim Start uebersprungen
+3. `main.py recover_stale_positions()` — Guard pro Order:
+   Orders ohne `token_id` → `continue` (kein Inject in `_pending_data`)
+
+**Status:** DEPLOYED (commit feat/T-010+T-022, 2026-04-18)
 
 ---
 
@@ -416,39 +430,32 @@ Alle redeemable-Checks in `claim_all.py` und `dashboard.py` nutzen jetzt diese F
 
 ---
 
-## P031 — Server-Remote war auf gesperrtem Account
+## P032 — Micro-Trade-Noise: 80% aller Trades unter $1, kaum Edge
 
 **Status:** BEHOBEN (2026-04-18)
 
 **Problem:**
-Alter GitHub-Account "KongTradeBot" wurde gesperrt. Server-Code lag
-lokal als /root/KongTradeBot auf Hetzner mit Remote auf
-github.com/KongTradeBot/KongTradeBot.git — kein Push/Pull mehr möglich.
+Mit COPY_SIZE_MULTIPLIER=0.05 und MIN_TRADE_SIZE_USD=0.01 wurden
+Whale-Trades ab $0.20 kopiert. Ergebnis: ~80% aller generierten
+Trades hatten eine Groesse unter $1.00 — kaum Edge, hohe Gebueehren-
+Belastung relativ zum Trade-Volumen, viele False-Positive-Signale
+(Whale-Tests, Positions-Anpassungen, Liquiditaets-Spielereien).
 
-**Symptom:**
-- git pull: 403
-- Auto-Deploy unmöglich
-- Neueste Server-Fixes (scripts/, fill_tracker.py, watchdog.py)
-  nie committed — Server war einzige Quelle
-
-**Root-Cause:**
-Account-Sperrung unabhängig vom Repo, Account-Reaktivierung nicht planbar.
+**Root-Cause (2 Ebenen):**
+1. Whale-Signal-Ebene: Kleine Whale-Trades ($1-$5) sind oft keine
+   echten Signale (Testen, Rebalancing) — sie sollten gar nicht erst
+   als Signal verarbeitet werden.
+2. Output-Ebene: Nach Multiplikator-Anwendung (0.05x) entstehen
+   noch kleinere Trades (z.B. $10 Whale → $0.50 Copy).
 
 **Fix:**
-1. Neues privates Source-Repo onur-tech/KongTradeBot-src angelegt
-2. Server-State konsolidiert: Backup /root/kongtrade-backup-20260418/
-3. .gitignore erweitert um Runtime-Files (bot.lock, heartbeat.txt,
-   metrics.db, STATUS.md) und Backup-Files (*.bak, *.bak_night, *.server_backup)
-4. 13 Files commited (857d82b), inklusive scripts/-Ordner und
-   fill_tracker.py die vorher nie in Git waren
-5. Remote umgebogen: origin → origin-old, neu origin =
-   onur-tech/KongTradeBot-src
-6. 217 Objects / 227 KB gepusht
-7. Windows-Working-Tree per git reset --hard origin/main synchronisiert
-
-**Lesson:**
-Single-Account-Abhängigkeiten für kritische Repos vermeiden.
-onur-tech (personal account) ist stabiler wegen weniger Spam-/Automation-Flags.
+- `MIN_WHALE_TRADE_SIZE_USD=5.00` (neu): Filter in wallet_monitor.py
+  direkt nach size_usdc-Extraktion. Whale-Trades unter $5 → kein Signal.
+  Log: "Whale-Trade geskipped: $X.XX < MIN_WHALE $5.00 [wallet]"
+- `MIN_TRADE_SIZE_USD=0.50` (angehoben von 0.01): Filter in
+  risk_manager.py. Berechnete Copy-Groesse unter $0.50 → kein Trade.
+  Log: "Micro-Trade geskipped: $X.XX < MIN_TRADE_SIZE $0.50"
+- Beide Werte via .env konfigurierbar fuer spaeteres Tuning.
 
 ---
 
@@ -458,24 +465,40 @@ onur-tech (personal account) ist stabiler wegen weniger Spam-/Automation-Flags.
 
 **Problem:**
 `log_trade()` hat `tx_hash` als Parameter akzeptiert, aber `main.py`
-hat diesen Parameter nie befuellt — er blieb stets leer.
+hat diesen Parameter nie befuellt — er blieb stets leer string "".
 Im CSV-Export fehlte die TX-Hash-Spalte komplett.
+
+**Root-Cause:**
+`result.order_id` (aus `ExecutionResult`) war nach erfolgreicher Order
+vorhanden, wurde aber nie an `log_trade()` weitergegeben.
+Polymarket liefert keinen separaten `transactionHash` im CLOB-Response —
+der `order_id` ist die naechstbeste Referenz bis der Fill bestaetigt wird.
 
 **Fix:**
 - `main.py`: nach `result.success`, `_tx_hash = f"pending_{result.order_id}"`
-  an `log_trade(tx_hash=_tx_hash)` uebergeben.
-- `tax_archive.py`: `"TX-Hash"` Spalte in deutschen CSV-Export eingefuegt.
+  an `log_trade(tx_hash=_tx_hash)` uebergeben. Prefix "pending_" signalisiert
+  dass der Blockchain-TX noch nicht bestaetigt ist.
+- `tax_archive.py`: `"TX-Hash"` Spalte in deutschen CSV-Export eingefuegt
+  (nach Uhrzeit-Spalte). Wert im Archiv nachtraeglich updatebar via `resolve_trade()`.
 
 ---
 
-## P034 — Silent Auto-Claim-Errors: kein Telegram-Alert bei Fehlern
+## P034 — Silent Auto-Claim-Errors: Fehler wurden nur geloggt, kein Telegram-Alert
 
 **Status:** BEHOBEN (2026-04-18)
 
+**Problem:**
+Wenn `redeem_position()` scheiterte (z.B. RPC-Timeout, CLOB-Auth-Fehler),
+wurde der Fehler nur ins Server-Log geschrieben. Brrudi sah nichts —
+Positionen blieben unclaimed bis zum naechsten Loop-Durchlauf.
+
 **Fix:**
-- `redeem_position()` gibt jetzt `(bool, str)` zurueck.
-- `claim_loop()` sendet rate-limitierten Telegram-Alert pro fehlgeschlagener Position.
-- `CLAIM_ERROR_ALERT_COOLDOWN_S=3600` (env-konfigurierbar).
+- `redeem_position()` gibt jetzt `(bool, str)` zurueck statt nur `bool`.
+- `claim_all()` sammelt alle fehlgeschlagenen Positionen in `failed_positions`.
+- `claim_loop()` ruft `_send_claim_error_alert(condition_id, error_msg)` pro Fehler.
+- Rate-Limit: `CLAIM_ERROR_ALERT_COOLDOWN_S=3600` (env-konfigurierbar) —
+  pro `condition_id` max 1 Telegram-Alert pro Stunde.
+- Alert-Format: "⚠️ Auto-Claim Fehler: <error> (Position: <cid_short>, Zeit: <utc>)"
 
 ---
 
@@ -483,13 +506,24 @@ Im CSV-Export fehlte die TX-Hash-Spalte komplett.
 
 **Status:** IMPLEMENTIERT (2026-04-18)
 
-**Problem:** `export_tax_csv()` war nur manuell aufrufbar.
+**Problem:**
+`export_tax_csv()` war nur manuell aufrufbar — keine automatische
+Sicherung, Brrudi musste aktiv dran denken.
 
 **Fix:**
-- `scripts/weekly_tax_export.py` + systemd Timer (Freitag 23:55 Berlin)
-- Exports nach `/root/KongTradeBot/exports/tax_YYYY_KWWW.csv` + `blockpit_YYYY_KWWW.csv`
-- Telegram-Summary an alle Chat-IDs
-- Download: `scp root@89.167.29.183:/root/KongTradeBot/exports/*.csv .`
+- `scripts/weekly_tax_export.py`: ruft `export_tax_csv()` auf,
+  verschiebt Dateien in `/root/KongTradeBot/exports/tax_YYYY_KWWW.csv`
+  und `blockpit_YYYY_KWWW.csv`, sendet Telegram-Summary an alle Chat-IDs.
+- `kongtrade-tax-export.service` + `.timer`: OnCalendar=Fri 23:55 Berlin
+- Herunterladen per scp: `scp root@89.167.29.183:/root/KongTradeBot/exports/*.csv .`
+
+**Blockpit-Timestamp-Hinweis:**
+Gespeicherte Zeiten sind Server-Lokalzeit (Helsinki ≈ UTC+2 Sommer).
+Blockpit-Export formatiert als `YYYY-MM-DDTHH:MM:SSZ` (formal UTC-Flag).
+TODO(BLOCKPIT-VERIFY): Falls Blockpit auf korrekte UTC besteht,
+muss log_trade() timezone-aware speichern.
+
+**Status:** DEPLOYED (2026-04-18)
 
 ---
 
@@ -497,13 +531,16 @@ Im CSV-Export fehlte die TX-Hash-Spalte komplett.
 
 **Status:** BEHOBEN (2026-04-18)
 
-GCM (`credential.helper=manager`) ist systemweit gesetzt und fängt HTTPS-Requests
-an github.com ab — selbst wenn PAT in der Remote-URL eingebettet ist.
-Kein `~/.gitconfig` existierte zur Überschreibung.
+**Problem:**
+GCM (`credential.helper=manager`) ist systemweit gesetzt und fängt
+HTTPS-Requests an github.com ab — selbst wenn PAT in der Remote-URL
+eingebettet ist. Kein `~/.gitconfig` existierte zur Überschreibung.
 
-**Fix:** `git config --global credential.https://github.com.helper ""`
+**Fix:**
+`git config --global credential.https://github.com.helper ""`
 
 Leerer String in User-Config überschreibt System-Helper für github.com-URLs.
+Git liest Credentials dann direkt aus der URL.
 
 ---
 
@@ -511,27 +548,19 @@ Leerer String in User-Config überschreibt System-Helper für github.com-URLs.
 
 **Status:** BEHOBEN (2026-04-18)
 
-`api.frankfurter.app` gibt 403 von Hetzner-Helsinki-IP → EUR/USD fällt auf Fallback
-0.92 (aktueller Kurs ≈ 0.88) → systematische Steuer-Verzerrung.
+**Problem:**
+`api.frankfurter.app` gibt 403 von Hetzner-Helsinki-IP.
+Ergebnis: EUR/USD-Kurs fällt auf Fallback 0.92 — zu niedrig
+(aktueller Kurs ≈ 0.88), systematische Verzerrung aller EUR-Steuerbeträge.
 
 **Fix (3 Ebenen):**
-1. Primary: `https://api.frankfurter.dev/v1/` — gleiche ECB-Quelle, neue Domain
-2. Secondary: ECB direkt `https://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml`
+1. Primary: `https://api.frankfurter.dev/v1/` — gleiche ECB-Quelle,
+   neue Domain, kein Hetzner-Block
+2. Secondary: ECB direkt via XML
+   `https://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml`
 3. Tertiary: Hardcodierter Fallback 0.92
 
-**Betroffen:** `utils/tax_archive.py` — `_fetch_eur_usd_rates()`
-
----
-
-## P038 — "Schließt in"-Spalte zeigt "—" für alle offenen Positionen
-
-**Status:** BEHOBEN (2026-04-18)
-
-Polymarket Data API liefert `endDate` als reines Datum `"2026-04-30"` (kein Timezone-Suffix).
-`datetime.fromisoformat("2026-04-30")` → naive datetime. Subtraktion naive - aware →
-`TypeError` → `except Exception: return "—"` — komplett silent.
-
-**Fix:** `if dt.tzinfo is None: dt = dt.replace(tzinfo=timezone.utc)` in `_closes_in_label()`.
+**Affected file:** `utils/tax_archive.py` — `_fetch_eur_usd_rates()`
 
 ---
 
@@ -539,16 +568,64 @@ Polymarket Data API liefert `endDate` als reines Datum `"2026-04-30"` (kein Time
 
 **Status:** IMPLEMENTIERT (2026-04-18)
 
-`wallet_scout.py` hatte keine persistente Geschichte → keine Trend-Erkennung.
+**Problem:**
+`wallet_scout.py` sendet nach jedem Scan nur einen Telegram-Report.
+Keine persistente Geschichte → keine Trend-Erkennung, kein Decay-Vergleich
+über mehrere Tage, kein "neue Einsteiger"-Tracking moeglich.
 
 **Fix:**
 - SQLite DB `data/wallet_scout.db` (Tabelle `wallet_scout_daily`)
-- PRIMARY KEY (scan_date, wallet_address, source) → idempotent
-- `utils/wallet_trends.py`: get_wallet_trend, get_decay_candidates, get_rising_stars
+- PRIMARY KEY (scan_date, wallet_address, source) → idempotent, taeglich ueberschreibbar
+- `utils/wallet_trends.py`: Trend-Funktionen (get_wallet_trend,
+  get_decay_candidates, get_new_entries, get_rising_stars, get_top_stable)
 - `scripts/weekly_wallet_report.py` + systemd Timer (So 20:00 Berlin)
-- Dashboard `/api/wallet_trends` Endpoint
+- Dashboard `/api/wallet_trends` Endpoint fuer spaetere Chart-Integration
+- DB wird beim ersten Scan automatisch angelegt (mkdir -p + CREATE IF NOT EXISTS)
 
-Erste echte Trends nach 7-14 Scan-Tagen.
+**Hinweis:**
+Erste echte Trends sind nach 7-14 Scan-Tagen sichtbar.
+Heute startet die Zeitreihe bei null.
+
+---
+
+## P038 — "Schließt in"-Spalte zeigt "—" für alle offenen Positionen
+
+**Status:** BEHOBEN (2026-04-18)
+
+**Symptom:**
+Alle 6 offenen Positionen im Dashboard zeigen "—" in der
+"Schließt in"-Spalte statt Countdown. "Nächste Resolutions"
+Panel meldet "Keine offenen Positionen mit Deadline".
+
+**Root-Cause (systematisch, kein Edge-Case):**
+Die Polymarket Data API (`data-api.polymarket.com/positions`)
+liefert `endDate` als reines Datumsfeld: `"2026-04-30"` (kein Zeit-,
+kein Timezone-Suffix). `datetime.fromisoformat("2026-04-30")` gibt ein
+**naive datetime** zurück (tzinfo=None). Die Subtraktion
+`naive_dt - datetime.now(timezone.utc)` wirft dann
+`TypeError: can't subtract offset-naive and offset-aware datetimes`.
+Dieser Fehler wird von `except Exception: return "—"` abgefangen —
+komplett silent.
+
+**Warum nicht Gamma/CLOB-Fallback?**
+`p.get("endDate")` im Data-API-Objekt liefert bereits den Wert
+`"2026-04-30"` — truthy, daher wird der enddate_map-Fallback nie
+erreicht. Der Bug tritt vor der Gamma/CLOB-Abfrage auf.
+
+**Fix (eine Zeile):**
+```python
+if dt.tzinfo is None:
+    dt = dt.replace(tzinfo=timezone.utc)
+```
+In `_closes_in_label()`, direkt nach `datetime.fromisoformat()`.
+
+**Live-Test-Ergebnis nach Fix:**
+- Trump Iran April 21 → "2d 9h" ✅
+- Trump enrichment April 30 → "11d 9h" ✅
+- US x Iran April 30 → "11d 9h" ✅
+- US x Iran April 22 → "3d 9h" ✅
+- Strait of Hormuz April 30 → "11d 9h" ✅
+- ENDED Märkte → "ENDED" ✅
 
 ---
 
@@ -556,13 +633,26 @@ Erste echte Trends nach 7-14 Scan-Tagen.
 
 **Status:** ✅ BEHOBEN (18.04.2026)
 
-Jeder Watchdog-Restart schickte "✅ neu gestartet" an Telegram. Startup-Alert kam
-bei jedem Neustart ohne Throttle.
+**Symptom:**
+Jeder erfolgreiche Bot-Neustart via Watchdog schickte "✅ neu gestartet via systemd" an Telegram.
+Da der Watchdog alle 60s läuft und bei Frozen-Erkennung immer neu startet, konnte dies massiv spammen.
+Zusätzlich: Bot-Startup-Alert kam bei jedem Restart, auch wenn mehrere Neustarts binnen Minuten passierten.
+
+**Root-Cause:**
+1. `watchdog.py` lud immer `send_telegram('✅ neu gestartet...')` nach Restart — kein Throttle.
+2. `HEARTBEAT_MAX_AGE = 180s` zu niedrig — bei kurzer Systemlast feuerte Watchdog zu früh.
+3. `send()` in `telegram_bot.py` hatte kein Mute-System.
+4. Startup-Alert in `main.py` hatte kein Rate-Limit.
 
 **Fix:**
-- `watchdog.py`: Erfolgreiche Restart-Alerts entfernt. `HEARTBEAT_MAX_AGE` 180 → 600s.
-- `telegram_bot.py`: `_is_muted()` / `_MUTE_FILE`, `_is_startup_allowed()` 30min Cooldown,
-  `send(urgent=False)` respektiert Mute, Inline-Menu 8 Buttons, `_TG_MIN_SIZE` 5→2 USD.
+- `watchdog.py`: Erfolgreiche Restart-Alerts entfernt (nur Fehler-Alert bleibt). `HEARTBEAT_MAX_AGE` 180 → 600s.
+- `telegram_bot.py`: 
+  - `_is_muted()` / `_MUTE_FILE` (`.mute_until` Datei, ISO-Timestamp).
+  - `_is_startup_allowed()` / `_STARTUP_ALERT_FILE` (`.last_startup_alert`, Unix-Timestamp, 30min Cooldown).
+  - `send(urgent=False)` — respektiert Mute außer bei `urgent=True`.
+  - `send_startup()` — Wrapper mit Rate-Limit-Check.
+  - `/menu` Inline-Keyboard (8 Buttons: Status, Portfolio, Heute, Config, Positionen, Archiv, Mute 1h, Unmute).
+  - `_TG_MIN_SIZE` Default: 5 → 2 USD.
 - `scripts/daily_digest.py` + systemd Timer 22:00 Berlin.
 
 ---
@@ -571,11 +661,25 @@ bei jedem Neustart ohne Throttle.
 
 **Status:** ✅ BEHOBEN (18.04.2026)
 
-`/menu → Portfolio` zeigte "0 Positionen | $0.00" obwohl 18 Positionen mit $213 Value existierten.
-`_handle_menu_callback()` las aus `bot_state.json` (leer nach Restart).
+**Symptom:**
+`/menu → Portfolio` zeigte "0 Positionen | $0.00 USDC" obwohl 18 offene Positionen
+mit $213 Value existierten. Alle 6 Menu-Callbacks zeigten leere/falsche Daten.
 
-**Fix:** `_fetch_dashboard(endpoint)` → `GET http://localhost:5000{endpoint}`.
-Alle 6 Callbacks auf Dashboard-API umgestellt. Fehler-Fallback: "Dashboard nicht erreichbar".
+**Root-Cause:**
+`_handle_menu_callback()` las aus `bot_state.json` und `trades_archive.json` auf Disk.
+Nach jedem Bot-Restart ist `bot_state.json` initial leer (Positionen werden erst nach
+Sync geladen, aber das Keyboard wurde schon vorher gedrückt).
+
+**Fix:**
+- `_fetch_dashboard(endpoint)` Helper: `GET http://localhost:5000{endpoint}` (localhost, kein Auth).
+- Alle 6 Callbacks auf Dashboard-API umgestellt:
+  - STATUS → `callback_status()` (unverändert, zieht Live-Daten)
+  - PORTFOLIO → `/api/summary` + `/api/portfolio`
+  - HEUTE → `/api/summary`
+  - POSITIONEN → `/api/portfolio`
+  - ARCHIV → `/api/summary` (Fallback: lokales Archiv)
+  - CONFIG → env-Variablen (kein API-Call nötig)
+- Fehlerbehandlung: wenn API nicht erreichbar → "Dashboard aktuell nicht erreichbar".
 
 ---
 
@@ -583,10 +687,24 @@ Alle 6 Callbacks auf Dashboard-API umgestellt. Fehler-Fallback: "Dashboard nicht
 
 **Status:** ✅ BEHOBEN (18.04.2026, via aeec617)
 
-`heartbeat_loop(interval=300)` schreibt alle 300s. `HEARTBEAT_MAX_AGE=180`.
-180 < 300 → Watchdog restartete bot jeden Cycle. Genau 3-Min-Abstände.
+**Symptom:**
+Bot sendete alle 2–4 Min "BOT GESTARTET" (Timestamps: 14:34, 14:37, 14:40, 14:43...).
+Telegram-Alert kam zuverlässig (Rate-Limit griff korrekt), aber Bot war tatsächlich jedes Mal neu.
 
-**Fix:** `HEARTBEAT_MAX_AGE`: 180 → 600 (> 300). **Invariante: MAX_AGE > interval immer!**
+**Root-Cause:**
+`heartbeat_loop(interval=300)` schreibt Heartbeat alle **300 Sekunden**.
+`watchdog.py` hatte `HEARTBEAT_MAX_AGE = 180` Sekunden.
+180 < 300 → Watchdog sah nach 180s keine neue Heartbeat-Datei → restartete Bot.
+Bot startete neu, Heartbeat wurde sofort geschrieben, dann 300s Pause → wieder Restart.
+
+Cycle: 180s up → Watchdog restart → 180s up → repeat. Genau die 3-Minuten-Abstände.
+
+**Fix:**
+`HEARTBEAT_MAX_AGE`: 180 → 600 (> 300 = heartbeat_loop interval).
+Fix war in aeec617 enthalten, wurde aber erst ab 15:01:27 (nach Auto-Deploy) aktiv.
+Bot stabil seit 15:01:27.
+
+**Lesson:** `HEARTBEAT_MAX_AGE` muss immer > `heartbeat_loop(interval)` sein. Aktuell: 600 > 300 ✅.
 
 ---
 
@@ -594,10 +712,17 @@ Alle 6 Callbacks auf Dashboard-API umgestellt. Fehler-Fallback: "Dashboard nicht
 
 **Status:** ✅ IMPLEMENTIERT (18.04.2026)
 
-Telegram `ReplyKeyboardMarkup` als raw JSON ohne Library:
-`{"keyboard": [...], "resize_keyboard": true, "is_persistent": true}`
-- `/start` → Begrüßung + Keyboard (Brrudi einmalig `/start` nach Deploy)
-- Text-Button-Klicks → normale Nachrichten → `_BUTTON_ACTION_MAP` → `_handle_menu_callback()`
+**Anforderung:** Keyboard permanent unten sichtbar — User soll nie `/menu` tippen müssen.
+
+**Lösung:**
+Telegram Bot API unterstützt `ReplyKeyboardMarkup` als raw JSON ohne python-telegram-bot Library:
+```json
+{"keyboard": [[{"text": "📊 Status"}, ...]], "resize_keyboard": true, "is_persistent": true}
+```
+- `/start` → sendet Begrüßung + Keyboard (Brrudi muss EINMALIG `/start` tippen nach Deploy)
+- `/menu` / `/m` → sendet Keyboard erneut (falls ausgeblendet)
+- Text-Button-Klicks werden als normale Nachrichten empfangen → `_BUTTON_ACTION_MAP` dispatcht zu `_handle_menu_callback()`
+- `python-telegram-bot` NICHT installiert auf Server → Library-Import würde crashen
 
 ---
 
@@ -605,30 +730,52 @@ Telegram `ReplyKeyboardMarkup` als raw JSON ohne Library:
 
 **Status:** ✅ BEHOBEN (18.04.2026)
 
-**Bug A:** `p.get("size_usdc")` → Feld nicht in `/api/portfolio`. Fix: `p.get("traded", 0)`.
+### Bug A — Positionen-Callback: Invest immer $0.00
+`p.get("size_usdc")` → Feld existiert nicht in `/api/portfolio`.
+API liefert `traded` (= Initial-Investment in USDC).
+Fix: `p.get("traded", 0)`. Zeigt jetzt korrekt "$60.00→$66.38 (+10.6%)".
 
-**Bug B:** `msg_status(orders=s["orders_created"])` → Parameter heißt `orders_sent`. TypeError → silent fail.
-Fix: `orders=` → `orders_sent=` (beide Call-Sites in main.py).
+### Bug B — Status-Button: reagiert nicht
+`msg_status(orders=s["orders_created"])` → Parameter heißt `orders_sent`.
+Python TypeError: unexpected keyword argument 'orders' → Exception → silent fail.
+**Betroffen:** sowohl `/status` Befehl als auch stündlicher Status-Reporter (beide seit langem kaputt).
+Fix: beide Call-Sites in main.py: `orders=` → `orders_sent=`.
 
-**Bug C:** `today_pnl` = nur RESOLVED Trades → immer 0 wenn kein Markt heute resolved.
-Fix: Midnight-Snapshot `_get_midnight_snapshot()` in `dashboard.py`. `/api/portfolio` gibt
-`today_pnl_portfolio = total_value - snapshot_value`. Snapshots >7 Tage auto-gelöscht.
+### Bug C — Heute-Callback: P&L immer $0.00
+`today_pnl` in `/api/summary` = Summe AUFGELÖSTER Trades heute.
+Da heute keine Märkte aufgelöst wurden → 0. (T-015, bereits bekannt)
+Fix: Midnight-Snapshot in `dashboard.py`:
+- `_get_midnight_snapshot(today_str, current_total)` erstellt `.portfolio_snapshot_YYYY-MM-DD.json`
+- `/api/portfolio` gibt `today_pnl_portfolio = total_value - snapshot_value` zurück
+- Telegram zeigt: "Portfolio-Delta: +$X.XX USDC (Morgen: $X → Jetzt: $X)"
+- Alte Snapshots (> 7 Tage) automatisch gelöscht
 
 ---
 
 ## P045 — Drei Telegram-Bugs nach Live-Test (18.04.2026)
 
-**Status:** ✅ BEHOBEN (18.04.2026, via 26a36c1)
+**Status:** ✅ BEHOBEN (18.04.2026)
 
-**Bug A:** P044-Fix hatte `orders=` → `orders_sent=` nur in `status_reporter` (line 441) behoben.
-`send_status_now()` (line 727, aufgerufen vom Status-Button) hatte noch `orders=`. Fix dort auch.
+### Bug A — Status-Button: zweites `orders=` in send_status_now() übersehen
+P044 Fix hatte `orders=` → `orders_sent=` nur in `status_reporter` (line 441) behoben.
+`send_status_now()` (line 727) — aufgerufen vom Status-Button — hatte noch `orders=s["orders_created"]`.
+Gleiches TypeError → silent fail → kein Response auf Button-Klick.
+Fix: `orders=` → `orders_sent=` auch in `send_status_now()`.
 
-**Bug B:** Multi-Signal Spam — gleiche Wallet+Markt-Kombi mehrfach in 15 Min.
-Fix: Dedup in `on_multi_signal` (main.py): Key = `f"{market}|{outcome}|{sorted_wallets}"`,
-15-Min-Cooldown via `.multi_signal_last_alert.json`, 24h-Cleanup.
+### Bug B — Multi-Signal Spam: dieselbe Wallet+Markt-Kombi mehrfach in 15 Min
+`_flush_aggregated()` feuert `on_multi_signal` bei jedem Trade-Chunk für dieselbe Kondition.
+Cincinnati Reds-Beispiel: Alert um 20:37, 20:48, etc. für identische Wallet+Markt-Kombination.
+Fix: Dedup in `on_multi_signal` (main.py):
+- Key = `f"{market}|{outcome}|{sorted(wallet_names)}"`
+- 15-Min-Cooldown via `.multi_signal_last_alert.json` (root dir)
+- Keys älter als 24h werden beim nächsten Alert bereinigt
 
-**Bug C:** Exceptions in `_handle_menu_callback` → `poll_commands except: pass` → kein Alert.
-Fix: `_safe_callback(name, handler, *args)` fängt Exception, sendet Telegram-Alert, gibt `"⚠️"` zurück.
+### Bug C — Silent Button-Crashes: kein Feedback bei Exception
+Exceptions in `_handle_menu_callback` propagierten zu `poll_commands` → `except Exception: pass` → kein Telegram-Alert.
+Fix: `_safe_callback(name, handler, *args)` in `telegram_bot.py`:
+- Fängt Exception, loggt Traceback, sendet Telegram-Alert mit Fehlermeldung
+- Gibt `"⚠️ Fehler"` zurück statt re-raise
+- Beide Call-Sites (Inline-Keyboard und Text-Button) nutzen `_safe_callback`
 
 ---
 
@@ -637,1023 +784,334 @@ Fix: `_safe_callback(name, handler, *args)` fängt Exception, sendet Telegram-Al
 **Status:** ✅ IMPLEMENTIERT (18.04.2026) — EXIT_DRY_RUN=true, Observation läuft
 
 ### Warum 40/40/15/5 Staffel?
-Prevayo-Research + Laika AI Backtests für binäre Prediction-Markets.
-- 40% Sicherheits-Take bei +30%: Kapitalsicherung vor Reversal-Risk
+Basiert auf Prevayo-Research und Laika AI Backtests für binäre Prediction-Markets.
+- 40% Sicherheits-Take bei +30%: Kapitalsicherung bevor Reversal-Risk steigt
 - Zweites 40% bei +60%: Compound-Effekt bei Gewinnern
-- 15% bei +100%: Runner-Anteil (5%) bis Resolution
-- Boost-Staffel (3+ Wallets): 50/90/150% wegen höherer Conviction
+- 15% bei +100%: Lässt Runner-Anteil (5%) bis Resolution
+- 5% "Runner" bis Markt-End: Max-Payout bei Jackpot-Outcomes
 
-### Warum 12¢ Trail-Aktivierung (absolut)?
-Binäre Märkte 0..1 USDC — prozentuale Trails scheitern bei billigen/teuren Tokens.
-12¢ = sinnvoller Gewinn bei allen Preisniveaus.
-Trail-Distance: 7¢ (≥$50k Vol) vs 10¢ (thin) — breiter bei illiquidem Orderbook.
+Boost-Staffel (3+ Wallets): 50/90/150% Schwellen wegen höherer Conviction bei
+multi-wallet Signalen → länger halten macht Sinn.
+
+### Warum 12¢ Trail-Aktivierung (absolut, nicht prozentual)?
+Binäre Prediction-Markets handeln 0..1 USDC. Prozentuale Trails scheitern bei:
+- Billige Tokens (z.B. 5¢ entry): 10% = 0.5¢ → Trail zu sensibel
+- Teure Tokens (z.B. 85¢ entry): 10% = 8.5¢ → nur Margins, kein Edge
+12¢ absolut = sinnvoller echter Gewinn bei allen Preisniveaus.
+Trail-Distance: 7¢ (liquid ≥$50k Volume) vs 10¢ (thin) — breiterer Trail bei
+illiquidem Market wegen höherer Spread-Noise.
 
 ### Warum Whale-Exit höchste Priorität?
-Smart-Money-Signal > Zahlen. Wallet verkauft = Information, nicht nur Statistik.
-Sofort 100% raus, kein partial-exit.
+Smart-Money-Signal überschreibt Zahlen. Wenn die Wallet die wir kopieren verkauft,
+weiß sie etwas das wir nicht wissen (Info-Arbitrage, privates Signal).
+TP-Schwellen sind historische Statistik; Whale-Signal ist Information.
+Sofort 100% raus, kein partial-exit, kein Zögern.
 
 ### Warum DRY-RUN-Default?
-(1) Validierung erste 24h. (2) SELL-Slippage-Dynamics noch unbekannt. (3) Race-Condition
-exit_loop + WalletMonitor + FillTracker auf `engine.open_positions` im DRY-RUN harmlos.
+Drei Gründe:
+1. Validierung: Erste 24h beobachten ob Exit-Logik vernünftige Signale produziert
+2. Preis-Slippage: SELL auf Polymarket hat andere Dynamics als BUY — braucht Daten
+3. Race-Condition: exit_loop + WalletMonitor + FillTracker teilen sich `engine.open_positions`
+   → im DRY-RUN keine echten Side-Effects wenn Race-Condition auftritt
 
-### Bekannte Edge-Cases
-- `wallet_monitor.get_recent_sells` noch nicht implementiert → Whale-Exit immer skip
-- `market_volumes` aktuell immer `{}` → immer thin-trail (konservativ)
-- Partial-Fill bei SELL: `remaining_shares` tracked, aber `pos.shares` erst bei Live-Exit updated
+Nach 24h Observation: grep exit_loop Logs, prüfe ob TP/Trail-Signale sinnvoll,
+dann EXIT_DRY_RUN=false setzen.
 
----
-
-## P047 — OpenClaw-Evaluation: Warum nicht integrieren
-
-**Status:** ENTSCHIEDEN (18.04.2026) — Weg A: Konzepte klauen, Plattform nicht nutzen
-
-OpenClaw (Peter Steinberger), 329k GitHub-Stars. $116k/Tag-Narrativ = Arbitrage mit
-riesigem Kapital. Reddit-Test: $42 mit OpenClaw-Setup. Edge halbiert sich 3-6 Monate.
-
-**Eigene Architektur-Analyse:** Watcher, Enricher, Notifier, Executor — 80% bereits vorhanden.
-Fehlt nur: zentralisiertes Memory-System.
-
-**Entscheidung:** Konzepte übernehmen (Skill-Manifeste, Dry-Run-First, Structured Signals,
-Guarded Execution). Plattform nicht nutzen.
-
-**Grund:** Seit 4. April 2026 Anthropic-Sperre für Subscription-Zugriff aus Third-Party-Tools
-→ separater API-Key erforderlich, Zusatzkosten, kein Vorteil zu eigenem Stack.
-
----
-
-## P048 — Latenz-Argument-Korrektur (iPhone-Chat-Insight)
-
-**Status:** VERSTANDEN (18.04.2026) — Strategie angepasst
-
-**Fehler-Annahme (heute):** "4-11 Min Lag = Edge für uns."
-**Richtig:** Lag relevant für HFT-Arbitrage (5-Min-BTC-Märkte), NICHT für Copy-Trading
-mit Stunden-/Wochen-Haltedauern.
-
-**Echte Edge-Quellen:**
-1. **Wallet-Kuration als Moat:** Weniger bekannte, konsistent profitable Wallets;
-   Kategorie-Spezialisten; Brier-Score-Rebalancing
-2. **Filter-Edge statt Speed-Edge:** Claude filtert emotionale/Fun/Hedge-Trades raus
-3. **Multi-Wallet-Confluence:** 3+ unabhängige Top-Wallets, gleiche Seite, 48h = starkes Signal
-4. **Duration-Aware Entry:** Später zu besseren Preisen wenn Whale-Impact abgeklungen
-
----
-
-## P049 — Copy-Trading-Realitäts-Check (Reddit-Research)
-
-**Status:** VERSTANDEN (18.04.2026) — Risiken im System adressieren
-
-**Reddit 4-Monats-Test ($9.200 Kapital):** Nur 1 von 7 Bots profitabel.
-Copy-Trading 8 Wochen → 5 straight losses. Edge-Verfall 60% in 12 Wochen.
-Slippage 3-5¢/Trade. 99.49% aller Polymarket-Wallets nie $1.000+ Profit.
-
-**Decoy-Trading real:** Polymarket dokumentierte Sept 2025 "Copytrade Wars" —
-Top-Whales platzieren Decoy-Trades (kaufen → warten auf Copier → in Spike verkaufen).
-
-**68%-Win-Rate-Trugschluss:** "Liegt nicht am Signal, sondern an ALLEM dazwischen."
-5 Execution-Bugs: Ghost Trades, Fake P&L, Market-Order in thin Orderbook,
-Resolution-Window-Race, Balance-Tracking statt Preis als Ground Truth.
-
-**Was uns schützt:** Fill-Verifikation on-chain, Multi-RPC-Fallback, Defensive Config 0.05x,
-Auto-Claim via blockchain-state, Wallet-Scout mit Trend-Analyse.
-
-**Was noch fehlt:** Slippage-Tracking (T-I11), Decoy-Detection (T-I08),
-Exit-Strategie ✅ erledigt (T-D52).
-
----
-
-## P050 — Sentiment-Bot-Architektur-Plan
-
-**Status:** DESIGN FINAL (18.04.2026) — Implementation geplant als T-I07
-
-**Problem:** 4-11 Min Lag zwischen News-Signal und Polymarket-Reprice dokumentiert.
-
-**API-Kosten-Research:**
-- Twitter Basic: $100/Monat OHNE Streaming (unbrauchbar)
-- Twitter Pro: $5.000/Monat (zu teuer)
-- TweetStream.io: $139-349/Monat (Polymarket-Detection built-in)
-- Free Alternative: RSS + Reddit API + Telegram Public Channels
-
-**Wichtigster LLM-Insight:** LLMs schlecht bei Probability-Estimation, sehr gut bei
-Classification. Claude fragen: "Bullish oder bearish für Position X?" statt "Wahrscheinlichkeit?"
-
-**Referenz-Projekte:** foxchain99/polymarket-sentiment-bot (open source),
-brodyautomates/polymarket-pipeline (Claude-Klassifikation)
-
-**Phased Approach:**
-- Phase 0.5 (T-I07): Free-Tier RSS+Reddit+Telegram, NUR Logging+Info-Alerts, 2 Wochen Validierung
-- Phase 1: Alert-Only mit mehr Quellen (wenn >55% Accuracy)
-- Phase 2: Semi-Auto high-confidence, small sizes
-- Phase 3: Voll integriert
-
-**Risiken:** Fake-News (→ 2-Source-Confirmation), Bot-Konkurrenz (→ Nischen-Märkte <$500k),
-API-Kosten (→ Free-Tier-Start).
-
----
-
-## P051 — Manifold als Paper-Trading-Plattform
-
-**Status:** EVALUATION GEPLANT (18.04.2026) — T-I09
-
-Manifold.markets: Mana (virtuelle Währung, kostenlos), offene API, realistische
-Preis-Dynamik durch echte User.
-
-**vs. PolySimulator:** PolySimulator = nur Polymarket-Preise ohne Market-Dynamik.
-Manifold = echtes Orderbook, echte Preisbildung.
-
-**Plan:** `utils/manifold_shadow.py` mit identischer Copy-Logik wie KongTradeBot.
-4-6 Wochen Kalibrierung. Metriken: Hit-Rate, Brier-Score, ROI.
-Strategie-Änderungen erst Manifold-Test → dann Polymarket-Deployment.
-
-**Einschränkung:** Andere User-Basis (kleinere Märkte, weniger Whales). Execution-Logik
-ähnlich genug für Validierung der Strategy-Layer.
+### Bekannte Edge-Cases (für Post-Observation Review):
+- Partial-Fill bei SELL: `remaining_shares` wird tracked, aber nächster Loop-Cycle
+  verkauft nochmal basierend auf `pos.shares` (nicht updated wenn DRY-RUN)
+- Race: Whale-Exit + TP1 gleichzeitig → Whale-Exit gewinnt (continue-Statement)
+- `market_volumes` kommt aktuell als {} → immer thin-trail (konservativ, gut)
+- `get_recent_sells` auf WalletMonitor fehlt noch → Whale-Exit immer skip bis implementiert
 
 ---
 
 ## P052 — Grok API als Twitter-Alternative (19.04.2026)
 
-**Status:** VERSTANDEN — Paradigma-Wechsel für Sentiment-Strategie
+Status: VERSTANDEN — Paradigma-Wechsel für Sentiment-Strategie
 
-**Kontext:** Sentiment-Bot-Plan basierte auf Twitter API Basic
-($100/Monat, ohne Streaming unbrauchbar) oder TweetStream.io ($139–349/Monat).
+Kontext: Gestern Abend Sentiment-Bot-Plan basierte auf Twitter API
+Basic ($100/Monat, ohne Streaming unbrauchbar) oder TweetStream.io
+($139-349/Monat als Mittelweg).
 
-**Update:** Grok 4.1 Fast bietet native X/Twitter-Integration via API-Tool:
+Update: Grok 4.1 Fast bietet native X/Twitter-Integration via
+API-Tool:
 - $0.20 / $0.50 pro 1M Tokens (Input/Output)
-- 2M Token Context-Window
+- 2M Token Context Window (ganze Tweet-Streams verarbeitbar)
 - Echtzeit-X-Search nativ
 - Kein separater Twitter-API-Account nötig
 
-**Kostenrechnung typischer Einsatz:**
+Kostenrechnung für typischen Einsatz:
 - 100 Market-Queries/Tag × 5k Tokens avg = 500k Tokens/Tag
-- Monatlich: 15M Tokens = ~$3–15/Monat (statt $139–5000)
+- Monatlich: 15M Tokens = ~$3-15/Monat (statt $139-5000)
 
-**Implikation:**
-- T-I07 Sentiment-Bot Phase 0.5 umgeplant: Grok statt RSS als primäre Quelle
-- Twitter-API-Pro aus Planung gestrichen
-- T-S01: Grok-Integration als universelles Modul für alle zukünftigen Bots
+Implikation:
+- T-I07 Sentiment-Bot Phase 0.5 wird umgeplant: Grok statt RSS als
+  primäre Quelle
+- Twitter-API-Pro aus der Planung gestrichen
+- Neue Task T-S01/T-S05: Grok-Integration als universelles Modul
 
-**Architektur-Update:** Grok-Modul wird so gebaut, dass es von ALLEN
-zukünftigen Bots genutzt werden kann.
-
----
-
-## P053 — Skill-System-Audit (19.04.2026)
-
-**Status:** ERLEDIGT — SKILL.md erstellt mit Investment-Frameworks (Punkte 10–12)
-
-**Kontext:** Frage ob Investment-Prinzipien (Dalio, Taleb, Marks) durch
-Umstellung auf GitHub-Links "verloren gegangen" sind.
-
-**Befund:** User-Skills sind systemweit in `/mnt/skills/user/` verfügbar
-(4 Skills: dalio, marks, taleb, crypto-analyst), aber Chat-Claude greift
-nicht automatisch darauf zu wenn Projekt-SKILL.md nur GitHub-Links enthält.
-
-**Lösung:** SKILL.md neu erstellt mit Pflicht-Verweisen auf die 4 User-Skills
-(Punkte 10–12). Damit werden Investment-Frameworks bei jeder Session aktiv.
-
-**Implikation für Multi-Asset-Vision:** Bei neuen Asset-Klassen werden
-spezialisierte Skills gebaut. Ein generisches "Crypto-Analyst"-Skill reicht
-nicht für Funding-Arb oder DEX-Whale-Following.
-
-**Lesson:** Skill-Erweiterungen müssen bei Projekt-Pivots explizit mitgepflegt werden.
+Architektur-Update: Grok-Modul wird so gebaut, dass es von ALLEN
+zukünftigen Bots genutzt werden kann (Polymarket, Crypto, Stocks,
+Futures). Kein Bot-spezifisches Twitter-Tracking mehr.
 
 ---
 
 ## P054 — Peer-Modell für Kollaboration (19.04.2026)
 
-**Status:** ENTSCHIEDEN — Peer, nicht Chef
+Status: ENTSCHIEDEN — Peer, nicht Chef
 
-**Kontext:** 4 Personen (Brrudi, Alex, Tunay, Dietmar) bauen parallel ähnliche
-Systeme. Frage: Wie koordinieren ohne Hierarchie?
+Kontext: 4 Personen bauen parallel ähnliche Systeme.
+Frage: Wie koordinieren ohne Hierarchie?
 
-**Entscheidung:**
+Entscheidung:
 - Brrudi initiiert Infrastruktur + GUIDELINES
 - Alle 4 sind gleichberechtigte Entscheider
 - Opt-In statt Opt-Out
 - Autonomie vor Konformität
 
-**Implikation:**
+Implikation:
 - Keine Master-Slave-Architektur
 - Kein zentraler Bot-Controller
 - Shared Services sind Utilities, nicht Kommando
 - Wenn Alex/Tunay/Dietmar nicht teilnehmen wollen: OK
 
-**Lesson:** Bei Familie/Freunden nie Chef spielen. Strukturen so bauen
-dass sie OHNE dich weiter funktionieren.
+Lesson: Bei Familie/Freunden nie Chef spielen.
+Strukturen so bauen dass sie OHNE dich weiter funktionieren.
+
+## Session 21. April 2026
+
+### K-W01: negRisk Bucket-Logik
+**Problem:** P(T≥X) statt P(T∈Bucket) berechnet.
+**Fix:** bucket_prob() in weather_scout.py korrigiert.
+**Impact:** Win Rate von 95.6% (Artefakt) auf 67.2% (real) korrigiert.
+
+### K-W02: ICAO-Mapping (kritisch)
+Paris = LFPB (Le Bourget) NICHT LFPG (CDG)!
+London = EGLC (City Airport)
+Seoul = RKSI (Incheon)
+Toronto = CYYZ (Pearson)
+US-Städte = °F! (Chicago KORD, NYC KLGA, Miami KMIA)
+TODO: Paris noch nicht korrigiert im Script.
+
+### K-W03: Seoul April-Bias
+Open-Meteo unterschätzt Incheon Airport um -5.23°C im April.
+Formel: fc_corrected = fc_raw - monthly_bias (bias ist negativ → addiert sich)
+Sigma Seoul = 2.3 (empirisch), April-σ = 2.74 (Föhn-Effekte)
+
+### K-W04: Bucket Sum Arbitrage ist illusorisch
+Sum < $1.00 sieht nach risikofreiem Gewinn aus.
+Realität: Penny-Buckets haben fast keine Liquidität.
+Beispiel: Buenos Aires 12.9% ROI = $38 Tiefe = $4.55 maximal.
+Keine echte Arb-Möglichkeit bei kleinen Positionen.
+
+### K-W05: Sigma-Kalibrierung (empirisch, 77 Tage)
+calc_station_sigma.py berechnet σ aus Residuen (actual - fc_corrected).
+Ergebnis: Fast alle Städte σ=1.0–1.5 (ECMWF sehr präzise).
+Ausreißer: Seoul=2.3, Toronto=2.2, Denver=2.1, Chicago=1.8.
+Moscow/Dubai: waren manuell 2.5 gesetzt, empirisch nur 1.1.
+Alle 30 Städte in polymarket_stations.json aktualisiert.
+
+### K-W06: Insider-Wallets sind One-Time-Events
+Echter Insider = einmaliges Ereignis, neues Wallet, verschwindet.
+Nicht: Wallet langfristig beobachten.
+Richtig: MUSTER erkennen (frisches Wallet + groß + niedrig + Geopolitik).
+
+### K-W07: Polygonscan Key
+Key: IAYXP5NMRQCUHWF3T3346U277JD1YDUJD6
+In .env und hardcoded im Script. Aktiv seit letztem Run.
+
+### K-W08: Insider-Analyse Pagination-Bug
+Streaming-Version lädt Endlos-Seiten wenn geo/niche-Bucket voll sind.
+Fix benötigt: break wenn beide Buckets voll (geo>=3000 AND niche>=500).
+Zeile in get_resolved_markets() nach dem Batch-Loop einfügen:
+  if len(geo_markets) >= 3000 and len(niche_markets) >= 500: break
+
+### K-W09: GitHub Support
+Repo KongTradeBot-Template enthält inappropriate contents → löschen.
+Kontakt: support.github.com Portal (nicht per Email).
 
 ---
 
-## P055 — 138-Restart-Loop Analyse (19.04.2026)
+## P030 — Lock-File Race Condition (Cascade-Loop 19.-21.04.2026)
+Status: ✅ BEHOBEN
 
-**Status:** ✅ FIXED via B2 (Commit 2fffe16)
-
-**Symptom:** Am 18.04.2026 138 Watchdog-Restarts in 9 Stunden.
-
-**Root Cause — 2-Schichten:**
-
-**Schicht 1 (06:50–16:18 UTC 18.04.):**
-- Alte Bot-Session hielt `bot.lock`
-- Session blockiert wegen CLOB-Allowance erschöpft ($4.63)
-- Watchdog/systemd sahen "failed" und restarteten blind
-- Jeder neue Prozess erkannte Lock und beendete sich sofort
-- Fail-Loop: Lock da → Exit → Watchdog restart → Lock da → Exit
-
-**Schicht 2 (seit 16:18 UTC 18.04.):**
-- Neue stabile Session läuft
-- ABER: `sync_positions_from_polymarket()` lädt $342.46 beim Start
-- `MAX_PORTFOLIO_PCT=50%` × $629 = $314.53
-- Alle Orders silent blockiert im `_safe_call`-Wrapper
-- 1065 CopyOrders erstellt, 0 ausgeführt
-
-**Fixes:**
-- A1: Budget-Cap blockiert jetzt sichtbar (nicht mehr silent)
-- A3: `error_handler.py` ersetzt `_safe_call`
-- B2: Watchdog prüft PID + Heartbeat statt blind zu restarten
-- Manuell: `MAX_PORTFOLIO_PCT` auf 60% erhöht
-
-**Lessons:**
-1. Silent-Fails verstecken kritische Bugs — IMMER sichtbar loggen
-2. Watchdog braucht echte Gesundheitsprüfung, nicht nur systemctl-Status
-3. Budget-Cap + Lock-File + Watchdog-Trio muss als System gedacht werden
+Symptom: 532 von 665 Bot-Starts fehlgeschlagen.
+Bot lief 2 Tage in permanentem Crash-Loop.
+Root-Cause: main() ohne atexit-Cleanup →
+bot.lock blieb nach Crash zurück →
+nächster Start: "Bot läuft bereits!" → Exit.
+Fix: check_and_create_lock() mit atexit +
+SIGTERM-Handler. Heartbeat 300s → 60s.
+Impact: 2 Tage Signalausfall, trotzdem +$67
+durch bestehende Positionen.
 
 ---
 
-## P056 — Kategorie-Erkennung Bug (19.04.2026)
+## P031 — Weather Loop markets not defined (Recurring)
+Status: ✅ BEHOBEN
 
-**Status:** ✅ FIXED via A2 (Commit e9f3cb5)
-
-**Symptom:** 79 von 90 Trades im Archiv als "Sonstiges" kategorisiert, obwohl sie
-US-Sport (NBA, MLB, NHL) waren.
-
-**Root Cause:** Pattern-Matching nutzte `"vs "` (mit Leerzeichen). Polymarket-Format
-ist aber `"vs."` (mit Punkt). Kein Match möglich.
-
-**Fix:**
-- 5 Kategorien: `sport_us`, `soccer`, `tennis`, `geopolitik`, `sonstiges`
-- Pattern erweitert um US-Sport-Liga-Namen + O/U + Spread
-- Backfill: 79 Trades neu kategorisiert
-- 44 Unit-Tests
-
-**Neue Verteilung nach Backfill:**
-- sport_us: 53 (war 0)
-- geopolitik: 14 (war 11)
-- soccer: 15 (war 0)
-- tennis: 8 (war 0)
-- sonstiges: 0 (war 71)
-
-**Lesson:** Pattern-Matching immer mit echten Daten validieren, nicht mit
-konstruierten Beispielen.
+Symptom: 109+ Fehler akkumuliert,
+"name 'markets' is not defined" alle ~10s.
+Root-Cause: markets-Variable in mehreren
+Weather-Loops ohne vorherige Definition nach
+Code-Refactoring.
+Fix: get_all_polymarket_weather_markets()
+vor jeder Nutzung von markets eingefügt.
 
 ---
 
-## P057 — Dashboard CLAIM-Button UX-Bug (19.04.2026)
+## P032 — Budget-Cap blockierte alle Trades seit 19.04.
+Status: ✅ BEHOBEN
 
-**Status:** ✅ FIXED (Commit cdd0fb5)
-
-**Symptom:** CLAIM-Button war bei allen 12 resolved-verlorenen Positionen
-aktiv und klickbar, zeigte aber "$0.00" an. Brrudi klickte mehrmals in
-Erwartung "Geld zurück" — nichts passierte.
-
-**Root Cause:** Rendering-Logik in `dashboard.html` prüfte nur `redeemable=true`,
-nicht `current_value > 0`. Resolved-verlorene Positionen sind technisch
-`redeemable` auf Polymarket-Seite, aber mit Auszahlung $0.
-
-**Fix:** Conditional Rendering mit zusätzlicher Wert-Prüfung (Zeile 923):
-- `redeemable && value > 0.01` → CLAIM $X.XX Button (grün, aktiv)
-- `redeemable && value <= 0.01` → `<span class="status-lost">VERLOREN</span>` (rot)
-- nicht redeemable → `—` (wie bisher)
-
-CSS ergänzt: `.status-lost{color:#ff4444;font-size:0.85em;font-weight:bold;font-family:monospace}`
-
-**Lesson:** UI-States immer mit allen Kombinationen durchspielen.
-"redeemable" heißt nicht automatisch "claimable mit Wert > 0".
-Claim-Chain auf Polymarket: `resolved → redeemable → payout (kann $0 sein)`
-
-## P060 — Auto-Doc-Pipeline mit 3-Ebenen-Struktur (2026-04-19)
-**Status:** FIXED via `85e6e33`
-**Scope:** automation
-
-**Root Cause:** Manuelle Doku-Sync kostete 30+ Min pro Bug-Fix-Runde.
-
-**Impact:** Bei heutiger Power-Session (37 Commits) waere Doku-Overhead
-
-**Fix:** 3-Ebenen-Automatik deployed:
-
-**Lesson:** Doku-Aufwand eliminieren durch Struktur am Source (Commit-Message)
-
-## P061 — Per-Wallet-Performance-Report mit Kategorie- und Zeitfenster-Aufschlüsselung (2026-04-19)
-**Status:** FIXED via `8689c4e`
-**Scope:** analytics
-
-**Root Cause:** Keine Sichtbarkeit in individuelle Wallet-Performance — kein Ranking nach Hit-Rate/ROI, keine Erkennung von underperformenden Wallets.
-
-**Impact:** Blind-Copy aller 15 Wallets ohne Qualitätsdifferenzierung.
-
-**Fix:** wallet_performance.py (compute_wallet_stats, compute_by_category, compute_by_timeframe, compute_all_wallets), dashboard /api/wallet_performance, CLI wallet_report.py, weekly_performance_report.py (freitags 23:55), 13 Tests.
-
-**Lesson:** ROI nur berechenbar wenn min. 1 Trade resolved ist — bei all-pending Wallets resolved_invested≈0 führt zu Division-by-near-Zero. Fix: roi_pct=None wenn (wins+losses)==0, nicht wenn invested>0.
+Symptom: Alle neuen Trades abgelehnt seit April 19.
+Root-Cause: RECOVERED_-Positionen ($538 invested)
+blockierten Budget-Cap (max $500).
+48h-Guard für RECOVERED_ verhinderte Cleanup.
+Fix: 48h-Guard für RECOVERED_ entfernt,
+$180 freigegeben.
 
 ---
 
-## P063 — Erste Anwendung Scout-Briefing v1.0 (19.04.2026)
+## P033 — Weather Execution komplett fehlte (seit Bot-Start)
+Status: ✅ BEHOBEN — 21.04.2026
 
-**Status:** LIVE — Wirksamkeit bestätigt, Lücken identifiziert
+Symptom: Bot fand täglich 20+ Opportunities,
+handelte aber nie einen einzigen Weather-Trade.
+WEATHER_DRY_RUN=false war korrekt gesetzt —
+trotzdem 0 echte Trades seit Bot-Start.
 
-**Context:** Heute wurde WALLET_SCOUT_BRIEFING.md v1.0 erstmals gegen
-bestehende 15 TARGET_WALLETS angewendet.
+Root-Cause: weather_loop() in main.py hatte
+keinen Execution-Code. Nur Telegram-Alert +
+Shadow-Portfolio. on_copy_order() wurde nie
+aufgerufen. Außerdem: Opportunity-Dicts hatten
+kein token_id-Feld (nötig für TradeSignal),
+weil get_all_polymarket_weather_markets() die
+clobTokenIds aus der Gamma API nicht
+weitergereicht hat.
 
-**Erkenntnis 1 — Briefing wirkt:**
-3 Wallets klar disqualifiziert durch HF-8 (Win-Rate 55–75%).
-RN1 (27% WR, 87% des kopierten Volumens) entfernt — systematischer
-Verlust-Generator der das Briefing nie approved hätte.
+Fix (3 Teile):
+1. weather_scout.py: clobTokenIds aus Gamma API
+   in token_ids-Feld übernommen.
+2. weather_scout.py: token_id zu jedem
+   Opportunity-Dict (YES=token[0], NO=token[1]).
+3. main.py weather_loop(): Nach Telegram-Summary
+   live_opps filtern (nicht shadow_only + hat
+   token_id) → TradeSignal + CopyOrder bauen
+   → on_copy_order() routen (Budget-Check +
+   Telegram-Confirmation + Execution).
 
-**Erkenntnis 2 — Datengrundlage unvollständig:**
-Nur 2 von 9 Hard-Filtern faktisch prüfbar (HF-5 Aktivität, HF-8 Win-Rate).
-7 weitere Filter brauchen externe Daten (predicts.guru oder on-chain-Analyse).
-Vollständiger Audit erfordert T-D107 (External-Data-API-Integration).
+Erster echter Weather-Trade: 21.04.2026 ~12:06 UTC
+  Paris NO @ 34¢ (Order 0xaa64...ec8e)
+  Dallas YES @ 22¢ (Order 0x7bc1...40ff)
 
-**Erkenntnis 3 — Briefing hat blinde Flecken:**
-- Skipped Signals nicht getrackt → T-D105
-- Discovery nur aus bestehenden TARGET_WALLETS → T-D106
-- Beobachtungszeit-Regel nicht explizit → Briefing v1.1 (Teil 16)
-
-**Lesson:** Erste Anwendung eines neuen Systems deckt gleichzeitig seine
-Stärken und Lücken auf. Briefing v1.0 erkannte klare Fälle richtig (RN1).
-Aber vollständige Prüfung aller 9 Hard-Filter erfordert nächste Iteration.
-
-**Meta-Lesson:** Documentation and implementation are separate concerns.
-v1.0 auf GitHub ≠ v1.0 in Bot-Betrieb. Jede Iteration deckt neue Lücken
-auf — das ist by design, nicht ein Fehler.
-
----
-
-## P066 — Namespace-Kollision T-DXX (19.04.2026)
-
-**Status:** BEHOBEN — Namespace-Konvention eingeführt
-
-**Symptom:** Auto-Doc-Pipeline und manuelle Chat-Prompts vergaben beide
-T-DXX Nummern. Heute 11 Kollisionen entstanden: T-D70–T-D80 doppelt belegt
-(QUEUE: Scout-Implementierungs-Tasks; DONE: auto-generierte Commit-Einträge).
-
-**Root-Cause:** Keine explizite Namespace-Trennung zwischen Pipeline (automatisch)
-und Session-Planung (manuell). Beide nutzten dasselbe T-DXX Schema.
-
-**Fix:** Namespace-Konvention in TASKS.md Header:
-- `T-DXX` — Auto-Doc-Pipeline (auto_doc.py aus Commits)
-- `T-MXX` — Manuelle Session-Tasks (Chat-Prompts)
-- `T-SXX` — Strategische Roadmap-Items
-- `T-CXX` — Collective-Tasks
-
-Duplikate T-D70–T-D80 (manuell) umbenannt auf T-M10–T-M20.
-
-**Lesson:** Namespace-Konventionen müssen FRÜH festgelegt werden wenn
-Automation und Mensch parallel in dasselbe System schreiben.
-Retroaktive Bereinigung (11 Einträge heute) kostet mehr als Prävention.
+Wichtig: Immer prüfen ob weather_loop() nach
+run_weather_scout() auch on_copy_order() aufruft.
 
 ---
 
-## P067 — Briefing v1.2 Peer-Review durch Alex's Claude (19.04.2026)
+## P034 — Weather Duplikat-Trades (21.04.2026)
+Status: ✅ BEHOBEN
 
-**Status:** EINGEARBEITET — v1.2 live
+Symptom: Dallas YES zweimal gekauft (@ 0.22
+und @ 0.27, selbe condition_id) im ersten
+Live-Trading-Tag.
 
-**Kontext:** Alex ließ seine Claude-Instanz das WALLET_SCOUT_BRIEFING.md v1.1 reviewen
-und schickte das Feedback. Erste externe Peer-Review des Systems.
+Root-Cause: weather_loop() prüfte nicht ob
+condition_id bereits in open_positions.
+Bei jedem 30-Min-Scan wurde dieselbe
+Opportunity erneut als Order platziert.
 
-**Erkenntnisse (6 Änderungen):**
+Fix: Vor on_copy_order() wird ein Set aller
+offenen condition_ids gebaut:
+  open_condition_ids = {pos.market_id for pos
+    in engine.open_positions.values()}
+Wenn opp['condition_id'] bereits drin → SKIP.
 
-1. **V1-Hypothesen-Disclaimer (Teil 4):** Zahlen wie "50 Trades, 30% Drawdown" sind
-   informed starting points, keine empirisch validierten Schwellenwerte. Ohne Disclaimer
-   riskiert man False Confidence bei der Anwendung.
-
-2. **Pool-Size-abhängige KongScore-Anwendung (Teil 5):** Bei <20 Trades voller 10-Kategorie-Score
-   misleading. Small-Pool (<20): 5 reduzierte Kategorien. Large-Pool (≥20): voller Score.
-
-3. **SKILL.md Relevanz-Matrix (Punkt 13):** "Immer alle 4 Frameworks" ist Zeremonie, nicht
-   Analyse. Neu: Aufgaben-abhängige Aktivierung via Matrix (Wallet, Portfolio, Exit, Risk etc.)
-
-4. **Smart-Loading SESSION-START (GUIDELINES.md):** Alle 9 Docs immer laden verbrennt Tokens.
-   Neu: Minimum 3 (GUIDELINES + STATUS + TASKS) + kontextabhängige Extras.
-
-5. **Anti-Zeremonie-Regel (SKILL.md Punkt 15):** Framework-Zitate als Legitimationsstempel
-   ohne echten Inhalt verboten. Echter Test: Würde das Framework dieser spezifischen
-   Entscheidung zustimmen? Wenn unklar → Kompass, nicht Kochrezept.
-
-6. **Version-History im Briefing (Teil 11):** v1.2 Eintrag mit Datum + Peer-Review-Quelle.
-
-**Lesson:** Externe Reviews (auch von anderen Claude-Instanzen) bringen frischen Blick.
-Besonders wertvoll wenn das System komplex genug ist dass der Autor blind für strukturelle
-Schwächen wird. Alex's Claude identifizierte "Token-Verbrennung" und "False Confidence"
-als zwei unabhängige Risiken — beide nicht offensichtlich von innen.
+Wichtig: market_id == condition_id auf
+Polymarket (siehe execution_engine.py:466).
 
 ---
-
-## P070 — On-Chain-Scan-Ergebnisse brauchen externe Cross-Validation (19.04.2026)
-
-**Status:** ERKENNTNISGEWINN — keine Aufnahme von jakgez ohne weitere Bestätigung
-
-**Kontext:** T-D83 Phase 1.5 fand `jakgez` (0x9fe5...) als Kandidaten: 88% Politics-Focus,
-60% Win-Rate, 500+ Trades. Multi-Source-Verifikation durchgeführt.
-
-**Kritische Befunde:**
-
-1. **Kategorie-Diskrepanz:** Scan sagte Politics 88% — Realität ist Sports (MLB/NBA).
-   0xinsider Politics-Leaderboard: jakgez nicht vorhanden. Letzte Trades: MLB Over/Under.
-   → Die Kategorie-Klassifizierung des Scans ist fehlerhaft oder basiert auf altem Datenschnitt.
-
-2. **Win-Rate nicht extern verifizierbar:** predicts.guru (Dynamic-JS), polymarketanalytics.com
-   (Dynamic-JS), polymonit.com (Login-Wall), 0xinsider (nicht gefunden) — 0/3 externe Quellen
-   liefern jakgez-Daten. Nur Polymarket-Profil selbst verfügbar.
-
-3. **cashPnL -$1.943 ist harmlos:** ~0.77% des Portfolio-Werts ($253.40), unrealisiert.
-   Bei Sports-Intraday-Bets normales Tages-Drawdown-Niveau.
-
-**Empfehlung:** WATCHING — kein Tier A/B ohne externe Win-Rate-Bestätigung.
-Review: 2026-05-19 (30-Tage-Regel aus WALLET_SCOUT_BRIEFING.md Teil 16).
-
-**Lesson:** On-Chain-Scan-Ergebnisse sind ein Ausgangspunkt, kein Beweis. Wallet-Adresse +
-interne Statistik = nicht ausreichend für Tier-A-Aufnahme. Externe Cross-Validation
-über ≥2 Quellen ist Pflicht — fehlen diese, gilt automatisch WATCHING.
+## P033 — Weather Execution fehlte seit Tag 1
+**Status:** ✅ BEHOBEN (21.04.2026)
+**Root-Cause:** weather_loop() hatte keinen Execution-Code.
+**Fix:** on_copy_order() nach Weather-Signal aufgerufen.
+**Erster Trade:** 21.04.2026 — Paris NO +139%, Ankara +902%, Busan +1751%
 
 ---
-
-## P071 — Polymarket-Zeitstempel-Semantik: acceptingOrders statt endDate (19.04.2026)
-
-**Status:** DOKUMENTIERT — Sell-Feature-Implementierung (T-M05) kann jetzt präziser werden
-
-**Kontext:** Für Dashboard-Differenzierung und Auto-Sell-Feature wurde die vollständige
-Zeitstempel-Semantik der Gamma-API analysiert (Live-Calls + geschlossene Märkte).
-
-**Kernerkenntnis:**
-
-- `acceptingOrdersTimestamp` = Wann Market BEGANN Orders anzunehmen (nicht: bis wann)
-- Es gibt **kein `acceptingOrdersUntil`-Feld** in der Gamma-API
-- `closedTime` erscheint nur nach Trading-Stopp, kann **vor `endDate` liegen** (Biden-Fall: 2 Tage früher)
-- `endDate` = Resolution-Zieldatum, kein garantiertes Trading-Ende
-- `resolutionTime` existiert nicht in Gamma-API
-
-**Für Sell-Feature:**
-- Live-Check Trading möglich: `acceptingOrders` (Boolean) — verlässlicher als `endDate`-Vergleich
-- Dead Zone existiert: zwischen `closedTime` (Trading gestoppt) und Claim-Verfügbarkeit
-- Claim-Timing: on-chain `redeemable`-Check nötig, kein Gamma-API-Feld vorhanden
-
-**Lesson:** `endDate` und "Trading endet" sind NICHT dasselbe. Wer `endDate` als Sell-Deadline
-nutzt, kann zu spät sein (Trading schon gestoppt) oder zu früh (endDate noch in Zukunft aber
-acceptingOrders bereits false). Immer `acceptingOrders` Boolean prüfen.
+## P055/P056 — ICAO Korrekturen
+**Status:** ✅ BEHOBEN (21.04.2026)
+**Paris:** LFPB→LFPG (Le Bourget→CDG, Polymarket verifiziert)
+**London:** EGLL→EGLC (Heathrow→City Airport, Polymarket verifiziert)
+**Lesson:** Immer Polymarket Resolution Text prüfen!
 
 ---
-
-## P073 — Manuelle Kandidaten-Evaluation: polymonit-Daten nie direkt vertrauen (19.04.2026)
-
-**Status:** ERKENNTNISGEWINN — 2 Kandidaten zur Tier-B-Aufnahme empfohlen
-
-**Kontext:** 4 Kandidaten aus polymonit April Nischen-Leaderboards gegen Briefing v1.2 geprüft.
-Methode: Polymarket-Profil + data-api Ground-Truth + 0xinsider wo verfügbar.
-
-**Befunde:**
-
-1. **Erasmus (0xc658...b784): Tier B, 0.5x Multiplier**
-   Iran/Middle East Spezialist. April ~50% ROI auf $940K Volume. $1.4M Portfolio.
-   Open Positions cashPnL +$30.693. Kein 0xinsider (Wallet-Mapping-Problem).
-
-2. **TheSpiritofUkraine (0x0c0e...434e): Tier B, 0.3x Multiplier**
-   Geopolitics-Spezialist seit Aug 2021 (4.5 Jahre). 1.086 Markets. April +$503K.
-   Open cashPnL -$40.963 klingt schlecht, ist aber nur 0.75% des Portfolios.
-
-3. **Fernandoinfante (0xd737...be95): REJECT**
-   Win Rate 23.3% (0xinsider bestätigt) = HF-8 FAIL.
-   Biggest Win $462K > gesamtes Closed PnL = HF-7 FAIL. Moonshot-Gambler.
-
-4. **0xde17...988: REJECT**
-   Portfolio $0. Alle Positionen -100%. cashPnL -$174.941.
-   polymonit zeigte +$727.451 — komplett falsch/veraltet.
-
-**Kritische Lektionen:**
-
-- **polymonit zweimal widerlegt:** 0xde17 ($727K polymonit vs. $0 real) und Fernandoinfante
-  (impressive PnL real aber Moonshot, nicht Skill). polymonit = Startpunkt, nie Endpunkt.
-- **0xinsider Wallet-Mapping:** Bei Erasmus mappt 0xinsider auf andere Wallet (EOA statt Proxy).
-  0xinsider-Daten für Proxy-Wallets sind unzuverlässig. Polymarket data-api ist Ground Truth.
-- **Iran-Nische dominiert April:** 3/4 Kandidaten spielen Iran/Hormuz. Selbes Event, sehr
-  unterschiedliche Qualität (Erasmus: echter Edge, Fernandoinfante: Moonshot, 0xde17: Verlust).
-- **Kategorie-Keyword-Matcher zu eng:** Iran, Hormuz, Ceasefire werden als "Other" klassifiziert.
-  Für Scout v2 (T-M10): Keyword-Liste um Geopolitik-Nische erweitern.
+## P057 — Tier-Architektur
+**Status:** ✅ DEPLOYED (21.04.2026)
+**Tier 1:** 6 deep (NYC/LON/SEO/CHI/TYO/PAR), min_edge 15%
+**Tier 2:** Alle anderen, YES <12¢ oder NO >50¢
+**Tier 3:** Barbell, edge ≥30% bei price ≤8¢
 
 ---
-
-## P074 — T-M04 Phase 0 Diagnose: Bot-Feature-Asymmetrie (19.04.2026)
-
-**Status:** DIAGNOSTIZIERT — Implementation-Plan für T-M04a/b/d
-
-**Kontext:** Server-CC führte vollständige Code-Analyse des Sell-/Claim-Features durch.
-Erwartung: komplette Lücken. Realität: "50% implementiert, 50% broken seit Beginn".
-
-**Befunde:**
-
-1. **Sell-Code existiert** (execution_engine.py:636-746) — nicht Greenfield-Build nötig.
-   `EXIT_DRY_RUN=true` ist hard-coded Blocker → eine Zeile fix → Sell live.
-
-2. **Claim-Code (claim_all.py) broken seit Tag 1** — `client.redeem(condition_id)` gibt
-   `AttributeError`. 0 erfolgreiche automatische Claims seit Inbetriebnahme.
-   Wuning ($50.13) wurde manuell geclaimed. Fix: RelayClient (P076, ~2h).
-
-3. **Position-Restore fehlt** — `engine.open_positions` leer nach Restart/Tagesübergang.
-   State-Manager löscht open_positions bei Datumswechsel. Fix: Reconciliation gegen
-   Polymarket on-chain Positionen bei Startup.
-
-4. **Archive-Drift: 84.9% ohne tx_hash** — Trades werden archiviert bevor tx_hash
-   confirmed. Retroaktiver Fill fehlt. 18 Einträge heute manuell via data-api nachgetragen.
-
-5. **Heartbeat-Alarm war False Positive** — 300s Write-Interval vs 180s Warning-Schwelle.
-   Fix: Schwelle auf 360s angehoben (P075-adjacent).
-
-**Lesson:** Vor Feature-Build immer Diagnose der Bestandssysteme.
-"50% implementiert" hat andere Implikationen als "Greenfield":
-- Man repariert Bestehendes statt neu zu bauen
-- Risiko: bestehender Code hat implizite Annahmen die man nicht kennt
-- Vorteil: viel weniger Aufwand als erwartet (EXIT_DRY_RUN = eine Zeile)
-
----
-
-## P075 — Position-State-Bug: 14 von 25 Portfolio-Positionen sind faktisch beendet (19.04.2026)
-
-**Status:** DIAGNOSTIZIERT — Implementation geplant für T-M08 nächste Session
-
-**Symptom:** Dashboard Portfolio zeigt 25 Positionen als "OPEN". Tatsächlich:
-- 11 wirklich aktiv (Markt offen, value > 0)
-- 1 WON wartet auf Claim (redeemable=True, value=$50)
-- 13 RESOLVED_LOST (redeemable=True, value=$0) — werden NIE weggeräumt
-- Gesamtverlust in festsitzenden Positionen: -$148.70
-
-**Root-Cause (alle drei Hypothesen bestätigt):**
-
-1. **H1 — Polymarket-API:** Positions-API liefert alle on-chain Positionen bis zum expliziten
-   Redeem. `redeemable=True + value=0` = RESOLVED_LOST, bleibt aber in Portfolio-Count.
-
-2. **H2 — Kein Cleanup-Job:** `resolver.py --save` (schreibt `aufgeloest=True`) ist manuell.
-   ResolverLoop (15min) läuft ohne `--save`. Ergebnis: 106/106 Trades `aufgeloest=False`.
-   RESOLVED-Tab zeigt immer 0.
-
-3. **H3 — Claim/Sell Confusion:** LOST-Positionen haben `redeemable=True` (Vertrag resolved),
-   aber kein Geld claimbar. Ohne explizites Redeem-$0-Call bleiben sie ewig im Portfolio.
-
-**Zwei getrennte Tracking-Systeme ohne Sync:**
-- `bot_state.json → open_positions` → `/api/positions` → 0 (täglich gecleared)
-- Polymarket on-chain API → `_polymarket_positions` → `/api/portfolio` → 25
-
-**Fix (T-M08, nächste Session ~3.5h):**
-- `position_state` Feld in `/api/portfolio`: ACTIVE / RESOLVED_WON / RESOLVED_LOST
-- Dashboard-AKTIV-Zähler auf 11 korrigieren
-- ResolverLoop mit `--save` aktivieren
-- Sofort-Maßnahme risikofrei: `python resolver.py --save` manuell ausführen
-
-**Lesson:** Position-State ist keine DB-Spalte sondern eine State-Machine.
-Jeder Zustand braucht expliziten Trigger. Ohne Cleanup-Worker akkumulieren
-beendete Positionen endlos — Dashboard-Zahlen werden unbrauchbar.
-
----
-
-## P076 — Polymarket-Claim: ClobClient hat kein redeem(), Lösung via RelayClient (19.04.2026)
-
-**Status:** RECHERCHIERT — Implementation via T-M04b nächste Session
-
-**Bug:** `claim_all.py` Zeile 92: `client.redeem(condition_id)` → `AttributeError`.
-`ClobClient` hat keine `redeem`-Methode (bestätigt: vollständiges Method-Listing, GitHub Issue #139).
-Jeder bisherige Claim-Versuch schlug fehl. Wuning wurde manuell via UI geclaimed.
-
-**Korrekte Methode: py-builder-relayer-client (offiziell, gasless)**
-
-```bash
-pip install py-builder-relayer-client  # py_builder_signing_sdk bereits installiert
-```
-
-```python
-from py_builder_relayer_client.client import RelayClient
-
-# Standard-Market:
-redeem_tx = {"to": CTF, "data": encode_abi("redeemPositions", [USDC, bytes(32), condition_id_bytes, index_sets]), "value": "0"}
-# NegRisk-Market (negRisk=True):
-redeem_tx = {"to": NEG_RISK_ADAPTER, "data": encode_abi(...), "value": "0"}
-
-client.execute([redeem_tx], "Redeem positions").wait()
-```
-
-**Wichtige Parameter:**
-- CTF: `0x4D97DCd97eC945f40cF65F87097ACe5EA0476045`
-- NEG_RISK_ADAPTER: `0xd91E80cF2E7be2e162c6513ceD06f1dD0dA35296`
-- USDC: `0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174`
-- `indexSets`: `[1]` für Outcome 0 (YES), `[2]` für Outcome 1 (NO)
-- `parentCollectionId`: `bytes(32)` (HASH_ZERO) für Standard-Markets
-
-**Warum nicht Web3 direkt:** Positionen liegen im Gnosis Safe (Proxy Wallet), nicht EOA.
-Direkter CTF-Contract-Call geht nicht — Safe muss `execTransaction` aufrufen (Issue #139).
-
-**Lesson:** Vor Implementation geld-kritischer Features: Research erst, Code später.
-`py-clob-client` kann traden aber nicht redeem — das ist eine bewusste Design-Lücke
-(Issue #139 seit Jul 2025 offen, 50+ Upvotes). Relayer-Client ist der offizielle Weg.
-
----
-
-## P077 — Multiplier ≥ 1.5x braucht externen WR-Nachweis (19.04.2026)
-
-**Status:** REGEL ETABLIERT — gilt ab sofort für alle Multiplier-Assignments
-
-**Trigger:** HOOK (2.0x) und April#1 Sports (2.0x) hatten interne Aliases ohne externe
-WR-Verifikation. April#1 Sports: polymonit Rank #1 April 2026 (+$6.3M) klang wie starkes
-Signal — externe Verifikation ergab WR 46.7% (HF-8 FAIL) und Lifetime PnL -$9.8M.
-
-**Regel:** Jedes Multiplier ≥ 1.5x erfordert externen WR-Nachweis ≥ 55% aus mindestens
-einer unabhängigen Quelle (0xinsider, predicts.guru, cointrenches.com).
-
-**Ergebnis der Verifikation:**
-
-| Wallet | Alt | Neu | Extern-WR | Grund |
-|--------|-----|-----|-----------|-------|
-| April#1 Sports | 2.0x | 0.3x WATCHING | 46.7% | HF-8 FAIL, HFT-Bot, Lifetime -$9.8M |
-| HOOK | 2.0x | 1.0x | 38.5–67% diskrepant | Sample 46 Trades, WR unklar |
-
-**Muster (dritter Fall):** polymonit-Ranking täuscht systematisch.
-- 0xde17: +$727K polymonit → $0 Realportfolio
-- Fernandoinfante: polymonit-sichtbar → WR 23.3% (HF-7+HF-8 FAIL)
-- April#1 Sports: polymonit Rank #1 → WR 46.7%, Lifetime -$9.8M
-
-**Lesson:** Interne Alias-Namen wie "April#1 Sports" sind Merkzettel, kein Qualitäts-Urteil.
-Multiplier-Entscheidungen müssen auf externen Daten basieren, nicht auf internen Labels.
-
----
-
-## P078 — Archive-Drift: 69% der Trades sind Ghost-Einträge (19.04.2026)
-
-**Status:** DIAGNOSTIZIERT — Fix via T-M06 Reconciliation-System
-
-**Befund (T-M06 Phase 0, live verifiziert):**
-
-```
-Archive:  110 Trades, $1,662.98 USDC (modus=LIVE, alle)
-On-Chain:  40 Trades, $  522.12 USDC (data-api.polymarket.com)
-Drift:     70 Trades, $1,140.86 USDC — 69% des Archive ist Phantom-Volumen
-```
-
-**Root-Cause:** Das Archive wird VOR der Ausführungsbestätigung beschrieben.
-Geblockte/fehlgeschlagene Orders (Risk-Manager, API-Error, Budget-Cap) hinterlassen
-Archive-Einträge ohne tx_hash. Sie löschen sich nie selbst.
-
-```
-tx_hash=''       → 90 Trades ($1,350) — Order nie on-chain ausgeführt
-tx_hash=pending_ → 20 Trades ($312)  — Order ausgeführt, Bestätigung fehlte
-tx_hash=0x...   →  0 Trades ($0)    — kein einziger bestätigt
-```
-
-**Konsequenzen:**
-- PnL-Berechnung im Archive überschätzt Einsatz um Faktor 3x ($1,662 vs $522 real)
-- Steuer-Export 2026 aktuell unmöglich (Daten zu lückenhaft)
-- Manuelle UI-Interventionen (Wuning-Claim +$50.13) landen NICHT im Archive
-- AutoClaim läuft seit Inbetriebnahme: 0 Redeemable gefunden, 0 Claims ausgeführt
-
-**Fix-Plan:**
-1. Signal-Logging nur NACH Ausführungsbestätigung (verhindert neue Ghosts)
-2. `reconcile_onchain.py` — diff Archive vs. on-chain, Ghost-Trades markieren
-3. `tax_export.py` — CSV mit EZB-EUR-Kursen für § 22 Nr.3 EStG
-
-**Steuer-Einordnung Deutschland (konservativ):** § 22 Nr.3 EStG, Freigrenze 256 EUR netto/Jahr,
-voller Einkommensteuersatz. Realisierungszeitpunkt = Claim-Datum, nicht Kauf-Datum.
-
-**Abhängigkeit:** T-M04b (Claim-Fix) muss vor T-M06 fertig sein.
-
----
-
-## P079 — Builder Program NICHT erforderlich für Relayer; P076 hatte falsche Credentials (19.04.2026)
-
-**Status:** KORREKTUR — P076 / claim_fix_research_2026-04-19.md aktualisierungsbedürftig
-
-**Falsche Annahme in P076:** "Builder Program nötig für RelayClient" — FALSCH.
-Relayer-Zugang ist self-service über `polymarket.com/settings?tab=api-keys`. Keine Genehmigung.
-
-**Falsche Credentials in P076:**
-```python
-# FALSCH (P076):
-client = RelayClient(
-    host="https://relayer.polymarket.com",        # ← alte URL
-    api_creds=ApiCreds(api_key=..., api_secret=..., api_passphrase=...)  # ← CLOB-Format
-)
-
-# KORREKT (aktuelle Docs 2026):
-client = RelayClient(
-    host="https://relayer-v2.polymarket.com",     # ← neue URL
-    chain=137,
-    signer=os.getenv("PRIVATE_KEY"),             # ← Private Key direkt
-    relayer_api_key=os.environ["RELAYER_API_KEY"],
-    relayer_api_key_address=os.environ["RELAYER_API_KEY_ADDRESS"],
-)
-```
-
-**Neue .env-Vars für T-M04b:**
-- `RELAYER_API_KEY` — UUID, erstellt unter polymarket.com/settings?tab=api-keys
-- `RELAYER_API_KEY_ADDRESS` — Ethereum-Adresse des Key-Besitzers
-
-**Credential-Format-Konfusion:** Alte GitHub-.env.example zeigt `BUILDER_API_KEY/SECRET/PASS_PHRASE`
-(CLOB-ähnlich). Neue offizielle Docs zeigen `RELAYER_API_KEY + RELAYER_API_KEY_ADDRESS`.
-→ Erst beim tatsächlichen pip install + Test verifizieren welches Format die Lib erwartet.
-
-**T-M04b Aufwand revidiert:** ~1h (nicht 2h) — kein Antrag nötig, nur self-service Key + pip install.
-
-**Builder Program (builders.polymarket.com)** = Grants/Leaderboard-System, kein Zugangssystem.
-Beitritt optional, kein Mehrwert für Auto-Claim. Nur relevant für Volume-Attribution + $2.5M Grant-Pool.
-
----
-
-## P080 — Position-Restore via Data-API bei Bot-Start (T-M04a, 19.04.2026)
-
-**Status:** IMPLEMENTIERT — Commit 57ff2e7
-
-**Problem:** `engine.open_positions` war leer nach jedem Neustart/Tagesübergang.
-`state_manager.py` Zeile 86: bei Datumswechsel wurden `open_positions` gelöscht.
-ExitManager und TP-Trigger fanden keine Positionen → konnten nicht feuern.
-
-**Fix:** Bei Bot-Start werden Positionen aus `data-api.polymarket.com/positions` geladen
-und in `engine.open_positions` geschrieben, bevor der Event-Loop startet.
-
-**Verhalten nach Fix:**
-- Bot startet mit 23 sync-ten Positionen (live verifiziert)
-- ExitManager feuert DRY-RUN TP1-Exits auf wiederhergestellte Positionen
-- `bot_state.json` bleibt als Fallback — Data-API hat Priorität
-
-**Abhängigkeit:** Aktiviert T-M04d (Take-Profit-Trigger) — war vorher wirkungslos.
-
----
-
-## P081 — Magic.link EOA = PRIVATE_KEY = einziger User-Signer (19.04.2026)
-
-**Status:** BESTÄTIGT — Magic.link Key-Export durch Onur verifiziert
-
-**Erkenntnis:** Die Wallet-Infrastruktur ist einfacher als Server-CC annahm.
-
-```
-Magic.link EOA: 0xd7869A5Cae59FDb6ab306ab332a9340AceC8cbE2
-= PRIVATE_KEY in .env
-= Signer für CLOB API (L1 Auth)
-= Owner des Gnosis Safe (Proxy Wallet 0x700BC5...)
-= Signer für RelayClient (T-M04b)
-```
-
-**Server-CC's CREATE2-Wallet-Hypothese war falsch:** Die Adresse `0x79804817` ist
-vermutlich Gnosis Safe Master Copy Reference, keine eigene User-Wallet.
-
-**Konsequenz für T-M04b:** `signer=PRIVATE_KEY` in RelayClient ist der korrekte Weg.
-Keine separate Owner-EOA, kein zweiter Schlüssel nötig.
-
-**Manuelle Claims als Beweis:** Beide Claims (Wuning +$50.13, Busan +$39.00) erfolgten
-ohne MetaMask-Popup → Polymarket nutzt denselben internen Magic.link-Signer.
-Auto-Claim via demselben Private Key sollte identisch funktionieren.
-
----
-
-## P082 — Custodial Architecture: Warum Builder-Code kein Claim-Recht gibt (19.04.2026)
-
-**Status:** VERSTANDEN — Dokumentiert nach Builder-Profil-Setup
-
-**Kontext:** Onur erstellte heute Builder-Profil "KongTrade" auf Polymarket.
-Initialer Gedanke: "Builder-Code könnte Auto-Claim ermöglichen." — FALSCH.
-
-**Polymarket Wallet-Architektur:**
-```
-Magic.link EOA (0xd7869A5C) — privater Schlüssel
-    ↓ deployed + owns
-Gnosis Safe Proxy Wallet (0x700BC5...) — hält alle Positionen
-    ↓ alle Trades laufen über
-CLOB API / Relayer — sendet Orders
-    ↓ Volume-Attribution durch
-Builder-Code (bytes32) — nur ein Label, kein Schlüssel
-```
-
-**Builder-Code ist ein reines Attribution-Label:**
-- Kein Signer-Mechanismus
-- Kein Wallet-Zugriff
-- Kein Claim-Recht
-- Kein API-Authentifizierungs-Mechanismus
-- Nur: "dieser Order wurde von Builder X geroutet"
-
-**Drei getrennte Credential-Systeme bei Polymarket:**
-
-| System | Credential | Zweck |
-|--------|-----------|-------|
-| CLOB Trading | api_key + api_secret + api_passphrase (L2 Auth) | Order-Submission |
-| Relayer (Gasless) | RELAYER_API_KEY + RELAYER_API_KEY_ADDRESS | Gaslose On-Chain-Transaktionen |
-| Builder Attribution | Builder-Code (bytes32) | Volume-Tracking, Leaderboard |
-
-→ Diese drei Systeme sind unabhängig. Builder-Code ≠ Trading-Keys ≠ Relayer-Keys.
-
-**KongTrade Builder-Profil (erstellt 19.04.2026):**
-- Code: `0xc58cb20...767c6de` (bytes32)
-- Builder-API-Key = RELAYER_API_KEY: `019da5f1-fb1d-790a-802f-46eeb0bc36f5`
-- Integration: zukünftig via T-M10 (niedrige Prio)
-
----
-
-## P083 — Multiplier-Dual-Source-Pattern: Code + .env müssen beide geändert werden (19.04.2026)
-
-**Status:** AKTIV — Standard-Protokoll für alle Multiplier-Changes
-
-**Kontext:** Bei T-M09b Implementation (Commit f237dbe) entdeckt: Multiplier-Update im Code
-allein wäre wirkungslos gewesen — die `.env`-Werte hätten zur Laufzeit überschrieben.
-
-**Dual-Source-Architektur:**
-
-```
-strategies/copy_trading.py  →  WALLET_MULTIPLIERS (Python Dict)
-                                 Versionsstand im Repo, Default-Werte
-
-.env                         →  WALLET_WEIGHTS (Environment-Variable)
-                                 Runtime-Override — ÜBERSCHREIBT Code-Werte
-```
-
-**Priorität:** `.env` WALLET_WEIGHTS hat immer Vorrang gegenüber `WALLET_MULTIPLIERS` im Code.
-
-**Folge für Multiplier-Changes:**
-- Nur Code-Update = wirkungslos (alte .env-Werte gelten weiter)
-- Nur .env-Update = nicht versioniert, geht bei Server-Reset verloren
-- Beide Stellen müssen synchron gehalten werden
-
-**Standard-Protokoll für Multiplier-Änderungen:**
-1. `strategies/copy_trading.py` → `WALLET_MULTIPLIERS` aktualisieren (Versionierung)
-2. `.env` → `WALLET_WEIGHTS` aktualisieren (Runtime-Effekt)
-3. Bot-Restart
-4. Verifikation per Log: `"Wallet X geladen mit Multiplier Y"`
-
-**Beispiel T-M09b (f237dbe):**
-```
-# Code (copy_trading.py):
-"0x492442...": 0.3,   # April#1 Sports: war 2.0
-"0x0b7a60...": 1.0,   # HOOK: war 2.0
-
-# .env:
-WALLET_WEIGHTS=...,0x492442...:0.3,...,0x0b7a60...:1.0,...
-```
-
-Source: T-M09b Implementation Commit f237dbe
-
----
-
-## P084 — Duplicate-Trigger-Pattern: Exit-Logik braucht Once-Only-Flag (19.04.2026)
-
-**Status:** AKTIV — Fix pending (morgen, nach P083-Compliance)
-
-**Kontext:** Um 14:13 triggerte Whale-Follow-Exit 5x in Folge auf dieselbe Position ("US x Iran
-permanent peace deal"). Daily-Cap $30 verhinderte Katastrophe. Bei $200 Cap wäre erster Sell
-durchgekommen, dann Loop-Abbruch (Position entfernt). Bei API-Fehler: Endlosschleife.
-
-**Root-Cause: Drei zusammenwirkende Faktoren**
-
-```
-1. ExitState hat kein whale_exit_triggered Flag (tp1_done/tp2_done/price_trigger_done existieren ✅)
-2. get_recent_sells(minutes=60) liefert 60 Minuten lang denselben Whale-Sell → 60 Re-Trigger möglich
-3. Bei Cap-Block oder API-Fehler: _execute_exit gibt None zurück, kein Flag wird gesetzt,
-   Position bleibt in open_positions → nächster Loop-Tick triggert identisch
-```
-
-**Warum DRY-RUN besonders gefährdet:**
-Daily-Cap-Check läuft nur bei `exit_dry_run=False`. Im DRY-RUN-Modus gibt es keinen Schutz —
-jeder der ~60 Loop-Ticks in der 60-Minuten-Fenster würde DRY-RUN-Log + Telegram-Alert produzieren.
-
-**Fix (E1 — Once-Only-Flag, ~25 Minuten):**
-```python
-# core/exit_manager.py — ExitState Dataclass:
-whale_exit_triggered: bool = False
-
-# evaluate_all(), whale-exit Block:
-if await self._check_whale_exit(pos):
-    if state.whale_exit_triggered:
-        continue  # bereits versucht — nie wieder feuern
-    event = await self._execute_exit(pos, state, 1.0, "whale_exit", current_price)
-    state.whale_exit_triggered = True  # immer setzen, auch bei Cap-Block
-    state_dirty = True
-    if event:
-        events.append(event)
-        self._remove_state(pos.market_id, pos.outcome)
-    continue
-```
-
-**Warum nicht Cooldown (E2):** Bot-Restart löscht State → Cooldown-Schutz entfällt.
-Once-Only-Flag persistiert mit `_save_state()`.
-
-**Allgemeines Pattern:** Jeder Exit-Trigger der theoretisch mehrfach feuern kann
-(whale_exit, trailing_stop, stop_loss) braucht ein `XYZ_triggered: bool = False` in ExitState.
-Vorbild: `price_trigger_done` (T-M04d) und `tp1_done/tp2_done/tp3_done`.
-
-**Sicherheits-Regel:** Daily-Sell-Cap NICHT erhöhen bevor Once-Only-Fix deployed.
-
-Source: analyses/duplicate_trigger_bug_diagnosis_2026-04-19.md | Commit 99e9b13
-
----
-
-## P085 — Multi-Signal-Buffer als emergenter Outlier-Filter (19.04.2026)
-
-**Status:** VERSTANDEN — Design-Konsequenz für Wallet-Selection
-
-**Beobachtung (aus RN1 Zombie-Signal Diagnose, Commit 53809e1):**
-RN1 produzierte 296 pre-audit Signale. Davon wurden **0 Orders ausgeführt**.
-Grund: Der Multi-Signal-Buffer wartet 60s auf Bestätigung von ≥2 Wallets für denselben Markt.
-RN1 kaufte ausschließlich Sports-Märkte (Soccer, Baseball, Tennis).
-Kein anderes Target-Wallet kaufte dieselben Märkte → alle RN1-Signale verfielen nach 60s.
-
-**Emergenter Effekt:**
-Der Multi-Signal-Buffer ist nicht nur ein Confidence-Boost-Mechanismus — er ist ein
-**automatischer Outlier-Filter**. Eine Wallet ohne Category-Overlap zu anderen aktiven
-Wallets wird operativ wirkungslos, unabhängig von ihrem Multiplier.
-
-```
-RN1 (Sports) → 296 Signale → 0 Orders (kein zweites Wallet deckt Sports ab)
-denizz (Soccer) → Signale → Orders möglich (wenn April#1 Sports oder majorexploiter bestätigt)
-Erasmus (Iran/ME) → Signale → Orders nur wenn TheSpiritofUkraine dieselben Märkte kauft
-```
-
-**Implikation für Wallet-Selection:**
-
-| Situation | Konsequenz |
-|-----------|-----------|
-| Nur 1 Wallet pro Kategorie | Alle Signale dieser Wallet landen im Buffer und verfallen |
-| ≥2 Wallets pro Kategorie | Gegenseitige Bestätigung → Signale werden zu Orders |
-| Kategorie-Cluster (3+ Wallets) | Hohe Signal-Dichte → Multi-Signal-Boost aktiv |
-
-**Strategie-Empfehlung:**
-- Mindestens 2-3 Wallets pro Kategorie aufnehmen (Sports, Geopolitics, Crypto)
-- Einzelne Nischen-Wallets nur aufnehmen wenn andere Wallets dieselbe Nische bedienen
-- Aktuell: Erasmus + TheSpiritofUkraine (beide Geopolitics/Iran) → gegenseitige Bestätigung möglich
-- Aktuell: Sports-Kategorie hat HOOK + April#1 Sports (0.3x WATCHING) — schwache Coverage
-
-**Monitoring:**
-Wenn eine Wallet viele buffered signals aber 0 ausgeführte Orders hat →
-wahrscheinlich keine Category-Peers → prüfen ob Aufnahme weiterer Wallets der Kategorie sinnvoll.
-
-Source: analyses/rn1_zombie_signals_diagnosis_2026-04-19.md | Commit 53809e1
-
----
-
-## P086 — Proxy vs EOA Token-Holding (2026-04-20)
-
-**Status:** DOKUMENTIERT
-
-**Erkenntnis:**
-CTF-Tokens (ERC-1155) liegen bei uns im PROXY-Wallet (0x700BC51b),
-NICHT im EOA (0xd7869A5C).
-
-**Beweis:**
-GET /positions?user=0x700BC51b&redeemable=true → 13 Ergebnisse
-GET /positions?user=0xd7869A5C&redeemable=true → 0 Ergebnisse
-
-**Implikation für T-M04b (Auto-Claim):**
-- Direkter CTF-Contract-Call vom EOA funktioniert NICHT
-- polymarket-cli `ctf redeem` funktioniert NICHT (EOA-only)
-- TradeSEB-Ansatz (ethers.js direkter CTF-Call) funktioniert NICHT
-- Korrekte Lösung: RelayClient via relayer-v2.polymarket.com
-- Zwischenlösung: Notification-only (aktuell deployed, ausreichend)
-
----
-
-## P087 — ?redeemable=true API-Endpoint (2026-04-20)
-
-**Status:** DEPLOYED (Phase 2 Worker)
-
-**Endpoint:**
-GET https://data-api.polymarket.com/positions?user={PROXY_ADDR}&redeemable=true
-
-**Vorteil:**
-1 API-Call statt N Gamma-API-Calls für alle resolved Positionen.
-Liefert conditionId + outcome + redeemable Flag für alle abgeschlossenen Märkte.
-
-**Erkenntnis aus Test:**
-Alle 13 redeemable Positionen sind RESOLVED_LOST ($148.71 verloren, $0 claimable).
-redeemable=true bedeutet NUR "Markt ist resolved" — nicht "du gewinnst Geld".
-
----
-
-## P088 — polymarket-cli Proxy-Inkompatibilität (2026-04-20)
-
-**Status:** DOKUMENTIERT
-
-**Problem:**
-polymarket-cli (Polymarket/polymarket-cli, Rust, v0.1.5) ist für EOA-Wallets designed.
-`polymarket ctf redeem` signiert vom EOA — Tokens liegen aber im Proxy.
-
-**Was funktioniert:**
-- `polymarket clob balance` → liest USDC-Balance (funktioniert)
-- `polymarket wallet show` → zeigt EOA + Proxy-Adresse
-- `polymarket data positions` → liest Portfolio
-
-**Was nicht funktioniert:**
-- `polymarket ctf redeem` → EOA hält keine CTF-Tokens → fehlschlagend
-
----
-
-## P089 — Exponential Backoff Pattern (2026-04-20)
-
-**Status:** DEPLOYED (utils/retry.py)
-
-**Source:** TradeSEB/polymarket-copytrading-bot
-
-**Pattern:**
-2s → 4s → 8s bei retryable Errors:
-network, timeout, ECONNREFUSED, RPC, rate limit, 503/502/504, socket, ankr
-
-**Retryable vs Non-retryable:**
-- Retryable: Netzwerk-/RPC-Fehler (temporär)
-- Non-retryable: invalid hex address, auth errors, market not found (permanent)
-
+## P058 — Kelly-Formel YES/NO Split
+**Status:** ✅ DEPLOYED (21.04.2026)
+**YES:** f* = (p_true - price) / (1 - price)
+**NO:**  f* = (price - p_true) / price
+**Quarter:** 0.25 × f* × bankroll, cap 5% bankroll
+
+## P030 — Phase-3-Refactor-Pfad-Bug (2026-04-24)
+Root-Cause: heartbeat.py nutzte os.path.dirname(__file__) → schrieb nach live_engine/heartbeat.txt statt /KongTradeBot/heartbeat.txt.
+Folge: Watchdog sah stale HB → Restart-Loop → HC.io-Pings aus → Emergency-Stop.
+Fix: heartbeat_file = BASE_DIR / "heartbeat.txt" (hart verankert).
+
+## P031 — gopfan2-Strategie ist Taleb-Barbell, NICHT Forecast (2026-04-24)
+Quelle: PANews, Medium/Ezekiel Njuguna, PolyNoob.
+gopfan2 (Twitter @r_gopfan, Wallet 0xf2f6af4f27ec2dcf4072095ab804016e14cd5817):
+- Buy Yes < $0.15
+- Buy No > $0.45
+- $1 Positions
+- Tausende Trades, 50-80% WR
+- KEIN Forecast-Modell nötig
+Implikation: Phase 6 gopfan2-Lite evaluieren vor Weather-Ensemble-Bau.
+
+## P032 — ECMWF-First-Mover-Thesis ist FALSCH (2026-04-24)
+CC-Research behauptete "niemand nutzt ECMWF für Weather". Adversarial Audit via Exa fand 4 Konkurrenten:
+- IAMxBOTx (35% ECMWF, 583+ Markets)
+- WeatherBot.finance (35% ECMWF, $700→$85k Case)
+- Polyforecast.io (5-Model ensemble)
+- AadiXD200 (Open-Meteo ECMWF)
+Echter Edge liegt in Execution-Speed, Sigma-Calibration, Bayesian-Prior — nicht Tool-Wahl.
+
+## P033 — Reconciliation skipped RECOVERED phantoms forever (2026-04-26)
+**Status:** ✅ BEHOBEN — commit 298c0ea (activates next bot restart)
+**Symptom:** 4 RECOVERED_*-Positions standen 64-112h overdue in bot_state.json. Reconciliation-Loop sah sie alle 60s aber cleant nie.
+**Root-Cause:** core/reconciliation.py::_run_once hatte `if order_id.startswith("RECOVERED_"): continue` ohne Ablauf-Check.
+**Fix:** RECOVERED skip nur noch BEVOR market_closes_at; danach fällt Position durch in normalen Phantom-Auto-Close.
+**Audit:** analyses/recovery_audit_2026-04-26.md, 4 INSERTs (Phillies/Glinka/Rays/Busan, alle prediction_loss, Σ -$70.03), idempotent via uuid5(NAMESPACE_DNS, order_id).
+
+## P034 — CATEGORY_BLACKLIST war Slug-Match, nicht Klassifikation (2026-04-26)
+**Status:** ✅ ERSETZT durch Mode-Resolver — commit 780abe8
+**Root-Cause:** strategies/copy_trading.py:587 machte `if prefix.lower() in slug` — Substring-Match auf market_question. Setzen von `CATEGORY_BLACKLIST="Sport_US"` hätte nichts geblockt. get_category() existierte und klassifizierte korrekt, wurde aber vom Filter nicht aufgerufen. .env enthielt zu Inzident-Zeit zudem keine Sport-Prefixes.
+**Fix:** Neues Modul core/mode_resolver.py mit resolve_mode(signal) → (mode, reason), mode ∈ {SKIP, SHADOW, PAPER}. Decisions in mode_decisions_log persistiert.
+**Aktivierung:** beim nächsten Bot-Restart (lazy env-read im copy_trading_plugin.py ist trotzdem von os.environ-snapshot des Prozess-Start abhängig).
+
+## P035 — edge_type='unknown' versteckte 167 offene Positionen (2026-04-26)
+**Status:** ✅ BEHOBEN — commit b24487b
+**Symptom:** /api/v2/eval/edge-type-distribution zeigte Weather 124/198 unknown (62.6%).
+**Root-Cause:** _classify_edge_type hatte keinen Begriff von "still open vs closed-but-unmatched". NULL realized_pnl + NULL exit_reason fielen in `unknown`.
+**Fix:** has_realized_pnl-Flag → returns 'still_open' für offene Positionen. Neuer 'momentum_other'-Bucket für legacy event_category='exit' ohne TP-Subtag. Restbestand: 3 echte unknown (MANUAL_CLAIM mit fehlendem outcome_token_id).
+
+## P036 — Bot-Edge ist Momentum-Capture, NICHT Prediction (2026-04-26)
+**Erkenntnis** aus Iter2 Resolution-Tracking-Analyse (commit 78ae168). Resolution-Match per Kategorie:
+- Weather:    22.7% pred-correct, alpha vs HOLD = +$5898 (n=198)
+- Geopolitik:  3.1% pred-correct, alpha vs HOLD = +$609 (n=32)
+- Sport_US:   33.9% pred-correct, alpha vs HOLD = -$103 (Bot UNDERPERFORMS hold)
+- Tennis:     63.6% pred-correct, alpha vs HOLD = +$26 (n=33)
+- Soccer:     66.7% pred-correct, alpha vs HOLD = -$1 (n=18)
+
+Implikation: Profitcenter sind die TP-Exits, nicht die Prediction-Accuracy. Weather hat schlechte prediction-rate aber massive Alpha — TP-Logic fängt Preisbewegungen ab, bevor Resolution sie zerstört. Sport_US versagt auf beiden Achsen → in SHADOW_CATEGORIES.
+
+Counterfactual-PnL-Formel (services/resolution_tracker.py:_counterfactual):
+- prediction_correct=TRUE  → cf = size_usdc * (1.0/entry_price - 1.0)
+- prediction_correct=FALSE → cf = -size_usdc
+- prediction_correct=NULL  → cf = NULL (nicht 0)

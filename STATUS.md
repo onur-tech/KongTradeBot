@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-04-27 19:34:45 UTC
+> 2026-04-27 19:39:45 UTC
 
 ## Bot-Status
 ```
@@ -14,15 +14,15 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-OK — lief vor 32s | HB: OK (331s alt)
+OK — lief vor 30s | HB: OK (35s alt)
 ```
 
 ## Portfolio
 ```
-Total:         $461.33 USDC
+Total:         $460.41 USDC
 Cash:          $460.41 USDC
-In Positionen: $0.92 USDC
-Offene Pos.:   1
+In Positionen: $0.00 USDC
+Offene Pos.:   0
 PnL heute:     $563.43
 ```
 
@@ -37,9 +37,9 @@ PnL heute:     $563.43
 
 ## Letzte Fehler (3)
 ```
-[_safe_call(on_multi_signal)] NameError: name 'time' is not defined
 NameError: name 'time' is not defined. Did you forget to import 'time'
 2026-04-27 19:28:10 | INFO     | polymarket_bot.wallet_monitor | WalletMonitor gestoppt | Stats: {'polls': 100, 'trades_detected': 171, 'trades_skipped_duplicate': 1102, 'early_entry_signals': 0, 'whale_sells_detected': 3, 'ws_messages': 0, 'ws_reconnects': 24, 'errors': 0}
+2026-04-27 19:38:09 | WARNING  | polymarket_bot.fill_tracker | WebSocket-Fehler: unhandled errors in a TaskGroup (1 sub-exception) — Reconnect in 1s
 ```
 
 ---

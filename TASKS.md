@@ -1,30 +1,49 @@
 # KongTrade Tasks
-_Stand: 2026-04-26_
+_Stand: 2026-04-27_
 
 ## IN ARBEIT
-(keine — pre-restart-window aktiv)
+(keine)
 
 ## RESTART-PENDING
 | ID | Titel | Action |
 |----|-------|--------|
-| R-01 | Mode-Resolver activate (SKIP/SHADOW/PAPER) | next bot restart |
-| R-02 | Heartbeat-File-Write activate | next bot restart |
-| R-03 | R4 reconciliation cleans 4 RECOVERED phantoms | next bot restart |
+| R-04 | Stop-Loss Trigger D (drawdown ≥50% AND >24h to close) | next bot restart |
+| R-05 | Trend-Monitor Phase 1 (siehe T-220 Voraussetzungen) | next bot restart, nach watchlist + scrape_account |
 
 ## QUEUE (Priorität absteigend)
-| ID | Titel | Prio |
-|----|-------|------|
-| T-200 | Live-verify SHADOW/PAPER decisions in /api/v2/ops/mode-stats post-restart | KRITISCH |
-| T-201 | After 30d shadow data → data-driven promote/keep decisions per category | WICHTIG |
-| T-202 | Drift-Detector producer wiring (orphaned since Block A+) | WICHTIG |
-| T-203 | trades.db `venue` column for cross-venue support | WICHTIG |
-| T-204 | Pre-existing 14 test failures (test_heartbeat, test_phase4, test_reconciliation) | NORMAL |
-| T-205 | Merge feat/ui-redesign-v2 → main (after restart-verification) | NORMAL |
-| T-100 | Wallet-Audit auf Settlement-WR (25 Wallets) | KRITISCH (alt) |
-| T-101 | Phase 5B Sim-Engine (Backtest + Orderbook-Replay + Fill-Sim) | WICHTIG (alt) |
-| T-103 | Phase A Live-Test mit €2-5k, 5 Wallets, 30 Tage | KRITISCH (nach Audit) |
-| T-104 | Wallet-Archetyp-Klassifizierung (Taleb/Simons/Soros/Fader) | WICHTIG (alt) |
-| T-107 | API-Token Bright Data rotieren (Security) | WICHTIG (alt) |
+
+### Kritisch
+| ID | Titel | Prio | Notiz |
+|----|-------|------|-------|
+| T-200 | Live-verify SHADOW/PAPER decisions in /api/v2/ops/mode-stats post-restart | KRITISCH | nach 24h Whale-Signals beobachten |
+| T-210 | `/eval/slippage` HTTP 500 fixen | KRITISCH | aktive Regression — wirft Error in UI |
+| T-100 | Wallet-Audit auf Settlement-WR (25 Wallets) | KRITISCH (alt) | |
+| T-103 | Phase A Live-Test mit €2-5k, 5 Wallets, 30 Tage | KRITISCH (nach Audit) | |
+
+### Wichtig
+| ID | Titel | Prio | Notiz |
+|----|-------|------|-------|
+| T-211 | `glitch_matrix.json` Glossary füllen (PnL, VaR, DD, CVaR, Sharpe, Wilson, PSR, Kelly, Cohort, edge_type, Counterfactual) | WICHTIG | schaltet System→Library + tooltip-Pattern frei |
+| T-212 | `/eval/edge-type-distribution` toter Endpoint wire-up — case in eval.js fehlt | WICHTIG | Endpoint liefert echte 498b Daten, ungenutzt |
+| T-213 | nginx `alias /root/KongTradeBot/public_status.json` → falscher Pfad (`/home/claudeuser/...`); `/status.json` returns 404 | WICHTIG | 1-Zeilen-Fix in /etc/nginx/sites-enabled/kongtrade |
+| T-214 | `generate_status.py` HTTP 401 vom Cloudflare-Tunnel — STATUS.md zeigt "Dashboard nicht erreichbar" | WICHTIG | Tunnel hat eigene basic_auth-Layer; Skript braucht header oder lokalen Endpoint |
+| T-220 | Trend-Monitor Phase 1 Activation — blockt auf: (a) 50-Account-Watchlist, (b) `scrape_account()` gegen Datasets-API trigger+poll | WICHTIG | siehe Telegram 27.04.03:25 für 3 Pfade |
+| T-201 | After 30d shadow data → data-driven promote/keep decisions per category | WICHTIG | |
+| T-202 | Drift-Detector producer wiring (orphaned since Block A+) | WICHTIG | |
+| T-203 | trades.db `venue` column for cross-venue support | WICHTIG | |
+| T-101 | Phase 5B Sim-Engine (Backtest + Orderbook-Replay + Fill-Sim) | WICHTIG (alt) | |
+| T-104 | Wallet-Archetyp-Klassifizierung (Taleb/Simons/Soros/Fader) | WICHTIG (alt) | |
+| T-107 | API-Token Bright Data rotieren (Security) | WICHTIG (alt) | |
+
+### Normal
+| ID | Titel | Prio | Notiz |
+|----|-------|------|-------|
+| T-215 | Markets/News/Intel Tabs: stub `{items:[]}` durch "coming soon" UI ersetzen ODER Backend liefern | NORMAL | 12/40 Sub-Endpoints |
+| T-216 | Risk-Sub-Tabs (var, cvar, dd) konsolidieren auf funktionierendes `/risk/portfolio` | NORMAL | 3 leere `{}` |
+| T-217 | tooltip system: `data-tooltip` pattern auf 7 sichtbaren Termen (PnL, VaR, DD, CVaR, Counterfactual, Sharpe, Wilson) — depends on T-211 | NORMAL | |
+| T-204 | Pre-existing 14 test failures (test_heartbeat, test_phase4, test_reconciliation) | NORMAL | |
+| T-205 | Merge feat/ui-redesign-v2 → main (after restart-verification) | NORMAL | |
+| T-218 | Mode-resolver autoflush-Frequenz: in 615s nur 3× gefeuert statt 10× — diagnose | NORMAL | funktional, max 60s state-lag |
 
 ## DONE 2026-04-26
 - T-D70 Block C — UI redesign V2 deployed at /v2/ (Cyberpunk-Matrix, 9 tabs × 40 sub-tabs)

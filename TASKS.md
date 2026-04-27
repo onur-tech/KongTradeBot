@@ -12,6 +12,13 @@ _Stand: 2026-04-27_
 
 ## QUEUE (Priorität absteigend)
 
+### Post-Live — Track-Aufgaben (T-D109/110/111)
+| ID | Titel | Prio | Notiz |
+|----|-------|------|-------|
+| T-D109 | **Track A — Datenintegrität** (Tag 1-3 post-live): migrate_from_archive() UPDATE-Pfad statt INSERT, 8 historische Duplikate aus DB entfernen, audit_v1.1 mit migrate-consistency-check | KRITISCH (post-live) | T-D107.5 root-cause; PNL_INFLATION 21.3% bleibt FAIL bis dann |
+| T-D110 | **Track B — Stub-Endpoints füllen** (Tag 3-7, T-215): /api/v2/eval/{recent-trades,trades,today}, markets/news/intel sub-tabs | NORMAL | data_audit Check 4 → OK wenn fertig |
+| T-D111 | **Track C — Hardening** (Tag 5-7): max_dd_pct → echte Berechnung, mempool-watcher enable/raus, schema-rename still_open→unresolved, Cloudflare-URL aus generate_status.py, kong-trade.com/v2/* → / 301-Redirect | NORMAL | |
+
 ### Kritisch — V2-Cutover 2026-04-28 (alle erfordern GO via Telegram von Brrudi)
 | ID | Titel | Prio | Notiz |
 |----|-------|------|-------|

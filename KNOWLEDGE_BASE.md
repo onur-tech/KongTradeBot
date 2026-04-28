@@ -1199,3 +1199,87 @@ Live-Switch um 28.04 06:42:33 UTC: `DRY_RUN=false` in .env. Damit:
 - /portfolio/timeline?mode=paper zeigt aktive Generation
 - Live-Trades unverändert, Madrid weiter Trigger-D-geschützt
 
+
+---
+
+## P-D139 — KongTrade ECHTE Strategie: Volatility-Harvesting auf Long-Tail (NICHT Prognose)
+
+**Status:** 📌 STRATEGY-CLARIFICATION (29.04.2026)
+**Quelle:** Brrudi-Insight + Verifikation aus `data/trades.db.pre-d114-0142.bak` (pre-D1)
+
+### Wir sind kein Prognose-Bot. Wir sind ein Volatility-Harvesting-Bot auf Polymarket Long-Tail.
+
+### Mechanik (verifiziert aus pre-28.04 Daten)
+
+**Entry**: Niedriger Preis (typisch $0.01-0.30). Long-Tail-Märkte wo eine Outcome unwahrscheinlich erscheint und dadurch günstig handelbar ist.
+
+**Exit-Trigger**: TP1 bei `pnl_pct >= 0.30` (= +30% Gewinn). Bot wartet NICHT auf Resolution — er nimmt frühe Volatilitäts-Spikes mit.
+
+**Profit-Quelle**: Intra-day-Volatilität, NICHT Outcome-Genauigkeit.
+
+### Empirische Beweise (19.-27.04, 9 Tage paper-era)
+
+**Exit-Klasse Verteilung (147 closed Weather-Trades):**
+
+| Exit-Klasse | Trades | PnL | % der Trades | % des PnL |
+|---|---|---|---|---|
+| **TP-family** (TP1+TP2+TP3+PRICE_TRIGGER) | **106** | **+$3,752.96** | **72%** | **107%** |
+| WHALE_EXIT | 23 | +$104.96 | 16% | 3.0% |
+| RESOLUTION | 15 | **−$76.95** | 10% | **−2.2%** |
+| MANUAL_STOP_LOSS | 3 | −$135.96 | 2% | −3.9% |
+
+→ **TP-Family liefert 107% des Profits.** RESOLUTION-Exits sind systematisch verlustbringend (Bot hält zu lange, Markt resolved gegen ihn). TP1 rettet das durch frühe Exits.
+
+**Hold-Dauer-Verteilung (41 markteindeutige Round-Trips):**
+
+| Dauer | Trades | PnL | TP-fired | Resolution |
+|---|---|---|---|---|
+| **<30 min** | **21 (51%)** | **+$1,324 (89% des Sub-PnL)** | 21 (100%) | 0 |
+| 30-60 min | 3 | +$16 | 2 | 0 |
+| 1-6h | 11 | +$163 | 5 | 0 |
+| 6-24h | 3 | −$1 | 1 | 0 |
+| 24-48h | 2 | +$5 | 0 | 0 |
+| >48h | 1 | +$12 | 0 | 0 |
+
+→ **51% der Trades exit innerhalb 30 Minuten. 97% der TP-Family-Exits exit innerhalb 6 Stunden.** Bot riding Volatilitäts-Spikes, nicht Resolution.
+
+### Win-Rate-Klärung
+
+**Pre-28.04 "94% WR"** = buchhalterische Win-Rate (TP1 gezählt als Win, weil pnl > 0).
+
+**Echte Prognose-Genauigkeit (Outcome-Match)**: ~24-25%.
+
+**Trotzdem +$3,752 PnL aus Weather** in 9 Tagen — **weil Volatilität während TP1-Window gefangen wird, BEVOR der Markt zu Resolution drifted.**
+
+### Implikation für Bot-Parameter
+
+| Parameter | Wichtigkeit | Warum |
+|---|---|---|
+| **CALIBRATED_CITIES filter** | **MARGINAL** | Wir validieren keine Wetter-Prognose — wir nehmen Volatilität mit. Calibration ist ein Live-Sicherheitsschutz, nicht Strategie-Constraint. |
+| **Wetter-Phänomenologie** (Forecast-Genauigkeit, Multi-Model-Ensemble) | **MARGINAL** | Edge kommt aus Markt-Mispricing, nicht aus Wetter-Genauigkeit. |
+| **Long-Tail Markt-Verfügbarkeit** (price < 0.30) | **KRITISCH** | Ohne Long-Tail-Märkte fehlt das Volatilitäts-Pricing. |
+| **TP1-Speed** (cycle-Frequenz, exit-loop interval) | **KRITISCH** | Volatilitäts-Spikes sind kurz (<30 min). Verzögerung = Verlust. |
+| **Stop-Loss bei Volatilitäts-Ausbleiben** | **WICHTIG** | Wenn TP1 nicht innerhalb 6h fired, wird die Position zur Resolution-Falle. |
+
+### Aktuelle Markt-Verfügbarkeit (29.04 ~00:15 Berlin)
+
+Polymarket Weather Long-Tail-Märkte (eine Seite <$0.30):
+- **13 Märkte total** (vol-verteilt von $98 bis $9,696)
+- **~5-7 wirklich tradable** (one side 0.10-0.30, vol > $500)
+- Vergleich pre-28.04: 7-34 unique markets/Tag (24.04: 7, 22.04 peak: 34)
+
+→ **Markt-Verfügbarkeit ist nicht das Problem.** Das Pace-Defizit kommt aus T-D139-V2 (CALIBRATED_CITIES-Filter blockt 70% der Opportunities vor paper-mirror).
+
+### Konsequenzen für Live-Bot
+
+1. **Live-Cap $7.38** ist nicht mehr auf Prognose-Genauigkeit zu kalibrieren — sondern auf Volatilitäts-Verfügbarkeit pro Markt.
+2. **CALIBRATED_CITIES** ist ein Live-Sicherheitsschutz (verhindert echtes Geld auf uncalibrated cities) — der Filter sollte bei Paper NICHT greifen, weil Paper kein echtes Geld riskiert.
+3. **TP1-Threshold 30%** ist die richtige Größe — niedriger und wir lassen Volatilität liegen, höher und wir warten zu lange auf Resolution.
+4. **Stop-Loss-Trigger D bei -50% in <0.5h**: Schutz vor Resolution-Falle wenn Volatilität ausbleibt. Sollte auch im Paper-Mirror aktiv sein.
+
+### Implikation für T-D139-V2 Implementation morgen
+
+**Prioritäten geändert** (von technisch zu strategisch):
+- Paper-Mirror **MUSS** alle Long-Tail Weather-Märkte sehen (nicht nur calibrated)
+- Pre-Live-Filter (CALIBRATED_CITIES) am `live_opps`-Filter für LIVE behalten — **ABER** Paper-Mirror sollte VOR diesem Filter hooken
+- Erfolgsmessung: Paper-Trade-Pace zurück zu pre-28.04 30-50/Tag, Hold-Dauer-Median <30 min, TP1-Anteil > 70% der Exits

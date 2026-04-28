@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-04-28 12:58:21 UTC
+> 2026-04-28 13:03:22 UTC
 
 ## Bot-Status
 ```
@@ -14,25 +14,25 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-OK — lief vor 2s | HB: WARNUNG 538s alt
+OK — lief vor 59s | HB: OK (49s alt)
 ```
 
 ## Portfolio
 ```
-Total:         $503.44 USDC
+Total:         $504.25 USDC
 Cash:          $492.14 USDC
-In Positionen: $11.30 USDC
+In Positionen: $12.11 USDC
 Offene Pos.:   0
 PnL heute:     $0.00
 ```
 
 ## Letzte Trades (5)
 ```
-2026-04-28 10:39:20 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Whitney Osuigwe @ $0.580 | $9.86 USDC | Saint-Malo: Chloe Paquet vs Whitney Osuigwe)
-2026-04-28 10:39:20 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Xinyu Gao @ $0.740 | $46.40 USDC | Huzhou: Polona Hercog vs Xinyu Gao)
-2026-04-28 10:39:20 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Alexandre Muller @ $0.470 | $103.22 USDC | Aix en Provence: Yibing Wu vs Alexandre Muller)
-2026-04-28 10:39:20 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Jesper de Jong @ $0.460 | $11.04 USDC | Cagliari: Stefano Travaglia vs Jesper de Jong)
-2026-04-28 10:39:20 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Filip Jianu @ $0.370 | $7.77 USDC | Ostrava: Zdenek Kolar vs Filip Jianu)
+2026-04-28 12:58:36 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.980 | $49.00 USDC | Will the Orlando Magic win the 2026 NBA Finals?)
+2026-04-28 12:58:36 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Mirra Andreeva @ $0.860 | $86.00 USDC | Madrid Open: Leylah Fernandez vs Mirra Andreeva)
+2026-04-28 12:58:36 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Mirra Andreeva @ $0.830 | $488.24 USDC | Madrid Open: Leylah Fernandez vs Mirra Andreeva)
+2026-04-28 12:58:36 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Mirra Andreeva @ $0.840 | $105.00 USDC | Madrid Open: Leylah Fernandez vs Mirra Andreeva)
+2026-04-28 12:58:36 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Mirra Andreeva @ $0.840 | $247.43 USDC | Madrid Open: Leylah Fernandez vs Mirra Andreeva)
 ```
 
 ## Letzte Fehler (3)

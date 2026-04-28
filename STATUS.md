@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-04-28 14:54:21 UTC
+> 2026-04-28 14:59:26 UTC
 
 ## Bot-Status
 ```
@@ -14,25 +14,25 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-OK — lief vor 46s | HB: WARNUNG 509s alt
+OK — lief vor 35s | HB: OK (17s alt)
 ```
 
 ## Portfolio
 ```
-Total:         $500.33 USDC
+Total:         $501.17 USDC
 Cash:          $492.14 USDC
-In Positionen: $8.19 USDC
+In Positionen: $9.03 USDC
 Offene Pos.:   0
 PnL heute:     $0.00
 ```
 
 ## Letzte Trades (5)
 ```
-2026-04-28 12:58:36 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.980 | $49.00 USDC | Will the Orlando Magic win the 2026 NBA Finals?)
-2026-04-28 12:58:36 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Mirra Andreeva @ $0.860 | $86.00 USDC | Madrid Open: Leylah Fernandez vs Mirra Andreeva)
-2026-04-28 12:58:36 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Mirra Andreeva @ $0.830 | $488.24 USDC | Madrid Open: Leylah Fernandez vs Mirra Andreeva)
-2026-04-28 12:58:36 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Mirra Andreeva @ $0.840 | $105.00 USDC | Madrid Open: Leylah Fernandez vs Mirra Andreeva)
-2026-04-28 12:58:36 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Mirra Andreeva @ $0.840 | $247.43 USDC | Madrid Open: Leylah Fernandez vs Mirra Andreeva)
+2026-04-28 14:55:12 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.510 | $15.96 USDC | Will the Oklahoma City Thunder win the 2026 NBA Finals?)
+2026-04-28 14:55:12 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.510 | $76.50 USDC | Will the Oklahoma City Thunder win the 2026 NBA Finals?)
+2026-04-28 14:55:12 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.510 | $10.20 USDC | Will the Oklahoma City Thunder win the 2026 NBA Finals?)
+2026-04-28 14:55:12 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.510 | $273.21 USDC | Will the Oklahoma City Thunder win the 2026 NBA Finals?)
+2026-04-28 14:55:12 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Rafael Jodar @ $0.730 | $16.11 USDC | Madrid Open: Vit Kopriva vs Rafael Jodar)
 ```
 
 ## Letzte Fehler (3)

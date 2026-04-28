@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-04-28 00:41:01 UTC
+> 2026-04-28 00:46:06 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-OK — lief vor 16s | HB: WARNUNG 441s alt
+OK — lief vor 1s | HB: OK (45s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-04-27 22:48:40 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Pistons @ $0.590 | $28.78 USDC | Pistons vs. Magic)
-2026-04-27 22:48:40 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Pistons @ $0.590 | $42.19 USDC | Pistons vs. Magic)
-2026-04-27 22:48:40 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Pistons @ $0.590 | $479.20 USDC | Pistons vs. Magic)
-2026-04-27 22:48:40 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Pistons @ $0.590 | $16.38 USDC | Pistons vs. Magic)
-2026-04-27 22:48:40 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Pistons @ $0.590 | $6.54 USDC | Pistons vs. Magic)
+2026-04-28 00:42:24 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Timberwolves @ $0.180 | $219.51 USDC | Timberwolves vs. Nuggets)
+2026-04-28 00:42:24 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Timberwolves @ $0.180 | $10.95 USDC | Timberwolves vs. Nuggets)
+2026-04-28 00:42:24 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Timberwolves @ $0.180 | $234.00 USDC | Timberwolves vs. Nuggets)
+2026-04-28 00:42:24 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Timberwolves @ $0.180 | $10.98 USDC | Timberwolves vs. Nuggets)
+2026-04-28 00:42:24 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Timberwolves @ $0.180 | $219.51 USDC | Timberwolves vs. Nuggets)
 ```
 
 ## Letzte Fehler (3)

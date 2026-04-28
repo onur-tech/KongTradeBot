@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-04-28 20:30:22 UTC
+> 2026-04-28 20:35:22 UTC
 
 ## Bot-Status
 ```
@@ -14,16 +14,12 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-OK — lief vor 36s | HB: WARNUNG 370s alt
+OK — lief vor 35s | HB: OK (43s alt)
 ```
 
 ## Portfolio
 ```
-Total:         $501.62 USDC
-Cash:          $492.14 USDC
-In Positionen: $9.48 USDC
-Offene Pos.:   1
-PnL heute:     $3.74
+Dashboard nicht erreichbar: <urlopen error [Errno 111] Connection refused>
 ```
 
 ## Letzte Trades (5)
@@ -37,9 +33,9 @@ PnL heute:     $3.74
 
 ## Letzte Fehler (3)
 ```
+raise asyncio.TimeoutError from exc_val
 TimeoutError
-2026-04-28 20:09:51 | INFO     | polymarket_bot.fill_tracker | WS-Reconnect (TimeoutError):  — Reconnect in 1s
-2026-04-28 20:23:08 | INFO     | polymarket_bot.wallet_monitor | WalletMonitor gestoppt | Stats: {'polls': 0, 'trades_detected': 0, 'trades_skipped_duplicate': 0, 'early_entry_signals': 0, 'whale_sells_detected': 0, 'ws_messages': 0, 'ws_reconnects': 1, 'errors': 0}
+2026-04-28 20:33:39 | INFO     | polymarket_bot.fill_tracker | WS-Reconnect (TimeoutError):  — Reconnect in 1s
 ```
 
 ---

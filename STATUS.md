@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-04-28 16:59:44 UTC
+> 2026-04-28 17:04:44 UTC
 
 ## Bot-Status
 ```
@@ -14,32 +14,32 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-OK — lief vor 2s | HB: OK (18s alt)
+OK — lief vor 0s | HB: OK (18s alt)
 ```
 
 ## Portfolio
 ```
-Total:         $500.30 USDC
+Total:         $500.17 USDC
 Cash:          $492.14 USDC
-In Positionen: $8.16 USDC
+In Positionen: $8.03 USDC
 Offene Pos.:   0
 PnL heute:     $0.00
 ```
 
 ## Letzte Trades (5)
 ```
-2026-04-28 14:55:12 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.510 | $15.96 USDC | Will the Oklahoma City Thunder win the 2026 NBA Finals?)
-2026-04-28 14:55:12 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.510 | $76.50 USDC | Will the Oklahoma City Thunder win the 2026 NBA Finals?)
-2026-04-28 14:55:12 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.510 | $10.20 USDC | Will the Oklahoma City Thunder win the 2026 NBA Finals?)
-2026-04-28 14:55:12 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.510 | $273.21 USDC | Will the Oklahoma City Thunder win the 2026 NBA Finals?)
-2026-04-28 14:55:12 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Rafael Jodar @ $0.730 | $16.11 USDC | Madrid Open: Vit Kopriva vs Rafael Jodar)
+2026-04-28 16:59:56 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Hynek Barton @ $0.580 | $7290.50 USDC | Ostrava: Jonas Forejtek vs Hynek Barton)
+2026-04-28 16:59:56 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.118 | $206.63 USDC | Will Atletico Madrid win the 2025–26 Champions League?)
+2026-04-28 16:59:56 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Jonas Forejtek @ $0.440 | $15.40 USDC | Ostrava: Jonas Forejtek vs Hynek Barton)
+2026-04-28 16:59:56 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Casper Ruud @ $0.930 | $301.07 USDC | Madrid Open: Stefanos Tsitsipas vs Casper Ruud)
+2026-04-28 16:59:56 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Casper Ruud @ $0.920 | $13800.00 USDC | Madrid Open: Stefanos Tsitsipas vs Casper Ruud)
 ```
 
 ## Letzte Fehler (3)
 ```
-[TG] Dashboard fetch failed /api/portfolio: HTTP Error 401: UNAUTHORIZED
-[TG] Dashboard fetch failed /api/portfolio: HTTP Error 401: UNAUTHORIZED
 2026-04-28 15:45:05 | ERROR    | polymarket_bot.execution | [Allowance] KRITISCH: allowance=0, balance=0 — Trade geblockt
+2026-04-28 16:59:48 | ERROR    | polymarket_bot.execution | [Allowance] KRITISCH: allowance=0, balance=0 — Trade geblockt
+2026-04-28 17:00:19 | ERROR    | polymarket_bot.execution | [Allowance] KRITISCH: allowance=0, balance=0 — Trade geblockt
 ```
 
 ---

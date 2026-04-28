@@ -1138,3 +1138,64 @@ Counterfactual-PnL-Formel (services/resolution_tracker.py:_counterfactual):
 
 ## TODO — KB-Renumbering (post-live)
 P030/P031/P032/P033/P034 sind doppelt vergeben (18.-21.04.2026 UND 24.-26.04.2026). P037 wurde zwischenzeitlich ebenfalls doppelt vergeben und am 27.04. korrigiert (eval.js-Hotfix → P059). Nach Live-Switch + 1 Woche stabil: Renumbering auf eindeutige IDs. Keine Eile — Cross-Refs in Code/Reports/Telegram-Logs müssen erhalten bleiben, also Mapping-Tabelle (alt→neu) mitführen und erst dann Bulk-Sed.
+
+---
+
+## P-D138 — Paper-Trader stoppte am 28.04 06:42:33 (Live-Switch)
+
+**Status:** 🟡 DIAGNOSED — Recovery-Plan dokumentiert, Implementation pending Brrudi-Approval
+
+### PAPER-TRADER BLUEPRINT (Pre-28.04 Performance)
+
+Quelle: `data/trades.db.pre-d114-0142.bak` (vor allem D1-Schaden)
+
+**Daily averages (19.-27.04.2026, 9 Tage)**:
+- ~45 Paper-Trades/Tag
+- ~$405 PnL/Tag (mean), ~$68 PnL/Tag (median ohne 22.04-Outlier)
+- WR teilweise 94% (Weather), gesamt 67-74%
+- Kumulativ +$3,644 (auf $1,000 starting capital → +364%)
+
+**Was funktionierte**:
+- Weather-Scout `[weather-bot]` generierte 88% des PnLs (265 Trades, +$3,216)
+- TP1-Exits Hauptverdiener: 56 Trades, +$2,351
+- COPY-Strategy primary, Weather-Scout dominant
+- Sizing: $10-20 typical, vereinzelte big bets >$30
+
+**Was fehlschlug** (zur Information):
+- Tennis -$18, Sport_US -$13, Soccer -$12, Crypto $0 → diese Categories nicht profitabel
+- 20.04 -$87 (einziger Verlust-Tag)
+
+### Symptom
+Heute (28.04) nur 5 Paper-Rows total (4 davon pre-Switch). Generation praktisch tot.
+
+### Root-Cause
+Bot lief pre-28.04 IM ENTIRE DRY_RUN-Modus (`config.dry_run=True`). Alle Trades gingen durch normalen Pipeline und wurden im trades.db mit `is_dry_run=1` getaggt. Es gab KEINEN parallelen Paper-Mirror — es war der einzige Pfad.
+
+Live-Switch um 28.04 06:42:33 UTC: `DRY_RUN=false` in .env. Damit:
+- Alle Trades gehen jetzt durch real ClobClient
+- Slippage-Check (500 bps), Min-Size ($5), Kelly-Cap ($7.38) werden zu **harten Blocks**
+- Kein Code-Pfad schreibt mehr `mode='paper'` ins trades.db
+- Paper-Decision-Logs feuern noch (15 heute), führen aber alle zu UNKNOWN_REJECT/SLIPPAGE_REJECT statt FILLED
+
+### Recovery-Plan (siehe reports/T-D138_paper_blueprint.md)
+
+**Approach C — PAPER_PARALLEL Mode**:
+- Neuer Modul `core/paper_mirror.py` (~150 LOC)
+- 2 Insertion-Points in `live_engine/main.py` (~30 LOC)
+- env: `PAPER_PARALLEL_ENABLED=true`, `PAPER_PARALLEL_SIZE_USD=10.0`
+- Paper-Mirror loggt JEDEN EXECUTE-Signal als paper-Trade BEFORE Live-Constraints (Slippage/Min-Size/Cap)
+- Eigener Paper-Exit-Loop simuliert TP1/TP2/TP3-Exits via existing ExitManager mit `exit_dry_run=True`
+
+**Live-Bot bleibt unverändert** (additiv, nicht-invasiv).
+
+**Rollback**: env-flag `PAPER_PARALLEL_ENABLED=false` deaktiviert sofort ohne Code-Revert.
+
+**Implementation-Zeit**: ~3h Code + Tests + Deploy.
+**Bot-Restart**: erforderlich (1×, non-disruptive).
+
+### Verification (target after deploy)
+- Erste 30 min: ≥3 paper-Rows neu in trades.db
+- Erste 24h: 30+ paper-Trades, $50-300 PnL/Tag
+- /portfolio/timeline?mode=paper zeigt aktive Generation
+- Live-Trades unverändert, Madrid weiter Trigger-D-geschützt
+

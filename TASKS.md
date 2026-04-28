@@ -130,3 +130,59 @@ T-D138 deployed paper-mirror (commits d3b1c90 + fe53266). Live-verified:
 - `services/self_health.py` — add `_check_paper_stillness()` ~30 LOC
 - `services/daily_summary.py` — add Paper-Health section ~20 LOC
 - (optional) test script for mock-whale-signal trigger
+
+## T-D139-V2 — CALIBRATED_CITIES filter blocks paper-mirror (HIGH priority)
+
+**Owner:** Brrudi-decision morgen
+**Priority:** HIGH (closes pace-gap to pre-28.04)
+**Created:** 2026-04-28 22:15 Berlin (post T-D138-FOLLOWUP cross-check)
+
+### Finding
+`live_engine/main.py:1665` filtert `live_opps = [o for o in opportunities if not o.get('shadow_only') and o.get('token_id')]` BEVOR signals auf `on_copy_order` (und damit paper_mirror) treffen. Heute Abend: 32 SHADOW-ONLY blocks vs 10 calibrated → ~70% aller Weather-Opportunities erreichen paper-mirror nicht.
+
+Pre-28.04 lief der entire Bot in DRY_RUN — kein equivalentes Filter-Gate. Daher Paper sah ALLE Cities, nicht nur calibrated.
+
+### Fix-Skizze
+In weather_loop (line ~1660), VOR der `live_opps = [...]`-Filterung:
+
+```python
+# T-D139-V2 — Paper-Mirror sieht ALLE opportunities, nicht nur calibrated
+if paper_mirror.is_enabled():
+    for opp in opportunities:
+        try:
+            # Build minimal CopyOrder for paper-only signal
+            from core.wallet_monitor import TradeSignal
+            from strategies.copy_trading_plugin import CopyOrder
+            sig = TradeSignal(
+                tx_hash=f"weather_paper_{opp['condition_id'][:14]}_{ts_short}",
+                source_wallet="[weather-bot]",
+                market_id=opp['condition_id'],
+                token_id=str(opp.get('token_id', '')),
+                side="BUY",
+                price=float(opp['price']),
+                size_usdc=paper_mirror.paper_size_usd(),
+                market_question=opp.get('market', opp.get('city', '')),
+                outcome=opp['direction'],
+            )
+            order = CopyOrder(signal=sig, size_usdc=paper_mirror.paper_size_usd(), dry_run=True)
+            paper_mirror.log_signal_as_paper(order)
+        except Exception as e:
+            logger.warning(f"[Weather-Paper] {opp.get('city','?')}: {e}")
+
+# (existing line 1665) live_opps filter applies only to LIVE pipeline
+live_opps = [o for o in opportunities if not o.get('shadow_only') ...]
+```
+
+Effekt: Paper-Mirror trifft auf ALLE Weather-Opportunities (auch uncalibrated cities), Live-Pipeline bleibt unverändert auf calibrated.
+
+### Test
+Nach Deploy:
+- Erwartung Paper-Entries/Tag: 30-50 (matching pre-28.04)
+- Live-Trades unverändert (CALIBRATED_CITIES schützt weiterhin echtes Geld)
+
+### Risk
+- Low: nur additiv im weather_loop, try/except-Wrap, paper-mirror eigene DB-Spalte
+- Bot-Restart nötig
+
+### Schema-Verbesserung (parallel, MEDIUM priority)
+Partial TP1/TP2/TP3 Exits sollten als SEPARATE trades.db Rows (matching pre-28.04 Schema), nicht UPDATE der Entry-Row. ~50 LOC in paper_mirror.paper_exit_loop. Verbessert Stats-Genauigkeit, kein PnL-Effekt.

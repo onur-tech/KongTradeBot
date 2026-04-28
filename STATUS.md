@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-04-28 06:48:51 UTC
+> 2026-04-28 06:53:54 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-OK — lief vor 47s | HB: OK (315s alt)
+OK — lief vor 38s | HB: OK (9s alt)
 ```
 
 ## Portfolio
@@ -37,9 +37,9 @@ PnL heute:     $7.15
 
 ## Letzte Fehler (3)
 ```
-2026-04-28 06:04:32 | INFO     | polymarket_bot.fill_tracker | WS-Reconnect (TimeoutError):  — Reconnect in 30s
-2026-04-28 06:27:28 | INFO     | polymarket_bot.fill_tracker | WS-Reconnect (TimeoutError):  — Reconnect in 30s
 2026-04-28 06:42:31 | INFO     | polymarket_bot.wallet_monitor | WalletMonitor gestoppt | Stats: {'polls': 50, 'trades_detected': 107, 'trades_skipped_duplicate': 506, 'early_entry_signals': 0, 'whale_sells_detected': 5, 'ws_messages': 0, 'ws_reconnects': 13, 'errors': 0}
+2026-04-28 06:52:45 | INFO     | polymarket_bot.fill_tracker | WS-Reconnect (TimeoutError):  — Reconnect in 1s
+[TG] Dashboard fetch failed /api/portfolio: HTTP Error 401: UNAUTHORIZED
 ```
 
 ---

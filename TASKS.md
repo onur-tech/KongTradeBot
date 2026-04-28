@@ -98,3 +98,35 @@ _Stand: 2026-04-27_
 - T-D55 Marktrecherche V2 (7 Blöcke) auf research-share
 - T-D56 GitHub-Account entsperrt (Wick-Case abgeschlossen)
 - T-D57 Auto-Sync Post-Commit-Hook installiert
+
+## T-D139 — Paper-Mirror Self-Health Check-D + Whale-Pfad-Test
+
+**Owner:** Brrudi-decision morgen
+**Priority:** medium (paper läuft jetzt; alarm-coverage-Lücke)
+**Created:** 2026-04-28 22:00 Berlin (post T-D138 deploy)
+
+### Context
+T-D138 deployed paper-mirror (commits d3b1c90 + fe53266). Live-verified:
+- Weather-Scout-Pfad triggert paper-mirror ✓ (Manila + London Entries 21:37/21:38)
+- TP1-Exit funktioniert nach shares-bug fix ✓ (Manila +$24.57 21:40:53)
+- Rollback env-toggle verified bidirectional ✓ (T-D138-V2 cross-check)
+
+### Open Items
+1. **Whale-Copy-Pfad noch ungetestet:** when a tracked-wallet opens a position,
+   does paper-mirror.log_signal_as_paper() also fire? Theoretically yes (same
+   on_copy_order hook), but no observation yet. Mock-signal test recommended.
+
+2. **Alarm-Lücke:** Self-Health-Daemon (T-D133) watches decision-stillness
+   but NOT paper-stillness specifically. If paper_exit_loop crashes mid-
+   session, only service-bot.log catches it. Add Check-D:
+   - "If `mode='paper'` insert-rate < 1/hour during active weather-scouts → WARN"
+   - Insert into services/self_health.py alongside existing checks A-C.
+
+3. **Daily-Report Erweiterung:** services/daily_summary.py shows live + paper
+   PnL side-by-side, but no "Paper-Mirror health" section (last entry/exit
+   timestamp, n entries last 24h vs expected 20-50, etc.).
+
+### Files to touch (preview)
+- `services/self_health.py` — add `_check_paper_stillness()` ~30 LOC
+- `services/daily_summary.py` — add Paper-Health section ~20 LOC
+- (optional) test script for mock-whale-signal trigger

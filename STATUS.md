@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-04-28 10:16:56 UTC
+> 2026-04-28 10:21:57 UTC
 
 ## Bot-Status
 ```
@@ -19,9 +19,9 @@ OK — lief vor 34s | HB: OK (43s alt)
 
 ## Portfolio
 ```
-Total:         $506.36 USDC
+Total:         $506.31 USDC
 Cash:          $492.14 USDC
-In Positionen: $14.22 USDC
+In Positionen: $14.17 USDC
 Offene Pos.:   0
 PnL heute:     $0.00
 ```

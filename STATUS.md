@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-04-28 23:51:37 UTC
+> 2026-04-28 23:56:38 UTC
 
 ## Bot-Status
 ```
@@ -14,32 +14,32 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-OK — lief vor 52s | HB: OK (351s alt)
+OK — lief vor 45s | HB: OK (48s alt)
 ```
 
 ## Portfolio
 ```
-Total:         $501.21 USDC
+Total:         $501.09 USDC
 Cash:          $492.14 USDC
-In Positionen: $9.07 USDC
+In Positionen: $8.95 USDC
 Offene Pos.:   1
 PnL heute:     $0.00
 ```
 
 ## Letzte Trades (5)
 ```
-2026-04-28 16:59:56 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Hynek Barton @ $0.580 | $7290.50 USDC | Ostrava: Jonas Forejtek vs Hynek Barton)
-2026-04-28 16:59:56 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.118 | $206.63 USDC | Will Atletico Madrid win the 2025–26 Champions League?)
-2026-04-28 16:59:56 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Jonas Forejtek @ $0.440 | $15.40 USDC | Ostrava: Jonas Forejtek vs Hynek Barton)
-2026-04-28 16:59:56 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Casper Ruud @ $0.930 | $301.07 USDC | Madrid Open: Stefanos Tsitsipas vs Casper Ruud)
-2026-04-28 16:59:56 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Casper Ruud @ $0.920 | $13800.00 USDC | Madrid Open: Stefanos Tsitsipas vs Casper Ruud)
+2026-04-28 23:54:52 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.510 | $294.24 USDC | Will the Oklahoma City Thunder win the 2026 NBA Finals?)
+2026-04-28 23:54:52 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY 76ers @ $0.200 | $5.50 USDC | 76ers vs. Celtics)
+2026-04-28 23:54:53 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.065 | $650.00 USDC | Will China invade Taiwan by end of 2026?)
+2026-04-28 23:54:53 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.065 | $1023.93 USDC | Will China invade Taiwan by end of 2026?)
+2026-04-28 23:54:53 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $2101.47 USDC | Will Arsenal FC win on 2026-02-22?)
 ```
 
 ## Letzte Fehler (3)
 ```
 raise asyncio.TimeoutError from exc_val
 TimeoutError
-2026-04-28 23:31:46 | INFO     | polymarket_bot.fill_tracker | WS-Reconnect (TimeoutError):  — Reconnect in 16s
+2026-04-28 23:54:50 | INFO     | polymarket_bot.fill_tracker | WS-Reconnect (TimeoutError):  — Reconnect in 30s
 ```
 
 ---

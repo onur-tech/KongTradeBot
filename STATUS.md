@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-04-28 06:03:33 UTC
+> 2026-04-28 06:08:33 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-OK — lief vor 23s | HB: WARNUNG 485s alt
+OK — lief vor 21s | HB: OK (1s alt)
 ```
 
 ## Portfolio
@@ -28,18 +28,18 @@ PnL heute:     $7.15
 
 ## Letzte Trades (5)
 ```
-2026-04-28 03:47:19 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Nuggets @ $0.850 | $37208.86 USDC | Timberwolves vs. Nuggets)
-2026-04-28 03:47:19 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Thunder @ $0.900 | $288.10 USDC | Thunder vs. Suns)
-2026-04-28 03:47:19 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Nuggets @ $0.830 | $2580.63 USDC | Timberwolves vs. Nuggets)
-2026-04-28 03:47:19 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $13.67 USDC | Will Arsenal FC win on 2026-02-22?)
-2026-04-28 03:47:19 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $23.17 USDC | Will Arsenal FC win on 2026-02-22?)
+2026-04-28 06:04:34 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Utah @ $0.460 | $1380.00 USDC | Golden Knights vs. Utah)
+2026-04-28 06:04:34 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.981 | $15173.29 USDC | Will the Orlando Magic win the 2026 NBA Finals?)
+2026-04-28 06:04:34 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Golden Knights @ $0.580 | $514.46 USDC | Golden Knights vs. Utah)
+2026-04-28 06:04:34 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY San Diego Padres @ $0.949 | $1415.40 USDC | Chicago Cubs vs. San Diego Padres)
+2026-04-28 06:04:34 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Miami Marlins @ $0.840 | $6520.86 USDC | Miami Marlins vs. Los Angeles Dodgers)
 ```
 
 ## Letzte Fehler (3)
 ```
-[TG] Fehler 7777386792: {"ok":false,"error_code":400,"description":"Bad Request: can't parse entities: Unsupported start tag \"$5.00</code\" at byte offset 130"}
 2026-04-28 05:18:35 | INFO     | polymarket_bot.fill_tracker | WS-Reconnect (TimeoutError):  — Reconnect in 30s
 2026-04-28 05:41:27 | INFO     | polymarket_bot.fill_tracker | WS-Reconnect (TimeoutError):  — Reconnect in 30s
+2026-04-28 06:04:32 | INFO     | polymarket_bot.fill_tracker | WS-Reconnect (TimeoutError):  — Reconnect in 30s
 ```
 
 ---

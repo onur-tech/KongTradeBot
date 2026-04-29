@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-04-29 01:01:56 UTC
+> 2026-04-29 01:06:56 UTC
 
 ## Bot-Status
 ```
@@ -14,14 +14,14 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-OK — lief vor 55s | HB: WARNUNG 423s alt
+OK — lief vor 54s | HB: OK (0s alt)
 ```
 
 ## Portfolio
 ```
-Total:         $501.19 USDC
+Total:         $501.29 USDC
 Cash:          $492.14 USDC
-In Positionen: $9.05 USDC
+In Positionen: $9.15 USDC
 Offene Pos.:   1
 PnL heute:     $0.00
 ```
@@ -37,9 +37,9 @@ PnL heute:     $0.00
 
 ## Letzte Fehler (3)
 ```
+raise asyncio.TimeoutError from exc_val
 TimeoutError
-2026-04-29 00:40:53 | INFO     | polymarket_bot.fill_tracker | WS-Reconnect (TimeoutError):  — Reconnect in 30s
-[TG] Dashboard fetch failed /api/portfolio: HTTP Error 401: UNAUTHORIZED
+2026-04-29 01:03:56 | INFO     | polymarket_bot.fill_tracker | WS-Reconnect (TimeoutError):  — Reconnect in 30s
 ```
 
 ---

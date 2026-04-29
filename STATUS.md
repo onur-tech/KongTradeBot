@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-04-29 09:17:26 UTC
+> 2026-04-29 09:22:26 UTC
 
 ## Bot-Status
 ```
@@ -14,14 +14,14 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-OK — lief vor 19s | HB: STALE 1162s alt (Bot moeglicherweise haengend)
+OK — lief vor 17s | HB: OK (9s alt)
 ```
 
 ## Portfolio
 ```
-Total:         $500.59 USDC
+Total:         $500.54 USDC
 Cash:          $492.14 USDC
-In Positionen: $8.45 USDC
+In Positionen: $8.40 USDC
 Offene Pos.:   1
 PnL heute:     $0.00
 ```
@@ -37,9 +37,9 @@ PnL heute:     $0.00
 
 ## Letzte Fehler (3)
 ```
-2026-04-29 08:45:57 | ERROR    | polymarket_bot.execution | [Allowance] KRITISCH: allowance=0, balance=0 — Trade geblockt
-2026-04-29 08:46:28 | ERROR    | polymarket_bot.execution | [Allowance] KRITISCH: allowance=0, balance=0 — Trade geblockt
-2026-04-29 08:57:00 | INFO     | polymarket_bot.wallet_monitor | WalletMonitor gestoppt | Stats: {'polls': 0, 'trades_detected': 0, 'trades_skipped_duplicate': 0, 'early_entry_signals': 0, 'whale_sells_detected': 0, 'ws_messages': 0, 'ws_reconnects': 0, 'errors': 0}
+raise asyncio.TimeoutError from exc_val
+TimeoutError
+2026-04-29 09:18:17 | INFO     | polymarket_bot.fill_tracker | WS-Reconnect (TimeoutError):  — Reconnect in 1s
 ```
 
 ---

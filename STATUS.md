@@ -1,10 +1,10 @@
 # KongTradeBot Live Status
 
-> 2026-04-29 08:32:23 UTC
+> 2026-04-29 08:37:23 UTC
 
 ## Bot-Status
 ```
-RUNNING (seit Wed 2026-04-29 08:14:41 UTC)
+RUNNING (seit Wed 2026-04-29 08:32:54 UTC)
 ```
 
 ## Dashboard-URL
@@ -14,14 +14,14 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-OK — lief vor 31s | HB: STALE 998s alt (Bot moeglicherweise haengend)
+OK — lief vor 30s | HB: OK (207s alt)
 ```
 
 ## Portfolio
 ```
-Total:         $500.86 USDC
+Total:         $500.54 USDC
 Cash:          $492.14 USDC
-In Positionen: $8.72 USDC
+In Positionen: $8.40 USDC
 Offene Pos.:   1
 PnL heute:     $0.00
 ```
@@ -37,9 +37,9 @@ PnL heute:     $0.00
 
 ## Letzte Fehler (3)
 ```
-2026-04-29 07:44:05 | INFO     | polymarket_bot.wallet_monitor | WalletMonitor gestoppt | Stats: {'polls': 0, 'trades_detected': 0, 'trades_skipped_duplicate': 0, 'early_entry_signals': 0, 'whale_sells_detected': 0, 'ws_messages': 0, 'ws_reconnects': 0, 'errors': 0}
 2026-04-29 07:55:30 | INFO     | polymarket_bot.wallet_monitor | WalletMonitor gestoppt | Stats: {'polls': 0, 'trades_detected': 0, 'trades_skipped_duplicate': 0, 'early_entry_signals': 0, 'whale_sells_detected': 0, 'ws_messages': 0, 'ws_reconnects': 0, 'errors': 0}
 2026-04-29 08:14:19 | INFO     | polymarket_bot.wallet_monitor | WalletMonitor gestoppt | Stats: {'polls': 0, 'trades_detected': 0, 'trades_skipped_duplicate': 0, 'early_entry_signals': 0, 'whale_sells_detected': 0, 'ws_messages': 0, 'ws_reconnects': 0, 'errors': 0}
+2026-04-29 08:32:53 | INFO     | polymarket_bot.wallet_monitor | WalletMonitor gestoppt | Stats: {'polls': 0, 'trades_detected': 0, 'trades_skipped_duplicate': 0, 'early_entry_signals': 0, 'whale_sells_detected': 0, 'ws_messages': 0, 'ws_reconnects': 0, 'errors': 0}
 ```
 
 ---

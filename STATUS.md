@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-04-30 12:13:43 UTC
+> 2026-04-30 12:18:44 UTC
 
 ## Bot-Status
 ```
@@ -19,9 +19,9 @@ OK — lief vor 38s | HB: OK (15s alt)
 
 ## Portfolio
 ```
-Total:         $23.80 USDC
+Total:         $23.43 USDC
 Cash:          $0.00 USDC
-In Positionen: $23.80 USDC
+In Positionen: $23.43 USDC
 Offene Pos.:   3
 PnL heute:     $0.00
 ```
@@ -37,9 +37,9 @@ PnL heute:     $0.00
 
 ## Letzte Fehler (3)
 ```
-2026-04-30 12:13:25 | WARNING  | polymarket_bot.execution | [V2] heartbeat failed: PolyApiException[status_code=400, error_message={'heartbeat_id': '7fa7da85-4004-4601-88f4-f6128c07c3e0', 'error_msg': 'Invalid Heartbeat ID'}]
-[py_clob_client_v2] request error status=400 url=https://clob.polymarket.com/v1/heartbeats body={"heartbeat_id":"e4689995-0ce0-4c70-9d12-0914c655bb8e","error_msg":"Invalid Heartbeat ID"}
-2026-04-30 12:13:41 | WARNING  | polymarket_bot.execution | [V2] heartbeat failed: PolyApiException[status_code=400, error_message={'heartbeat_id': 'e4689995-0ce0-4c70-9d12-0914c655bb8e', 'error_msg': 'Invalid Heartbeat ID'}]
+2026-04-30 12:18:17 | WARNING  | polymarket_bot.execution | [V2] heartbeat failed: PolyApiException[status_code=400, error_message={'heartbeat_id': 'f33a21bd-a748-4051-bc62-320b6378b424', 'error_msg': 'Invalid Heartbeat ID'}]
+[py_clob_client_v2] request error status=400 url=https://clob.polymarket.com/v1/heartbeats body={"heartbeat_id":"bf730389-16d1-4008-9329-1f78f6b824e9","error_msg":"Invalid Heartbeat ID"}
+2026-04-30 12:18:33 | WARNING  | polymarket_bot.execution | [V2] heartbeat failed: PolyApiException[status_code=400, error_message={'heartbeat_id': 'bf730389-16d1-4008-9329-1f78f6b824e9', 'error_msg': 'Invalid Heartbeat ID'}]
 ```
 
 ---

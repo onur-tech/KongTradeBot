@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-04-30 20:50:20 UTC
+> 2026-04-30 20:55:22 UTC
 
 ## Bot-Status
 ```
@@ -14,32 +14,32 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-OK — lief vor 0s | HB: WARNUNG 539s alt
+OK — lief vor 59s | HB: OK (27s alt)
 ```
 
 ## Portfolio
 ```
-Total:         $12.68 USDC
+Total:         $12.73 USDC
 Cash:          $0.00 USDC
-In Positionen: $12.68 USDC
+In Positionen: $12.73 USDC
 Offene Pos.:   2
 PnL heute:     $0.00
 ```
 
 ## Letzte Trades (5)
 ```
-2026-04-30 18:29:27 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY G2 @ $0.250 | $1375.00 USDC | Counter-Strike: Vitality vs G2 - Map 2 Winner)
-2026-04-30 18:29:27 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY G2 @ $0.240 | $16.33 USDC | Map Handicap: VIT (-1.5) vs G2 (+1.5))
-2026-04-30 18:29:27 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY G2 @ $0.250 | $750.00 USDC | Counter-Strike: Vitality vs G2 - Map 2 Winner)
-2026-04-30 18:29:27 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY G2 @ $0.250 | $66.67 USDC | Counter-Strike: Vitality vs G2 - Map 2 Winner)
-2026-04-30 18:29:27 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY G2 @ $0.250 | $750.00 USDC | Counter-Strike: Vitality vs G2 - Map 2 Winner)
+2026-04-30 20:50:57 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY New York Mets @ $0.460 | $287.96 USDC | Washington Nationals vs. New York Mets)
+2026-04-30 20:50:57 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY New York Mets @ $0.300 | $39.66 USDC | Washington Nationals vs. New York Mets)
+2026-04-30 20:50:57 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY New York Mets @ $0.320 | $11.24 USDC | Washington Nationals vs. New York Mets)
+2026-04-30 20:50:57 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY New York Mets @ $0.320 | $64.05 USDC | Washington Nationals vs. New York Mets)
+2026-04-30 20:50:57 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.570 | $19.28 USDC | Will SC Braga win on 2026-04-30?)
 ```
 
 ## Letzte Fehler (3)
 ```
-2026-04-30 20:42:04 | WARNING  | polymarket_bot.execution | [V2] heartbeat failed: PolyApiException[status_code=400, error_message={'heartbeat_id': '4d0d38e2-ea5a-4bdb-8dc2-ff84fe935877', 'error_msg': 'Invalid Heartbeat ID'}]
-[py_clob_client_v2] request error status=400 url=https://clob.polymarket.com/v1/heartbeats body={"heartbeat_id":"7e9e0337-ba5d-4e35-9255-3b9bb29f9a3c","error_msg":"Invalid Heartbeat ID"}
-2026-04-30 20:42:20 | WARNING  | polymarket_bot.execution | [V2] heartbeat failed: PolyApiException[status_code=400, error_message={'heartbeat_id': '7e9e0337-ba5d-4e35-9255-3b9bb29f9a3c', 'error_msg': 'Invalid Heartbeat ID'}]
+2026-04-30 20:55:06 | WARNING  | polymarket_bot.execution | [V2] heartbeat failed: PolyApiException[status_code=400, error_message={'heartbeat_id': '17b0aa88-c287-4701-aec2-eb3e96270472', 'error_msg': 'Invalid Heartbeat ID'}]
+[py_clob_client_v2] request error status=400 url=https://clob.polymarket.com/v1/heartbeats body={"heartbeat_id":"ae29dde5-16aa-4bc2-8217-e645c51671e7","error_msg":"Invalid Heartbeat ID"}
+2026-04-30 20:55:22 | WARNING  | polymarket_bot.execution | [V2] heartbeat failed: PolyApiException[status_code=400, error_message={'heartbeat_id': 'ae29dde5-16aa-4bc2-8217-e645c51671e7', 'error_msg': 'Invalid Heartbeat ID'}]
 ```
 
 ---

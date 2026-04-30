@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-04-30 23:06:29 UTC
+> 2026-04-30 23:11:29 UTC
 
 ## Bot-Status
 ```
@@ -14,32 +14,32 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-OK — lief vor 37s | HB: OK (272s alt)
+OK — lief vor 35s | HB: OK (15s alt)
 ```
 
 ## Portfolio
 ```
-Total:         $11.41 USDC
+Total:         $11.29 USDC
 Cash:          $0.00 USDC
-In Positionen: $11.41 USDC
+In Positionen: $11.29 USDC
 Offene Pos.:   2
 PnL heute:     $0.00
 ```
 
 ## Letzte Trades (5)
 ```
-2026-04-30 20:50:57 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY New York Mets @ $0.460 | $287.96 USDC | Washington Nationals vs. New York Mets)
-2026-04-30 20:50:57 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY New York Mets @ $0.300 | $39.66 USDC | Washington Nationals vs. New York Mets)
-2026-04-30 20:50:57 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY New York Mets @ $0.320 | $11.24 USDC | Washington Nationals vs. New York Mets)
-2026-04-30 20:50:57 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY New York Mets @ $0.320 | $64.05 USDC | Washington Nationals vs. New York Mets)
-2026-04-30 20:50:57 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.570 | $19.28 USDC | Will SC Braga win on 2026-04-30?)
+2026-04-30 23:11:16 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $13.67 USDC | Will Arsenal FC win on 2026-02-22?)
+2026-04-30 23:11:16 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $23.17 USDC | Will Arsenal FC win on 2026-02-22?)
+2026-04-30 23:11:16 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $7.49 USDC | Will Arsenal FC win on 2026-02-22?)
+2026-04-30 23:11:16 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $12.39 USDC | Will Arsenal FC win on 2026-02-22?)
+2026-04-30 23:11:16 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $48.80 USDC | Will Arsenal FC win on 2026-02-22?)
 ```
 
 ## Letzte Fehler (3)
 ```
-2026-04-30 23:02:40 | WARNING  | polymarket_bot.execution | [V2] heartbeat failed: PolyApiException[status_code=400, error_message={'heartbeat_id': '72457a91-59fa-4bea-847c-ef510a85b541', 'error_msg': 'Invalid Heartbeat ID'}]
-[py_clob_client_v2] request error status=400 url=https://clob.polymarket.com/v1/heartbeats body={"heartbeat_id":"83438d5a-1cf9-4ffe-b83f-bb74981fb737","error_msg":"Invalid Heartbeat ID"}
-2026-04-30 23:02:56 | WARNING  | polymarket_bot.execution | [V2] heartbeat failed: PolyApiException[status_code=400, error_message={'heartbeat_id': '83438d5a-1cf9-4ffe-b83f-bb74981fb737', 'error_msg': 'Invalid Heartbeat ID'}]
+TimeoutError
+[py_clob_client_v2] request error status=400 url=https://clob.polymarket.com/v1/heartbeats body={"heartbeat_id":"75ce20d4-9c6f-414a-92f3-3b18db26cf7b","error_msg":"Invalid Heartbeat ID"}
+2026-04-30 23:11:22 | WARNING  | polymarket_bot.execution | [V2] heartbeat failed: PolyApiException[status_code=400, error_message={'heartbeat_id': '75ce20d4-9c6f-414a-92f3-3b18db26cf7b', 'error_msg': 'Invalid Heartbeat ID'}]
 ```
 
 ---

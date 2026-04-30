@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-04-30 18:54:22 UTC
+> 2026-04-30 18:59:49 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-OK — lief vor 37s | HB: OK (25s alt)
+OK — lief vor 44s | HB: OK (52s alt)
 ```
 
 ## Portfolio
@@ -37,9 +37,9 @@ PnL heute:     $0.00
 
 ## Letzte Fehler (3)
 ```
-2026-04-30 18:53:54 | WARNING  | polymarket_bot.execution | [V2] heartbeat failed: PolyApiException[status_code=400, error_message={'heartbeat_id': 'e1699879-b03c-42b7-865e-50f917378d2a', 'error_msg': 'Invalid Heartbeat ID'}]
-[py_clob_client_v2] request error status=400 url=https://clob.polymarket.com/v1/heartbeats body={"heartbeat_id":"c1971390-a5b6-46a7-9835-755828143344","error_msg":"Invalid Heartbeat ID"}
-2026-04-30 18:54:10 | WARNING  | polymarket_bot.execution | [V2] heartbeat failed: PolyApiException[status_code=400, error_message={'heartbeat_id': 'c1971390-a5b6-46a7-9835-755828143344', 'error_msg': 'Invalid Heartbeat ID'}]
+2026-04-30 18:59:18 | WARNING  | polymarket_bot.execution | [V2] heartbeat failed: PolyApiException[status_code=400, error_message={'heartbeat_id': '15950929-abf1-4164-9f36-36843c73d2cd', 'error_msg': 'Invalid Heartbeat ID'}]
+[py_clob_client_v2] request error status=400 url=https://clob.polymarket.com/v1/heartbeats body={"heartbeat_id":"d03fadb5-0c0a-42f7-956b-dae2a3d46a4f","error_msg":"Invalid Heartbeat ID"}
+2026-04-30 18:59:34 | WARNING  | polymarket_bot.execution | [V2] heartbeat failed: PolyApiException[status_code=400, error_message={'heartbeat_id': 'd03fadb5-0c0a-42f7-956b-dae2a3d46a4f', 'error_msg': 'Invalid Heartbeat ID'}]
 ```
 
 ---

@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-04-30 08:57:25 UTC
+> 2026-04-30 09:02:26 UTC
 
 ## Bot-Status
 ```
@@ -14,14 +14,14 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-OK — lief vor 13s | HB: OK (265s alt)
+OK — lief vor 5s | HB: OK (2s alt)
 ```
 
 ## Portfolio
 ```
-Total:         $24.33 USDC
+Total:         $24.55 USDC
 Cash:          $0.00 USDC
-In Positionen: $24.33 USDC
+In Positionen: $24.55 USDC
 Offene Pos.:   3
 PnL heute:     $0.00
 ```
@@ -37,9 +37,9 @@ PnL heute:     $0.00
 
 ## Letzte Fehler (3)
 ```
-2026-04-30 08:53:28 | WARNING  | polymarket_bot.execution | [V2] heartbeat failed: PolyApiException[status_code=400, error_message={'heartbeat_id': 'dfe020a0-2665-4a0e-9765-48b9bf52b0d1', 'error_msg': 'Invalid Heartbeat ID'}]
-[py_clob_client_v2] request error status=400 url=https://clob.polymarket.com/v1/heartbeats body={"heartbeat_id":"2da80af9-b309-467b-8fce-ec4555532063","error_msg":"Invalid Heartbeat ID"}
-2026-04-30 08:53:44 | WARNING  | polymarket_bot.execution | [V2] heartbeat failed: PolyApiException[status_code=400, error_message={'heartbeat_id': '2da80af9-b309-467b-8fce-ec4555532063', 'error_msg': 'Invalid Heartbeat ID'}]
+raise PolyApiException(resp)
+py_clob_client_v2.exceptions.PolyApiException: PolyApiException[status_code=400, error_message={'error': 'not enough balance / allowance: the balance is not enough -> balance: 0, order amount: 25000000'}]
+2026-04-30 09:02:25 | ERROR    | polymarket_bot.main | [exit_loop] Sell-Order fehlgeschlagen: PolyApiException[status_code=400, error_message={'error': 'not enough balance / allowance: the balance is not enough -> balance: 0, order amount: 25000000'}]
 ```
 
 ---

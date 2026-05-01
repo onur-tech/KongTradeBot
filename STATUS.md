@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-01 01:01:52 UTC
+> 2026-05-01 01:06:52 UTC
 
 ## Bot-Status
 ```
@@ -14,15 +14,15 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-OK — lief vor 0s | HB: OK (217s alt)
+OK — lief vor 59s | HB: WARNUNG 517s alt
 ```
 
 ## Portfolio
 ```
-Total:         $15.12 USDC
+Total:         $19.02 USDC
 Cash:          $0.00 USDC
-In Positionen: $15.12 USDC
-Offene Pos.:   2
+In Positionen: $19.02 USDC
+Offene Pos.:   3
 PnL heute:     $0.00
 ```
 

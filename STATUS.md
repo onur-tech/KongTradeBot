@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-01 17:32:47 UTC
+> 2026-05-01 17:37:47 UTC
 
 ## Bot-Status
 ```
@@ -14,32 +14,32 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-OK — lief vor 20s | HB: WARNUNG 439s alt
+OK — lief vor 19s | HB: OK (37s alt)
 ```
 
 ## Portfolio
 ```
-Total:         $0.06 USDC
+Total:         $0.05 USDC
 Cash:          $0.00 USDC
-In Positionen: $0.06 USDC
+In Positionen: $0.05 USDC
 Offene Pos.:   0
 PnL heute:     $0.00
 ```
 
 ## Letzte Trades (5)
 ```
-2026-05-01 15:12:53 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.074 | $6.66 USDC | Will Portugal win the 2026 FIFA World Cup?)
-2026-05-01 15:12:53 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.074 | $7.40 USDC | Will Portugal win the 2026 FIFA World Cup?)
-2026-05-01 15:12:53 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.074 | $19.24 USDC | Will Portugal win the 2026 FIFA World Cup?)
-2026-05-01 15:12:53 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.153 | $53.55 USDC | Will Spain win the 2026 FIFA World Cup?)
-2026-05-01 15:12:53 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.153 | $12.49 USDC | Will Spain win the 2026 FIFA World Cup?)
+2026-05-01 17:35:12 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Rajasthan Royals @ $0.190 | $14.36 USDC | Indian Premier League: Rajasthan Royals vs Delhi Capitals)
+2026-05-01 17:35:12 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Rajasthan Royals @ $0.210 | $116.67 USDC | Indian Premier League: Rajasthan Royals vs Delhi Capitals)
+2026-05-01 17:35:12 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.074 | $63.68 USDC | Will Portugal win the 2026 FIFA World Cup?)
+2026-05-01 17:35:12 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.087 | $23.91 USDC | Will Argentina win the 2026 FIFA World Cup?)
+2026-05-01 17:35:12 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.153 | $24.87 USDC | Will Spain win the 2026 FIFA World Cup?)
 ```
 
 ## Letzte Fehler (3)
 ```
-2026-05-01 17:26:11 | WARNING  | polymarket_bot.execution | [V2] heartbeat failed: PolyApiException[status_code=400, error_message={'heartbeat_id': '0239696e-9773-47ca-a830-0e72ddd3e489', 'error_msg': 'Invalid Heartbeat ID'}]
-[py_clob_client_v2] request error status=400 url=https://clob.polymarket.com/v1/heartbeats body={"heartbeat_id":"a16e4c86-af39-4795-84f7-28ce842fd95b","error_msg":"Invalid Heartbeat ID"}
-2026-05-01 17:26:28 | WARNING  | polymarket_bot.execution | [V2] heartbeat failed: PolyApiException[status_code=400, error_message={'heartbeat_id': 'a16e4c86-af39-4795-84f7-28ce842fd95b', 'error_msg': 'Invalid Heartbeat ID'}]
+2026-05-01 17:37:28 | WARNING  | polymarket_bot.execution | [V2] heartbeat failed: PolyApiException[status_code=400, error_message={'heartbeat_id': 'fb76b5c0-154f-4750-89cc-b694d0ea14e2', 'error_msg': 'Invalid Heartbeat ID'}]
+[py_clob_client_v2] request error status=400 url=https://clob.polymarket.com/v1/heartbeats body={"heartbeat_id":"d0157848-82e7-4da3-adda-cfe508157c3c","error_msg":"Invalid Heartbeat ID"}
+2026-05-01 17:37:44 | WARNING  | polymarket_bot.execution | [V2] heartbeat failed: PolyApiException[status_code=400, error_message={'heartbeat_id': 'd0157848-82e7-4da3-adda-cfe508157c3c', 'error_msg': 'Invalid Heartbeat ID'}]
 ```
 
 ---

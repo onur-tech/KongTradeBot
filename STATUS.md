@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-01 01:26:54 UTC
+> 2026-05-01 01:31:56 UTC
 
 ## Bot-Status
 ```
@@ -14,32 +14,32 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-OK — lief vor 54s | HB: OK (326s alt)
+OK — lief vor 53s | HB: OK (16s alt)
 ```
 
 ## Portfolio
 ```
-Total:         $16.79 USDC
+Total:         $19.24 USDC
 Cash:          $0.00 USDC
-In Positionen: $16.79 USDC
+In Positionen: $19.24 USDC
 Offene Pos.:   3
 PnL heute:     $0.00
 ```
 
 ## Letzte Trades (5)
 ```
-2026-04-30 23:11:16 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $13.67 USDC | Will Arsenal FC win on 2026-02-22?)
-2026-04-30 23:11:16 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $23.17 USDC | Will Arsenal FC win on 2026-02-22?)
-2026-04-30 23:11:16 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $7.49 USDC | Will Arsenal FC win on 2026-02-22?)
-2026-04-30 23:11:16 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $12.39 USDC | Will Arsenal FC win on 2026-02-22?)
-2026-04-30 23:11:16 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $48.80 USDC | Will Arsenal FC win on 2026-02-22?)
+2026-05-01 01:30:42 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Celtics @ $0.410 | $16.40 USDC | Celtics vs. 76ers)
+2026-05-01 01:30:42 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Celtics @ $0.410 | $186.93 USDC | Celtics vs. 76ers)
+2026-05-01 01:30:42 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Celtics @ $0.410 | $635.50 USDC | Celtics vs. 76ers)
+2026-05-01 01:30:42 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Celtics @ $0.410 | $6.25 USDC | Celtics vs. 76ers)
+2026-05-01 01:30:42 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Celtics @ $0.410 | $764.41 USDC | Celtics vs. 76ers)
 ```
 
 ## Letzte Fehler (3)
 ```
-2026-05-01 01:22:11 | WARNING  | polymarket_bot.execution | [V2] heartbeat failed: PolyApiException[status_code=400, error_message={'heartbeat_id': 'f4f526b8-ca1b-4020-9fab-c74d246fea91', 'error_msg': 'Invalid Heartbeat ID'}]
-[py_clob_client_v2] request error status=400 url=https://clob.polymarket.com/v1/heartbeats body={"heartbeat_id":"8b6d4891-e37a-4d8d-bb8e-72ae4d288e93","error_msg":"Invalid Heartbeat ID"}
-2026-05-01 01:22:27 | WARNING  | polymarket_bot.execution | [V2] heartbeat failed: PolyApiException[status_code=400, error_message={'heartbeat_id': '8b6d4891-e37a-4d8d-bb8e-72ae4d288e93', 'error_msg': 'Invalid Heartbeat ID'}]
+2026-05-01 01:31:37 | WARNING  | polymarket_bot.execution | [V2] heartbeat failed: PolyApiException[status_code=400, error_message={'heartbeat_id': '5726217e-b40b-4c56-918f-fda4d2231ce8', 'error_msg': 'Invalid Heartbeat ID'}]
+[py_clob_client_v2] request error status=400 url=https://clob.polymarket.com/v1/heartbeats body={"heartbeat_id":"d4b318a0-348f-4970-9472-62710a510040","error_msg":"Invalid Heartbeat ID"}
+2026-05-01 01:31:53 | WARNING  | polymarket_bot.execution | [V2] heartbeat failed: PolyApiException[status_code=400, error_message={'heartbeat_id': 'd4b318a0-348f-4970-9472-62710a510040', 'error_msg': 'Invalid Heartbeat ID'}]
 ```
 
 ---

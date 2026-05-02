@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-02 22:11:26 UTC
+> 2026-05-02 22:16:26 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 95100s | HB: WARNUNG 508s alt
+STALE — lief vor 95400s | HB: OK (43s alt)
 ```
 
 ## Portfolio
@@ -28,18 +28,18 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-02 19:50:07 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Natus Vincere @ $0.900 | $80.10 USDC | Counter-Strike: Natus Vincere vs FaZe (BO3) - BLAST Rivals P)
-2026-05-02 19:50:07 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Natus Vincere @ $0.900 | $5.40 USDC | Counter-Strike: Natus Vincere vs FaZe (BO3) - BLAST Rivals P)
-2026-05-02 19:50:07 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Natus Vincere @ $0.900 | $31.50 USDC | Counter-Strike: Natus Vincere vs FaZe (BO3) - BLAST Rivals P)
-2026-05-02 19:50:07 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Natus Vincere @ $0.900 | $108.00 USDC | Counter-Strike: Natus Vincere vs FaZe (BO3) - BLAST Rivals P)
-2026-05-02 19:50:07 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Natus Vincere @ $0.900 | $45.00 USDC | Counter-Strike: Natus Vincere vs FaZe (BO3) - BLAST Rivals P)
+2026-05-02 22:12:45 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Vitality @ $0.790 | $1477.68 USDC | Counter-Strike: Vitality vs GamerLegion - Map 1 Winner)
+2026-05-02 22:12:45 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Vitality @ $0.790 | $19.49 USDC | Counter-Strike: Vitality vs GamerLegion - Map 1 Winner)
+2026-05-02 22:12:45 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Vitality @ $0.790 | $331.10 USDC | Counter-Strike: Vitality vs GamerLegion - Map 1 Winner)
+2026-05-02 22:12:45 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY GamerLegion @ $0.300 | $10.71 USDC | Map Handicap: VIT (-1.5) vs GamerLegion (+1.5))
+2026-05-02 22:12:45 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY GamerLegion @ $0.300 | $21.00 USDC | Map Handicap: VIT (-1.5) vs GamerLegion (+1.5))
 ```
 
 ## Letzte Fehler (3)
 ```
 raise asyncio.TimeoutError from exc_val
 TimeoutError
-2026-05-02 21:48:58 | INFO     | polymarket_bot.fill_tracker | WS-Reconnect (TimeoutError):  — Reconnect in 30s
+2026-05-02 22:12:42 | INFO     | polymarket_bot.fill_tracker | WS-Reconnect (TimeoutError):  — Reconnect in 30s
 ```
 
 ---

@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-02 05:56:00 UTC
+> 2026-05-02 06:01:00 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 36574s | HB: OK (245s alt)
+STALE — lief vor 36874s | HB: OK (12s alt)
 ```
 
 ## Portfolio
@@ -37,9 +37,9 @@ PnL heute:     $0.00
 
 ## Letzte Fehler (3)
 ```
-raise asyncio.TimeoutError from exc_val
-TimeoutError
-2026-05-02 05:37:54 | INFO     | polymarket_bot.fill_tracker | WS-Reconnect (TimeoutError):  — Reconnect in 30s
+[py_clob_client_v2] request error: [Errno -3] Temporary failure in name resolution
+2026-05-02 06:00:48 | WARNING  | polymarket_bot.execution | CLOB-Allowance-Check fehlgeschlagen: PolyApiException[status_code=None, error_message=Request exception!]
+2026-05-02 06:00:48 | INFO     | polymarket_bot.fill_tracker | WS-Reconnect (TimeoutError):  — Reconnect in 30s
 ```
 
 ---

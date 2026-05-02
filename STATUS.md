@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-02 17:25:24 UTC
+> 2026-05-02 17:30:24 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 77938s | HB: WARNUNG 493s alt
+STALE — lief vor 78238s | HB: OK (21s alt)
 ```
 
 ## Portfolio
@@ -28,18 +28,18 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-02 15:04:34 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.087 | $6.02 USDC | Will Argentina win the 2026 FIFA World Cup?)
-2026-05-02 15:04:34 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.153 | $999.70 USDC | Will Spain win the 2026 FIFA World Cup?)
-2026-05-02 15:04:34 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.153 | $20.00 USDC | Will Spain win the 2026 FIFA World Cup?)
-2026-05-02 15:04:34 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.153 | $30.60 USDC | Will Spain win the 2026 FIFA World Cup?)
-2026-05-02 15:04:34 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.153 | $8.72 USDC | Will Spain win the 2026 FIFA World Cup?)
+2026-05-02 17:27:06 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.880 | $7.41 USDC | Will Fulham FC win on 2026-05-02?)
+2026-05-02 17:27:06 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.880 | $14.67 USDC | Will Fulham FC win on 2026-05-02?)
+2026-05-02 17:27:06 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.880 | $8618.41 USDC | Will Fulham FC win on 2026-05-02?)
+2026-05-02 17:27:06 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.087 | $6.01 USDC | Will Argentina win the 2026 FIFA World Cup?)
+2026-05-02 17:27:06 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $389.20 USDC | Will Arsenal FC win on 2026-02-22?)
 ```
 
 ## Letzte Fehler (3)
 ```
 raise asyncio.TimeoutError from exc_val
 TimeoutError
-2026-05-02 17:03:11 | INFO     | polymarket_bot.fill_tracker | WS-Reconnect (TimeoutError):  — Reconnect in 30s
+2026-05-02 17:27:03 | INFO     | polymarket_bot.fill_tracker | WS-Reconnect (TimeoutError):  — Reconnect in 30s
 ```
 
 ---

@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-02 19:45:42 UTC
+> 2026-05-02 19:50:42 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 86356s | HB: OK (326s alt)
+STALE — lief vor 86656s | HB: OK (37s alt)
 ```
 
 ## Portfolio
@@ -28,18 +28,18 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-02 17:27:06 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.880 | $7.41 USDC | Will Fulham FC win on 2026-05-02?)
-2026-05-02 17:27:06 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.880 | $14.67 USDC | Will Fulham FC win on 2026-05-02?)
-2026-05-02 17:27:06 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.880 | $8618.41 USDC | Will Fulham FC win on 2026-05-02?)
-2026-05-02 17:27:06 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.087 | $6.01 USDC | Will Argentina win the 2026 FIFA World Cup?)
-2026-05-02 17:27:06 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $389.20 USDC | Will Arsenal FC win on 2026-02-22?)
+2026-05-02 19:50:07 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Natus Vincere @ $0.900 | $80.10 USDC | Counter-Strike: Natus Vincere vs FaZe (BO3) - BLAST Rivals P)
+2026-05-02 19:50:07 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Natus Vincere @ $0.900 | $5.40 USDC | Counter-Strike: Natus Vincere vs FaZe (BO3) - BLAST Rivals P)
+2026-05-02 19:50:07 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Natus Vincere @ $0.900 | $31.50 USDC | Counter-Strike: Natus Vincere vs FaZe (BO3) - BLAST Rivals P)
+2026-05-02 19:50:07 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Natus Vincere @ $0.900 | $108.00 USDC | Counter-Strike: Natus Vincere vs FaZe (BO3) - BLAST Rivals P)
+2026-05-02 19:50:07 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Natus Vincere @ $0.900 | $45.00 USDC | Counter-Strike: Natus Vincere vs FaZe (BO3) - BLAST Rivals P)
 ```
 
 ## Letzte Fehler (3)
 ```
 raise asyncio.TimeoutError from exc_val
 TimeoutError
-2026-05-02 19:26:15 | INFO     | polymarket_bot.fill_tracker | WS-Reconnect (TimeoutError):  — Reconnect in 30s
+2026-05-02 19:50:04 | INFO     | polymarket_bot.fill_tracker | WS-Reconnect (TimeoutError):  — Reconnect in 30s
 ```
 
 ---

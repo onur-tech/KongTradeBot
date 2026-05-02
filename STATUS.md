@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-02 16:15:13 UTC
+> 2026-05-02 16:20:13 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 73727s | HB: WARNUNG 555s alt
+STALE — lief vor 74027s | HB: OK (31s alt)
 ```
 
 ## Portfolio
@@ -37,9 +37,9 @@ PnL heute:     $0.00
 
 ## Letzte Fehler (3)
 ```
+raise asyncio.TimeoutError from exc_val
 TimeoutError
-2026-05-02 15:51:58 | INFO     | polymarket_bot.fill_tracker | WS-Reconnect (TimeoutError):  — Reconnect in 30s
-2026-05-02 16:06:13 | INFO     | polymarket_bot.rss_monitor | [RSS] AP News: Imprisoned Iranian Nobel Peace Prize winner in critical cond → ['geopolitics']
+2026-05-02 16:15:41 | INFO     | polymarket_bot.fill_tracker | WS-Reconnect (TimeoutError):  — Reconnect in 30s
 ```
 
 ---

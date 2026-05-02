@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-02 06:46:08 UTC
+> 2026-05-02 06:51:08 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 39582s | HB: WARNUNG 469s alt
+STALE — lief vor 39882s | HB: OK (20s alt)
 ```
 
 ## Portfolio
@@ -28,18 +28,18 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-02 04:27:41 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.066 | $17.63 USDC | Will China invade Taiwan by end of 2026?)
-2026-05-02 04:27:41 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.065 | $1023.93 USDC | Will China invade Taiwan by end of 2026?)
-2026-05-02 04:27:41 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $2101.47 USDC | Will Arsenal FC win on 2026-02-22?)
-2026-05-02 04:27:41 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $4629.80 USDC | Will Arsenal FC win on 2026-02-22?)
-2026-05-02 04:27:41 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $7.49 USDC | Will Arsenal FC win on 2026-02-22?)
+2026-05-02 06:47:49 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Up @ $0.570 | $170.43 USDC | Bitcoin Up or Down - May 2, 2AM ET)
+2026-05-02 06:47:49 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Up @ $0.570 | $227.43 USDC | Bitcoin Up or Down - May 2, 2AM ET)
+2026-05-02 06:47:49 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Up @ $0.570 | $57.00 USDC | Bitcoin Up or Down - May 2, 2AM ET)
+2026-05-02 06:47:49 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Up @ $0.570 | $56.97 USDC | Bitcoin Up or Down - May 2, 2AM ET)
+2026-05-02 06:47:49 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Up @ $0.570 | $53.73 USDC | Bitcoin Up or Down - May 2, 2AM ET)
 ```
 
 ## Letzte Fehler (3)
 ```
 raise asyncio.TimeoutError from exc_val
 TimeoutError
-2026-05-02 06:24:18 | INFO     | polymarket_bot.fill_tracker | WS-Reconnect (TimeoutError):  — Reconnect in 30s
+2026-05-02 06:47:47 | INFO     | polymarket_bot.fill_tracker | WS-Reconnect (TimeoutError):  — Reconnect in 30s
 ```
 
 ---

@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-02 15:00:05 UTC
+> 2026-05-02 15:05:05 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 69219s | HB: OK (313s alt)
+STALE — lief vor 69519s | HB: OK (33s alt)
 ```
 
 ## Portfolio
@@ -28,18 +28,18 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-02 12:42:36 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.087 | $6.03 USDC | Will Argentina win the 2026 FIFA World Cup?)
-2026-05-02 12:42:36 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.153 | $99.99 USDC | Will Spain win the 2026 FIFA World Cup?)
-2026-05-02 12:42:36 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.153 | $60.13 USDC | Will Spain win the 2026 FIFA World Cup?)
-2026-05-02 12:42:36 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.087 | $6.01 USDC | Will Argentina win the 2026 FIFA World Cup?)
-2026-05-02 12:42:36 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.153 | $7.50 USDC | Will Spain win the 2026 FIFA World Cup?)
+2026-05-02 15:04:34 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.087 | $6.02 USDC | Will Argentina win the 2026 FIFA World Cup?)
+2026-05-02 15:04:34 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.153 | $999.70 USDC | Will Spain win the 2026 FIFA World Cup?)
+2026-05-02 15:04:34 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.153 | $20.00 USDC | Will Spain win the 2026 FIFA World Cup?)
+2026-05-02 15:04:34 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.153 | $30.60 USDC | Will Spain win the 2026 FIFA World Cup?)
+2026-05-02 15:04:34 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.153 | $8.72 USDC | Will Spain win the 2026 FIFA World Cup?)
 ```
 
 ## Letzte Fehler (3)
 ```
 raise asyncio.TimeoutError from exc_val
 TimeoutError
-2026-05-02 14:40:51 | INFO     | polymarket_bot.fill_tracker | WS-Reconnect (TimeoutError):  — Reconnect in 30s
+2026-05-02 15:04:32 | INFO     | polymarket_bot.fill_tracker | WS-Reconnect (TimeoutError):  — Reconnect in 30s
 ```
 
 ---

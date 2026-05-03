@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-03 17:02:16 UTC
+> 2026-05-03 17:07:16 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 162950s | HB: WARNUNG 584s alt
+STALE — lief vor 163250s | HB: OK (48s alt)
 ```
 
 ## Portfolio
@@ -28,18 +28,18 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-03 14:38:44 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.087 | $100.00 USDC | Will Argentina win the 2026 FIFA World Cup?)
-2026-05-03 14:38:44 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.087 | $537.00 USDC | Will Argentina win the 2026 FIFA World Cup?)
-2026-05-03 14:38:44 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Down @ $0.990 | $68.28 USDC | Dogecoin Up or Down - April 5, 2:00AM-2:05AM ET)
-2026-05-03 14:38:44 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $2101.47 USDC | Will Arsenal FC win on 2026-02-22?)
-2026-05-03 14:38:44 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $4629.80 USDC | Will Arsenal FC win on 2026-02-22?)
+2026-05-03 17:02:30 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Raptors @ $0.260 | $35.13 USDC | Raptors vs. Cavaliers)
+2026-05-03 17:02:30 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Raptors @ $0.260 | $8.63 USDC | Raptors vs. Cavaliers)
+2026-05-03 17:02:30 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Raptors @ $0.260 | $5.27 USDC | Raptors vs. Cavaliers)
+2026-05-03 17:02:30 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Raptors @ $0.260 | $6.80 USDC | Raptors vs. Cavaliers)
+2026-05-03 17:02:30 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.610 | $12.06 USDC | Will Real Betis Balompié win on 2026-05-03?)
 ```
 
 ## Letzte Fehler (3)
 ```
 raise asyncio.TimeoutError from exc_val
 TimeoutError
-2026-05-03 16:38:32 | INFO     | polymarket_bot.fill_tracker | WS-Reconnect (TimeoutError):  — Reconnect in 30s
+2026-05-03 17:02:28 | INFO     | polymarket_bot.fill_tracker | WS-Reconnect (TimeoutError):  — Reconnect in 30s
 ```
 
 ---

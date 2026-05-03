@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-03 00:31:51 UTC
+> 2026-05-03 00:36:54 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 103525s | HB: WARNUNG 431s alt
+STALE — lief vor 103828s | HB: OK (48s alt)
 ```
 
 ## Portfolio
@@ -28,18 +28,18 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-02 22:12:45 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Vitality @ $0.790 | $1477.68 USDC | Counter-Strike: Vitality vs GamerLegion - Map 1 Winner)
-2026-05-02 22:12:45 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Vitality @ $0.790 | $19.49 USDC | Counter-Strike: Vitality vs GamerLegion - Map 1 Winner)
-2026-05-02 22:12:45 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Vitality @ $0.790 | $331.10 USDC | Counter-Strike: Vitality vs GamerLegion - Map 1 Winner)
-2026-05-02 22:12:45 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY GamerLegion @ $0.300 | $10.71 USDC | Map Handicap: VIT (-1.5) vs GamerLegion (+1.5))
-2026-05-02 22:12:45 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY GamerLegion @ $0.300 | $21.00 USDC | Map Handicap: VIT (-1.5) vs GamerLegion (+1.5))
+2026-05-03 00:34:08 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY 76ers @ $0.550 | $6.11 USDC | 76ers vs. Celtics)
+2026-05-03 00:34:08 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY 76ers @ $0.550 | $665.19 USDC | 76ers vs. Celtics)
+2026-05-03 00:34:08 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.440 | $4469.45 USDC | Flyers vs. Hurricanes: O/U 5.5)
+2026-05-03 00:34:08 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY 76ers @ $0.550 | $12.22 USDC | 76ers vs. Celtics)
+2026-05-03 00:34:08 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY 76ers @ $0.550 | $731.04 USDC | 76ers vs. Celtics)
 ```
 
 ## Letzte Fehler (3)
 ```
 raise asyncio.TimeoutError from exc_val
 TimeoutError
-2026-05-03 00:10:40 | INFO     | polymarket_bot.fill_tracker | WS-Reconnect (TimeoutError):  — Reconnect in 30s
+2026-05-03 00:34:06 | INFO     | polymarket_bot.fill_tracker | WS-Reconnect (TimeoutError):  — Reconnect in 30s
 ```
 
 ---

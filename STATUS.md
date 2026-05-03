@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-03 09:33:26 UTC
+> 2026-05-03 09:38:26 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 136020s | HB: WARNUNG 406s alt
+STALE — lief vor 136320s | HB: OK (3s alt)
 ```
 
 ## Portfolio
@@ -28,18 +28,18 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-03 07:14:11 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Manoj Dhamne Manas @ $0.220 | $195.88 USDC | Shymkent 2: Buvaysar Gadamauri vs Manoj Dhamne Manas)
-2026-05-03 07:14:11 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.560 | $239.68 USDC | Will Cerezo Ōsaka win on 2026-05-03?)
-2026-05-03 07:14:11 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Manoj Dhamne Manas @ $0.210 | $104.92 USDC | Shymkent 2: Buvaysar Gadamauri vs Manoj Dhamne Manas)
-2026-05-03 07:14:11 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.560 | $8.53 USDC | Will Cerezo Ōsaka win on 2026-05-03?)
-2026-05-03 07:14:11 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.087 | $12.09 USDC | Will Argentina win the 2026 FIFA World Cup?)
+2026-05-03 09:36:25 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.087 | $5.62 USDC | Will Argentina win the 2026 FIFA World Cup?)
+2026-05-03 09:36:25 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.087 | $5.10 USDC | Will Argentina win the 2026 FIFA World Cup?)
+2026-05-03 09:36:25 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.087 | $5.02 USDC | Will Argentina win the 2026 FIFA World Cup?)
+2026-05-03 09:36:25 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.087 | $50.00 USDC | Will Argentina win the 2026 FIFA World Cup?)
+2026-05-03 09:36:25 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.087 | $100.00 USDC | Will Argentina win the 2026 FIFA World Cup?)
 ```
 
 ## Letzte Fehler (3)
 ```
 raise asyncio.TimeoutError from exc_val
 TimeoutError
-2026-05-03 09:12:39 | INFO     | polymarket_bot.fill_tracker | WS-Reconnect (TimeoutError):  — Reconnect in 30s
+2026-05-03 09:36:23 | INFO     | polymarket_bot.fill_tracker | WS-Reconnect (TimeoutError):  — Reconnect in 30s
 ```
 
 ---

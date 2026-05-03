@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-03 04:52:33 UTC
+> 2026-05-03 04:57:33 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 119167s | HB: WARNUNG 565s alt
+STALE — lief vor 119467s | HB: OK (54s alt)
 ```
 
 ## Portfolio
@@ -28,18 +28,18 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-03 02:31:32 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY 76ers @ $0.980 | $103.52 USDC | 76ers vs. Celtics)
-2026-05-03 02:31:32 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY 76ers @ $0.980 | $719.21 USDC | 76ers vs. Celtics)
-2026-05-03 02:31:32 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY 76ers @ $0.980 | $49.00 USDC | 76ers vs. Celtics)
-2026-05-03 02:31:32 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY 76ers @ $0.980 | $2316.85 USDC | 76ers vs. Celtics)
-2026-05-03 02:31:32 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Celtics @ $0.010 | $33.51 USDC | 76ers vs. Celtics)
+2026-05-03 04:52:40 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Los Angeles Angels @ $0.990 | $24.75 USDC | New York Mets vs. Los Angeles Angels)
+2026-05-03 04:52:40 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Los Angeles Angels @ $0.990 | $25.27 USDC | New York Mets vs. Los Angeles Angels)
+2026-05-03 04:52:40 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Los Angeles Angels @ $0.990 | $24.75 USDC | New York Mets vs. Los Angeles Angels)
+2026-05-03 04:52:40 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Los Angeles Angels @ $0.990 | $14.94 USDC | New York Mets vs. Los Angeles Angels)
+2026-05-03 04:52:40 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Los Angeles Angels @ $0.990 | $758.29 USDC | New York Mets vs. Los Angeles Angels)
 ```
 
 ## Letzte Fehler (3)
 ```
 raise asyncio.TimeoutError from exc_val
 TimeoutError
-2026-05-03 04:29:07 | INFO     | polymarket_bot.fill_tracker | WS-Reconnect (TimeoutError):  — Reconnect in 30s
+2026-05-03 04:52:39 | INFO     | polymarket_bot.fill_tracker | WS-Reconnect (TimeoutError):  — Reconnect in 30s
 ```
 
 ---

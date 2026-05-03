@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-03 07:13:06 UTC
+> 2026-05-03 07:18:06 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 127600s | HB: WARNUNG 515s alt
+STALE — lief vor 127900s | HB: OK (57s alt)
 ```
 
 ## Portfolio
@@ -28,18 +28,18 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-03 04:52:40 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Los Angeles Angels @ $0.990 | $24.75 USDC | New York Mets vs. Los Angeles Angels)
-2026-05-03 04:52:40 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Los Angeles Angels @ $0.990 | $25.27 USDC | New York Mets vs. Los Angeles Angels)
-2026-05-03 04:52:40 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Los Angeles Angels @ $0.990 | $24.75 USDC | New York Mets vs. Los Angeles Angels)
-2026-05-03 04:52:40 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Los Angeles Angels @ $0.990 | $14.94 USDC | New York Mets vs. Los Angeles Angels)
-2026-05-03 04:52:40 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Los Angeles Angels @ $0.990 | $758.29 USDC | New York Mets vs. Los Angeles Angels)
+2026-05-03 07:14:11 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Manoj Dhamne Manas @ $0.220 | $195.88 USDC | Shymkent 2: Buvaysar Gadamauri vs Manoj Dhamne Manas)
+2026-05-03 07:14:11 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.560 | $239.68 USDC | Will Cerezo Ōsaka win on 2026-05-03?)
+2026-05-03 07:14:11 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Manoj Dhamne Manas @ $0.210 | $104.92 USDC | Shymkent 2: Buvaysar Gadamauri vs Manoj Dhamne Manas)
+2026-05-03 07:14:11 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.560 | $8.53 USDC | Will Cerezo Ōsaka win on 2026-05-03?)
+2026-05-03 07:14:11 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.087 | $12.09 USDC | Will Argentina win the 2026 FIFA World Cup?)
 ```
 
 ## Letzte Fehler (3)
 ```
 raise asyncio.TimeoutError from exc_val
 TimeoutError
-2026-05-03 06:50:30 | INFO     | polymarket_bot.fill_tracker | WS-Reconnect (TimeoutError):  — Reconnect in 30s
+2026-05-03 07:14:09 | INFO     | polymarket_bot.fill_tracker | WS-Reconnect (TimeoutError):  — Reconnect in 30s
 ```
 
 ---

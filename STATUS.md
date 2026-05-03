@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-03 02:27:11 UTC
+> 2026-05-03 02:32:14 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 110445s | HB: OK (303s alt)
+STALE — lief vor 110748s | HB: OK (44s alt)
 ```
 
 ## Portfolio
@@ -28,18 +28,18 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-03 00:34:08 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY 76ers @ $0.550 | $6.11 USDC | 76ers vs. Celtics)
-2026-05-03 00:34:08 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY 76ers @ $0.550 | $665.19 USDC | 76ers vs. Celtics)
-2026-05-03 00:34:08 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.440 | $4469.45 USDC | Flyers vs. Hurricanes: O/U 5.5)
-2026-05-03 00:34:08 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY 76ers @ $0.550 | $12.22 USDC | 76ers vs. Celtics)
-2026-05-03 00:34:08 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY 76ers @ $0.550 | $731.04 USDC | 76ers vs. Celtics)
+2026-05-03 02:31:32 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY 76ers @ $0.980 | $103.52 USDC | 76ers vs. Celtics)
+2026-05-03 02:31:32 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY 76ers @ $0.980 | $719.21 USDC | 76ers vs. Celtics)
+2026-05-03 02:31:32 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY 76ers @ $0.980 | $49.00 USDC | 76ers vs. Celtics)
+2026-05-03 02:31:32 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY 76ers @ $0.980 | $2316.85 USDC | 76ers vs. Celtics)
+2026-05-03 02:31:32 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Celtics @ $0.010 | $33.51 USDC | 76ers vs. Celtics)
 ```
 
 ## Letzte Fehler (3)
 ```
 raise asyncio.TimeoutError from exc_val
 TimeoutError
-2026-05-03 02:08:08 | INFO     | polymarket_bot.fill_tracker | WS-Reconnect (TimeoutError):  — Reconnect in 30s
+2026-05-03 02:31:30 | INFO     | polymarket_bot.fill_tracker | WS-Reconnect (TimeoutError):  — Reconnect in 30s
 ```
 
 ---

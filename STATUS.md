@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-03 19:23:01 UTC
+> 2026-05-03 19:28:01 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 171395s | HB: WARNUNG 387s alt
+STALE — lief vor 171695s | HB: OK (28s alt)
 ```
 
 ## Portfolio
@@ -28,18 +28,18 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-03 17:02:30 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Raptors @ $0.260 | $35.13 USDC | Raptors vs. Cavaliers)
-2026-05-03 17:02:30 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Raptors @ $0.260 | $8.63 USDC | Raptors vs. Cavaliers)
-2026-05-03 17:02:30 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Raptors @ $0.260 | $5.27 USDC | Raptors vs. Cavaliers)
-2026-05-03 17:02:30 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Raptors @ $0.260 | $6.80 USDC | Raptors vs. Cavaliers)
-2026-05-03 17:02:30 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.610 | $12.06 USDC | Will Real Betis Balompié win on 2026-05-03?)
+2026-05-03 19:26:35 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.530 | $1060.00 USDC | Will Real Madrid CF win on 2026-05-03?)
+2026-05-03 19:26:35 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.530 | $22.86 USDC | Will Real Madrid CF win on 2026-05-03?)
+2026-05-03 19:26:35 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.029 | $15.51 USDC | Will the Los Angeles Lakers win the 2026 NBA Finals?)
+2026-05-03 19:26:35 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.530 | $22175.94 USDC | Will Real Madrid CF win on 2026-05-03?)
+2026-05-03 19:26:35 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.460 | $3193.93 USDC | Will Real Madrid CF win on 2026-05-03?)
 ```
 
 ## Letzte Fehler (3)
 ```
 raise asyncio.TimeoutError from exc_val
 TimeoutError
-2026-05-03 19:02:34 | INFO     | polymarket_bot.fill_tracker | WS-Reconnect (TimeoutError):  — Reconnect in 30s
+2026-05-03 19:26:33 | INFO     | polymarket_bot.fill_tracker | WS-Reconnect (TimeoutError):  — Reconnect in 30s
 ```
 
 ---

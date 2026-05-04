@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-04 00:10:05 UTC
+> 2026-05-04 00:15:06 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 188620s | HB: WARNUNG 441s alt
+STALE — lief vor 188920s | HB: OK (47s alt)
 ```
 
 ## Portfolio
@@ -28,18 +28,18 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-03 21:49:57 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Chicago White Sox @ $0.129 | $18.68 USDC | Chicago White Sox vs. San Diego Padres)
-2026-05-03 21:49:57 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Chicago White Sox @ $0.130 | $117.65 USDC | Chicago White Sox vs. San Diego Padres)
-2026-05-03 21:49:57 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Chicago White Sox @ $0.130 | $9.88 USDC | Chicago White Sox vs. San Diego Padres)
-2026-05-03 21:49:57 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.940 | $366600.00 USDC | Will the Detroit Pistons win the 2026 NBA Finals?)
-2026-05-03 21:49:57 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.940 | $470000.00 USDC | Will the Detroit Pistons win the 2026 NBA Finals?)
+2026-05-04 00:12:21 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Avalanche @ $0.640 | $18.24 USDC | Wild vs. Avalanche)
+2026-05-04 00:12:21 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Cavaliers @ $0.730 | $73.00 USDC | Raptors vs. Cavaliers)
+2026-05-04 00:12:21 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Cavaliers @ $0.730 | $67.59 USDC | Raptors vs. Cavaliers)
+2026-05-04 00:12:21 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Raptors @ $0.250 | $279.46 USDC | Raptors vs. Cavaliers)
+2026-05-04 00:12:21 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Raptors @ $0.250 | $7.33 USDC | Raptors vs. Cavaliers)
 ```
 
 ## Letzte Fehler (3)
 ```
 raise asyncio.TimeoutError from exc_val
 TimeoutError
-2026-05-03 23:48:44 | INFO     | polymarket_bot.fill_tracker | WS-Reconnect (TimeoutError):  — Reconnect in 30s
+2026-05-04 00:12:18 | INFO     | polymarket_bot.fill_tracker | WS-Reconnect (TimeoutError):  — Reconnect in 30s
 ```
 
 ---

@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-04 04:52:03 UTC
+> 2026-05-04 04:57:14 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 205537s | HB: WARNUNG 394s alt
+STALE — lief vor 205848s | HB: OK (8s alt)
 ```
 
 ## Portfolio
@@ -28,18 +28,18 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-04 02:33:35 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Cavaliers @ $0.990 | $7.49 USDC | Raptors vs. Cavaliers)
-2026-05-04 02:33:35 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Cavaliers @ $0.990 | $7.49 USDC | Raptors vs. Cavaliers)
-2026-05-04 02:33:35 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Cavaliers @ $0.988 | $11424.97 USDC | Raptors vs. Cavaliers)
-2026-05-04 02:33:35 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Cavaliers @ $0.970 | $53437.38 USDC | Raptors vs. Cavaliers)
-2026-05-04 02:33:35 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Raptors @ $0.040 | $23.08 USDC | Raptors vs. Cavaliers)
+2026-05-04 04:55:08 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $389.20 USDC | Will Arsenal FC win on 2026-02-22?)
+2026-05-04 04:55:08 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $2101.47 USDC | Will Arsenal FC win on 2026-02-22?)
+2026-05-04 04:55:08 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $31.43 USDC | Will Arsenal FC win on 2026-02-22?)
+2026-05-04 04:55:08 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $13.67 USDC | Will Arsenal FC win on 2026-02-22?)
+2026-05-04 04:55:08 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $4629.80 USDC | Will Arsenal FC win on 2026-02-22?)
 ```
 
 ## Letzte Fehler (3)
 ```
 raise asyncio.TimeoutError from exc_val
 TimeoutError
-2026-05-04 04:31:28 | INFO     | polymarket_bot.fill_tracker | WS-Reconnect (TimeoutError):  — Reconnect in 30s
+2026-05-04 04:55:06 | INFO     | polymarket_bot.fill_tracker | WS-Reconnect (TimeoutError):  — Reconnect in 30s
 ```
 
 ---

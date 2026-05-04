@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-04 14:02:06 UTC
+> 2026-05-04 14:07:06 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 238540s | HB: WARNUNG 495s alt
+STALE — lief vor 238840s | HB: OK (2s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-04 11:40:00 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Julia Grabher @ $0.801 | $8.01 USDC | Internazionali BNL d'Italia, Qualification: Aliaksandra Sasn)
-2026-05-04 11:40:00 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Julia Grabher @ $0.851 | $11.32 USDC | Internazionali BNL d'Italia, Qualification: Aliaksandra Sasn)
-2026-05-04 11:40:00 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Julia Grabher @ $0.911 | $105.32 USDC | Internazionali BNL d'Italia, Qualification: Aliaksandra Sasn)
-2026-05-04 11:40:00 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Ella Seidel @ $0.528 | $320.02 USDC | Internazionali BNL d'Italia, Qualification: Alina Korneeva v)
-2026-05-04 11:40:00 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.075 | $20.00 USDC | Will Portugal win the 2026 FIFA World Cup?)
+2026-05-04 14:04:06 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.320 | $17.60 USDC | Chelsea FC vs. Nottingham Forest FC: O/U 4.5)
+2026-05-04 14:04:06 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.022 | $6.68 USDC | Will Japan win the 2026 FIFA World Cup?)
+2026-05-04 14:04:06 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.022 | $23.78 USDC | Will Japan win the 2026 FIFA World Cup?)
+2026-05-04 14:04:06 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.022 | $5.96 USDC | Will Japan win the 2026 FIFA World Cup?)
+2026-05-04 14:04:06 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.022 | $35.50 USDC | Will Japan win the 2026 FIFA World Cup?)
 ```
 
 ## Letzte Fehler (3)

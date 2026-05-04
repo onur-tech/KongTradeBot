@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-04 00:35:14 UTC
+> 2026-05-04 00:40:12 UTC
 
 ## Bot-Status
 ```
@@ -14,12 +14,16 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 190128s | HB: WARNUNG 535s alt
+STALE — lief vor 190426s | HB: OK (18s alt)
 ```
 
 ## Portfolio
 ```
-Dashboard nicht erreichbar: timed out
+Total:         $0.00 USDC
+Cash:          $0.00 USDC
+In Positionen: $0.00 USDC
+Offene Pos.:   0
+PnL heute:     $0.00
 ```
 
 ## Letzte Trades (5)
@@ -35,7 +39,7 @@ Dashboard nicht erreichbar: timed out
 ```
 raise asyncio.TimeoutError from exc_val
 TimeoutError
-2026-05-04 00:12:18 | INFO     | polymarket_bot.fill_tracker | WS-Reconnect (TimeoutError):  — Reconnect in 30s
+2026-05-04 00:35:54 | INFO     | polymarket_bot.fill_tracker | WS-Reconnect (TimeoutError):  — Reconnect in 30s
 ```
 
 ---

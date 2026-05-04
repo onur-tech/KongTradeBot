@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-04 11:35:41 UTC
+> 2026-05-04 11:40:45 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 229755s | HB: OK (330s alt)
+STALE — lief vor 230059s | HB: OK (46s alt)
 ```
 
 ## Portfolio
@@ -28,18 +28,18 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-04 09:16:38 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.022 | $20.00 USDC | Will Japan win the 2026 FIFA World Cup?)
-2026-05-04 09:16:38 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.022 | $10.00 USDC | Will Japan win the 2026 FIFA World Cup?)
-2026-05-04 09:16:38 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.040 | $5.98 USDC | Will the Los Angeles Lakers win the 2026 NBA Finals?)
-2026-05-04 09:16:38 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.040 | $8593.78 USDC | Will the Los Angeles Lakers win the 2026 NBA Finals?)
-2026-05-04 09:16:38 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.022 | $10.00 USDC | Will Japan win the 2026 FIFA World Cup?)
+2026-05-04 11:40:00 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Julia Grabher @ $0.801 | $8.01 USDC | Internazionali BNL d'Italia, Qualification: Aliaksandra Sasn)
+2026-05-04 11:40:00 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Julia Grabher @ $0.851 | $11.32 USDC | Internazionali BNL d'Italia, Qualification: Aliaksandra Sasn)
+2026-05-04 11:40:00 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Julia Grabher @ $0.911 | $105.32 USDC | Internazionali BNL d'Italia, Qualification: Aliaksandra Sasn)
+2026-05-04 11:40:00 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Ella Seidel @ $0.528 | $320.02 USDC | Internazionali BNL d'Italia, Qualification: Alina Korneeva v)
+2026-05-04 11:40:00 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.075 | $20.00 USDC | Will Portugal win the 2026 FIFA World Cup?)
 ```
 
 ## Letzte Fehler (3)
 ```
 raise asyncio.TimeoutError from exc_val
 TimeoutError
-2026-05-04 11:16:11 | INFO     | polymarket_bot.fill_tracker | WS-Reconnect (TimeoutError):  — Reconnect in 30s
+2026-05-04 11:39:58 | INFO     | polymarket_bot.fill_tracker | WS-Reconnect (TimeoutError):  — Reconnect in 30s
 ```
 
 ---

@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-04 09:14:12 UTC
+> 2026-05-04 09:19:12 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 221266s | HB: WARNUNG 446s alt
+STALE — lief vor 221566s | HB: OK (36s alt)
 ```
 
 ## Portfolio
@@ -28,18 +28,18 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-04 06:53:35 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY En-Shuo Liang @ $0.970 | $32.33 USDC | Jiujiang: En-Shuo Liang vs Yufei Ren)
-2026-05-04 06:53:35 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY En-Shuo Liang @ $0.970 | $32.33 USDC | Jiujiang: En-Shuo Liang vs Yufei Ren)
-2026-05-04 06:53:35 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY En-Shuo Liang @ $0.970 | $277.05 USDC | Jiujiang: En-Shuo Liang vs Yufei Ren)
-2026-05-04 06:53:35 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.022 | $13.09 USDC | Will Japan win the 2026 FIFA World Cup?)
-2026-05-04 06:53:35 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.022 | $150.53 USDC | Will Japan win the 2026 FIFA World Cup?)
+2026-05-04 09:16:38 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.022 | $20.00 USDC | Will Japan win the 2026 FIFA World Cup?)
+2026-05-04 09:16:38 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.022 | $10.00 USDC | Will Japan win the 2026 FIFA World Cup?)
+2026-05-04 09:16:38 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.040 | $5.98 USDC | Will the Los Angeles Lakers win the 2026 NBA Finals?)
+2026-05-04 09:16:38 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.040 | $8593.78 USDC | Will the Los Angeles Lakers win the 2026 NBA Finals?)
+2026-05-04 09:16:38 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.022 | $10.00 USDC | Will Japan win the 2026 FIFA World Cup?)
 ```
 
 ## Letzte Fehler (3)
 ```
 raise asyncio.TimeoutError from exc_val
 TimeoutError
-2026-05-04 08:52:46 | INFO     | polymarket_bot.fill_tracker | WS-Reconnect (TimeoutError):  — Reconnect in 30s
+2026-05-04 09:16:36 | INFO     | polymarket_bot.fill_tracker | WS-Reconnect (TimeoutError):  — Reconnect in 30s
 ```
 
 ---

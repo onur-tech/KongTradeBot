@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-04 18:48:25 UTC
+> 2026-05-04 18:53:53 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 255719s | HB: OK (310s alt)
+STALE — lief vor 256047s | HB: OK (8s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-04 16:28:14 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.020 | $7.89 USDC | Will Belgium win the 2026 FIFA World Cup?)
-2026-05-04 16:28:14 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.022 | $500.00 USDC | Will Japan win the 2026 FIFA World Cup?)
-2026-05-04 16:28:14 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.022 | $19.80 USDC | Will Japan win the 2026 FIFA World Cup?)
-2026-05-04 16:28:14 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.870 | $129.15 USDC | Will Chelsea FC win on 2026-05-04?)
-2026-05-04 16:28:14 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.022 | $10.00 USDC | Will Japan win the 2026 FIFA World Cup?)
+2026-05-04 18:53:47 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.800 | $20000.00 USDC | Will Everton FC vs. Manchester City FC end in a draw?)
+2026-05-04 18:53:47 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.800 | $5.84 USDC | Will Everton FC vs. Manchester City FC end in a draw?)
+2026-05-04 18:53:47 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.022 | $10.00 USDC | Will Japan win the 2026 FIFA World Cup?)
+2026-05-04 18:53:47 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.022 | $10.00 USDC | Will Japan win the 2026 FIFA World Cup?)
+2026-05-04 18:53:47 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.022 | $20.00 USDC | Will Japan win the 2026 FIFA World Cup?)
 ```
 
 ## Letzte Fehler (3)

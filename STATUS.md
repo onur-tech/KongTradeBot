@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-05 21:10:54 UTC
+> 2026-05-05 21:15:54 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 350668s | HB: WARNUNG 417s alt
+STALE — lief vor 350968s | HB: OK (46s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-05 18:48:53 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.820 | $395.35 USDC | Will Club Atlético de Madrid win on 2026-05-05?)
-2026-05-05 18:48:53 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.022 | $10.73 USDC | Will Japan win the 2026 FIFA World Cup?)
-2026-05-05 18:48:53 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.022 | $10.75 USDC | Will Japan win the 2026 FIFA World Cup?)
-2026-05-05 18:48:53 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.022 | $5.02 USDC | Will Japan win the 2026 FIFA World Cup?)
-2026-05-05 18:48:53 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.022 | $10.24 USDC | Will Japan win the 2026 FIFA World Cup?)
+2026-05-05 21:14:11 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.770 | $29.96 USDC | Will Arsenal FC win on 2026-05-05?)
+2026-05-05 21:14:11 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.770 | $3850.00 USDC | Will Arsenal FC win on 2026-05-05?)
+2026-05-05 21:14:11 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.770 | $3842.30 USDC | Will Arsenal FC win on 2026-05-05?)
+2026-05-05 21:14:11 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.770 | $33.11 USDC | Will Arsenal FC win on 2026-05-05?)
+2026-05-05 21:14:11 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.780 | $4136.34 USDC | Will Arsenal FC win on 2026-05-05?)
 ```
 
 ## Letzte Fehler (3)

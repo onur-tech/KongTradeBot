@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-05 13:57:54 UTC
+> 2026-05-05 14:02:53 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 324688s | HB: WARNUNG 517s alt
+STALE — lief vor 324987s | HB: OK (34s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-05 11:35:20 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.830 | $43.94 USDC | Will Club Atlético de Madrid win on 2026-05-05?)
-2026-05-05 11:35:20 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.830 | $71.68 USDC | Will Club Atlético de Madrid win on 2026-05-05?)
-2026-05-05 11:35:20 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.830 | $244.12 USDC | Will Club Atlético de Madrid win on 2026-05-05?)
-2026-05-05 11:35:20 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.022 | $10.00 USDC | Will Japan win the 2026 FIFA World Cup?)
-2026-05-05 11:35:20 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.022 | $30.00 USDC | Will Japan win the 2026 FIFA World Cup?)
+2026-05-05 13:59:20 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Lucia Cortez Llorca @ $0.290 | $1859.30 USDC | Istanbul: Laura Pigossi vs Lucia Cortez Llorca)
+2026-05-05 13:59:20 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Laura Pigossi @ $0.660 | $663.19 USDC | Istanbul: Laura Pigossi vs Lucia Cortez Llorca)
+2026-05-05 13:59:20 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.154 | $9.63 USDC | Will Spain win the 2026 FIFA World Cup?)
+2026-05-05 13:59:20 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.154 | $6.51 USDC | Will Spain win the 2026 FIFA World Cup?)
+2026-05-05 13:59:20 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.022 | $650.31 USDC | Will Japan win the 2026 FIFA World Cup?)
 ```
 
 ## Letzte Fehler (3)

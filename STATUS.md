@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-05 06:47:00 UTC
+> 2026-05-05 06:52:00 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 298834s | HB: WARNUNG 516s alt
+STALE — lief vor 299134s | HB: OK (43s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-05 04:25:14 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Spurs @ $0.090 | $69.23 USDC | Timberwolves vs. Spurs)
-2026-05-05 04:25:14 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Spurs @ $0.090 | $31.33 USDC | Timberwolves vs. Spurs)
-2026-05-05 04:25:14 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Spurs @ $0.090 | $484.12 USDC | Timberwolves vs. Spurs)
-2026-05-05 04:25:14 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Timberwolves @ $0.850 | $59.50 USDC | Timberwolves vs. Spurs)
-2026-05-05 04:25:14 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Timberwolves @ $0.850 | $6.06 USDC | Timberwolves vs. Spurs)
+2026-05-05 06:48:18 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Spurs @ $0.630 | $5.09 USDC | NBA Playoffs: Who Will Win Series? - Spurs vs. Timberwolves )
+2026-05-05 06:48:18 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Spurs @ $0.630 | $7.55 USDC | NBA Playoffs: Who Will Win Series? - Spurs vs. Timberwolves )
+2026-05-05 06:48:18 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Spurs @ $0.630 | $2677.50 USDC | NBA Playoffs: Who Will Win Series? - Spurs vs. Timberwolves )
+2026-05-05 06:48:18 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Alex Bolt @ $0.660 | $61.64 USDC | Wuxi: Alex Bolt vs Fajing Sun)
+2026-05-05 06:48:18 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.950 | $7391.92 USDC | Will the Minnesota Timberwolves win the 2026 NBA Finals?)
 ```
 
 ## Letzte Fehler (3)

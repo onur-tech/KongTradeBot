@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-05 23:37:26 UTC
+> 2026-05-05 23:42:26 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 359460s | HB: WARNUNG 581s alt
+STALE — lief vor 359760s | HB: OK (59s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-05 21:14:11 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.770 | $29.96 USDC | Will Arsenal FC win on 2026-05-05?)
-2026-05-05 21:14:11 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.770 | $3850.00 USDC | Will Arsenal FC win on 2026-05-05?)
-2026-05-05 21:14:11 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.770 | $3842.30 USDC | Will Arsenal FC win on 2026-05-05?)
-2026-05-05 21:14:11 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.770 | $33.11 USDC | Will Arsenal FC win on 2026-05-05?)
-2026-05-05 21:14:11 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.780 | $4136.34 USDC | Will Arsenal FC win on 2026-05-05?)
+2026-05-05 23:37:29 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Cavaliers @ $0.230 | $17.52 USDC | Cavaliers vs. Pistons: 1H Moneyline)
+2026-05-05 23:37:29 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Cavaliers @ $0.230 | $589.94 USDC | Cavaliers vs. Pistons: 1H Moneyline)
+2026-05-05 23:37:29 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Cavaliers @ $0.210 | $15.59 USDC | Cavaliers vs. Pistons: 1H Moneyline)
+2026-05-05 23:37:29 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Cavaliers @ $0.210 | $525.00 USDC | Cavaliers vs. Pistons: 1H Moneyline)
+2026-05-05 23:37:29 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Cavaliers @ $0.210 | $210.00 USDC | Cavaliers vs. Pistons: 1H Moneyline)
 ```
 
 ## Letzte Fehler (3)

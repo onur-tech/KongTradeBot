@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-05 01:59:23 UTC
+> 2026-05-05 02:04:23 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 281577s | HB: WARNUNG 365s alt
+STALE — lief vor 281877s | HB: OK (21s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-04 23:40:37 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Colorado Rockies @ $0.141 | $13.60 USDC | New York Mets vs. Colorado Rockies)
-2026-05-04 23:40:37 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.100 | $19.90 USDC | Boston Red Sox vs. Detroit Tigers: O/U 7.5)
-2026-05-04 23:40:37 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.022 | $97.77 USDC | Will Japan win the 2026 FIFA World Cup?)
-2026-05-04 23:40:37 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.022 | $6.34 USDC | Will Japan win the 2026 FIFA World Cup?)
-2026-05-04 23:40:37 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.022 | $6.97 USDC | Will Japan win the 2026 FIFA World Cup?)
+2026-05-05 02:03:03 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY 76ers @ $0.010 | $23.24 USDC | 76ers vs. Knicks)
+2026-05-05 02:03:03 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Timberwolves @ $0.480 | $25.79 USDC | Spread: Spurs (-10.5))
+2026-05-05 02:03:03 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Spurs @ $0.770 | $90764.42 USDC | Timberwolves vs. Spurs)
+2026-05-05 02:03:03 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Spurs @ $0.770 | $136.79 USDC | Timberwolves vs. Spurs)
+2026-05-05 02:03:03 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Spurs @ $0.770 | $73630.14 USDC | Timberwolves vs. Spurs)
 ```
 
 ## Letzte Fehler (3)

@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-05 04:20:18 UTC
+> 2026-05-05 04:25:18 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 290032s | HB: OK (292s alt)
+STALE — lief vor 290332s | HB: OK (5s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-05 02:03:03 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY 76ers @ $0.010 | $23.24 USDC | 76ers vs. Knicks)
-2026-05-05 02:03:03 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Timberwolves @ $0.480 | $25.79 USDC | Spread: Spurs (-10.5))
-2026-05-05 02:03:03 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Spurs @ $0.770 | $90764.42 USDC | Timberwolves vs. Spurs)
-2026-05-05 02:03:03 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Spurs @ $0.770 | $136.79 USDC | Timberwolves vs. Spurs)
-2026-05-05 02:03:03 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Spurs @ $0.770 | $73630.14 USDC | Timberwolves vs. Spurs)
+2026-05-05 04:25:14 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Spurs @ $0.090 | $69.23 USDC | Timberwolves vs. Spurs)
+2026-05-05 04:25:14 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Spurs @ $0.090 | $31.33 USDC | Timberwolves vs. Spurs)
+2026-05-05 04:25:14 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Spurs @ $0.090 | $484.12 USDC | Timberwolves vs. Spurs)
+2026-05-05 04:25:14 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Timberwolves @ $0.850 | $59.50 USDC | Timberwolves vs. Spurs)
+2026-05-05 04:25:14 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Timberwolves @ $0.850 | $6.06 USDC | Timberwolves vs. Spurs)
 ```
 
 ## Letzte Fehler (3)

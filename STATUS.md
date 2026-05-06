@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-06 16:26:59 UTC
+> 2026-05-06 16:31:59 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 420033s | HB: WARNUNG 574s alt
+STALE — lief vor 420333s | HB: OK (23s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-06 14:01:50 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.390 | $6.39 USDC | Will FC Bayern München win on 2026-05-06?)
-2026-05-06 14:01:50 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.390 | $574.73 USDC | Will FC Bayern München win on 2026-05-06?)
-2026-05-06 14:01:50 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.770 | $6.53 USDC | Will Paris Saint-Germain FC win on 2026-05-06?)
-2026-05-06 14:01:50 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.022 | $652.63 USDC | Will Japan win the 2026 FIFA World Cup?)
-2026-05-06 14:01:50 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.022 | $99.99 USDC | Will Japan win the 2026 FIFA World Cup?)
+2026-05-06 16:27:38 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.820 | $45.51 USDC | Will FC Bayern München vs. Paris Saint-Germain FC end in a d)
+2026-05-06 16:27:38 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.820 | $45.51 USDC | Will FC Bayern München vs. Paris Saint-Germain FC end in a d)
+2026-05-06 16:27:38 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.820 | $79.63 USDC | Will FC Bayern München vs. Paris Saint-Germain FC end in a d)
+2026-05-06 16:27:38 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.820 | $22.78 USDC | Will FC Bayern München vs. Paris Saint-Germain FC end in a d)
+2026-05-06 16:27:38 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.820 | $22.78 USDC | Will FC Bayern München vs. Paris Saint-Germain FC end in a d)
 ```
 
 ## Letzte Fehler (3)

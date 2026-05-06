@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-06 01:58:33 UTC
+> 2026-05-06 02:03:33 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 367927s | HB: WARNUNG 483s alt
+STALE — lief vor 368227s | HB: OK (15s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-05 23:37:29 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Cavaliers @ $0.230 | $17.52 USDC | Cavaliers vs. Pistons: 1H Moneyline)
-2026-05-05 23:37:29 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Cavaliers @ $0.230 | $589.94 USDC | Cavaliers vs. Pistons: 1H Moneyline)
-2026-05-05 23:37:29 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Cavaliers @ $0.210 | $15.59 USDC | Cavaliers vs. Pistons: 1H Moneyline)
-2026-05-05 23:37:29 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Cavaliers @ $0.210 | $525.00 USDC | Cavaliers vs. Pistons: 1H Moneyline)
-2026-05-05 23:37:29 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Cavaliers @ $0.210 | $210.00 USDC | Cavaliers vs. Pistons: 1H Moneyline)
+2026-05-06 02:00:20 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Thunder @ $0.890 | $916.42 USDC | Lakers vs. Thunder)
+2026-05-06 02:00:20 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Lakers @ $0.100 | $2850.00 USDC | Lakers vs. Thunder)
+2026-05-06 02:00:20 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Lakers @ $0.100 | $45.00 USDC | Lakers vs. Thunder)
+2026-05-06 02:00:20 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Lakers @ $0.100 | $17.41 USDC | Lakers vs. Thunder)
+2026-05-06 02:00:20 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Thunder @ $0.430 | $4672.86 USDC | Spread: Thunder (-16.5))
 ```
 
 ## Letzte Fehler (3)

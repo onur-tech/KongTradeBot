@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-06 22:51:40 UTC
+> 2026-05-06 22:56:53 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 443114s | HB: OK (287s alt)
+STALE — lief vor 443428s | HB: OK (5s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-06 21:20:33 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.740 | $227.69 USDC | Will FC Bayern München vs. Paris Saint-Germain FC end in a d)
-2026-05-06 21:20:33 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.740 | $8.93 USDC | Will FC Bayern München vs. Paris Saint-Germain FC end in a d)
-2026-05-06 21:20:33 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.690 | $43746.98 USDC | Will FC Bayern München win on 2026-05-06?)
-2026-05-06 21:20:33 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.740 | $28.46 USDC | Will FC Bayern München vs. Paris Saint-Germain FC end in a d)
-2026-05-06 21:20:33 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.690 | $5.23 USDC | Will FC Bayern München win on 2026-05-06?)
+2026-05-06 22:56:50 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Washington Nationals @ $0.500 | $397.93 USDC | Minnesota Twins vs. Washington Nationals)
+2026-05-06 22:56:50 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Miami Marlins @ $0.250 | $7.48 USDC | Baltimore Orioles vs. Miami Marlins)
+2026-05-06 22:56:50 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.880 | $1187.42 USDC | Will Club Bolívar win on 2026-05-06?)
+2026-05-06 22:56:50 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Athletics @ $0.430 | $40.50 USDC | Athletics vs. Philadelphia Phillies)
+2026-05-06 22:56:50 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.154 | $15.40 USDC | Will Spain win the 2026 FIFA World Cup?)
 ```
 
 ## Letzte Fehler (3)

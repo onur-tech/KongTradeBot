@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-06 04:20:06 UTC
+> 2026-05-06 04:25:06 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 376420s | HB: WARNUNG 414s alt
+STALE — lief vor 376720s | HB: OK (4s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-06 02:00:20 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Thunder @ $0.890 | $916.42 USDC | Lakers vs. Thunder)
-2026-05-06 02:00:20 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Lakers @ $0.100 | $2850.00 USDC | Lakers vs. Thunder)
-2026-05-06 02:00:20 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Lakers @ $0.100 | $45.00 USDC | Lakers vs. Thunder)
-2026-05-06 02:00:20 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Lakers @ $0.100 | $17.41 USDC | Lakers vs. Thunder)
-2026-05-06 02:00:20 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Thunder @ $0.430 | $4672.86 USDC | Spread: Thunder (-16.5))
+2026-05-06 04:23:03 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Lizette Cabrera @ $0.660 | $5.82 USDC | Jiujiang: Lizette Cabrera vs Zongyu Li)
+2026-05-06 04:23:03 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Heather Watson @ $0.630 | $267.75 USDC | Jiujiang: Heather Watson vs Kyoka Okamura)
+2026-05-06 04:23:03 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.022 | $8.41 USDC | Will Japan win the 2026 FIFA World Cup?)
+2026-05-06 04:23:03 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.022 | $50.00 USDC | Will Japan win the 2026 FIFA World Cup?)
+2026-05-06 04:23:03 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.022 | $10.14 USDC | Will Japan win the 2026 FIFA World Cup?)
 ```
 
 ## Letzte Fehler (3)

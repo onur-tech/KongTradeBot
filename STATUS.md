@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-06 11:34:28 UTC
+> 2026-05-06 11:39:29 UTC
 
 ## Bot-Status
 ```
@@ -14,25 +14,25 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 402482s | HB: WARNUNG 504s alt
+STALE — lief vor 402783s | HB: OK (13s alt)
 ```
 
 ## Portfolio
 ```
-Total:         $9.93 USDC
+Total:         $10.00 USDC
 Cash:          $0.00 USDC
-In Positionen: $9.93 USDC
+In Positionen: $10.00 USDC
 Offene Pos.:   1
 PnL heute:     $0.00
 ```
 
 ## Letzte Trades (5)
 ```
-2026-05-06 09:11:13 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $31.43 USDC | Will Arsenal FC win on 2026-02-22?)
-2026-05-06 09:11:13 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $13.67 USDC | Will Arsenal FC win on 2026-02-22?)
-2026-05-06 09:11:13 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $4629.80 USDC | Will Arsenal FC win on 2026-02-22?)
-2026-05-06 09:11:13 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $23.17 USDC | Will Arsenal FC win on 2026-02-22?)
-2026-05-06 09:11:13 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $48.80 USDC | Will Arsenal FC win on 2026-02-22?)
+2026-05-06 11:36:18 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.770 | $6.70 USDC | Will Paris Saint-Germain FC win on 2026-05-06?)
+2026-05-06 11:36:18 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.770 | $16.71 USDC | Will Paris Saint-Germain FC win on 2026-05-06?)
+2026-05-06 11:36:18 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.770 | $63.61 USDC | Will Paris Saint-Germain FC win on 2026-05-06?)
+2026-05-06 11:36:18 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.154 | $15.40 USDC | Will Spain win the 2026 FIFA World Cup?)
+2026-05-06 11:36:18 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.022 | $146.41 USDC | Will Japan win the 2026 FIFA World Cup?)
 ```
 
 ## Letzte Fehler (3)

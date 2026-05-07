@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-07 15:02:36 UTC
+> 2026-05-07 15:07:37 UTC
 
 ## Bot-Status
 ```
@@ -14,25 +14,25 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 501370s | HB: WARNUNG 592s alt
+STALE — lief vor 501671s | HB: OK (23s alt)
 ```
 
 ## Portfolio
 ```
-Total:         $8.79 USDC
+Total:         $8.73 USDC
 Cash:          $0.00 USDC
-In Positionen: $8.79 USDC
+In Positionen: $8.73 USDC
 Offene Pos.:   1
 PnL heute:     $0.00
 ```
 
 ## Letzte Trades (5)
 ```
-2026-05-07 12:36:38 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Jacob Fearnley @ $0.210 | $224.69 USDC | Internazionali BNL d'Italia: Jacob Fearnley vs Giovanni Mpet)
-2026-05-07 12:36:38 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Alexander Blockx @ $0.790 | $823.44 USDC | Internazionali BNL d'Italia: Federico Cina vs Alexander Bloc)
-2026-05-07 12:36:38 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Alexander Blockx @ $0.810 | $40.46 USDC | Internazionali BNL d'Italia: Federico Cina vs Alexander Bloc)
-2026-05-07 12:36:38 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Alexander Blockx @ $0.810 | $152.28 USDC | Internazionali BNL d'Italia: Federico Cina vs Alexander Bloc)
-2026-05-07 12:36:38 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Alexander Blockx @ $0.810 | $393.57 USDC | Internazionali BNL d'Italia: Federico Cina vs Alexander Bloc)
+2026-05-07 15:03:15 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Tomas Machac @ $0.610 | $28.15 USDC | Internazionali BNL d'Italia: Stefanos Tsitsipas vs Tomas Mac)
+2026-05-07 15:03:15 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Pablo Llamas Ruiz @ $0.720 | $783.84 USDC | Internazionali BNL d'Italia: Ethan Quinn vs Pablo Llamas Rui)
+2026-05-07 15:03:15 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Pablo Llamas Ruiz @ $0.730 | $21.63 USDC | Internazionali BNL d'Italia: Ethan Quinn vs Pablo Llamas Rui)
+2026-05-07 15:03:15 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Tomas Machac @ $0.610 | $6.10 USDC | Internazionali BNL d'Italia: Stefanos Tsitsipas vs Tomas Mac)
+2026-05-07 15:03:15 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Pablo Llamas Ruiz @ $0.730 | $76.17 USDC | Internazionali BNL d'Italia: Ethan Quinn vs Pablo Llamas Rui)
 ```
 
 ## Letzte Fehler (3)

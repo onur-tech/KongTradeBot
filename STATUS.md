@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-07 05:41:52 UTC
+> 2026-05-07 05:46:56 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 467726s | HB: WARNUNG 483s alt
+STALE — lief vor 468030s | HB: OK (3s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-07 03:19:54 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Spurs @ $0.990 | $5.89 USDC | Timberwolves vs. Spurs)
-2026-05-07 03:19:54 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.840 | $18632.02 USDC | Timberwolves vs. Spurs: O/U 215.5)
-2026-05-07 03:19:54 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Spurs @ $0.980 | $98.00 USDC | Timberwolves vs. Spurs)
-2026-05-07 03:19:54 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Spurs @ $0.980 | $54.72 USDC | Timberwolves vs. Spurs)
-2026-05-07 03:19:54 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Spurs @ $0.980 | $225.89 USDC | Timberwolves vs. Spurs)
+2026-05-07 05:43:55 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Ducks @ $0.670 | $203.03 USDC | Ducks vs. Golden Knights)
+2026-05-07 05:43:55 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Ducks @ $0.670 | $16.12 USDC | Ducks vs. Golden Knights)
+2026-05-07 05:43:55 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Ducks @ $0.670 | $17.91 USDC | Ducks vs. Golden Knights)
+2026-05-07 05:43:55 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Ducks @ $0.670 | $64.93 USDC | Ducks vs. Golden Knights)
+2026-05-07 05:43:55 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Ducks @ $0.670 | $10.15 USDC | Ducks vs. Golden Knights)
 ```
 
 ## Letzte Fehler (3)

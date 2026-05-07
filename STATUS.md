@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-07 10:09:45 UTC
+> 2026-05-07 10:14:46 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 483799s | HB: WARNUNG 576s alt
+STALE — lief vor 484100s | HB: OK (14s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-07 07:44:53 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.420 | $22.56 USDC | Will PSG win the 2025–26 Champions League?)
-2026-05-07 07:44:53 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.420 | $37.80 USDC | Will PSG win the 2025–26 Champions League?)
-2026-05-07 07:44:53 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.420 | $44.95 USDC | Will PSG win the 2025–26 Champions League?)
-2026-05-07 07:44:53 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.350 | $9713.53 USDC | Will the Oklahoma City Thunder win the 2026 NBA Finals?)
-2026-05-07 07:44:53 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.360 | $36000.00 USDC | Will the Oklahoma City Thunder win the 2026 NBA Finals?)
+2026-05-07 10:10:33 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Qinwen Zheng @ $0.870 | $6606.38 USDC | Internazionali BNL d'Italia: Cristina Bucsa vs Qinwen Zheng)
+2026-05-07 10:10:33 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Alexei Popyrin @ $0.690 | $29.48 USDC | Internazionali BNL d'Italia: Alexei Popyrin vs Matteo Berret)
+2026-05-07 10:10:33 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Matteo Berrettini @ $0.290 | $8.12 USDC | Internazionali BNL d'Italia: Alexei Popyrin vs Matteo Berret)
+2026-05-07 10:10:33 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.420 | $21.00 USDC | Will PSG win the 2025–26 Champions League?)
+2026-05-07 10:10:33 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.420 | $72.41 USDC | Will PSG win the 2025–26 Champions League?)
 ```
 
 ## Letzte Fehler (3)

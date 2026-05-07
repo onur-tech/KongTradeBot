@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-07 12:35:55 UTC
+> 2026-05-07 12:40:55 UTC
 
 ## Bot-Status
 ```
@@ -14,25 +14,25 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 492569s | HB: WARNUNG 584s alt
+STALE — lief vor 492869s | HB: OK (18s alt)
 ```
 
 ## Portfolio
 ```
-Total:         $9.36 USDC
+Total:         $9.17 USDC
 Cash:          $0.00 USDC
-In Positionen: $9.36 USDC
+In Positionen: $9.17 USDC
 Offene Pos.:   1
 PnL heute:     $0.00
 ```
 
 ## Letzte Trades (5)
 ```
-2026-05-07 10:10:33 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Qinwen Zheng @ $0.870 | $6606.38 USDC | Internazionali BNL d'Italia: Cristina Bucsa vs Qinwen Zheng)
-2026-05-07 10:10:33 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Alexei Popyrin @ $0.690 | $29.48 USDC | Internazionali BNL d'Italia: Alexei Popyrin vs Matteo Berret)
-2026-05-07 10:10:33 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Matteo Berrettini @ $0.290 | $8.12 USDC | Internazionali BNL d'Italia: Alexei Popyrin vs Matteo Berret)
-2026-05-07 10:10:33 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.420 | $21.00 USDC | Will PSG win the 2025–26 Champions League?)
-2026-05-07 10:10:33 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.420 | $72.41 USDC | Will PSG win the 2025–26 Champions League?)
+2026-05-07 12:36:38 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Jacob Fearnley @ $0.210 | $224.69 USDC | Internazionali BNL d'Italia: Jacob Fearnley vs Giovanni Mpet)
+2026-05-07 12:36:38 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Alexander Blockx @ $0.790 | $823.44 USDC | Internazionali BNL d'Italia: Federico Cina vs Alexander Bloc)
+2026-05-07 12:36:38 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Alexander Blockx @ $0.810 | $40.46 USDC | Internazionali BNL d'Italia: Federico Cina vs Alexander Bloc)
+2026-05-07 12:36:38 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Alexander Blockx @ $0.810 | $152.28 USDC | Internazionali BNL d'Italia: Federico Cina vs Alexander Bloc)
+2026-05-07 12:36:38 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Alexander Blockx @ $0.810 | $393.57 USDC | Internazionali BNL d'Italia: Federico Cina vs Alexander Bloc)
 ```
 
 ## Letzte Fehler (3)

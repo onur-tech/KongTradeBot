@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-07 17:29:24 UTC
+> 2026-05-07 17:34:25 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 510178s | HB: WARNUNG 595s alt
+STALE — lief vor 510479s | HB: OK (26s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-07 15:03:15 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Tomas Machac @ $0.610 | $28.15 USDC | Internazionali BNL d'Italia: Stefanos Tsitsipas vs Tomas Mac)
-2026-05-07 15:03:15 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Pablo Llamas Ruiz @ $0.720 | $783.84 USDC | Internazionali BNL d'Italia: Ethan Quinn vs Pablo Llamas Rui)
-2026-05-07 15:03:15 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Pablo Llamas Ruiz @ $0.730 | $21.63 USDC | Internazionali BNL d'Italia: Ethan Quinn vs Pablo Llamas Rui)
-2026-05-07 15:03:15 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Tomas Machac @ $0.610 | $6.10 USDC | Internazionali BNL d'Italia: Stefanos Tsitsipas vs Tomas Mac)
-2026-05-07 15:03:15 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Pablo Llamas Ruiz @ $0.730 | $76.17 USDC | Internazionali BNL d'Italia: Ethan Quinn vs Pablo Llamas Rui)
+2026-05-07 17:30:00 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Thiago Agustin Tirante @ $0.630 | $13.62 USDC | Internazionali BNL d'Italia: Thiago Agustin Tirante vs Gianl)
+2026-05-07 17:30:00 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Texas Rangers @ $0.260 | $278.38 USDC | Texas Rangers vs. New York Yankees)
+2026-05-07 17:30:00 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.154 | $16.00 USDC | Will Spain win the 2026 FIFA World Cup?)
+2026-05-07 17:30:00 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.099 | $1502.36 USDC | Will the New York Knicks win the 2026 NBA Finals?)
+2026-05-07 17:30:00 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.099 | $1616.95 USDC | Will the New York Knicks win the 2026 NBA Finals?)
 ```
 
 ## Letzte Fehler (3)

@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-07 06:52:13 UTC
+> 2026-05-07 06:57:13 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 471947s | HB: OK (356s alt)
+STALE — lief vor 472247s | HB: OK (50s alt)
 ```
 
 ## Portfolio
@@ -37,9 +37,9 @@ PnL heute:     $0.00
 
 ## Letzte Fehler (3)
 ```
+The above exception was the direct cause of the following exception:
 raise asyncio.TimeoutError from exc_val
 TimeoutError
-2026-05-07 06:45:04 | INFO     | polymarket_bot.rss_monitor | [RSS] AP News: Trump's counterterrorism strategy makes targeting drug carte → ['us_politics']
 ```
 
 ---

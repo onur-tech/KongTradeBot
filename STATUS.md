@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-08 05:35:25 UTC
+> 2026-05-08 05:40:53 UTC
 
 ## Bot-Status
 ```
@@ -14,25 +14,25 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 553739s | HB: WARNUNG 599s alt
+STALE — lief vor 554067s | HB: OK (15s alt)
 ```
 
 ## Portfolio
 ```
-Total:         $7.21 USDC
+Total:         $7.46 USDC
 Cash:          $0.00 USDC
-In Positionen: $7.21 USDC
+In Positionen: $7.46 USDC
 Offene Pos.:   1
 PnL heute:     $0.00
 ```
 
 ## Letzte Trades (5)
 ```
-2026-05-08 03:11:04 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Lakers @ $0.270 | $33.04 USDC | Lakers vs. Thunder)
-2026-05-08 03:11:04 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Lakers @ $0.270 | $13392.65 USDC | Lakers vs. Thunder)
-2026-05-08 03:11:04 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Lakers @ $0.280 | $116.67 USDC | Lakers vs. Thunder)
-2026-05-08 03:11:04 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Lakers @ $0.280 | $428.24 USDC | Lakers vs. Thunder)
-2026-05-08 03:11:04 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Lakers @ $0.280 | $67.29 USDC | Lakers vs. Thunder)
+2026-05-08 05:35:38 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Thunder @ $0.910 | $9997.55 USDC | Lakers vs. Thunder)
+2026-05-08 05:35:38 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Thunder @ $0.900 | $2667.67 USDC | Lakers vs. Thunder)
+2026-05-08 05:35:38 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Thunder @ $0.900 | $516.49 USDC | Lakers vs. Thunder)
+2026-05-08 05:35:38 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Thunder @ $0.900 | $94.70 USDC | Lakers vs. Thunder)
+2026-05-08 05:35:38 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Thunder @ $0.900 | $9.00 USDC | Lakers vs. Thunder)
 ```
 
 ## Letzte Fehler (3)

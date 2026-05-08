@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-08 14:32:04 UTC
+> 2026-05-08 14:37:15 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 585938s | HB: WARNUNG 613s alt
+STALE — lief vor 586249s | HB: OK (56s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-08 12:05:27 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Alex de Minaur @ $0.150 | $160.32 USDC | Internazionali BNL d'Italia: Alex de Minaur vs Matteo Arnald)
-2026-05-08 12:05:27 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Matteo Arnaldi @ $0.840 | $871.53 USDC | Internazionali BNL d'Italia: Alex de Minaur vs Matteo Arnald)
-2026-05-08 12:05:27 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Pistons @ $0.390 | $6.39 USDC | Pistons vs. Cavaliers)
-2026-05-08 12:05:27 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.780 | $251.73 USDC | Will Khamzat Chimaev win by KO or TKO?)
-2026-05-08 12:05:27 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.052 | $7.00 USDC | Will Germany win the 2026 FIFA World Cup?)
+2026-05-08 14:32:20 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Alexander Zverev @ $0.895 | $170.58 USDC | Internazionali BNL d'Italia: Daniel Altmaier vs Alexander Zv)
+2026-05-08 14:32:20 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Alexander Zverev @ $0.895 | $772.73 USDC | Internazionali BNL d'Italia: Daniel Altmaier vs Alexander Zv)
+2026-05-08 14:32:20 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Khamzat Chimaev @ $0.810 | $102.53 USDC | UFC 328: Sean Strickland vs. Khamzat Chimaev (Middleweight, )
+2026-05-08 14:32:20 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Khamzat Chimaev @ $0.820 | $28.00 USDC | UFC 328: Sean Strickland vs. Khamzat Chimaev (Middleweight, )
+2026-05-08 14:32:20 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Khamzat Chimaev @ $0.810 | $213.16 USDC | UFC 328: Sean Strickland vs. Khamzat Chimaev (Middleweight, )
 ```
 
 ## Letzte Fehler (3)

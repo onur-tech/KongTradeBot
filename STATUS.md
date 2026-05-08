@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-08 09:37:50 UTC
+> 2026-05-08 09:42:53 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 568284s | HB: WARNUNG 572s alt
+STALE — lief vor 568587s | HB: OK (6s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-08 05:35:38 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Thunder @ $0.910 | $9997.55 USDC | Lakers vs. Thunder)
-2026-05-08 05:35:38 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Thunder @ $0.900 | $2667.67 USDC | Lakers vs. Thunder)
-2026-05-08 05:35:38 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Thunder @ $0.900 | $516.49 USDC | Lakers vs. Thunder)
-2026-05-08 05:35:38 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Thunder @ $0.900 | $94.70 USDC | Lakers vs. Thunder)
-2026-05-08 05:35:38 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Thunder @ $0.900 | $9.00 USDC | Lakers vs. Thunder)
+2026-05-08 09:38:48 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.052 | $12.40 USDC | Will Germany win the 2026 FIFA World Cup?)
+2026-05-08 09:38:48 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Khamzat Chimaev @ $0.820 | $460.52 USDC | UFC 328: Sean Strickland vs. Khamzat Chimaev (Middleweight, )
+2026-05-08 09:38:48 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Khamzat Chimaev @ $0.820 | $22.78 USDC | UFC 328: Sean Strickland vs. Khamzat Chimaev (Middleweight, )
+2026-05-08 09:38:48 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Khamzat Chimaev @ $0.820 | $5.01 USDC | UFC 328: Sean Strickland vs. Khamzat Chimaev (Middleweight, )
+2026-05-08 09:38:48 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.099 | $197.66 USDC | Will the New York Knicks win the 2026 NBA Finals?)
 ```
 
 ## Letzte Fehler (3)

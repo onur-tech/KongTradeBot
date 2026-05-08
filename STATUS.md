@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-08 10:33:50 UTC
+> 2026-05-08 10:38:52 UTC
 
 ## Bot-Status
 ```
@@ -14,15 +14,15 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 571644s | HB: OK (11s alt)
+STALE — lief vor 571946s | HB: OK (13s alt)
 ```
 
 ## Portfolio
 ```
-Total:         $7.91 USDC
+Total:         $0.00 USDC
 Cash:          $0.00 USDC
-In Positionen: $7.91 USDC
-Offene Pos.:   1
+In Positionen: $0.00 USDC
+Offene Pos.:   0
 PnL heute:     $0.00
 ```
 
@@ -37,9 +37,9 @@ PnL heute:     $0.00
 
 ## Letzte Fehler (3)
 ```
-The above exception was the direct cause of the following exception:
-raise asyncio.TimeoutError from exc_val
 TimeoutError
+2026-05-08 10:37:42 | INFO     | polymarket_bot.execution | [V2-SELL-RAW] response={"errorMsg": "", "orderID": "[WALLET]", "takingAmount": "", "makingAmount": "", "status": "delayed", "success": true}
+2026-05-08 10:37:42 | ERROR    | polymarket_bot.main | [exit_loop] Sell-Order fehlgeschlagen: RESTING_NOT_FILLED status=delayed
 ```
 
 ---

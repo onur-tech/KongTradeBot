@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-08 16:33:54 UTC
+> 2026-05-08 16:38:56 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 593248s | HB: WARNUNG 572s alt
+STALE — lief vor 593550s | HB: OK (2s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-08 14:32:20 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Alexander Zverev @ $0.895 | $170.58 USDC | Internazionali BNL d'Italia: Daniel Altmaier vs Alexander Zv)
-2026-05-08 14:32:20 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Alexander Zverev @ $0.895 | $772.73 USDC | Internazionali BNL d'Italia: Daniel Altmaier vs Alexander Zv)
-2026-05-08 14:32:20 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Khamzat Chimaev @ $0.810 | $102.53 USDC | UFC 328: Sean Strickland vs. Khamzat Chimaev (Middleweight, )
-2026-05-08 14:32:20 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Khamzat Chimaev @ $0.820 | $28.00 USDC | UFC 328: Sean Strickland vs. Khamzat Chimaev (Middleweight, )
-2026-05-08 14:32:20 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Khamzat Chimaev @ $0.810 | $213.16 USDC | UFC 328: Sean Strickland vs. Khamzat Chimaev (Middleweight, )
+2026-05-08 16:34:55 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $13.67 USDC | Will Arsenal FC win on 2026-02-22?)
+2026-05-08 16:34:55 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $4629.80 USDC | Will Arsenal FC win on 2026-02-22?)
+2026-05-08 16:34:55 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $23.17 USDC | Will Arsenal FC win on 2026-02-22?)
+2026-05-08 16:34:55 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $48.80 USDC | Will Arsenal FC win on 2026-02-22?)
+2026-05-08 16:34:55 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $31.43 USDC | Will Arsenal FC win on 2026-02-22?)
 ```
 
 ## Letzte Fehler (3)

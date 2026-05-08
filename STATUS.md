@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-08 12:05:04 UTC
+> 2026-05-08 12:10:05 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 577118s | HB: WARNUNG 613s alt
+STALE — lief vor 577419s | HB: OK (39s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-08 09:38:48 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.052 | $12.40 USDC | Will Germany win the 2026 FIFA World Cup?)
-2026-05-08 09:38:48 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Khamzat Chimaev @ $0.820 | $460.52 USDC | UFC 328: Sean Strickland vs. Khamzat Chimaev (Middleweight, )
-2026-05-08 09:38:48 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Khamzat Chimaev @ $0.820 | $22.78 USDC | UFC 328: Sean Strickland vs. Khamzat Chimaev (Middleweight, )
-2026-05-08 09:38:48 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Khamzat Chimaev @ $0.820 | $5.01 USDC | UFC 328: Sean Strickland vs. Khamzat Chimaev (Middleweight, )
-2026-05-08 09:38:48 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.099 | $197.66 USDC | Will the New York Knicks win the 2026 NBA Finals?)
+2026-05-08 12:05:27 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Alex de Minaur @ $0.150 | $160.32 USDC | Internazionali BNL d'Italia: Alex de Minaur vs Matteo Arnald)
+2026-05-08 12:05:27 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Matteo Arnaldi @ $0.840 | $871.53 USDC | Internazionali BNL d'Italia: Alex de Minaur vs Matteo Arnald)
+2026-05-08 12:05:27 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Pistons @ $0.390 | $6.39 USDC | Pistons vs. Cavaliers)
+2026-05-08 12:05:27 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.780 | $251.73 USDC | Will Khamzat Chimaev win by KO or TKO?)
+2026-05-08 12:05:27 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.052 | $7.00 USDC | Will Germany win the 2026 FIFA World Cup?)
 ```
 
 ## Letzte Fehler (3)

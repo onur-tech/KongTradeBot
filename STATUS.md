@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-08 21:27:23 UTC
+> 2026-05-08 21:32:23 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 610857s | HB: WARNUNG 495s alt
+STALE — lief vor 611157s | HB: OK (50s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-08 19:02:38 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.620 | $15.91 USDC | Will US Sassuolo Calcio win on 2026-05-08?)
-2026-05-08 19:02:38 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.690 | $8.01 USDC | Will Torino FC vs. US Sassuolo Calcio end in a draw?)
-2026-05-08 19:02:38 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.690 | $49340.59 USDC | Will Torino FC vs. US Sassuolo Calcio end in a draw?)
-2026-05-08 19:02:38 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.620 | $14414.01 USDC | Will US Sassuolo Calcio win on 2026-05-08?)
-2026-05-08 19:02:38 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.310 | $275.14 USDC | Will Torino FC win on 2026-05-08?)
+2026-05-08 21:29:35 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.370 | $13.48 USDC | Will Levante UD vs. CA Osasuna end in a draw?)
+2026-05-08 21:29:35 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.370 | $3700.00 USDC | Will Levante UD vs. CA Osasuna end in a draw?)
+2026-05-08 21:29:35 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yannick Hanfmann @ $0.340 | $4942.79 USDC | Internazionali BNL d'Italia: Yannick Hanfmann vs Luciano Dar)
+2026-05-08 21:29:35 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.630 | $17.01 USDC | Will Levante UD vs. CA Osasuna end in a draw?)
+2026-05-08 21:29:35 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.560 | $12.32 USDC | Will Levante UD win on 2026-05-08?)
 ```
 
 ## Letzte Fehler (3)

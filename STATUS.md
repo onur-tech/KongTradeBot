@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-09 16:28:11 UTC
+> 2026-05-09 16:33:12 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 679305s | HB: WARNUNG 435s alt
+STALE — lief vor 679606s | HB: OK (44s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-09 14:29:10 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.270 | $66.15 USDC | Will Bayer 04 Leverkusen win on 2026-05-09?)
-2026-05-09 14:29:10 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.270 | $5.63 USDC | Will Bayer 04 Leverkusen win on 2026-05-09?)
-2026-05-09 14:29:10 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.040 | $559.92 USDC | Will FC St. Pauli 1910 win on 2026-05-09?)
-2026-05-09 14:29:10 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.270 | $5.42 USDC | Will Bayer 04 Leverkusen win on 2026-05-09?)
-2026-05-09 14:29:10 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.270 | $36.15 USDC | Will Bayer 04 Leverkusen win on 2026-05-09?)
+2026-05-09 16:31:29 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.890 | $5.56 USDC | Will Brentford FC win on 2026-05-09?)
+2026-05-09 16:31:29 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.890 | $97.90 USDC | Will Brentford FC win on 2026-05-09?)
+2026-05-09 16:31:29 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.890 | $106.24 USDC | Will Brentford FC win on 2026-05-09?)
+2026-05-09 16:31:29 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.890 | $13.39 USDC | Will Brentford FC win on 2026-05-09?)
+2026-05-09 16:31:29 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.890 | $906.18 USDC | Will Brentford FC win on 2026-05-09?)
 ```
 
 ## Letzte Fehler (3)

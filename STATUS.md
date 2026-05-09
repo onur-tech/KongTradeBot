@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-09 23:02:56 UTC
+> 2026-05-09 23:07:55 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 702990s | HB: WARNUNG 583s alt
+STALE — lief vor 703289s | HB: OK (18s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-09 21:01:08 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.880 | $880.00 USDC | Will Sean Strickland win by KO or TKO?)
-2026-05-09 21:01:08 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.880 | $14.67 USDC | Will Sean Strickland win by KO or TKO?)
-2026-05-09 21:01:08 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.880 | $110.00 USDC | Will US Lecce vs. Juventus FC end in a draw?)
-2026-05-09 21:01:08 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.680 | $6.38 USDC | Will Real Sociedad de Fútbol vs. Real Betis Balompié end in )
-2026-05-09 21:01:08 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.340 | $423.58 USDC | Will Real Sociedad de Fútbol win on 2026-05-09?)
+2026-05-09 23:03:38 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Jim Miller @ $0.290 | $12.40 USDC | UFC 328: Jim Miller vs. Jared Gordon (Lightweight, Prelims))
+2026-05-09 23:03:38 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.112 | $10.00 USDC | Will England win the 2026 FIFA World Cup?)
+2026-05-09 23:03:38 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Jim Miller @ $0.290 | $29.00 USDC | UFC 328: Jim Miller vs. Jared Gordon (Lightweight, Prelims))
+2026-05-09 23:03:38 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Jim Miller @ $0.290 | $98.60 USDC | UFC 328: Jim Miller vs. Jared Gordon (Lightweight, Prelims))
+2026-05-09 23:03:38 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Jim Miller @ $0.290 | $50.00 USDC | UFC 328: Jim Miller vs. Jared Gordon (Lightweight, Prelims))
 ```
 
 ## Letzte Fehler (3)

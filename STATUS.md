@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-09 09:32:22 UTC
+> 2026-05-09 09:37:26 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 654357s | HB: WARNUNG 369s alt
+STALE — lief vor 654660s | HB: OK (50s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-09 07:11:20 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY MOUZ @ $0.720 | $726.05 USDC | Counter-Strike: MOUZ vs Gentle Mates - Map 1 Winner)
-2026-05-09 07:11:20 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Soon-Woo Kwon @ $0.730 | $2189.93 USDC | Wuxi: Mark Lajal vs Soon-Woo Kwon)
-2026-05-09 07:11:20 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY MOUZ @ $0.710 | $321.81 USDC | Counter-Strike: MOUZ vs Gentle Mates - Map 1 Winner)
-2026-05-09 07:11:20 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY MOUZ @ $0.690 | $522.31 USDC | Counter-Strike: MOUZ vs Gentle Mates - Map 1 Winner)
-2026-05-09 07:11:20 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY MOUZ @ $0.670 | $30.09 USDC | Counter-Strike: MOUZ vs Gentle Mates - Map 1 Winner)
+2026-05-09 09:36:37 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.989 | $29.66 USDC | Will the Minnesota Timberwolves win the 2026 NBA Finals?)
+2026-05-09 09:36:37 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.989 | $9.99 USDC | Will the Minnesota Timberwolves win the 2026 NBA Finals?)
+2026-05-09 09:36:37 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.989 | $19.30 USDC | Will the Minnesota Timberwolves win the 2026 NBA Finals?)
+2026-05-09 09:36:37 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.989 | $10.09 USDC | Will the Minnesota Timberwolves win the 2026 NBA Finals?)
+2026-05-09 09:36:37 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.989 | $90770.25 USDC | Will the Minnesota Timberwolves win the 2026 NBA Finals?)
 ```
 
 ## Letzte Fehler (3)

@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-09 02:20:09 UTC
+> 2026-05-09 02:25:09 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 628423s | HB: WARNUNG 589s alt
+STALE — lief vor 628723s | HB: OK (44s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-08 23:55:29 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Cincinnati Reds @ $0.210 | $18.90 USDC | Houston Astros vs. Cincinnati Reds)
-2026-05-08 23:55:29 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Cincinnati Reds @ $0.210 | $425.32 USDC | Houston Astros vs. Cincinnati Reds)
-2026-05-08 23:55:29 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Cincinnati Reds @ $0.210 | $105.00 USDC | Houston Astros vs. Cincinnati Reds)
-2026-05-08 23:55:29 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Cincinnati Reds @ $0.210 | $26.44 USDC | Houston Astros vs. Cincinnati Reds)
-2026-05-08 23:55:29 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Cincinnati Reds @ $0.210 | $11.13 USDC | Houston Astros vs. Cincinnati Reds)
+2026-05-09 02:20:27 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Spurs @ $0.690 | $2390.79 USDC | Spurs vs. Timberwolves)
+2026-05-09 02:20:27 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Timberwolves @ $0.330 | $9.90 USDC | Spurs vs. Timberwolves)
+2026-05-09 02:20:27 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Timberwolves @ $0.450 | $338.73 USDC | Spread: Spurs (-4.5))
+2026-05-09 02:20:27 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Timberwolves @ $0.450 | $13.50 USDC | Spread: Spurs (-4.5))
+2026-05-09 02:20:27 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Timberwolves @ $0.450 | $8.18 USDC | Spread: Spurs (-4.5))
 ```
 
 ## Letzte Fehler (3)

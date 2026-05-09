@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-09 18:29:52 UTC
+> 2026-05-09 18:35:04 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 686606s | HB: WARNUNG 387s alt
+STALE — lief vor 686918s | HB: OK (3s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-09 16:31:29 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.890 | $5.56 USDC | Will Brentford FC win on 2026-05-09?)
-2026-05-09 16:31:29 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.890 | $97.90 USDC | Will Brentford FC win on 2026-05-09?)
-2026-05-09 16:31:29 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.890 | $106.24 USDC | Will Brentford FC win on 2026-05-09?)
-2026-05-09 16:31:29 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.890 | $13.39 USDC | Will Brentford FC win on 2026-05-09?)
-2026-05-09 16:31:29 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.890 | $906.18 USDC | Will Brentford FC win on 2026-05-09?)
+2026-05-09 18:34:03 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.230 | $671.07 USDC | Will VfL Wolfsburg vs. FC Bayern München end in a draw?)
+2026-05-09 18:34:03 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.160 | $38.10 USDC | Will RC Celta de Vigo win on 2026-05-09?)
+2026-05-09 18:34:03 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.300 | $4137.01 USDC | Will FC Bayern München win on 2026-05-09?)
+2026-05-09 18:34:03 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.730 | $29097.43 USDC | Will Manchester City FC win on 2026-05-09?)
+2026-05-09 18:34:03 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.730 | $11.64 USDC | Will Manchester City FC win on 2026-05-09?)
 ```
 
 ## Letzte Fehler (3)

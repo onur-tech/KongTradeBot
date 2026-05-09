@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-09 20:56:24 UTC
+> 2026-05-09 21:01:25 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 695398s | HB: OK (353s alt)
+STALE — lief vor 695699s | HB: OK (19s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-09 18:34:03 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.230 | $671.07 USDC | Will VfL Wolfsburg vs. FC Bayern München end in a draw?)
-2026-05-09 18:34:03 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.160 | $38.10 USDC | Will RC Celta de Vigo win on 2026-05-09?)
-2026-05-09 18:34:03 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.300 | $4137.01 USDC | Will FC Bayern München win on 2026-05-09?)
-2026-05-09 18:34:03 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.730 | $29097.43 USDC | Will Manchester City FC win on 2026-05-09?)
-2026-05-09 18:34:03 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.730 | $11.64 USDC | Will Manchester City FC win on 2026-05-09?)
+2026-05-09 21:01:08 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.880 | $880.00 USDC | Will Sean Strickland win by KO or TKO?)
+2026-05-09 21:01:08 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.880 | $14.67 USDC | Will Sean Strickland win by KO or TKO?)
+2026-05-09 21:01:08 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.880 | $110.00 USDC | Will US Lecce vs. Juventus FC end in a draw?)
+2026-05-09 21:01:08 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.680 | $6.38 USDC | Will Real Sociedad de Fútbol vs. Real Betis Balompié end in )
+2026-05-09 21:01:08 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.340 | $423.58 USDC | Will Real Sociedad de Fútbol win on 2026-05-09?)
 ```
 
 ## Letzte Fehler (3)

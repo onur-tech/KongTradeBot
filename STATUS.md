@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-09 07:09:50 UTC
+> 2026-05-09 07:14:50 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 645804s | HB: WARNUNG 527s alt
+STALE — lief vor 646104s | HB: OK (32s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-09 04:45:31 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Atlanta Braves @ $0.021 | $19.71 USDC | Atlanta Braves vs. Los Angeles Dodgers)
-2026-05-09 04:45:31 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Los Angeles Dodgers @ $0.948 | $8.75 USDC | Atlanta Braves vs. Los Angeles Dodgers)
-2026-05-09 04:45:31 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Los Angeles Dodgers @ $0.948 | $189.60 USDC | Atlanta Braves vs. Los Angeles Dodgers)
-2026-05-09 04:45:31 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Khamzat Chimaev @ $0.820 | $357.82 USDC | UFC 328: Sean Strickland vs. Khamzat Chimaev (Middleweight, )
-2026-05-09 04:45:31 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.490 | $109.14 USDC | Will the fight be won by submission?)
+2026-05-09 07:11:20 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY MOUZ @ $0.720 | $726.05 USDC | Counter-Strike: MOUZ vs Gentle Mates - Map 1 Winner)
+2026-05-09 07:11:20 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Soon-Woo Kwon @ $0.730 | $2189.93 USDC | Wuxi: Mark Lajal vs Soon-Woo Kwon)
+2026-05-09 07:11:20 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY MOUZ @ $0.710 | $321.81 USDC | Counter-Strike: MOUZ vs Gentle Mates - Map 1 Winner)
+2026-05-09 07:11:20 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY MOUZ @ $0.690 | $522.31 USDC | Counter-Strike: MOUZ vs Gentle Mates - Map 1 Winner)
+2026-05-09 07:11:20 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY MOUZ @ $0.670 | $30.09 USDC | Counter-Strike: MOUZ vs Gentle Mates - Map 1 Winner)
 ```
 
 ## Letzte Fehler (3)

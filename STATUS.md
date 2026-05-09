@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-09 04:42:17 UTC
+> 2026-05-09 04:47:23 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 636951s | HB: WARNUNG 419s alt
+STALE — lief vor 637257s | HB: OK (52s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-09 02:20:27 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Spurs @ $0.690 | $2390.79 USDC | Spurs vs. Timberwolves)
-2026-05-09 02:20:27 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Timberwolves @ $0.330 | $9.90 USDC | Spurs vs. Timberwolves)
-2026-05-09 02:20:27 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Timberwolves @ $0.450 | $338.73 USDC | Spread: Spurs (-4.5))
-2026-05-09 02:20:27 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Timberwolves @ $0.450 | $13.50 USDC | Spread: Spurs (-4.5))
-2026-05-09 02:20:27 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Timberwolves @ $0.450 | $8.18 USDC | Spread: Spurs (-4.5))
+2026-05-09 04:45:31 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Atlanta Braves @ $0.021 | $19.71 USDC | Atlanta Braves vs. Los Angeles Dodgers)
+2026-05-09 04:45:31 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Los Angeles Dodgers @ $0.948 | $8.75 USDC | Atlanta Braves vs. Los Angeles Dodgers)
+2026-05-09 04:45:31 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Los Angeles Dodgers @ $0.948 | $189.60 USDC | Atlanta Braves vs. Los Angeles Dodgers)
+2026-05-09 04:45:31 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Khamzat Chimaev @ $0.820 | $357.82 USDC | UFC 328: Sean Strickland vs. Khamzat Chimaev (Middleweight, )
+2026-05-09 04:45:31 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.490 | $109.14 USDC | Will the fight be won by submission?)
 ```
 
 ## Letzte Fehler (3)

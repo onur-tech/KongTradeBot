@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-10 12:29:19 UTC
+> 2026-05-10 12:34:22 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 751373s | HB: WARNUNG 423s alt
+STALE — lief vor 751676s | HB: OK (23s alt)
 ```
 
 ## Portfolio
@@ -37,9 +37,9 @@ PnL heute:     $0.00
 
 ## Letzte Fehler (3)
 ```
+The above exception was the direct cause of the following exception:
 raise asyncio.TimeoutError from exc_val
 TimeoutError
-2026-05-10 12:15:25 | INFO     | polymarket_bot.rss_monitor | [RSS] AP News: Temple Israel rebuilds after terror attack → ['geopolitics']
 ```
 
 ---

@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-10 03:57:00 UTC
+> 2026-05-10 04:02:00 UTC
 
 ## Bot-Status
 ```
@@ -14,25 +14,25 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 720634s | HB: WARNUNG 607s alt
+STALE — lief vor 720934s | HB: OK (49s alt)
 ```
 
 ## Portfolio
 ```
-Total:         $9.41 USDC
+Total:         $9.23 USDC
 Cash:          $0.00 USDC
-In Positionen: $9.41 USDC
+In Positionen: $9.23 USDC
 Offene Pos.:   1
 PnL heute:     $0.00
 ```
 
 ## Letzte Trades (5)
 ```
-2026-05-10 01:31:03 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Sean Strickland @ $0.190 | $93.83 USDC | UFC 328: Sean Strickland vs. Khamzat Chimaev (Middleweight, )
-2026-05-10 01:31:03 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Thunder @ $0.710 | $9359.28 USDC | Thunder vs. Lakers)
-2026-05-10 01:31:03 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Sean Strickland @ $0.190 | $234.57 USDC | UFC 328: Sean Strickland vs. Khamzat Chimaev (Middleweight, )
-2026-05-10 01:31:03 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Sean Strickland @ $0.190 | $5.16 USDC | UFC 328: Sean Strickland vs. Khamzat Chimaev (Middleweight, )
-2026-05-10 01:31:03 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Sean Strickland @ $0.190 | $25.64 USDC | UFC 328: Sean Strickland vs. Khamzat Chimaev (Middleweight, )
+2026-05-10 03:57:12 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Khamzat Chimaev @ $0.790 | $790.00 USDC | UFC 328: Sean Strickland vs. Khamzat Chimaev (Middleweight, )
+2026-05-10 03:57:12 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Khamzat Chimaev @ $0.790 | $158.00 USDC | UFC 328: Sean Strickland vs. Khamzat Chimaev (Middleweight, )
+2026-05-10 03:57:12 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Sean Strickland @ $0.200 | $5.40 USDC | UFC 328: Sean Strickland vs. Khamzat Chimaev (Middleweight, )
+2026-05-10 03:57:12 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Sean Strickland @ $0.200 | $475.00 USDC | UFC 328: Sean Strickland vs. Khamzat Chimaev (Middleweight, )
+2026-05-10 03:57:12 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Khamzat Chimaev @ $0.790 | $18.81 USDC | UFC 328: Sean Strickland vs. Khamzat Chimaev (Middleweight, )
 ```
 
 ## Letzte Fehler (3)

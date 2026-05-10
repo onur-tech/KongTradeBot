@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-10 06:23:17 UTC
+> 2026-05-10 06:28:17 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 729411s | HB: WARNUNG 616s alt
+STALE — lief vor 729711s | HB: OK (58s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-10 03:57:12 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Khamzat Chimaev @ $0.790 | $790.00 USDC | UFC 328: Sean Strickland vs. Khamzat Chimaev (Middleweight, )
-2026-05-10 03:57:12 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Khamzat Chimaev @ $0.790 | $158.00 USDC | UFC 328: Sean Strickland vs. Khamzat Chimaev (Middleweight, )
-2026-05-10 03:57:12 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Sean Strickland @ $0.200 | $5.40 USDC | UFC 328: Sean Strickland vs. Khamzat Chimaev (Middleweight, )
-2026-05-10 03:57:12 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Sean Strickland @ $0.200 | $475.00 USDC | UFC 328: Sean Strickland vs. Khamzat Chimaev (Middleweight, )
-2026-05-10 03:57:12 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Khamzat Chimaev @ $0.790 | $18.81 USDC | UFC 328: Sean Strickland vs. Khamzat Chimaev (Middleweight, )
+2026-05-10 06:23:21 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Gentle Mates @ $0.390 | $55.37 USDC | Counter-Strike: K27 vs Gentle Mates - Map 2 Winner)
+2026-05-10 06:23:21 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.290 | $7.97 USDC | Yokohama F·Marinos vs. Kashima Antlers: O/U 2.5)
+2026-05-10 06:23:21 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY K27 @ $0.550 | $156.21 USDC | Counter-Strike: K27 vs Gentle Mates - Map 2 Winner)
+2026-05-10 06:23:21 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.200 | $288.12 USDC | Will Fagiano Okayama win on 2026-05-10?)
+2026-05-10 06:23:21 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY K27 @ $0.550 | $57.22 USDC | Counter-Strike: K27 vs Gentle Mates - Map 2 Winner)
 ```
 
 ## Letzte Fehler (3)

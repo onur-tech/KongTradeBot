@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-10 08:50:23 UTC
+> 2026-05-10 08:55:49 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 738237s | HB: WARNUNG 608s alt
+STALE — lief vor 738563s | HB: OK (4s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-10 06:23:21 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Gentle Mates @ $0.390 | $55.37 USDC | Counter-Strike: K27 vs Gentle Mates - Map 2 Winner)
-2026-05-10 06:23:21 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.290 | $7.97 USDC | Yokohama F·Marinos vs. Kashima Antlers: O/U 2.5)
-2026-05-10 06:23:21 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY K27 @ $0.550 | $156.21 USDC | Counter-Strike: K27 vs Gentle Mates - Map 2 Winner)
-2026-05-10 06:23:21 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.200 | $288.12 USDC | Will Fagiano Okayama win on 2026-05-10?)
-2026-05-10 06:23:21 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY K27 @ $0.550 | $57.22 USDC | Counter-Strike: K27 vs Gentle Mates - Map 2 Winner)
+2026-05-10 08:50:47 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Spirit @ $0.770 | $70.30 USDC | Counter-Strike: TheMongolz vs Spirit - Map 1 Winner)
+2026-05-10 08:50:47 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY TheMongolz @ $0.220 | $39.16 USDC | Counter-Strike: TheMongolz vs Spirit - Map 1 Winner)
+2026-05-10 08:50:47 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Soon-Woo Kwon @ $0.650 | $11.83 USDC | Wuxi: Yunchaokete Bu vs Soon-Woo Kwon)
+2026-05-10 08:50:47 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY TheMongolz @ $0.220 | $5.06 USDC | Counter-Strike: TheMongolz vs Spirit - Map 1 Winner)
+2026-05-10 08:50:47 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY TheMongolz @ $0.220 | $5.06 USDC | Counter-Strike: TheMongolz vs Spirit - Map 1 Winner)
 ```
 
 ## Letzte Fehler (3)

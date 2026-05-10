@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-10 18:43:36 UTC
+> 2026-05-10 18:48:33 UTC
 
 ## Bot-Status
 ```
@@ -14,21 +14,25 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 773830s | HB: WARNUNG 634s alt
+STALE — lief vor 774127s | HB: OK (45s alt)
 ```
 
 ## Portfolio
 ```
-Dashboard nicht erreichbar: timed out
+Total:         $9.11 USDC
+Cash:          $0.00 USDC
+In Positionen: $9.11 USDC
+Offene Pos.:   1
+PnL heute:     $0.00
 ```
 
 ## Letzte Trades (5)
 ```
-2026-05-10 16:15:25 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.420 | $42.00 USDC | Will 1. FC Köln win on 2026-05-10?)
-2026-05-10 16:15:25 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.360 | $74.40 USDC | Will Arsenal FC win on 2026-05-10?)
-2026-05-10 16:15:25 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.540 | $11.34 USDC | Will Athletic Club vs. Valencia CF end in a draw?)
-2026-05-10 16:15:25 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.470 | $47.63 USDC | Will 1. FC Köln win on 2026-05-10?)
-2026-05-10 16:15:25 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Francisco Cerundolo @ $0.120 | $41.85 USDC | Internazionali BNL d'Italia: Lorenzo Musetti vs Francisco Ce)
+2026-05-10 18:43:57 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.770 | $33.48 USDC | Will Real Madrid CF win on 2026-05-10?)
+2026-05-10 18:43:57 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.770 | $16.74 USDC | Will Real Madrid CF win on 2026-05-10?)
+2026-05-10 18:43:57 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.770 | $167.39 USDC | Will Real Madrid CF win on 2026-05-10?)
+2026-05-10 18:43:57 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.800 | $115.75 USDC | Will FC Barcelona vs. Real Madrid CF end in a draw?)
+2026-05-10 18:43:57 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.770 | $77.00 USDC | Will Real Madrid CF win on 2026-05-10?)
 ```
 
 ## Letzte Fehler (3)

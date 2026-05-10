@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-10 21:09:58 UTC
+> 2026-05-10 21:14:58 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 782612s | HB: WARNUNG 448s alt
+STALE — lief vor 782912s | HB: OK (42s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-10 18:43:57 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.770 | $33.48 USDC | Will Real Madrid CF win on 2026-05-10?)
-2026-05-10 18:43:57 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.770 | $16.74 USDC | Will Real Madrid CF win on 2026-05-10?)
-2026-05-10 18:43:57 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.770 | $167.39 USDC | Will Real Madrid CF win on 2026-05-10?)
-2026-05-10 18:43:57 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.800 | $115.75 USDC | Will FC Barcelona vs. Real Madrid CF end in a draw?)
-2026-05-10 18:43:57 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.770 | $77.00 USDC | Will Real Madrid CF win on 2026-05-10?)
+2026-05-10 21:13:18 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY New York Yankees @ $0.330 | $52.49 USDC | New York Yankees vs. Milwaukee Brewers)
+2026-05-10 21:13:18 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY San Francisco Giants @ $0.280 | $5.52 USDC | Pittsburgh Pirates vs. San Francisco Giants)
+2026-05-10 21:13:18 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.861 | $17.53 USDC | Will the New York Knicks win the 2026 NBA Finals?)
+2026-05-10 21:13:18 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.861 | $996.83 USDC | Will the New York Knicks win the 2026 NBA Finals?)
+2026-05-10 21:13:18 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.861 | $61.94 USDC | Will the New York Knicks win the 2026 NBA Finals?)
 ```
 
 ## Letzte Fehler (3)

@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-10 16:12:25 UTC
+> 2026-05-10 16:17:27 UTC
 
 ## Bot-Status
 ```
@@ -14,25 +14,21 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 764759s | HB: WARNUNG 470s alt
+STALE — lief vor 765061s | HB: OK (6s alt)
 ```
 
 ## Portfolio
 ```
-Total:         $9.23 USDC
-Cash:          $0.00 USDC
-In Positionen: $9.23 USDC
-Offene Pos.:   1
-PnL heute:     $0.00
+Dashboard nicht erreichbar: timed out
 ```
 
 ## Letzte Trades (5)
 ```
-2026-05-10 13:46:53 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.570 | $662.79 USDC | Will SC Freiburg win on 2026-05-10?)
-2026-05-10 13:46:53 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.570 | $13.24 USDC | Will SC Freiburg win on 2026-05-10?)
-2026-05-10 13:46:53 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.570 | $14527.59 USDC | Will SC Freiburg win on 2026-05-10?)
-2026-05-10 13:46:53 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.610 | $78.21 USDC | Will RCD Mallorca vs. Villarreal CF end in a draw?)
-2026-05-10 13:46:53 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY 9z @ $0.410 | $8.58 USDC | Map Handicap: FAL (-1.5) vs 9z (+1.5))
+2026-05-10 16:15:25 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.420 | $42.00 USDC | Will 1. FC Köln win on 2026-05-10?)
+2026-05-10 16:15:25 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.360 | $74.40 USDC | Will Arsenal FC win on 2026-05-10?)
+2026-05-10 16:15:25 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.540 | $11.34 USDC | Will Athletic Club vs. Valencia CF end in a draw?)
+2026-05-10 16:15:25 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.470 | $47.63 USDC | Will 1. FC Köln win on 2026-05-10?)
+2026-05-10 16:15:25 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Francisco Cerundolo @ $0.120 | $41.85 USDC | Internazionali BNL d'Italia: Lorenzo Musetti vs Francisco Ce)
 ```
 
 ## Letzte Fehler (3)

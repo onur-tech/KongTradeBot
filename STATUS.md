@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-11 06:58:48 UTC
+> 2026-05-11 07:03:48 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 817942s | HB: WARNUNG 470s alt
+STALE — lief vor 818242s | HB: OK (15s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-11 04:34:41 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $4629.80 USDC | Will Arsenal FC win on 2026-02-22?)
-2026-05-11 04:34:41 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $23.17 USDC | Will Arsenal FC win on 2026-02-22?)
-2026-05-11 04:34:41 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $31.43 USDC | Will Arsenal FC win on 2026-02-22?)
-2026-05-11 04:34:41 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $48.80 USDC | Will Arsenal FC win on 2026-02-22?)
-2026-05-11 04:34:41 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $31.43 USDC | Will Arsenal FC win on 2026-02-22?)
+2026-05-11 07:01:35 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Aurora Gaming @ $0.590 | $1029.81 USDC | Counter-Strike: PARIVISION vs Aurora Gaming - Map 2 Winner)
+2026-05-11 07:01:35 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Aurora Gaming @ $0.780 | $24.96 USDC | Counter-Strike: PARIVISION vs Aurora Gaming (BO3) - PGL Asta)
+2026-05-11 07:01:35 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY TheMongolz @ $0.470 | $41.60 USDC | Counter-Strike: TheMongolz vs G2 (BO3) - PGL Astana Group St)
+2026-05-11 07:01:35 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Aurora Gaming @ $0.780 | $25.35 USDC | Counter-Strike: PARIVISION vs Aurora Gaming (BO3) - PGL Asta)
+2026-05-11 07:01:35 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Aurora Gaming @ $0.780 | $5.46 USDC | Counter-Strike: PARIVISION vs Aurora Gaming (BO3) - PGL Asta)
 ```
 
 ## Letzte Fehler (3)

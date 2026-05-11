@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-11 19:36:17 UTC
+> 2026-05-11 19:41:20 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 863391s | HB: STALE 765s alt (Bot moeglicherweise haengend)
+STALE — lief vor 863694s | HB: OK (50s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-11 16:34:26 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Daniil Medvedev @ $0.400 | $1430.06 USDC | Internazionali BNL d'Italia: Pablo Llamas Ruiz vs Daniil Med)
-2026-05-11 16:34:26 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Daniil Medvedev @ $0.400 | $1507.67 USDC | Internazionali BNL d'Italia: Pablo Llamas Ruiz vs Daniil Med)
-2026-05-11 16:34:26 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Daniil Medvedev @ $0.420 | $1471.74 USDC | Internazionali BNL d'Italia: Pablo Llamas Ruiz vs Daniil Med)
-2026-05-11 16:34:26 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Daniil Medvedev @ $0.420 | $2520.00 USDC | Internazionali BNL d'Italia: Pablo Llamas Ruiz vs Daniil Med)
-2026-05-11 16:34:26 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Daniil Medvedev @ $0.380 | $1076.54 USDC | Internazionali BNL d'Italia: Pablo Llamas Ruiz vs Daniil Med)
+2026-05-11 19:40:35 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.780 | $5.67 USDC | Will Leeds United FC win on 2026-05-11?)
+2026-05-11 19:40:35 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.780 | $17.73 USDC | Will Leeds United FC win on 2026-05-11?)
+2026-05-11 19:40:35 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.780 | $70.91 USDC | Will Leeds United FC win on 2026-05-11?)
+2026-05-11 19:40:35 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.780 | $17.73 USDC | Will Leeds United FC win on 2026-05-11?)
+2026-05-11 19:40:35 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.780 | $17.73 USDC | Will Leeds United FC win on 2026-05-11?)
 ```
 
 ## Letzte Fehler (3)

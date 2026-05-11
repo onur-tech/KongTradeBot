@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-11 14:27:23 UTC
+> 2026-05-11 14:32:35 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 844857s | HB: WARNUNG 543s alt
+STALE — lief vor 845169s | HB: OK (15s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-11 11:59:11 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY magic @ $0.190 | $132.32 USDC | Counter-Strike: K27 vs magic - Map 2 Winner)
-2026-05-11 11:59:11 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY K27 @ $0.770 | $6.16 USDC | Counter-Strike: K27 vs magic - Map 2 Winner)
-2026-05-11 11:59:11 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.760 | $5.51 USDC | Games Total: O/U 2.5)
-2026-05-11 11:59:11 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY K27 @ $0.740 | $14.80 USDC | Counter-Strike: K27 vs magic - Map 2 Winner)
-2026-05-11 11:59:11 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.760 | $6.41 USDC | Games Total: O/U 2.5)
+2026-05-11 14:29:22 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.460 | $165.45 USDC | Will Tottenham Hotspur FC win on 2026-05-11?)
+2026-05-11 14:29:22 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.460 | $12.78 USDC | Will Tottenham Hotspur FC win on 2026-05-11?)
+2026-05-11 14:29:22 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.460 | $8.52 USDC | Will Tottenham Hotspur FC win on 2026-05-11?)
+2026-05-11 14:29:22 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.460 | $12.78 USDC | Will Tottenham Hotspur FC win on 2026-05-11?)
+2026-05-11 14:29:22 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.460 | $8.52 USDC | Will Tottenham Hotspur FC win on 2026-05-11?)
 ```
 
 ## Letzte Fehler (3)

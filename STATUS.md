@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-11 16:29:25 UTC
+> 2026-05-11 16:34:27 UTC
 
 ## Bot-Status
 ```
@@ -14,25 +14,21 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 852179s | HB: OK (253s alt)
+STALE — lief vor 852481s | HB: OK (5s alt)
 ```
 
 ## Portfolio
 ```
-Total:         $0.00 USDC
-Cash:          $0.00 USDC
-In Positionen: $0.00 USDC
-Offene Pos.:   0
-PnL heute:     $0.00
+Dashboard nicht erreichbar: timed out
 ```
 
 ## Letzte Trades (5)
 ```
-2026-05-11 14:29:22 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.460 | $165.45 USDC | Will Tottenham Hotspur FC win on 2026-05-11?)
-2026-05-11 14:29:22 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.460 | $12.78 USDC | Will Tottenham Hotspur FC win on 2026-05-11?)
-2026-05-11 14:29:22 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.460 | $8.52 USDC | Will Tottenham Hotspur FC win on 2026-05-11?)
-2026-05-11 14:29:22 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.460 | $12.78 USDC | Will Tottenham Hotspur FC win on 2026-05-11?)
-2026-05-11 14:29:22 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.460 | $8.52 USDC | Will Tottenham Hotspur FC win on 2026-05-11?)
+2026-05-11 16:34:26 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Daniil Medvedev @ $0.400 | $1430.06 USDC | Internazionali BNL d'Italia: Pablo Llamas Ruiz vs Daniil Med)
+2026-05-11 16:34:26 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Daniil Medvedev @ $0.400 | $1507.67 USDC | Internazionali BNL d'Italia: Pablo Llamas Ruiz vs Daniil Med)
+2026-05-11 16:34:26 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Daniil Medvedev @ $0.420 | $1471.74 USDC | Internazionali BNL d'Italia: Pablo Llamas Ruiz vs Daniil Med)
+2026-05-11 16:34:26 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Daniil Medvedev @ $0.420 | $2520.00 USDC | Internazionali BNL d'Italia: Pablo Llamas Ruiz vs Daniil Med)
+2026-05-11 16:34:26 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Daniil Medvedev @ $0.380 | $1076.54 USDC | Internazionali BNL d'Italia: Pablo Llamas Ruiz vs Daniil Med)
 ```
 
 ## Letzte Fehler (3)

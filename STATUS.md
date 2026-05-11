@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-11 02:06:53 UTC
+> 2026-05-11 02:11:56 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 800427s | HB: WARNUNG 545s alt
+STALE — lief vor 800730s | HB: OK (36s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-10 23:41:19 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Spurs @ $0.640 | $197.33 USDC | Spurs vs. Timberwolves)
-2026-05-10 23:41:19 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Spurs @ $0.640 | $21.76 USDC | Spurs vs. Timberwolves)
-2026-05-10 23:41:19 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Spurs @ $0.640 | $2545.28 USDC | Spurs vs. Timberwolves)
-2026-05-10 23:41:19 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Spurs @ $0.640 | $86.81 USDC | Spurs vs. Timberwolves)
-2026-05-10 23:41:19 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Spurs @ $0.640 | $153.07 USDC | Spurs vs. Timberwolves)
+2026-05-11 02:08:21 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Timberwolves @ $0.840 | $428.19 USDC | Spurs vs. Timberwolves)
+2026-05-11 02:08:21 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Timberwolves @ $0.600 | $1115.18 USDC | Spurs vs. Timberwolves)
+2026-05-11 02:08:21 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Timberwolves @ $0.600 | $15.07 USDC | Spurs vs. Timberwolves)
+2026-05-11 02:08:21 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Timberwolves @ $0.600 | $15.00 USDC | Spurs vs. Timberwolves)
+2026-05-11 02:08:21 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Timberwolves @ $0.600 | $34.93 USDC | Spurs vs. Timberwolves)
 ```
 
 ## Letzte Fehler (3)

@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-11 11:56:49 UTC
+> 2026-05-11 12:01:49 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 835823s | HB: WARNUNG 506s alt
+STALE — lief vor 836123s | HB: OK (40s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-11 09:30:13 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Andrey Rublev @ $0.590 | $325.38 USDC | Internazionali BNL d'Italia: Andrey Rublev vs Alejandro Davi)
-2026-05-11 09:30:13 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Sorana Cirstea @ $0.750 | $65.73 USDC | Internazionali BNL d'Italia: Sorana Cirstea vs Linda Noskova)
-2026-05-11 09:30:13 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Sorana Cirstea @ $0.750 | $18.00 USDC | Internazionali BNL d'Italia: Sorana Cirstea vs Linda Noskova)
-2026-05-11 09:30:13 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY K27 @ $0.700 | $212.59 USDC | Map Handicap: MGC (-1.5) vs K27 (+1.5))
-2026-05-11 09:30:13 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Mattia Bellucci @ $0.510 | $55.27 USDC | Internazionali BNL d'Italia: Mattia Bellucci vs Martin Landa)
+2026-05-11 11:59:11 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY magic @ $0.190 | $132.32 USDC | Counter-Strike: K27 vs magic - Map 2 Winner)
+2026-05-11 11:59:11 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY K27 @ $0.770 | $6.16 USDC | Counter-Strike: K27 vs magic - Map 2 Winner)
+2026-05-11 11:59:11 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.760 | $5.51 USDC | Games Total: O/U 2.5)
+2026-05-11 11:59:11 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY K27 @ $0.740 | $14.80 USDC | Counter-Strike: K27 vs magic - Map 2 Winner)
+2026-05-11 11:59:11 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.760 | $6.41 USDC | Games Total: O/U 2.5)
 ```
 
 ## Letzte Fehler (3)

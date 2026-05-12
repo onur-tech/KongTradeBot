@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-12 12:06:11 UTC
+> 2026-05-12 12:11:11 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 922785s | HB: WARNUNG 553s alt
+STALE — lief vor 923086s | HB: OK (16s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-12 09:32:00 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY TheMongolz @ $0.770 | $8.47 USDC | Counter-Strike: TheMongolz vs Team Falcons - Map 2 Winner)
-2026-05-12 09:32:00 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY TheMongolz @ $0.770 | $10.78 USDC | Counter-Strike: TheMongolz vs Team Falcons - Map 2 Winner)
-2026-05-12 09:32:00 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Alina Charaeva @ $0.560 | $1134.82 USDC | Paris: Sara Bejlek vs Alina Charaeva)
-2026-05-12 09:32:00 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.770 | $7.27 USDC | Games Total: O/U 2.5)
-2026-05-12 09:32:00 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY TheMongolz @ $0.770 | $30.80 USDC | Counter-Strike: TheMongolz vs Team Falcons - Map 2 Winner)
+2026-05-12 12:09:58 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY FURIA @ $0.850 | $581.21 USDC | Counter-Strike: FURIA vs Gentle Mates (BO3) - PGL Astana Gro)
+2026-05-12 12:09:58 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Gentle Mates @ $0.140 | $24.70 USDC | Counter-Strike: FURIA vs Gentle Mates (BO3) - PGL Astana Gro)
+2026-05-12 12:09:58 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Luciano Darderi @ $0.190 | $58.68 USDC | Internazionali BNL d'Italia: Luciano Darderi vs Alexander Zv)
+2026-05-12 12:09:58 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Gentle Mates @ $0.170 | $97.92 USDC | Counter-Strike: FURIA vs Gentle Mates - Map 1 Winner)
+2026-05-12 12:09:58 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Gentle Mates @ $0.120 | $12.00 USDC | Counter-Strike: FURIA vs Gentle Mates (BO3) - PGL Astana Gro)
 ```
 
 ## Letzte Fehler (3)

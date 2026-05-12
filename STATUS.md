@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-12 04:46:00 UTC
+> 2026-05-12 04:51:03 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 896374s | HB: OK (300s alt)
+STALE — lief vor 896677s | HB: OK (40s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-12 02:37:08 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Thunder @ $0.820 | $22.78 USDC | Thunder vs. Lakers)
-2026-05-12 02:37:08 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Thunder @ $0.820 | $787.56 USDC | Thunder vs. Lakers)
-2026-05-12 02:37:08 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Thunder @ $0.820 | $19.68 USDC | Thunder vs. Lakers)
-2026-05-12 02:37:08 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Thunder @ $0.820 | $3938.46 USDC | Thunder vs. Lakers)
-2026-05-12 02:37:08 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Thunder @ $0.820 | $227.78 USDC | Thunder vs. Lakers)
+2026-05-12 04:49:25 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Thunder @ $0.580 | $5.21 USDC | Thunder vs. Lakers)
+2026-05-12 04:49:25 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Lakers @ $0.410 | $44.93 USDC | Thunder vs. Lakers)
+2026-05-12 04:49:25 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Lakers @ $0.410 | $6.95 USDC | Thunder vs. Lakers)
+2026-05-12 04:49:25 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Thunder @ $0.580 | $31.76 USDC | Thunder vs. Lakers)
+2026-05-12 04:49:25 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Lakers @ $0.410 | $45.56 USDC | Thunder vs. Lakers)
 ```
 
 ## Letzte Fehler (3)

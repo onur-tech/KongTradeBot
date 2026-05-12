@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-12 22:42:23 UTC
+> 2026-05-12 22:47:33 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 960957s | HB: OK (275s alt)
+STALE — lief vor 961267s | HB: OK (33s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-12 20:19:58 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.600 | $6000.00 USDC | Will Club Atlético de Madrid win on 2026-05-12?)
-2026-05-12 20:19:58 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.640 | $6400.00 USDC | Will Club Atlético de Madrid win on 2026-05-12?)
-2026-05-12 20:19:58 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.052 | $10.00 USDC | Will Germany win the 2026 FIFA World Cup?)
-2026-05-12 20:19:58 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.052 | $130.00 USDC | Will Germany win the 2026 FIFA World Cup?)
-2026-05-12 20:19:58 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.720 | $42.11 USDC | Will CA Osasuna vs. Club Atlético de Madrid end in a draw?)
+2026-05-12 22:46:02 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.052 | $27.00 USDC | Will Germany win the 2026 FIFA World Cup?)
+2026-05-12 22:46:02 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.720 | $7200.00 USDC | Will CA Osasuna vs. Club Atlético de Madrid end in a draw?)
+2026-05-12 22:46:02 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Thiago Agustin Tirante @ $0.050 | $479.45 USDC | Internazionali BNL d'Italia: Thiago Agustin Tirante vs Danii)
+2026-05-12 22:46:02 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.052 | $100.00 USDC | Will Germany win the 2026 FIFA World Cup?)
+2026-05-12 22:46:02 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.052 | $196.00 USDC | Will Germany win the 2026 FIFA World Cup?)
 ```
 
 ## Letzte Fehler (3)

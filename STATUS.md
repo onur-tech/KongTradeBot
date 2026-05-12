@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-12 00:18:54 UTC
+> 2026-05-12 00:33:54 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 880348s | HB: OK (95s alt)
+STALE — lief vor 881248s | HB: OK (15s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-11 22:13:33 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $23.17 USDC | Will Arsenal FC win on 2026-02-22?)
-2026-05-11 22:13:33 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $12.39 USDC | Will Arsenal FC win on 2026-02-22?)
-2026-05-11 22:13:33 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $31.43 USDC | Will Arsenal FC win on 2026-02-22?)
-2026-05-11 22:13:33 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $48.80 USDC | Will Arsenal FC win on 2026-02-22?)
-2026-05-11 22:13:33 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $31.43 USDC | Will Arsenal FC win on 2026-02-22?)
+2026-05-12 00:25:41 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Cavaliers @ $0.590 | $6.88 USDC | Pistons vs. Cavaliers)
+2026-05-12 00:25:41 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Cavaliers @ $0.590 | $827.32 USDC | Pistons vs. Cavaliers)
+2026-05-12 00:25:41 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Cavaliers @ $0.590 | $66231.75 USDC | Pistons vs. Cavaliers)
+2026-05-12 00:25:41 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Lakers @ $0.450 | $6.10 USDC | Spread: Thunder (-11.5))
+2026-05-12 00:25:41 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Lakers @ $0.450 | $114.55 USDC | Spread: Thunder (-11.5))
 ```
 
 ## Letzte Fehler (3)

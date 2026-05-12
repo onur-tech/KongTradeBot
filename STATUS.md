@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-12 09:28:40 UTC
+> 2026-05-12 09:33:50 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 913334s | HB: WARNUNG 482s alt
+STALE — lief vor 913644s | HB: OK (52s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-12 07:07:28 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Thunder @ $0.980 | $54.46 USDC | Thunder vs. Lakers)
-2026-05-12 07:07:28 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Lakers @ $0.010 | $24.82 USDC | Thunder vs. Lakers)
-2026-05-12 07:07:28 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Lakers @ $0.010 | $1021.51 USDC | Thunder vs. Lakers)
-2026-05-12 07:07:28 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Lakers @ $0.010 | $1053.81 USDC | Thunder vs. Lakers)
-2026-05-12 07:07:28 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Lakers @ $0.010 | $30.16 USDC | Thunder vs. Lakers)
+2026-05-12 09:32:00 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY TheMongolz @ $0.770 | $8.47 USDC | Counter-Strike: TheMongolz vs Team Falcons - Map 2 Winner)
+2026-05-12 09:32:00 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY TheMongolz @ $0.770 | $10.78 USDC | Counter-Strike: TheMongolz vs Team Falcons - Map 2 Winner)
+2026-05-12 09:32:00 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Alina Charaeva @ $0.560 | $1134.82 USDC | Paris: Sara Bejlek vs Alina Charaeva)
+2026-05-12 09:32:00 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.770 | $7.27 USDC | Games Total: O/U 2.5)
+2026-05-12 09:32:00 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY TheMongolz @ $0.770 | $30.80 USDC | Counter-Strike: TheMongolz vs Team Falcons - Map 2 Winner)
 ```
 
 ## Letzte Fehler (3)

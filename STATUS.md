@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-12 14:52:28 UTC
+> 2026-05-12 14:57:37 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 932762s | HB: STALE 705s alt (Bot moeglicherweise haengend)
+STALE — lief vor 933071s | HB: OK (13s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-12 12:09:58 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY FURIA @ $0.850 | $581.21 USDC | Counter-Strike: FURIA vs Gentle Mates (BO3) - PGL Astana Gro)
-2026-05-12 12:09:58 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Gentle Mates @ $0.140 | $24.70 USDC | Counter-Strike: FURIA vs Gentle Mates (BO3) - PGL Astana Gro)
-2026-05-12 12:09:58 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Luciano Darderi @ $0.190 | $58.68 USDC | Internazionali BNL d'Italia: Luciano Darderi vs Alexander Zv)
-2026-05-12 12:09:58 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Gentle Mates @ $0.170 | $97.92 USDC | Counter-Strike: FURIA vs Gentle Mates - Map 1 Winner)
-2026-05-12 12:09:58 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Gentle Mates @ $0.120 | $12.00 USDC | Counter-Strike: FURIA vs Gentle Mates (BO3) - PGL Astana Gro)
+2026-05-12 14:54:27 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Spurs @ $0.480 | $251.97 USDC | Spread: Spurs (-10.5))
+2026-05-12 14:54:27 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Spurs @ $0.480 | $960.00 USDC | Spread: Spurs (-10.5))
+2026-05-12 14:54:27 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Spurs @ $0.480 | $18.46 USDC | Spread: Spurs (-10.5))
+2026-05-12 14:54:27 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Spurs @ $0.480 | $55.50 USDC | Spread: Spurs (-10.5))
+2026-05-12 14:54:27 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.071 | $14.54 USDC | Will China invade Taiwan by end of 2026?)
 ```
 
 ## Letzte Fehler (3)

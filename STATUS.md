@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-13 01:13:05 UTC
+> 2026-05-13 01:18:05 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 969999s | HB: OK (306s alt)
+STALE — lief vor 970299s | HB: OK (58s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-12 22:46:02 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.052 | $27.00 USDC | Will Germany win the 2026 FIFA World Cup?)
-2026-05-12 22:46:02 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.720 | $7200.00 USDC | Will CA Osasuna vs. Club Atlético de Madrid end in a draw?)
-2026-05-12 22:46:02 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Thiago Agustin Tirante @ $0.050 | $479.45 USDC | Internazionali BNL d'Italia: Thiago Agustin Tirante vs Danii)
-2026-05-12 22:46:02 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.052 | $100.00 USDC | Will Germany win the 2026 FIFA World Cup?)
-2026-05-12 22:46:02 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.052 | $196.00 USDC | Will Germany win the 2026 FIFA World Cup?)
+2026-05-13 01:16:09 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Miami Marlins @ $0.490 | $2078.55 USDC | Miami Marlins vs. Minnesota Twins)
+2026-05-13 01:16:09 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Canadiens @ $0.710 | $63.90 USDC | Sabres vs. Canadiens)
+2026-05-13 01:16:09 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Canadiens @ $0.710 | $171.35 USDC | Sabres vs. Canadiens)
+2026-05-13 01:16:09 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Spurs @ $0.840 | $183.28 USDC | Timberwolves vs. Spurs)
+2026-05-13 01:16:09 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Cincinnati Reds @ $0.060 | $343.25 USDC | Washington Nationals vs. Cincinnati Reds)
 ```
 
 ## Letzte Fehler (3)

@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-13 08:04:04 UTC
+> 2026-05-13 08:09:04 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 994658s | HB: WARNUNG 517s alt
+STALE — lief vor 994958s | HB: OK (34s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-13 05:44:21 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.052 | $926.09 USDC | Will Germany win the 2026 FIFA World Cup?)
-2026-05-13 05:44:21 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.052 | $10.40 USDC | Will Germany win the 2026 FIFA World Cup?)
-2026-05-13 05:44:21 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Ducks @ $0.090 | $19.78 USDC | Ducks vs. Golden Knights)
-2026-05-13 05:44:21 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Golden Knights @ $0.880 | $67.70 USDC | Ducks vs. Golden Knights)
-2026-05-13 05:44:21 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Golden Knights @ $0.830 | $6296.31 USDC | Ducks vs. Golden Knights)
+2026-05-13 08:05:33 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.340 | $6.79 USDC | Games Total: O/U 2.5)
+2026-05-13 08:05:33 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Keegan Smith @ $0.945 | $30.11 USDC | Bengaluru 2: Keegan Smith vs Dominik Palan)
+2026-05-13 08:05:33 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Keegan Smith @ $0.945 | $1007.37 USDC | Bengaluru 2: Keegan Smith vs Dominik Palan)
+2026-05-13 08:05:33 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.350 | $7.00 USDC | Games Total: O/U 2.5)
+2026-05-13 08:05:33 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Monte @ $0.330 | $20.97 USDC | Map Handicap: G2 (-1.5) vs Monte (+1.5))
 ```
 
 ## Letzte Fehler (3)

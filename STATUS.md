@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-13 18:01:32 UTC
+> 2026-05-13 18:06:32 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 1030506s | HB: WARNUNG 578s alt
+STALE — lief vor 1030806s | HB: OK (16s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-13 15:28:08 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.420 | $72.05 USDC | Will PSG win the 2025–26 Champions League?)
-2026-05-13 15:28:08 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.420 | $7.40 USDC | Will PSG win the 2025–26 Champions League?)
-2026-05-13 15:28:08 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.420 | $1925.95 USDC | Will PSG win the 2025–26 Champions League?)
-2026-05-13 15:28:08 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.420 | $6.52 USDC | Will PSG win the 2025–26 Champions League?)
-2026-05-13 15:28:08 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.420 | $7.24 USDC | Will PSG win the 2025–26 Champions League?)
+2026-05-13 18:04:19 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.570 | $19.38 USDC | Manchester City FC vs. Crystal Palace FC: O/U 3.5)
+2026-05-13 18:04:19 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.570 | $19.38 USDC | Manchester City FC vs. Crystal Palace FC: O/U 3.5)
+2026-05-13 18:04:19 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY New York Yankees @ $0.440 | $3175.07 USDC | New York Yankees vs. Baltimore Orioles)
+2026-05-13 18:04:19 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY New York Yankees @ $0.440 | $82.40 USDC | New York Yankees vs. Baltimore Orioles)
+2026-05-13 18:04:19 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY New York Yankees @ $0.440 | $25.52 USDC | New York Yankees vs. Baltimore Orioles)
 ```
 
 ## Letzte Fehler (3)

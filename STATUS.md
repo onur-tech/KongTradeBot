@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-13 23:01:23 UTC
+> 2026-05-13 23:06:24 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 1048497s | HB: WARNUNG 475s alt
+STALE — lief vor 1048798s | HB: OK (42s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-13 20:43:05 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.700 | $350.00 USDC | Will Deportivo Alavés vs. FC Barcelona end in a draw?)
-2026-05-13 20:43:05 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.420 | $7.24 USDC | Will PSG win the 2025–26 Champions League?)
-2026-05-13 20:43:05 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY BetBoom Team @ $0.610 | $21.90 USDC | Counter-Strike: BetBoom Team vs paiN (BO3) - IEM Atlanta Gro)
-2026-05-13 20:43:05 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY BetBoom Team @ $0.610 | $116.13 USDC | Counter-Strike: BetBoom Team vs paiN (BO3) - IEM Atlanta Gro)
-2026-05-13 20:43:05 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.420 | $23.28 USDC | Will PSG win the 2025–26 Champions League?)
+2026-05-13 23:01:44 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.420 | $42.61 USDC | Will PSG win the 2025–26 Champions League?)
+2026-05-13 23:01:44 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.420 | $10.50 USDC | Will PSG win the 2025–26 Champions League?)
+2026-05-13 23:01:44 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Rafael Jodar @ $0.660 | $5580.44 USDC | Internazionali BNL d'Italia: Rafael Jodar vs Luciano Darderi)
+2026-05-13 23:01:44 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.420 | $1448.28 USDC | Will PSG win the 2025–26 Champions League?)
+2026-05-13 23:01:44 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Rafael Jodar @ $0.600 | $365.14 USDC | Internazionali BNL d'Italia: Rafael Jodar vs Luciano Darderi)
 ```
 
 ## Letzte Fehler (3)

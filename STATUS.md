@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-13 03:24:35 UTC
+> 2026-05-13 03:29:33 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 977889s | HB: OK (259s alt)
+STALE — lief vor 978187s | HB: OK (9s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-13 01:16:09 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Miami Marlins @ $0.490 | $2078.55 USDC | Miami Marlins vs. Minnesota Twins)
-2026-05-13 01:16:09 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Canadiens @ $0.710 | $63.90 USDC | Sabres vs. Canadiens)
-2026-05-13 01:16:09 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Canadiens @ $0.710 | $171.35 USDC | Sabres vs. Canadiens)
-2026-05-13 01:16:09 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Spurs @ $0.840 | $183.28 USDC | Timberwolves vs. Spurs)
-2026-05-13 01:16:09 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Cincinnati Reds @ $0.060 | $343.25 USDC | Washington Nationals vs. Cincinnati Reds)
+2026-05-13 03:28:26 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.052 | $10.40 USDC | Will Germany win the 2026 FIFA World Cup?)
+2026-05-13 03:28:26 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Ducks @ $0.420 | $443.10 USDC | Ducks vs. Golden Knights)
+2026-05-13 03:28:26 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Ducks @ $0.420 | $19.02 USDC | Ducks vs. Golden Knights)
+2026-05-13 03:28:26 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Golden Knights @ $0.460 | $1235.10 USDC | Ducks vs. Golden Knights)
+2026-05-13 03:28:26 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Golden Knights @ $0.460 | $144.90 USDC | Ducks vs. Golden Knights)
 ```
 
 ## Letzte Fehler (3)

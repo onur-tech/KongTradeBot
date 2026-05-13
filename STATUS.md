@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-13 10:25:25 UTC
+> 2026-05-13 10:30:35 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 1003139s | HB: WARNUNG 460s alt
+STALE — lief vor 1003449s | HB: OK (39s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-13 08:05:33 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.340 | $6.79 USDC | Games Total: O/U 2.5)
-2026-05-13 08:05:33 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Keegan Smith @ $0.945 | $30.11 USDC | Bengaluru 2: Keegan Smith vs Dominik Palan)
-2026-05-13 08:05:33 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Keegan Smith @ $0.945 | $1007.37 USDC | Bengaluru 2: Keegan Smith vs Dominik Palan)
-2026-05-13 08:05:33 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.350 | $7.00 USDC | Games Total: O/U 2.5)
-2026-05-13 08:05:33 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Monte @ $0.330 | $20.97 USDC | Map Handicap: G2 (-1.5) vs Monte (+1.5))
+2026-05-13 10:26:58 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Aurora Gaming @ $0.470 | $18025.14 USDC | Counter-Strike: TheMongolz vs Aurora Gaming (BO3) - PGL Asta)
+2026-05-13 10:26:58 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.420 | $21.72 USDC | Will PSG win the 2025–26 Champions League?)
+2026-05-13 10:26:58 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.420 | $1260.00 USDC | Will PSG win the 2025–26 Champions League?)
+2026-05-13 10:26:58 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.420 | $23.90 USDC | Will PSG win the 2025–26 Champions League?)
+2026-05-13 10:26:58 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.420 | $5.15 USDC | Will PSG win the 2025–26 Champions League?)
 ```
 
 ## Letzte Fehler (3)

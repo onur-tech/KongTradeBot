@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-14 16:13:23 UTC
+> 2026-05-14 16:18:26 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 1110417s | HB: STALE 754s alt (Bot moeglicherweise haengend)
+STALE — lief vor 1110720s | HB: OK (54s alt)
 ```
 
 ## Portfolio
@@ -38,8 +38,8 @@ PnL heute:     $0.00
 ## Letzte Fehler (3)
 ```
 The above exception was the direct cause of the following exception:
-raise client_error(req.connection_key, exc) from exc
-aiohttp.client_exceptions.ClientConnectorError: Cannot connect to host api.telegram.org:443 ssl:default [Multiple exceptions: [Errno 111] Connect call failed ('2001:67c:4e8:f004::9', 443, 0, 0), [Errno 111] Connect call failed ('149.154.166.110', 443)]
+raise asyncio.TimeoutError from exc_val
+TimeoutError
 ```
 
 ---

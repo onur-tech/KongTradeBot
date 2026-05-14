@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-14 05:30:56 UTC
+> 2026-05-14 05:36:03 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 1071870s | HB: WARNUNG 510s alt
+STALE — lief vor 1072177s | HB: OK (57s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-14 03:33:26 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Cavaliers @ $0.910 | $4976.79 USDC | Cavaliers vs. Pistons)
-2026-05-14 03:33:26 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Cavaliers @ $0.910 | $18.96 USDC | Cavaliers vs. Pistons)
-2026-05-14 03:33:26 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Cavaliers @ $0.910 | $91.28 USDC | Cavaliers vs. Pistons)
-2026-05-14 03:33:26 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Cavaliers @ $0.910 | $746.81 USDC | Cavaliers vs. Pistons)
-2026-05-14 03:33:26 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Los Angeles Dodgers @ $0.860 | $17200.00 USDC | San Francisco Giants vs. Los Angeles Dodgers)
+2026-05-14 05:34:07 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.740 | $164.28 USDC | Confirmed case of Hantavirus in US by May 15?)
+2026-05-14 05:34:07 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.760 | $76.00 USDC | Confirmed case of Hantavirus in US by May 15?)
+2026-05-14 05:34:08 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Sorana Cirstea @ $0.310 | $233.28 USDC | Internazionali BNL d'Italia: Sorana Cirstea vs Coco Gauff)
+2026-05-14 05:34:08 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Sorana Cirstea @ $0.310 | $76.08 USDC | Internazionali BNL d'Italia: Sorana Cirstea vs Coco Gauff)
+2026-05-14 05:34:08 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.016 | $6.40 USDC | Will Morocco win the 2026 FIFA World Cup?)
 ```
 
 ## Letzte Fehler (3)

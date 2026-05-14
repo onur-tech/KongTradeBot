@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-14 18:29:26 UTC
+> 2026-05-14 18:34:41 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 1118581s | HB: WARNUNG 617s alt
+STALE — lief vor 1118895s | HB: OK (35s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-14 16:42:40 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Cincinnati Reds @ $0.580 | $7.59 USDC | Washington Nationals vs. Cincinnati Reds)
-2026-05-14 16:42:40 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Cincinnati Reds @ $0.580 | $28.04 USDC | Washington Nationals vs. Cincinnati Reds)
-2026-05-14 16:42:40 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Cincinnati Reds @ $0.580 | $110.48 USDC | Washington Nationals vs. Cincinnati Reds)
-2026-05-14 16:42:40 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Cincinnati Reds @ $0.580 | $202.74 USDC | Washington Nationals vs. Cincinnati Reds)
-2026-05-14 16:42:40 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.880 | $5587.46 USDC | Will Wes Streeting be the next Prime Minister of the United )
+2026-05-14 18:32:07 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.710 | $29.16 USDC | Will Girona FC win on 2026-05-14?)
+2026-05-14 18:32:07 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.680 | $10.62 USDC | Girona FC vs. Real Sociedad de Fútbol: O/U 2.5)
+2026-05-14 18:32:07 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Daniil Medvedev @ $0.620 | $158.34 USDC | Internazionali BNL d'Italia: Martin Landaluce vs Daniil Medv)
+2026-05-14 18:32:07 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.900 | $17.10 USDC | Girona FC vs. Real Sociedad de Fútbol: O/U 1.5)
+2026-05-14 18:32:08 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Athletics @ $0.530 | $5.64 USDC | St. Louis Cardinals vs. Athletics)
 ```
 
 ## Letzte Fehler (3)

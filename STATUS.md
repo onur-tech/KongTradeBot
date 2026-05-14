@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-14 01:13:43 UTC
+> 2026-05-14 01:18:43 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 1056437s | HB: WARNUNG 457s alt
+STALE — lief vor 1056737s | HB: OK (33s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-13 23:01:44 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.420 | $42.61 USDC | Will PSG win the 2025–26 Champions League?)
-2026-05-13 23:01:44 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.420 | $10.50 USDC | Will PSG win the 2025–26 Champions League?)
-2026-05-13 23:01:44 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Rafael Jodar @ $0.660 | $5580.44 USDC | Internazionali BNL d'Italia: Rafael Jodar vs Luciano Darderi)
-2026-05-13 23:01:44 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.420 | $1448.28 USDC | Will PSG win the 2025–26 Champions League?)
-2026-05-13 23:01:44 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Rafael Jodar @ $0.600 | $365.14 USDC | Internazionali BNL d'Italia: Rafael Jodar vs Luciano Darderi)
+2026-05-14 01:14:12 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Wild @ $0.660 | $9.71 USDC | Wild vs. Avalanche)
+2026-05-14 01:14:12 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Wild @ $0.660 | $167.79 USDC | Wild vs. Avalanche)
+2026-05-14 01:14:12 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Wild @ $0.660 | $5.82 USDC | Wild vs. Avalanche)
+2026-05-14 01:14:12 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Wild @ $0.660 | $136.00 USDC | Wild vs. Avalanche)
+2026-05-14 01:14:12 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Pistons @ $0.610 | $1704.35 USDC | Cavaliers vs. Pistons)
 ```
 
 ## Letzte Fehler (3)

@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-14 16:38:30 UTC
+> 2026-05-14 16:43:32 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 1111924s | HB: WARNUNG 598s alt
+STALE — lief vor 1112227s | HB: OK (55s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-14 13:59:35 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Zizou Bergs @ $0.470 | $34.78 USDC | Valencia: Roberto Bautista Agut vs Zizou Bergs)
-2026-05-14 13:59:35 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Terence Atmane @ $0.460 | $51.89 USDC | Bordeaux: Titouan Droguet vs Terence Atmane)
-2026-05-14 13:59:36 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Pittsburgh Pirates @ $0.610 | $14.74 USDC | Colorado Rockies vs. Pittsburgh Pirates)
-2026-05-14 13:59:36 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Pittsburgh Pirates @ $0.610 | $7.37 USDC | Colorado Rockies vs. Pittsburgh Pirates)
-2026-05-14 13:59:36 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Pittsburgh Pirates @ $0.610 | $23.34 USDC | Colorado Rockies vs. Pittsburgh Pirates)
+2026-05-14 16:42:40 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Cincinnati Reds @ $0.580 | $7.59 USDC | Washington Nationals vs. Cincinnati Reds)
+2026-05-14 16:42:40 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Cincinnati Reds @ $0.580 | $28.04 USDC | Washington Nationals vs. Cincinnati Reds)
+2026-05-14 16:42:40 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Cincinnati Reds @ $0.580 | $110.48 USDC | Washington Nationals vs. Cincinnati Reds)
+2026-05-14 16:42:40 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Cincinnati Reds @ $0.580 | $202.74 USDC | Washington Nationals vs. Cincinnati Reds)
+2026-05-14 16:42:40 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.880 | $5587.46 USDC | Will Wes Streeting be the next Prime Minister of the United )
 ```
 
 ## Letzte Fehler (3)

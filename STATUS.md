@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-14 21:20:17 UTC
+> 2026-05-14 21:25:16 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 1128831s | HB: WARNUNG 685s alt
+STALE — lief vor 1129130s | HB: OK (24s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-14 18:32:07 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.710 | $29.16 USDC | Will Girona FC win on 2026-05-14?)
-2026-05-14 18:32:07 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.680 | $10.62 USDC | Girona FC vs. Real Sociedad de Fútbol: O/U 2.5)
-2026-05-14 18:32:07 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Daniil Medvedev @ $0.620 | $158.34 USDC | Internazionali BNL d'Italia: Martin Landaluce vs Daniil Medv)
-2026-05-14 18:32:07 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.900 | $17.10 USDC | Girona FC vs. Real Sociedad de Fútbol: O/U 1.5)
-2026-05-14 18:32:08 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Athletics @ $0.530 | $5.64 USDC | St. Louis Cardinals vs. Athletics)
+2026-05-14 21:23:53 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Philadelphia Phillies @ $0.480 | $960.00 USDC | Philadelphia Phillies vs. Boston Red Sox)
+2026-05-14 21:23:53 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Philadelphia Phillies @ $0.480 | $6.46 USDC | Philadelphia Phillies vs. Boston Red Sox)
+2026-05-14 21:23:53 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Philadelphia Phillies @ $0.480 | $8.16 USDC | Philadelphia Phillies vs. Boston Red Sox)
+2026-05-14 21:23:53 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Philadelphia Phillies @ $0.480 | $9.23 USDC | Philadelphia Phillies vs. Boston Red Sox)
+2026-05-14 21:23:53 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Philadelphia Phillies @ $0.480 | $5.88 USDC | Philadelphia Phillies vs. Boston Red Sox)
 ```
 
 ## Letzte Fehler (3)

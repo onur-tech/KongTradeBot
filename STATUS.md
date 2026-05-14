@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-14 23:37:46 UTC
+> 2026-05-14 23:42:46 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 1137080s | HB: OK (215s alt)
+STALE — lief vor 1137380s | HB: OK (27s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-14 21:23:53 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Philadelphia Phillies @ $0.480 | $960.00 USDC | Philadelphia Phillies vs. Boston Red Sox)
-2026-05-14 21:23:53 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Philadelphia Phillies @ $0.480 | $6.46 USDC | Philadelphia Phillies vs. Boston Red Sox)
-2026-05-14 21:23:53 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Philadelphia Phillies @ $0.480 | $8.16 USDC | Philadelphia Phillies vs. Boston Red Sox)
-2026-05-14 21:23:53 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Philadelphia Phillies @ $0.480 | $9.23 USDC | Philadelphia Phillies vs. Boston Red Sox)
-2026-05-14 21:23:53 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Philadelphia Phillies @ $0.480 | $5.88 USDC | Philadelphia Phillies vs. Boston Red Sox)
+2026-05-14 23:42:21 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.016 | $5.29 USDC | Will Morocco win the 2026 FIFA World Cup?)
+2026-05-14 23:42:21 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Chicago White Sox @ $0.440 | $78.57 USDC | Kansas City Royals vs. Chicago White Sox)
+2026-05-14 23:42:21 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Chicago White Sox @ $0.440 | $48.45 USDC | Kansas City Royals vs. Chicago White Sox)
+2026-05-14 23:42:21 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Chicago White Sox @ $0.440 | $48.40 USDC | Kansas City Royals vs. Chicago White Sox)
+2026-05-14 23:42:21 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Chicago White Sox @ $0.440 | $84.86 USDC | Kansas City Royals vs. Chicago White Sox)
 ```
 
 ## Letzte Fehler (3)

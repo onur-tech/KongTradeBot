@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-14 13:56:53 UTC
+> 2026-05-14 14:01:53 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 1102227s | HB: WARNUNG 573s alt
+STALE — lief vor 1102527s | HB: OK (19s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-14 11:12:49 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $2101.47 USDC | Will Arsenal FC win on 2026-02-22?)
-2026-05-14 11:12:49 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $95.32 USDC | Will Arsenal FC win on 2026-02-22?)
-2026-05-14 11:12:49 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $14.30 USDC | Will Arsenal FC win on 2026-02-22?)
-2026-05-14 11:12:49 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $4629.80 USDC | Will Arsenal FC win on 2026-02-22?)
-2026-05-14 11:12:49 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $31.43 USDC | Will Arsenal FC win on 2026-02-22?)
+2026-05-14 13:59:35 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Zizou Bergs @ $0.470 | $34.78 USDC | Valencia: Roberto Bautista Agut vs Zizou Bergs)
+2026-05-14 13:59:35 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Terence Atmane @ $0.460 | $51.89 USDC | Bordeaux: Titouan Droguet vs Terence Atmane)
+2026-05-14 13:59:36 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Pittsburgh Pirates @ $0.610 | $14.74 USDC | Colorado Rockies vs. Pittsburgh Pirates)
+2026-05-14 13:59:36 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Pittsburgh Pirates @ $0.610 | $7.37 USDC | Colorado Rockies vs. Pittsburgh Pirates)
+2026-05-14 13:59:36 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Pittsburgh Pirates @ $0.610 | $23.34 USDC | Colorado Rockies vs. Pittsburgh Pirates)
 ```
 
 ## Letzte Fehler (3)

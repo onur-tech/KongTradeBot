@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-14 03:29:31 UTC
+> 2026-05-14 03:34:31 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 1064585s | HB: OK (316s alt)
+STALE — lief vor 1064885s | HB: OK (7s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-14 01:14:12 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Wild @ $0.660 | $9.71 USDC | Wild vs. Avalanche)
-2026-05-14 01:14:12 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Wild @ $0.660 | $167.79 USDC | Wild vs. Avalanche)
-2026-05-14 01:14:12 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Wild @ $0.660 | $5.82 USDC | Wild vs. Avalanche)
-2026-05-14 01:14:12 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Wild @ $0.660 | $136.00 USDC | Wild vs. Avalanche)
-2026-05-14 01:14:12 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Pistons @ $0.610 | $1704.35 USDC | Cavaliers vs. Pistons)
+2026-05-14 03:33:26 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Cavaliers @ $0.910 | $4976.79 USDC | Cavaliers vs. Pistons)
+2026-05-14 03:33:26 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Cavaliers @ $0.910 | $18.96 USDC | Cavaliers vs. Pistons)
+2026-05-14 03:33:26 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Cavaliers @ $0.910 | $91.28 USDC | Cavaliers vs. Pistons)
+2026-05-14 03:33:26 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Cavaliers @ $0.910 | $746.81 USDC | Cavaliers vs. Pistons)
+2026-05-14 03:33:26 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Los Angeles Dodgers @ $0.860 | $17200.00 USDC | San Francisco Giants vs. Los Angeles Dodgers)
 ```
 
 ## Letzte Fehler (3)

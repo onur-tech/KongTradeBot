@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-15 08:37:23 UTC
+> 2026-05-15 08:42:33 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 1169457s | HB: OK (327s alt)
+STALE — lief vor 1169767s | HB: OK (5s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-15 06:21:02 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $2101.47 USDC | Will Arsenal FC win on 2026-02-22?)
-2026-05-15 06:21:02 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $95.32 USDC | Will Arsenal FC win on 2026-02-22?)
-2026-05-15 06:21:02 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $14.30 USDC | Will Arsenal FC win on 2026-02-22?)
-2026-05-15 06:21:02 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $4629.80 USDC | Will Arsenal FC win on 2026-02-22?)
-2026-05-15 06:21:02 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $31.43 USDC | Will Arsenal FC win on 2026-02-22?)
+2026-05-15 08:42:30 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Spirit @ $0.810 | $239.15 USDC | Counter-Strike: Spirit vs G2 (BO3) - PGL Astana Playoffs)
+2026-05-15 08:42:30 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Spirit @ $0.880 | $589.05 USDC | Counter-Strike: Spirit vs G2 - Map 1 Winner)
+2026-05-15 08:42:30 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Spirit @ $0.590 | $455.10 USDC | Counter-Strike: Spirit vs G2 - Map 2 Winner)
+2026-05-15 08:42:30 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Spirit @ $0.870 | $1745.34 USDC | Counter-Strike: Spirit vs G2 - Map 1 Winner)
+2026-05-15 08:42:31 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Pistons @ $0.380 | $85.12 USDC | Pistons vs. Cavaliers)
 ```
 
 ## Letzte Fehler (3)

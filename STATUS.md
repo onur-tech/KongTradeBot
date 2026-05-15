@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-15 17:07:46 UTC
+> 2026-05-15 17:12:47 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 1200080s | HB: STALE 703s alt (Bot moeglicherweise haengend)
+STALE — lief vor 1200381s | HB: OK (46s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-15 13:58:46 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Emilio Nava @ $0.720 | $234.09 USDC | Oeiras 4: Jaime Faria vs Emilio Nava)
-2026-05-15 13:58:46 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.350 | $8.92 USDC | Will Qingdao Xihaian FC win on 2026-05-15?)
-2026-05-15 13:58:46 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Barbora Krejcikova @ $0.840 | $57.40 USDC | Parma: Camila Osorio vs Barbora Krejcikova)
-2026-05-15 13:58:46 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Pistons @ $0.380 | $7.55 USDC | Pistons vs. Cavaliers)
-2026-05-15 13:58:46 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Pistons @ $0.380 | $24.09 USDC | Pistons vs. Cavaliers)
+2026-05-15 17:10:03 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.800 | $178.72 USDC | Will Damac Saudi Club vs. Al Fayha Saudi Club end in a draw?)
+2026-05-15 17:10:03 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY FURIA @ $0.640 | $459.88 USDC | Counter-Strike: FURIA vs Team Falcons - Map 2 Winner)
+2026-05-15 17:10:03 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Pistons @ $0.380 | $6.13 USDC | Pistons vs. Cavaliers)
+2026-05-15 17:10:03 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.023 | $50.00 USDC | Will Norway win the 2026 FIFA World Cup?)
+2026-05-15 17:10:03 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.016 | $50.00 USDC | Will Morocco win the 2026 FIFA World Cup?)
 ```
 
 ## Letzte Fehler (3)

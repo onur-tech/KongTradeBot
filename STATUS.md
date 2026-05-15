@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-15 13:55:23 UTC
+> 2026-05-15 14:00:23 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 1188537s | HB: WARNUNG 445s alt
+STALE — lief vor 1188838s | HB: OK (40s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-15 10:46:45 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Dusan Lajovic @ $0.520 | $554.47 USDC | Valencia: Alejandro Tabilo vs Dusan Lajovic)
-2026-05-15 10:46:45 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yulia Starodubtseva @ $0.515 | $1748.00 USDC | Paris: Katie Volynets vs Yulia Starodubtseva)
-2026-05-15 10:46:45 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Keegan Smith @ $0.680 | $27.62 USDC | Bengaluru 2: Keegan Smith vs Ilya Ivashka)
-2026-05-15 10:46:46 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Pistons @ $0.380 | $5.74 USDC | Pistons vs. Cavaliers)
-2026-05-15 10:46:46 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Pistons @ $0.380 | $9.74 USDC | Pistons vs. Cavaliers)
+2026-05-15 13:58:46 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Emilio Nava @ $0.720 | $234.09 USDC | Oeiras 4: Jaime Faria vs Emilio Nava)
+2026-05-15 13:58:46 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.350 | $8.92 USDC | Will Qingdao Xihaian FC win on 2026-05-15?)
+2026-05-15 13:58:46 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Barbora Krejcikova @ $0.840 | $57.40 USDC | Parma: Camila Osorio vs Barbora Krejcikova)
+2026-05-15 13:58:46 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Pistons @ $0.380 | $7.55 USDC | Pistons vs. Cavaliers)
+2026-05-15 13:58:46 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Pistons @ $0.380 | $24.09 USDC | Pistons vs. Cavaliers)
 ```
 
 ## Letzte Fehler (3)

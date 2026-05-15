@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-15 23:32:19 UTC
+> 2026-05-15 23:37:22 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 1223153s | HB: OK (308s alt)
+STALE — lief vor 1223456s | HB: OK (8s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-15 21:19:49 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.510 | $81.86 USDC | FC Cajamarca vs. CS Cristal: O/U 2.5)
-2026-05-15 21:19:49 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.282 | $44.20 USDC | Will FC Cajamarca vs. CS Cristal end in a draw?)
-2026-05-15 21:19:49 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.820 | $122.67 USDC | FC Cajamarca vs. CS Cristal: O/U 1.5)
-2026-05-15 21:19:49 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Jannik Sinner @ $0.904 | $700.64 USDC | Internazionali BNL d'Italia: Jannik Sinner vs Daniil Medvede)
-2026-05-15 21:19:49 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Pistons @ $0.380 | $186.03 USDC | Pistons vs. Cavaliers)
+2026-05-15 23:35:16 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.640 | $4480.14 USDC | FC St. Pauli 1910 vs. VfL Wolfsburg: O/U 3.5)
+2026-05-15 23:35:16 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.490 | $1616.76 USDC | CD Palestino vs. CD La Serena: O/U 2.5)
+2026-05-15 23:35:16 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Jannik Sinner @ $0.903 | $911.05 USDC | Internazionali BNL d'Italia: Jannik Sinner vs Daniil Medvede)
+2026-05-15 23:35:16 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.570 | $8.97 USDC | Will SD Eibar win on 2026-05-16?)
+2026-05-15 23:35:16 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.570 | $81.01 USDC | Will SD Eibar win on 2026-05-16?)
 ```
 
 ## Letzte Fehler (3)

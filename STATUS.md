@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-15 01:49:08 UTC
+> 2026-05-15 01:54:23 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 1144962s | HB: OK (193s alt)
+STALE — lief vor 1145277s | HB: OK (44s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-14 23:42:21 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.016 | $5.29 USDC | Will Morocco win the 2026 FIFA World Cup?)
-2026-05-14 23:42:21 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Chicago White Sox @ $0.440 | $78.57 USDC | Kansas City Royals vs. Chicago White Sox)
-2026-05-14 23:42:21 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Chicago White Sox @ $0.440 | $48.45 USDC | Kansas City Royals vs. Chicago White Sox)
-2026-05-14 23:42:21 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Chicago White Sox @ $0.440 | $48.40 USDC | Kansas City Royals vs. Chicago White Sox)
-2026-05-14 23:42:21 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Chicago White Sox @ $0.440 | $84.86 USDC | Kansas City Royals vs. Chicago White Sox)
+2026-05-15 01:53:40 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Los Angeles Dodgers @ $0.610 | $10281.04 USDC | San Francisco Giants vs. Los Angeles Dodgers)
+2026-05-15 01:53:40 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.410 | $36.90 USDC | Will PSG win the 2025–26 Champions League?)
+2026-05-15 01:53:40 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.410 | $401.08 USDC | Will PSG win the 2025–26 Champions League?)
+2026-05-15 01:53:40 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.410 | $27744.70 USDC | Will PSG win the 2025–26 Champions League?)
+2026-05-15 01:53:40 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.410 | $29125.02 USDC | Will PSG win the 2025–26 Champions League?)
 ```
 
 ## Letzte Fehler (3)

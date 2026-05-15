@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-15 04:00:23 UTC
+> 2026-05-15 04:05:23 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 1152837s | HB: OK (233s alt)
+STALE — lief vor 1153137s | HB: OK (54s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-15 01:53:40 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Los Angeles Dodgers @ $0.610 | $10281.04 USDC | San Francisco Giants vs. Los Angeles Dodgers)
-2026-05-15 01:53:40 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.410 | $36.90 USDC | Will PSG win the 2025–26 Champions League?)
-2026-05-15 01:53:40 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.410 | $401.08 USDC | Will PSG win the 2025–26 Champions League?)
-2026-05-15 01:53:40 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.410 | $27744.70 USDC | Will PSG win the 2025–26 Champions League?)
-2026-05-15 01:53:40 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.410 | $29125.02 USDC | Will PSG win the 2025–26 Champions League?)
+2026-05-15 04:04:31 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Dooho Choi @ $0.390 | $14.24 USDC | UFC Fight Night: Dooho Choi vs. Daniel Santos (Featherweight)
+2026-05-15 04:04:31 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Dooho Choi @ $0.390 | $19.09 USDC | UFC Fight Night: Dooho Choi vs. Daniel Santos (Featherweight)
+2026-05-15 04:04:31 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.410 | $69.49 USDC | Will PSG win the 2025–26 Champions League?)
+2026-05-15 04:04:31 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.410 | $69.48 USDC | Will PSG win the 2025–26 Champions League?)
+2026-05-15 04:04:31 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.410 | $39.53 USDC | Will PSG win the 2025–26 Champions League?)
 ```
 
 ## Letzte Fehler (3)

@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-16 06:20:28 UTC
+> 2026-05-16 06:25:28 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 1247642s | HB: WARNUNG 548s alt
+STALE — lief vor 1247942s | HB: OK (8s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-16 04:00:59 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $2101.47 USDC | Will Arsenal FC win on 2026-02-22?)
-2026-05-16 04:00:59 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $95.32 USDC | Will Arsenal FC win on 2026-02-22?)
-2026-05-16 04:00:59 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $14.30 USDC | Will Arsenal FC win on 2026-02-22?)
-2026-05-16 04:00:59 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $4629.80 USDC | Will Arsenal FC win on 2026-02-22?)
-2026-05-16 04:00:59 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $31.43 USDC | Will Arsenal FC win on 2026-02-22?)
+2026-05-16 06:21:22 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.310 | $35.48 USDC | Albirex Niigata vs. Nara Club: O/U 3.5)
+2026-05-16 06:21:22 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.350 | $5.06 USDC | FC Mito Holly Hock vs. Tōkyō Verdy: O/U 1.5)
+2026-05-16 06:21:22 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.920 | $165.08 USDC | Will Hokkaidō Consadole Sapporo win on 2026-05-16?)
+2026-05-16 06:21:22 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.520 | $3640.11 USDC | 1. FC Union Berlin vs. FC Augsburg: O/U 3.5)
+2026-05-16 06:21:22 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.920 | $476.61 USDC | Will Vanraure Hachinohe FC win on 2026-05-16?)
 ```
 
 ## Letzte Fehler (3)

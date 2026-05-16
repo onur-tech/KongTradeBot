@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-16 14:19:35 UTC
+> 2026-05-16 14:24:35 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 1276389s | HB: WARNUNG 697s alt
+STALE — lief vor 1276689s | HB: OK (21s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-16 11:39:04 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.200 | $49.40 USDC | Celtic FC vs. Heart of Midlothian FC: O/U 1.5)
-2026-05-16 11:39:04 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Dayana Yastremska @ $0.781 | $1631.76 USDC | Parma: Dayana Yastremska vs Jessica Bouzas Maneiro)
-2026-05-16 11:39:04 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Taro Daniel @ $0.110 | $88.32 USDC | Hamburg European Open, Qualification: Rinky Hijikata vs Taro)
-2026-05-16 11:39:04 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.600 | $882.50 USDC | Wuhan San Zhen FC vs. Liaoning Tieren FC: O/U 3.5)
-2026-05-16 11:39:04 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.430 | $324.58 USDC | Celtic FC vs. Heart of Midlothian FC: Both Teams to Score)
+2026-05-16 14:20:16 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Daniil Medvedev @ $0.034 | $27.72 USDC | Internazionali BNL d'Italia: Jannik Sinner vs Daniil Medvede)
+2026-05-16 14:20:16 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.930 | $978.40 USDC | Will 1. FC Heidenheim 1846 win on 2026-05-16?)
+2026-05-16 14:20:16 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Daniil Medvedev @ $0.041 | $124.27 USDC | Internazionali BNL d'Italia: Jannik Sinner vs Daniil Medvede)
+2026-05-16 14:20:16 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Amandine Hesse @ $0.100 | $26.19 USDC | GP SAR La Princesse Lalla Meryem, Qualification: Amandine He)
+2026-05-16 14:20:16 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yulia Starodubtseva @ $0.371 | $297.70 USDC | Paris: Madison Keys vs Yulia Starodubtseva)
 ```
 
 ## Letzte Fehler (3)

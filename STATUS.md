@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-16 16:56:18 UTC
+> 2026-05-16 17:01:18 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 1285792s | HB: WARNUNG 636s alt
+STALE — lief vor 1286092s | HB: OK (17s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-16 14:20:16 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Daniil Medvedev @ $0.034 | $27.72 USDC | Internazionali BNL d'Italia: Jannik Sinner vs Daniil Medvede)
-2026-05-16 14:20:16 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.930 | $978.40 USDC | Will 1. FC Heidenheim 1846 win on 2026-05-16?)
-2026-05-16 14:20:16 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Daniil Medvedev @ $0.041 | $124.27 USDC | Internazionali BNL d'Italia: Jannik Sinner vs Daniil Medvede)
-2026-05-16 14:20:16 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Amandine Hesse @ $0.100 | $26.19 USDC | GP SAR La Princesse Lalla Meryem, Qualification: Amandine He)
-2026-05-16 14:20:16 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yulia Starodubtseva @ $0.371 | $297.70 USDC | Paris: Madison Keys vs Yulia Starodubtseva)
+2026-05-16 16:58:03 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.700 | $39.53 USDC | FK Csíkszereda Miercurea Ciuc vs. FC Botoşani: O/U 3.5)
+2026-05-16 16:58:03 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.730 | $5.41 USDC | FK Bodø/Glimt vs. Tromsø IL: Both Teams to Score)
+2026-05-16 16:58:03 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.880 | $107.94 USDC | Will FK Csíkszereda Miercurea Ciuc win on 2026-05-17?)
+2026-05-16 16:58:03 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Coco Gauff @ $0.580 | $631.74 USDC | Internazionali BNL d'Italia: Coco Gauff vs Elina Svitolina)
+2026-05-16 16:58:03 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Coco Gauff @ $0.590 | $1681.86 USDC | Internazionali BNL d'Italia: Coco Gauff vs Elina Svitolina)
 ```
 
 ## Letzte Fehler (3)

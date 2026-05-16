@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-16 19:32:07 UTC
+> 2026-05-16 19:37:12 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 1295141s | HB: WARNUNG 466s alt
+STALE — lief vor 1295446s | HB: OK (49s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-16 16:58:03 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.700 | $39.53 USDC | FK Csíkszereda Miercurea Ciuc vs. FC Botoşani: O/U 3.5)
-2026-05-16 16:58:03 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.730 | $5.41 USDC | FK Bodø/Glimt vs. Tromsø IL: Both Teams to Score)
-2026-05-16 16:58:03 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.880 | $107.94 USDC | Will FK Csíkszereda Miercurea Ciuc win on 2026-05-17?)
-2026-05-16 16:58:03 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Coco Gauff @ $0.580 | $631.74 USDC | Internazionali BNL d'Italia: Coco Gauff vs Elina Svitolina)
-2026-05-16 16:58:03 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Coco Gauff @ $0.590 | $1681.86 USDC | Internazionali BNL d'Italia: Coco Gauff vs Elina Svitolina)
+2026-05-16 19:36:26 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY St. Louis Cardinals @ $0.650 | $387.40 USDC | Kansas City Royals vs. St. Louis Cardinals)
+2026-05-16 19:36:26 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Colorado Rockies @ $0.670 | $98.17 USDC | Arizona Diamondbacks vs. Colorado Rockies)
+2026-05-16 19:36:26 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.410 | $7.64 USDC | Estoril Praia vs. Sport Lisboa e Benfica: Both Teams to Scor)
+2026-05-16 19:36:26 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Toronto Blue Jays @ $0.390 | $138.06 USDC | Toronto Blue Jays vs. Detroit Tigers)
+2026-05-16 19:36:26 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.480 | $92.31 USDC | Will Vålerenga Fotball vs. Sarpsborg 08 FF end in a draw?)
 ```
 
 ## Letzte Fehler (3)

@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-16 11:38:16 UTC
+> 2026-05-16 11:43:16 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 1266710s | HB: STALE 725s alt (Bot moeglicherweise haengend)
+STALE — lief vor 1267010s | HB: OK (15s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-16 08:57:06 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.960 | $120.00 USDC | Will FC Tōkyō win on 2026-05-16?)
-2026-05-16 08:57:06 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.940 | $222.03 USDC | Will FC Tōkyō win on 2026-05-16?)
-2026-05-16 08:57:06 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.390 | $9.80 USDC | Will Celtic FC win on 2026-05-16?)
-2026-05-16 08:57:06 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.900 | $20.77 USDC | Will FC Tōkyō win on 2026-05-16?)
-2026-05-16 08:57:06 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.900 | $18.00 USDC | Will FC Tōkyō win on 2026-05-16?)
+2026-05-16 11:39:04 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.200 | $49.40 USDC | Celtic FC vs. Heart of Midlothian FC: O/U 1.5)
+2026-05-16 11:39:04 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Dayana Yastremska @ $0.781 | $1631.76 USDC | Parma: Dayana Yastremska vs Jessica Bouzas Maneiro)
+2026-05-16 11:39:04 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Taro Daniel @ $0.110 | $88.32 USDC | Hamburg European Open, Qualification: Rinky Hijikata vs Taro)
+2026-05-16 11:39:04 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.600 | $882.50 USDC | Wuhan San Zhen FC vs. Liaoning Tieren FC: O/U 3.5)
+2026-05-16 11:39:04 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.430 | $324.58 USDC | Celtic FC vs. Heart of Midlothian FC: Both Teams to Score)
 ```
 
 ## Letzte Fehler (3)

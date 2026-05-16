@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-16 08:57:00 UTC
+> 2026-05-16 09:01:59 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 1257034s | HB: STALE 752s alt (Bot moeglicherweise haengend)
+STALE — lief vor 1257334s | HB: OK (56s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-16 06:21:22 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.310 | $35.48 USDC | Albirex Niigata vs. Nara Club: O/U 3.5)
-2026-05-16 06:21:22 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.350 | $5.06 USDC | FC Mito Holly Hock vs. Tōkyō Verdy: O/U 1.5)
-2026-05-16 06:21:22 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.920 | $165.08 USDC | Will Hokkaidō Consadole Sapporo win on 2026-05-16?)
-2026-05-16 06:21:22 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.520 | $3640.11 USDC | 1. FC Union Berlin vs. FC Augsburg: O/U 3.5)
-2026-05-16 06:21:22 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.920 | $476.61 USDC | Will Vanraure Hachinohe FC win on 2026-05-16?)
+2026-05-16 08:57:06 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.960 | $120.00 USDC | Will FC Tōkyō win on 2026-05-16?)
+2026-05-16 08:57:06 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.940 | $222.03 USDC | Will FC Tōkyō win on 2026-05-16?)
+2026-05-16 08:57:06 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.390 | $9.80 USDC | Will Celtic FC win on 2026-05-16?)
+2026-05-16 08:57:06 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.900 | $20.77 USDC | Will FC Tōkyō win on 2026-05-16?)
+2026-05-16 08:57:06 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.900 | $18.00 USDC | Will FC Tōkyō win on 2026-05-16?)
 ```
 
 ## Letzte Fehler (3)

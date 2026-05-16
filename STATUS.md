@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-16 03:59:05 UTC
+> 2026-05-16 04:04:05 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 1239159s | HB: WARNUNG 385s alt
+STALE — lief vor 1239460s | HB: OK (9s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-16 01:47:53 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.450 | $59.82 USDC | CD Coquimbo Unido vs. Audax CS Italiano: O/U 2.5)
-2026-05-16 01:47:53 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.450 | $40.91 USDC | CD Coquimbo Unido vs. Audax CS Italiano: O/U 2.5)
-2026-05-16 01:47:53 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.530 | $404.29 USDC | CD Coquimbo Unido vs. Audax CS Italiano: O/U 2.5)
-2026-05-16 01:47:53 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.990 | $9.89 USDC | Will Club Aurora win on 2026-05-15?)
-2026-05-16 01:47:53 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.990 | $6.93 USDC | Will Club Aurora win on 2026-05-15?)
+2026-05-16 04:00:59 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $2101.47 USDC | Will Arsenal FC win on 2026-02-22?)
+2026-05-16 04:00:59 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $95.32 USDC | Will Arsenal FC win on 2026-02-22?)
+2026-05-16 04:00:59 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $14.30 USDC | Will Arsenal FC win on 2026-02-22?)
+2026-05-16 04:00:59 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $4629.80 USDC | Will Arsenal FC win on 2026-02-22?)
+2026-05-16 04:00:59 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $31.43 USDC | Will Arsenal FC win on 2026-02-22?)
 ```
 
 ## Letzte Fehler (3)

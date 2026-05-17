@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-17 18:15:04 UTC
+> 2026-05-17 18:20:13 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 1376918s | HB: STALE 778s alt (Bot moeglicherweise haengend)
+STALE — lief vor 1377227s | HB: OK (45s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-17 15:35:14 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.520 | $215.28 USDC | Everton FC vs. Sunderland AFC: O/U 2.5)
-2026-05-17 15:35:14 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.510 | $20.82 USDC | Will Leeds United FC vs. Brighton & Hove Albion FC end in a )
-2026-05-17 15:35:14 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Adolfo Vallejo @ $0.680 | $118.32 USDC | Valencia: Miomir Kecmanovic vs Adolfo Vallejo)
-2026-05-17 15:35:14 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.520 | $536.89 USDC | Everton FC vs. Sunderland AFC: O/U 2.5)
-2026-05-17 15:35:14 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Boston Red Sox @ $0.410 | $168.49 USDC | Boston Red Sox vs. Atlanta Braves)
+2026-05-17 18:16:30 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.330 | $123.13 USDC | Kansas City Royals vs. St. Louis Cardinals: O/U 7.5)
+2026-05-17 18:16:30 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.500 | $3500.11 USDC | Will Olympique de Marseille win on 2026-05-17?)
+2026-05-17 18:16:30 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.440 | $652.19 USDC | Will RCD Espanyol de Barcelona win on 2026-05-17?)
+2026-05-17 18:16:30 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Kansas City Royals @ $0.460 | $482.72 USDC | Kansas City Royals vs. St. Louis Cardinals)
+2026-05-17 18:16:30 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.290 | $11.81 USDC | CA Osasuna vs. RCD Espanyol de Barcelona: O/U 4.5)
 ```
 
 ## Letzte Fehler (3)

@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-17 10:14:41 UTC
+> 2026-05-17 10:19:42 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 1348095s | HB: STALE 783s alt (Bot moeglicherweise haengend)
+STALE — lief vor 1348397s | HB: OK (31s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-17 07:30:45 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.390 | $25.88 USDC | Reilac Shiga vs. Giravanz Kitakyūshū: O/U 1.5)
-2026-05-17 07:30:45 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.390 | $31.97 USDC | Reilac Shiga vs. Giravanz Kitakyūshū: O/U 1.5)
-2026-05-17 07:30:45 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.390 | $31.97 USDC | Reilac Shiga vs. Giravanz Kitakyūshū: O/U 1.5)
-2026-05-17 07:30:45 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.390 | $31.97 USDC | Reilac Shiga vs. Giravanz Kitakyūshū: O/U 1.5)
-2026-05-17 07:30:45 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.390 | $31.97 USDC | Reilac Shiga vs. Giravanz Kitakyūshū: O/U 1.5)
+2026-05-17 10:15:14 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.420 | $30.72 USDC | Will FC Machida Zelvia win on 2026-05-17?)
+2026-05-17 10:15:14 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.420 | $498.54 USDC | Will FC Machida Zelvia win on 2026-05-17?)
+2026-05-17 10:15:14 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.330 | $5.49 USDC | Kawasaki Frontale vs. FC Machida Zelvia: O/U 1.5)
+2026-05-17 10:15:14 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.767 | $630.46 USDC | Will FC Ryūkyū vs. Gainare Tottori end in a draw?)
+2026-05-17 10:15:14 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.904 | $401.22 USDC | Will FC Ryūkyū win on 2026-05-17?)
 ```
 
 ## Letzte Fehler (3)

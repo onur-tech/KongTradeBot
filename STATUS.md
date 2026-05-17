@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-17 12:56:12 UTC
+> 2026-05-17 13:01:13 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 1357786s | HB: WARNUNG 655s alt
+STALE — lief vor 1358087s | HB: OK (35s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-17 10:15:14 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.420 | $30.72 USDC | Will FC Machida Zelvia win on 2026-05-17?)
-2026-05-17 10:15:14 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.420 | $498.54 USDC | Will FC Machida Zelvia win on 2026-05-17?)
-2026-05-17 10:15:14 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.330 | $5.49 USDC | Kawasaki Frontale vs. FC Machida Zelvia: O/U 1.5)
-2026-05-17 10:15:14 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.767 | $630.46 USDC | Will FC Ryūkyū vs. Gainare Tottori end in a draw?)
-2026-05-17 10:15:14 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.904 | $401.22 USDC | Will FC Ryūkyū win on 2026-05-17?)
+2026-05-17 12:57:41 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Team Falcons @ $0.290 | $210.94 USDC | Counter-Strike: Spirit vs Team Falcons - Map 2 Winner)
+2026-05-17 12:57:41 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.470 | $52.22 USDC | Will FC Andorra win on 2026-05-17?)
+2026-05-17 12:57:41 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.550 | $6.11 USDC | Will Newcastle United FC win on 2026-05-17?)
+2026-05-17 12:57:41 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.550 | $99266.43 USDC | Will Newcastle United FC win on 2026-05-17?)
+2026-05-17 12:57:41 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY New York Mets @ $0.510 | $94.26 USDC | New York Yankees vs. New York Mets)
 ```
 
 ## Letzte Fehler (3)

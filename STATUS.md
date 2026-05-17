@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-17 23:17:55 UTC
+> 2026-05-17 23:23:00 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 1395089s | HB: OK (256s alt)
+STALE — lief vor 1395394s | HB: OK (2s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-17 21:05:08 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Arizona Diamondbacks @ $0.520 | $568.27 USDC | Arizona Diamondbacks vs. Colorado Rockies)
-2026-05-17 21:05:08 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.340 | $8.63 USDC | FC Barcelona vs. Real Betis Balompié: O/U 4.5)
-2026-05-17 21:05:08 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.590 | $369.36 USDC | FC Barcelona vs. Real Betis Balompié: O/U 4.5)
-2026-05-17 21:05:08 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.380 | $30.65 USDC | AA Argentinos Juniors vs. CA Belgrano: O/U 2.5)
-2026-05-17 21:05:08 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.610 | $401.26 USDC | AA Argentinos Juniors vs. CA Belgrano: O/U 2.5)
+2026-05-17 23:22:00 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.870 | $79.40 USDC | Will Clube do Remo win on 2026-05-17?)
+2026-05-17 23:22:00 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.870 | $35.27 USDC | Will Clube do Remo win on 2026-05-17?)
+2026-05-17 23:22:00 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.630 | $9.53 USDC | Red Bull Bragantino vs. EC Vitória: O/U 1.5)
+2026-05-17 23:22:00 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.870 | $33.46 USDC | Will Clube do Remo win on 2026-05-17?)
+2026-05-17 23:22:00 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.870 | $9.18 USDC | Will Clube do Remo win on 2026-05-17?)
 ```
 
 ## Letzte Fehler (3)

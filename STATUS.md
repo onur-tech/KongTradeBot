@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-17 15:33:47 UTC
+> 2026-05-17 15:38:48 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 1367241s | HB: WARNUNG 602s alt
+STALE — lief vor 1367542s | HB: OK (36s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-17 12:57:41 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Team Falcons @ $0.290 | $210.94 USDC | Counter-Strike: Spirit vs Team Falcons - Map 2 Winner)
-2026-05-17 12:57:41 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.470 | $52.22 USDC | Will FC Andorra win on 2026-05-17?)
-2026-05-17 12:57:41 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.550 | $6.11 USDC | Will Newcastle United FC win on 2026-05-17?)
-2026-05-17 12:57:41 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.550 | $99266.43 USDC | Will Newcastle United FC win on 2026-05-17?)
-2026-05-17 12:57:41 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY New York Mets @ $0.510 | $94.26 USDC | New York Yankees vs. New York Mets)
+2026-05-17 15:35:14 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.520 | $215.28 USDC | Everton FC vs. Sunderland AFC: O/U 2.5)
+2026-05-17 15:35:14 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.510 | $20.82 USDC | Will Leeds United FC vs. Brighton & Hove Albion FC end in a )
+2026-05-17 15:35:14 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Adolfo Vallejo @ $0.680 | $118.32 USDC | Valencia: Miomir Kecmanovic vs Adolfo Vallejo)
+2026-05-17 15:35:14 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.520 | $536.89 USDC | Everton FC vs. Sunderland AFC: O/U 2.5)
+2026-05-17 15:35:14 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Boston Red Sox @ $0.410 | $168.49 USDC | Boston Red Sox vs. Atlanta Braves)
 ```
 
 ## Letzte Fehler (3)

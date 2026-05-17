@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-17 21:02:09 UTC
+> 2026-05-17 21:07:10 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 1386943s | HB: WARNUNG 588s alt
+STALE — lief vor 1387244s | HB: OK (6s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-17 18:16:30 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.330 | $123.13 USDC | Kansas City Royals vs. St. Louis Cardinals: O/U 7.5)
-2026-05-17 18:16:30 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.500 | $3500.11 USDC | Will Olympique de Marseille win on 2026-05-17?)
-2026-05-17 18:16:30 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.440 | $652.19 USDC | Will RCD Espanyol de Barcelona win on 2026-05-17?)
-2026-05-17 18:16:30 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Kansas City Royals @ $0.460 | $482.72 USDC | Kansas City Royals vs. St. Louis Cardinals)
-2026-05-17 18:16:30 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.290 | $11.81 USDC | CA Osasuna vs. RCD Espanyol de Barcelona: O/U 4.5)
+2026-05-17 21:05:08 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Arizona Diamondbacks @ $0.520 | $568.27 USDC | Arizona Diamondbacks vs. Colorado Rockies)
+2026-05-17 21:05:08 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.340 | $8.63 USDC | FC Barcelona vs. Real Betis Balompié: O/U 4.5)
+2026-05-17 21:05:08 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.590 | $369.36 USDC | FC Barcelona vs. Real Betis Balompié: O/U 4.5)
+2026-05-17 21:05:08 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.380 | $30.65 USDC | AA Argentinos Juniors vs. CA Belgrano: O/U 2.5)
+2026-05-17 21:05:08 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.610 | $401.26 USDC | AA Argentinos Juniors vs. CA Belgrano: O/U 2.5)
 ```
 
 ## Letzte Fehler (3)

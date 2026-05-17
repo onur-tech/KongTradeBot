@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-17 00:24:34 UTC
+> 2026-05-17 00:29:34 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 1312688s | HB: WARNUNG 471s alt
+STALE — lief vor 1312988s | HB: OK (4s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-16 22:09:21 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Cleveland Guardians @ $0.580 | $7.48 USDC | Cincinnati Reds vs. Cleveland Guardians)
-2026-05-16 22:09:21 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Cleveland Guardians @ $0.580 | $7.44 USDC | Cincinnati Reds vs. Cleveland Guardians)
-2026-05-16 22:09:21 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Cleveland Guardians @ $0.580 | $19.86 USDC | Cincinnati Reds vs. Cleveland Guardians)
-2026-05-16 22:09:21 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Cleveland Guardians @ $0.580 | $17.15 USDC | Cincinnati Reds vs. Cleveland Guardians)
-2026-05-16 22:09:21 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Cleveland Guardians @ $0.580 | $94860.57 USDC | Cincinnati Reds vs. Cleveland Guardians)
+2026-05-17 00:25:31 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.580 | $5.25 USDC | San Diego Padres vs. Seattle Mariners: O/U 8.5)
+2026-05-17 00:25:31 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.370 | $5.55 USDC | San Diego Padres vs. Seattle Mariners: O/U 10.5)
+2026-05-17 00:25:31 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.580 | $13.34 USDC | San Diego Padres vs. Seattle Mariners: O/U 8.5)
+2026-05-17 00:25:31 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Los Angeles Angels @ $0.450 | $5.49 USDC | Los Angeles Dodgers vs. Los Angeles Angels)
+2026-05-17 00:25:31 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.016 | $6.25 USDC | Will Morocco win the 2026 FIFA World Cup?)
 ```
 
 ## Letzte Fehler (3)

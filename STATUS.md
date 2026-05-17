@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-17 04:51:56 UTC
+> 2026-05-17 04:57:16 UTC
 
 ## Bot-Status
 ```
@@ -14,25 +14,21 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 1328730s | HB: WARNUNG 371s alt
+STALE — lief vor 1329050s | HB: OK (45s alt)
 ```
 
 ## Portfolio
 ```
-Total:         $0.00 USDC
-Cash:          $0.00 USDC
-In Positionen: $0.00 USDC
-Offene Pos.:   0
-PnL heute:     $0.00
+Dashboard nicht erreichbar: timed out
 ```
 
 ## Letzte Trades (5)
 ```
-2026-05-17 02:39:05 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $2101.47 USDC | Will Arsenal FC win on 2026-02-22?)
-2026-05-17 02:39:05 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $95.32 USDC | Will Arsenal FC win on 2026-02-22?)
-2026-05-17 02:39:05 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $14.30 USDC | Will Arsenal FC win on 2026-02-22?)
-2026-05-17 02:39:05 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $4629.80 USDC | Will Arsenal FC win on 2026-02-22?)
-2026-05-17 02:39:05 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $31.43 USDC | Will Arsenal FC win on 2026-02-22?)
+2026-05-17 04:54:33 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.150 | $8.82 USDC | Will V-Varen Nagasaki win on 2026-05-17?)
+2026-05-17 04:54:33 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.150 | $8.82 USDC | Will V-Varen Nagasaki win on 2026-05-17?)
+2026-05-17 04:54:33 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.300 | $14.10 USDC | Will V-Varen Nagasaki vs. Vissel Kōbe end in a draw?)
+2026-05-17 04:54:33 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.430 | $21.50 USDC | Will Vissel Kōbe win on 2026-05-17?)
+2026-05-17 04:54:33 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.430 | $11.87 USDC | Will Vissel Kōbe win on 2026-05-17?)
 ```
 
 ## Letzte Fehler (3)

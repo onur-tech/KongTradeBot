@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-18 19:44:43 UTC
+> 2026-05-18 19:49:43 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 1468697s | HB: STALE 1618s alt (Bot moeglicherweise haengend)
+STALE — lief vor 1468997s | HB: OK (6s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-18 16:31:52 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Ben Shelton @ $0.680 | $6.12 USDC | Hamburg European Open: Marcos Giron vs Ben Shelton)
-2026-05-18 16:31:52 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Marie Bouzkova @ $0.460 | $504.73 USDC | Internationaux de Strasbourg: Marie Bouzkova vs Katerina Sin)
-2026-05-18 16:31:52 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Dominik Palan @ $0.870 | $6.69 USDC | Bengaluru 3: Dominik Palan vs Kokoro Isomura)
-2026-05-18 16:31:52 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Ben Shelton @ $0.680 | $36.46 USDC | Hamburg European Open: Marcos Giron vs Ben Shelton)
-2026-05-18 16:31:52 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.016 | $10.00 USDC | Will Morocco win the 2026 FIFA World Cup?)
+2026-05-18 19:45:47 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Edas Butvilas @ $0.940 | $26.16 USDC | Geneva Open: Lorenzo Sonego vs Edas Butvilas)
+2026-05-18 19:45:47 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.620 | $887.82 USDC | Arsenal FC vs. Burnley FC: O/U 2.5)
+2026-05-18 19:45:47 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.650 | $17.83 USDC | Will CD Leganés win on 2026-05-18?)
+2026-05-18 19:45:47 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.010 | $12.86 USDC | Will Burnley FC win on 2026-05-18?)
+2026-05-18 19:45:47 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.016 | $10.00 USDC | Will Morocco win the 2026 FIFA World Cup?)
 ```
 
 ## Letzte Fehler (3)

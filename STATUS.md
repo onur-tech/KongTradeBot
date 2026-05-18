@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-18 08:29:42 UTC
+> 2026-05-18 08:34:43 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 1428196s | HB: OK (277s alt)
+STALE — lief vor 1428497s | HB: OK (11s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-18 06:09:26 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.248 | $49.36 USDC | Will Trump be photographed every day this week? (5/11-5/17))
-2026-05-18 06:09:26 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.350 | $27.23 USDC | Will Mojtaba Khamenei be head of state in Iran end of 2026?)
-2026-05-18 06:09:26 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.300 | $120.00 USDC | Will the U.S. invade Iran before 2027?)
-2026-05-18 06:09:26 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.150 | $30.00 USDC | Will Donald Trump announce that the United States blockade o)
-2026-05-18 06:09:26 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.985 | $197.00 USDC | Will the Iranian regime fall by May 31?)
+2026-05-18 08:34:33 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.590 | $118.00 USDC | Will Donald Trump announce that the United States blockade o)
+2026-05-18 08:34:33 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.830 | $332.00 USDC | Will Donald Trump announce that the United States blockade o)
+2026-05-18 08:34:34 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Alex Michelsen @ $0.330 | $199.83 USDC | Geneva Open: Sebastian Baez vs Alex Michelsen)
+2026-05-18 08:34:34 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Alex Michelsen @ $0.330 | $126.15 USDC | Geneva Open: Sebastian Baez vs Alex Michelsen)
+2026-05-18 08:34:34 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Alex Michelsen @ $0.330 | $7.39 USDC | Geneva Open: Sebastian Baez vs Alex Michelsen)
 ```
 
 ## Letzte Fehler (3)

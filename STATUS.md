@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-18 14:35:23 UTC
+> 2026-05-18 14:40:28 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 1450137s | HB: OK (38s alt)
+STALE — lief vor 1450442s | HB: OK (43s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-18 12:39:36 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Oleksandra Oliynykova @ $0.470 | $33.25 USDC | Internationaux de Strasbourg: Alexandra Eala vs Oleksandra O)
-2026-05-18 12:39:36 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Petra Marcinko @ $0.890 | $8.90 USDC | GP SAR La Princesse Lalla Meryem: Petra Marcinko vs Vera Zvo)
-2026-05-18 12:39:36 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Petra Marcinko @ $0.890 | $8.90 USDC | GP SAR La Princesse Lalla Meryem: Petra Marcinko vs Vera Zvo)
-2026-05-18 12:39:36 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Petra Marcinko @ $0.890 | $48.06 USDC | GP SAR La Princesse Lalla Meryem: Petra Marcinko vs Vera Zvo)
-2026-05-18 12:39:37 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.016 | $15.00 USDC | Will Morocco win the 2026 FIFA World Cup?)
+2026-05-18 14:38:32 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Gabi Boitan @ $0.780 | $528.84 USDC | Cervia: Gabi Boitan vs Santiago Rodriguez Taverna)
+2026-05-18 14:38:32 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Daniel Altmaier @ $0.890 | $930.47 USDC | Hamburg European Open: Daniel Altmaier vs Rinky Hijikata)
+2026-05-18 14:38:32 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Oleksandra Oliynykova @ $0.540 | $145.80 USDC | Internationaux de Strasbourg: Alexandra Eala vs Oleksandra O)
+2026-05-18 14:38:32 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Oleksandra Oliynykova @ $0.540 | $11.74 USDC | Internationaux de Strasbourg: Alexandra Eala vs Oleksandra O)
+2026-05-18 14:38:32 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY ex-RUBY @ $0.660 | $153.63 USDC | Counter-Strike: illwill vs ex-RUBY (BO3) - NODWIN Clutch Ser)
 ```
 
 ## Letzte Fehler (3)

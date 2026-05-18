@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-18 16:27:14 UTC
+> 2026-05-18 16:32:15 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 1456848s | HB: WARNUNG 661s alt
+STALE — lief vor 1457149s | HB: OK (26s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-18 14:38:32 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Gabi Boitan @ $0.780 | $528.84 USDC | Cervia: Gabi Boitan vs Santiago Rodriguez Taverna)
-2026-05-18 14:38:32 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Daniel Altmaier @ $0.890 | $930.47 USDC | Hamburg European Open: Daniel Altmaier vs Rinky Hijikata)
-2026-05-18 14:38:32 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Oleksandra Oliynykova @ $0.540 | $145.80 USDC | Internationaux de Strasbourg: Alexandra Eala vs Oleksandra O)
-2026-05-18 14:38:32 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Oleksandra Oliynykova @ $0.540 | $11.74 USDC | Internationaux de Strasbourg: Alexandra Eala vs Oleksandra O)
-2026-05-18 14:38:32 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY ex-RUBY @ $0.660 | $153.63 USDC | Counter-Strike: illwill vs ex-RUBY (BO3) - NODWIN Clutch Ser)
+2026-05-18 16:31:52 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Ben Shelton @ $0.680 | $6.12 USDC | Hamburg European Open: Marcos Giron vs Ben Shelton)
+2026-05-18 16:31:52 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Marie Bouzkova @ $0.460 | $504.73 USDC | Internationaux de Strasbourg: Marie Bouzkova vs Katerina Sin)
+2026-05-18 16:31:52 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Dominik Palan @ $0.870 | $6.69 USDC | Bengaluru 3: Dominik Palan vs Kokoro Isomura)
+2026-05-18 16:31:52 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Ben Shelton @ $0.680 | $36.46 USDC | Hamburg European Open: Marcos Giron vs Ben Shelton)
+2026-05-18 16:31:52 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.016 | $10.00 USDC | Will Morocco win the 2026 FIFA World Cup?)
 ```
 
 ## Letzte Fehler (3)

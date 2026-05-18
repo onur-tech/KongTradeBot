@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-18 22:10:48 UTC
+> 2026-05-18 22:15:49 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 1477462s | HB: STALE 725s alt (Bot moeglicherweise haengend)
+STALE — lief vor 1477763s | HB: OK (37s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-18 19:45:47 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Edas Butvilas @ $0.940 | $26.16 USDC | Geneva Open: Lorenzo Sonego vs Edas Butvilas)
-2026-05-18 19:45:47 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.620 | $887.82 USDC | Arsenal FC vs. Burnley FC: O/U 2.5)
-2026-05-18 19:45:47 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.650 | $17.83 USDC | Will CD Leganés win on 2026-05-18?)
-2026-05-18 19:45:47 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.010 | $12.86 USDC | Will Burnley FC win on 2026-05-18?)
-2026-05-18 19:45:47 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.016 | $10.00 USDC | Will Morocco win the 2026 FIFA World Cup?)
+2026-05-18 22:14:14 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.945 | $10.00 USDC | Will Trump agree to Iranian enrichment of uranium by May 31?)
+2026-05-18 22:14:15 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Karan Singh @ $0.570 | $5.13 USDC | Bengaluru 3: Karan Singh vs Mitsuki Wei Kang Leong)
+2026-05-18 22:14:15 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Karan Singh @ $0.570 | $5.13 USDC | Bengaluru 3: Karan Singh vs Mitsuki Wei Kang Leong)
+2026-05-18 22:14:15 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Karan Singh @ $0.570 | $5.13 USDC | Bengaluru 3: Karan Singh vs Mitsuki Wei Kang Leong)
+2026-05-18 22:14:15 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Karan Singh @ $0.570 | $5.13 USDC | Bengaluru 3: Karan Singh vs Mitsuki Wei Kang Leong)
 ```
 
 ## Letzte Fehler (3)

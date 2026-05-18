@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-18 10:56:45 UTC
+> 2026-05-18 11:01:44 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 1437019s | HB: WARNUNG 509s alt
+STALE — lief vor 1437318s | HB: OK (12s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-18 08:34:33 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.590 | $118.00 USDC | Will Donald Trump announce that the United States blockade o)
-2026-05-18 08:34:33 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.830 | $332.00 USDC | Will Donald Trump announce that the United States blockade o)
-2026-05-18 08:34:34 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Alex Michelsen @ $0.330 | $199.83 USDC | Geneva Open: Sebastian Baez vs Alex Michelsen)
-2026-05-18 08:34:34 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Alex Michelsen @ $0.330 | $126.15 USDC | Geneva Open: Sebastian Baez vs Alex Michelsen)
-2026-05-18 08:34:34 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Alex Michelsen @ $0.330 | $7.39 USDC | Geneva Open: Sebastian Baez vs Alex Michelsen)
+2026-05-18 10:58:39 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Camilo Ugo Carabelli @ $0.390 | $422.50 USDC | Hamburg European Open: Kamil Majchrzak vs Camilo Ugo Carabel)
+2026-05-18 10:58:39 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Camilo Ugo Carabelli @ $0.280 | $10.54 USDC | Hamburg European Open: Kamil Majchrzak vs Camilo Ugo Carabel)
+2026-05-18 10:58:39 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Camilo Ugo Carabelli @ $0.280 | $185.99 USDC | Hamburg European Open: Kamil Majchrzak vs Camilo Ugo Carabel)
+2026-05-18 10:58:39 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Camilo Ugo Carabelli @ $0.300 | $42.85 USDC | Hamburg European Open: Kamil Majchrzak vs Camilo Ugo Carabel)
+2026-05-18 10:58:39 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Francisco Cerundolo @ $0.710 | $28.40 USDC | Hamburg European Open: Francisco Cerundolo vs Alex de Minaur)
 ```
 
 ## Letzte Fehler (3)

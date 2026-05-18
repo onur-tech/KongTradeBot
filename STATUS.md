@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-18 12:38:12 UTC
+> 2026-05-18 12:43:12 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 1443106s | HB: WARNUNG 618s alt
+STALE — lief vor 1443406s | HB: OK (37s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-18 10:58:39 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Camilo Ugo Carabelli @ $0.390 | $422.50 USDC | Hamburg European Open: Kamil Majchrzak vs Camilo Ugo Carabel)
-2026-05-18 10:58:39 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Camilo Ugo Carabelli @ $0.280 | $10.54 USDC | Hamburg European Open: Kamil Majchrzak vs Camilo Ugo Carabel)
-2026-05-18 10:58:39 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Camilo Ugo Carabelli @ $0.280 | $185.99 USDC | Hamburg European Open: Kamil Majchrzak vs Camilo Ugo Carabel)
-2026-05-18 10:58:39 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Camilo Ugo Carabelli @ $0.300 | $42.85 USDC | Hamburg European Open: Kamil Majchrzak vs Camilo Ugo Carabel)
-2026-05-18 10:58:39 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Francisco Cerundolo @ $0.710 | $28.40 USDC | Hamburg European Open: Francisco Cerundolo vs Alex de Minaur)
+2026-05-18 12:39:36 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Oleksandra Oliynykova @ $0.470 | $33.25 USDC | Internationaux de Strasbourg: Alexandra Eala vs Oleksandra O)
+2026-05-18 12:39:36 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Petra Marcinko @ $0.890 | $8.90 USDC | GP SAR La Princesse Lalla Meryem: Petra Marcinko vs Vera Zvo)
+2026-05-18 12:39:36 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Petra Marcinko @ $0.890 | $8.90 USDC | GP SAR La Princesse Lalla Meryem: Petra Marcinko vs Vera Zvo)
+2026-05-18 12:39:36 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Petra Marcinko @ $0.890 | $48.06 USDC | GP SAR La Princesse Lalla Meryem: Petra Marcinko vs Vera Zvo)
+2026-05-18 12:39:37 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.016 | $15.00 USDC | Will Morocco win the 2026 FIFA World Cup?)
 ```
 
 ## Letzte Fehler (3)

@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-18 06:07:18 UTC
+> 2026-05-18 06:12:26 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 1419652s | HB: WARNUNG 476s alt
+STALE — lief vor 1419960s | HB: OK (1s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-18 03:49:20 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.740 | $37288.60 USDC | Will FC Barcelona win on 2026-05-17?)
-2026-05-18 03:49:20 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.980 | $49.00 USDC | Will Pumas de la UNAM win on 2026-05-17?)
-2026-05-18 03:49:20 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.980 | $109.76 USDC | Will Pumas de la UNAM vs. CF Pachuca end in a draw?)
-2026-05-18 03:49:20 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.980 | $49.00 USDC | Will Pumas de la UNAM win on 2026-05-17?)
-2026-05-18 03:49:20 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.980 | $49.00 USDC | Will Pumas de la UNAM win on 2026-05-17?)
+2026-05-18 06:09:26 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.248 | $49.36 USDC | Will Trump be photographed every day this week? (5/11-5/17))
+2026-05-18 06:09:26 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.350 | $27.23 USDC | Will Mojtaba Khamenei be head of state in Iran end of 2026?)
+2026-05-18 06:09:26 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.300 | $120.00 USDC | Will the U.S. invade Iran before 2027?)
+2026-05-18 06:09:26 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.150 | $30.00 USDC | Will Donald Trump announce that the United States blockade o)
+2026-05-18 06:09:26 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.985 | $197.00 USDC | Will the Iranian regime fall by May 31?)
 ```
 
 ## Letzte Fehler (3)

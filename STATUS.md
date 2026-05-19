@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-19 18:42:23 UTC
+> 2026-05-19 18:47:43 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 1551357s | HB: STALE 1031s alt (Bot moeglicherweise haengend)
+STALE — lief vor 1551677s | HB: OK (33s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-19 15:33:12 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY 100 Thieves @ $0.660 | $66.00 USDC | Counter-Strike: 100 Thieves vs Nuclear TigeRES - Map 2 Winne)
-2026-05-19 15:33:12 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Cavaliers @ $0.490 | $734.62 USDC | Spread: Knicks (-6.5))
-2026-05-19 15:33:12 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Cavaliers @ $0.490 | $8.88 USDC | Spread: Knicks (-6.5))
-2026-05-19 15:33:12 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Cavaliers @ $0.490 | $27.65 USDC | Spread: Knicks (-6.5))
-2026-05-19 15:33:12 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Cavaliers @ $0.490 | $32.09 USDC | Spread: Knicks (-6.5))
+2026-05-19 18:46:18 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Cavaliers @ $0.490 | $59.57 USDC | Spread: Knicks (-6.5))
+2026-05-19 18:46:18 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Cavaliers @ $0.450 | $32.64 USDC | Spread: Knicks (-5.5))
+2026-05-19 18:46:18 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Cavaliers @ $0.490 | $5.76 USDC | Spread: Knicks (-6.5))
+2026-05-19 18:46:18 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Cavaliers @ $0.450 | $6.34 USDC | Spread: Knicks (-5.5))
+2026-05-19 18:46:18 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Cavaliers @ $0.450 | $80.24 USDC | Spread: Knicks (-5.5))
 ```
 
 ## Letzte Fehler (3)

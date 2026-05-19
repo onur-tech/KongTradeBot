@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-19 02:30:25 UTC
+> 2026-05-19 02:35:32 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 1493039s | HB: OK (2s alt)
+STALE — lief vor 1493346s | HB: OK (70s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-19 01:44:36 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Seattle Mariners @ $0.580 | $5.34 USDC | Chicago White Sox vs. Seattle Mariners)
-2026-05-19 01:44:36 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.610 | $7.74 USDC | Canadiens vs. Sabres: O/U 5.5)
-2026-05-19 01:44:36 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.610 | $10.23 USDC | Canadiens vs. Sabres: O/U 5.5)
-2026-05-19 01:44:36 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.610 | $9.45 USDC | Canadiens vs. Sabres: O/U 5.5)
-2026-05-19 01:44:36 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.320 | $302.35 USDC | Canadiens vs. Sabres: O/U 5.5)
+2026-05-19 02:31:18 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Los Angeles Angels @ $0.430 | $55.04 USDC | Athletics vs. Los Angeles Angels)
+2026-05-19 02:31:18 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Washington Nationals @ $0.170 | $75.48 USDC | New York Mets vs. Washington Nationals)
+2026-05-19 02:31:18 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY New York Mets @ $0.720 | $10.41 USDC | New York Mets vs. Washington Nationals)
+2026-05-19 02:31:18 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY New York Mets @ $0.470 | $330.59 USDC | New York Mets vs. Washington Nationals)
+2026-05-19 02:31:18 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Athletics @ $0.480 | $17.62 USDC | Athletics vs. Los Angeles Angels)
 ```
 
 ## Letzte Fehler (3)

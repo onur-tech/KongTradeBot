@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-19 05:38:56 UTC
+> 2026-05-19 05:44:16 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 1504350s | HB: OK (267s alt)
+STALE — lief vor 1504670s | HB: OK (51s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-19 03:50:25 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.280 | $18.39 USDC | Houston Astros vs. Minnesota Twins: O/U 9.5)
-2026-05-19 03:50:25 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.280 | $7.01 USDC | Houston Astros vs. Minnesota Twins: O/U 9.5)
-2026-05-19 03:50:25 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.710 | $7.93 USDC | Houston Astros vs. Minnesota Twins: O/U 11.5)
-2026-05-19 03:50:25 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.710 | $6.56 USDC | Houston Astros vs. Minnesota Twins: O/U 11.5)
-2026-05-19 03:50:25 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.710 | $153.67 USDC | Houston Astros vs. Minnesota Twins: O/U 11.5)
+2026-05-19 05:43:26 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Kokoro Isomura @ $0.150 | $149.21 USDC | Bengaluru 3: Dominik Palan vs Kokoro Isomura)
+2026-05-19 05:43:26 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Kokoro Isomura @ $0.150 | $149.21 USDC | Bengaluru 3: Dominik Palan vs Kokoro Isomura)
+2026-05-19 05:43:26 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Karan Singh @ $0.570 | $24.83 USDC | Bengaluru 3: Karan Singh vs Mitsuki Wei Kang Leong)
+2026-05-19 05:43:26 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Leo Vithoontien @ $0.860 | $619.91 USDC | Bengaluru 3: Digvijaypratap Singh vs Leo Vithoontien)
+2026-05-19 05:43:26 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Leo Vithoontien @ $0.870 | $724.04 USDC | Bengaluru 3: Digvijaypratap Singh vs Leo Vithoontien)
 ```
 
 ## Letzte Fehler (3)

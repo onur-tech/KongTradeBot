@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-19 09:01:51 UTC
+> 2026-05-19 09:06:54 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 1516525s | HB: OK (12s alt)
+STALE — lief vor 1516828s | HB: OK (314s alt)
 ```
 
 ## Portfolio
@@ -24,11 +24,11 @@ Dashboard nicht erreichbar: timed out
 
 ## Letzte Trades (5)
 ```
-2026-05-19 06:51:42 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Dominik Palan @ $0.820 | $16.92 USDC | Bengaluru 3: Dominik Palan vs Kokoro Isomura)
-2026-05-19 06:51:42 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Dominik Palan @ $0.820 | $5.01 USDC | Bengaluru 3: Dominik Palan vs Kokoro Isomura)
-2026-05-19 06:51:42 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Dominik Palan @ $0.910 | $185.35 USDC | Bengaluru 3: Dominik Palan vs Kokoro Isomura)
-2026-05-19 06:51:42 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Kriish Tyagi @ $0.390 | $413.17 USDC | Bengaluru 3: Kuan-Yi Lee vs Kriish Tyagi)
-2026-05-19 06:51:42 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Mitsuki Wei Kang Leong @ $0.590 | $90.20 USDC | Bengaluru 3: Karan Singh vs Mitsuki Wei Kang Leong)
+2026-05-19 09:01:54 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Nemiga @ $0.540 | $150.55 USDC | Counter-Strike: Nemiga vs TDK - Map 2 Winner)
+2026-05-19 09:01:54 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Diane Parry @ $0.440 | $440.05 USDC | Internationaux de Strasbourg: Diane Parry vs Emma Raducanu)
+2026-05-19 09:01:54 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Clement Tabur @ $0.330 | $47.94 USDC | Geneva Open: Alexei Popyrin vs Clement Tabur)
+2026-05-19 09:01:54 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Clement Tabur @ $0.320 | $11.76 USDC | Geneva Open: Alexei Popyrin vs Clement Tabur)
+2026-05-19 09:01:54 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Clement Tabur @ $0.320 | $29.36 USDC | Geneva Open: Alexei Popyrin vs Clement Tabur)
 ```
 
 ## Letzte Fehler (3)

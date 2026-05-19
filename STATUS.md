@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-19 15:29:35 UTC
+> 2026-05-19 15:34:35 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 1539789s | HB: WARNUNG 517s alt
+STALE — lief vor 1540089s | HB: OK (27s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-19 12:51:00 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.750 | $24.00 USDC | Chengdu Rongcheng FC vs. Shanghai Haigang FC: O/U 2.5)
-2026-05-19 12:51:00 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Ann Li @ $0.570 | $453.39 USDC | Internationaux de Strasbourg: Ann Li vs Ekaterina Alexandrov)
-2026-05-19 12:51:00 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Keegan Smith @ $0.710 | $9.23 USDC | Bengaluru 3: Keegan Smith vs Manish Sureshkumar)
-2026-05-19 12:51:00 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Keegan Smith @ $0.720 | $10.08 USDC | Bengaluru 3: Keegan Smith vs Manish Sureshkumar)
-2026-05-19 12:51:00 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Grigor Dimitrov @ $0.841 | $12.62 USDC | Roland Garros, Qualification ATP: Jaime Faria vs Grigor Dimi)
+2026-05-19 15:33:12 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY 100 Thieves @ $0.660 | $66.00 USDC | Counter-Strike: 100 Thieves vs Nuclear TigeRES - Map 2 Winne)
+2026-05-19 15:33:12 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Cavaliers @ $0.490 | $734.62 USDC | Spread: Knicks (-6.5))
+2026-05-19 15:33:12 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Cavaliers @ $0.490 | $8.88 USDC | Spread: Knicks (-6.5))
+2026-05-19 15:33:12 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Cavaliers @ $0.490 | $27.65 USDC | Spread: Knicks (-6.5))
+2026-05-19 15:33:12 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Cavaliers @ $0.490 | $32.09 USDC | Spread: Knicks (-6.5))
 ```
 
 ## Letzte Fehler (3)

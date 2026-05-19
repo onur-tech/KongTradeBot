@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-19 06:50:23 UTC
+> 2026-05-19 06:55:27 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 1508637s | HB: WARNUNG 454s alt
+STALE — lief vor 1508941s | HB: OK (47s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-19 05:43:26 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Kokoro Isomura @ $0.150 | $149.21 USDC | Bengaluru 3: Dominik Palan vs Kokoro Isomura)
-2026-05-19 05:43:26 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Kokoro Isomura @ $0.150 | $149.21 USDC | Bengaluru 3: Dominik Palan vs Kokoro Isomura)
-2026-05-19 05:43:26 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Karan Singh @ $0.570 | $24.83 USDC | Bengaluru 3: Karan Singh vs Mitsuki Wei Kang Leong)
-2026-05-19 05:43:26 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Leo Vithoontien @ $0.860 | $619.91 USDC | Bengaluru 3: Digvijaypratap Singh vs Leo Vithoontien)
-2026-05-19 05:43:26 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Leo Vithoontien @ $0.870 | $724.04 USDC | Bengaluru 3: Digvijaypratap Singh vs Leo Vithoontien)
+2026-05-19 06:51:42 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Dominik Palan @ $0.820 | $16.92 USDC | Bengaluru 3: Dominik Palan vs Kokoro Isomura)
+2026-05-19 06:51:42 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Dominik Palan @ $0.820 | $5.01 USDC | Bengaluru 3: Dominik Palan vs Kokoro Isomura)
+2026-05-19 06:51:42 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Dominik Palan @ $0.910 | $185.35 USDC | Bengaluru 3: Dominik Palan vs Kokoro Isomura)
+2026-05-19 06:51:42 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Kriish Tyagi @ $0.390 | $413.17 USDC | Bengaluru 3: Kuan-Yi Lee vs Kriish Tyagi)
+2026-05-19 06:51:42 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Mitsuki Wei Kang Leong @ $0.590 | $90.20 USDC | Bengaluru 3: Karan Singh vs Mitsuki Wei Kang Leong)
 ```
 
 ## Letzte Fehler (3)

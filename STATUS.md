@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-19 22:21:51 UTC
+> 2026-05-19 22:27:13 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 1564525s | HB: STALE 2692s alt (Bot moeglicherweise haengend)
+STALE — lief vor 1564847s | HB: OK (16s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-19 18:46:18 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Cavaliers @ $0.490 | $59.57 USDC | Spread: Knicks (-6.5))
-2026-05-19 18:46:18 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Cavaliers @ $0.450 | $32.64 USDC | Spread: Knicks (-5.5))
-2026-05-19 18:46:18 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Cavaliers @ $0.490 | $5.76 USDC | Spread: Knicks (-6.5))
-2026-05-19 18:46:18 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Cavaliers @ $0.450 | $6.34 USDC | Spread: Knicks (-5.5))
-2026-05-19 18:46:18 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Cavaliers @ $0.450 | $80.24 USDC | Spread: Knicks (-5.5))
+2026-05-19 22:24:59 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $9.24 USDC | Will Arsenal FC win on 2026-02-22?)
+2026-05-19 22:24:59 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $95.32 USDC | Will Arsenal FC win on 2026-02-22?)
+2026-05-19 22:24:59 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $14.30 USDC | Will Arsenal FC win on 2026-02-22?)
+2026-05-19 22:24:59 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $4629.80 USDC | Will Arsenal FC win on 2026-02-22?)
+2026-05-19 22:24:59 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $31.43 USDC | Will Arsenal FC win on 2026-02-22?)
 ```
 
 ## Letzte Fehler (3)

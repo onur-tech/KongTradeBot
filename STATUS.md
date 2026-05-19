@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-19 10:22:24 UTC
+> 2026-05-19 10:27:49 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 1521358s | HB: WARNUNG 587s alt
+STALE — lief vor 1521683s | HB: OK (23s alt)
 ```
 
 ## Portfolio
@@ -28,18 +28,18 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-19 09:01:54 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Nemiga @ $0.540 | $150.55 USDC | Counter-Strike: Nemiga vs TDK - Map 2 Winner)
-2026-05-19 09:01:54 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Diane Parry @ $0.440 | $440.05 USDC | Internationaux de Strasbourg: Diane Parry vs Emma Raducanu)
-2026-05-19 09:01:54 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Clement Tabur @ $0.330 | $47.94 USDC | Geneva Open: Alexei Popyrin vs Clement Tabur)
-2026-05-19 09:01:54 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Clement Tabur @ $0.320 | $11.76 USDC | Geneva Open: Alexei Popyrin vs Clement Tabur)
-2026-05-19 09:01:54 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Clement Tabur @ $0.320 | $29.36 USDC | Geneva Open: Alexei Popyrin vs Clement Tabur)
+2026-05-19 10:22:28 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Emma Raducanu @ $0.370 | $75.40 USDC | Internationaux de Strasbourg: Diane Parry vs Emma Raducanu)
+2026-05-19 10:22:28 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Alexei Popyrin @ $0.830 | $907.30 USDC | Geneva Open: Alexei Popyrin vs Clement Tabur)
+2026-05-19 10:22:28 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Emma Raducanu @ $0.370 | $36.24 USDC | Internationaux de Strasbourg: Diane Parry vs Emma Raducanu)
+2026-05-19 10:22:28 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Diane Parry @ $0.620 | $11.33 USDC | Internationaux de Strasbourg: Diane Parry vs Emma Raducanu)
+2026-05-19 10:22:28 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.016 | $2044.50 USDC | Will Morocco win the 2026 FIFA World Cup?)
 ```
 
 ## Letzte Fehler (3)
 ```
+The above exception was the direct cause of the following exception:
+raise asyncio.TimeoutError from exc_val
 TimeoutError
-[TG] getUpdates HTTP 409 body='{"ok":false,"error_code":409,"description":"Conflict: terminated by other getUpdates request; make sure that only one bot instance is running"}'
-2026-05-19 10:11:01 | WARNING  | polymarket_bot.wallet_monitor | [WS] Verbindungsfehler: sent 1011 (internal error) keepalive ping timeout; no close frame received — Reconnect in 32s (Retry 5/5)
 ```
 
 ---

@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-19 03:47:24 UTC
+> 2026-05-19 03:52:24 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 1497658s | HB: OK (345s alt)
+STALE — lief vor 1497958s | HB: OK (1s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-19 02:31:18 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Los Angeles Angels @ $0.430 | $55.04 USDC | Athletics vs. Los Angeles Angels)
-2026-05-19 02:31:18 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Washington Nationals @ $0.170 | $75.48 USDC | New York Mets vs. Washington Nationals)
-2026-05-19 02:31:18 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY New York Mets @ $0.720 | $10.41 USDC | New York Mets vs. Washington Nationals)
-2026-05-19 02:31:18 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY New York Mets @ $0.470 | $330.59 USDC | New York Mets vs. Washington Nationals)
-2026-05-19 02:31:18 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Athletics @ $0.480 | $17.62 USDC | Athletics vs. Los Angeles Angels)
+2026-05-19 03:50:25 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.280 | $18.39 USDC | Houston Astros vs. Minnesota Twins: O/U 9.5)
+2026-05-19 03:50:25 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.280 | $7.01 USDC | Houston Astros vs. Minnesota Twins: O/U 9.5)
+2026-05-19 03:50:25 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.710 | $7.93 USDC | Houston Astros vs. Minnesota Twins: O/U 11.5)
+2026-05-19 03:50:25 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.710 | $6.56 USDC | Houston Astros vs. Minnesota Twins: O/U 11.5)
+2026-05-19 03:50:25 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.710 | $153.67 USDC | Houston Astros vs. Minnesota Twins: O/U 11.5)
 ```
 
 ## Letzte Fehler (3)

@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-20 07:01:27 UTC
+> 2026-05-20 07:06:27 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 1595701s | HB: WARNUNG 429s alt
+STALE — lief vor 1596001s | HB: OK (37s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-20 04:46:49 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.704 | $12.47 USDC | Trump kiss by May 31?)
-2026-05-20 04:46:49 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.704 | $57.92 USDC | Trump kiss by May 31?)
-2026-05-20 04:46:49 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.160 | $5.28 USDC | Will Donald Trump announce that the United States blockade o)
-2026-05-20 04:46:49 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.500 | $111.00 USDC | Iran closes its airspace by May 31?)
-2026-05-20 04:46:49 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.850 | $170.00 USDC | Iran closes its airspace by May 21?)
+2026-05-20 07:03:51 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Thunder @ $0.670 | $203.68 USDC | Spurs vs. Thunder)
+2026-05-20 07:03:51 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Thunder @ $0.670 | $201.00 USDC | Spurs vs. Thunder)
+2026-05-20 07:03:51 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Thunder @ $0.670 | $122.78 USDC | Spurs vs. Thunder)
+2026-05-20 07:03:52 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Cameron Norrie @ $0.460 | $460.05 USDC | Geneva Open: Cameron Norrie vs Mariano Navone)
+2026-05-20 07:03:52 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Tommy Paul @ $0.550 | $588.16 USDC | Hamburg European Open: Tommy Paul vs Tomas Etcheverry)
 ```
 
 ## Letzte Fehler (3)

@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-20 11:08:22 UTC
+> 2026-05-20 11:13:22 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 1610516s | HB: WARNUNG 449s alt
+STALE — lief vor 1610816s | HB: OK (31s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-20 09:34:13 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Noma Noha Akugue @ $0.350 | $353.37 USDC | Roland Garros, Qualification WTA: Sinja Kraus vs Noma Noha A)
-2026-05-20 09:34:13 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Michael Zheng @ $0.730 | $37.91 USDC | Roland Garros, Qualification ATP: Michael Zheng vs Stefano T)
-2026-05-20 09:34:13 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Cameron Norrie @ $0.290 | $5.22 USDC | Geneva Open: Cameron Norrie vs Mariano Navone)
-2026-05-20 09:34:13 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Cameron Norrie @ $0.290 | $5.22 USDC | Geneva Open: Cameron Norrie vs Mariano Navone)
-2026-05-20 09:34:13 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Marco Cecchinato @ $0.710 | $529.00 USDC | Roland Garros, Qualification ATP: Stefanos Sakellaridis vs M)
+2026-05-20 11:10:53 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Toby Samuel @ $0.460 | $5.06 USDC | Roland Garros, Qualification ATP: Toby Samuel vs David Goffi)
+2026-05-20 11:10:53 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Kathinka von Deichmann @ $0.430 | $97.61 USDC | Roland Garros, Qualification WTA: Kathinka von Deichmann vs )
+2026-05-20 11:10:53 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Irina-Camelia Begu @ $0.480 | $21.99 USDC | Roland Garros, Qualification WTA: Irina-Camelia Begu vs Suza)
+2026-05-20 11:10:53 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY David Goffin @ $0.580 | $128.35 USDC | Roland Garros, Qualification ATP: Toby Samuel vs David Goffi)
+2026-05-20 11:10:53 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Suzan Lamens @ $0.510 | $51.25 USDC | Roland Garros, Qualification WTA: Irina-Camelia Begu vs Suza)
 ```
 
 ## Letzte Fehler (3)

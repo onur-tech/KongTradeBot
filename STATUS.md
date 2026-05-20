@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-20 13:55:07 UTC
+> 2026-05-20 14:00:07 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 1620521s | HB: STALE 1147s alt (Bot moeglicherweise haengend)
+STALE — lief vor 1620821s | HB: OK (43s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-20 11:10:53 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Toby Samuel @ $0.460 | $5.06 USDC | Roland Garros, Qualification ATP: Toby Samuel vs David Goffi)
-2026-05-20 11:10:53 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Kathinka von Deichmann @ $0.430 | $97.61 USDC | Roland Garros, Qualification WTA: Kathinka von Deichmann vs )
-2026-05-20 11:10:53 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Irina-Camelia Begu @ $0.480 | $21.99 USDC | Roland Garros, Qualification WTA: Irina-Camelia Begu vs Suza)
-2026-05-20 11:10:53 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY David Goffin @ $0.580 | $128.35 USDC | Roland Garros, Qualification ATP: Toby Samuel vs David Goffi)
-2026-05-20 11:10:53 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Suzan Lamens @ $0.510 | $51.25 USDC | Roland Garros, Qualification WTA: Irina-Camelia Begu vs Suza)
+2026-05-20 13:55:27 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.220 | $10.18 USDC | Games Total: O/U 2.5)
+2026-05-20 13:55:27 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.730 | $72.27 USDC | Games Total: O/U 2.5)
+2026-05-20 13:55:27 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY TYLOO @ $0.111 | $15.21 USDC | Counter-Strike: Legacy vs TYLOO (BO3) - CS Asia Championship)
+2026-05-20 13:55:27 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Tommy Paul @ $0.540 | $100.00 USDC | Hamburg European Open: Tommy Paul vs Tomas Etcheverry)
+2026-05-20 13:55:28 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.087 | $8546.45 USDC | Will Portugal win the 2026 FIFA World Cup?)
 ```
 
 ## Letzte Fehler (3)

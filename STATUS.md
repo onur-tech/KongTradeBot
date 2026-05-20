@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-20 22:28:54 UTC
+> 2026-05-20 22:33:55 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 1651348s | HB: WARNUNG 411s alt
+STALE — lief vor 1651649s | HB: OK (21s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-20 20:01:39 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.988 | $159.73 USDC | Will SC Freiburg win on 2026-05-20?)
-2026-05-20 20:01:39 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.988 | $82.33 USDC | Will SC Freiburg win on 2026-05-20?)
-2026-05-20 20:01:39 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.988 | $164.67 USDC | Will SC Freiburg win on 2026-05-20?)
-2026-05-20 20:01:39 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Luciano Darderi @ $0.690 | $66.24 USDC | Hamburg European Open: Luciano Darderi vs Yannick Hanfmann)
-2026-05-20 20:01:39 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Luciano Darderi @ $0.690 | $105.57 USDC | Hamburg European Open: Luciano Darderi vs Yannick Hanfmann)
+2026-05-20 22:30:36 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.840 | $5.78 USDC | CA Boston River vs. O'Higgins FC: O/U 4.5)
+2026-05-20 22:30:36 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.840 | $5.78 USDC | CA Boston River vs. O'Higgins FC: O/U 4.5)
+2026-05-20 22:30:36 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.480 | $5.44 USDC | Will CA Boston River win on 2026-05-20?)
+2026-05-20 22:30:36 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.130 | $7.47 USDC | Club Olimpia vs. CR Vasco da Gama: O/U 3.5)
+2026-05-20 22:30:36 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.840 | $5.26 USDC | CA Boston River vs. O'Higgins FC: O/U 4.5)
 ```
 
 ## Letzte Fehler (3)

@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-20 04:42:24 UTC
+> 2026-05-20 04:47:53 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 1587358s | HB: OK (243s alt)
+STALE — lief vor 1587687s | HB: OK (4s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-20 02:54:52 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Thunder @ $0.670 | $20.30 USDC | Spurs vs. Thunder)
-2026-05-20 02:54:52 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Thunder @ $0.670 | $67.00 USDC | Spurs vs. Thunder)
-2026-05-20 02:54:52 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Thunder @ $0.670 | $6.70 USDC | Spurs vs. Thunder)
-2026-05-20 02:54:52 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Thunder @ $0.670 | $67.00 USDC | Spurs vs. Thunder)
-2026-05-20 02:54:52 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Thunder @ $0.670 | $3094.85 USDC | Spurs vs. Thunder)
+2026-05-20 04:46:49 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.704 | $12.47 USDC | Trump kiss by May 31?)
+2026-05-20 04:46:49 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.704 | $57.92 USDC | Trump kiss by May 31?)
+2026-05-20 04:46:49 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.160 | $5.28 USDC | Will Donald Trump announce that the United States blockade o)
+2026-05-20 04:46:49 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.500 | $111.00 USDC | Iran closes its airspace by May 31?)
+2026-05-20 04:46:49 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.850 | $170.00 USDC | Iran closes its airspace by May 21?)
 ```
 
 ## Letzte Fehler (3)

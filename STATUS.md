@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-20 02:50:36 UTC
+> 2026-05-20 02:55:38 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 1580650s | HB: OK (238s alt)
+STALE — lief vor 1580952s | HB: OK (47s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-20 00:40:19 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY New York Yankees @ $0.180 | $10.97 USDC | Spread: New York Yankees (-2.5))
-2026-05-20 00:40:19 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Detroit Tigers @ $0.300 | $128.57 USDC | Cleveland Guardians vs. Detroit Tigers)
-2026-05-20 00:40:19 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.620 | $62.00 USDC | Will São Paulo FC win on 2026-05-19?)
-2026-05-20 00:40:19 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Philadelphia Phillies @ $0.110 | $30.16 USDC | Cincinnati Reds vs. Philadelphia Phillies)
-2026-05-20 00:40:19 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.860 | $1075.92 USDC | Club Always Ready vs. Mirassol FC: O/U 1.5)
+2026-05-20 02:54:52 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Thunder @ $0.670 | $20.30 USDC | Spurs vs. Thunder)
+2026-05-20 02:54:52 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Thunder @ $0.670 | $67.00 USDC | Spurs vs. Thunder)
+2026-05-20 02:54:52 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Thunder @ $0.670 | $6.70 USDC | Spurs vs. Thunder)
+2026-05-20 02:54:52 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Thunder @ $0.670 | $67.00 USDC | Spurs vs. Thunder)
+2026-05-20 02:54:52 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Thunder @ $0.670 | $3094.85 USDC | Spurs vs. Thunder)
 ```
 
 ## Letzte Fehler (3)

@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-20 19:58:14 UTC
+> 2026-05-20 20:03:15 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 1642308s | HB: STALE 703s alt (Bot moeglicherweise haengend)
+STALE — lief vor 1642609s | HB: OK (41s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-20 16:57:10 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Luka Pavlovic @ $0.630 | $53.10 USDC | Roland Garros, Qualification ATP: Luka Pavlovic vs Tomas Bar)
-2026-05-20 16:57:10 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yannick Hanfmann @ $0.340 | $314.39 USDC | Hamburg European Open: Luciano Darderi vs Yannick Hanfmann)
-2026-05-20 16:57:10 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Katarina Zavatska @ $0.680 | $248.88 USDC | Roland Garros, Qualification WTA: Darja Semenistaja vs Katar)
-2026-05-20 16:57:10 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Stan Wawrinka @ $0.190 | $18.02 USDC | Geneva Open: Stan Wawrinka vs Alex Michelsen)
-2026-05-20 16:57:10 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Stan Wawrinka @ $0.190 | $11.52 USDC | Geneva Open: Stan Wawrinka vs Alex Michelsen)
+2026-05-20 20:01:39 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.988 | $159.73 USDC | Will SC Freiburg win on 2026-05-20?)
+2026-05-20 20:01:39 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.988 | $82.33 USDC | Will SC Freiburg win on 2026-05-20?)
+2026-05-20 20:01:39 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.988 | $164.67 USDC | Will SC Freiburg win on 2026-05-20?)
+2026-05-20 20:01:39 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Luciano Darderi @ $0.690 | $66.24 USDC | Hamburg European Open: Luciano Darderi vs Yannick Hanfmann)
+2026-05-20 20:01:39 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Luciano Darderi @ $0.690 | $105.57 USDC | Hamburg European Open: Luciano Darderi vs Yannick Hanfmann)
 ```
 
 ## Letzte Fehler (3)

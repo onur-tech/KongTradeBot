@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-21 00:44:26 UTC
+> 2026-05-21 00:49:29 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 1659480s | HB: WARNUNG 473s alt
+STALE — lief vor 1659783s | HB: OK (34s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-20 22:30:36 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.840 | $5.78 USDC | CA Boston River vs. O'Higgins FC: O/U 4.5)
-2026-05-20 22:30:36 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.840 | $5.78 USDC | CA Boston River vs. O'Higgins FC: O/U 4.5)
-2026-05-20 22:30:36 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.480 | $5.44 USDC | Will CA Boston River win on 2026-05-20?)
-2026-05-20 22:30:36 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.130 | $7.47 USDC | Club Olimpia vs. CR Vasco da Gama: O/U 3.5)
-2026-05-20 22:30:36 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.840 | $5.26 USDC | CA Boston River vs. O'Higgins FC: O/U 4.5)
+2026-05-21 00:44:57 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Boston Red Sox @ $0.680 | $678.78 USDC | Boston Red Sox vs. Kansas City Royals)
+2026-05-21 00:44:57 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.246 | $39.45 USDC | New York Mets vs. Washington Nationals: O/U 10.5)
+2026-05-21 00:44:57 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.148 | $9.28 USDC | New York Mets vs. Washington Nationals: O/U 11.5)
+2026-05-21 00:44:57 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Cleveland Guardians @ $0.940 | $594.94 USDC | Spread: Detroit Tigers (-1.5))
+2026-05-21 00:44:57 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.022 | $6.65 USDC | Will Norway win the 2026 FIFA World Cup?)
 ```
 
 ## Letzte Fehler (3)

@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-21 09:51:28 UTC
+> 2026-05-21 09:56:28 UTC
 
 ## Bot-Status
 ```
@@ -14,25 +14,25 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 1692302s | HB: WARNUNG 507s alt
+STALE — lief vor 1692602s | HB: OK (58s alt)
 ```
 
 ## Portfolio
 ```
-Total:         $10.81 USDC
+Total:         $9.99 USDC
 Cash:          $0.00 USDC
-In Positionen: $10.81 USDC
+In Positionen: $9.99 USDC
 Offene Pos.:   1
 PnL heute:     $0.00
 ```
 
 ## Letzte Trades (5)
 ```
-2026-05-21 07:32:05 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Lynn Vision @ $0.410 | $108.81 USDC | Counter-Strike: Lynn Vision vs NIP - Map 2 Winner)
-2026-05-21 07:32:05 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY NIP @ $0.350 | $233.28 USDC | Counter-Strike: Lynn Vision vs NIP (BO3) - CS Asia Champions)
-2026-05-21 07:32:05 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY NIP @ $0.350 | $15.26 USDC | Counter-Strike: Lynn Vision vs NIP (BO3) - CS Asia Champions)
-2026-05-21 07:32:05 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY NIP @ $0.320 | $1025.36 USDC | Counter-Strike: Lynn Vision vs NIP (BO3) - CS Asia Champions)
-2026-05-21 07:32:05 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY BC.Game Esports @ $0.050 | $24.32 USDC | Counter-Strike: BC.Game Esports vs paiN - Map 1 Winner)
+2026-05-21 09:52:32 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY M80 @ $0.170 | $19.94 USDC | Counter-Strike: M80 vs MOUZ - Map 1 Winner)
+2026-05-21 09:52:32 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Leyre Romero Gormaz @ $0.690 | $158.70 USDC | Roland Garros, Qualification WTA: Leyre Romero Gormaz vs Slo)
+2026-05-21 09:52:32 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Knicks @ $0.480 | $22.33 USDC | Spread: Knicks (-6.5))
+2026-05-21 09:52:32 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Thunder @ $0.440 | $15.71 USDC | Thunder vs. Spurs)
+2026-05-21 09:52:32 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Thunder @ $0.440 | $15.71 USDC | Thunder vs. Spurs)
 ```
 
 ## Letzte Fehler (3)

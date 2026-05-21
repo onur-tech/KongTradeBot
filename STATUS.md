@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-21 05:10:35 UTC
+> 2026-05-21 05:15:34 UTC
 
 ## Bot-Status
 ```
@@ -14,25 +14,25 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 1675449s | HB: OK (301s alt)
+STALE — lief vor 1675748s | HB: OK (22s alt)
 ```
 
 ## Portfolio
 ```
-Total:         $10.61 USDC
+Total:         $10.68 USDC
 Cash:          $0.00 USDC
-In Positionen: $10.61 USDC
+In Positionen: $10.68 USDC
 Offene Pos.:   1
 PnL heute:     $0.00
 ```
 
 ## Letzte Trades (5)
 ```
-2026-05-21 02:59:05 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $9.24 USDC | Will Arsenal FC win on 2026-02-22?)
-2026-05-21 02:59:05 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $95.32 USDC | Will Arsenal FC win on 2026-02-22?)
-2026-05-21 02:59:05 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $14.30 USDC | Will Arsenal FC win on 2026-02-22?)
-2026-05-21 02:59:05 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $4629.80 USDC | Will Arsenal FC win on 2026-02-22?)
-2026-05-21 02:59:05 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $31.43 USDC | Will Arsenal FC win on 2026-02-22?)
+2026-05-21 05:14:14 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY MOUZ @ $0.800 | $12.00 USDC | Counter-Strike: NRG vs MOUZ (BO3) - CS Asia Championships Gr)
+2026-05-21 05:14:14 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY NRG @ $0.190 | $16.10 USDC | Counter-Strike: NRG vs MOUZ (BO3) - CS Asia Championships Gr)
+2026-05-21 05:14:14 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY NRG @ $0.160 | $255.07 USDC | Counter-Strike: NRG vs MOUZ (BO3) - CS Asia Championships Gr)
+2026-05-21 05:14:14 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY 3DMAX @ $0.550 | $354.40 USDC | Counter-Strike: 3DMAX vs Liquid (BO3) - CS Asia Championship)
+2026-05-21 05:14:14 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY 3DMAX @ $0.550 | $41.82 USDC | Counter-Strike: 3DMAX vs Liquid (BO3) - CS Asia Championship)
 ```
 
 ## Letzte Fehler (3)

@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-21 23:24:23 UTC
+> 2026-05-21 23:29:27 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 1741077s | HB: OK (229s alt)
+STALE — lief vor 1741381s | HB: OK (22s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-21 21:35:40 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.560 | $5.73 USDC | New York Mets vs. Washington Nationals: O/U 6.5)
-2026-05-21 21:35:40 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY New York Mets @ $0.630 | $25.54 USDC | New York Mets vs. Washington Nationals)
-2026-05-21 21:35:40 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY New York Mets @ $0.630 | $8.51 USDC | New York Mets vs. Washington Nationals)
-2026-05-21 21:35:40 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY New York Mets @ $0.630 | $630.00 USDC | New York Mets vs. Washington Nationals)
-2026-05-21 21:35:40 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY New York Mets @ $0.360 | $40.10 USDC | Spread: New York Mets (-1.5))
+2026-05-21 23:29:07 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY New York Yankees @ $0.450 | $8.39 USDC | Toronto Blue Jays vs. New York Yankees)
+2026-05-21 23:29:07 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY New York Yankees @ $0.450 | $81.52 USDC | Toronto Blue Jays vs. New York Yankees)
+2026-05-21 23:29:07 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY New York Yankees @ $0.450 | $14.95 USDC | Toronto Blue Jays vs. New York Yankees)
+2026-05-21 23:29:07 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Knicks @ $0.490 | $48.04 USDC | Spread: Knicks (-5.5))
+2026-05-21 23:29:07 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Knicks @ $0.490 | $24.50 USDC | Spread: Knicks (-5.5))
 ```
 
 ## Letzte Fehler (3)

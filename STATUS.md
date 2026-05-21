@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-21 12:11:53 UTC
+> 2026-05-21 12:16:53 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 1700727s | HB: WARNUNG 400s alt
+STALE — lief vor 1701027s | HB: OK (5s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-21 09:52:32 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY M80 @ $0.170 | $19.94 USDC | Counter-Strike: M80 vs MOUZ - Map 1 Winner)
-2026-05-21 09:52:32 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Leyre Romero Gormaz @ $0.690 | $158.70 USDC | Roland Garros, Qualification WTA: Leyre Romero Gormaz vs Slo)
-2026-05-21 09:52:32 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Knicks @ $0.480 | $22.33 USDC | Spread: Knicks (-6.5))
-2026-05-21 09:52:32 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Thunder @ $0.440 | $15.71 USDC | Thunder vs. Spurs)
-2026-05-21 09:52:32 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Thunder @ $0.440 | $15.71 USDC | Thunder vs. Spurs)
+2026-05-21 12:14:50 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY SAW @ $0.759 | $382.75 USDC | Counter-Strike: SAW vs Julie&cie - Map 1 Winner)
+2026-05-21 12:14:50 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY SAW @ $0.740 | $3057.68 USDC | Counter-Strike: SAW vs Julie&cie - Map 1 Winner)
+2026-05-21 12:14:50 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY SAW @ $0.730 | $49.15 USDC | Counter-Strike: SAW vs Julie&cie - Map 1 Winner)
+2026-05-21 12:14:50 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY SAW @ $0.710 | $124.47 USDC | Counter-Strike: SAW vs Julie&cie - Map 1 Winner)
+2026-05-21 12:14:50 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.024 | $2733.33 USDC | Will Norway win the 2026 FIFA World Cup?)
 ```
 
 ## Letzte Fehler (3)

@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-21 16:52:42 UTC
+> 2026-05-21 16:57:45 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 1717576s | HB: OK (322s alt)
+STALE — lief vor 1717879s | HB: OK (58s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-21 14:35:18 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Emma Navarro @ $0.540 | $14.27 USDC | Internationaux de Strasbourg: Shuai Zhang vs Emma Navarro)
-2026-05-21 14:35:18 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Emma Navarro @ $0.540 | $11.74 USDC | Internationaux de Strasbourg: Shuai Zhang vs Emma Navarro)
-2026-05-21 14:35:18 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Emma Navarro @ $0.540 | $291.34 USDC | Internationaux de Strasbourg: Shuai Zhang vs Emma Navarro)
-2026-05-21 14:35:18 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Thunder @ $0.440 | $7.86 USDC | Thunder vs. Spurs)
-2026-05-21 14:35:18 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Thunder @ $0.440 | $15.71 USDC | Thunder vs. Spurs)
+2026-05-21 16:56:49 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.630 | $69.39 USDC | Will FC København win on 2026-05-21?)
+2026-05-21 16:56:49 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Camilo Ugo Carabelli @ $0.470 | $24.95 USDC | Hamburg European Open: Aleksandar Kovacevic vs Camilo Ugo Ca)
+2026-05-21 16:56:49 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Thunder @ $0.440 | $7.86 USDC | Thunder vs. Spurs)
+2026-05-21 16:56:49 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Thunder @ $0.440 | $7.86 USDC | Thunder vs. Spurs)
+2026-05-21 16:56:49 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Thunder @ $0.440 | $7.86 USDC | Thunder vs. Spurs)
 ```
 
 ## Letzte Fehler (3)

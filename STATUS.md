@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-21 07:30:56 UTC
+> 2026-05-21 07:35:56 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 1683870s | HB: WARNUNG 484s alt
+STALE — lief vor 1684170s | HB: OK (53s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-21 05:14:14 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY MOUZ @ $0.800 | $12.00 USDC | Counter-Strike: NRG vs MOUZ (BO3) - CS Asia Championships Gr)
-2026-05-21 05:14:14 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY NRG @ $0.190 | $16.10 USDC | Counter-Strike: NRG vs MOUZ (BO3) - CS Asia Championships Gr)
-2026-05-21 05:14:14 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY NRG @ $0.160 | $255.07 USDC | Counter-Strike: NRG vs MOUZ (BO3) - CS Asia Championships Gr)
-2026-05-21 05:14:14 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY 3DMAX @ $0.550 | $354.40 USDC | Counter-Strike: 3DMAX vs Liquid (BO3) - CS Asia Championship)
-2026-05-21 05:14:14 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY 3DMAX @ $0.550 | $41.82 USDC | Counter-Strike: 3DMAX vs Liquid (BO3) - CS Asia Championship)
+2026-05-21 07:32:05 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Lynn Vision @ $0.410 | $108.81 USDC | Counter-Strike: Lynn Vision vs NIP - Map 2 Winner)
+2026-05-21 07:32:05 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY NIP @ $0.350 | $233.28 USDC | Counter-Strike: Lynn Vision vs NIP (BO3) - CS Asia Champions)
+2026-05-21 07:32:05 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY NIP @ $0.350 | $15.26 USDC | Counter-Strike: Lynn Vision vs NIP (BO3) - CS Asia Champions)
+2026-05-21 07:32:05 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY NIP @ $0.320 | $1025.36 USDC | Counter-Strike: Lynn Vision vs NIP (BO3) - CS Asia Champions)
+2026-05-21 07:32:05 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY BC.Game Esports @ $0.050 | $24.32 USDC | Counter-Strike: BC.Game Esports vs paiN - Map 1 Winner)
 ```
 
 ## Letzte Fehler (3)

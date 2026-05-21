@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-21 14:32:14 UTC
+> 2026-05-21 14:37:14 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 1709148s | HB: WARNUNG 386s alt
+STALE — lief vor 1709448s | HB: OK (59s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-21 12:14:50 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY SAW @ $0.759 | $382.75 USDC | Counter-Strike: SAW vs Julie&cie - Map 1 Winner)
-2026-05-21 12:14:50 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY SAW @ $0.740 | $3057.68 USDC | Counter-Strike: SAW vs Julie&cie - Map 1 Winner)
-2026-05-21 12:14:50 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY SAW @ $0.730 | $49.15 USDC | Counter-Strike: SAW vs Julie&cie - Map 1 Winner)
-2026-05-21 12:14:50 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY SAW @ $0.710 | $124.47 USDC | Counter-Strike: SAW vs Julie&cie - Map 1 Winner)
-2026-05-21 12:14:50 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.024 | $2733.33 USDC | Will Norway win the 2026 FIFA World Cup?)
+2026-05-21 14:35:18 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Emma Navarro @ $0.540 | $14.27 USDC | Internationaux de Strasbourg: Shuai Zhang vs Emma Navarro)
+2026-05-21 14:35:18 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Emma Navarro @ $0.540 | $11.74 USDC | Internationaux de Strasbourg: Shuai Zhang vs Emma Navarro)
+2026-05-21 14:35:18 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Emma Navarro @ $0.540 | $291.34 USDC | Internationaux de Strasbourg: Shuai Zhang vs Emma Navarro)
+2026-05-21 14:35:18 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Thunder @ $0.440 | $7.86 USDC | Thunder vs. Spurs)
+2026-05-21 14:35:18 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Thunder @ $0.440 | $15.71 USDC | Thunder vs. Spurs)
 ```
 
 ## Letzte Fehler (3)

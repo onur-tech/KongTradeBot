@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-22 08:09:53 UTC
+> 2026-05-22 08:15:00 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 1772607s | HB: OK (296s alt)
+STALE — lief vor 1772914s | HB: OK (47s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-22 05:52:43 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY TheMongolz @ $0.490 | $48.04 USDC | Counter-Strike: TheMongolz vs PARIVISION - Map 1 Winner)
-2026-05-22 05:52:43 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY PARIVISION @ $0.660 | $36.88 USDC | Map Handicap: MGLZ (-1.5) vs PARIVISION (+1.5))
-2026-05-22 05:52:43 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY MOUZ @ $0.720 | $21.86 USDC | Counter-Strike: MOUZ vs paiN - Map 2 Winner)
-2026-05-22 05:52:43 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY MOUZ @ $0.720 | $282.86 USDC | Counter-Strike: MOUZ vs paiN - Map 2 Winner)
-2026-05-22 05:52:43 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY MOUZ @ $0.720 | $195.12 USDC | Counter-Strike: MOUZ vs paiN - Map 2 Winner)
+2026-05-22 08:14:15 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Hamish Stewart @ $0.170 | $20.27 USDC | Bengaluru 3: Ilya Ivashka vs Hamish Stewart)
+2026-05-22 08:14:15 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Hamish Stewart @ $0.160 | $25.78 USDC | Bengaluru 3: Ilya Ivashka vs Hamish Stewart)
+2026-05-22 08:14:15 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Ilya Ivashka @ $0.800 | $11.16 USDC | Bengaluru 3: Ilya Ivashka vs Hamish Stewart)
+2026-05-22 08:14:15 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Ilya Ivashka @ $0.810 | $9.55 USDC | Bengaluru 3: Ilya Ivashka vs Hamish Stewart)
+2026-05-22 08:14:15 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Ilya Ivashka @ $0.810 | $8.10 USDC | Bengaluru 3: Ilya Ivashka vs Hamish Stewart)
 ```
 
 ## Letzte Fehler (3)

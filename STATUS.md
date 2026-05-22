@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-22 09:20:49 UTC
+> 2026-05-22 09:25:47 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 1776863s | HB: OK (322s alt)
+STALE — lief vor 1777161s | HB: OK (27s alt)
 ```
 
 ## Portfolio
@@ -37,9 +37,9 @@ PnL heute:     $0.00
 
 ## Letzte Fehler (3)
 ```
+The above exception was the direct cause of the following exception:
+raise asyncio.TimeoutError from exc_val
 TimeoutError
-2026-05-22 09:10:39 | WARNING  | polymarket_bot.wallet_monitor | [WS] Verbindungsfehler: sent 1011 (internal error) keepalive ping timeout; no close frame received — Reconnect in 16s (Retry 4/5)
-[TG] getUpdates HTTP 409 body='{"ok":false,"error_code":409,"description":"Conflict: terminated by other getUpdates request; make sure that only one bot instance is running"}'
 ```
 
 ---

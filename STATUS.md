@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-22 09:45:54 UTC
+> 2026-05-22 09:51:03 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 1778368s | HB: WARNUNG 455s alt
+STALE — lief vor 1778677s | HB: OK (36s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-22 08:14:15 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Hamish Stewart @ $0.170 | $20.27 USDC | Bengaluru 3: Ilya Ivashka vs Hamish Stewart)
-2026-05-22 08:14:15 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Hamish Stewart @ $0.160 | $25.78 USDC | Bengaluru 3: Ilya Ivashka vs Hamish Stewart)
-2026-05-22 08:14:15 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Ilya Ivashka @ $0.800 | $11.16 USDC | Bengaluru 3: Ilya Ivashka vs Hamish Stewart)
-2026-05-22 08:14:15 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Ilya Ivashka @ $0.810 | $9.55 USDC | Bengaluru 3: Ilya Ivashka vs Hamish Stewart)
-2026-05-22 08:14:15 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Ilya Ivashka @ $0.810 | $8.10 USDC | Bengaluru 3: Ilya Ivashka vs Hamish Stewart)
+2026-05-22 09:47:28 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Susan Bandecchi @ $0.910 | $7.30 USDC | Roland Garros, Qualification WTA: Susan Bandecchi vs Viktori)
+2026-05-22 09:47:28 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Aliaksandra Sasnovich @ $0.570 | $1934.37 USDC | Roland Garros, Qualification WTA: Aliaksandra Sasnovich vs M)
+2026-05-22 09:47:28 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Aliaksandra Sasnovich @ $0.580 | $151.29 USDC | Roland Garros, Qualification WTA: Aliaksandra Sasnovich vs M)
+2026-05-22 09:47:28 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Julie&cie @ $0.010 | $7.24 USDC | Counter-Strike: Clair Obscur vs Julie&cie - Map 2 Winner)
+2026-05-22 09:47:28 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Marina Bassols Ribera @ $0.340 | $349.06 USDC | Roland Garros, Qualification WTA: Aliaksandra Sasnovich vs M)
 ```
 
 ## Letzte Fehler (3)

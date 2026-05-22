@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-22 14:51:26 UTC
+> 2026-05-22 14:56:51 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 1796700s | HB: WARNUNG 420s alt
+STALE — lief vor 1797025s | HB: OK (56s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-22 12:55:55 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Leandro Riedi @ $0.490 | $15.03 USDC | Roland Garros, Qualification ATP: Pierre-Hugues Herbert vs L)
-2026-05-22 12:55:55 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Leandro Riedi @ $0.490 | $234.29 USDC | Roland Garros, Qualification ATP: Pierre-Hugues Herbert vs L)
-2026-05-22 12:55:55 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Mariano Navone @ $0.160 | $17.20 USDC | Geneva Open: Casper Ruud vs Mariano Navone)
-2026-05-22 12:55:55 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Emma Navarro @ $0.540 | $588.07 USDC | Internationaux de Strasbourg: Emma Navarro vs Ann Li)
-2026-05-22 12:55:55 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.430 | $134.38 USDC | Will PSG win the 2025–26 Champions League?)
+2026-05-22 14:53:58 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Felix Gill @ $0.510 | $28.56 USDC | Roland Garros, Qualification ATP: Felix Gill vs Kyrian Jacqu)
+2026-05-22 14:53:58 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Felix Gill @ $0.510 | $154.76 USDC | Roland Garros, Qualification ATP: Felix Gill vs Kyrian Jacqu)
+2026-05-22 14:53:58 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY David Jorda Sanchis @ $0.430 | $97.46 USDC | Istanbul: Hynek Barton vs David Jorda Sanchis)
+2026-05-22 14:53:58 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Alexander Bublik @ $0.270 | $156.60 USDC | Geneva Open: Learner Tien vs Alexander Bublik)
+2026-05-22 14:53:58 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.112 | $36.43 USDC | Will England win the 2026 FIFA World Cup?)
 ```
 
 ## Letzte Fehler (3)

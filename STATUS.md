@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-22 17:13:42 UTC
+> 2026-05-22 17:18:43 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 1805236s | HB: WARNUNG 542s alt
+STALE — lief vor 1805537s | HB: OK (58s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-22 14:53:58 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Felix Gill @ $0.510 | $28.56 USDC | Roland Garros, Qualification ATP: Felix Gill vs Kyrian Jacqu)
-2026-05-22 14:53:58 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Felix Gill @ $0.510 | $154.76 USDC | Roland Garros, Qualification ATP: Felix Gill vs Kyrian Jacqu)
-2026-05-22 14:53:58 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY David Jorda Sanchis @ $0.430 | $97.46 USDC | Istanbul: Hynek Barton vs David Jorda Sanchis)
-2026-05-22 14:53:58 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Alexander Bublik @ $0.270 | $156.60 USDC | Geneva Open: Learner Tien vs Alexander Bublik)
-2026-05-22 14:53:58 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.112 | $36.43 USDC | Will England win the 2026 FIFA World Cup?)
+2026-05-22 17:13:47 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY MIBR Academy @ $0.070 | $8.44 USDC | Counter-Strike: Bounty Hunters Esports vs MIBR Academy (BO3))
+2026-05-22 17:13:47 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Alex de Minaur @ $0.640 | $676.55 USDC | Hamburg European Open: Alex de Minaur vs Tommy Paul)
+2026-05-22 17:13:47 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Tommy Paul @ $0.350 | $5.26 USDC | Hamburg European Open: Alex de Minaur vs Tommy Paul)
+2026-05-22 17:13:47 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Victoria Mboko @ $0.591 | $188.47 USDC | Internationaux de Strasbourg: Victoria Mboko vs Jaqueline Cr)
+2026-05-22 17:13:47 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.112 | $31.98 USDC | Will England win the 2026 FIFA World Cup?)
 ```
 
 ## Letzte Fehler (3)

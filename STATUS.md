@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-22 11:18:33 UTC
+> 2026-05-22 11:23:33 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 1783927s | HB: WARNUNG 371s alt
+STALE — lief vor 1784227s | HB: OK (45s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-22 09:47:28 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Susan Bandecchi @ $0.910 | $7.30 USDC | Roland Garros, Qualification WTA: Susan Bandecchi vs Viktori)
-2026-05-22 09:47:28 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Aliaksandra Sasnovich @ $0.570 | $1934.37 USDC | Roland Garros, Qualification WTA: Aliaksandra Sasnovich vs M)
-2026-05-22 09:47:28 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Aliaksandra Sasnovich @ $0.580 | $151.29 USDC | Roland Garros, Qualification WTA: Aliaksandra Sasnovich vs M)
-2026-05-22 09:47:28 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Julie&cie @ $0.010 | $7.24 USDC | Counter-Strike: Clair Obscur vs Julie&cie - Map 2 Winner)
-2026-05-22 09:47:28 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Marina Bassols Ribera @ $0.340 | $349.06 USDC | Roland Garros, Qualification WTA: Aliaksandra Sasnovich vs M)
+2026-05-22 11:23:02 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.330 | $7.31 USDC | Will FC Machida Zelvia win on 2026-05-22?)
+2026-05-22 11:23:02 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Marina Bassols Ribera @ $0.690 | $6.96 USDC | Roland Garros, Qualification WTA: Aliaksandra Sasnovich vs M)
+2026-05-22 11:23:02 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Katarina Zavatska @ $0.450 | $8.18 USDC | Roland Garros, Qualification WTA: Katarina Zavatska vs Lucia)
+2026-05-22 11:23:02 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Lucia Bronzetti @ $0.530 | $273.91 USDC | Roland Garros, Qualification WTA: Katarina Zavatska vs Lucia)
+2026-05-22 11:23:02 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.112 | $297.81 USDC | Will England win the 2026 FIFA World Cup?)
 ```
 
 ## Letzte Fehler (3)

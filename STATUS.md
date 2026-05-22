@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-22 09:10:40 UTC
+> 2026-05-22 09:15:44 UTC
 
 ## Bot-Status
 ```
@@ -14,12 +14,16 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 1776254s | HB: OK (13s alt)
+STALE — lief vor 1776558s | HB: OK (17s alt)
 ```
 
 ## Portfolio
 ```
-Dashboard nicht erreichbar: timed out
+Total:         $0.00 USDC
+Cash:          $0.00 USDC
+In Positionen: $0.00 USDC
+Offene Pos.:   0
+PnL heute:     $0.00
 ```
 
 ## Letzte Trades (5)
@@ -33,9 +37,9 @@ Dashboard nicht erreichbar: timed out
 
 ## Letzte Fehler (3)
 ```
-raise asyncio.TimeoutError from exc_val
 TimeoutError
 2026-05-22 09:10:39 | WARNING  | polymarket_bot.wallet_monitor | [WS] Verbindungsfehler: sent 1011 (internal error) keepalive ping timeout; no close frame received — Reconnect in 16s (Retry 4/5)
+[TG] getUpdates HTTP 409 body='{"ok":false,"error_code":409,"description":"Conflict: terminated by other getUpdates request; make sure that only one bot instance is running"}'
 ```
 
 ---

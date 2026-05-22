@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-22 12:54:23 UTC
+> 2026-05-22 12:59:29 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 1789677s | HB: WARNUNG 497s alt
+STALE — lief vor 1789983s | HB: OK (37s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-22 11:23:02 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.330 | $7.31 USDC | Will FC Machida Zelvia win on 2026-05-22?)
-2026-05-22 11:23:02 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Marina Bassols Ribera @ $0.690 | $6.96 USDC | Roland Garros, Qualification WTA: Aliaksandra Sasnovich vs M)
-2026-05-22 11:23:02 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Katarina Zavatska @ $0.450 | $8.18 USDC | Roland Garros, Qualification WTA: Katarina Zavatska vs Lucia)
-2026-05-22 11:23:02 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Lucia Bronzetti @ $0.530 | $273.91 USDC | Roland Garros, Qualification WTA: Katarina Zavatska vs Lucia)
-2026-05-22 11:23:02 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.112 | $297.81 USDC | Will England win the 2026 FIFA World Cup?)
+2026-05-22 12:55:55 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Leandro Riedi @ $0.490 | $15.03 USDC | Roland Garros, Qualification ATP: Pierre-Hugues Herbert vs L)
+2026-05-22 12:55:55 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Leandro Riedi @ $0.490 | $234.29 USDC | Roland Garros, Qualification ATP: Pierre-Hugues Herbert vs L)
+2026-05-22 12:55:55 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Mariano Navone @ $0.160 | $17.20 USDC | Geneva Open: Casper Ruud vs Mariano Navone)
+2026-05-22 12:55:55 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Emma Navarro @ $0.540 | $588.07 USDC | Internationaux de Strasbourg: Emma Navarro vs Ann Li)
+2026-05-22 12:55:55 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.430 | $134.38 USDC | Will PSG win the 2025–26 Champions League?)
 ```
 
 ## Letzte Fehler (3)

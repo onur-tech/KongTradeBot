@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-22 05:52:35 UTC
+> 2026-05-22 05:57:39 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 1764369s | HB: WARNUNG 536s alt
+STALE — lief vor 1764673s | HB: OK (58s alt)
 ```
 
 ## Portfolio
@@ -28,18 +28,18 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-22 03:58:40 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY B8 @ $0.270 | $136.06 USDC | Counter-Strike: MIBR vs B8 - Map 2 Winner)
-2026-05-22 03:58:40 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY B8 @ $0.180 | $118.32 USDC | Counter-Strike: MIBR vs B8 (BO3) - CS Asia Championships Gro)
-2026-05-22 03:58:40 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Los Angeles Angels @ $0.440 | $73.90 USDC | Athletics vs. Los Angeles Angels)
-2026-05-22 03:58:40 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Los Angeles Angels @ $0.440 | $7.86 USDC | Athletics vs. Los Angeles Angels)
-2026-05-22 03:58:40 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Los Angeles Angels @ $0.440 | $26.47 USDC | Athletics vs. Los Angeles Angels)
+2026-05-22 05:52:43 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY TheMongolz @ $0.490 | $48.04 USDC | Counter-Strike: TheMongolz vs PARIVISION - Map 1 Winner)
+2026-05-22 05:52:43 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY PARIVISION @ $0.660 | $36.88 USDC | Map Handicap: MGLZ (-1.5) vs PARIVISION (+1.5))
+2026-05-22 05:52:43 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY MOUZ @ $0.720 | $21.86 USDC | Counter-Strike: MOUZ vs paiN - Map 2 Winner)
+2026-05-22 05:52:43 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY MOUZ @ $0.720 | $282.86 USDC | Counter-Strike: MOUZ vs paiN - Map 2 Winner)
+2026-05-22 05:52:43 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY MOUZ @ $0.720 | $195.12 USDC | Counter-Strike: MOUZ vs paiN - Map 2 Winner)
 ```
 
 ## Letzte Fehler (3)
 ```
+The above exception was the direct cause of the following exception:
 raise asyncio.TimeoutError from exc_val
 TimeoutError
-2026-05-22 05:39:14 | WARNING  | polymarket_bot.wallet_monitor | [WS] Verbindungsfehler: sent 1011 (internal error) keepalive ping timeout; no close frame received — Reconnect in 32s (Retry 5/5)
 ```
 
 ---

@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-23 09:17:43 UTC
+> 2026-05-23 09:23:14 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 1863077s | HB: WARNUNG 500s alt
+STALE — lief vor 1863408s | HB: OK (35s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-23 06:57:03 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.260 | $5.92 USDC | Avispa Fukuoka vs. Vissel Kōbe: O/U 1.5)
-2026-05-23 06:57:03 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.720 | $242.36 USDC | Avispa Fukuoka vs. Vissel Kōbe: O/U 1.5)
-2026-05-23 06:57:03 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.870 | $398.64 USDC | Will Vissel Kōbe win on 2026-05-23?)
-2026-05-23 06:57:03 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Knicks @ $0.440 | $5.50 USDC | Knicks vs. Cavaliers)
-2026-05-23 06:57:03 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Knicks @ $0.440 | $9.79 USDC | Knicks vs. Cavaliers)
+2026-05-23 09:19:39 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.910 | $179.98 USDC | Iran closes its airspace by June 15?)
+2026-05-23 09:19:39 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.049 | $20.13 USDC | Iran closes its airspace by June 30?)
+2026-05-23 09:19:39 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.968 | $2150.90 USDC | Iran closes its airspace by June 30?)
+2026-05-23 09:19:40 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY MIBR @ $0.350 | $34.39 USDC | Counter-Strike: MIBR vs Legacy - Map 1 Winner)
+2026-05-23 09:19:40 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Knicks @ $0.440 | $11.88 USDC | Knicks vs. Cavaliers)
 ```
 
 ## Letzte Fehler (3)

@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-23 21:06:54 UTC
+> 2026-05-23 21:11:55 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 1905628s | HB: WARNUNG 545s alt
+STALE — lief vor 1905929s | HB: OK (26s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-23 18:46:35 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Usyk @ $0.920 | $169.40 USDC | Glory in Giza: Oleksandr Usyk vs. Rico Verhoeven)
-2026-05-23 18:46:35 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Usyk @ $0.920 | $437.69 USDC | Glory in Giza: Oleksandr Usyk vs. Rico Verhoeven)
-2026-05-23 18:46:35 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Usyk @ $0.920 | $111.09 USDC | Glory in Giza: Oleksandr Usyk vs. Rico Verhoeven)
-2026-05-23 18:46:35 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Usyk @ $0.920 | $637.45 USDC | Glory in Giza: Oleksandr Usyk vs. Rico Verhoeven)
-2026-05-23 18:46:35 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Usyk @ $0.920 | $57.50 USDC | Glory in Giza: Oleksandr Usyk vs. Rico Verhoeven)
+2026-05-23 21:07:31 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Knicks @ $0.480 | $9.23 USDC | Spread: Cavaliers (-2.5))
+2026-05-23 21:07:31 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Usyk @ $0.920 | $80.16 USDC | Glory in Giza: Oleksandr Usyk vs. Rico Verhoeven)
+2026-05-23 21:07:31 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Usyk @ $0.920 | $57.50 USDC | Glory in Giza: Oleksandr Usyk vs. Rico Verhoeven)
+2026-05-23 21:07:31 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Usyk @ $0.920 | $57.50 USDC | Glory in Giza: Oleksandr Usyk vs. Rico Verhoeven)
+2026-05-23 21:07:31 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Usyk @ $0.920 | $23.00 USDC | Glory in Giza: Oleksandr Usyk vs. Rico Verhoeven)
 ```
 
 ## Letzte Fehler (3)

@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-23 02:20:13 UTC
+> 2026-05-23 02:25:20 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 1838027s | HB: OK (298s alt)
+STALE — lief vor 1838334s | HB: OK (39s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-23 00:08:50 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.420 | $7.24 USDC | Los Angeles Dodgers vs. Milwaukee Brewers: O/U 10.5)
-2026-05-23 00:08:50 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Milwaukee Brewers @ $0.860 | $30.71 USDC | Los Angeles Dodgers vs. Milwaukee Brewers)
-2026-05-23 00:08:50 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Pittsburgh Pirates @ $0.170 | $20.57 USDC | Pittsburgh Pirates vs. Toronto Blue Jays)
-2026-05-23 00:08:50 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.112 | $20.31 USDC | Will England win the 2026 FIFA World Cup?)
-2026-05-23 00:08:50 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.112 | $12.70 USDC | Will England win the 2026 FIFA World Cup?)
+2026-05-23 02:23:44 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Colorado Rockies @ $0.220 | $180.40 USDC | Colorado Rockies vs. Arizona Diamondbacks)
+2026-05-23 02:23:44 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.711 | $22.88 USDC | Washington Nationals vs. Atlanta Braves: O/U 9.5)
+2026-05-23 02:23:44 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Chicago White Sox @ $0.470 | $501.14 USDC | Chicago White Sox vs. San Francisco Giants)
+2026-05-23 02:23:44 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Texas Rangers @ $0.130 | $15.84 USDC | Texas Rangers vs. Los Angeles Angels)
+2026-05-23 02:23:44 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.430 | $6.45 USDC | Will PSG win the 2025–26 Champions League?)
 ```
 
 ## Letzte Fehler (3)

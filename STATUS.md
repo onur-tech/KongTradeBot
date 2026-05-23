@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-23 04:37:15 UTC
+> 2026-05-23 04:42:16 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 1846249s | HB: WARNUNG 415s alt
+STALE — lief vor 1846550s | HB: OK (22s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-23 02:23:44 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Colorado Rockies @ $0.220 | $180.40 USDC | Colorado Rockies vs. Arizona Diamondbacks)
-2026-05-23 02:23:44 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.711 | $22.88 USDC | Washington Nationals vs. Atlanta Braves: O/U 9.5)
-2026-05-23 02:23:44 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Chicago White Sox @ $0.470 | $501.14 USDC | Chicago White Sox vs. San Francisco Giants)
-2026-05-23 02:23:44 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Texas Rangers @ $0.130 | $15.84 USDC | Texas Rangers vs. Los Angeles Angels)
-2026-05-23 02:23:44 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.430 | $6.45 USDC | Will PSG win the 2025–26 Champions League?)
+2026-05-23 04:38:56 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Arizona Diamondbacks @ $0.110 | $22.83 USDC | Colorado Rockies vs. Arizona Diamondbacks)
+2026-05-23 04:38:56 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Colorado Rockies @ $0.870 | $15.73 USDC | Colorado Rockies vs. Arizona Diamondbacks)
+2026-05-23 04:38:56 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.830 | $244.12 USDC | Colorado Rockies vs. Arizona Diamondbacks: O/U 5.5)
+2026-05-23 04:38:56 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Knicks @ $0.440 | $15.71 USDC | Knicks vs. Cavaliers)
+2026-05-23 04:38:56 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Knicks @ $0.440 | $14.48 USDC | Knicks vs. Cavaliers)
 ```
 
 ## Letzte Fehler (3)

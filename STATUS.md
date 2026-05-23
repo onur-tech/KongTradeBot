@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-23 22:58:43 UTC
+> 2026-05-23 23:03:44 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 1912337s | HB: OK (238s alt)
+STALE — lief vor 1912638s | HB: OK (10s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-23 21:07:31 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Knicks @ $0.480 | $9.23 USDC | Spread: Cavaliers (-2.5))
-2026-05-23 21:07:31 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Usyk @ $0.920 | $80.16 USDC | Glory in Giza: Oleksandr Usyk vs. Rico Verhoeven)
-2026-05-23 21:07:31 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Usyk @ $0.920 | $57.50 USDC | Glory in Giza: Oleksandr Usyk vs. Rico Verhoeven)
-2026-05-23 21:07:31 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Usyk @ $0.920 | $57.50 USDC | Glory in Giza: Oleksandr Usyk vs. Rico Verhoeven)
-2026-05-23 21:07:31 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Usyk @ $0.920 | $23.00 USDC | Glory in Giza: Oleksandr Usyk vs. Rico Verhoeven)
+2026-05-23 23:03:35 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Knicks @ $0.450 | $12.23 USDC | Spread: Cavaliers (-1.5))
+2026-05-23 23:03:35 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Knicks @ $0.450 | $12.23 USDC | Spread: Cavaliers (-1.5))
+2026-05-23 23:03:35 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.112 | $11.31 USDC | Will England win the 2026 FIFA World Cup?)
+2026-05-23 23:03:35 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Knicks @ $0.450 | $38.70 USDC | Spread: Cavaliers (-1.5))
+2026-05-23 23:03:35 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Knicks @ $0.450 | $38.70 USDC | Spread: Cavaliers (-1.5))
 ```
 
 ## Letzte Fehler (3)

@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-23 00:06:25 UTC
+> 2026-05-23 00:11:27 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 1829999s | HB: WARNUNG 377s alt
+STALE — lief vor 1830301s | HB: OK (39s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-22 21:52:39 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.650 | $66.57 USDC | ADC Juan Pablo II College vs. FBC Melgar: O/U 2.5)
-2026-05-22 21:52:39 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.210 | $26.09 USDC | Will FBC Melgar win on 2026-05-22?)
-2026-05-22 21:52:39 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.940 | $23.41 USDC | Will Kawkab AC win on 2026-05-22?)
-2026-05-22 21:52:39 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.940 | $117.50 USDC | Will Kawkab AC win on 2026-05-22?)
-2026-05-22 21:52:39 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.940 | $117.50 USDC | Will Kawkab AC win on 2026-05-22?)
+2026-05-23 00:08:50 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.420 | $7.24 USDC | Los Angeles Dodgers vs. Milwaukee Brewers: O/U 10.5)
+2026-05-23 00:08:50 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Milwaukee Brewers @ $0.860 | $30.71 USDC | Los Angeles Dodgers vs. Milwaukee Brewers)
+2026-05-23 00:08:50 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Pittsburgh Pirates @ $0.170 | $20.57 USDC | Pittsburgh Pirates vs. Toronto Blue Jays)
+2026-05-23 00:08:50 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.112 | $20.31 USDC | Will England win the 2026 FIFA World Cup?)
+2026-05-23 00:08:50 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.112 | $12.70 USDC | Will England win the 2026 FIFA World Cup?)
 ```
 
 ## Letzte Fehler (3)

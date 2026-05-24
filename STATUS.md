@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-24 05:51:15 UTC
+> 2026-05-24 05:56:23 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 1937089s | HB: WARNUNG 488s alt
+STALE — lief vor 1937397s | HB: OK (9s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-24 03:35:05 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Texas Rangers @ $0.350 | $65.86 USDC | Texas Rangers vs. Los Angeles Angels)
-2026-05-24 03:35:05 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Texas Rangers @ $0.350 | $53.18 USDC | Texas Rangers vs. Los Angeles Angels)
-2026-05-24 03:35:05 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Texas Rangers @ $0.350 | $14.09 USDC | Texas Rangers vs. Los Angeles Angels)
-2026-05-24 03:35:05 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY MIBR @ $0.310 | $8.99 USDC | Counter-Strike: MOUZ vs MIBR - Map 2 Winner)
-2026-05-24 03:35:05 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.430 | $23.72 USDC | Will PSG win the 2025–26 Champions League?)
+2026-05-24 05:52:15 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.930 | $1301.94 USDC | Will Tōkyō Verdy vs. Yokohama F·Marinos end in a draw?)
+2026-05-24 05:52:15 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.910 | $81.22 USDC | Will Vanraure Hachinohe FC win on 2026-05-24?)
+2026-05-24 05:52:15 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.900 | $20.00 USDC | Will Vanraure Hachinohe FC win on 2026-05-24?)
+2026-05-24 05:52:15 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.440 | $294.64 USDC | Tōkyō Verdy vs. Yokohama F·Marinos: O/U 3.5)
+2026-05-24 05:52:15 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.112 | $9.65 USDC | Will England win the 2026 FIFA World Cup?)
 ```
 
 ## Letzte Fehler (3)

@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-24 03:34:25 UTC
+> 2026-05-24 03:39:30 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 1928879s | HB: WARNUNG 479s alt
+STALE — lief vor 1929184s | HB: OK (27s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-24 01:19:36 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Los Angeles Dodgers @ $0.730 | $18.25 USDC | Los Angeles Dodgers vs. Milwaukee Brewers)
-2026-05-24 01:19:36 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Los Angeles Dodgers @ $0.690 | $69.00 USDC | Los Angeles Dodgers vs. Milwaukee Brewers)
-2026-05-24 01:19:36 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Benjamin Bonzi @ $0.050 | $26.31 USDC | Roland Garros ATP: Benjamin Bonzi vs Alexander Zverev)
-2026-05-24 01:19:36 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.500 | $1750.06 USDC | Will Vancouver Whitecaps FC win on 2026-05-23?)
-2026-05-24 01:19:36 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Los Angeles Dodgers @ $0.650 | $35.47 USDC | Los Angeles Dodgers vs. Milwaukee Brewers)
+2026-05-24 03:35:05 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Texas Rangers @ $0.350 | $65.86 USDC | Texas Rangers vs. Los Angeles Angels)
+2026-05-24 03:35:05 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Texas Rangers @ $0.350 | $53.18 USDC | Texas Rangers vs. Los Angeles Angels)
+2026-05-24 03:35:05 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Texas Rangers @ $0.350 | $14.09 USDC | Texas Rangers vs. Los Angeles Angels)
+2026-05-24 03:35:05 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY MIBR @ $0.310 | $8.99 USDC | Counter-Strike: MOUZ vs MIBR - Map 2 Winner)
+2026-05-24 03:35:05 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.430 | $23.72 USDC | Will PSG win the 2025–26 Champions League?)
 ```
 
 ## Letzte Fehler (3)

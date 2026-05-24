@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-24 01:16:18 UTC
+> 2026-05-24 01:21:19 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 1920592s | HB: OK (318s alt)
+STALE — lief vor 1920893s | HB: OK (45s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-23 23:03:35 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Knicks @ $0.450 | $12.23 USDC | Spread: Cavaliers (-1.5))
-2026-05-23 23:03:35 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Knicks @ $0.450 | $12.23 USDC | Spread: Cavaliers (-1.5))
-2026-05-23 23:03:35 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.112 | $11.31 USDC | Will England win the 2026 FIFA World Cup?)
-2026-05-23 23:03:35 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Knicks @ $0.450 | $38.70 USDC | Spread: Cavaliers (-1.5))
-2026-05-23 23:03:35 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Knicks @ $0.450 | $38.70 USDC | Spread: Cavaliers (-1.5))
+2026-05-24 01:19:36 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Los Angeles Dodgers @ $0.730 | $18.25 USDC | Los Angeles Dodgers vs. Milwaukee Brewers)
+2026-05-24 01:19:36 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Los Angeles Dodgers @ $0.690 | $69.00 USDC | Los Angeles Dodgers vs. Milwaukee Brewers)
+2026-05-24 01:19:36 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Benjamin Bonzi @ $0.050 | $26.31 USDC | Roland Garros ATP: Benjamin Bonzi vs Alexander Zverev)
+2026-05-24 01:19:36 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.500 | $1750.06 USDC | Will Vancouver Whitecaps FC win on 2026-05-23?)
+2026-05-24 01:19:36 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Los Angeles Dodgers @ $0.650 | $35.47 USDC | Los Angeles Dodgers vs. Milwaukee Brewers)
 ```
 
 ## Letzte Fehler (3)

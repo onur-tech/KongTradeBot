@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-24 16:26:45 UTC
+> 2026-05-24 16:31:46 UTC
 
 ## Bot-Status
 ```
@@ -14,25 +14,25 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 1975219s | HB: OK (320s alt)
+STALE — lief vor 1975520s | HB: OK (28s alt)
 ```
 
 ## Portfolio
 ```
-Total:         $9.36 USDC
+Total:         $9.30 USDC
 Cash:          $0.00 USDC
-In Positionen: $9.36 USDC
+In Positionen: $9.30 USDC
 Offene Pos.:   1
 PnL heute:     $0.00
 ```
 
 ## Letzte Trades (5)
 ```
-2026-05-24 14:15:08 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Tereza Valentova @ $0.500 | $1617.61 USDC | Roland Garros WTA: Tereza Valentova vs Magda Linette)
-2026-05-24 14:15:08 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Tereza Valentova @ $0.500 | $2180.50 USDC | Roland Garros WTA: Tereza Valentova vs Magda Linette)
-2026-05-24 14:15:08 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Tereza Valentova @ $0.520 | $11.96 USDC | Roland Garros WTA: Tereza Valentova vs Magda Linette)
-2026-05-24 14:15:08 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Tereza Valentova @ $0.520 | $11.44 USDC | Roland Garros WTA: Tereza Valentova vs Magda Linette)
-2026-05-24 14:15:08 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Tereza Valentova @ $0.510 | $371.64 USDC | Roland Garros WTA: Tereza Valentova vs Magda Linette)
+2026-05-24 16:31:22 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.750 | $203.95 USDC | Will West Ham United FC win on 2026-05-24?)
+2026-05-24 16:31:22 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Joao Fonseca @ $0.880 | $9.17 USDC | Roland Garros ATP: Joao Fonseca vs Luka Pavlovic)
+2026-05-24 16:31:22 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.750 | $912.26 USDC | Will West Ham United FC win on 2026-05-24?)
+2026-05-24 16:31:22 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.780 | $36.15 USDC | Will West Ham United FC vs. Leeds United FC end in a draw?)
+2026-05-24 16:31:22 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.620 | $62.71 USDC | Will CS Cristal win on 2026-05-24?)
 ```
 
 ## Letzte Fehler (3)

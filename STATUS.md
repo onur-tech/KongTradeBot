@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-24 12:07:54 UTC
+> 2026-05-24 12:13:22 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 1959688s | HB: WARNUNG 437s alt
+STALE — lief vor 1960016s | HB: OK (6s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-24 09:48:36 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Legacy @ $0.750 | $12.00 USDC | Counter-Strike: Team Falcons vs Legacy (BO5) - CS Asia Champ)
-2026-05-24 09:48:36 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Miomir Kecmanovic @ $0.530 | $26.50 USDC | Roland Garros ATP: Miomir Kecmanovic vs Fabian Marozsan)
-2026-05-24 09:48:36 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Legacy @ $0.750 | $30.00 USDC | Counter-Strike: Team Falcons vs Legacy (BO5) - CS Asia Champ)
-2026-05-24 09:48:36 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.250 | $5.45 USDC | Will Gamba Ōsaka win on 2026-05-24?)
-2026-05-24 09:48:36 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.250 | $108.50 USDC | Will Gamba Ōsaka win on 2026-05-24?)
+2026-05-24 12:10:19 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Damir Dzumhur @ $0.740 | $5.82 USDC | Roland Garros ATP: Alejandro Davidovich Fokina vs Damir Dzum)
+2026-05-24 12:10:19 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.920 | $62.67 USDC | Will FC Utrecht win on 2026-05-24?)
+2026-05-24 12:10:19 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Damir Dzumhur @ $0.740 | $193.14 USDC | Roland Garros ATP: Alejandro Davidovich Fokina vs Damir Dzum)
+2026-05-24 12:10:19 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Damir Dzumhur @ $0.740 | $71.15 USDC | Roland Garros ATP: Alejandro Davidovich Fokina vs Damir Dzum)
+2026-05-24 12:10:19 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.920 | $33.52 USDC | Will FC Utrecht win on 2026-05-24?)
 ```
 
 ## Letzte Fehler (3)

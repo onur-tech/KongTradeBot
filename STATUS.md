@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-24 01:06:03 UTC
+> 2026-05-24 01:11:13 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 1919977s | HB: OK (3s alt)
+STALE — lief vor 1920287s | HB: OK (13s alt)
 ```
 
 ## Portfolio
@@ -37,9 +37,9 @@ PnL heute:     $0.00
 
 ## Letzte Fehler (3)
 ```
+The above exception was the direct cause of the following exception:
+raise asyncio.TimeoutError from exc_val
 TimeoutError
-[TG] Fehler 507270873: {"ok":false,"error_code":400,"description":"Bad Request: can't parse entities: Unsupported start tag \"0.0100</code\" at byte offset 137"}
-[TG] Fehler 7777386792: {"ok":false,"error_code":400,"description":"Bad Request: can't parse entities: Unsupported start tag \"0.0100</code\" at byte offset 137"}
 ```
 
 ---

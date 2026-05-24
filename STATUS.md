@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-24 18:05:04 UTC
+> 2026-05-24 18:10:05 UTC
 
 ## Bot-Status
 ```
@@ -14,25 +14,25 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 1981118s | HB: WARNUNG 467s alt
+STALE — lief vor 1981419s | HB: OK (4s alt)
 ```
 
 ## Portfolio
 ```
-Total:         $8.92 USDC
+Total:         $8.79 USDC
 Cash:          $0.00 USDC
-In Positionen: $8.92 USDC
+In Positionen: $8.79 USDC
 Offene Pos.:   1
 PnL heute:     $0.00
 ```
 
 ## Letzte Trades (5)
 ```
-2026-05-24 16:31:22 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.750 | $203.95 USDC | Will West Ham United FC win on 2026-05-24?)
-2026-05-24 16:31:22 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Joao Fonseca @ $0.880 | $9.17 USDC | Roland Garros ATP: Joao Fonseca vs Luka Pavlovic)
-2026-05-24 16:31:22 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.750 | $912.26 USDC | Will West Ham United FC win on 2026-05-24?)
-2026-05-24 16:31:22 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.780 | $36.15 USDC | Will West Ham United FC vs. Leeds United FC end in a draw?)
-2026-05-24 16:31:22 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.620 | $62.71 USDC | Will CS Cristal win on 2026-05-24?)
+2026-05-24 18:07:02 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.500 | $323.50 USDC | Will Málaga CF vs. Real Racing Club end in a draw?)
+2026-05-24 18:07:02 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Bebop @ $0.440 | $219.22 USDC | Counter-Strike: Rune Eaters vs Bebop - Map 1 Winner)
+2026-05-24 18:07:02 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Taylor Fritz @ $0.230 | $194.61 USDC | Roland Garros ATP: Taylor Fritz vs Nishesh Basavareddy)
+2026-05-24 18:07:02 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.390 | $439.32 USDC | Real Sporting de Gijón vs. UD Almería: O/U 3.5)
+2026-05-24 18:07:02 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Nishesh Basavareddy @ $0.730 | $77.27 USDC | Roland Garros ATP: Taylor Fritz vs Nishesh Basavareddy)
 ```
 
 ## Letzte Fehler (3)

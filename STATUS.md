@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-24 21:34:23 UTC
+> 2026-05-24 21:39:47 UTC
 
 ## Bot-Status
 ```
@@ -14,32 +14,32 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 1993677s | HB: OK (273s alt)
+STALE — lief vor 1994001s | HB: OK (12s alt)
 ```
 
 ## Portfolio
 ```
-Total:         $9.23 USDC
+Total:         $9.17 USDC
 Cash:          $0.00 USDC
-In Positionen: $9.23 USDC
+In Positionen: $9.17 USDC
 Offene Pos.:   1
 PnL heute:     $0.00
 ```
 
 ## Letzte Trades (5)
 ```
-2026-05-24 20:28:19 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.690 | $11.04 USDC | Will AC Milan vs. Cagliari Calcio end in a draw?)
-2026-05-24 20:28:19 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Bebop @ $0.310 | $200.54 USDC | Counter-Strike: Rune Eaters vs Bebop (BO3) - CCT Europe Clos)
-2026-05-24 20:28:19 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Bebop @ $0.360 | $27.84 USDC | Counter-Strike: Rune Eaters vs Bebop (BO3) - CCT Europe Clos)
-2026-05-24 20:28:19 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Bebop @ $0.360 | $215.28 USDC | Counter-Strike: Rune Eaters vs Bebop (BO3) - CCT Europe Clos)
-2026-05-24 20:28:19 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Chicago Cubs @ $0.110 | $5.50 USDC | Houston Astros vs. Chicago Cubs)
+2026-05-24 21:39:36 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.690 | $115.35 USDC | Torino FC vs. Juventus FC: O/U 4.5)
+2026-05-24 21:39:36 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.270 | $77.76 USDC | Will Torino FC vs. Juventus FC end in a draw?)
+2026-05-24 21:39:36 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Spurs @ $0.300 | $120.76 USDC | Spread: Spurs (-8.5))
+2026-05-24 21:39:36 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Spurs @ $0.300 | $8.15 USDC | Spread: Spurs (-8.5))
+2026-05-24 21:39:36 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Spurs @ $0.300 | $435.64 USDC | Spread: Spurs (-8.5))
 ```
 
 ## Letzte Fehler (3)
 ```
+The above exception was the direct cause of the following exception:
 raise asyncio.TimeoutError from exc_val
 TimeoutError
-2026-05-24 21:28:18 | WARNING  | polymarket_bot.wallet_monitor | [WS] Verbindungsfehler: sent 1011 (internal error) keepalive ping timeout; no close frame received — Reconnect in 16s (Retry 4/5)
 ```
 
 ---

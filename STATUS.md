@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-24 14:15:07 UTC
+> 2026-05-24 14:20:07 UTC
 
 ## Bot-Status
 ```
@@ -14,25 +14,25 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 1967321s | HB: OK (30s alt)
+STALE — lief vor 1967621s | HB: OK (30s alt)
 ```
 
 ## Portfolio
 ```
-Total:         $9.17 USDC
+Total:         $9.11 USDC
 Cash:          $0.00 USDC
-In Positionen: $9.17 USDC
+In Positionen: $9.11 USDC
 Offene Pos.:   1
 PnL heute:     $0.00
 ```
 
 ## Letzte Trades (5)
 ```
-2026-05-24 14:15:06 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.350 | $769.50 USDC | US x Iran permanent peace deal by May 31, 2026?)
-2026-05-24 14:15:06 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.954 | $63.86 USDC | Will Harvey Weinstein be sentenced to less than 5 years in p)
-2026-05-24 14:15:06 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.350 | $8.20 USDC | US x Iran permanent peace deal by May 31, 2026?)
-2026-05-24 14:15:06 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.380 | $760.00 USDC | US x Iran permanent peace deal by May 31, 2026?)
-2026-05-24 14:15:06 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.390 | $624.00 USDC | US x Iran permanent peace deal by May 31, 2026?)
+2026-05-24 14:15:08 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Tereza Valentova @ $0.500 | $1617.61 USDC | Roland Garros WTA: Tereza Valentova vs Magda Linette)
+2026-05-24 14:15:08 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Tereza Valentova @ $0.500 | $2180.50 USDC | Roland Garros WTA: Tereza Valentova vs Magda Linette)
+2026-05-24 14:15:08 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Tereza Valentova @ $0.520 | $11.96 USDC | Roland Garros WTA: Tereza Valentova vs Magda Linette)
+2026-05-24 14:15:08 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Tereza Valentova @ $0.520 | $11.44 USDC | Roland Garros WTA: Tereza Valentova vs Magda Linette)
+2026-05-24 14:15:08 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Tereza Valentova @ $0.510 | $371.64 USDC | Roland Garros WTA: Tereza Valentova vs Magda Linette)
 ```
 
 ## Letzte Fehler (3)

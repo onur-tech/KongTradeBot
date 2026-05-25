@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-25 15:21:57 UTC
+> 2026-05-25 15:27:23 UTC
 
 ## Bot-Status
 ```
@@ -14,21 +14,25 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 2057731s | HB: OK (37s alt)
+STALE — lief vor 2058057s | HB: OK (4s alt)
 ```
 
 ## Portfolio
 ```
-Dashboard nicht erreichbar: timed out
+Total:         $12.64 USDC
+Cash:          $0.00 USDC
+In Positionen: $12.64 USDC
+Offene Pos.:   1
+PnL heute:     $0.00
 ```
 
 ## Letzte Trades (5)
 ```
-2026-05-25 13:52:29 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Emilio Nava @ $0.550 | $62.64 USDC | Roland Garros ATP: Emilio Nava vs Camilo Ugo Carabelli)
-2026-05-25 13:52:29 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.100 | $74.72 USDC | Will IK Start win on 2026-05-25?)
-2026-05-25 13:52:29 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.112 | $14.48 USDC | Will England win the 2026 FIFA World Cup?)
-2026-05-25 13:52:29 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.112 | $224.00 USDC | Will England win the 2026 FIFA World Cup?)
-2026-05-25 13:52:29 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.112 | $201.60 USDC | Will England win the 2026 FIFA World Cup?)
+2026-05-25 15:23:00 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Amanda Anisimova @ $0.820 | $593.59 USDC | Roland Garros WTA: Sarah Rakotomanga vs Amanda Anisimova)
+2026-05-25 15:23:00 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.800 | $60.00 USDC | Will Tromsø IL win on 2026-05-25?)
+2026-05-25 15:23:00 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Leo Team @ $0.160 | $11.54 USDC | Counter-Strike: Leo Team vs ex-Zero Tenacity (BO3) - CCT Eur)
+2026-05-25 15:23:00 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Phantom @ $0.810 | $12.20 USDC | Counter-Strike: Phantom vs Brute (BO3) - CCT Europe Series 2)
+2026-05-25 15:23:00 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Amanda Anisimova @ $0.800 | $107.29 USDC | Roland Garros WTA: Sarah Rakotomanga vs Amanda Anisimova)
 ```
 
 ## Letzte Fehler (3)

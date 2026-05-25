@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-25 05:27:15 UTC
+> 2026-05-25 05:32:17 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 2022049s | HB: OK (40s alt)
+STALE — lief vor 2022351s | HB: OK (42s alt)
 ```
 
 ## Portfolio
@@ -37,9 +37,9 @@ PnL heute:     $0.00
 
 ## Letzte Fehler (3)
 ```
-The above exception was the direct cause of the following exception:
-raise asyncio.TimeoutError from exc_val
-TimeoutError
+raise PolyException(
+py_clob_client_v2.exceptions.PolyException: invalid tick size (0.001), minimum for the market is 0.01
+2026-05-25 05:31:59 | ERROR    | polymarket_bot.main | [exit_loop] Sell-Order fehlgeschlagen: invalid tick size (0.001), minimum for the market is 0.01
 ```
 
 ---

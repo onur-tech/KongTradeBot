@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-25 17:14:53 UTC
+> 2026-05-25 17:19:53 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 2064507s | HB: OK (300s alt)
+STALE — lief vor 2064807s | HB: OK (5s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-25 15:23:00 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Amanda Anisimova @ $0.820 | $593.59 USDC | Roland Garros WTA: Sarah Rakotomanga vs Amanda Anisimova)
-2026-05-25 15:23:00 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.800 | $60.00 USDC | Will Tromsø IL win on 2026-05-25?)
-2026-05-25 15:23:00 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Leo Team @ $0.160 | $11.54 USDC | Counter-Strike: Leo Team vs ex-Zero Tenacity (BO3) - CCT Eur)
-2026-05-25 15:23:00 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Phantom @ $0.810 | $12.20 USDC | Counter-Strike: Phantom vs Brute (BO3) - CCT Europe Series 2)
-2026-05-25 15:23:00 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Amanda Anisimova @ $0.800 | $107.29 USDC | Roland Garros WTA: Sarah Rakotomanga vs Amanda Anisimova)
+2026-05-25 17:19:50 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Knicks @ $0.520 | $32.50 USDC | Spread: Knicks (-1.5))
+2026-05-25 17:19:50 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Knicks @ $0.520 | $1154.40 USDC | Spread: Knicks (-1.5))
+2026-05-25 17:19:50 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Knicks @ $0.520 | $76.95 USDC | Spread: Knicks (-1.5))
+2026-05-25 17:19:50 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Knicks @ $0.520 | $77.96 USDC | Spread: Knicks (-1.5))
+2026-05-25 17:19:50 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Knicks @ $0.520 | $1169.48 USDC | Spread: Knicks (-1.5))
 ```
 
 ## Letzte Fehler (3)

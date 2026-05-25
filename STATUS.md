@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-25 11:43:45 UTC
+> 2026-05-25 11:48:49 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 2044639s | HB: WARNUNG 502s alt
+STALE — lief vor 2044943s | HB: OK (53s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-25 09:44:23 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Cristina Bucsa @ $0.460 | $7.36 USDC | Roland Garros WTA: Susan Bandecchi vs Cristina Bucsa)
-2026-05-25 09:44:23 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Cristina Bucsa @ $0.460 | $23.87 USDC | Roland Garros WTA: Susan Bandecchi vs Cristina Bucsa)
-2026-05-25 09:44:23 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Maja Chwalinska @ $0.300 | $19.27 USDC | Roland Garros WTA: Maja Chwalinska vs Qinwen Zheng)
-2026-05-25 09:44:23 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.590 | $98.90 USDC | Will Paris Saint-Germain FC win on 2026-05-30?)
-2026-05-25 09:44:23 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.590 | $24.98 USDC | Will Paris Saint-Germain FC win on 2026-05-30?)
+2026-05-25 11:44:58 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.590 | $27.34 USDC | Will Paris Saint-Germain FC win on 2026-05-30?)
+2026-05-25 11:44:58 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.590 | $69.86 USDC | Will Paris Saint-Germain FC win on 2026-05-30?)
+2026-05-25 11:44:58 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.112 | $69.44 USDC | Will England win the 2026 FIFA World Cup?)
+2026-05-25 11:44:58 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.112 | $11.51 USDC | Will England win the 2026 FIFA World Cup?)
+2026-05-25 11:44:58 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.112 | $45.02 USDC | Will England win the 2026 FIFA World Cup?)
 ```
 
 ## Letzte Fehler (3)

@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-25 08:28:42 UTC
+> 2026-05-25 08:33:42 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 2032936s | HB: WARNUNG 369s alt
+STALE — lief vor 2033236s | HB: OK (37s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-25 07:00:22 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.400 | $194.98 USDC | Sarpsborg 08 FF vs. Molde FK: O/U 3.5)
-2026-05-25 07:00:22 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Jaume Munar @ $0.440 | $16.81 USDC | Roland Garros ATP: Jaume Munar vs Hubert Hurkacz)
-2026-05-25 07:00:22 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Jaume Munar @ $0.440 | $440.05 USDC | Roland Garros ATP: Jaume Munar vs Hubert Hurkacz)
-2026-05-25 07:00:22 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.590 | $24.41 USDC | Will Paris Saint-Germain FC win on 2026-05-30?)
-2026-05-25 07:00:22 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.590 | $35.98 USDC | Will Paris Saint-Germain FC win on 2026-05-30?)
+2026-05-25 08:32:07 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Zeynep Sonmez @ $0.310 | $7.44 USDC | Roland Garros WTA: Daria Kasatkina vs Zeynep Sonmez)
+2026-05-25 08:32:07 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Alexander Shevchenko @ $0.350 | $350.04 USDC | Roland Garros ATP: Alexander Shevchenko vs Alex Michelsen)
+2026-05-25 08:32:07 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Aleksandar Kovacevic @ $0.100 | $61.67 USDC | Roland Garros ATP: Aleksandar Kovacevic vs Rafael Jodar)
+2026-05-25 08:32:07 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.590 | $71.95 USDC | Will Paris Saint-Germain FC win on 2026-05-30?)
+2026-05-25 08:32:07 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.590 | $11.05 USDC | Will Paris Saint-Germain FC win on 2026-05-30?)
 ```
 
 ## Letzte Fehler (3)

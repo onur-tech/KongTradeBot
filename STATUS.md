@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-25 19:41:43 UTC
+> 2026-05-25 19:46:44 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 2073317s | HB: WARNUNG 545s alt
+STALE — lief vor 2073618s | HB: OK (45s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-25 17:19:50 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Knicks @ $0.520 | $32.50 USDC | Spread: Knicks (-1.5))
-2026-05-25 17:19:50 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Knicks @ $0.520 | $1154.40 USDC | Spread: Knicks (-1.5))
-2026-05-25 17:19:50 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Knicks @ $0.520 | $76.95 USDC | Spread: Knicks (-1.5))
-2026-05-25 17:19:50 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Knicks @ $0.520 | $77.96 USDC | Spread: Knicks (-1.5))
-2026-05-25 17:19:50 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Knicks @ $0.520 | $1169.48 USDC | Spread: Knicks (-1.5))
+2026-05-25 19:43:01 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY New York Yankees @ $0.530 | $543.39 USDC | New York Yankees vs. Kansas City Royals)
+2026-05-25 19:43:01 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY McCartney Kessler @ $0.630 | $5.17 USDC | Roland Garros WTA: Hanyu Guo vs McCartney Kessler)
+2026-05-25 19:43:01 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Milwaukee Brewers @ $0.920 | $124.50 USDC | St. Louis Cardinals vs. Milwaukee Brewers)
+2026-05-25 19:43:01 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Baltimore Orioles @ $0.310 | $261.05 USDC | Tampa Bay Rays vs. Baltimore Orioles)
+2026-05-25 19:43:01 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Leylah Fernandez @ $0.170 | $102.34 USDC | Roland Garros WTA: Alycia Parks vs Leylah Fernandez)
 ```
 
 ## Letzte Fehler (3)

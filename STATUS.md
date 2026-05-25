@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-24 23:57:53 UTC
+> 2026-05-25 00:03:01 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 2002287s | HB: WARNUNG 453s alt
+STALE — lief vor 2002595s | HB: OK (56s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-24 21:39:36 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.690 | $115.35 USDC | Torino FC vs. Juventus FC: O/U 4.5)
-2026-05-24 21:39:36 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.270 | $77.76 USDC | Will Torino FC vs. Juventus FC end in a draw?)
-2026-05-24 21:39:36 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Spurs @ $0.300 | $120.76 USDC | Spread: Spurs (-8.5))
-2026-05-24 21:39:36 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Spurs @ $0.300 | $8.15 USDC | Spread: Spurs (-8.5))
-2026-05-24 21:39:36 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Spurs @ $0.300 | $435.64 USDC | Spread: Spurs (-8.5))
+2026-05-24 23:59:07 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Thunder @ $0.430 | $86.00 USDC | Spread: Spurs (-1.5))
+2026-05-24 23:59:07 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Thunder @ $0.430 | $86.00 USDC | Spread: Spurs (-1.5))
+2026-05-24 23:59:07 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Thunder @ $0.430 | $86.00 USDC | Spread: Spurs (-1.5))
+2026-05-24 23:59:07 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Thunder @ $0.430 | $86.00 USDC | Spread: Spurs (-1.5))
+2026-05-24 23:59:07 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Thunder @ $0.430 | $86.00 USDC | Spread: Spurs (-1.5))
 ```
 
 ## Letzte Fehler (3)

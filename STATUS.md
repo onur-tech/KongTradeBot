@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-25 13:50:14 UTC
+> 2026-05-25 13:55:15 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 2052228s | HB: OK (16s alt)
+STALE — lief vor 2052529s | HB: OK (17s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-25 11:44:58 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.590 | $27.34 USDC | Will Paris Saint-Germain FC win on 2026-05-30?)
-2026-05-25 11:44:58 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.590 | $69.86 USDC | Will Paris Saint-Germain FC win on 2026-05-30?)
-2026-05-25 11:44:58 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.112 | $69.44 USDC | Will England win the 2026 FIFA World Cup?)
-2026-05-25 11:44:58 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.112 | $11.51 USDC | Will England win the 2026 FIFA World Cup?)
-2026-05-25 11:44:58 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.112 | $45.02 USDC | Will England win the 2026 FIFA World Cup?)
+2026-05-25 13:52:29 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Emilio Nava @ $0.550 | $62.64 USDC | Roland Garros ATP: Emilio Nava vs Camilo Ugo Carabelli)
+2026-05-25 13:52:29 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.100 | $74.72 USDC | Will IK Start win on 2026-05-25?)
+2026-05-25 13:52:29 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.112 | $14.48 USDC | Will England win the 2026 FIFA World Cup?)
+2026-05-25 13:52:29 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.112 | $224.00 USDC | Will England win the 2026 FIFA World Cup?)
+2026-05-25 13:52:29 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.112 | $201.60 USDC | Will England win the 2026 FIFA World Cup?)
 ```
 
 ## Letzte Fehler (3)

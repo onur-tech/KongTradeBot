@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-25 04:51:45 UTC
+> 2026-05-25 04:56:53 UTC
 
 ## Bot-Status
 ```
@@ -14,14 +14,14 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 2019919s | HB: OK (323s alt)
+STALE — lief vor 2020227s | HB: OK (8s alt)
 ```
 
 ## Portfolio
 ```
-Total:         $7.53 USDC
+Total:         $9.61 USDC
 Cash:          $0.00 USDC
-In Positionen: $7.53 USDC
+In Positionen: $9.61 USDC
 Offene Pos.:   1
 PnL heute:     $0.00
 ```
@@ -37,9 +37,9 @@ PnL heute:     $0.00
 
 ## Letzte Fehler (3)
 ```
+The above exception was the direct cause of the following exception:
 raise asyncio.TimeoutError from exc_val
 TimeoutError
-2026-05-25 04:34:34 | WARNING  | polymarket_bot.wallet_monitor | [WS] Verbindungsfehler: sent 1011 (internal error) keepalive ping timeout; no close frame received — Reconnect in 2s (Retry 1/5)
 ```
 
 ---

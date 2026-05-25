@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-25 05:42:19 UTC
+> 2026-05-25 05:47:20 UTC
 
 ## Bot-Status
 ```
@@ -14,14 +14,14 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 2022953s | HB: WARNUNG 524s alt
+STALE — lief vor 2023254s | HB: OK (1s alt)
 ```
 
 ## Portfolio
 ```
-Total:         $12.29 USDC
+Total:         $12.43 USDC
 Cash:          $0.00 USDC
-In Positionen: $12.29 USDC
+In Positionen: $12.43 USDC
 Offene Pos.:   1
 PnL heute:     $0.00
 ```
@@ -37,9 +37,9 @@ PnL heute:     $0.00
 
 ## Letzte Fehler (3)
 ```
-py_clob_client_v2.exceptions.PolyException: invalid tick size (0.001), minimum for the market is 0.01
-2026-05-25 05:34:00 | ERROR    | polymarket_bot.main | [exit_loop] Sell-Order fehlgeschlagen: invalid tick size (0.001), minimum for the market is 0.01
-[TG] getUpdates HTTP 409 body='{"ok":false,"error_code":409,"description":"Conflict: terminated by other getUpdates request; make sure that only one bot instance is running"}'
+The above exception was the direct cause of the following exception:
+raise asyncio.TimeoutError from exc_val
+TimeoutError
 ```
 
 ---

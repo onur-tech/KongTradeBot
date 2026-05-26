@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-26 18:32:23 UTC
+> 2026-05-26 18:37:26 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 2155557s | HB: WARNUNG 525s alt
+STALE — lief vor 2155860s | HB: OK (54s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-26 16:35:10 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Anna Kalinskaya @ $0.971 | $665.26 USDC | Roland Garros WTA: Anna Kalinskaya vs Lois Boisson)
-2026-05-26 16:35:10 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Oleksandra Oliynykova @ $0.660 | $5.82 USDC | Roland Garros WTA: Elena Pridankina vs Oleksandra Oliynykova)
-2026-05-26 16:35:10 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Oleksandra Oliynykova @ $0.660 | $5.82 USDC | Roland Garros WTA: Elena Pridankina vs Oleksandra Oliynykova)
-2026-05-26 16:35:10 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Jan-Lennard Struff @ $0.210 | $14.94 USDC | Roland Garros ATP: Alexander Bublik vs Jan-Lennard Struff)
-2026-05-26 16:35:10 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Oleksandra Oliynykova @ $0.660 | $31.30 USDC | Roland Garros WTA: Elena Pridankina vs Oleksandra Oliynykova)
+2026-05-26 18:33:34 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY ALGO Esports @ $0.650 | $61.10 USDC | Counter-Strike: ALGO Esports vs Brute - Map 2 Winner)
+2026-05-26 18:33:34 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY ALGO Esports @ $0.650 | $62.40 USDC | Counter-Strike: ALGO Esports vs Brute - Map 2 Winner)
+2026-05-26 18:33:34 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY ALGO Esports @ $0.640 | $17.92 USDC | Counter-Strike: ALGO Esports vs Brute - Map 2 Winner)
+2026-05-26 18:33:34 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY ALGO Esports @ $0.640 | $179.20 USDC | Counter-Strike: ALGO Esports vs Brute - Map 2 Winner)
+2026-05-26 18:33:34 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.690 | $12.68 USDC | Will Arsenal FC win on 2026-05-30?)
 ```
 
 ## Letzte Fehler (3)

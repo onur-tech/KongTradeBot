@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-26 16:34:03 UTC
+> 2026-05-26 16:39:23 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 2148457s | HB: WARNUNG 520s alt
+STALE — lief vor 2148777s | HB: OK (16s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-26 14:10:23 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $13.67 USDC | Will Arsenal FC win on 2026-02-22?)
-2026-05-26 14:10:23 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $4629.80 USDC | Will Arsenal FC win on 2026-02-22?)
-2026-05-26 14:10:23 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $23.17 USDC | Will Arsenal FC win on 2026-02-22?)
-2026-05-26 14:10:23 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $31.43 USDC | Will Arsenal FC win on 2026-02-22?)
-2026-05-26 14:10:23 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $48.80 USDC | Will Arsenal FC win on 2026-02-22?)
+2026-05-26 16:35:10 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Anna Kalinskaya @ $0.971 | $665.26 USDC | Roland Garros WTA: Anna Kalinskaya vs Lois Boisson)
+2026-05-26 16:35:10 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Oleksandra Oliynykova @ $0.660 | $5.82 USDC | Roland Garros WTA: Elena Pridankina vs Oleksandra Oliynykova)
+2026-05-26 16:35:10 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Oleksandra Oliynykova @ $0.660 | $5.82 USDC | Roland Garros WTA: Elena Pridankina vs Oleksandra Oliynykova)
+2026-05-26 16:35:10 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Jan-Lennard Struff @ $0.210 | $14.94 USDC | Roland Garros ATP: Alexander Bublik vs Jan-Lennard Struff)
+2026-05-26 16:35:10 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Oleksandra Oliynykova @ $0.660 | $31.30 USDC | Roland Garros WTA: Elena Pridankina vs Oleksandra Oliynykova)
 ```
 
 ## Letzte Fehler (3)

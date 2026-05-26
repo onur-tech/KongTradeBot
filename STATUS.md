@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-26 09:24:06 UTC
+> 2026-05-26 09:29:06 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 2122660s | HB: WARNUNG 664s alt
+STALE — lief vor 2122960s | HB: OK (22s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-26 07:41:16 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Cristian Garin @ $0.350 | $350.04 USDC | Roland Garros ATP: Cristian Garin vs Learner Tien)
-2026-05-26 07:41:16 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Cristian Garin @ $0.350 | $350.04 USDC | Roland Garros ATP: Cristian Garin vs Learner Tien)
-2026-05-26 07:41:16 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Denis Shapovalov @ $0.400 | $400.04 USDC | Roland Garros ATP: Jaime Faria vs Denis Shapovalov)
-2026-05-26 07:41:16 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Cristian Garin @ $0.350 | $219.41 USDC | Roland Garros ATP: Cristian Garin vs Learner Tien)
-2026-05-26 07:41:16 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Cristian Garin @ $0.350 | $350.04 USDC | Roland Garros ATP: Cristian Garin vs Learner Tien)
+2026-05-26 09:27:26 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Carlo Alberto Caniato @ $0.210 | $7.97 USDC | Kosice: Dali Blanch vs Carlo Alberto Caniato)
+2026-05-26 09:27:26 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Carlo Alberto Caniato @ $0.210 | $186.95 USDC | Kosice: Dali Blanch vs Carlo Alberto Caniato)
+2026-05-26 09:27:26 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Tallon Griekspoor @ $0.390 | $7.80 USDC | Roland Garros ATP: Tallon Griekspoor vs Matteo Arnaldi)
+2026-05-26 09:27:26 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Tallon Griekspoor @ $0.390 | $163.95 USDC | Roland Garros ATP: Tallon Griekspoor vs Matteo Arnaldi)
+2026-05-26 09:27:26 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Genaro Alberto Olivieri @ $0.200 | $6.35 USDC | Chisinau: Andrej Nedic vs Genaro Alberto Olivieri)
 ```
 
 ## Letzte Fehler (3)

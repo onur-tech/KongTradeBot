@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-26 05:38:28 UTC
+> 2026-05-26 05:43:28 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 2109122s | HB: WARNUNG 360s alt
+STALE — lief vor 2109422s | HB: OK (33s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-26 03:23:17 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Colorado Rockies @ $0.110 | $117.75 USDC | Colorado Rockies vs. Los Angeles Dodgers)
-2026-05-26 03:23:17 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Colorado Rockies @ $0.120 | $6.82 USDC | Colorado Rockies vs. Los Angeles Dodgers)
-2026-05-26 03:23:17 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Los Angeles Dodgers @ $0.753 | $219.14 USDC | Colorado Rockies vs. Los Angeles Dodgers)
-2026-05-26 03:23:17 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Colorado Rockies @ $0.370 | $18.51 USDC | Colorado Rockies vs. Los Angeles Dodgers)
-2026-05-26 03:23:17 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Colorado Rockies @ $0.370 | $12.86 USDC | Colorado Rockies vs. Los Angeles Dodgers)
+2026-05-26 05:41:57 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Colorado Rockies @ $0.027 | $6.70 USDC | Colorado Rockies vs. Los Angeles Dodgers)
+2026-05-26 05:41:57 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Colorado Rockies @ $0.021 | $6.32 USDC | Colorado Rockies vs. Los Angeles Dodgers)
+2026-05-26 05:41:57 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Colorado Rockies @ $0.022 | $12.79 USDC | Colorado Rockies vs. Los Angeles Dodgers)
+2026-05-26 05:41:57 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Colorado Rockies @ $0.022 | $10.96 USDC | Colorado Rockies vs. Los Angeles Dodgers)
+2026-05-26 05:41:57 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Colorado Rockies @ $0.032 | $32.75 USDC | Colorado Rockies vs. Los Angeles Dodgers)
 ```
 
 ## Letzte Fehler (3)

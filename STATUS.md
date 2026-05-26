@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-26 07:38:47 UTC
+> 2026-05-26 07:43:48 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 2116341s | HB: WARNUNG 439s alt
+STALE — lief vor 2116642s | HB: OK (34s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-26 05:41:57 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Colorado Rockies @ $0.027 | $6.70 USDC | Colorado Rockies vs. Los Angeles Dodgers)
-2026-05-26 05:41:57 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Colorado Rockies @ $0.021 | $6.32 USDC | Colorado Rockies vs. Los Angeles Dodgers)
-2026-05-26 05:41:57 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Colorado Rockies @ $0.022 | $12.79 USDC | Colorado Rockies vs. Los Angeles Dodgers)
-2026-05-26 05:41:57 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Colorado Rockies @ $0.022 | $10.96 USDC | Colorado Rockies vs. Los Angeles Dodgers)
-2026-05-26 05:41:57 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Colorado Rockies @ $0.032 | $32.75 USDC | Colorado Rockies vs. Los Angeles Dodgers)
+2026-05-26 07:41:16 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Cristian Garin @ $0.350 | $350.04 USDC | Roland Garros ATP: Cristian Garin vs Learner Tien)
+2026-05-26 07:41:16 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Cristian Garin @ $0.350 | $350.04 USDC | Roland Garros ATP: Cristian Garin vs Learner Tien)
+2026-05-26 07:41:16 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Denis Shapovalov @ $0.400 | $400.04 USDC | Roland Garros ATP: Jaime Faria vs Denis Shapovalov)
+2026-05-26 07:41:16 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Cristian Garin @ $0.350 | $219.41 USDC | Roland Garros ATP: Cristian Garin vs Learner Tien)
+2026-05-26 07:41:16 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Cristian Garin @ $0.350 | $350.04 USDC | Roland Garros ATP: Cristian Garin vs Learner Tien)
 ```
 
 ## Letzte Fehler (3)

@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-26 23:10:08 UTC
+> 2026-05-26 23:15:05 UTC
 
 ## Bot-Status
 ```
@@ -14,21 +14,25 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 2172222s | HB: OK (297s alt)
+STALE — lief vor 2172519s | HB: OK (42s alt)
 ```
 
 ## Portfolio
 ```
-Dashboard nicht erreichbar: timed out
+Total:         $0.00 USDC
+Cash:          $0.00 USDC
+In Positionen: $0.00 USDC
+Offene Pos.:   0
+PnL heute:     $0.00
 ```
 
 ## Letzte Trades (5)
 ```
-2026-05-26 20:55:06 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Thunder @ $0.430 | $24.26 USDC | Spread: Thunder (-5.5))
-2026-05-26 20:55:06 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Thunder @ $0.430 | $408.88 USDC | Spread: Thunder (-5.5))
-2026-05-26 20:55:06 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Thunder @ $0.430 | $17.76 USDC | Spread: Thunder (-5.5))
-2026-05-26 20:55:06 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Thunder @ $0.430 | $10.83 USDC | Spread: Thunder (-5.5))
-2026-05-26 20:55:06 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Thunder @ $0.430 | $656.70 USDC | Spread: Thunder (-5.5))
+2026-05-26 23:14:24 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Thunder @ $0.430 | $37.72 USDC | Spread: Thunder (-5.5))
+2026-05-26 23:14:24 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Thunder @ $0.430 | $5.19 USDC | Spread: Thunder (-5.5))
+2026-05-26 23:14:24 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Thunder @ $0.430 | $48.51 USDC | Spread: Thunder (-5.5))
+2026-05-26 23:14:24 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Thunder @ $0.430 | $35.95 USDC | Spread: Thunder (-5.5))
+2026-05-26 23:14:24 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Thunder @ $0.430 | $29.02 USDC | Spread: Thunder (-5.5))
 ```
 
 ## Letzte Fehler (3)

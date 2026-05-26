@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-26 01:07:33 UTC
+> 2026-05-26 01:12:34 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 2092867s | HB: OK (17s alt)
+STALE — lief vor 2093168s | HB: OK (18s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-25 23:36:29 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Knicks @ $0.440 | $23.57 USDC | Spread: Knicks (-3.5))
-2026-05-25 23:36:29 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Knicks @ $0.440 | $825.00 USDC | Spread: Knicks (-3.5))
-2026-05-25 23:36:29 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Knicks @ $0.510 | $9.69 USDC | Spread: Knicks (-1.5))
-2026-05-25 23:36:29 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Knicks @ $0.440 | $12.34 USDC | Spread: Knicks (-3.5))
-2026-05-25 23:36:29 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Knicks @ $0.440 | $31.30 USDC | Spread: Knicks (-3.5))
+2026-05-26 01:11:16 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.520 | $100.26 USDC | Will the Oklahoma City Thunder win the 2026 NBA Finals?)
+2026-05-26 01:11:16 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.520 | $21.67 USDC | Will the Oklahoma City Thunder win the 2026 NBA Finals?)
+2026-05-26 01:11:16 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.742 | $104.97 USDC | Will the San Antonio Spurs win the 2026 NBA Finals?)
+2026-05-26 01:11:16 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.520 | $13.00 USDC | Will the Oklahoma City Thunder win the 2026 NBA Finals?)
+2026-05-26 01:11:16 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.520 | $5.42 USDC | Will the Oklahoma City Thunder win the 2026 NBA Finals?)
 ```
 
 ## Letzte Fehler (3)

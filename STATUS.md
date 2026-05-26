@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-26 11:44:36 UTC
+> 2026-05-26 11:49:36 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 2131090s | HB: WARNUNG 404s alt
+STALE — lief vor 2131390s | HB: OK (56s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-26 09:27:26 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Carlo Alberto Caniato @ $0.210 | $7.97 USDC | Kosice: Dali Blanch vs Carlo Alberto Caniato)
-2026-05-26 09:27:26 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Carlo Alberto Caniato @ $0.210 | $186.95 USDC | Kosice: Dali Blanch vs Carlo Alberto Caniato)
-2026-05-26 09:27:26 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Tallon Griekspoor @ $0.390 | $7.80 USDC | Roland Garros ATP: Tallon Griekspoor vs Matteo Arnaldi)
-2026-05-26 09:27:26 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Tallon Griekspoor @ $0.390 | $163.95 USDC | Roland Garros ATP: Tallon Griekspoor vs Matteo Arnaldi)
-2026-05-26 09:27:26 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Genaro Alberto Olivieri @ $0.200 | $6.35 USDC | Chisinau: Andrej Nedic vs Genaro Alberto Olivieri)
+2026-05-26 11:47:42 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Jerome Kym @ $0.240 | $248.53 USDC | Vicenza: Samuele Pieri vs Jerome Kym)
+2026-05-26 11:47:42 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Juan Carlos Prado @ $0.240 | $6.86 USDC | Roland Garros ATP: Martin Landaluce vs Juan Carlos Prado)
+2026-05-26 11:47:42 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Laura Siegemund @ $0.230 | $54.52 USDC | Roland Garros WTA: Laura Siegemund vs Naomi Osaka)
+2026-05-26 11:47:42 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Maria Sakkari @ $0.780 | $75.09 USDC | Roland Garros WTA: Linda Noskova vs Maria Sakkari)
+2026-05-26 11:47:42 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Adam Walton @ $0.175 | $10.61 USDC | Roland Garros ATP: Adam Walton vs Daniil Medvedev)
 ```
 
 ## Letzte Fehler (3)

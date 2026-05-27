@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-27 13:13:23 UTC
+> 2026-05-27 13:18:30 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 2222817s | HB: OK (327s alt)
+STALE — lief vor 2223124s | HB: OK (44s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-27 09:49:27 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Marco Trungelliti @ $0.100 | $100.39 USDC | Roland Garros ATP: Karen Khachanov vs Marco Trungelliti)
-2026-05-27 09:49:27 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Thiago Agustin Tirante @ $0.400 | $419.12 USDC | Roland Garros ATP: Alejandro Davidovich Fokina vs Thiago Agu)
-2026-05-27 09:49:27 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Caty McNally @ $0.230 | $149.33 USDC | Roland Garros WTA: Caty McNally vs Belinda Bencic)
-2026-05-27 09:49:27 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Lorenzo Giustino @ $0.550 | $13.75 USDC | Chisinau: Lorenzo Giustino vs Luca Nardi)
-2026-05-27 09:49:27 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.690 | $9.66 USDC | Will Arsenal FC win on 2026-05-30?)
+2026-05-27 13:17:48 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Magda Linette @ $0.330 | $8.91 USDC | Roland Garros WTA: Jelena Ostapenko vs Magda Linette)
+2026-05-27 13:17:48 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Jelena Ostapenko @ $0.660 | $15.00 USDC | Roland Garros WTA: Jelena Ostapenko vs Magda Linette)
+2026-05-27 13:17:48 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Mariano Navone @ $0.540 | $5.40 USDC | Roland Garros ATP: Mariano Navone vs Jakub Mensik)
+2026-05-27 13:17:48 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Camilo Ugo Carabelli @ $0.220 | $7.21 USDC | Roland Garros ATP: Camilo Ugo Carabelli vs Andrey Rublev)
+2026-05-27 13:17:48 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.011 | $55.00 USDC | Will Uruguay win the 2026 FIFA World Cup?)
 ```
 
 ## Letzte Fehler (3)

@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-27 01:28:13 UTC
+> 2026-05-27 01:33:23 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 2180507s | HB: OK (309s alt)
+STALE — lief vor 2180817s | HB: OK (43s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-26 23:14:24 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Thunder @ $0.430 | $37.72 USDC | Spread: Thunder (-5.5))
-2026-05-26 23:14:24 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Thunder @ $0.430 | $5.19 USDC | Spread: Thunder (-5.5))
-2026-05-26 23:14:24 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Thunder @ $0.430 | $48.51 USDC | Spread: Thunder (-5.5))
-2026-05-26 23:14:24 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Thunder @ $0.430 | $35.95 USDC | Spread: Thunder (-5.5))
-2026-05-26 23:14:24 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Thunder @ $0.430 | $29.02 USDC | Spread: Thunder (-5.5))
+2026-05-27 01:32:42 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.680 | $10.62 USDC | Will CA San Lorenzo de Almagro win on 2026-05-26?)
+2026-05-27 01:32:42 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.640 | $133.33 USDC | Will Recoleta FC win on 2026-05-26?)
+2026-05-27 01:32:42 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Colton Smith @ $0.940 | $8.15 USDC | Little Rock: Colton Smith vs Trevor Svajda)
+2026-05-27 01:32:42 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.380 | $6.84 USDC | St. Louis Cardinals vs. Milwaukee Brewers: O/U 8.5)
+2026-05-27 01:32:42 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.690 | $10.85 USDC | Will Arsenal FC win on 2026-05-30?)
 ```
 
 ## Letzte Fehler (3)

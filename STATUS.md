@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-27 18:03:43 UTC
+> 2026-05-27 18:09:16 UTC
 
 ## Bot-Status
 ```
@@ -14,25 +14,21 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 2240237s | HB: WARNUNG 554s alt
+STALE — lief vor 2240570s | HB: OK (8s alt)
 ```
 
 ## Portfolio
 ```
-Total:         $0.00 USDC
-Cash:          $0.00 USDC
-In Positionen: $0.00 USDC
-Offene Pos.:   0
-PnL heute:     $0.00
+Dashboard nicht erreichbar: timed out
 ```
 
 ## Letzte Trades (5)
 ```
-2026-05-27 15:42:48 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Alex Michelsen @ $0.750 | $18.75 USDC | Roland Garros ATP: Nishesh Basavareddy vs Alex Michelsen)
-2026-05-27 15:42:48 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Elena Rybakina @ $0.780 | $35.05 USDC | Roland Garros WTA: Yulia Starodubtseva vs Elena Rybakina)
-2026-05-27 15:42:48 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Jakub Mensik @ $0.530 | $184.32 USDC | Roland Garros ATP: Mariano Navone vs Jakub Mensik)
-2026-05-27 15:42:48 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Jakub Mensik @ $0.540 | $66.63 USDC | Roland Garros ATP: Mariano Navone vs Jakub Mensik)
-2026-05-27 15:42:48 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Jakub Mensik @ $0.540 | $7.37 USDC | Roland Garros ATP: Mariano Navone vs Jakub Mensik)
+2026-05-27 18:04:11 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $13.67 USDC | Will Arsenal FC win on 2026-02-22?)
+2026-05-27 18:04:11 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $4629.80 USDC | Will Arsenal FC win on 2026-02-22?)
+2026-05-27 18:04:11 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $23.17 USDC | Will Arsenal FC win on 2026-02-22?)
+2026-05-27 18:04:11 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $31.43 USDC | Will Arsenal FC win on 2026-02-22?)
+2026-05-27 18:04:11 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $48.80 USDC | Will Arsenal FC win on 2026-02-22?)
 ```
 
 ## Letzte Fehler (3)

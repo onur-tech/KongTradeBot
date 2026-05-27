@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-27 09:48:23 UTC
+> 2026-05-27 09:53:23 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 2210517s | HB: STALE 11997s alt (Bot moeglicherweise haengend)
+STALE — lief vor 2210817s | HB: OK (26s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-27 01:32:42 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.680 | $10.62 USDC | Will CA San Lorenzo de Almagro win on 2026-05-26?)
-2026-05-27 01:32:42 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.640 | $133.33 USDC | Will Recoleta FC win on 2026-05-26?)
-2026-05-27 01:32:42 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Colton Smith @ $0.940 | $8.15 USDC | Little Rock: Colton Smith vs Trevor Svajda)
-2026-05-27 01:32:42 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.380 | $6.84 USDC | St. Louis Cardinals vs. Milwaukee Brewers: O/U 8.5)
-2026-05-27 01:32:42 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.690 | $10.85 USDC | Will Arsenal FC win on 2026-05-30?)
+2026-05-27 09:49:27 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Marco Trungelliti @ $0.100 | $100.39 USDC | Roland Garros ATP: Karen Khachanov vs Marco Trungelliti)
+2026-05-27 09:49:27 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Thiago Agustin Tirante @ $0.400 | $419.12 USDC | Roland Garros ATP: Alejandro Davidovich Fokina vs Thiago Agu)
+2026-05-27 09:49:27 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Caty McNally @ $0.230 | $149.33 USDC | Roland Garros WTA: Caty McNally vs Belinda Bencic)
+2026-05-27 09:49:27 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Lorenzo Giustino @ $0.550 | $13.75 USDC | Chisinau: Lorenzo Giustino vs Luca Nardi)
+2026-05-27 09:49:27 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.690 | $9.66 USDC | Will Arsenal FC win on 2026-05-30?)
 ```
 
 ## Letzte Fehler (3)

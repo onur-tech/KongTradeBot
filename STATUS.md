@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-27 22:19:03 UTC
+> 2026-05-27 22:24:07 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 2255557s | HB: WARNUNG 363s alt
+STALE — lief vor 2255861s | HB: OK (6s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-27 20:12:38 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Philadelphia Phillies @ $0.550 | $6111.11 USDC | Philadelphia Phillies vs. San Diego Padres)
-2026-05-27 20:12:38 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Philadelphia Phillies @ $0.550 | $1083.70 USDC | Philadelphia Phillies vs. San Diego Padres)
-2026-05-27 20:12:38 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Philadelphia Phillies @ $0.550 | $350.02 USDC | Philadelphia Phillies vs. San Diego Padres)
-2026-05-27 20:12:38 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Philadelphia Phillies @ $0.550 | $59.84 USDC | Philadelphia Phillies vs. San Diego Padres)
-2026-05-27 20:12:38 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Philadelphia Phillies @ $0.550 | $5.54 USDC | Philadelphia Phillies vs. San Diego Padres)
+2026-05-27 22:22:04 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY New York Mets @ $0.520 | $433.33 USDC | Cincinnati Reds vs. New York Mets)
+2026-05-27 22:22:04 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Boston Red Sox @ $0.510 | $52.53 USDC | Atlanta Braves vs. Boston Red Sox)
+2026-05-27 22:22:04 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY New York Mets @ $0.520 | $1158.56 USDC | Cincinnati Reds vs. New York Mets)
+2026-05-27 22:22:04 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY New York Mets @ $0.520 | $5200.00 USDC | Cincinnati Reds vs. New York Mets)
+2026-05-27 22:22:04 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Boston Red Sox @ $0.510 | $416.33 USDC | Atlanta Braves vs. Boston Red Sox)
 ```
 
 ## Letzte Fehler (3)

@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-28 22:25:03 UTC
+> 2026-05-28 22:30:03 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 2342317s | HB: WARNUNG 436s alt
+STALE — lief vor 2342617s | HB: OK (28s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-28 20:08:59 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Brandon Nakashima @ $0.740 | $5.55 USDC | Roland Garros ATP: Luca Van Assche vs Brandon Nakashima)
-2026-05-28 20:08:59 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Matteo Berrettini @ $0.880 | $663.52 USDC | Roland Garros ATP: Arthur Rinderknech vs Matteo Berrettini)
-2026-05-28 20:08:59 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Matteo Berrettini @ $0.880 | $73.33 USDC | Roland Garros ATP: Arthur Rinderknech vs Matteo Berrettini)
-2026-05-28 20:08:59 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Brandon Nakashima @ $0.750 | $817.56 USDC | Roland Garros ATP: Luca Van Assche vs Brandon Nakashima)
-2026-05-28 20:08:59 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.690 | $33.93 USDC | Will Arsenal FC win on 2026-05-30?)
+2026-05-28 22:26:38 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Spurs @ $0.340 | $64.04 USDC | Spread: Spurs (-8.5))
+2026-05-28 22:26:38 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Spurs @ $0.340 | $79.13 USDC | Spread: Spurs (-8.5))
+2026-05-28 22:26:38 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Spurs @ $0.340 | $31.30 USDC | Spread: Spurs (-8.5))
+2026-05-28 22:26:38 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Spurs @ $0.340 | $51.52 USDC | Spread: Spurs (-8.5))
+2026-05-28 22:26:38 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Spurs @ $0.340 | $5.15 USDC | Spread: Spurs (-8.5))
 ```
 
 ## Letzte Fehler (3)

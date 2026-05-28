@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-28 07:03:24 UTC
+> 2026-05-28 07:08:29 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 2287018s | HB: WARNUNG 420s alt
+STALE — lief vor 2287323s | HB: OK (44s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-28 05:09:58 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.280 | $56.00 USDC | US x Iran permanent peace deal by June 15, 2026?)
-2026-05-28 05:09:58 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.080 | $77.65 USDC | US x Iran permanent peace deal by May 31, 2026?)
-2026-05-28 05:09:58 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.087 | $23.85 USDC | US-Iran nuclear deal by May 31?)
-2026-05-28 05:09:58 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.430 | $86.00 USDC | US announces new Iran agreement/ceasefire extension by June )
-2026-05-28 05:09:58 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.100 | $420.00 USDC | US x Iran permanent peace deal by May 31, 2026?)
+2026-05-28 07:05:47 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.840 | $14.44 USDC | Will the highest temperature in London be 29°C on May 28?)
+2026-05-28 07:05:47 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.550 | $5.73 USDC | Will the highest temperature in Madrid be 34°C on May 28?)
+2026-05-28 07:05:47 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.840 | $42.84 USDC | Will the highest temperature in Ankara be 23°C on May 28?)
+2026-05-28 07:05:47 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.440 | $6.99 USDC | Will the highest temperature in Warsaw be 20°C on May 28?)
+2026-05-28 07:05:48 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.935 | $31.41 USDC | Will Novak Djokovic win the 2026 Men's French Open?)
 ```
 
 ## Letzte Fehler (3)

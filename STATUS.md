@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-28 05:09:58 UTC
+> 2026-05-28 05:14:59 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 2280212s | HB: OK (0s alt)
+STALE — lief vor 2280513s | HB: OK (2s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-28 02:52:59 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Houston Astros @ $0.850 | $10.20 USDC | Houston Astros vs. Texas Rangers)
-2026-05-28 02:52:59 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Houston Astros @ $0.850 | $10.20 USDC | Houston Astros vs. Texas Rangers)
-2026-05-28 02:52:59 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Houston Astros @ $0.850 | $26.47 USDC | Houston Astros vs. Texas Rangers)
-2026-05-28 02:52:59 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.690 | $8.90 USDC | Will Arsenal FC win on 2026-05-30?)
-2026-05-28 02:52:59 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.690 | $172.46 USDC | Will Arsenal FC win on 2026-05-30?)
+2026-05-28 05:09:58 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.280 | $56.00 USDC | US x Iran permanent peace deal by June 15, 2026?)
+2026-05-28 05:09:58 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.080 | $77.65 USDC | US x Iran permanent peace deal by May 31, 2026?)
+2026-05-28 05:09:58 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.087 | $23.85 USDC | US-Iran nuclear deal by May 31?)
+2026-05-28 05:09:58 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.430 | $86.00 USDC | US announces new Iran agreement/ceasefire extension by June )
+2026-05-28 05:09:58 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.100 | $420.00 USDC | US x Iran permanent peace deal by May 31, 2026?)
 ```
 
 ## Letzte Fehler (3)

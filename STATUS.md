@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-28 00:35:32 UTC
+> 2026-05-28 00:40:33 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 2263746s | HB: WARNUNG 367s alt
+STALE — lief vor 2264047s | HB: OK (42s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-27 22:22:04 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY New York Mets @ $0.520 | $433.33 USDC | Cincinnati Reds vs. New York Mets)
-2026-05-27 22:22:04 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Boston Red Sox @ $0.510 | $52.53 USDC | Atlanta Braves vs. Boston Red Sox)
-2026-05-27 22:22:04 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY New York Mets @ $0.520 | $1158.56 USDC | Cincinnati Reds vs. New York Mets)
-2026-05-27 22:22:04 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY New York Mets @ $0.520 | $5200.00 USDC | Cincinnati Reds vs. New York Mets)
-2026-05-27 22:22:04 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Boston Red Sox @ $0.510 | $416.33 USDC | Atlanta Braves vs. Boston Red Sox)
+2026-05-28 00:37:53 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.720 | $12.96 USDC | Will Red Bull Bragantino win on 2026-05-27?)
+2026-05-28 00:37:53 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Chicago White Sox @ $0.800 | $11.76 USDC | Minnesota Twins vs. Chicago White Sox)
+2026-05-28 00:37:53 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.830 | $5.73 USDC | Chicago Cubs vs. Pittsburgh Pirates: O/U 11.5)
+2026-05-28 00:37:53 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.610 | $10.95 USDC | Will CA Peñarol win on 2026-05-27?)
+2026-05-28 00:37:53 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.370 | $37.70 USDC | Will CA Peñarol win on 2026-05-27?)
 ```
 
 ## Letzte Fehler (3)

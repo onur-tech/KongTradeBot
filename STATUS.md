@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-28 20:04:19 UTC
+> 2026-05-28 20:09:23 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 2333873s | HB: OK (274s alt)
+STALE — lief vor 2334177s | HB: OK (25s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-28 17:49:11 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY ex-RUBY @ $0.290 | $11.60 USDC | Counter-Strike: WW Team vs ex-RUBY - Map 1 Winner)
-2026-05-28 17:49:11 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY ex-RUBY @ $0.270 | $7.56 USDC | Counter-Strike: WW Team vs ex-RUBY - Map 1 Winner)
-2026-05-28 17:49:11 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.690 | $29.85 USDC | Will Arsenal FC win on 2026-05-30?)
-2026-05-28 17:49:11 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.690 | $6.90 USDC | Will Arsenal FC win on 2026-05-30?)
-2026-05-28 17:49:11 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.011 | $7.00 USDC | Will Uruguay win the 2026 FIFA World Cup?)
+2026-05-28 20:08:59 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Brandon Nakashima @ $0.740 | $5.55 USDC | Roland Garros ATP: Luca Van Assche vs Brandon Nakashima)
+2026-05-28 20:08:59 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Matteo Berrettini @ $0.880 | $663.52 USDC | Roland Garros ATP: Arthur Rinderknech vs Matteo Berrettini)
+2026-05-28 20:08:59 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Matteo Berrettini @ $0.880 | $73.33 USDC | Roland Garros ATP: Arthur Rinderknech vs Matteo Berrettini)
+2026-05-28 20:08:59 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Brandon Nakashima @ $0.750 | $817.56 USDC | Roland Garros ATP: Luca Van Assche vs Brandon Nakashima)
+2026-05-28 20:08:59 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.690 | $33.93 USDC | Will Arsenal FC win on 2026-05-30?)
 ```
 
 ## Letzte Fehler (3)

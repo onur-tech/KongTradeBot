@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-28 09:27:00 UTC
+> 2026-05-28 09:32:25 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 2295634s | HB: WARNUNG 530s alt
+STALE — lief vor 2295959s | HB: OK (26s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-28 07:05:47 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.840 | $14.44 USDC | Will the highest temperature in London be 29°C on May 28?)
-2026-05-28 07:05:47 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.550 | $5.73 USDC | Will the highest temperature in Madrid be 34°C on May 28?)
-2026-05-28 07:05:47 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.840 | $42.84 USDC | Will the highest temperature in Ankara be 23°C on May 28?)
-2026-05-28 07:05:47 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.440 | $6.99 USDC | Will the highest temperature in Warsaw be 20°C on May 28?)
-2026-05-28 07:05:48 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.935 | $31.41 USDC | Will Novak Djokovic win the 2026 Men's French Open?)
+2026-05-28 09:28:02 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Learner Tien @ $0.810 | $880.30 USDC | Roland Garros ATP: Facundo Acosta vs Learner Tien)
+2026-05-28 09:28:02 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Donna Vekic @ $0.350 | $44.40 USDC | Roland Garros WTA: Donna Vekic vs Naomi Osaka)
+2026-05-28 09:28:02 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Donna Vekic @ $0.350 | $10.50 USDC | Roland Garros WTA: Donna Vekic vs Naomi Osaka)
+2026-05-28 09:28:02 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.690 | $1949.07 USDC | Will Arsenal FC win on 2026-05-30?)
+2026-05-28 09:28:02 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.011 | $11.00 USDC | Will Uruguay win the 2026 FIFA World Cup?)
 ```
 
 ## Letzte Fehler (3)

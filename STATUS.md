@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-28 11:25:10 UTC
+> 2026-05-28 11:30:12 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 2302724s | HB: WARNUNG 451s alt
+STALE — lief vor 2303026s | HB: OK (43s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-28 09:28:02 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Learner Tien @ $0.810 | $880.30 USDC | Roland Garros ATP: Facundo Acosta vs Learner Tien)
-2026-05-28 09:28:02 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Donna Vekic @ $0.350 | $44.40 USDC | Roland Garros WTA: Donna Vekic vs Naomi Osaka)
-2026-05-28 09:28:02 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Donna Vekic @ $0.350 | $10.50 USDC | Roland Garros WTA: Donna Vekic vs Naomi Osaka)
-2026-05-28 09:28:02 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.690 | $1949.07 USDC | Will Arsenal FC win on 2026-05-30?)
-2026-05-28 09:28:02 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.011 | $11.00 USDC | Will Uruguay win the 2026 FIFA World Cup?)
+2026-05-28 11:27:31 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Moise Kouame @ $0.720 | $729.27 USDC | Roland Garros ATP: Adolfo Vallejo vs Moise Kouame)
+2026-05-28 11:27:31 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Franco Agamenone @ $0.670 | $11.55 USDC | Chisinau: Kimmer Coppejans vs Franco Agamenone)
+2026-05-28 11:27:31 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Oleksandra Oliynykova @ $0.900 | $18.05 USDC | Roland Garros WTA: Oleksandra Oliynykova vs Kimberly Birrell)
+2026-05-28 11:27:31 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY against All authority @ $0.170 | $261.35 USDC | Counter-Strike: against All authority vs UNiTY esports - Map)
+2026-05-28 11:27:31 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.690 | $22.26 USDC | Will Arsenal FC win on 2026-05-30?)
 ```
 
 ## Letzte Fehler (3)

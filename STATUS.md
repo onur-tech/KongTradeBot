@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-29 07:31:13 UTC
+> 2026-05-29 07:36:16 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 2375087s | HB: WARNUNG 526s alt
+STALE — lief vor 2375390s | HB: OK (51s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-29 05:14:01 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.145 | $29.00 USDC | Israel x Iran permanent peace deal by June 30, 2026?)
-2026-05-29 05:14:02 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Xiyu Wang @ $0.370 | $370.04 USDC | Roland Garros WTA: Xiyu Wang vs Yulia Starodubtseva)
-2026-05-29 05:14:02 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.690 | $11.13 USDC | Will Arsenal FC win on 2026-05-30?)
-2026-05-29 05:14:02 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.690 | $11.13 USDC | Will Arsenal FC win on 2026-05-30?)
-2026-05-29 05:14:02 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.690 | $44.52 USDC | Will Arsenal FC win on 2026-05-30?)
+2026-05-29 07:31:27 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Jakub Mensik @ $0.190 | $190.00 USDC | Roland Garros ATP: Alex de Minaur vs Jakub Mensik)
+2026-05-29 07:31:27 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Jakub Mensik @ $0.200 | $200.02 USDC | Roland Garros ATP: Alex de Minaur vs Jakub Mensik)
+2026-05-29 07:31:27 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Xiyu Wang @ $0.350 | $350.04 USDC | Roland Garros WTA: Xiyu Wang vs Yulia Starodubtseva)
+2026-05-29 07:31:27 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Jakub Mensik @ $0.190 | $190.02 USDC | Roland Garros ATP: Alex de Minaur vs Jakub Mensik)
+2026-05-29 07:31:27 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.910 | $148.95 USDC | Will Andorra win on 2026-05-29?)
 ```
 
 ## Letzte Fehler (3)

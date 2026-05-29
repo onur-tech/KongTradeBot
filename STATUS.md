@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-29 20:27:15 UTC
+> 2026-05-29 20:32:16 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 2421649s | HB: OK (261s alt)
+STALE — lief vor 2421950s | HB: OK (13s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-29 18:33:07 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Joao Fonseca @ $0.490 | $515.48 USDC | Roland Garros ATP: Joao Fonseca vs Novak Djokovic)
-2026-05-29 18:33:07 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.990 | $7.92 USDC | Will Vålerenga Fotball win on 2026-05-29?)
-2026-05-29 18:33:07 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Joao Fonseca @ $0.510 | $136.81 USDC | Roland Garros ATP: Joao Fonseca vs Novak Djokovic)
-2026-05-29 18:33:07 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Joao Fonseca @ $0.510 | $10.41 USDC | Roland Garros ATP: Joao Fonseca vs Novak Djokovic)
-2026-05-29 18:33:07 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Joao Fonseca @ $0.510 | $16.34 USDC | Roland Garros ATP: Joao Fonseca vs Novak Djokovic)
+2026-05-29 20:32:06 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Casper Ruud @ $0.850 | $31.45 USDC | Roland Garros ATP: Casper Ruud vs Tommy Paul)
+2026-05-29 20:32:06 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Casper Ruud @ $0.850 | $103.66 USDC | Roland Garros ATP: Casper Ruud vs Tommy Paul)
+2026-05-29 20:32:06 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Casper Ruud @ $0.850 | $89.19 USDC | Roland Garros ATP: Casper Ruud vs Tommy Paul)
+2026-05-29 20:32:06 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.560 | $1968.67 USDC | Will the San Antonio Spurs win the NBA Western Conference Fi)
+2026-05-29 20:32:06 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Arsenal FC @ $0.800 | $8.00 USDC | Spread: Paris Saint-Germain FC (-1.5))
 ```
 
 ## Letzte Fehler (3)

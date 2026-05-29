@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-29 02:54:40 UTC
+> 2026-05-29 02:59:43 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 2358494s | HB: OK (299s alt)
+STALE — lief vor 2358797s | HB: OK (30s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-29 00:42:45 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Chicago Cubs @ $0.730 | $504.01 USDC | Chicago Cubs vs. Pittsburgh Pirates)
-2026-05-29 00:42:45 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.690 | $16.89 USDC | Will Arsenal FC win on 2026-05-30?)
-2026-05-29 00:42:45 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.690 | $217.57 USDC | Will Arsenal FC win on 2026-05-30?)
-2026-05-29 00:42:45 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.690 | $6.68 USDC | Will Arsenal FC win on 2026-05-30?)
-2026-05-29 00:42:45 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.690 | $8.86 USDC | Will Arsenal FC win on 2026-05-30?)
+2026-05-29 02:58:14 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.920 | $168.76 USDC | Will CD Universidad Católica win on 2026-05-28?)
+2026-05-29 02:58:14 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.040 | $5.16 USDC | Will CD Universidad Católica win on 2026-05-28?)
+2026-05-29 02:58:14 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.060 | $7.74 USDC | Will CD Universidad Católica win on 2026-05-28?)
+2026-05-29 02:58:14 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.050 | $7.66 USDC | Will CA Boca Juniors vs. CD Universidad Católica end in a dr)
+2026-05-29 02:58:14 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.690 | $11.13 USDC | Will Arsenal FC win on 2026-05-30?)
 ```
 
 ## Letzte Fehler (3)

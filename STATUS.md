@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-29 00:38:14 UTC
+> 2026-05-29 00:43:13 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 2350308s | HB: OK (249s alt)
+STALE — lief vor 2350607s | HB: OK (30s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-28 22:26:38 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Spurs @ $0.340 | $64.04 USDC | Spread: Spurs (-8.5))
-2026-05-28 22:26:38 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Spurs @ $0.340 | $79.13 USDC | Spread: Spurs (-8.5))
-2026-05-28 22:26:38 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Spurs @ $0.340 | $31.30 USDC | Spread: Spurs (-8.5))
-2026-05-28 22:26:38 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Spurs @ $0.340 | $51.52 USDC | Spread: Spurs (-8.5))
-2026-05-28 22:26:38 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Spurs @ $0.340 | $5.15 USDC | Spread: Spurs (-8.5))
+2026-05-29 00:42:45 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Chicago Cubs @ $0.730 | $504.01 USDC | Chicago Cubs vs. Pittsburgh Pirates)
+2026-05-29 00:42:45 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.690 | $16.89 USDC | Will Arsenal FC win on 2026-05-30?)
+2026-05-29 00:42:45 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.690 | $217.57 USDC | Will Arsenal FC win on 2026-05-30?)
+2026-05-29 00:42:45 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.690 | $6.68 USDC | Will Arsenal FC win on 2026-05-30?)
+2026-05-29 00:42:45 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.690 | $8.86 USDC | Will Arsenal FC win on 2026-05-30?)
 ```
 
 ## Letzte Fehler (3)

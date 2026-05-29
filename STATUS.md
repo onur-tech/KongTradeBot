@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-29 17:54:23 UTC
+> 2026-05-29 17:59:25 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 2412477s | HB: OK (46s alt)
+STALE — lief vor 2412779s | HB: OK (108s alt)
 ```
 
 ## Portfolio
@@ -37,9 +37,9 @@ PnL heute:     $0.00
 
 ## Letzte Fehler (3)
 ```
-TimeoutError
 [TG] Fehler 507270873: {"ok":false,"error_code":400,"description":"Bad Request: can't parse entities: Unsupported start tag \"$20</code\" at byte offset 127"}
 [TG] Fehler 7777386792: {"ok":false,"error_code":400,"description":"Bad Request: can't parse entities: Unsupported start tag \"$20</code\" at byte offset 127"}
+2026-05-29 17:54:29 | WARNING  | polymarket_bot.wallet_monitor | [WS] Verbindungsfehler: sent 1011 (internal error) keepalive ping timeout; no close frame received — Reconnect in 16s (Retry 4/5)
 ```
 
 ---

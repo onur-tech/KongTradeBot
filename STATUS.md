@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-29 22:49:32 UTC
+> 2026-05-29 22:54:43 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 2430186s | HB: WARNUNG 523s alt
+STALE — lief vor 2430497s | HB: OK (8s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-29 20:32:06 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Casper Ruud @ $0.850 | $31.45 USDC | Roland Garros ATP: Casper Ruud vs Tommy Paul)
-2026-05-29 20:32:06 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Casper Ruud @ $0.850 | $103.66 USDC | Roland Garros ATP: Casper Ruud vs Tommy Paul)
-2026-05-29 20:32:06 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Casper Ruud @ $0.850 | $89.19 USDC | Roland Garros ATP: Casper Ruud vs Tommy Paul)
-2026-05-29 20:32:06 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.560 | $1968.67 USDC | Will the San Antonio Spurs win the NBA Western Conference Fi)
-2026-05-29 20:32:06 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Arsenal FC @ $0.800 | $8.00 USDC | Spread: Paris Saint-Germain FC (-1.5))
+2026-05-29 22:49:36 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.810 | $6.27 USDC | Atlanta Braves vs. Cincinnati Reds: O/U 6.5)
+2026-05-29 22:49:36 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Atlanta Braves @ $0.620 | $8.62 USDC | Atlanta Braves vs. Cincinnati Reds)
+2026-05-29 22:49:36 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Atlanta Braves @ $0.620 | $15.80 USDC | Atlanta Braves vs. Cincinnati Reds)
+2026-05-29 22:49:37 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Arsenal FC @ $0.800 | $7.64 USDC | Spread: Paris Saint-Germain FC (-1.5))
+2026-05-29 22:49:37 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Arsenal FC @ $0.800 | $1640.00 USDC | Spread: Paris Saint-Germain FC (-1.5))
 ```
 
 ## Letzte Fehler (3)

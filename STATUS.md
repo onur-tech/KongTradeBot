@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-29 18:04:27 UTC
+> 2026-05-29 18:09:47 UTC
 
 ## Bot-Status
 ```
@@ -14,16 +14,12 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 2413081s | HB: WARNUNG 410s alt
+STALE — lief vor 2413401s | HB: OK (25s alt)
 ```
 
 ## Portfolio
 ```
-Total:         $0.00 USDC
-Cash:          $0.00 USDC
-In Positionen: $0.00 USDC
-Offene Pos.:   0
-PnL heute:     $0.00
+Dashboard nicht erreichbar: timed out
 ```
 
 ## Letzte Trades (5)
@@ -37,9 +33,9 @@ PnL heute:     $0.00
 
 ## Letzte Fehler (3)
 ```
-[TG] Fehler 507270873: {"ok":false,"error_code":400,"description":"Bad Request: can't parse entities: Unsupported start tag \"$20</code\" at byte offset 127"}
-[TG] Fehler 7777386792: {"ok":false,"error_code":400,"description":"Bad Request: can't parse entities: Unsupported start tag \"$20</code\" at byte offset 127"}
-2026-05-29 17:54:29 | WARNING  | polymarket_bot.wallet_monitor | [WS] Verbindungsfehler: sent 1011 (internal error) keepalive ping timeout; no close frame received — Reconnect in 16s (Retry 4/5)
+The above exception was the direct cause of the following exception:
+raise asyncio.TimeoutError from exc_val
+TimeoutError
 ```
 
 ---

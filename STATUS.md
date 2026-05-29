@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-29 18:30:05 UTC
+> 2026-05-29 18:35:05 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 2414619s | HB: WARNUNG 523s alt
+STALE — lief vor 2414919s | HB: OK (0s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-29 16:31:57 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.590 | $13.41 USDC | Will Paris Saint-Germain FC win on 2026-05-30?)
-2026-05-29 16:31:57 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.590 | $28.78 USDC | Will Paris Saint-Germain FC win on 2026-05-30?)
-2026-05-29 16:31:57 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.590 | $10.07 USDC | Will Paris Saint-Germain FC win on 2026-05-30?)
-2026-05-29 16:31:57 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.590 | $50.58 USDC | Will Paris Saint-Germain FC win on 2026-05-30?)
-2026-05-29 16:31:57 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.590 | $28.91 USDC | Will Paris Saint-Germain FC win on 2026-05-30?)
+2026-05-29 18:33:07 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Joao Fonseca @ $0.490 | $515.48 USDC | Roland Garros ATP: Joao Fonseca vs Novak Djokovic)
+2026-05-29 18:33:07 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.990 | $7.92 USDC | Will Vålerenga Fotball win on 2026-05-29?)
+2026-05-29 18:33:07 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Joao Fonseca @ $0.510 | $136.81 USDC | Roland Garros ATP: Joao Fonseca vs Novak Djokovic)
+2026-05-29 18:33:07 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Joao Fonseca @ $0.510 | $10.41 USDC | Roland Garros ATP: Joao Fonseca vs Novak Djokovic)
+2026-05-29 18:33:07 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Joao Fonseca @ $0.510 | $16.34 USDC | Roland Garros ATP: Joao Fonseca vs Novak Djokovic)
 ```
 
 ## Letzte Fehler (3)

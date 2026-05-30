@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-30 03:20:21 UTC
+> 2026-05-30 03:25:23 UTC
 
 ## Bot-Status
 ```
@@ -14,21 +14,25 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 2446435s | HB: WARNUNG 404s alt
+STALE — lief vor 2446737s | HB: OK (7s alt)
 ```
 
 ## Portfolio
 ```
-Dashboard nicht erreichbar: timed out
+Total:         $0.00 USDC
+Cash:          $0.00 USDC
+In Positionen: $0.00 USDC
+Offene Pos.:   0
+PnL heute:     $0.00
 ```
 
 ## Letzte Trades (5)
 ```
-2026-05-30 01:06:07 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY San Francisco Giants @ $0.500 | $15.30 USDC | San Francisco Giants vs. Colorado Rockies)
-2026-05-30 01:06:07 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY San Francisco Giants @ $0.500 | $5.00 USDC | San Francisco Giants vs. Colorado Rockies)
-2026-05-30 01:06:07 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Thunder @ $0.570 | $9.76 USDC | Spurs vs. Thunder)
-2026-05-30 01:06:07 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Thunder @ $0.570 | $26.51 USDC | Spurs vs. Thunder)
-2026-05-30 01:06:07 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Thunder @ $0.570 | $26.51 USDC | Spurs vs. Thunder)
+2026-05-30 03:22:20 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Colorado Rockies @ $0.190 | $6.59 USDC | San Francisco Giants vs. Colorado Rockies)
+2026-05-30 03:22:20 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY San Francisco Giants @ $0.800 | $15.14 USDC | San Francisco Giants vs. Colorado Rockies)
+2026-05-30 03:22:21 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Thunder @ $0.570 | $66.28 USDC | Spurs vs. Thunder)
+2026-05-30 03:22:21 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Thunder @ $0.570 | $6.63 USDC | Spurs vs. Thunder)
+2026-05-30 03:22:21 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Thunder @ $0.570 | $397.67 USDC | Spurs vs. Thunder)
 ```
 
 ## Letzte Fehler (3)

@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-30 23:07:36 UTC
+> 2026-05-30 23:12:35 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 2517670s | HB: OK (295s alt)
+STALE — lief vor 2517969s | HB: OK (7s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-30 20:53:27 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.910 | $21.90 USDC | Will CA Paranaense vs. Mirassol FC end in a draw?)
-2026-05-30 20:53:27 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.960 | $25.59 USDC | Will Real Sporting de Gijón win on 2026-05-30?)
-2026-05-30 20:53:27 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Kansas City Royals @ $0.680 | $15.45 USDC | Spread: Texas Rangers (-2.5))
-2026-05-30 20:53:27 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.960 | $156.92 USDC | Will Real Sporting de Gijón win on 2026-05-30?)
-2026-05-30 20:53:27 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.100 | $10.17 USDC | Toronto Blue Jays vs. Baltimore Orioles: O/U 11.5)
+2026-05-30 23:11:30 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Cincinnati Reds @ $0.460 | $81.57 USDC | Atlanta Braves vs. Cincinnati Reds)
+2026-05-30 23:11:30 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Cincinnati Reds @ $0.460 | $69.52 USDC | Atlanta Braves vs. Cincinnati Reds)
+2026-05-30 23:11:30 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Cincinnati Reds @ $0.460 | $11.58 USDC | Atlanta Braves vs. Cincinnati Reds)
+2026-05-30 23:11:30 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Cincinnati Reds @ $0.460 | $12.05 USDC | Atlanta Braves vs. Cincinnati Reds)
+2026-05-30 23:11:30 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Cincinnati Reds @ $0.460 | $40.78 USDC | Atlanta Braves vs. Cincinnati Reds)
 ```
 
 ## Letzte Fehler (3)

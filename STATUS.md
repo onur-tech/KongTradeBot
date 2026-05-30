@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-30 17:00:22 UTC
+> 2026-05-30 17:05:23 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 2495636s | HB: OK (54s alt)
+STALE — lief vor 2495937s | HB: OK (54s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-30 14:54:04 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.520 | $10.83 USDC | Will Arsenal win the 2025–26 Champions League?)
-2026-05-30 14:54:04 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.520 | $21.67 USDC | Will Arsenal win the 2025–26 Champions League?)
-2026-05-30 14:54:04 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.520 | $138.48 USDC | Will Arsenal win the 2025–26 Champions League?)
-2026-05-30 14:54:04 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.520 | $10.38 USDC | Will Arsenal win the 2025–26 Champions League?)
-2026-05-30 14:54:04 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.520 | $52.00 USDC | Will Arsenal win the 2025–26 Champions League?)
+2026-05-30 17:02:11 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.580 | $90.10 USDC | Paris Saint-Germain FC vs. Arsenal FC: Both Teams to Score)
+2026-05-30 17:02:11 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.011 | $15.00 USDC | Will Uruguay win the 2026 FIFA World Cup?)
+2026-05-30 17:02:11 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Thunder @ $0.490 | $33.27 USDC | Spread: Thunder (-3.5))
+2026-05-30 17:02:11 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Thunder @ $0.490 | $15.37 USDC | Spread: Thunder (-3.5))
+2026-05-30 17:02:11 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.011 | $25.00 USDC | Will Uruguay win the 2026 FIFA World Cup?)
 ```
 
 ## Letzte Fehler (3)

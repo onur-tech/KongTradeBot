@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-30 12:33:33 UTC
+> 2026-05-30 12:38:33 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 2479627s | HB: WARNUNG 455s alt
+STALE — lief vor 2479928s | HB: OK (22s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-30 10:15:48 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Naomi Osaka @ $0.730 | $8.11 USDC | Roland Garros WTA: Iva Jovic vs Naomi Osaka)
-2026-05-30 10:15:48 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Naomi Osaka @ $0.730 | $10.58 USDC | Roland Garros WTA: Iva Jovic vs Naomi Osaka)
-2026-05-30 10:15:48 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Thunder @ $0.570 | $12.90 USDC | Spurs vs. Thunder)
-2026-05-30 10:15:48 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Thunder @ $0.570 | $6.58 USDC | Spurs vs. Thunder)
-2026-05-30 10:15:48 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Thunder @ $0.570 | $13.98 USDC | Spurs vs. Thunder)
+2026-05-30 12:35:13 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Thunder @ $0.570 | $72.09 USDC | Spurs vs. Thunder)
+2026-05-30 12:35:13 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Thunder @ $0.570 | $45.60 USDC | Spurs vs. Thunder)
+2026-05-30 12:35:13 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Thunder @ $0.570 | $159.22 USDC | Spurs vs. Thunder)
+2026-05-30 12:35:13 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.700 | $25.67 USDC | Will Paris Saint-Germain FC vs. Arsenal FC end in a draw?)
+2026-05-30 12:35:13 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.700 | $116.67 USDC | Will Paris Saint-Germain FC vs. Arsenal FC end in a draw?)
 ```
 
 ## Letzte Fehler (3)

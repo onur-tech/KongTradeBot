@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-30 20:51:40 UTC
+> 2026-05-30 20:56:41 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 2509514s | HB: WARNUNG 447s alt
+STALE — lief vor 2509815s | HB: OK (15s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-30 18:28:49 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.730 | $700.15 USDC | Detroit Tigers vs. Chicago White Sox: O/U 6.5)
-2026-05-30 18:28:49 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.710 | $7.34 USDC | Detroit Tigers vs. Chicago White Sox: O/U 11.5)
-2026-05-30 18:28:49 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Raphael Collignon @ $0.710 | $75.92 USDC | Roland Garros ATP: Matteo Arnaldi vs Raphael Collignon)
-2026-05-30 18:28:49 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Thunder @ $0.490 | $8.10 USDC | Spread: Thunder (-3.5))
-2026-05-30 18:28:49 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Thunder @ $0.490 | $20.18 USDC | Spread: Thunder (-3.5))
+2026-05-30 20:53:27 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.910 | $21.90 USDC | Will CA Paranaense vs. Mirassol FC end in a draw?)
+2026-05-30 20:53:27 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.960 | $25.59 USDC | Will Real Sporting de Gijón win on 2026-05-30?)
+2026-05-30 20:53:27 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Kansas City Royals @ $0.680 | $15.45 USDC | Spread: Texas Rangers (-2.5))
+2026-05-30 20:53:27 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.960 | $156.92 USDC | Will Real Sporting de Gijón win on 2026-05-30?)
+2026-05-30 20:53:27 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.100 | $10.17 USDC | Toronto Blue Jays vs. Baltimore Orioles: O/U 11.5)
 ```
 
 ## Letzte Fehler (3)

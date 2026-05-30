@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-30 14:49:47 UTC
+> 2026-05-30 14:54:47 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 2487801s | HB: OK (289s alt)
+STALE — lief vor 2488101s | HB: OK (45s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-30 12:35:13 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Thunder @ $0.570 | $72.09 USDC | Spurs vs. Thunder)
-2026-05-30 12:35:13 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Thunder @ $0.570 | $45.60 USDC | Spurs vs. Thunder)
-2026-05-30 12:35:13 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Thunder @ $0.570 | $159.22 USDC | Spurs vs. Thunder)
-2026-05-30 12:35:13 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.700 | $25.67 USDC | Will Paris Saint-Germain FC vs. Arsenal FC end in a draw?)
-2026-05-30 12:35:13 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.700 | $116.67 USDC | Will Paris Saint-Germain FC vs. Arsenal FC end in a draw?)
+2026-05-30 14:54:04 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.520 | $10.83 USDC | Will Arsenal win the 2025–26 Champions League?)
+2026-05-30 14:54:04 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.520 | $21.67 USDC | Will Arsenal win the 2025–26 Champions League?)
+2026-05-30 14:54:04 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.520 | $138.48 USDC | Will Arsenal win the 2025–26 Champions League?)
+2026-05-30 14:54:04 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.520 | $10.38 USDC | Will Arsenal win the 2025–26 Champions League?)
+2026-05-30 14:54:04 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.520 | $52.00 USDC | Will Arsenal win the 2025–26 Champions League?)
 ```
 
 ## Letzte Fehler (3)

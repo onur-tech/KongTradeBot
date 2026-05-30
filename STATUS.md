@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-30 10:12:23 UTC
+> 2026-05-30 10:17:26 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 2471157s | HB: OK (348s alt)
+STALE — lief vor 2471460s | HB: OK (39s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-30 07:56:59 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.590 | $14.06 USDC | Will Paris Saint-Germain FC win on 2026-05-30?)
-2026-05-30 07:56:59 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.590 | $1465.76 USDC | Will Paris Saint-Germain FC win on 2026-05-30?)
-2026-05-30 07:56:59 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.590 | $143.90 USDC | Will Paris Saint-Germain FC win on 2026-05-30?)
-2026-05-30 07:56:59 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.590 | $130.04 USDC | Will Paris Saint-Germain FC win on 2026-05-30?)
-2026-05-30 07:56:59 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.590 | $5.04 USDC | Will Paris Saint-Germain FC win on 2026-05-30?)
+2026-05-30 10:15:48 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Naomi Osaka @ $0.730 | $8.11 USDC | Roland Garros WTA: Iva Jovic vs Naomi Osaka)
+2026-05-30 10:15:48 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Naomi Osaka @ $0.730 | $10.58 USDC | Roland Garros WTA: Iva Jovic vs Naomi Osaka)
+2026-05-30 10:15:48 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Thunder @ $0.570 | $12.90 USDC | Spurs vs. Thunder)
+2026-05-30 10:15:48 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Thunder @ $0.570 | $6.58 USDC | Spurs vs. Thunder)
+2026-05-30 10:15:48 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Thunder @ $0.570 | $13.98 USDC | Spurs vs. Thunder)
 ```
 
 ## Letzte Fehler (3)

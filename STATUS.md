@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-30 07:55:32 UTC
+> 2026-05-30 08:00:31 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 2462946s | HB: WARNUNG 454s alt
+STALE — lief vor 2463245s | HB: OK (33s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-30 05:39:22 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $4629.80 USDC | Will Arsenal FC win on 2026-02-22?)
-2026-05-30 05:39:22 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $23.17 USDC | Will Arsenal FC win on 2026-02-22?)
-2026-05-30 05:39:22 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $31.43 USDC | Will Arsenal FC win on 2026-02-22?)
-2026-05-30 05:39:22 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $48.80 USDC | Will Arsenal FC win on 2026-02-22?)
-2026-05-30 05:39:22 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $31.43 USDC | Will Arsenal FC win on 2026-02-22?)
+2026-05-30 07:56:59 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.590 | $14.06 USDC | Will Paris Saint-Germain FC win on 2026-05-30?)
+2026-05-30 07:56:59 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.590 | $1465.76 USDC | Will Paris Saint-Germain FC win on 2026-05-30?)
+2026-05-30 07:56:59 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.590 | $143.90 USDC | Will Paris Saint-Germain FC win on 2026-05-30?)
+2026-05-30 07:56:59 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.590 | $130.04 USDC | Will Paris Saint-Germain FC win on 2026-05-30?)
+2026-05-30 07:56:59 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.590 | $5.04 USDC | Will Paris Saint-Germain FC win on 2026-05-30?)
 ```
 
 ## Letzte Fehler (3)

@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-30 01:02:50 UTC
+> 2026-05-30 01:08:03 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 2438184s | HB: OK (328s alt)
+STALE — lief vor 2438497s | HB: OK (58s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-29 22:49:36 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.810 | $6.27 USDC | Atlanta Braves vs. Cincinnati Reds: O/U 6.5)
-2026-05-29 22:49:36 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Atlanta Braves @ $0.620 | $8.62 USDC | Atlanta Braves vs. Cincinnati Reds)
-2026-05-29 22:49:36 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Atlanta Braves @ $0.620 | $15.80 USDC | Atlanta Braves vs. Cincinnati Reds)
-2026-05-29 22:49:37 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Arsenal FC @ $0.800 | $7.64 USDC | Spread: Paris Saint-Germain FC (-1.5))
-2026-05-29 22:49:37 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Arsenal FC @ $0.800 | $1640.00 USDC | Spread: Paris Saint-Germain FC (-1.5))
+2026-05-30 01:06:07 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY San Francisco Giants @ $0.500 | $15.30 USDC | San Francisco Giants vs. Colorado Rockies)
+2026-05-30 01:06:07 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY San Francisco Giants @ $0.500 | $5.00 USDC | San Francisco Giants vs. Colorado Rockies)
+2026-05-30 01:06:07 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Thunder @ $0.570 | $9.76 USDC | Spurs vs. Thunder)
+2026-05-30 01:06:07 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Thunder @ $0.570 | $26.51 USDC | Spurs vs. Thunder)
+2026-05-30 01:06:07 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Thunder @ $0.570 | $26.51 USDC | Spurs vs. Thunder)
 ```
 
 ## Letzte Fehler (3)

@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-31 17:36:45 UTC
+> 2026-05-31 17:41:44 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 2584219s | HB: WARNUNG 494s alt
+STALE — lief vor 2584518s | HB: OK (44s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-31 15:17:44 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Alexander Zverev @ $0.930 | $993.24 USDC | Roland Garros ATP: Jesper de Jong vs Alexander Zverev)
-2026-05-31 15:17:44 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY FOKUS @ $0.460 | $80.33 USDC | Counter-Strike: Nemiga vs FOKUS (BO3) - BC Game Masters Euro)
-2026-05-31 15:17:44 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.340 | $233.91 USDC | Czechia vs. Kosovo: O/U 2.5)
-2026-05-31 15:17:44 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.960 | $17.30 USDC | Will Red Bull Bragantino vs. SC Internacional end in a draw?)
-2026-05-31 15:17:44 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.180 | $10.14 USDC | Red Bull Bragantino vs. SC Internacional: O/U 4.5)
+2026-05-31 17:38:03 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Cincinnati Reds @ $0.460 | $24.56 USDC | Atlanta Braves vs. Cincinnati Reds)
+2026-05-31 17:38:03 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Cincinnati Reds @ $0.460 | $41.71 USDC | Atlanta Braves vs. Cincinnati Reds)
+2026-05-31 17:38:03 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Cincinnati Reds @ $0.460 | $13.90 USDC | Atlanta Braves vs. Cincinnati Reds)
+2026-05-31 17:38:03 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Cincinnati Reds @ $0.460 | $922.73 USDC | Atlanta Braves vs. Cincinnati Reds)
+2026-05-31 17:38:03 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.097 | $1024.46 USDC | Will Portugal win the 2026 FIFA World Cup?)
 ```
 
 ## Letzte Fehler (3)

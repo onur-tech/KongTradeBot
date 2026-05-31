@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-31 12:56:37 UTC
+> 2026-05-31 13:01:41 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 2567411s | HB: WARNUNG 475s alt
+STALE — lief vor 2567715s | HB: OK (43s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-31 10:38:32 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.230 | $351.44 USDC | Will Japan win on 2026-05-31?)
-2026-05-31 10:38:32 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Belinda Bencic @ $0.350 | $35.54 USDC | Roland Garros WTA: Elina Svitolina vs Belinda Bencic)
-2026-05-31 10:38:32 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Marta Kostyuk @ $0.680 | $340.89 USDC | Roland Garros WTA: Marta Kostyuk vs Iga Swiatek)
-2026-05-31 10:38:32 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Marta Kostyuk @ $0.680 | $23.12 USDC | Roland Garros WTA: Marta Kostyuk vs Iga Swiatek)
-2026-05-31 10:38:32 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Marta Kostyuk @ $0.680 | $206.04 USDC | Roland Garros WTA: Marta Kostyuk vs Iga Swiatek)
+2026-05-31 12:58:02 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Elina Svitolina @ $0.740 | $71.15 USDC | Roland Garros WTA: Elina Svitolina vs Belinda Bencic)
+2026-05-31 12:58:02 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Elina Svitolina @ $0.740 | $122.08 USDC | Roland Garros WTA: Elina Svitolina vs Belinda Bencic)
+2026-05-31 12:58:02 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Elina Svitolina @ $0.740 | $142.18 USDC | Roland Garros WTA: Elina Svitolina vs Belinda Bencic)
+2026-05-31 12:58:02 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Pablo Carreno Busta @ $0.770 | $334.78 USDC | Roland Garros ATP: Rafael Jodar vs Pablo Carreno Busta)
+2026-05-31 12:58:02 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Elina Svitolina @ $0.710 | $184.81 USDC | Roland Garros WTA: Elina Svitolina vs Belinda Bencic)
 ```
 
 ## Letzte Fehler (3)

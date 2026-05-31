@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-31 19:57:57 UTC
+> 2026-05-31 20:03:03 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 2592691s | HB: WARNUNG 458s alt
+STALE — lief vor 2592997s | HB: OK (45s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-31 17:38:03 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Cincinnati Reds @ $0.460 | $24.56 USDC | Atlanta Braves vs. Cincinnati Reds)
-2026-05-31 17:38:03 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Cincinnati Reds @ $0.460 | $41.71 USDC | Atlanta Braves vs. Cincinnati Reds)
-2026-05-31 17:38:03 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Cincinnati Reds @ $0.460 | $13.90 USDC | Atlanta Braves vs. Cincinnati Reds)
-2026-05-31 17:38:03 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Cincinnati Reds @ $0.460 | $922.73 USDC | Atlanta Braves vs. Cincinnati Reds)
-2026-05-31 17:38:03 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.097 | $1024.46 USDC | Will Portugal win the 2026 FIFA World Cup?)
+2026-05-31 20:00:22 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Philadelphia Phillies @ $0.310 | $44.93 USDC | Philadelphia Phillies vs. Los Angeles Dodgers)
+2026-05-31 20:00:22 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Philadelphia Phillies @ $0.310 | $16.22 USDC | Philadelphia Phillies vs. Los Angeles Dodgers)
+2026-05-31 20:00:22 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Philadelphia Phillies @ $0.310 | $17.78 USDC | Philadelphia Phillies vs. Los Angeles Dodgers)
+2026-05-31 20:00:22 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Philadelphia Phillies @ $0.310 | $62.00 USDC | Philadelphia Phillies vs. Los Angeles Dodgers)
+2026-05-31 20:00:22 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Philadelphia Phillies @ $0.310 | $28.52 USDC | Philadelphia Phillies vs. Los Angeles Dodgers)
 ```
 
 ## Letzte Fehler (3)

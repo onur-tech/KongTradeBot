@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-05-31 10:35:59 UTC
+> 2026-05-31 10:41:01 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 2558973s | HB: WARNUNG 402s alt
+STALE — lief vor 2559275s | HB: OK (31s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-31 08:19:39 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.290 | $7.25 USDC | Thespa Gunma vs. FC Gifu: O/U 1.5)
-2026-05-31 08:19:39 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.750 | $68.44 USDC | Montedio Yamagata vs. Matsumoto Yamaga FC: O/U 2.5)
-2026-05-31 08:19:39 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.120 | $138.48 USDC | Will Matsumoto Yamaga FC win on 2026-05-31?)
-2026-05-31 08:19:39 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.900 | $9.00 USDC | Will AC Nagano Parceiro win on 2026-05-31?)
-2026-05-31 08:19:39 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.280 | $7.39 USDC | Montedio Yamagata vs. Matsumoto Yamaga FC: O/U 2.5)
+2026-05-31 10:38:32 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.230 | $351.44 USDC | Will Japan win on 2026-05-31?)
+2026-05-31 10:38:32 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Belinda Bencic @ $0.350 | $35.54 USDC | Roland Garros WTA: Elina Svitolina vs Belinda Bencic)
+2026-05-31 10:38:32 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Marta Kostyuk @ $0.680 | $340.89 USDC | Roland Garros WTA: Marta Kostyuk vs Iga Swiatek)
+2026-05-31 10:38:32 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Marta Kostyuk @ $0.680 | $23.12 USDC | Roland Garros WTA: Marta Kostyuk vs Iga Swiatek)
+2026-05-31 10:38:32 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Marta Kostyuk @ $0.680 | $206.04 USDC | Roland Garros WTA: Marta Kostyuk vs Iga Swiatek)
 ```
 
 ## Letzte Fehler (3)

@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-01 09:48:15 UTC
+> 2026-06-01 09:53:16 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 2642509s | HB: OK (341s alt)
+STALE — lief vor 2642810s | HB: OK (18s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-06-01 07:32:04 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.330 | $9.85 USDC | Will Trump agree to unfreeze Iranian assets by June 30?)
-2026-06-01 07:32:04 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.260 | $20.99 USDC | Iran agrees to surrender enriched uranium stockpile by July )
-2026-06-01 07:32:04 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.085 | $187.00 USDC | Israel x Iran permanent peace deal by June 30, 2026?)
-2026-06-01 07:32:04 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.330 | $6.60 USDC | Will Trump agree to unfreeze Iranian assets by June 30?)
-2026-06-01 07:32:05 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Diane Parry @ $0.360 | $360.04 USDC | Roland Garros WTA: Maja Chwalinska vs Diane Parry)
+2026-06-01 09:52:02 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Anastasia Potapova @ $0.860 | $7.80 USDC | Roland Garros WTA: Anastasia Potapova vs Anna Kalinskaya)
+2026-06-01 09:52:02 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Anastasia Potapova @ $0.860 | $7.80 USDC | Roland Garros WTA: Anastasia Potapova vs Anna Kalinskaya)
+2026-06-01 09:52:02 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Elvina Kalieva @ $0.240 | $144.00 USDC | Birmingham: Elvina Kalieva vs Talia Gibson)
+2026-06-01 09:52:02 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Flavio Cobolli @ $0.920 | $731.57 USDC | Roland Garros ATP: Flavio Cobolli vs Zachary Svajda)
+2026-06-01 09:52:02 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Anastasia Potapova @ $0.780 | $104.03 USDC | Roland Garros WTA: Anastasia Potapova vs Anna Kalinskaya)
 ```
 
 ## Letzte Fehler (3)

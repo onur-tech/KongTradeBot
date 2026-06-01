@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-01 02:53:22 UTC
+> 2026-06-01 02:58:23 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 2617616s | HB: WARNUNG 375s alt
+STALE — lief vor 2617917s | HB: OK (26s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-06-01 00:39:01 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.280 | $248.07 USDC | Chicago Cubs vs. St. Louis Cardinals: O/U 8.5)
-2026-06-01 00:39:01 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.610 | $15.64 USDC | CD Palestino vs. Audax CS Italiano: O/U 2.5)
-2026-06-01 00:39:01 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.950 | $19.00 USDC | Chicago Cubs vs. St. Louis Cardinals: O/U 5.5)
-2026-06-01 00:39:01 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.036 | $10.55 USDC | Will Netherlands win the 2026 FIFA World Cup?)
-2026-06-01 00:39:01 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.036 | $7.51 USDC | Will Netherlands win the 2026 FIFA World Cup?)
+2026-06-01 02:56:00 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.920 | $9.22 USDC | Will CD Palestino vs. Audax CS Italiano end in a draw?)
+2026-06-01 02:56:00 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.930 | $9.32 USDC | Will CD Palestino vs. Audax CS Italiano end in a draw?)
+2026-06-01 02:56:00 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.740 | $28.94 USDC | Chicago Cubs vs. St. Louis Cardinals: O/U 6.5)
+2026-06-01 02:56:00 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.920 | $892.40 USDC | Chicago Cubs vs. St. Louis Cardinals: O/U 8.5)
+2026-06-01 02:56:00 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.930 | $13.02 USDC | Will CD Palestino vs. Audax CS Italiano end in a draw?)
 ```
 
 ## Letzte Fehler (3)

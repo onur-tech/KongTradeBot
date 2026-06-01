@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-01 00:36:50 UTC
+> 2026-06-01 00:41:53 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 2609424s | HB: WARNUNG 400s alt
+STALE — lief vor 2609727s | HB: OK (53s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-05-31 22:21:22 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $4629.80 USDC | Will Arsenal FC win on 2026-02-22?)
-2026-05-31 22:21:22 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $23.17 USDC | Will Arsenal FC win on 2026-02-22?)
-2026-05-31 22:21:22 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $31.43 USDC | Will Arsenal FC win on 2026-02-22?)
-2026-05-31 22:21:22 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $48.80 USDC | Will Arsenal FC win on 2026-02-22?)
-2026-05-31 22:21:22 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $31.43 USDC | Will Arsenal FC win on 2026-02-22?)
+2026-06-01 00:39:01 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.280 | $248.07 USDC | Chicago Cubs vs. St. Louis Cardinals: O/U 8.5)
+2026-06-01 00:39:01 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.610 | $15.64 USDC | CD Palestino vs. Audax CS Italiano: O/U 2.5)
+2026-06-01 00:39:01 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.950 | $19.00 USDC | Chicago Cubs vs. St. Louis Cardinals: O/U 5.5)
+2026-06-01 00:39:01 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.036 | $10.55 USDC | Will Netherlands win the 2026 FIFA World Cup?)
+2026-06-01 00:39:01 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.036 | $7.51 USDC | Will Netherlands win the 2026 FIFA World Cup?)
 ```
 
 ## Letzte Fehler (3)

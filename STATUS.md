@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-01 07:30:06 UTC
+> 2026-06-01 07:35:15 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 2634220s | HB: WARNUNG 426s alt
+STALE — lief vor 2634529s | HB: OK (12s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-06-01 05:13:21 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.987 | $24.07 USDC | Will Abelardo de la Espriella win the 1st round of the 2026 )
-2026-06-01 05:13:22 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.360 | $207.95 USDC | Will Bulgaria win on 2026-06-01?)
-2026-06-01 05:13:22 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.360 | $198.95 USDC | Will Bulgaria win on 2026-06-01?)
-2026-06-01 05:13:22 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.360 | $251.85 USDC | Will Bulgaria win on 2026-06-01?)
-2026-06-01 05:13:22 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.350 | $490.00 USDC | Will Bulgaria win on 2026-06-01?)
+2026-06-01 07:32:04 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.330 | $9.85 USDC | Will Trump agree to unfreeze Iranian assets by June 30?)
+2026-06-01 07:32:04 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.260 | $20.99 USDC | Iran agrees to surrender enriched uranium stockpile by July )
+2026-06-01 07:32:04 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.085 | $187.00 USDC | Israel x Iran permanent peace deal by June 30, 2026?)
+2026-06-01 07:32:04 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.330 | $6.60 USDC | Will Trump agree to unfreeze Iranian assets by June 30?)
+2026-06-01 07:32:05 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Diane Parry @ $0.360 | $360.04 USDC | Roland Garros WTA: Maja Chwalinska vs Diane Parry)
 ```
 
 ## Letzte Fehler (3)

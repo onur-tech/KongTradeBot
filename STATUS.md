@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-01 22:58:18 UTC
+> 2026-06-01 23:03:22 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 2689912s | HB: WARNUNG 363s alt
+STALE — lief vor 2690216s | HB: OK (5s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-06-01 20:41:27 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.890 | $773.25 USDC | Austria vs. Tunisia: O/U 1.5)
-2026-06-01 20:41:27 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Tunisia @ $0.955 | $7.65 USDC | Spread: Austria (-1.5))
-2026-06-01 20:41:27 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.890 | $596.46 USDC | Austria vs. Tunisia: O/U 1.5)
-2026-06-01 20:41:27 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.880 | $693.30 USDC | Austria vs. Tunisia: O/U 1.5)
-2026-06-01 20:41:27 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.090 | $9.89 USDC | Will Austria win on 2026-06-01?)
+2026-06-01 23:01:20 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Frances Tiafoe @ $0.140 | $71.29 USDC | Roland Garros ATP: Frances Tiafoe vs Matteo Arnaldi)
+2026-06-01 23:01:20 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Frances Tiafoe @ $0.140 | $16.12 USDC | Roland Garros ATP: Frances Tiafoe vs Matteo Arnaldi)
+2026-06-01 23:01:20 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Frances Tiafoe @ $0.140 | $140.00 USDC | Roland Garros ATP: Frances Tiafoe vs Matteo Arnaldi)
+2026-06-01 23:01:20 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Cincinnati Reds @ $0.540 | $4022.58 USDC | Kansas City Royals vs. Cincinnati Reds)
+2026-06-01 23:01:20 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Cincinnati Reds @ $0.540 | $35.68 USDC | Kansas City Royals vs. Cincinnati Reds)
 ```
 
 ## Letzte Fehler (3)

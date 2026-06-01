@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-01 05:11:08 UTC
+> 2026-06-01 05:16:09 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 2625882s | HB: WARNUNG 410s alt
+STALE — lief vor 2626183s | HB: OK (48s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-06-01 02:56:00 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.920 | $9.22 USDC | Will CD Palestino vs. Audax CS Italiano end in a draw?)
-2026-06-01 02:56:00 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.930 | $9.32 USDC | Will CD Palestino vs. Audax CS Italiano end in a draw?)
-2026-06-01 02:56:00 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.740 | $28.94 USDC | Chicago Cubs vs. St. Louis Cardinals: O/U 6.5)
-2026-06-01 02:56:00 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.920 | $892.40 USDC | Chicago Cubs vs. St. Louis Cardinals: O/U 8.5)
-2026-06-01 02:56:00 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.930 | $13.02 USDC | Will CD Palestino vs. Audax CS Italiano end in a draw?)
+2026-06-01 05:13:21 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.987 | $24.07 USDC | Will Abelardo de la Espriella win the 1st round of the 2026 )
+2026-06-01 05:13:22 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.360 | $207.95 USDC | Will Bulgaria win on 2026-06-01?)
+2026-06-01 05:13:22 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.360 | $198.95 USDC | Will Bulgaria win on 2026-06-01?)
+2026-06-01 05:13:22 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.360 | $251.85 USDC | Will Bulgaria win on 2026-06-01?)
+2026-06-01 05:13:22 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.350 | $490.00 USDC | Will Bulgaria win on 2026-06-01?)
 ```
 
 ## Letzte Fehler (3)

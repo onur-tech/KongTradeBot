@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-01 20:41:03 UTC
+> 2026-06-01 20:46:07 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 2681677s | HB: WARNUNG 559s alt
+STALE — lief vor 2681981s | HB: OK (42s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-06-01 18:41:19 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.500 | $10.41 USDC | Norway vs. Sweden: O/U 4.5)
-2026-06-01 18:41:19 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.480 | $20.47 USDC | Türkiye vs. North Macedonia: O/U 3.5)
-2026-06-01 18:41:19 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.011 | $7.60 USDC | Will Norway vs. Sweden end in a draw?)
-2026-06-01 18:41:19 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.851 | $11.42 USDC | Norway vs. Sweden: O/U 5.5)
-2026-06-01 18:41:19 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.500 | $126.00 USDC | Norway vs. Sweden: O/U 4.5)
+2026-06-01 20:41:27 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.890 | $773.25 USDC | Austria vs. Tunisia: O/U 1.5)
+2026-06-01 20:41:27 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Tunisia @ $0.955 | $7.65 USDC | Spread: Austria (-1.5))
+2026-06-01 20:41:27 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.890 | $596.46 USDC | Austria vs. Tunisia: O/U 1.5)
+2026-06-01 20:41:27 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.880 | $693.30 USDC | Austria vs. Tunisia: O/U 1.5)
+2026-06-01 20:41:27 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.090 | $9.89 USDC | Will Austria win on 2026-06-01?)
 ```
 
 ## Letzte Fehler (3)

@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-01 14:33:43 UTC
+> 2026-06-01 14:38:44 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 2659637s | HB: OK (334s alt)
+STALE — lief vor 2659938s | HB: OK (15s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-06-01 12:13:52 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Flavio Cobolli @ $0.841 | $5.66 USDC | Roland Garros ATP: Flavio Cobolli vs Zachary Svajda)
-2026-06-01 12:13:52 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Flavio Cobolli @ $0.841 | $75.02 USDC | Roland Garros ATP: Flavio Cobolli vs Zachary Svajda)
-2026-06-01 12:13:52 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Flavio Cobolli @ $0.841 | $900.71 USDC | Roland Garros ATP: Flavio Cobolli vs Zachary Svajda)
-2026-06-01 12:13:52 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Zachary Svajda @ $0.073 | $78.18 USDC | Roland Garros ATP: Flavio Cobolli vs Zachary Svajda)
-2026-06-01 12:13:52 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Diana Shnaider @ $0.410 | $6.95 USDC | Roland Garros WTA: Madison Keys vs Diana Shnaider)
+2026-06-01 14:38:31 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Matej Dodig @ $0.310 | $44.93 USDC | Heilbronn: Joel Schwaerzler vs Matej Dodig)
+2026-06-01 14:38:31 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Tristan Boyer @ $0.590 | $57.56 USDC | Prostejov: Tristan Boyer vs Filip Jianu)
+2026-06-01 14:38:31 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Matej Dodig @ $0.310 | $17.85 USDC | Heilbronn: Joel Schwaerzler vs Matej Dodig)
+2026-06-01 14:38:31 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Vilius Gaubas @ $0.390 | $15.69 USDC | Perugia: Timofey Skatov vs Vilius Gaubas)
+2026-06-01 14:38:31 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.036 | $37.20 USDC | Will Netherlands win the 2026 FIFA World Cup?)
 ```
 
 ## Letzte Fehler (3)

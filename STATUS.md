@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-01 12:10:45 UTC
+> 2026-06-01 12:16:03 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 2651059s | HB: WARNUNG 404s alt
+STALE — lief vor 2651377s | HB: OK (14s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-06-01 09:52:02 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Anastasia Potapova @ $0.860 | $7.80 USDC | Roland Garros WTA: Anastasia Potapova vs Anna Kalinskaya)
-2026-06-01 09:52:02 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Anastasia Potapova @ $0.860 | $7.80 USDC | Roland Garros WTA: Anastasia Potapova vs Anna Kalinskaya)
-2026-06-01 09:52:02 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Elvina Kalieva @ $0.240 | $144.00 USDC | Birmingham: Elvina Kalieva vs Talia Gibson)
-2026-06-01 09:52:02 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Flavio Cobolli @ $0.920 | $731.57 USDC | Roland Garros ATP: Flavio Cobolli vs Zachary Svajda)
-2026-06-01 09:52:02 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Anastasia Potapova @ $0.780 | $104.03 USDC | Roland Garros WTA: Anastasia Potapova vs Anna Kalinskaya)
+2026-06-01 12:13:52 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Flavio Cobolli @ $0.841 | $5.66 USDC | Roland Garros ATP: Flavio Cobolli vs Zachary Svajda)
+2026-06-01 12:13:52 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Flavio Cobolli @ $0.841 | $75.02 USDC | Roland Garros ATP: Flavio Cobolli vs Zachary Svajda)
+2026-06-01 12:13:52 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Flavio Cobolli @ $0.841 | $900.71 USDC | Roland Garros ATP: Flavio Cobolli vs Zachary Svajda)
+2026-06-01 12:13:52 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Zachary Svajda @ $0.073 | $78.18 USDC | Roland Garros ATP: Flavio Cobolli vs Zachary Svajda)
+2026-06-01 12:13:52 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Diana Shnaider @ $0.410 | $6.95 USDC | Roland Garros WTA: Madison Keys vs Diana Shnaider)
 ```
 
 ## Letzte Fehler (3)

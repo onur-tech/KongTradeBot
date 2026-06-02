@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-02 19:57:02 UTC
+> 2026-06-02 20:02:13 UTC
 
 ## Bot-Status
 ```
@@ -14,25 +14,25 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 2765436s | HB: WARNUNG 544s alt
+STALE — lief vor 2765747s | HB: OK (56s alt)
 ```
 
 ## Portfolio
 ```
-Total:         $10.12 USDC
+Total:         $12.13 USDC
 Cash:          $0.00 USDC
-In Positionen: $10.12 USDC
+In Positionen: $12.13 USDC
 Offene Pos.:   1
 PnL heute:     $0.00
 ```
 
 ## Letzte Trades (5)
 ```
-2026-06-02 17:31:41 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Mackenzie McDonald @ $0.620 | $78.12 USDC | Birmingham: Mackenzie McDonald vs Nicolai Budkov Kjaer)
-2026-06-02 17:31:41 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY MIBR @ $0.550 | $29.15 USDC | Counter-Strike: MIBR vs TYLOO (BO1) - IEM Cologne Major Stag)
-2026-06-02 17:31:41 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY MIBR @ $0.550 | $41.67 USDC | Counter-Strike: MIBR vs TYLOO (BO1) - IEM Cologne Major Stag)
-2026-06-02 17:31:41 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY MIBR @ $0.550 | $5.50 USDC | Counter-Strike: MIBR vs TYLOO (BO1) - IEM Cologne Major Stag)
-2026-06-02 17:31:41 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY TYLOO @ $0.480 | $10.15 USDC | Counter-Strike: MIBR vs TYLOO (BO1) - IEM Cologne Major Stag)
+2026-06-02 19:58:20 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Jakub Mensik @ $0.790 | $227.99 USDC | Roland Garros ATP: Jakub Mensik vs Joao Fonseca)
+2026-06-02 19:58:20 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Andrea Pellegrino @ $0.290 | $21.46 USDC | Perugia: Andrea Pellegrino vs Maks Kasnikowski)
+2026-06-02 19:58:20 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.590 | $21.62 USDC | Will Wales win on 2026-06-02?)
+2026-06-02 19:58:20 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Laura Mair @ $0.620 | $56.96 USDC | Foggia: Laura Mair vs Yiming Dang)
+2026-06-02 19:58:20 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Felix Gill @ $0.280 | $101.11 USDC | Birmingham: Ugo Blanchet vs Felix Gill)
 ```
 
 ## Letzte Fehler (3)

@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-02 15:05:01 UTC
+> 2026-06-02 15:10:05 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 2747915s | HB: WARNUNG 608s alt
+STALE — lief vor 2748219s | HB: OK (36s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-06-02 13:01:34 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $23.17 USDC | Will Arsenal FC win on 2026-02-22?)
-2026-06-02 13:01:34 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $12.39 USDC | Will Arsenal FC win on 2026-02-22?)
-2026-06-02 13:01:34 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $31.43 USDC | Will Arsenal FC win on 2026-02-22?)
-2026-06-02 13:01:34 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $48.80 USDC | Will Arsenal FC win on 2026-02-22?)
-2026-06-02 13:01:34 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $31.43 USDC | Will Arsenal FC win on 2026-02-22?)
+2026-06-02 15:05:32 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.630 | $91.34 USDC | Will Croatia win on 2026-06-02?)
+2026-06-02 15:05:32 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Kayla Day @ $0.860 | $7.13 USDC | Birmingham: Kayla Day vs Hanne Vandewinkel)
+2026-06-02 15:05:32 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Kayla Day @ $0.860 | $218.07 USDC | Birmingham: Kayla Day vs Hanne Vandewinkel)
+2026-06-02 15:05:32 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Giorgia Pedone @ $0.990 | $168.95 USDC | Foggia: Giorgia Pedone vs Ekaterine Gorgodze)
+2026-06-02 15:05:32 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Kayla Day @ $0.860 | $7.19 USDC | Birmingham: Kayla Day vs Hanne Vandewinkel)
 ```
 
 ## Letzte Fehler (3)

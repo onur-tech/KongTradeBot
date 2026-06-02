@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-02 10:33:49 UTC
+> 2026-06-02 10:38:49 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 2731643s | HB: WARNUNG 390s alt
+STALE — lief vor 2731943s | HB: OK (39s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-06-02 08:14:28 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.111 | $61.36 USDC | Will England win the 2026 FIFA World Cup?)
-2026-06-02 08:14:28 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.111 | $58.17 USDC | Will England win the 2026 FIFA World Cup?)
-2026-06-02 08:14:28 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.111 | $111.10 USDC | Will England win the 2026 FIFA World Cup?)
-2026-06-02 08:14:28 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.111 | $220.64 USDC | Will England win the 2026 FIFA World Cup?)
-2026-06-02 08:14:28 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.097 | $18.65 USDC | Will Portugal win the 2026 FIFA World Cup?)
+2026-06-02 10:37:11 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY M80 @ $0.400 | $6.40 USDC | Counter-Strike: M80 vs Lynn Vision (BO1) - IEM Cologne Major)
+2026-06-02 10:37:11 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Sinners @ $0.420 | $73.50 USDC | Counter-Strike: Sinners vs FlyQuest (BO1) - IEM Cologne Majo)
+2026-06-02 10:37:11 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Rebeka Masarova @ $0.583 | $106.08 USDC | Birmingham: Rebeka Masarova vs Tereza Martincova)
+2026-06-02 10:37:11 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Sinners @ $0.390 | $78.00 USDC | Counter-Strike: Sinners vs FlyQuest (BO1) - IEM Cologne Majo)
+2026-06-02 10:37:11 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Sinners @ $0.400 | $79.20 USDC | Counter-Strike: Sinners vs FlyQuest (BO1) - IEM Cologne Majo)
 ```
 
 ## Letzte Fehler (3)

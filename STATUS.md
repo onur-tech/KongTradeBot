@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-02 17:29:42 UTC
+> 2026-06-02 17:34:52 UTC
 
 ## Bot-Status
 ```
@@ -14,25 +14,25 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 2756596s | HB: WARNUNG 503s alt
+STALE — lief vor 2756906s | HB: OK (13s alt)
 ```
 
 ## Portfolio
 ```
-Total:         $9.57 USDC
+Total:         $9.26 USDC
 Cash:          $0.00 USDC
-In Positionen: $9.57 USDC
+In Positionen: $9.26 USDC
 Offene Pos.:   1
 PnL heute:     $0.00
 ```
 
 ## Letzte Trades (5)
 ```
-2026-06-02 15:05:32 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.630 | $91.34 USDC | Will Croatia win on 2026-06-02?)
-2026-06-02 15:05:32 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Kayla Day @ $0.860 | $7.13 USDC | Birmingham: Kayla Day vs Hanne Vandewinkel)
-2026-06-02 15:05:32 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Kayla Day @ $0.860 | $218.07 USDC | Birmingham: Kayla Day vs Hanne Vandewinkel)
-2026-06-02 15:05:32 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Giorgia Pedone @ $0.990 | $168.95 USDC | Foggia: Giorgia Pedone vs Ekaterine Gorgodze)
-2026-06-02 15:05:32 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Kayla Day @ $0.860 | $7.19 USDC | Birmingham: Kayla Day vs Hanne Vandewinkel)
+2026-06-02 17:31:41 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Mackenzie McDonald @ $0.620 | $78.12 USDC | Birmingham: Mackenzie McDonald vs Nicolai Budkov Kjaer)
+2026-06-02 17:31:41 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY MIBR @ $0.550 | $29.15 USDC | Counter-Strike: MIBR vs TYLOO (BO1) - IEM Cologne Major Stag)
+2026-06-02 17:31:41 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY MIBR @ $0.550 | $41.67 USDC | Counter-Strike: MIBR vs TYLOO (BO1) - IEM Cologne Major Stag)
+2026-06-02 17:31:41 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY MIBR @ $0.550 | $5.50 USDC | Counter-Strike: MIBR vs TYLOO (BO1) - IEM Cologne Major Stag)
+2026-06-02 17:31:41 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY TYLOO @ $0.480 | $10.15 USDC | Counter-Strike: MIBR vs TYLOO (BO1) - IEM Cologne Major Stag)
 ```
 
 ## Letzte Fehler (3)

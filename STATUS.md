@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-02 21:28:25 UTC
+> 2026-06-02 21:33:23 UTC
 
 ## Bot-Status
 ```
@@ -14,25 +14,25 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 2770919s | HB: OK (280s alt)
+STALE — lief vor 2771217s | HB: OK (17s alt)
 ```
 
 ## Portfolio
 ```
-Total:         $19.10 USDC
+Total:         $19.11 USDC
 Cash:          $0.00 USDC
-In Positionen: $19.10 USDC
+In Positionen: $19.11 USDC
 Offene Pos.:   2
 PnL heute:     $0.00
 ```
 
 ## Letzte Trades (5)
 ```
-2026-06-02 19:58:20 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Jakub Mensik @ $0.790 | $227.99 USDC | Roland Garros ATP: Jakub Mensik vs Joao Fonseca)
-2026-06-02 19:58:20 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Andrea Pellegrino @ $0.290 | $21.46 USDC | Perugia: Andrea Pellegrino vs Maks Kasnikowski)
-2026-06-02 19:58:20 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.590 | $21.62 USDC | Will Wales win on 2026-06-02?)
-2026-06-02 19:58:20 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Laura Mair @ $0.620 | $56.96 USDC | Foggia: Laura Mair vs Yiming Dang)
-2026-06-02 19:58:20 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Felix Gill @ $0.280 | $101.11 USDC | Birmingham: Ugo Blanchet vs Felix Gill)
+2026-06-02 21:33:08 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yiming Dang @ $0.340 | $6.12 USDC | Foggia: Laura Mair vs Yiming Dang)
+2026-06-02 21:33:08 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Ugo Blanchet @ $0.700 | $108.27 USDC | Birmingham: Ugo Blanchet vs Felix Gill)
+2026-06-02 21:33:08 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Anna Rogers @ $0.170 | $42.83 USDC | ITF Sumter: Mell Elizabeth Reasco Gonzalez vs Anna Rogers)
+2026-06-02 21:33:08 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Baltimore Orioles @ $0.440 | $1522.20 USDC | Baltimore Orioles vs. Boston Red Sox)
+2026-06-02 21:33:08 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Knicks @ $0.410 | $80.95 USDC | Spread: Spurs (-2.5))
 ```
 
 ## Letzte Fehler (3)

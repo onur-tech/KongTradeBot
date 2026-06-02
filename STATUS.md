@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-02 23:51:36 UTC
+> 2026-06-02 23:56:57 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 2779511s | HB: WARNUNG 513s alt
+STALE — lief vor 2779831s | HB: OK (49s alt)
 ```
 
 ## Portfolio
@@ -24,11 +24,11 @@ Dashboard nicht erreichbar: timed out
 
 ## Letzte Trades (5)
 ```
-2026-06-02 21:33:08 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yiming Dang @ $0.340 | $6.12 USDC | Foggia: Laura Mair vs Yiming Dang)
-2026-06-02 21:33:08 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Ugo Blanchet @ $0.700 | $108.27 USDC | Birmingham: Ugo Blanchet vs Felix Gill)
-2026-06-02 21:33:08 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Anna Rogers @ $0.170 | $42.83 USDC | ITF Sumter: Mell Elizabeth Reasco Gonzalez vs Anna Rogers)
-2026-06-02 21:33:08 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Baltimore Orioles @ $0.440 | $1522.20 USDC | Baltimore Orioles vs. Boston Red Sox)
-2026-06-02 21:33:08 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Knicks @ $0.410 | $80.95 USDC | Spread: Spurs (-2.5))
+2026-06-02 23:52:13 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.400 | $27.63 USDC | San Diego Padres vs. Philadelphia Phillies: O/U 8.5)
+2026-06-02 23:52:13 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Philadelphia Phillies @ $0.840 | $129.14 USDC | Spread: San Diego Padres (-3.5))
+2026-06-02 23:52:13 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Spurs @ $0.610 | $97.07 USDC | Spread: Spurs (-1.5))
+2026-06-02 23:52:13 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Knicks @ $0.410 | $1181.36 USDC | Spread: Spurs (-2.5))
+2026-06-02 23:52:13 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Knicks @ $0.410 | $123.00 USDC | Spread: Spurs (-2.5))
 ```
 
 ## Letzte Fehler (3)

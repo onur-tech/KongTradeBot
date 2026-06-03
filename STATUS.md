@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-03 11:35:06 UTC
+> 2026-06-03 11:40:24 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 2821720s | HB: WARNUNG 543s alt
+STALE — lief vor 2822038s | HB: OK (11s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-06-03 09:11:33 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Anna Kalinskaya @ $0.510 | $6.68 USDC | Roland Garros WTA: Anna Kalinskaya vs Maja Chwalinska)
-2026-06-03 09:11:33 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Anna Kalinskaya @ $0.510 | $15.38 USDC | Roland Garros WTA: Anna Kalinskaya vs Maja Chwalinska)
-2026-06-03 09:11:33 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Timo Legout @ $0.430 | $17.68 USDC | Tyler: Timo Legout vs Andres Andrade)
-2026-06-03 09:11:33 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.039 | $16.06 USDC | Will Netherlands win the 2026 FIFA World Cup?)
-2026-06-03 09:11:33 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.039 | $62.45 USDC | Will Netherlands win the 2026 FIFA World Cup?)
+2026-06-03 11:36:15 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Aryna Sabalenka @ $0.880 | $916.96 USDC | Roland Garros WTA: Aryna Sabalenka vs Diana Shnaider)
+2026-06-03 11:36:15 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.170 | $33.94 USDC | Philippines vs. Guam: O/U 5.5)
+2026-06-03 11:36:15 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.360 | $85.37 USDC | Philippines vs. Guam: O/U 4.5)
+2026-06-03 11:36:15 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.380 | $6.52 USDC | Philippines vs. Guam: O/U 4.5)
+2026-06-03 11:36:15 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Lisa Pigato @ $0.510 | $104.04 USDC | Foggia: Darya Astakhova vs Lisa Pigato)
 ```
 
 ## Letzte Fehler (3)

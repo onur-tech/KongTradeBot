@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-03 23:08:19 UTC
+> 2026-06-03 23:13:24 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 2863313s | HB: OK (252s alt)
+STALE — lief vor 2863618s | HB: OK (5s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-06-03 20:53:34 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Spurs @ $0.630 | $317.50 USDC | Knicks vs. Spurs)
-2026-06-03 20:53:34 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Spurs @ $0.630 | $49.92 USDC | Knicks vs. Spurs)
-2026-06-03 20:53:34 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY San Diego Padres @ $0.330 | $98.34 USDC | San Diego Padres vs. Philadelphia Phillies)
-2026-06-03 20:53:34 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Spurs @ $0.630 | $81.03 USDC | Knicks vs. Spurs)
-2026-06-03 20:53:34 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Spurs @ $0.630 | $1114.47 USDC | Knicks vs. Spurs)
+2026-06-03 23:13:20 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Toronto Blue Jays @ $0.420 | $7.18 USDC | Toronto Blue Jays vs. Atlanta Braves)
+2026-06-03 23:13:20 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Toronto Blue Jays @ $0.420 | $192.78 USDC | Toronto Blue Jays vs. Atlanta Braves)
+2026-06-03 23:13:20 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Knicks @ $0.470 | $17.52 USDC | Spread: Spurs (-4.5))
+2026-06-03 23:13:20 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Knicks @ $0.470 | $12.78 USDC | Spread: Spurs (-4.5))
+2026-06-03 23:13:20 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Toronto Blue Jays @ $0.420 | $294.74 USDC | Toronto Blue Jays vs. Atlanta Braves)
 ```
 
 ## Letzte Fehler (3)

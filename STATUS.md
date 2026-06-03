@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-03 14:00:05 UTC
+> 2026-06-03 14:05:24 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 2830419s | HB: WARNUNG 526s alt
+STALE — lief vor 2830738s | HB: OK (56s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-06-03 11:36:15 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Aryna Sabalenka @ $0.880 | $916.96 USDC | Roland Garros WTA: Aryna Sabalenka vs Diana Shnaider)
-2026-06-03 11:36:15 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.170 | $33.94 USDC | Philippines vs. Guam: O/U 5.5)
-2026-06-03 11:36:15 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.360 | $85.37 USDC | Philippines vs. Guam: O/U 4.5)
-2026-06-03 11:36:15 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.380 | $6.52 USDC | Philippines vs. Guam: O/U 4.5)
-2026-06-03 11:36:15 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Lisa Pigato @ $0.510 | $104.04 USDC | Foggia: Darya Astakhova vs Lisa Pigato)
+2026-06-03 14:01:31 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Spurs @ $0.630 | $17.03 USDC | Knicks vs. Spurs)
+2026-06-03 14:01:31 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Knicks @ $0.360 | $5.07 USDC | Knicks vs. Spurs)
+2026-06-03 14:01:31 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Knicks @ $0.360 | $10.19 USDC | Knicks vs. Spurs)
+2026-06-03 14:01:31 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Knicks @ $0.360 | $10.87 USDC | Knicks vs. Spurs)
+2026-06-03 14:01:31 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Knicks @ $0.360 | $6.16 USDC | Knicks vs. Spurs)
 ```
 
 ## Letzte Fehler (3)

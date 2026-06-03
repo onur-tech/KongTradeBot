@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-03 09:07:08 UTC
+> 2026-06-03 09:12:09 UTC
 
 ## Bot-Status
 ```
@@ -14,25 +14,25 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 2812842s | HB: OK (341s alt)
+STALE — lief vor 2813143s | HB: OK (37s alt)
 ```
 
 ## Portfolio
 ```
-Total:         $7.95 USDC
+Total:         $7.93 USDC
 Cash:          $0.00 USDC
-In Positionen: $7.95 USDC
+In Positionen: $7.93 USDC
 Offene Pos.:   1
 PnL heute:     $0.00
 ```
 
 ## Letzte Trades (5)
 ```
-2026-06-03 06:48:29 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $23.17 USDC | Will Arsenal FC win on 2026-02-22?)
-2026-06-03 06:48:29 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $12.39 USDC | Will Arsenal FC win on 2026-02-22?)
-2026-06-03 06:48:29 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $31.43 USDC | Will Arsenal FC win on 2026-02-22?)
-2026-06-03 06:48:29 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $48.80 USDC | Will Arsenal FC win on 2026-02-22?)
-2026-06-03 06:48:29 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $31.43 USDC | Will Arsenal FC win on 2026-02-22?)
+2026-06-03 09:11:33 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Anna Kalinskaya @ $0.510 | $6.68 USDC | Roland Garros WTA: Anna Kalinskaya vs Maja Chwalinska)
+2026-06-03 09:11:33 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Anna Kalinskaya @ $0.510 | $15.38 USDC | Roland Garros WTA: Anna Kalinskaya vs Maja Chwalinska)
+2026-06-03 09:11:33 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Timo Legout @ $0.430 | $17.68 USDC | Tyler: Timo Legout vs Andres Andrade)
+2026-06-03 09:11:33 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.039 | $16.06 USDC | Will Netherlands win the 2026 FIFA World Cup?)
+2026-06-03 09:11:33 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.039 | $62.45 USDC | Will Netherlands win the 2026 FIFA World Cup?)
 ```
 
 ## Letzte Fehler (3)

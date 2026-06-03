@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-03 18:26:28 UTC
+> 2026-06-03 18:31:25 UTC
 
 ## Bot-Status
 ```
@@ -14,21 +14,25 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 2846402s | HB: WARNUNG 452s alt
+STALE — lief vor 2846699s | HB: OK (8s alt)
 ```
 
 ## Portfolio
 ```
-Dashboard nicht erreichbar: timed out
+Total:         $8.10 USDC
+Cash:          $0.00 USDC
+In Positionen: $8.10 USDC
+Offene Pos.:   1
+PnL heute:     $0.00
 ```
 
 ## Letzte Trades (5)
 ```
-2026-06-03 16:27:48 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Knicks @ $0.360 | $19.57 USDC | Knicks vs. Spurs)
-2026-06-03 16:27:48 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Knicks @ $0.360 | $36.36 USDC | Knicks vs. Spurs)
-2026-06-03 16:27:48 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Knicks @ $0.360 | $32.26 USDC | Knicks vs. Spurs)
-2026-06-03 16:27:48 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Knicks @ $0.360 | $1112.53 USDC | Knicks vs. Spurs)
-2026-06-03 16:27:48 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Knicks @ $0.360 | $27.55 USDC | Knicks vs. Spurs)
+2026-06-03 18:29:20 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Knicks @ $0.480 | $9.23 USDC | Spread: Spurs (-4.5))
+2026-06-03 18:29:20 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Knicks @ $0.480 | $17.89 USDC | Spread: Spurs (-4.5))
+2026-06-03 18:29:20 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Knicks @ $0.360 | $281.25 USDC | Knicks vs. Spurs)
+2026-06-03 18:29:20 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Knicks @ $0.360 | $5.62 USDC | Knicks vs. Spurs)
+2026-06-03 18:29:20 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Knicks @ $0.480 | $22.24 USDC | Spread: Spurs (-4.5))
 ```
 
 ## Letzte Fehler (3)

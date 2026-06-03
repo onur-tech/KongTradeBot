@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-03 02:10:05 UTC
+> 2026-06-03 02:15:07 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 2787819s | HB: WARNUNG 528s alt
+STALE — lief vor 2788121s | HB: OK (52s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-06-02 23:52:13 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.400 | $27.63 USDC | San Diego Padres vs. Philadelphia Phillies: O/U 8.5)
-2026-06-02 23:52:13 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Philadelphia Phillies @ $0.840 | $129.14 USDC | Spread: San Diego Padres (-3.5))
-2026-06-02 23:52:13 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Spurs @ $0.610 | $97.07 USDC | Spread: Spurs (-1.5))
-2026-06-02 23:52:13 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Knicks @ $0.410 | $1181.36 USDC | Spread: Spurs (-2.5))
-2026-06-02 23:52:13 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Knicks @ $0.410 | $123.00 USDC | Spread: Spurs (-2.5))
+2026-06-03 02:10:18 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.450 | $7.57 USDC | CDPJuniorFC vs. Atlético Nacional: O/U 3.5)
+2026-06-03 02:10:18 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Seattle Mariners @ $0.800 | $17.60 USDC | New York Mets vs. Seattle Mariners)
+2026-06-03 02:10:18 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Seattle Mariners @ $0.800 | $20.00 USDC | New York Mets vs. Seattle Mariners)
+2026-06-03 02:10:18 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Seattle Mariners @ $0.800 | $772.00 USDC | New York Mets vs. Seattle Mariners)
+2026-06-03 02:10:18 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.510 | $640.68 USDC | Haiti vs. New Zealand: O/U 3.5)
 ```
 
 ## Letzte Fehler (3)

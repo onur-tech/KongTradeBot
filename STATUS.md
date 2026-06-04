@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-04 23:34:44 UTC
+> 2026-06-04 23:40:04 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 2951298s | HB: WARNUNG 402s alt
+STALE — lief vor 2951618s | HB: OK (55s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-06-04 21:17:07 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Luca Nardi @ $0.360 | $150.54 USDC | Perugia: Luca Nardi vs Remy Bertola)
-2026-06-04 21:17:07 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Luca Nardi @ $0.360 | $142.98 USDC | Perugia: Luca Nardi vs Remy Bertola)
-2026-06-04 21:17:07 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.040 | $5.00 USDC | Will Netherlands win the 2026 FIFA World Cup?)
-2026-06-04 21:17:07 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.039 | $164.40 USDC | Will Netherlands win the 2026 FIFA World Cup?)
-2026-06-04 21:17:07 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.040 | $5.00 USDC | Will Netherlands win the 2026 FIFA World Cup?)
+2026-06-04 23:37:11 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Kansas City Royals @ $0.510 | $23.12 USDC | Kansas City Royals vs. Minnesota Twins)
+2026-06-04 23:37:11 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Kansas City Royals @ $0.510 | $124.35 USDC | Kansas City Royals vs. Minnesota Twins)
+2026-06-04 23:37:11 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Kansas City Royals @ $0.510 | $17.47 USDC | Kansas City Royals vs. Minnesota Twins)
+2026-06-04 23:37:11 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Kansas City Royals @ $0.510 | $25.69 USDC | Kansas City Royals vs. Minnesota Twins)
+2026-06-04 23:37:11 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Kansas City Royals @ $0.510 | $26.02 USDC | Kansas City Royals vs. Minnesota Twins)
 ```
 
 ## Letzte Fehler (3)

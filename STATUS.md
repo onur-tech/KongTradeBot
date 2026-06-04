@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-04 15:35:07 UTC
+> 2026-06-04 15:40:08 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 2922521s | HB: OK (317s alt)
+STALE — lief vor 2922822s | HB: OK (16s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-06-04 13:15:36 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Kayla Day @ $0.650 | $13.39 USDC | Birmingham: Mananchaya Sawangkaew vs Kayla Day)
-2026-06-04 13:15:36 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Mirra Andreeva @ $0.480 | $27.69 USDC | Roland Garros WTA: Marta Kostyuk vs Mirra Andreeva)
-2026-06-04 13:15:36 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Mirra Andreeva @ $0.480 | $89.91 USDC | Roland Garros WTA: Marta Kostyuk vs Mirra Andreeva)
-2026-06-04 13:15:36 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Edward Winter @ $0.130 | $75.60 USDC | Centurion 2: Alexander Donski vs Edward Winter)
-2026-06-04 13:15:36 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Mirra Andreeva @ $0.460 | $395.72 USDC | Roland Garros WTA: Marta Kostyuk vs Mirra Andreeva)
+2026-06-04 15:39:53 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Lea Boskovic @ $0.580 | $273.29 USDC | Makarska: Robin Montgomery vs Lea Boskovic)
+2026-06-04 15:39:53 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Maja Chwalinska @ $0.470 | $8.82 USDC | Roland Garros WTA: Diana Shnaider vs Maja Chwalinska)
+2026-06-04 15:39:53 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Hayato Matsuoka @ $0.170 | $9.23 USDC | Tyler: Hayato Matsuoka vs Henry Searle)
+2026-06-04 15:39:53 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.040 | $10.00 USDC | Will Netherlands win the 2026 FIFA World Cup?)
+2026-06-04 15:39:53 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.040 | $10.00 USDC | Will Netherlands win the 2026 FIFA World Cup?)
 ```
 
 ## Letzte Fehler (3)

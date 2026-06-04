@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-04 19:01:31 UTC
+> 2026-06-04 19:06:33 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 2934905s | HB: OK (59s alt)
+STALE — lief vor 2935207s | HB: OK (0s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-06-04 17:40:13 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.560 | $255.92 USDC | Will Slovenia win on 2026-06-04?)
-2026-06-04 17:40:13 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.030 | $44.85 USDC | Will Cyprus win on 2026-06-04?)
-2026-06-04 17:40:13 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.040 | $15.00 USDC | Will Netherlands win the 2026 FIFA World Cup?)
-2026-06-04 17:40:13 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.039 | $6.86 USDC | Will Netherlands win the 2026 FIFA World Cup?)
-2026-06-04 17:40:13 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.040 | $50.00 USDC | Will Netherlands win the 2026 FIFA World Cup?)
+2026-06-04 19:01:47 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.039 | $7.33 USDC | Will Netherlands win the 2026 FIFA World Cup?)
+2026-06-04 19:01:47 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.039 | $5.88 USDC | Will Netherlands win the 2026 FIFA World Cup?)
+2026-06-04 19:01:47 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.039 | $10.54 USDC | Will Netherlands win the 2026 FIFA World Cup?)
+2026-06-04 19:01:47 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.040 | $35.52 USDC | Will Netherlands win the 2026 FIFA World Cup?)
+2026-06-04 19:01:47 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.039 | $78.00 USDC | Will Netherlands win the 2026 FIFA World Cup?)
 ```
 
 ## Letzte Fehler (3)

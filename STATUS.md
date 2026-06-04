@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-04 21:15:04 UTC
+> 2026-06-04 21:20:04 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 2942918s | HB: WARNUNG 460s alt
+STALE — lief vor 2943218s | HB: OK (59s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-06-04 19:01:47 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.039 | $7.33 USDC | Will Netherlands win the 2026 FIFA World Cup?)
-2026-06-04 19:01:47 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.039 | $5.88 USDC | Will Netherlands win the 2026 FIFA World Cup?)
-2026-06-04 19:01:47 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.039 | $10.54 USDC | Will Netherlands win the 2026 FIFA World Cup?)
-2026-06-04 19:01:47 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.040 | $35.52 USDC | Will Netherlands win the 2026 FIFA World Cup?)
-2026-06-04 19:01:47 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.039 | $78.00 USDC | Will Netherlands win the 2026 FIFA World Cup?)
+2026-06-04 21:17:07 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Luca Nardi @ $0.360 | $150.54 USDC | Perugia: Luca Nardi vs Remy Bertola)
+2026-06-04 21:17:07 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Luca Nardi @ $0.360 | $142.98 USDC | Perugia: Luca Nardi vs Remy Bertola)
+2026-06-04 21:17:07 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.040 | $5.00 USDC | Will Netherlands win the 2026 FIFA World Cup?)
+2026-06-04 21:17:07 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.039 | $164.40 USDC | Will Netherlands win the 2026 FIFA World Cup?)
+2026-06-04 21:17:07 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.040 | $5.00 USDC | Will Netherlands win the 2026 FIFA World Cup?)
 ```
 
 ## Letzte Fehler (3)

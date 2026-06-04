@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-04 01:26:45 UTC
+> 2026-06-04 01:31:52 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 2871619s | HB: OK (270s alt)
+STALE — lief vor 2871926s | HB: OK (36s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-06-03 23:13:20 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Toronto Blue Jays @ $0.420 | $7.18 USDC | Toronto Blue Jays vs. Atlanta Braves)
-2026-06-03 23:13:20 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Toronto Blue Jays @ $0.420 | $192.78 USDC | Toronto Blue Jays vs. Atlanta Braves)
-2026-06-03 23:13:20 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Knicks @ $0.470 | $17.52 USDC | Spread: Spurs (-4.5))
-2026-06-03 23:13:20 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Knicks @ $0.470 | $12.78 USDC | Spread: Spurs (-4.5))
-2026-06-03 23:13:20 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Toronto Blue Jays @ $0.420 | $294.74 USDC | Toronto Blue Jays vs. Atlanta Braves)
+2026-06-04 01:31:18 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.011 | $16.85 USDC | Will Dominican Republic win on 2026-06-03?)
+2026-06-04 01:31:18 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Cleveland Guardians @ $0.880 | $14.67 USDC | Cleveland Guardians vs. New York Yankees)
+2026-06-04 01:31:18 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Milwaukee Brewers @ $0.270 | $281.34 USDC | San Francisco Giants vs. Milwaukee Brewers)
+2026-06-04 01:31:18 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Cleveland Guardians @ $0.857 | $64.53 USDC | Cleveland Guardians vs. New York Yankees)
+2026-06-04 01:31:18 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.964 | $26.78 USDC | Will Dominican Republic win on 2026-06-03?)
 ```
 
 ## Letzte Fehler (3)

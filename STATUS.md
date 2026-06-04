@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-04 08:27:51 UTC
+> 2026-06-04 08:32:53 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 2896885s | HB: WARNUNG 489s alt
+STALE — lief vor 2897187s | HB: OK (35s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-06-04 06:08:33 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Stefanos Tsitsipas @ $0.640 | $64691.20 USDC | Roland Garros ATP: Matteo Arnaldi vs Stefanos Tsitsipas)
-2026-06-04 06:08:33 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Maya Joint @ $0.540 | $339.02 USDC | Makarska: Katarzyna Kawa vs Maya Joint)
-2026-06-04 06:08:33 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Maya Joint @ $0.550 | $174.50 USDC | Makarska: Katarzyna Kawa vs Maya Joint)
-2026-06-04 06:08:33 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Maya Joint @ $0.550 | $550.06 USDC | Makarska: Katarzyna Kawa vs Maya Joint)
-2026-06-04 06:08:33 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Maya Joint @ $0.560 | $18.83 USDC | Makarska: Katarzyna Kawa vs Maya Joint)
+2026-06-04 08:29:19 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yu-Hsiou Hsu @ $0.150 | $150.02 USDC | Heilbronn: Marco Trungelliti vs Yu-Hsiou Hsu)
+2026-06-04 08:29:19 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Giorgia Pedone @ $0.130 | $130.01 USDC | Foggia: Mayar Sherif vs Giorgia Pedone)
+2026-06-04 08:29:19 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Maya Joint @ $0.540 | $99.55 USDC | Makarska: Katarzyna Kawa vs Maya Joint)
+2026-06-04 08:29:19 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Maja Chwalinska @ $0.360 | $81.68 USDC | Roland Garros WTA: Diana Shnaider vs Maja Chwalinska)
+2026-06-04 08:29:19 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Maja Chwalinska @ $0.360 | $196.88 USDC | Roland Garros WTA: Diana Shnaider vs Maja Chwalinska)
 ```
 
 ## Letzte Fehler (3)

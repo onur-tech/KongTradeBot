@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-04 06:06:52 UTC
+> 2026-06-04 06:11:53 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 2888426s | HB: WARNUNG 459s alt
+STALE — lief vor 2888727s | HB: OK (21s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-06-04 03:49:29 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $23.17 USDC | Will Arsenal FC win on 2026-02-22?)
-2026-06-04 03:49:29 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $12.39 USDC | Will Arsenal FC win on 2026-02-22?)
-2026-06-04 03:49:29 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $31.43 USDC | Will Arsenal FC win on 2026-02-22?)
-2026-06-04 03:49:29 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $48.80 USDC | Will Arsenal FC win on 2026-02-22?)
-2026-06-04 03:49:29 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $31.43 USDC | Will Arsenal FC win on 2026-02-22?)
+2026-06-04 06:08:33 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Stefanos Tsitsipas @ $0.640 | $64691.20 USDC | Roland Garros ATP: Matteo Arnaldi vs Stefanos Tsitsipas)
+2026-06-04 06:08:33 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Maya Joint @ $0.540 | $339.02 USDC | Makarska: Katarzyna Kawa vs Maya Joint)
+2026-06-04 06:08:33 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Maya Joint @ $0.550 | $174.50 USDC | Makarska: Katarzyna Kawa vs Maya Joint)
+2026-06-04 06:08:33 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Maya Joint @ $0.550 | $550.06 USDC | Makarska: Katarzyna Kawa vs Maya Joint)
+2026-06-04 06:08:33 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Maya Joint @ $0.560 | $18.83 USDC | Makarska: Katarzyna Kawa vs Maya Joint)
 ```
 
 ## Letzte Fehler (3)

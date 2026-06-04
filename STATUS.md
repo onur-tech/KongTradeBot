@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-04 10:50:37 UTC
+> 2026-06-04 10:55:36 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 2905451s | HB: WARNUNG 526s alt
+STALE — lief vor 2905750s | HB: OK (58s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-06-04 08:29:19 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yu-Hsiou Hsu @ $0.150 | $150.02 USDC | Heilbronn: Marco Trungelliti vs Yu-Hsiou Hsu)
-2026-06-04 08:29:19 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Giorgia Pedone @ $0.130 | $130.01 USDC | Foggia: Mayar Sherif vs Giorgia Pedone)
-2026-06-04 08:29:19 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Maya Joint @ $0.540 | $99.55 USDC | Makarska: Katarzyna Kawa vs Maya Joint)
-2026-06-04 08:29:19 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Maja Chwalinska @ $0.360 | $81.68 USDC | Roland Garros WTA: Diana Shnaider vs Maja Chwalinska)
-2026-06-04 08:29:19 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Maja Chwalinska @ $0.360 | $196.88 USDC | Roland Garros WTA: Diana Shnaider vs Maja Chwalinska)
+2026-06-04 10:51:39 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Janice Tjen @ $0.240 | $24.00 USDC | Birmingham: Ashlyn Krueger vs Janice Tjen)
+2026-06-04 10:51:39 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Janice Tjen @ $0.240 | $314.84 USDC | Birmingham: Ashlyn Krueger vs Janice Tjen)
+2026-06-04 10:51:39 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Diego Dedura-Palomero @ $0.620 | $8.16 USDC | Heilbronn: Diego Dedura-Palomero vs Joao Lucas Da Silva)
+2026-06-04 10:51:39 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Maya Joint @ $0.910 | $461.29 USDC | Makarska: Katarzyna Kawa vs Maya Joint)
+2026-06-04 10:51:39 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Jan Choinski @ $0.210 | $86.36 USDC | Heilbronn: Jan Choinski vs Luka Mikrut)
 ```
 
 ## Letzte Fehler (3)

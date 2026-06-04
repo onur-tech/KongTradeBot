@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-04 13:12:29 UTC
+> 2026-06-04 13:17:33 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 2913963s | HB: WARNUNG 425s alt
+STALE — lief vor 2914267s | HB: OK (59s alt)
 ```
 
 ## Portfolio
@@ -24,11 +24,11 @@ Dashboard nicht erreichbar: timed out
 
 ## Letzte Trades (5)
 ```
-2026-06-04 10:51:39 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Janice Tjen @ $0.240 | $24.00 USDC | Birmingham: Ashlyn Krueger vs Janice Tjen)
-2026-06-04 10:51:39 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Janice Tjen @ $0.240 | $314.84 USDC | Birmingham: Ashlyn Krueger vs Janice Tjen)
-2026-06-04 10:51:39 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Diego Dedura-Palomero @ $0.620 | $8.16 USDC | Heilbronn: Diego Dedura-Palomero vs Joao Lucas Da Silva)
-2026-06-04 10:51:39 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Maya Joint @ $0.910 | $461.29 USDC | Makarska: Katarzyna Kawa vs Maya Joint)
-2026-06-04 10:51:39 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Jan Choinski @ $0.210 | $86.36 USDC | Heilbronn: Jan Choinski vs Luka Mikrut)
+2026-06-04 13:15:36 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Kayla Day @ $0.650 | $13.39 USDC | Birmingham: Mananchaya Sawangkaew vs Kayla Day)
+2026-06-04 13:15:36 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Mirra Andreeva @ $0.480 | $27.69 USDC | Roland Garros WTA: Marta Kostyuk vs Mirra Andreeva)
+2026-06-04 13:15:36 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Mirra Andreeva @ $0.480 | $89.91 USDC | Roland Garros WTA: Marta Kostyuk vs Mirra Andreeva)
+2026-06-04 13:15:36 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Edward Winter @ $0.130 | $75.60 USDC | Centurion 2: Alexander Donski vs Edward Winter)
+2026-06-04 13:15:36 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Mirra Andreeva @ $0.460 | $395.72 USDC | Roland Garros WTA: Marta Kostyuk vs Mirra Andreeva)
 ```
 
 ## Letzte Fehler (3)

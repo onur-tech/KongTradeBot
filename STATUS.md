@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-05 12:24:24 UTC
+> 2026-06-05 12:29:26 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 2997478s | HB: OK (358s alt)
+STALE — lief vor 2997780s | HB: OK (19s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-06-05 10:05:46 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Tuncay Duran @ $0.360 | $149.07 USDC | Centurion 2: Alexander Donski vs Tuncay Duran)
-2026-06-05 10:05:46 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Tuncay Duran @ $0.360 | $228.93 USDC | Centurion 2: Alexander Donski vs Tuncay Duran)
-2026-06-05 10:05:46 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.210 | $270.86 USDC | Hong Kong SAR leading at halftime?)
-2026-06-05 10:05:46 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Sho Shimabukuro @ $0.350 | $350.00 USDC | Birmingham: Sho Shimabukuro vs Kamil Majchrzak)
-2026-06-05 10:05:46 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Arda Azkara @ $0.230 | $36.12 USDC | Centurion 2: Arda Azkara vs Khololwam Montsi)
+2026-06-05 12:28:10 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Arthur Fery @ $0.530 | $104.55 USDC | Birmingham: Arthur Fery vs Rinky Hijikata)
+2026-06-05 12:28:10 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Harold Mayot @ $0.780 | $160.18 USDC | Centurion 2: Harold Mayot vs Eliakim Coulibaly)
+2026-06-05 12:28:10 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY China PR @ $0.810 | $24.43 USDC | Spread: China PR (-1.5))
+2026-06-05 12:28:10 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.960 | $120.00 USDC | Will China PR win on 2026-06-05?)
+2026-06-05 12:28:10 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Alex Molcan @ $0.741 | $769.90 USDC | Prostejov: Alex Molcan vs Vitaliy Sachko)
 ```
 
 ## Letzte Fehler (3)

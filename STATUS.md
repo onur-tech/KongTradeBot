@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-05 01:50:39 UTC
+> 2026-06-05 01:55:42 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 2959453s | HB: OK (243s alt)
+STALE — lief vor 2959756s | HB: OK (5s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-06-04 23:37:11 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Kansas City Royals @ $0.510 | $23.12 USDC | Kansas City Royals vs. Minnesota Twins)
-2026-06-04 23:37:11 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Kansas City Royals @ $0.510 | $124.35 USDC | Kansas City Royals vs. Minnesota Twins)
-2026-06-04 23:37:11 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Kansas City Royals @ $0.510 | $17.47 USDC | Kansas City Royals vs. Minnesota Twins)
-2026-06-04 23:37:11 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Kansas City Royals @ $0.510 | $25.69 USDC | Kansas City Royals vs. Minnesota Twins)
-2026-06-04 23:37:11 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Kansas City Royals @ $0.510 | $26.02 USDC | Kansas City Royals vs. Minnesota Twins)
+2026-06-05 01:55:39 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.870 | $282.74 USDC | Guatemala vs. Czechia: O/U 4.5)
+2026-06-05 01:55:39 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Toronto Blue Jays @ $0.150 | $160.05 USDC | Spread: Toronto Blue Jays (-1.5))
+2026-06-05 01:55:39 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.130 | $23.00 USDC | Guatemala vs. Czechia: O/U 4.5)
+2026-06-05 01:55:39 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.040 | $5.00 USDC | Will Netherlands win the 2026 FIFA World Cup?)
+2026-06-05 01:55:39 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.040 | $15.00 USDC | Will Netherlands win the 2026 FIFA World Cup?)
 ```
 
 ## Letzte Fehler (3)

@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-05 23:35:07 UTC
+> 2026-06-05 23:40:07 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 3037721s | HB: WARNUNG 450s alt
+STALE — lief vor 3038021s | HB: OK (37s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-06-05 21:14:30 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.097 | $38.23 USDC | Will Portugal win the 2026 FIFA World Cup?)
-2026-06-05 21:14:30 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.097 | $10.00 USDC | Will Portugal win the 2026 FIFA World Cup?)
-2026-06-05 21:14:30 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.097 | $9.07 USDC | Will Portugal win the 2026 FIFA World Cup?)
-2026-06-05 21:14:30 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.097 | $209.77 USDC | Will Portugal win the 2026 FIFA World Cup?)
-2026-06-05 21:14:30 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.097 | $500.00 USDC | Will Portugal win the 2026 FIFA World Cup?)
+2026-06-05 23:37:32 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.097 | $25.00 USDC | Will Portugal win the 2026 FIFA World Cup?)
+2026-06-05 23:37:32 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.097 | $283.45 USDC | Will Portugal win the 2026 FIFA World Cup?)
+2026-06-05 23:37:32 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.097 | $485.55 USDC | Will Portugal win the 2026 FIFA World Cup?)
+2026-06-05 23:37:32 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.097 | $17.46 USDC | Will Portugal win the 2026 FIFA World Cup?)
+2026-06-05 23:37:32 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.097 | $5.71 USDC | Will Portugal win the 2026 FIFA World Cup?)
 ```
 
 ## Letzte Fehler (3)

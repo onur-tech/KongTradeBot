@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-06 12:49:24 UTC
+> 2026-06-06 12:54:26 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 3085378s | HB: WARNUNG 506s alt
+STALE — lief vor 3085680s | HB: OK (56s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-06-06 10:28:59 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Nikola Bartunkova @ $0.370 | $270.10 USDC | Birmingham: Nikola Bartunkova vs Ashlyn Krueger)
-2026-06-06 10:28:59 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Stefanos Sakellaridis @ $0.270 | $75.59 USDC | Stuttgart Open, Qualification: Sho Shimabukuro vs Stefanos S)
-2026-06-06 10:28:59 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Hynek Barton @ $0.150 | $164.25 USDC | Prostejov: Hynek Barton vs Alex Molcan)
-2026-06-06 10:28:59 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Michael Geerts @ $0.250 | $27.97 USDC | Libema Open, Qualification: Michael Geerts vs Elias Ymer)
-2026-06-06 10:29:00 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.756 | $55175.26 USDC | Will Alexander Zverev win the 2026 Men's French Open?)
+2026-06-06 12:50:33 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Khololwam Montsi @ $0.500 | $100.00 USDC | Centurion 2: Khololwam Montsi vs Alexander Donski)
+2026-06-06 12:50:33 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Khololwam Montsi @ $0.500 | $20.00 USDC | Centurion 2: Khololwam Montsi vs Alexander Donski)
+2026-06-06 12:50:33 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Nikola Bartunkova @ $0.570 | $348.64 USDC | Birmingham: Nikola Bartunkova vs Ashlyn Krueger)
+2026-06-06 12:50:33 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Alexandra Eala @ $0.680 | $746.64 USDC | Birmingham: Alexandra Eala vs Rebeka Masarova)
+2026-06-06 12:50:33 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Alexandra Eala @ $0.680 | $680.00 USDC | Birmingham: Alexandra Eala vs Rebeka Masarova)
 ```
 
 ## Letzte Fehler (3)

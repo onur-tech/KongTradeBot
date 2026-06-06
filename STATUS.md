@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-06 10:28:15 UTC
+> 2026-06-06 10:33:23 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 3076909s | HB: WARNUNG 532s alt
+STALE — lief vor 3077217s | HB: OK (26s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-06-06 08:07:27 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.039 | $18.12 USDC | Will Netherlands win the 2026 FIFA World Cup?)
-2026-06-06 08:07:27 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.039 | $5.80 USDC | Will Netherlands win the 2026 FIFA World Cup?)
-2026-06-06 08:07:27 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.039 | $7.15 USDC | Will Netherlands win the 2026 FIFA World Cup?)
-2026-06-06 08:07:27 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.039 | $5.01 USDC | Will Netherlands win the 2026 FIFA World Cup?)
-2026-06-06 08:07:27 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.039 | $5.39 USDC | Will Netherlands win the 2026 FIFA World Cup?)
+2026-06-06 10:28:59 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Nikola Bartunkova @ $0.370 | $270.10 USDC | Birmingham: Nikola Bartunkova vs Ashlyn Krueger)
+2026-06-06 10:28:59 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Stefanos Sakellaridis @ $0.270 | $75.59 USDC | Stuttgart Open, Qualification: Sho Shimabukuro vs Stefanos S)
+2026-06-06 10:28:59 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Hynek Barton @ $0.150 | $164.25 USDC | Prostejov: Hynek Barton vs Alex Molcan)
+2026-06-06 10:28:59 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Michael Geerts @ $0.250 | $27.97 USDC | Libema Open, Qualification: Michael Geerts vs Elias Ymer)
+2026-06-06 10:29:00 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.756 | $55175.26 USDC | Will Alexander Zverev win the 2026 Men's French Open?)
 ```
 
 ## Letzte Fehler (3)

@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-06 21:55:24 UTC
+> 2026-06-06 22:00:26 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 3118138s | HB: WARNUNG 523s alt
+STALE — lief vor 3118440s | HB: OK (21s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-06-06 19:34:28 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.560 | $3424.98 USDC | Washington Nationals vs. Arizona Diamondbacks: O/U 8.5)
-2026-06-06 19:34:28 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.490 | $490.00 USDC | Baltimore Orioles vs. Toronto Blue Jays: O/U 8.5)
-2026-06-06 19:34:28 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.490 | $1433.71 USDC | Baltimore Orioles vs. Toronto Blue Jays: O/U 8.5)
-2026-06-06 19:34:28 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.490 | $1334.97 USDC | Baltimore Orioles vs. Toronto Blue Jays: O/U 8.5)
-2026-06-06 19:34:28 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.490 | $19.22 USDC | Baltimore Orioles vs. Toronto Blue Jays: O/U 8.5)
+2026-06-06 21:56:08 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Arizona Diamondbacks @ $0.450 | $51.59 USDC | Spread: Washington Nationals (-2.5))
+2026-06-06 21:56:09 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Cleveland Guardians @ $0.470 | $26.60 USDC | Cleveland Guardians vs. Texas Rangers)
+2026-06-06 21:56:09 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Cleveland Guardians @ $0.470 | $26.52 USDC | Cleveland Guardians vs. Texas Rangers)
+2026-06-06 21:56:09 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.510 | $442.94 USDC | Cleveland Guardians vs. Texas Rangers: O/U 7.5)
+2026-06-06 21:56:09 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Cleveland Guardians @ $0.470 | $616.07 USDC | Cleveland Guardians vs. Texas Rangers)
 ```
 
 ## Letzte Fehler (3)

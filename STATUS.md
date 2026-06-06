@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-06 15:11:26 UTC
+> 2026-06-06 15:16:28 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 3093900s | HB: WARNUNG 501s alt
+STALE — lief vor 3094202s | HB: OK (37s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-06-06 12:50:33 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Khololwam Montsi @ $0.500 | $100.00 USDC | Centurion 2: Khololwam Montsi vs Alexander Donski)
-2026-06-06 12:50:33 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Khololwam Montsi @ $0.500 | $20.00 USDC | Centurion 2: Khololwam Montsi vs Alexander Donski)
-2026-06-06 12:50:33 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Nikola Bartunkova @ $0.570 | $348.64 USDC | Birmingham: Nikola Bartunkova vs Ashlyn Krueger)
-2026-06-06 12:50:33 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Alexandra Eala @ $0.680 | $746.64 USDC | Birmingham: Alexandra Eala vs Rebeka Masarova)
-2026-06-06 12:50:33 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Alexandra Eala @ $0.680 | $680.00 USDC | Birmingham: Alexandra Eala vs Rebeka Masarova)
+2026-06-06 15:12:53 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.300 | $9.60 USDC | Armenia vs. Kazakhstan: O/U 2.5)
+2026-06-06 15:12:53 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Ashlyn Krueger @ $0.470 | $240.78 USDC | Birmingham: Nikola Bartunkova vs Ashlyn Krueger)
+2026-06-06 15:12:53 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.690 | $11.45 USDC | Armenia vs. Kazakhstan: O/U 2.5)
+2026-06-06 15:12:53 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.450 | $12.27 USDC | Will Kazakhstan win on 2026-06-06?)
+2026-06-06 15:12:53 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.630 | $1889.37 USDC | Seattle Mariners vs. Detroit Tigers: O/U 10.5)
 ```
 
 ## Letzte Fehler (3)

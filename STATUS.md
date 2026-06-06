@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-06 03:25:04 UTC
+> 2026-06-06 03:30:04 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 3051518s | HB: WARNUNG 440s alt
+STALE — lief vor 3051818s | HB: OK (3s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-06-05 23:37:32 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.097 | $25.00 USDC | Will Portugal win the 2026 FIFA World Cup?)
-2026-06-05 23:37:32 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.097 | $283.45 USDC | Will Portugal win the 2026 FIFA World Cup?)
-2026-06-05 23:37:32 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.097 | $485.55 USDC | Will Portugal win the 2026 FIFA World Cup?)
-2026-06-05 23:37:32 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.097 | $17.46 USDC | Will Portugal win the 2026 FIFA World Cup?)
-2026-06-05 23:37:32 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.097 | $5.71 USDC | Will Portugal win the 2026 FIFA World Cup?)
+2026-06-06 03:27:02 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Knicks @ $0.550 | $113.04 USDC | Spurs vs. Knicks)
+2026-06-06 03:27:02 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Knicks @ $0.550 | $5.54 USDC | Spurs vs. Knicks)
+2026-06-06 03:27:02 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Knicks @ $0.550 | $113.04 USDC | Spurs vs. Knicks)
+2026-06-06 03:27:02 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Knicks @ $0.550 | $5.54 USDC | Spurs vs. Knicks)
+2026-06-06 03:27:02 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Knicks @ $0.550 | $22.71 USDC | Spurs vs. Knicks)
 ```
 
 ## Letzte Fehler (3)

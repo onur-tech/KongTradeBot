@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-06 17:22:58 UTC
+> 2026-06-06 17:27:58 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 3101792s | HB: OK (28s alt)
+STALE — lief vor 3102092s | HB: OK (148s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-06-06 15:12:53 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.300 | $9.60 USDC | Armenia vs. Kazakhstan: O/U 2.5)
-2026-06-06 15:12:53 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Ashlyn Krueger @ $0.470 | $240.78 USDC | Birmingham: Nikola Bartunkova vs Ashlyn Krueger)
-2026-06-06 15:12:53 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.690 | $11.45 USDC | Armenia vs. Kazakhstan: O/U 2.5)
-2026-06-06 15:12:53 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.450 | $12.27 USDC | Will Kazakhstan win on 2026-06-06?)
-2026-06-06 15:12:53 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.630 | $1889.37 USDC | Seattle Mariners vs. Detroit Tigers: O/U 10.5)
+2026-06-06 17:25:49 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.490 | $138.63 USDC | Baltimore Orioles vs. Toronto Blue Jays: O/U 8.5)
+2026-06-06 17:25:49 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.490 | $29.40 USDC | Baltimore Orioles vs. Toronto Blue Jays: O/U 8.5)
+2026-06-06 17:25:49 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.490 | $147.00 USDC | Baltimore Orioles vs. Toronto Blue Jays: O/U 8.5)
+2026-06-06 17:25:49 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.490 | $245.00 USDC | Baltimore Orioles vs. Toronto Blue Jays: O/U 8.5)
+2026-06-06 17:25:49 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.490 | $28.82 USDC | Baltimore Orioles vs. Toronto Blue Jays: O/U 8.5)
 ```
 
 ## Letzte Fehler (3)

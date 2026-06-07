@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-07 14:19:27 UTC
+> 2026-06-07 14:24:28 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 3177181s | HB: WARNUNG 364s alt
+STALE — lief vor 3177482s | HB: OK (16s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-06-07 12:00:18 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Roman Safiullin @ $0.420 | $75.11 USDC | Stuttgart Open, Qualification: Roman Safiullin vs Alexis Gal)
-2026-06-07 12:00:18 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Shuai Zhang @ $0.880 | $723.31 USDC | HSBC Championships, Qualification: Shuai Zhang vs Hannah Klu)
-2026-06-07 12:00:18 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Alexis Galarneau @ $0.570 | $5.38 USDC | Stuttgart Open, Qualification: Roman Safiullin vs Alexis Gal)
-2026-06-07 12:00:18 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Beatriz Haddad Maia @ $0.040 | $7.39 USDC | HSBC Championships, Qualification: Heather Watson vs Beatriz)
-2026-06-07 12:00:18 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Alexander Donski @ $0.190 | $197.03 USDC | Centurion 2: Philip Henning vs Alexander Donski)
+2026-06-07 14:23:14 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Alycia Parks @ $0.610 | $7.10 USDC | HSBC Championships, Qualification: Maddison Inglis vs Alycia)
+2026-06-07 14:23:14 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.950 | $1491.50 USDC | Will Liechtenstein vs. Cyprus end in a draw?)
+2026-06-07 14:23:14 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Elsa Jacquemot @ $0.230 | $5.88 USDC | HSBC Championships, Qualification: Elsa Jacquemot vs Hanyu G)
+2026-06-07 14:23:14 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Maddison Inglis @ $0.360 | $75.32 USDC | HSBC Championships, Qualification: Maddison Inglis vs Alycia)
+2026-06-07 14:23:14 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Hanyu Guo @ $0.790 | $371.30 USDC | HSBC Championships, Qualification: Elsa Jacquemot vs Hanyu G)
 ```
 
 ## Letzte Fehler (3)

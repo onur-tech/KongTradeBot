@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-07 21:30:40 UTC
+> 2026-06-07 21:35:40 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 3203054s | HB: OK (349s alt)
+STALE — lief vor 3203354s | HB: OK (26s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-06-07 19:11:17 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Washington Nationals @ $0.440 | $7.86 USDC | Washington Nationals vs. Arizona Diamondbacks)
-2026-06-07 19:11:17 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Los Angeles Angels @ $0.300 | $316.80 USDC | Los Angeles Angels vs. Los Angeles Dodgers)
-2026-06-07 19:11:17 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Colorado Rockies @ $0.370 | $118.40 USDC | Milwaukee Brewers vs. Colorado Rockies)
-2026-06-07 19:11:17 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.490 | $24.50 USDC | Washington Nationals vs. Arizona Diamondbacks: O/U 8.5)
-2026-06-07 19:11:17 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Los Angeles Angels @ $0.300 | $9.00 USDC | Los Angeles Angels vs. Los Angeles Dodgers)
+2026-06-07 21:34:16 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.460 | $34.27 USDC | San Francisco Giants vs. Chicago Cubs: O/U 8.5)
+2026-06-07 21:34:16 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.460 | $261.05 USDC | San Francisco Giants vs. Chicago Cubs: O/U 8.5)
+2026-06-07 21:34:16 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.460 | $34.27 USDC | San Francisco Giants vs. Chicago Cubs: O/U 8.5)
+2026-06-07 21:34:16 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.460 | $1102.25 USDC | San Francisco Giants vs. Chicago Cubs: O/U 8.5)
+2026-06-07 21:34:16 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.460 | $1091.55 USDC | San Francisco Giants vs. Chicago Cubs: O/U 8.5)
 ```
 
 ## Letzte Fehler (3)

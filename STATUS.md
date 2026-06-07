@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-07 16:45:20 UTC
+> 2026-06-07 16:50:21 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 3185934s | HB: WARNUNG 526s alt
+STALE — lief vor 3186235s | HB: OK (53s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-06-07 14:23:14 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Alycia Parks @ $0.610 | $7.10 USDC | HSBC Championships, Qualification: Maddison Inglis vs Alycia)
-2026-06-07 14:23:14 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.950 | $1491.50 USDC | Will Liechtenstein vs. Cyprus end in a draw?)
-2026-06-07 14:23:14 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Elsa Jacquemot @ $0.230 | $5.88 USDC | HSBC Championships, Qualification: Elsa Jacquemot vs Hanyu G)
-2026-06-07 14:23:14 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Maddison Inglis @ $0.360 | $75.32 USDC | HSBC Championships, Qualification: Maddison Inglis vs Alycia)
-2026-06-07 14:23:14 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Hanyu Guo @ $0.790 | $371.30 USDC | HSBC Championships, Qualification: Elsa Jacquemot vs Hanyu G)
+2026-06-07 16:46:32 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Flavio Cobolli @ $0.140 | $16.28 USDC | Roland Garros ATP: Flavio Cobolli vs Alexander Zverev)
+2026-06-07 16:46:32 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Flavio Cobolli @ $0.140 | $40.70 USDC | Roland Garros ATP: Flavio Cobolli vs Alexander Zverev)
+2026-06-07 16:46:32 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Flavio Cobolli @ $0.140 | $32.56 USDC | Roland Garros ATP: Flavio Cobolli vs Alexander Zverev)
+2026-06-07 16:46:32 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Flavio Cobolli @ $0.140 | $6.77 USDC | Roland Garros ATP: Flavio Cobolli vs Alexander Zverev)
+2026-06-07 16:46:32 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Flavio Cobolli @ $0.140 | $77.78 USDC | Roland Garros ATP: Flavio Cobolli vs Alexander Zverev)
 ```
 
 ## Letzte Fehler (3)

@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-07 11:56:38 UTC
+> 2026-06-07 12:01:42 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 3168613s | HB: WARNUNG 364s alt
+STALE — lief vor 3168916s | HB: OK (27s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-06-07 09:37:58 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $23.17 USDC | Will Arsenal FC win on 2026-02-22?)
-2026-06-07 09:37:58 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $12.39 USDC | Will Arsenal FC win on 2026-02-22?)
-2026-06-07 09:37:58 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $31.43 USDC | Will Arsenal FC win on 2026-02-22?)
-2026-06-07 09:37:58 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $48.80 USDC | Will Arsenal FC win on 2026-02-22?)
-2026-06-07 09:37:58 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $31.43 USDC | Will Arsenal FC win on 2026-02-22?)
+2026-06-07 12:00:18 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Roman Safiullin @ $0.420 | $75.11 USDC | Stuttgart Open, Qualification: Roman Safiullin vs Alexis Gal)
+2026-06-07 12:00:18 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Shuai Zhang @ $0.880 | $723.31 USDC | HSBC Championships, Qualification: Shuai Zhang vs Hannah Klu)
+2026-06-07 12:00:18 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Alexis Galarneau @ $0.570 | $5.38 USDC | Stuttgart Open, Qualification: Roman Safiullin vs Alexis Gal)
+2026-06-07 12:00:18 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Beatriz Haddad Maia @ $0.040 | $7.39 USDC | HSBC Championships, Qualification: Heather Watson vs Beatriz)
+2026-06-07 12:00:18 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Alexander Donski @ $0.190 | $197.03 USDC | Centurion 2: Philip Henning vs Alexander Donski)
 ```
 
 ## Letzte Fehler (3)

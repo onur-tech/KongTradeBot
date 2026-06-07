@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-07 00:12:49 UTC
+> 2026-06-07 00:18:14 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 3126383s | HB: WARNUNG 374s alt
+STALE — lief vor 3126708s | HB: OK (27s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-06-06 21:56:08 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Arizona Diamondbacks @ $0.450 | $51.59 USDC | Spread: Washington Nationals (-2.5))
-2026-06-06 21:56:09 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Cleveland Guardians @ $0.470 | $26.60 USDC | Cleveland Guardians vs. Texas Rangers)
-2026-06-06 21:56:09 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Cleveland Guardians @ $0.470 | $26.52 USDC | Cleveland Guardians vs. Texas Rangers)
-2026-06-06 21:56:09 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.510 | $442.94 USDC | Cleveland Guardians vs. Texas Rangers: O/U 7.5)
-2026-06-06 21:56:09 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Cleveland Guardians @ $0.470 | $616.07 USDC | Cleveland Guardians vs. Texas Rangers)
+2026-06-07 00:15:49 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.860 | $122.98 USDC | Will Argentina win on 2026-06-06?)
+2026-06-07 00:15:49 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY New York Yankees @ $0.490 | $9.24 USDC | Boston Red Sox vs. New York Yankees)
+2026-06-07 00:15:49 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.870 | $1346.76 USDC | Will Argentina win on 2026-06-06?)
+2026-06-07 00:15:49 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.540 | $18.94 USDC | Cleveland Guardians vs. Texas Rangers: O/U 5.5)
+2026-06-07 00:15:49 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Boston Red Sox @ $0.480 | $9.60 USDC | Boston Red Sox vs. New York Yankees)
 ```
 
 ## Letzte Fehler (3)

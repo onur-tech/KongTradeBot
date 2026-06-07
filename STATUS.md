@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-07 02:30:37 UTC
+> 2026-06-07 02:35:38 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 3134651s | HB: OK (261s alt)
+STALE — lief vor 3134952s | HB: OK (15s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-06-07 00:15:49 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.860 | $122.98 USDC | Will Argentina win on 2026-06-06?)
-2026-06-07 00:15:49 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY New York Yankees @ $0.490 | $9.24 USDC | Boston Red Sox vs. New York Yankees)
-2026-06-07 00:15:49 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.870 | $1346.76 USDC | Will Argentina win on 2026-06-06?)
-2026-06-07 00:15:49 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.540 | $18.94 USDC | Cleveland Guardians vs. Texas Rangers: O/U 5.5)
-2026-06-07 00:15:49 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Boston Red Sox @ $0.480 | $9.60 USDC | Boston Red Sox vs. New York Yankees)
+2026-06-07 02:35:26 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Knicks @ $0.540 | $5.87 USDC | Spurs vs. Knicks)
+2026-06-07 02:35:26 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Alexander Zverev @ $0.770 | $64.21 USDC | Roland Garros ATP: Flavio Cobolli vs Alexander Zverev)
+2026-06-07 02:35:26 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Alexander Zverev @ $0.770 | $334.78 USDC | Roland Garros ATP: Flavio Cobolli vs Alexander Zverev)
+2026-06-07 02:35:26 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Knicks @ $0.540 | $637.43 USDC | Spurs vs. Knicks)
+2026-06-07 02:35:26 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Knicks @ $0.540 | $5.69 USDC | Spurs vs. Knicks)
 ```
 
 ## Letzte Fehler (3)

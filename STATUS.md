@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-07 23:51:37 UTC
+> 2026-06-07 23:57:02 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 3211511s | HB: WARNUNG 385s alt
+STALE — lief vor 3211836s | HB: OK (33s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-06-07 21:34:16 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.460 | $34.27 USDC | San Francisco Giants vs. Chicago Cubs: O/U 8.5)
-2026-06-07 21:34:16 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.460 | $261.05 USDC | San Francisco Giants vs. Chicago Cubs: O/U 8.5)
-2026-06-07 21:34:16 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.460 | $34.27 USDC | San Francisco Giants vs. Chicago Cubs: O/U 8.5)
-2026-06-07 21:34:16 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.460 | $1102.25 USDC | San Francisco Giants vs. Chicago Cubs: O/U 8.5)
-2026-06-07 21:34:16 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.460 | $1091.55 USDC | San Francisco Giants vs. Chicago Cubs: O/U 8.5)
+2026-06-07 23:54:30 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.790 | $711.00 USDC | Will Jordan vs. Colombia end in a draw?)
+2026-06-07 23:54:30 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.790 | $17.38 USDC | Will Jordan vs. Colombia end in a draw?)
+2026-06-07 23:54:30 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.920 | $43.24 USDC | Will Jordan win on 2026-06-07?)
+2026-06-07 23:54:30 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.720 | $7.20 USDC | Will Colombia win on 2026-06-07?)
+2026-06-07 23:54:30 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.770 | $2376.22 USDC | Will Jordan vs. Colombia end in a draw?)
 ```
 
 ## Letzte Fehler (3)

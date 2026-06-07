@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-07 19:08:28 UTC
+> 2026-06-07 19:13:29 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 3194522s | HB: WARNUNG 453s alt
+STALE — lief vor 3194823s | HB: OK (17s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-06-07 16:46:32 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Flavio Cobolli @ $0.140 | $16.28 USDC | Roland Garros ATP: Flavio Cobolli vs Alexander Zverev)
-2026-06-07 16:46:32 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Flavio Cobolli @ $0.140 | $40.70 USDC | Roland Garros ATP: Flavio Cobolli vs Alexander Zverev)
-2026-06-07 16:46:32 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Flavio Cobolli @ $0.140 | $32.56 USDC | Roland Garros ATP: Flavio Cobolli vs Alexander Zverev)
-2026-06-07 16:46:32 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Flavio Cobolli @ $0.140 | $6.77 USDC | Roland Garros ATP: Flavio Cobolli vs Alexander Zverev)
-2026-06-07 16:46:32 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Flavio Cobolli @ $0.140 | $77.78 USDC | Roland Garros ATP: Flavio Cobolli vs Alexander Zverev)
+2026-06-07 19:11:17 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Washington Nationals @ $0.440 | $7.86 USDC | Washington Nationals vs. Arizona Diamondbacks)
+2026-06-07 19:11:17 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Los Angeles Angels @ $0.300 | $316.80 USDC | Los Angeles Angels vs. Los Angeles Dodgers)
+2026-06-07 19:11:17 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Colorado Rockies @ $0.370 | $118.40 USDC | Milwaukee Brewers vs. Colorado Rockies)
+2026-06-07 19:11:17 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.490 | $24.50 USDC | Washington Nationals vs. Arizona Diamondbacks: O/U 8.5)
+2026-06-07 19:11:17 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Los Angeles Angels @ $0.300 | $9.00 USDC | Los Angeles Angels vs. Los Angeles Dodgers)
 ```
 
 ## Letzte Fehler (3)

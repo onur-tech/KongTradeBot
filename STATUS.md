@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-07 04:52:09 UTC
+> 2026-06-07 04:57:10 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 3143143s | HB: WARNUNG 367s alt
+STALE — lief vor 3143444s | HB: OK (48s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-06-07 02:35:26 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Knicks @ $0.540 | $5.87 USDC | Spurs vs. Knicks)
-2026-06-07 02:35:26 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Alexander Zverev @ $0.770 | $64.21 USDC | Roland Garros ATP: Flavio Cobolli vs Alexander Zverev)
-2026-06-07 02:35:26 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Alexander Zverev @ $0.770 | $334.78 USDC | Roland Garros ATP: Flavio Cobolli vs Alexander Zverev)
-2026-06-07 02:35:26 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Knicks @ $0.540 | $637.43 USDC | Spurs vs. Knicks)
-2026-06-07 02:35:26 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Knicks @ $0.540 | $5.69 USDC | Spurs vs. Knicks)
+2026-06-07 04:55:24 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Knicks @ $0.540 | $324.00 USDC | Spurs vs. Knicks)
+2026-06-07 04:55:24 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Knicks @ $0.540 | $378.00 USDC | Spurs vs. Knicks)
+2026-06-07 04:55:24 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Alexander Zverev @ $0.770 | $16.74 USDC | Roland Garros ATP: Flavio Cobolli vs Alexander Zverev)
+2026-06-07 04:55:24 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Knicks @ $0.540 | $187.83 USDC | Spurs vs. Knicks)
+2026-06-07 04:55:24 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Alexander Zverev @ $0.770 | $630.56 USDC | Roland Garros ATP: Flavio Cobolli vs Alexander Zverev)
 ```
 
 ## Letzte Fehler (3)

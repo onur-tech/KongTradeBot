@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-08 18:59:56 UTC
+> 2026-06-08 19:05:01 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 3280410s | HB: WARNUNG 363s alt
+STALE — lief vor 3280715s | HB: OK (29s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-06-08 16:37:11 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Knicks @ $0.530 | $37.10 USDC | Spurs vs. Knicks)
-2026-06-08 16:37:11 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Knicks @ $0.530 | $197.69 USDC | Spurs vs. Knicks)
-2026-06-08 16:37:11 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Knicks @ $0.530 | $19.27 USDC | Spurs vs. Knicks)
-2026-06-08 16:37:11 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Knicks @ $0.530 | $33.83 USDC | Spurs vs. Knicks)
-2026-06-08 16:37:11 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Knicks @ $0.530 | $957.71 USDC | Spurs vs. Knicks)
+2026-06-08 19:04:40 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Knicks @ $0.530 | $15.79 USDC | Spurs vs. Knicks)
+2026-06-08 19:04:40 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Knicks @ $0.530 | $11.28 USDC | Spurs vs. Knicks)
+2026-06-08 19:04:40 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Knicks @ $0.530 | $205.11 USDC | Spurs vs. Knicks)
+2026-06-08 19:04:40 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Knicks @ $0.530 | $139.39 USDC | Spurs vs. Knicks)
+2026-06-08 19:04:40 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Knicks @ $0.530 | $12.72 USDC | Spurs vs. Knicks)
 ```
 
 ## Letzte Fehler (3)

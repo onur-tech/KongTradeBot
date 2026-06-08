@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-08 21:27:26 UTC
+> 2026-06-08 21:32:28 UTC
 
 ## Bot-Status
 ```
@@ -14,25 +14,21 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 3289260s | HB: WARNUNG 463s alt
+STALE — lief vor 3289562s | HB: OK (56s alt)
 ```
 
 ## Portfolio
 ```
-Total:         $0.00 USDC
-Cash:          $0.00 USDC
-In Positionen: $0.00 USDC
-Offene Pos.:   0
-PnL heute:     $0.00
+Dashboard nicht erreichbar: timed out
 ```
 
 ## Letzte Trades (5)
 ```
-2026-06-08 19:04:40 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Knicks @ $0.530 | $15.79 USDC | Spurs vs. Knicks)
-2026-06-08 19:04:40 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Knicks @ $0.530 | $11.28 USDC | Spurs vs. Knicks)
-2026-06-08 19:04:40 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Knicks @ $0.530 | $205.11 USDC | Spurs vs. Knicks)
-2026-06-08 19:04:40 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Knicks @ $0.530 | $139.39 USDC | Spurs vs. Knicks)
-2026-06-08 19:04:40 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Knicks @ $0.530 | $12.72 USDC | Spurs vs. Knicks)
+2026-06-08 21:29:37 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Knicks @ $0.530 | $183.38 USDC | Spurs vs. Knicks)
+2026-06-08 21:29:37 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Knicks @ $0.530 | $23.32 USDC | Spurs vs. Knicks)
+2026-06-08 21:29:37 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Knicks @ $0.530 | $534.18 USDC | Spurs vs. Knicks)
+2026-06-08 21:29:37 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Knicks @ $0.530 | $129.68 USDC | Spurs vs. Knicks)
+2026-06-08 21:29:37 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Knicks @ $0.530 | $79.50 USDC | Spurs vs. Knicks)
 ```
 
 ## Letzte Fehler (3)

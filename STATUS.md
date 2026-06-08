@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-08 09:14:31 UTC
+> 2026-06-08 09:19:34 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 3245285s | HB: WARNUNG 373s alt
+STALE — lief vor 3245588s | HB: OK (5s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-06-08 06:55:01 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.828 | $183.82 USDC | Bab el-Mandeb Strait effectively closed by June 30?)
-2026-06-08 06:55:01 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.675 | $65.31 USDC | Will Mojtaba Khamenei be head of state in Iran end of 2026?)
-2026-06-08 06:55:01 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.033 | $6.60 USDC | Israel x Hezbollah permanent peace deal by June 15, 2026?)
-2026-06-08 06:55:01 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.971 | $1646.16 USDC | Will the Iranian regime fall by June 30?)
-2026-06-08 06:55:02 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Panna Udvardy @ $0.170 | $170.00 USDC | Libema Open: Ekaterina Alexandrova vs Panna Udvardy)
+2026-06-08 09:18:30 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Alejandro Davidovich Fokina @ $0.650 | $381.58 USDC | Stuttgart Open: Alejandro Davidovich Fokina vs Mattia Belluc)
+2026-06-08 09:18:30 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Terence Atmane @ $0.260 | $50.59 USDC | Libema Open: Nuno Borges vs Terence Atmane)
+2026-06-08 09:18:30 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Terence Atmane @ $0.260 | $7.07 USDC | Libema Open: Nuno Borges vs Terence Atmane)
+2026-06-08 09:18:30 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Terence Atmane @ $0.260 | $77.30 USDC | Libema Open: Nuno Borges vs Terence Atmane)
+2026-06-08 09:18:30 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Terence Atmane @ $0.260 | $35.14 USDC | Libema Open: Nuno Borges vs Terence Atmane)
 ```
 
 ## Letzte Fehler (3)

@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-08 06:53:39 UTC
+> 2026-06-08 06:58:39 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 3236833s | HB: WARNUNG 490s alt
+STALE — lief vor 3237133s | HB: OK (38s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-06-08 04:34:12 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.527 | $1474.83 USDC | Israel closes its airspace by June 8?)
-2026-06-08 04:34:12 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.500 | $111.00 USDC | Israel closes its airspace by June 8?)
-2026-06-08 04:34:12 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.460 | $221.62 USDC | Israel closes its airspace by June 8?)
-2026-06-08 04:34:12 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.535 | $1038.68 USDC | Will Roberto Sánchez Palomino win the 2026 Peruvian presiden)
-2026-06-08 04:34:12 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.515 | $51.50 USDC | Will Roberto Sánchez Palomino win the 2026 Peruvian presiden)
+2026-06-08 06:55:01 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.828 | $183.82 USDC | Bab el-Mandeb Strait effectively closed by June 30?)
+2026-06-08 06:55:01 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.675 | $65.31 USDC | Will Mojtaba Khamenei be head of state in Iran end of 2026?)
+2026-06-08 06:55:01 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.033 | $6.60 USDC | Israel x Hezbollah permanent peace deal by June 15, 2026?)
+2026-06-08 06:55:01 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.971 | $1646.16 USDC | Will the Iranian regime fall by June 30?)
+2026-06-08 06:55:02 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Panna Udvardy @ $0.170 | $170.00 USDC | Libema Open: Ekaterina Alexandrova vs Panna Udvardy)
 ```
 
 ## Letzte Fehler (3)

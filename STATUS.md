@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-08 04:32:54 UTC
+> 2026-06-08 04:37:54 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 3228388s | HB: WARNUNG 480s alt
+STALE — lief vor 3228688s | HB: OK (42s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-06-08 02:14:35 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.080 | $9.36 USDC | San Francisco Giants vs. Chicago Cubs: O/U 10.5)
-2026-06-08 02:14:35 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.170 | $28.05 USDC | San Francisco Giants vs. Chicago Cubs: O/U 8.5)
-2026-06-08 02:14:35 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Chicago Cubs @ $0.530 | $56.38 USDC | San Francisco Giants vs. Chicago Cubs)
-2026-06-08 02:14:35 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Chicago Cubs @ $0.530 | $5.09 USDC | San Francisco Giants vs. Chicago Cubs)
-2026-06-08 02:14:35 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Chicago Cubs @ $0.530 | $5.30 USDC | San Francisco Giants vs. Chicago Cubs)
+2026-06-08 04:34:12 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.527 | $1474.83 USDC | Israel closes its airspace by June 8?)
+2026-06-08 04:34:12 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.500 | $111.00 USDC | Israel closes its airspace by June 8?)
+2026-06-08 04:34:12 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.460 | $221.62 USDC | Israel closes its airspace by June 8?)
+2026-06-08 04:34:12 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.535 | $1038.68 USDC | Will Roberto Sánchez Palomino win the 2026 Peruvian presiden)
+2026-06-08 04:34:12 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.515 | $51.50 USDC | Will Roberto Sánchez Palomino win the 2026 Peruvian presiden)
 ```
 
 ## Letzte Fehler (3)

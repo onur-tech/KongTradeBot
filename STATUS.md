@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-08 16:35:44 UTC
+> 2026-06-08 16:41:15 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 3271758s | HB: WARNUNG 540s alt
+STALE — lief vor 3272089s | HB: OK (6s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-06-08 14:10:45 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Qinwen Zheng @ $0.740 | $1206.92 USDC | HSBC Championships: Qinwen Zheng vs Jaqueline Cristian)
-2026-06-08 14:10:45 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Fabian Marozsan @ $0.470 | $112.16 USDC | Stuttgart Open: Gauthier Onclin vs Fabian Marozsan)
-2026-06-08 14:10:45 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Alicia Dudeney @ $0.580 | $65.53 USDC | Ilkley: Alicia Dudeney vs Himeno Sakatsume)
-2026-06-08 14:10:45 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Fabian Marozsan @ $0.480 | $402.45 USDC | Stuttgart Open: Gauthier Onclin vs Fabian Marozsan)
-2026-06-08 14:10:45 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.109 | $49.54 USDC | Will England win the 2026 FIFA World Cup?)
+2026-06-08 16:37:11 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Knicks @ $0.530 | $37.10 USDC | Spurs vs. Knicks)
+2026-06-08 16:37:11 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Knicks @ $0.530 | $197.69 USDC | Spurs vs. Knicks)
+2026-06-08 16:37:11 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Knicks @ $0.530 | $19.27 USDC | Spurs vs. Knicks)
+2026-06-08 16:37:11 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Knicks @ $0.530 | $33.83 USDC | Spurs vs. Knicks)
+2026-06-08 16:37:11 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Knicks @ $0.530 | $957.71 USDC | Spurs vs. Knicks)
 ```
 
 ## Letzte Fehler (3)

@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-08 14:08:54 UTC
+> 2026-06-08 14:13:54 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 3262948s | HB: WARNUNG 532s alt
+STALE — lief vor 3263248s | HB: OK (13s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-06-08 11:43:57 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $23.17 USDC | Will Arsenal FC win on 2026-02-22?)
-2026-06-08 11:43:57 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $12.39 USDC | Will Arsenal FC win on 2026-02-22?)
-2026-06-08 11:43:57 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $31.43 USDC | Will Arsenal FC win on 2026-02-22?)
-2026-06-08 11:43:57 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $48.80 USDC | Will Arsenal FC win on 2026-02-22?)
-2026-06-08 11:43:57 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $31.43 USDC | Will Arsenal FC win on 2026-02-22?)
+2026-06-08 14:10:45 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Qinwen Zheng @ $0.740 | $1206.92 USDC | HSBC Championships: Qinwen Zheng vs Jaqueline Cristian)
+2026-06-08 14:10:45 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Fabian Marozsan @ $0.470 | $112.16 USDC | Stuttgart Open: Gauthier Onclin vs Fabian Marozsan)
+2026-06-08 14:10:45 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Alicia Dudeney @ $0.580 | $65.53 USDC | Ilkley: Alicia Dudeney vs Himeno Sakatsume)
+2026-06-08 14:10:45 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Fabian Marozsan @ $0.480 | $402.45 USDC | Stuttgart Open: Gauthier Onclin vs Fabian Marozsan)
+2026-06-08 14:10:45 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.109 | $49.54 USDC | Will England win the 2026 FIFA World Cup?)
 ```
 
 ## Letzte Fehler (3)

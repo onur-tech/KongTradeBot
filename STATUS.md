@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-08 02:10:35 UTC
+> 2026-06-08 02:15:40 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 3219849s | HB: OK (330s alt)
+STALE — lief vor 3220154s | HB: OK (7s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-06-07 23:54:30 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.790 | $711.00 USDC | Will Jordan vs. Colombia end in a draw?)
-2026-06-07 23:54:30 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.790 | $17.38 USDC | Will Jordan vs. Colombia end in a draw?)
-2026-06-07 23:54:30 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.920 | $43.24 USDC | Will Jordan win on 2026-06-07?)
-2026-06-07 23:54:30 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.720 | $7.20 USDC | Will Colombia win on 2026-06-07?)
-2026-06-07 23:54:30 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.770 | $2376.22 USDC | Will Jordan vs. Colombia end in a draw?)
+2026-06-08 02:14:35 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.080 | $9.36 USDC | San Francisco Giants vs. Chicago Cubs: O/U 10.5)
+2026-06-08 02:14:35 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.170 | $28.05 USDC | San Francisco Giants vs. Chicago Cubs: O/U 8.5)
+2026-06-08 02:14:35 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Chicago Cubs @ $0.530 | $56.38 USDC | San Francisco Giants vs. Chicago Cubs)
+2026-06-08 02:14:35 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Chicago Cubs @ $0.530 | $5.09 USDC | San Francisco Giants vs. Chicago Cubs)
+2026-06-08 02:14:35 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Chicago Cubs @ $0.530 | $5.30 USDC | San Francisco Giants vs. Chicago Cubs)
 ```
 
 ## Letzte Fehler (3)

@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-08 23:48:21 UTC
+> 2026-06-08 23:53:21 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 3297715s | HB: WARNUNG 430s alt
+STALE — lief vor 3298015s | HB: OK (40s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-06-08 21:29:37 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Knicks @ $0.530 | $183.38 USDC | Spurs vs. Knicks)
-2026-06-08 21:29:37 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Knicks @ $0.530 | $23.32 USDC | Spurs vs. Knicks)
-2026-06-08 21:29:37 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Knicks @ $0.530 | $534.18 USDC | Spurs vs. Knicks)
-2026-06-08 21:29:37 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Knicks @ $0.530 | $129.68 USDC | Spurs vs. Knicks)
-2026-06-08 21:29:37 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Knicks @ $0.530 | $79.50 USDC | Spurs vs. Knicks)
+2026-06-08 23:50:44 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Baltimore Orioles @ $0.520 | $216.67 USDC | Seattle Mariners vs. Baltimore Orioles)
+2026-06-08 23:50:44 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Baltimore Orioles @ $0.520 | $18.54 USDC | Seattle Mariners vs. Baltimore Orioles)
+2026-06-08 23:50:44 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Toronto Blue Jays @ $0.460 | $6.90 USDC | Spread: Philadelphia Phillies (-3.5))
+2026-06-08 23:50:44 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.710 | $453.86 USDC | Philadelphia Phillies vs. Toronto Blue Jays: O/U 6.5)
+2026-06-08 23:50:44 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.039 | $47.54 USDC | Will Netherlands win the 2026 FIFA World Cup?)
 ```
 
 ## Letzte Fehler (3)

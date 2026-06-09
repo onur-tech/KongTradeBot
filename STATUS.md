@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-09 09:13:33 UTC
+> 2026-06-09 09:18:33 UTC
 
 ## Bot-Status
 ```
@@ -14,25 +14,25 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 3331627s | HB: WARNUNG 409s alt
+STALE — lief vor 3331927s | HB: OK (46s alt)
 ```
 
 ## Portfolio
 ```
-Total:         $15.34 USDC
+Total:         $15.35 USDC
 Cash:          $0.00 USDC
-In Positionen: $15.34 USDC
+In Positionen: $15.35 USDC
 Offene Pos.:   1
 PnL heute:     $0.00
 ```
 
 ## Letzte Trades (5)
 ```
-2026-06-09 06:53:14 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Athletics @ $0.180 | $89.67 USDC | Milwaukee Brewers vs. Athletics)
-2026-06-09 06:53:14 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Milwaukee Brewers @ $0.637 | $26.06 USDC | Milwaukee Brewers vs. Athletics)
-2026-06-09 06:53:14 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.159 | $47.70 USDC | Will Spain win the 2026 FIFA World Cup?)
-2026-06-09 06:53:14 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.159 | $8.01 USDC | Will Spain win the 2026 FIFA World Cup?)
-2026-06-09 06:53:14 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.039 | $7.30 USDC | Will Netherlands win the 2026 FIFA World Cup?)
+2026-06-09 09:16:55 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Roberto Carballes Baena @ $0.790 | $7.46 USDC | Cattolica: Max Hans Rehberg vs Roberto Carballes Baena)
+2026-06-09 09:16:55 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Pedro Martinez @ $0.740 | $772.56 USDC | Lyon: Pedro Martinez vs Svyatoslav Gulin)
+2026-06-09 09:16:56 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.018 | $10.00 USDC | Will Mexico win the 2026 FIFA World Cup?)
+2026-06-09 09:16:56 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.018 | $29.85 USDC | Will Mexico win the 2026 FIFA World Cup?)
+2026-06-09 09:16:56 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.018 | $168.05 USDC | Will Mexico win the 2026 FIFA World Cup?)
 ```
 
 ## Letzte Fehler (3)

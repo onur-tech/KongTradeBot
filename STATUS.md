@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-09 04:31:21 UTC
+> 2026-06-09 04:36:23 UTC
 
 ## Bot-Status
 ```
@@ -14,25 +14,25 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 3314695s | HB: WARNUNG 538s alt
+STALE — lief vor 3314997s | HB: OK (36s alt)
 ```
 
 ## Portfolio
 ```
-Total:         $13.92 USDC
+Total:         $14.23 USDC
 Cash:          $0.00 USDC
-In Positionen: $13.92 USDC
+In Positionen: $14.23 USDC
 Offene Pos.:   1
 PnL heute:     $0.00
 ```
 
 ## Letzte Trades (5)
 ```
-2026-06-09 02:11:35 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.470 | $8.87 USDC | Milwaukee Brewers vs. Athletics: O/U 10.5)
-2026-06-09 02:11:35 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Athletics @ $0.420 | $71.08 USDC | Milwaukee Brewers vs. Athletics)
-2026-06-09 02:11:35 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Knicks @ $0.650 | $62037.11 USDC | Spurs vs. Knicks)
-2026-06-09 02:11:35 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Knicks @ $0.650 | $27038.56 USDC | Spurs vs. Knicks)
-2026-06-09 02:11:35 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Knicks @ $0.650 | $18.57 USDC | Spurs vs. Knicks)
+2026-06-09 04:31:54 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.039 | $17.41 USDC | Will Netherlands win the 2026 FIFA World Cup?)
+2026-06-09 04:31:54 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.159 | $71.00 USDC | Will Spain win the 2026 FIFA World Cup?)
+2026-06-09 04:31:54 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.039 | $21.59 USDC | Will Netherlands win the 2026 FIFA World Cup?)
+2026-06-09 04:31:54 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.159 | $88.01 USDC | Will Spain win the 2026 FIFA World Cup?)
+2026-06-09 04:31:54 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.159 | $92.86 USDC | Will Spain win the 2026 FIFA World Cup?)
 ```
 
 ## Letzte Fehler (3)

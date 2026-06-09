@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-09 02:10:27 UTC
+> 2026-06-09 02:15:29 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 3306241s | HB: WARNUNG 507s alt
+STALE — lief vor 3306543s | HB: OK (0s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-06-08 23:50:44 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Baltimore Orioles @ $0.520 | $216.67 USDC | Seattle Mariners vs. Baltimore Orioles)
-2026-06-08 23:50:44 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Baltimore Orioles @ $0.520 | $18.54 USDC | Seattle Mariners vs. Baltimore Orioles)
-2026-06-08 23:50:44 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Toronto Blue Jays @ $0.460 | $6.90 USDC | Spread: Philadelphia Phillies (-3.5))
-2026-06-08 23:50:44 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.710 | $453.86 USDC | Philadelphia Phillies vs. Toronto Blue Jays: O/U 6.5)
-2026-06-08 23:50:44 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.039 | $47.54 USDC | Will Netherlands win the 2026 FIFA World Cup?)
+2026-06-09 02:11:35 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.470 | $8.87 USDC | Milwaukee Brewers vs. Athletics: O/U 10.5)
+2026-06-09 02:11:35 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Athletics @ $0.420 | $71.08 USDC | Milwaukee Brewers vs. Athletics)
+2026-06-09 02:11:35 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Knicks @ $0.650 | $62037.11 USDC | Spurs vs. Knicks)
+2026-06-09 02:11:35 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Knicks @ $0.650 | $27038.56 USDC | Spurs vs. Knicks)
+2026-06-09 02:11:35 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Knicks @ $0.650 | $18.57 USDC | Spurs vs. Knicks)
 ```
 
 ## Letzte Fehler (3)

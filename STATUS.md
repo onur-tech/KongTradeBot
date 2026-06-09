@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-09 18:43:29 UTC
+> 2026-06-09 18:48:56 UTC
 
 ## Bot-Status
 ```
@@ -14,21 +14,25 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 3365823s | HB: WARNUNG 425s alt
+STALE — lief vor 3366150s | HB: OK (56s alt)
 ```
 
 ## Portfolio
 ```
-Dashboard nicht erreichbar: timed out
+Total:         $15.37 USDC
+Cash:          $0.00 USDC
+In Positionen: $15.37 USDC
+Offene Pos.:   1
+PnL heute:     $0.00
 ```
 
 ## Letzte Trades (5)
 ```
-2026-06-09 16:14:54 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.900 | $14.03 USDC | Will Moldova win on 2026-06-09?)
-2026-06-09 16:14:54 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Marie Bouzkova @ $0.920 | $1925.42 USDC | HSBC Championships: Marie Bouzkova vs Polina Kudermetova)
-2026-06-09 16:14:54 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.159 | $33.13 USDC | Will Spain win the 2026 FIFA World Cup?)
-2026-06-09 16:14:54 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.039 | $7.80 USDC | Will Netherlands win the 2026 FIFA World Cup?)
-2026-06-09 16:14:54 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.159 | $11.93 USDC | Will Spain win the 2026 FIFA World Cup?)
+2026-06-09 18:47:08 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.950 | $28.50 USDC | Will Hungary vs. Kazakhstan end in a draw?)
+2026-06-09 18:47:08 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.560 | $12.38 USDC | Azerbaijan vs. San Marino: O/U 3.5)
+2026-06-09 18:47:08 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.950 | $57.00 USDC | Will Hungary vs. Kazakhstan end in a draw?)
+2026-06-09 18:47:08 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Tallon Griekspoor @ $0.780 | $22.96 USDC | Libema Open: Tallon Griekspoor vs Botic van de Zandschulp)
+2026-06-09 18:47:08 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.040 | $25.94 USDC | Will Hungary vs. Kazakhstan end in a draw?)
 ```
 
 ## Letzte Fehler (3)

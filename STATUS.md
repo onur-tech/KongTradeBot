@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-09 21:12:23 UTC
+> 2026-06-09 21:17:26 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 3374757s | HB: WARNUNG 564s alt
+STALE — lief vor 3375060s | HB: OK (19s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-06-09 18:47:08 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.950 | $28.50 USDC | Will Hungary vs. Kazakhstan end in a draw?)
-2026-06-09 18:47:08 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.560 | $12.38 USDC | Azerbaijan vs. San Marino: O/U 3.5)
-2026-06-09 18:47:08 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.950 | $57.00 USDC | Will Hungary vs. Kazakhstan end in a draw?)
-2026-06-09 18:47:08 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Tallon Griekspoor @ $0.780 | $22.96 USDC | Libema Open: Tallon Griekspoor vs Botic van de Zandschulp)
-2026-06-09 18:47:08 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.040 | $25.94 USDC | Will Hungary vs. Kazakhstan end in a draw?)
+2026-06-09 21:13:13 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Baltimore Orioles @ $0.470 | $37.77 USDC | Seattle Mariners vs. Baltimore Orioles)
+2026-06-09 21:13:13 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.480 | $334.42 USDC | Seattle Mariners vs. Baltimore Orioles: O/U 8.5)
+2026-06-09 21:13:13 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Arizona Diamondbacks @ $0.440 | $5.61 USDC | Arizona Diamondbacks vs. Miami Marlins)
+2026-06-09 21:13:13 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Baltimore Orioles @ $0.470 | $13.51 USDC | Seattle Mariners vs. Baltimore Orioles)
+2026-06-09 21:13:13 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Baltimore Orioles @ $0.470 | $7.09 USDC | Seattle Mariners vs. Baltimore Orioles)
 ```
 
 ## Letzte Fehler (3)

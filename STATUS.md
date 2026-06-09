@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-09 23:30:06 UTC
+> 2026-06-09 23:35:09 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 3383020s | HB: OK (307s alt)
+STALE — lief vor 3383323s | HB: OK (44s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-06-09 21:13:13 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Baltimore Orioles @ $0.470 | $37.77 USDC | Seattle Mariners vs. Baltimore Orioles)
-2026-06-09 21:13:13 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.480 | $334.42 USDC | Seattle Mariners vs. Baltimore Orioles: O/U 8.5)
-2026-06-09 21:13:13 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Arizona Diamondbacks @ $0.440 | $5.61 USDC | Arizona Diamondbacks vs. Miami Marlins)
-2026-06-09 21:13:13 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Baltimore Orioles @ $0.470 | $13.51 USDC | Seattle Mariners vs. Baltimore Orioles)
-2026-06-09 21:13:13 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Baltimore Orioles @ $0.470 | $7.09 USDC | Seattle Mariners vs. Baltimore Orioles)
+2026-06-09 23:34:32 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.670 | $60.91 USDC | Saudi Arabia vs. Senegal: O/U 2.5)
+2026-06-09 23:34:32 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Philadelphia Phillies @ $0.610 | $1811.70 USDC | Philadelphia Phillies vs. Toronto Blue Jays)
+2026-06-09 23:34:32 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.670 | $22.14 USDC | Saudi Arabia vs. Senegal: O/U 2.5)
+2026-06-09 23:34:32 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.120 | $17.12 USDC | Saudi Arabia vs. Senegal: O/U 0.5)
+2026-06-09 23:34:32 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Chicago White Sox @ $0.510 | $25.18 USDC | Spread: Atlanta Braves (-1.5))
 ```
 
 ## Letzte Fehler (3)

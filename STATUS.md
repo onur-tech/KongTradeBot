@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-10 18:44:18 UTC
+> 2026-06-10 18:49:20 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 3452272s | HB: WARNUNG 477s alt
+STALE — lief vor 3452574s | HB: OK (16s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-06-10 16:39:56 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.300 | $8.45 USDC | Will Mexico win on 2026-06-11?)
-2026-06-10 16:39:56 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.300 | $30.00 USDC | Will Mexico win on 2026-06-11?)
-2026-06-10 16:39:56 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.300 | $8.57 USDC | Will Mexico win on 2026-06-11?)
-2026-06-10 16:39:56 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.300 | $91.80 USDC | Will Mexico win on 2026-06-11?)
-2026-06-10 16:39:56 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.300 | $6.43 USDC | Will Mexico win on 2026-06-11?)
+2026-06-10 18:48:11 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.300 | $29.59 USDC | Will Mexico win on 2026-06-11?)
+2026-06-10 18:48:11 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.300 | $11.34 USDC | Will Mexico win on 2026-06-11?)
+2026-06-10 18:48:11 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.300 | $21.43 USDC | Will Mexico win on 2026-06-11?)
+2026-06-10 18:48:11 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.300 | $42.26 USDC | Will Mexico win on 2026-06-11?)
+2026-06-10 18:48:11 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.300 | $205.67 USDC | Will Mexico win on 2026-06-11?)
 ```
 
 ## Letzte Fehler (3)

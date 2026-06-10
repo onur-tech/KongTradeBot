@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-10 01:51:26 UTC
+> 2026-06-10 01:56:26 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 3391500s | HB: OK (349s alt)
+STALE — lief vor 3391800s | HB: OK (21s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-06-09 23:34:32 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.670 | $60.91 USDC | Saudi Arabia vs. Senegal: O/U 2.5)
-2026-06-09 23:34:32 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Philadelphia Phillies @ $0.610 | $1811.70 USDC | Philadelphia Phillies vs. Toronto Blue Jays)
-2026-06-09 23:34:32 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.670 | $22.14 USDC | Saudi Arabia vs. Senegal: O/U 2.5)
-2026-06-09 23:34:32 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.120 | $17.12 USDC | Saudi Arabia vs. Senegal: O/U 0.5)
-2026-06-09 23:34:32 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Chicago White Sox @ $0.510 | $25.18 USDC | Spread: Atlanta Braves (-1.5))
+2026-06-10 01:55:10 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.510 | $71.42 USDC | Milwaukee Brewers vs. Athletics: O/U 13.5)
+2026-06-10 01:55:10 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.510 | $12.33 USDC | Milwaukee Brewers vs. Athletics: O/U 13.5)
+2026-06-10 01:55:10 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.510 | $5127.45 USDC | Milwaukee Brewers vs. Athletics: O/U 13.5)
+2026-06-10 01:55:10 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.510 | $27941.04 USDC | Milwaukee Brewers vs. Athletics: O/U 13.5)
+2026-06-10 01:55:10 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Milwaukee Brewers @ $0.500 | $96.15 USDC | Milwaukee Brewers vs. Athletics)
 ```
 
 ## Letzte Fehler (3)

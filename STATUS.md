@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-10 14:05:07 UTC
+> 2026-06-10 14:10:27 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 3435521s | HB: WARNUNG 668s alt
+STALE — lief vor 3435841s | HB: OK (53s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-06-10 10:41:23 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Anastasia Potapova @ $0.600 | $23.40 USDC | Libema Open: Anastasia Potapova vs Suzan Lamens)
-2026-06-10 10:41:23 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Alejandro Moro Canas @ $0.680 | $682.04 USDC | Lyon: Alejandro Moro Canas vs Kimmer Coppejans)
-2026-06-10 10:41:23 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Noma Noha Akugue @ $0.620 | $8.16 USDC | Modena: Noma Noha Akugue vs Katarzyna Kawa)
-2026-06-10 10:41:23 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Alexandra Eala @ $0.400 | $848.93 USDC | HSBC Championships: Iva Jovic vs Alexandra Eala)
-2026-06-10 10:41:23 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Alexandra Eala @ $0.400 | $14.67 USDC | HSBC Championships: Iva Jovic vs Alexandra Eala)
+2026-06-10 14:05:40 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Panna Udvardy @ $0.250 | $19.68 USDC | Libema Open: Panna Udvardy vs Daria Snigur)
+2026-06-10 14:05:40 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Francesco Forti @ $0.560 | $48.36 USDC | Cattolica: Francesco Forti vs Franco Agamenone)
+2026-06-10 14:05:40 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Luca Nardi @ $0.490 | $492.94 USDC | Ilkley: Luca Nardi vs Jacob Fearnley)
+2026-06-10 14:05:40 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Franco Agamenone @ $0.430 | $11.31 USDC | Cattolica: Francesco Forti vs Franco Agamenone)
+2026-06-10 14:05:40 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Daria Snigur @ $0.770 | $852.84 USDC | Libema Open: Panna Udvardy vs Daria Snigur)
 ```
 
 ## Letzte Fehler (3)

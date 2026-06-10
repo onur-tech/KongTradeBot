@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-10 03:27:13 UTC
+> 2026-06-10 03:32:13 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 3397247s | HB: WARNUNG 469s alt
+STALE — lief vor 3397547s | HB: OK (18s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-06-10 01:55:10 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.510 | $71.42 USDC | Milwaukee Brewers vs. Athletics: O/U 13.5)
-2026-06-10 01:55:10 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.510 | $12.33 USDC | Milwaukee Brewers vs. Athletics: O/U 13.5)
-2026-06-10 01:55:10 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.510 | $5127.45 USDC | Milwaukee Brewers vs. Athletics: O/U 13.5)
-2026-06-10 01:55:10 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.510 | $27941.04 USDC | Milwaukee Brewers vs. Athletics: O/U 13.5)
-2026-06-10 01:55:10 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Milwaukee Brewers @ $0.500 | $96.15 USDC | Milwaukee Brewers vs. Athletics)
+2026-06-10 03:29:02 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.560 | $345.58 USDC | Argentina vs. Iceland: O/U 2.5)
+2026-06-10 03:29:02 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.560 | $9.03 USDC | Argentina vs. Iceland: O/U 2.5)
+2026-06-10 03:29:02 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.560 | $502.76 USDC | Argentina vs. Iceland: O/U 2.5)
+2026-06-10 03:29:02 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.240 | $24.00 USDC | Chicago Cubs vs. Colorado Rockies: O/U 11.5)
+2026-06-10 03:29:02 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.060 | $18.38 USDC | Argentina vs. Iceland: O/U 3.5)
 ```
 
 ## Letzte Fehler (3)

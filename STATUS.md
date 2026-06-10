@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-10 05:49:46 UTC
+> 2026-06-10 05:54:47 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 3405800s | HB: WARNUNG 568s alt
+STALE — lief vor 3406101s | HB: OK (52s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-06-10 03:29:02 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.560 | $345.58 USDC | Argentina vs. Iceland: O/U 2.5)
-2026-06-10 03:29:02 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.560 | $9.03 USDC | Argentina vs. Iceland: O/U 2.5)
-2026-06-10 03:29:02 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.560 | $502.76 USDC | Argentina vs. Iceland: O/U 2.5)
-2026-06-10 03:29:02 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.240 | $24.00 USDC | Chicago Cubs vs. Colorado Rockies: O/U 11.5)
 2026-06-10 03:29:02 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.060 | $18.38 USDC | Argentina vs. Iceland: O/U 3.5)
+2026-06-10 05:49:56 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.952 | $79.14 USDC | SCOTUS strikes down Trump's Birthright Citizenship EO?)
+2026-06-10 05:49:58 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.040 | $8.00 USDC | US x Iran permanent peace deal by June 15, 2026?)
+2026-06-10 05:49:58 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.053 | $8.21 USDC | Will Roberto Sánchez Palomino win the 2026 Peruvian presiden)
+2026-06-10 05:49:58 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.059 | $35.40 USDC | Will Roberto Sánchez Palomino win the 2026 Peruvian presiden)
 ```
 
 ## Letzte Fehler (3)

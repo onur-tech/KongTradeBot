@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-10 08:10:59 UTC
+> 2026-06-10 08:15:59 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 3414273s | HB: WARNUNG 454s alt
+STALE — lief vor 3414573s | HB: OK (25s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-06-10 03:29:02 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.060 | $18.38 USDC | Argentina vs. Iceland: O/U 3.5)
-2026-06-10 05:49:56 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.952 | $79.14 USDC | SCOTUS strikes down Trump's Birthright Citizenship EO?)
-2026-06-10 05:49:58 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.040 | $8.00 USDC | US x Iran permanent peace deal by June 15, 2026?)
-2026-06-10 05:49:58 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.053 | $8.21 USDC | Will Roberto Sánchez Palomino win the 2026 Peruvian presiden)
-2026-06-10 05:49:58 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.059 | $35.40 USDC | Will Roberto Sánchez Palomino win the 2026 Peruvian presiden)
+2026-06-10 08:13:40 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Hanne Vandewinkel @ $0.670 | $3869.25 USDC | Libema Open: Nikola Bartunkova vs Hanne Vandewinkel)
+2026-06-10 08:13:40 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Hanne Vandewinkel @ $0.680 | $3685.81 USDC | Libema Open: Nikola Bartunkova vs Hanne Vandewinkel)
+2026-06-10 08:13:40 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Nikola Bartunkova @ $0.280 | $228.84 USDC | Libema Open: Nikola Bartunkova vs Hanne Vandewinkel)
+2026-06-10 08:13:40 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Emma Navarro @ $0.270 | $7.40 USDC | Libema Open: Emma Navarro vs Caty McNally)
+2026-06-10 08:13:40 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Harmony Tan @ $0.750 | $148.48 USDC | Ilkley: Taylah Preston vs Harmony Tan)
 ```
 
 ## Letzte Fehler (3)

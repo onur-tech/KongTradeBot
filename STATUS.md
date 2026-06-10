@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-10 10:38:27 UTC
+> 2026-06-10 10:43:47 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 3423121s | HB: WARNUNG 497s alt
+STALE — lief vor 3423441s | HB: OK (31s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-06-10 08:13:40 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Hanne Vandewinkel @ $0.670 | $3869.25 USDC | Libema Open: Nikola Bartunkova vs Hanne Vandewinkel)
-2026-06-10 08:13:40 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Hanne Vandewinkel @ $0.680 | $3685.81 USDC | Libema Open: Nikola Bartunkova vs Hanne Vandewinkel)
-2026-06-10 08:13:40 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Nikola Bartunkova @ $0.280 | $228.84 USDC | Libema Open: Nikola Bartunkova vs Hanne Vandewinkel)
-2026-06-10 08:13:40 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Emma Navarro @ $0.270 | $7.40 USDC | Libema Open: Emma Navarro vs Caty McNally)
-2026-06-10 08:13:40 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Harmony Tan @ $0.750 | $148.48 USDC | Ilkley: Taylah Preston vs Harmony Tan)
+2026-06-10 10:41:23 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Anastasia Potapova @ $0.600 | $23.40 USDC | Libema Open: Anastasia Potapova vs Suzan Lamens)
+2026-06-10 10:41:23 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Alejandro Moro Canas @ $0.680 | $682.04 USDC | Lyon: Alejandro Moro Canas vs Kimmer Coppejans)
+2026-06-10 10:41:23 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Noma Noha Akugue @ $0.620 | $8.16 USDC | Modena: Noma Noha Akugue vs Katarzyna Kawa)
+2026-06-10 10:41:23 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Alexandra Eala @ $0.400 | $848.93 USDC | HSBC Championships: Iva Jovic vs Alexandra Eala)
+2026-06-10 10:41:23 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Alexandra Eala @ $0.400 | $14.67 USDC | HSBC Championships: Iva Jovic vs Alexandra Eala)
 ```
 
 ## Letzte Fehler (3)

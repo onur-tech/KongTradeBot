@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-11 19:24:21 UTC
+> 2026-06-11 19:29:27 UTC
 
 ## Bot-Status
 ```
@@ -14,25 +14,25 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 3541075s | HB: STALE 738s alt (Bot moeglicherweise haengend)
+STALE — lief vor 3541381s | HB: OK (51s alt)
 ```
 
 ## Portfolio
 ```
-Total:         $9.43 USDC
+Total:         $9.50 USDC
 Cash:          $0.00 USDC
-In Positionen: $9.43 USDC
+In Positionen: $9.50 USDC
 Offene Pos.:   1
 PnL heute:     $0.00
 ```
 
 ## Letzte Trades (5)
 ```
-2026-06-11 16:41:52 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.890 | $235.61 USDC | Will South Africa win on 2026-06-11?)
-2026-06-11 16:41:52 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Texas Rangers @ $0.480 | $133.14 USDC | Texas Rangers vs. Kansas City Royals)
-2026-06-11 16:41:52 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.890 | $45.31 USDC | Will South Africa win on 2026-06-11?)
-2026-06-11 16:41:52 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.890 | $15.70 USDC | Will South Africa win on 2026-06-11?)
-2026-06-11 16:41:52 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.890 | $8.09 USDC | Will South Africa win on 2026-06-11?)
+2026-06-11 19:26:44 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Colorado Rockies @ $0.500 | $5.43 USDC | Chicago Cubs vs. Colorado Rockies)
+2026-06-11 19:26:44 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Colorado Rockies @ $0.500 | $279.83 USDC | Chicago Cubs vs. Colorado Rockies)
+2026-06-11 19:26:44 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Lucia Bronzetti @ $0.370 | $7.88 USDC | Modena: Lucia Bronzetti vs Julia Grabher)
+2026-06-11 19:26:44 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.049 | $435.58 USDC | Will Netherlands win the 2026 FIFA World Cup?)
+2026-06-11 19:26:44 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.018 | $3892.09 USDC | Will Mexico win the 2026 FIFA World Cup?)
 ```
 
 ## Letzte Fehler (3)

@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-11 06:34:34 UTC
+> 2026-06-11 06:39:37 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 3494888s | HB: WARNUNG 393s alt
+STALE — lief vor 3495191s | HB: OK (12s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-06-11 04:13:21 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.120 | $51.84 USDC | US announces new Iran agreement/ceasefire extension by June )
-2026-06-11 04:13:21 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.034 | $61.48 USDC | Will Keiko Fujimori win the 2026 Peruvian presidential elect)
-2026-06-11 04:13:24 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Houston Astros @ $0.120 | $22.20 USDC | Houston Astros vs. Los Angeles Angels)
-2026-06-11 04:13:24 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Houston Astros @ $0.130 | $401.57 USDC | Houston Astros vs. Los Angeles Angels)
-2026-06-11 04:13:24 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Houston Astros @ $0.110 | $148.62 USDC | Houston Astros vs. Los Angeles Angels)
+2026-06-11 06:38:34 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Marie Bouzkova @ $0.490 | $228.34 USDC | HSBC Championships: Marie Bouzkova vs Donna Vekic)
+2026-06-11 06:38:34 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Daria Snigur @ $0.300 | $42.86 USDC | Libema Open: Panna Udvardy vs Daria Snigur)
+2026-06-11 06:38:34 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Daria Snigur @ $0.300 | $25.71 USDC | Libema Open: Panna Udvardy vs Daria Snigur)
+2026-06-11 06:38:34 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Daria Snigur @ $0.300 | $41.05 USDC | Libema Open: Panna Udvardy vs Daria Snigur)
+2026-06-11 06:38:34 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Daria Snigur @ $0.300 | $176.46 USDC | Libema Open: Panna Udvardy vs Daria Snigur)
 ```
 
 ## Letzte Fehler (3)

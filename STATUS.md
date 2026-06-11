@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-11 14:05:06 UTC
+> 2026-06-11 14:10:07 UTC
 
 ## Bot-Status
 ```
@@ -14,25 +14,25 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 3521920s | HB: WARNUNG 549s alt
+STALE — lief vor 3522221s | HB: OK (24s alt)
 ```
 
 ## Portfolio
 ```
-Total:         $9.57 USDC
+Total:         $9.50 USDC
 Cash:          $0.00 USDC
-In Positionen: $9.57 USDC
+In Positionen: $9.50 USDC
 Offene Pos.:   1
 PnL heute:     $0.00
 ```
 
 ## Letzte Trades (5)
 ```
-2026-06-11 11:35:55 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Dalila Jakupovic @ $0.480 | $18.04 USDC | ITF Zagreb: Dalila Jakupovic vs Amarissa Kiara Toth)
-2026-06-11 11:35:55 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Dalila Jakupovic @ $0.470 | $1142.07 USDC | ITF Zagreb: Dalila Jakupovic vs Amarissa Kiara Toth)
-2026-06-11 11:35:55 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Panna Udvardy @ $0.240 | $9.63 USDC | Libema Open: Panna Udvardy vs Daria Snigur)
-2026-06-11 11:35:55 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Panna Udvardy @ $0.240 | $6.76 USDC | Libema Open: Panna Udvardy vs Daria Snigur)
-2026-06-11 11:35:55 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Panna Udvardy @ $0.240 | $19.20 USDC | Libema Open: Panna Udvardy vs Daria Snigur)
+2026-06-11 14:07:55 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Pedro Martinez @ $0.560 | $19.27 USDC | Lyon: Pedro Martinez vs Felix Balshaw)
+2026-06-11 14:07:55 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Nuria Brancaccio @ $0.760 | $161.21 USDC | Modena: Tamara Zidansek vs Nuria Brancaccio)
+2026-06-11 14:07:55 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Sho Shimabukuro @ $0.380 | $10.68 USDC | Stuttgart Open: Sho Shimabukuro vs Nick Kyrgios)
+2026-06-11 14:07:55 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Dayana Yastremska @ $0.750 | $38.01 USDC | Libema Open: Ajla Tomljanovic vs Dayana Yastremska)
+2026-06-11 14:07:55 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Emilio Nava @ $0.270 | $18.75 USDC | Bratislava: Taro Daniel vs Emilio Nava)
 ```
 
 ## Letzte Fehler (3)

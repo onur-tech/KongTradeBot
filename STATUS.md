@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-11 04:08:54 UTC
+> 2026-06-11 04:13:57 UTC
 
 ## Bot-Status
 ```
@@ -14,25 +14,21 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 3486148s | HB: OK (340s alt)
+STALE — lief vor 3486451s | HB: OK (37s alt)
 ```
 
 ## Portfolio
 ```
-Total:         $0.00 USDC
-Cash:          $0.00 USDC
-In Positionen: $0.00 USDC
-Offene Pos.:   0
-PnL heute:     $0.00
+Dashboard nicht erreichbar: timed out
 ```
 
 ## Letzte Trades (5)
 ```
-2026-06-11 01:49:00 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Detroit Tigers @ $0.410 | $41.00 USDC | Minnesota Twins vs. Detroit Tigers)
-2026-06-11 01:49:00 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Texas Rangers @ $0.340 | $1069.98 USDC | Texas Rangers vs. Kansas City Royals)
-2026-06-11 01:49:00 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Toronto Blue Jays @ $0.080 | $86.72 USDC | Philadelphia Phillies vs. Toronto Blue Jays)
-2026-06-11 01:49:00 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Milwaukee Brewers @ $0.750 | $227.52 USDC | Milwaukee Brewers vs. Athletics)
-2026-06-11 01:49:00 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Detroit Tigers @ $0.410 | $104.24 USDC | Minnesota Twins vs. Detroit Tigers)
+2026-06-11 04:13:21 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.120 | $51.84 USDC | US announces new Iran agreement/ceasefire extension by June )
+2026-06-11 04:13:21 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.034 | $61.48 USDC | Will Keiko Fujimori win the 2026 Peruvian presidential elect)
+2026-06-11 04:13:24 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Houston Astros @ $0.120 | $22.20 USDC | Houston Astros vs. Los Angeles Angels)
+2026-06-11 04:13:24 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Houston Astros @ $0.130 | $401.57 USDC | Houston Astros vs. Los Angeles Angels)
+2026-06-11 04:13:24 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Houston Astros @ $0.110 | $148.62 USDC | Houston Astros vs. Los Angeles Angels)
 ```
 
 ## Letzte Fehler (3)

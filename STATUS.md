@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-11 09:05:08 UTC
+> 2026-06-11 09:10:12 UTC
 
 ## Bot-Status
 ```
@@ -14,25 +14,21 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 3503922s | HB: WARNUNG 607s alt
+STALE — lief vor 3504226s | HB: OK (26s alt)
 ```
 
 ## Portfolio
 ```
-Total:         $0.00 USDC
-Cash:          $0.00 USDC
-In Positionen: $0.00 USDC
-Offene Pos.:   0
-PnL heute:     $0.00
+Dashboard nicht erreichbar: timed out
 ```
 
 ## Letzte Trades (5)
 ```
-2026-06-11 06:38:34 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Marie Bouzkova @ $0.490 | $228.34 USDC | HSBC Championships: Marie Bouzkova vs Donna Vekic)
-2026-06-11 06:38:34 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Daria Snigur @ $0.300 | $42.86 USDC | Libema Open: Panna Udvardy vs Daria Snigur)
-2026-06-11 06:38:34 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Daria Snigur @ $0.300 | $25.71 USDC | Libema Open: Panna Udvardy vs Daria Snigur)
-2026-06-11 06:38:34 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Daria Snigur @ $0.300 | $41.05 USDC | Libema Open: Panna Udvardy vs Daria Snigur)
-2026-06-11 06:38:34 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Daria Snigur @ $0.300 | $176.46 USDC | Libema Open: Panna Udvardy vs Daria Snigur)
+2026-06-11 09:05:54 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Marton Fucsovics @ $0.270 | $130.90 USDC | Libema Open: Felix Auger-Aliassime vs Marton Fucsovics)
+2026-06-11 09:05:54 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Polina Iatcenko @ $0.980 | $245.00 USDC | ITF Hurghada: Polina Iatcenko vs Aliesia Reva)
+2026-06-11 09:05:54 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Daniel Rincon @ $0.340 | $12.18 USDC | Lyon: Daniel Rincon vs Dali Blanch)
+2026-06-11 09:05:54 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Alena Kovackova @ $0.250 | $6.59 USDC | ITF Ceska Lipa: Julia Avdeeva vs Alena Kovackova)
+2026-06-11 09:05:54 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Julia Avdeeva @ $0.550 | $1103.70 USDC | ITF Ceska Lipa: Julia Avdeeva vs Alena Kovackova)
 ```
 
 ## Letzte Fehler (3)

@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-12 16:39:43 UTC
+> 2026-06-12 16:44:55 UTC
 
 ## Bot-Status
 ```
@@ -14,32 +14,32 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 3617597s | HB: WARNUNG 514s alt
+STALE — lief vor 3617909s | HB: OK (29s alt)
 ```
 
 ## Portfolio
 ```
-Total:         $26.25 USDC
+Total:         $26.01 USDC
 Cash:          $0.00 USDC
-In Positionen: $26.25 USDC
+In Positionen: $26.01 USDC
 Offene Pos.:   3
 PnL heute:     $0.00
 ```
 
 ## Letzte Trades (5)
 ```
-2026-06-12 14:10:59 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.160 | $22.62 USDC | Will France win the 2026 FIFA World Cup?)
-2026-06-12 14:10:59 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.160 | $29.63 USDC | Will France win the 2026 FIFA World Cup?)
-2026-06-12 14:10:59 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.160 | $21.60 USDC | Will France win the 2026 FIFA World Cup?)
-2026-06-12 14:10:59 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.160 | $21.40 USDC | Will France win the 2026 FIFA World Cup?)
-2026-06-12 14:10:59 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.290 | $29.00 USDC | Will United States vs. Paraguay end in a draw?)
+2026-06-12 16:42:30 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.160 | $18.87 USDC | Will France win the 2026 FIFA World Cup?)
+2026-06-12 16:42:30 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.290 | $48.33 USDC | Will United States vs. Paraguay end in a draw?)
+2026-06-12 16:42:30 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.290 | $49.17 USDC | Will United States vs. Paraguay end in a draw?)
+2026-06-12 16:42:30 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.160 | $49.38 USDC | Will France win the 2026 FIFA World Cup?)
+2026-06-12 16:42:30 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.160 | $336.00 USDC | Will France win the 2026 FIFA World Cup?)
 ```
 
 ## Letzte Fehler (3)
 ```
 raise asyncio.TimeoutError from exc_val
 TimeoutError
-2026-06-12 16:17:08 | INFO     | polymarket_bot.fill_tracker | WS-Reconnect (TimeoutError):  — Reconnect in 30s
+2026-06-12 16:42:26 | INFO     | polymarket_bot.fill_tracker | WS-Reconnect (TimeoutError):  — Reconnect in 30s
 ```
 
 ---

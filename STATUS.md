@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-12 02:50:10 UTC
+> 2026-06-12 02:55:09 UTC
 
 ## Bot-Status
 ```
@@ -14,25 +14,25 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 3567824s | HB: WARNUNG 529s alt
+STALE — lief vor 3568123s | HB: OK (46s alt)
 ```
 
 ## Portfolio
 ```
-Total:         $0.01 USDC
+Total:         $5.23 USDC
 Cash:          $0.00 USDC
-In Positionen: $0.01 USDC
-Offene Pos.:   0
+In Positionen: $5.23 USDC
+Offene Pos.:   1
 PnL heute:     $0.00
 ```
 
 ## Letzte Trades (5)
 ```
-2026-06-12 00:26:52 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.620 | $8.16 USDC | Will Korea Republic win on 2026-06-11?)
-2026-06-12 00:26:52 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.620 | $6.20 USDC | Will Korea Republic win on 2026-06-11?)
-2026-06-12 00:26:52 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.620 | $13.05 USDC | Will Korea Republic win on 2026-06-11?)
-2026-06-12 00:26:52 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.620 | $6.82 USDC | Will Korea Republic win on 2026-06-11?)
-2026-06-12 00:26:52 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.620 | $254.53 USDC | Will Korea Republic win on 2026-06-11?)
+2026-06-12 02:51:30 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.430 | $6.72 USDC | Will Korea Republic vs. Czechia end in a draw?)
+2026-06-12 02:51:30 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.430 | $7.54 USDC | Will Korea Republic vs. Czechia end in a draw?)
+2026-06-12 02:51:30 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.300 | $21.33 USDC | Korea Republic vs. Czechia: O/U 0.5)
+2026-06-12 02:51:30 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.300 | $28.92 USDC | Korea Republic vs. Czechia: O/U 0.5)
+2026-06-12 02:51:30 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.880 | $35.57 USDC | Korea Republic vs. Czechia: O/U 2.5)
 ```
 
 ## Letzte Fehler (3)

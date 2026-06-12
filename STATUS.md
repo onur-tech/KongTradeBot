@@ -1,10 +1,10 @@
 # KongTradeBot Live Status
 
-> 2026-06-12 06:48:37 UTC
+> 2026-06-12 06:53:37 UTC
 
 ## Bot-Status
 ```
-RUNNING (seit Sun 2026-05-03 12:28:18 UTC)
+RUNNING (seit Fri 2026-06-12 06:51:07 UTC)
 ```
 
 ## Dashboard-URL
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 3582131s | HB: OK (232s alt)
+STALE — lief vor 3582431s | HB: OK (86s alt)
 ```
 
 ## Portfolio
@@ -37,9 +37,9 @@ PnL heute:     $0.00
 
 ## Letzte Fehler (3)
 ```
-The above exception was the direct cause of the following exception:
-raise asyncio.TimeoutError from exc_val
-TimeoutError
+2026-06-12 06:51:06 | WARNING  | polymarket_bot.weather_scout | [WeatherScout] Geocoding 'Paris': HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Max retries exceeded with url: /search?q=Paris&format=json&limit=1 (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at [WALLET]>: Failed to resolve 'nominatim.openstreetmap.org' ([Errno -3] Temporary failure in name resolution)"))
+2026-06-12 06:51:06 | WARNING  | polymarket_bot.weather_scout | [WeatherScout] Geocoding 'Houston': HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Max retries exceeded with url: /search?q=Houston&format=json&limit=1 (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at [WALLET]>: Failed to resolve 'nominatim.openstreetmap.org' ([Errno -3] Temporary failure in name resolution)"))
+[py_clob_client_v2] request error status=400 url=https://clob.polymarket.com/auth/api-key body={"error":"Could not create api key"}
 ```
 
 ---

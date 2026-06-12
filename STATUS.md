@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-12 14:09:09 UTC
+> 2026-06-12 14:14:10 UTC
 
 ## Bot-Status
 ```
@@ -14,32 +14,32 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 3608563s | HB: WARNUNG 580s alt
+STALE — lief vor 3608864s | HB: OK (14s alt)
 ```
 
 ## Portfolio
 ```
-Total:         $29.01 USDC
+Total:         $28.90 USDC
 Cash:          $0.00 USDC
-In Positionen: $29.01 USDC
+In Positionen: $28.90 USDC
 Offene Pos.:   3
 PnL heute:     $0.00
 ```
 
 ## Letzte Trades (5)
 ```
-2026-06-12 11:38:11 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Kamilla Rakhimova @ $0.490 | $8.64 USDC | HSBC Championships: Harriet Dart vs Kamilla Rakhimova)
-2026-06-12 11:38:11 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Kamilla Rakhimova @ $0.490 | $34.59 USDC | HSBC Championships: Harriet Dart vs Kamilla Rakhimova)
-2026-06-12 11:38:11 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Ben Shelton @ $0.410 | $24.26 USDC | Stuttgart Open: Ben Shelton vs Marcos Giron)
-2026-06-12 11:38:11 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Dusan Lajovic @ $0.630 | $26.37 USDC | Cattolica: Dusan Lajovic vs Oriol Roca Batalla)
-2026-06-12 11:38:11 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Elena Rybakina @ $0.498 | $1709.38 USDC | HSBC Championships: Elena Rybakina vs Tatjana Maria)
+2026-06-12 14:10:59 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.160 | $22.62 USDC | Will France win the 2026 FIFA World Cup?)
+2026-06-12 14:10:59 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.160 | $29.63 USDC | Will France win the 2026 FIFA World Cup?)
+2026-06-12 14:10:59 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.160 | $21.60 USDC | Will France win the 2026 FIFA World Cup?)
+2026-06-12 14:10:59 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.160 | $21.40 USDC | Will France win the 2026 FIFA World Cup?)
+2026-06-12 14:10:59 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.290 | $29.00 USDC | Will United States vs. Paraguay end in a draw?)
 ```
 
 ## Letzte Fehler (3)
 ```
 raise asyncio.TimeoutError from exc_val
 TimeoutError
-2026-06-12 13:45:29 | INFO     | polymarket_bot.fill_tracker | WS-Reconnect (TimeoutError):  — Reconnect in 30s
+2026-06-12 14:10:55 | INFO     | polymarket_bot.fill_tracker | WS-Reconnect (TimeoutError):  — Reconnect in 30s
 ```
 
 ---

@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-12 11:36:29 UTC
+> 2026-06-12 11:41:28 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 3599403s | HB: WARNUNG 562s alt
+STALE — lief vor 3599702s | HB: OK (22s alt)
 ```
 
 ## Portfolio
@@ -28,18 +28,18 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-06-12 09:08:25 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Ben Shelton @ $0.400 | $55.20 USDC | Stuttgart Open: Ben Shelton vs Marcos Giron)
-2026-06-12 09:08:25 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.097 | $210.85 USDC | Will Portugal win the 2026 FIFA World Cup?)
-2026-06-12 09:08:26 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $9.24 USDC | Will Arsenal FC win on 2026-02-22?)
-2026-06-12 09:08:26 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $23.17 USDC | Will Arsenal FC win on 2026-02-22?)
-2026-06-12 09:08:26 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $12.39 USDC | Will Arsenal FC win on 2026-02-22?)
+2026-06-12 11:38:11 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Kamilla Rakhimova @ $0.490 | $8.64 USDC | HSBC Championships: Harriet Dart vs Kamilla Rakhimova)
+2026-06-12 11:38:11 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Kamilla Rakhimova @ $0.490 | $34.59 USDC | HSBC Championships: Harriet Dart vs Kamilla Rakhimova)
+2026-06-12 11:38:11 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Ben Shelton @ $0.410 | $24.26 USDC | Stuttgart Open: Ben Shelton vs Marcos Giron)
+2026-06-12 11:38:11 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Dusan Lajovic @ $0.630 | $26.37 USDC | Cattolica: Dusan Lajovic vs Oriol Roca Batalla)
+2026-06-12 11:38:11 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Elena Rybakina @ $0.498 | $1709.38 USDC | HSBC Championships: Elena Rybakina vs Tatjana Maria)
 ```
 
 ## Letzte Fehler (3)
 ```
 raise asyncio.TimeoutError from exc_val
 TimeoutError
-2026-06-12 11:13:06 | INFO     | polymarket_bot.fill_tracker | WS-Reconnect (TimeoutError):  — Reconnect in 30s
+2026-06-12 11:38:06 | INFO     | polymarket_bot.fill_tracker | WS-Reconnect (TimeoutError):  — Reconnect in 30s
 ```
 
 ---

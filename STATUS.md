@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-12 19:17:35 UTC
+> 2026-06-12 19:22:39 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 3627069s | HB: WARNUNG 685s alt
+STALE — lief vor 3627373s | HB: OK (24s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-06-12 16:42:30 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.160 | $18.87 USDC | Will France win the 2026 FIFA World Cup?)
-2026-06-12 16:42:30 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.290 | $48.33 USDC | Will United States vs. Paraguay end in a draw?)
-2026-06-12 16:42:30 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.290 | $49.17 USDC | Will United States vs. Paraguay end in a draw?)
-2026-06-12 16:42:30 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.160 | $49.38 USDC | Will France win the 2026 FIFA World Cup?)
-2026-06-12 16:42:30 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.160 | $336.00 USDC | Will France win the 2026 FIFA World Cup?)
+2026-06-12 19:19:17 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.770 | $6.70 USDC | Will Bosnia and Herzegovina win on 2026-06-12?)
+2026-06-12 19:19:17 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.770 | $403.08 USDC | Will Bosnia and Herzegovina win on 2026-06-12?)
+2026-06-12 19:19:17 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.190 | $452.37 USDC | Canada vs. Bosnia and Herzegovina: O/U 3.5)
+2026-06-12 19:19:17 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.310 | $10.51 USDC | Canada leading at halftime?)
+2026-06-12 19:19:17 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.190 | $17.45 USDC | Canada vs. Bosnia and Herzegovina: O/U 3.5)
 ```
 
 ## Letzte Fehler (3)

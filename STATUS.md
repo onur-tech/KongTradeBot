@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-12 09:05:25 UTC
+> 2026-06-12 09:10:26 UTC
 
 ## Bot-Status
 ```
@@ -14,32 +14,32 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 3590339s | HB: WARNUNG 505s alt
+STALE — lief vor 3590640s | HB: OK (7s alt)
 ```
 
 ## Portfolio
 ```
-Total:         $15.67 USDC
+Total:         $25.10 USDC
 Cash:          $0.00 USDC
-In Positionen: $15.67 USDC
+In Positionen: $25.10 USDC
 Offene Pos.:   2
 PnL heute:     $0.00
 ```
 
 ## Letzte Trades (5)
 ```
-2026-06-12 05:17:00 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Marcos Giron @ $0.540 | $6.48 USDC | Stuttgart Open: Ben Shelton vs Marcos Giron)
-2026-06-12 05:17:00 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Marcos Giron @ $0.540 | $5.87 USDC | Stuttgart Open: Ben Shelton vs Marcos Giron)
-2026-06-12 05:17:00 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Marcos Giron @ $0.540 | $21.58 USDC | Stuttgart Open: Ben Shelton vs Marcos Giron)
-2026-06-12 05:17:00 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Marcos Giron @ $0.540 | $85.91 USDC | Stuttgart Open: Ben Shelton vs Marcos Giron)
-2026-06-12 05:17:00 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Marcos Giron @ $0.550 | $40.14 USDC | Stuttgart Open: Ben Shelton vs Marcos Giron)
+2026-06-12 09:08:25 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Ben Shelton @ $0.400 | $55.20 USDC | Stuttgart Open: Ben Shelton vs Marcos Giron)
+2026-06-12 09:08:25 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.097 | $210.85 USDC | Will Portugal win the 2026 FIFA World Cup?)
+2026-06-12 09:08:26 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $9.24 USDC | Will Arsenal FC win on 2026-02-22?)
+2026-06-12 09:08:26 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $23.17 USDC | Will Arsenal FC win on 2026-02-22?)
+2026-06-12 09:08:26 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $12.39 USDC | Will Arsenal FC win on 2026-02-22?)
 ```
 
 ## Letzte Fehler (3)
 ```
 raise asyncio.TimeoutError from exc_val
 TimeoutError
-2026-06-12 08:43:00 | INFO     | polymarket_bot.fill_tracker | WS-Reconnect (TimeoutError):  — Reconnect in 16s
+2026-06-12 09:08:19 | INFO     | polymarket_bot.fill_tracker | WS-Reconnect (TimeoutError):  — Reconnect in 30s
 ```
 
 ---

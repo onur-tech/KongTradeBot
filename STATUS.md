@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-12 08:15:06 UTC
+> 2026-06-12 08:20:07 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 3587320s | HB: WARNUNG 537s alt
+STALE — lief vor 3587621s | HB: OK (12s alt)
 ```
 
 ## Portfolio
@@ -39,7 +39,7 @@ PnL heute:     $0.00
 ```
 raise asyncio.TimeoutError from exc_val
 TimeoutError
-2026-06-12 07:52:08 | INFO     | polymarket_bot.fill_tracker | WS-Reconnect (TimeoutError):  — Reconnect in 4s
+2026-06-12 08:16:55 | INFO     | polymarket_bot.fill_tracker | WS-Reconnect (TimeoutError):  — Reconnect in 8s
 ```
 
 ---

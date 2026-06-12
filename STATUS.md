@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-12 21:53:50 UTC
+> 2026-06-12 21:58:49 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 3636444s | HB: WARNUNG 533s alt
+STALE — lief vor 3636743s | HB: OK (20s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-06-12 19:19:17 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.770 | $6.70 USDC | Will Bosnia and Herzegovina win on 2026-06-12?)
-2026-06-12 19:19:17 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.770 | $403.08 USDC | Will Bosnia and Herzegovina win on 2026-06-12?)
-2026-06-12 19:19:17 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.190 | $452.37 USDC | Canada vs. Bosnia and Herzegovina: O/U 3.5)
-2026-06-12 19:19:17 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.310 | $10.51 USDC | Canada leading at halftime?)
-2026-06-12 19:19:17 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.190 | $17.45 USDC | Canada vs. Bosnia and Herzegovina: O/U 3.5)
+2026-06-12 21:55:31 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.990 | $29.70 USDC | Will the highest temperature in San Francisco be between 80-)
+2026-06-12 21:55:31 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.200 | $1000.00 USDC | Arizona Diamondbacks vs. Cincinnati Reds: O/U 6.5)
+2026-06-12 21:55:31 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Colorado Rockies @ $0.360 | $159.30 USDC | Colorado Rockies vs. Athletics)
+2026-06-12 21:55:32 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.240 | $157.89 USDC | Will Paraguay win on 2026-06-12?)
+2026-06-12 21:55:32 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.240 | $43.20 USDC | Will Paraguay win on 2026-06-12?)
 ```
 
 ## Letzte Fehler (3)

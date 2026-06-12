@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-12 00:23:44 UTC
+> 2026-06-12 00:28:52 UTC
 
 ## Bot-Status
 ```
@@ -14,21 +14,25 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 3559038s | HB: WARNUNG 422s alt
+STALE — lief vor 3559346s | HB: OK (4s alt)
 ```
 
 ## Portfolio
 ```
-Dashboard nicht erreichbar: timed out
+Total:         $0.04 USDC
+Cash:          $0.00 USDC
+In Positionen: $0.04 USDC
+Offene Pos.:   0
+PnL heute:     $0.00
 ```
 
 ## Letzte Trades (5)
 ```
-2026-06-11 22:01:36 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $23.17 USDC | Will Arsenal FC win on 2026-02-22?)
-2026-06-11 22:01:36 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $12.39 USDC | Will Arsenal FC win on 2026-02-22?)
-2026-06-11 22:01:36 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $31.43 USDC | Will Arsenal FC win on 2026-02-22?)
-2026-06-11 22:01:36 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $48.80 USDC | Will Arsenal FC win on 2026-02-22?)
-2026-06-11 22:01:36 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $31.43 USDC | Will Arsenal FC win on 2026-02-22?)
+2026-06-12 00:26:52 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.620 | $8.16 USDC | Will Korea Republic win on 2026-06-11?)
+2026-06-12 00:26:52 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.620 | $6.20 USDC | Will Korea Republic win on 2026-06-11?)
+2026-06-12 00:26:52 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.620 | $13.05 USDC | Will Korea Republic win on 2026-06-11?)
+2026-06-12 00:26:52 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.620 | $6.82 USDC | Will Korea Republic win on 2026-06-11?)
+2026-06-12 00:26:52 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.620 | $254.53 USDC | Will Korea Republic win on 2026-06-11?)
 ```
 
 ## Letzte Fehler (3)

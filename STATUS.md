@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-12 05:12:30 UTC
+> 2026-06-12 05:17:31 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 3576364s | HB: OK (356s alt)
+STALE — lief vor 3576665s | HB: OK (39s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-06-12 02:51:30 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.430 | $6.72 USDC | Will Korea Republic vs. Czechia end in a draw?)
-2026-06-12 02:51:30 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.430 | $7.54 USDC | Will Korea Republic vs. Czechia end in a draw?)
-2026-06-12 02:51:30 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.300 | $21.33 USDC | Korea Republic vs. Czechia: O/U 0.5)
-2026-06-12 02:51:30 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.300 | $28.92 USDC | Korea Republic vs. Czechia: O/U 0.5)
-2026-06-12 02:51:30 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.880 | $35.57 USDC | Korea Republic vs. Czechia: O/U 2.5)
+2026-06-12 05:17:00 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Marcos Giron @ $0.540 | $6.48 USDC | Stuttgart Open: Ben Shelton vs Marcos Giron)
+2026-06-12 05:17:00 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Marcos Giron @ $0.540 | $5.87 USDC | Stuttgart Open: Ben Shelton vs Marcos Giron)
+2026-06-12 05:17:00 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Marcos Giron @ $0.540 | $21.58 USDC | Stuttgart Open: Ben Shelton vs Marcos Giron)
+2026-06-12 05:17:00 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Marcos Giron @ $0.540 | $85.91 USDC | Stuttgart Open: Ben Shelton vs Marcos Giron)
+2026-06-12 05:17:00 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Marcos Giron @ $0.550 | $40.14 USDC | Stuttgart Open: Ben Shelton vs Marcos Giron)
 ```
 
 ## Letzte Fehler (3)

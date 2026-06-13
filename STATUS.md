@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-13 14:36:32 UTC
+> 2026-06-13 14:41:32 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 3696606s | HB: WARNUNG 520s alt
+STALE — lief vor 3696906s | HB: OK (0s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-06-13 12:10:41 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.180 | $579.24 USDC | Will Switzerland win on 2026-06-13?)
-2026-06-13 12:10:41 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.180 | $48.71 USDC | Will Switzerland win on 2026-06-13?)
-2026-06-13 12:10:41 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.180 | $31.97 USDC | Will Switzerland win on 2026-06-13?)
-2026-06-13 12:10:41 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.180 | $21.31 USDC | Will Switzerland win on 2026-06-13?)
-2026-06-13 12:10:41 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.160 | $13.26 USDC | Will France win the 2026 FIFA World Cup?)
+2026-06-13 14:38:34 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Katie Volynets @ $0.900 | $88.92 USDC | Nottingham Open, Qualification: Panna Udvardy vs Katie Volyn)
+2026-06-13 14:38:34 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY David Jorda Sanchis @ $0.510 | $5.20 USDC | Lyon: David Jorda Sanchis vs Tristan Boyer)
+2026-06-13 14:38:34 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Marc-Andrea Huesler @ $0.430 | $114.72 USDC | Halle Open, Qualification: Martin Landaluce vs Marc-Andrea H)
+2026-06-13 14:38:34 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.160 | $9.94 USDC | Will France win the 2026 FIFA World Cup?)
+2026-06-13 14:38:34 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.160 | $17.89 USDC | Will France win the 2026 FIFA World Cup?)
 ```
 
 ## Letzte Fehler (3)

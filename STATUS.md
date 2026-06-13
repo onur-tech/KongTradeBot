@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-13 05:10:05 UTC
+> 2026-06-13 05:15:18 UTC
 
 ## Bot-Status
 ```
@@ -14,25 +14,25 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 3662619s | HB: WARNUNG 441s alt
+STALE — lief vor 3662932s | HB: OK (13s alt)
 ```
 
 ## Portfolio
 ```
-Total:         $23.08 USDC
+Total:         $9.76 USDC
 Cash:          $0.00 USDC
-In Positionen: $23.08 USDC
-Offene Pos.:   2
+In Positionen: $9.76 USDC
+Offene Pos.:   1
 PnL heute:     $0.00
 ```
 
 ## Letzte Trades (5)
 ```
-2026-06-13 02:47:37 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.097 | $210.85 USDC | Will Portugal win the 2026 FIFA World Cup?)
-2026-06-13 02:47:37 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $9.24 USDC | Will Arsenal FC win on 2026-02-22?)
-2026-06-13 02:47:37 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $23.17 USDC | Will Arsenal FC win on 2026-02-22?)
-2026-06-13 02:47:37 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $12.39 USDC | Will Arsenal FC win on 2026-02-22?)
-2026-06-13 02:47:37 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $31.43 USDC | Will Arsenal FC win on 2026-02-22?)
+2026-06-13 05:13:07 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Hurricanes @ $0.520 | $352039.36 USDC | Hurricanes vs. Golden Knights)
+2026-06-13 05:13:07 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Stefanos Tsitsipas @ $0.650 | $19704.75 USDC | Roland Garros ATP: Matteo Arnaldi vs Stefanos Tsitsipas)
+2026-06-13 05:13:07 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.160 | $19.05 USDC | Will France win the 2026 FIFA World Cup?)
+2026-06-13 05:13:07 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.160 | $13.12 USDC | Will France win the 2026 FIFA World Cup?)
+2026-06-13 05:13:07 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.160 | $6.40 USDC | Will France win the 2026 FIFA World Cup?)
 ```
 
 ## Letzte Fehler (3)

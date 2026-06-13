@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-13 09:38:08 UTC
+> 2026-06-13 09:43:10 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 3678702s | HB: WARNUNG 372s alt
+STALE — lief vor 3679004s | HB: OK (29s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-06-13 07:15:06 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.021 | $159.13 USDC | Will USA win the 2026 FIFA World Cup?)
-2026-06-13 07:15:06 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.021 | $20.00 USDC | Will USA win the 2026 FIFA World Cup?)
-2026-06-13 07:15:06 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.160 | $6.51 USDC | Will France win the 2026 FIFA World Cup?)
-2026-06-13 07:15:06 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.021 | $12.60 USDC | Will USA win the 2026 FIFA World Cup?)
-2026-06-13 07:15:06 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.021 | $7.25 USDC | Will USA win the 2026 FIFA World Cup?)
+2026-06-13 09:42:43 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.160 | $141.60 USDC | Will France win the 2026 FIFA World Cup?)
+2026-06-13 09:42:43 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.160 | $5.71 USDC | Will France win the 2026 FIFA World Cup?)
+2026-06-13 09:42:43 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.160 | $5.56 USDC | Will France win the 2026 FIFA World Cup?)
+2026-06-13 09:42:43 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.160 | $5.56 USDC | Will France win the 2026 FIFA World Cup?)
+2026-06-13 09:42:43 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.160 | $147.09 USDC | Will France win the 2026 FIFA World Cup?)
 ```
 
 ## Letzte Fehler (3)

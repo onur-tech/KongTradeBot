@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-14 22:55:09 UTC
+> 2026-06-14 23:00:10 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 3812923s | HB: WARNUNG 539s alt
+STALE — lief vor 3813224s | HB: OK (12s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-06-14 20:27:30 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.780 | $15.60 USDC | Málaga CF vs. UD Almería: O/U 1.5)
-2026-06-14 20:27:30 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Japan @ $0.800 | $206.44 USDC | Spread: Netherlands (-1.5))
-2026-06-14 20:27:30 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.270 | $110.96 USDC | Will Netherlands vs. Japan end in a draw?)
-2026-06-14 20:27:30 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.270 | $286.93 USDC | Will Netherlands vs. Japan end in a draw?)
-2026-06-14 20:27:30 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.270 | $54.00 USDC | Will Netherlands vs. Japan end in a draw?)
+2026-06-14 22:57:00 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.550 | $393.27 USDC | Côte d'Ivoire vs. Ecuador: Both Teams to Score)
+2026-06-14 22:57:00 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.550 | $2949.05 USDC | Côte d'Ivoire vs. Ecuador: Both Teams to Score)
+2026-06-14 22:57:00 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.040 | $198.10 USDC | Côte d'Ivoire vs. Ecuador: O/U 4.5)
+2026-06-14 22:57:00 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.840 | $928.44 USDC | Côte d'Ivoire vs. Ecuador: O/U 3.5)
+2026-06-14 22:57:00 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.830 | $9.33 USDC | Côte d'Ivoire vs. Ecuador: O/U 3.5)
 ```
 
 ## Letzte Fehler (3)

@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-14 02:57:25 UTC
+> 2026-06-14 03:02:28 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 3741059s | HB: WARNUNG 572s alt
+STALE — lief vor 3741362s | HB: OK (22s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-06-14 00:32:15 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.840 | $5.25 USDC | Will Haiti win on 2026-06-13?)
-2026-06-14 00:32:15 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.840 | $10.19 USDC | Will Haiti win on 2026-06-13?)
-2026-06-14 00:32:15 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.840 | $10.19 USDC | Will Haiti win on 2026-06-13?)
-2026-06-14 00:32:15 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.840 | $52.50 USDC | Will Haiti win on 2026-06-13?)
-2026-06-14 00:32:15 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.840 | $50.92 USDC | Will Haiti win on 2026-06-13?)
+2026-06-14 02:58:07 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.570 | $7036.65 USDC | Will Türkiye win on 2026-06-14?)
+2026-06-14 02:58:07 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.570 | $19.30 USDC | Will Türkiye win on 2026-06-14?)
+2026-06-14 02:58:07 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.570 | $9.54 USDC | Will Türkiye win on 2026-06-14?)
+2026-06-14 02:58:07 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.570 | $7.06 USDC | Will Türkiye win on 2026-06-14?)
+2026-06-14 02:58:07 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.570 | $6.84 USDC | Will Türkiye win on 2026-06-14?)
 ```
 
 ## Letzte Fehler (3)

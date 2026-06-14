@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-14 10:15:51 UTC
+> 2026-06-14 10:21:04 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 3767365s | HB: WARNUNG 405s alt
+STALE — lief vor 3767679s | HB: OK (7s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-06-14 07:51:19 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $9.24 USDC | Will Arsenal FC win on 2026-02-22?)
-2026-06-14 07:51:19 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $7.00 USDC | Will Arsenal FC win on 2026-02-22?)
-2026-06-14 07:51:19 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $23.17 USDC | Will Arsenal FC win on 2026-02-22?)
-2026-06-14 07:51:19 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $12.39 USDC | Will Arsenal FC win on 2026-02-22?)
-2026-06-14 07:51:19 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $31.43 USDC | Will Arsenal FC win on 2026-02-22?)
+2026-06-14 10:19:59 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Kimberly Birrell @ $0.550 | $46.54 USDC | Nottingham Open, Qualification: Katie Volynets vs Kimberly B)
+2026-06-14 10:19:59 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Kimberly Birrell @ $0.550 | $6.11 USDC | Nottingham Open, Qualification: Katie Volynets vs Kimberly B)
+2026-06-14 10:19:59 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Kimberly Birrell @ $0.550 | $11.70 USDC | Nottingham Open, Qualification: Katie Volynets vs Kimberly B)
+2026-06-14 10:19:59 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Kimberly Birrell @ $0.550 | $7.83 USDC | Nottingham Open, Qualification: Katie Volynets vs Kimberly B)
+2026-06-14 10:19:59 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Kimberly Birrell @ $0.550 | $11.95 USDC | Nottingham Open, Qualification: Katie Volynets vs Kimberly B)
 ```
 
 ## Letzte Fehler (3)

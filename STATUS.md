@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-14 20:24:50 UTC
+> 2026-06-14 20:29:54 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 3803904s | HB: WARNUNG 526s alt
+STALE — lief vor 3804208s | HB: OK (27s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-06-14 17:51:36 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Seattle Mariners @ $0.610 | $91.77 USDC | Seattle Mariners vs. Washington Nationals)
-2026-06-14 17:51:36 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Seattle Mariners @ $0.610 | $7.32 USDC | Seattle Mariners vs. Washington Nationals)
-2026-06-14 17:51:36 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Seattle Mariners @ $0.610 | $250.10 USDC | Seattle Mariners vs. Washington Nationals)
-2026-06-14 17:51:36 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Seattle Mariners @ $0.610 | $6.71 USDC | Seattle Mariners vs. Washington Nationals)
-2026-06-14 17:51:36 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Seattle Mariners @ $0.610 | $7.82 USDC | Seattle Mariners vs. Washington Nationals)
+2026-06-14 20:27:30 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.780 | $15.60 USDC | Málaga CF vs. UD Almería: O/U 1.5)
+2026-06-14 20:27:30 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Japan @ $0.800 | $206.44 USDC | Spread: Netherlands (-1.5))
+2026-06-14 20:27:30 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.270 | $110.96 USDC | Will Netherlands vs. Japan end in a draw?)
+2026-06-14 20:27:30 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.270 | $286.93 USDC | Will Netherlands vs. Japan end in a draw?)
+2026-06-14 20:27:30 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.270 | $54.00 USDC | Will Netherlands vs. Japan end in a draw?)
 ```
 
 ## Letzte Fehler (3)

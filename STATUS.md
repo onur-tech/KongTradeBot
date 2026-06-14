@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-14 05:19:37 UTC
+> 2026-06-14 05:24:38 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 3749591s | HB: WARNUNG 369s alt
+STALE — lief vor 3749892s | HB: OK (46s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-06-14 02:58:07 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.570 | $7036.65 USDC | Will Türkiye win on 2026-06-14?)
-2026-06-14 02:58:07 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.570 | $19.30 USDC | Will Türkiye win on 2026-06-14?)
-2026-06-14 02:58:07 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.570 | $9.54 USDC | Will Türkiye win on 2026-06-14?)
-2026-06-14 02:58:07 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.570 | $7.06 USDC | Will Türkiye win on 2026-06-14?)
-2026-06-14 02:58:07 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.570 | $6.84 USDC | Will Türkiye win on 2026-06-14?)
+2026-06-14 05:23:53 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.140 | $14.00 USDC | Will Türkiye win on 2026-06-14?)
+2026-06-14 05:23:53 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.140 | $42.00 USDC | Will Türkiye win on 2026-06-14?)
+2026-06-14 05:23:53 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.140 | $12.60 USDC | Will Türkiye win on 2026-06-14?)
+2026-06-14 05:23:53 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.140 | $23.43 USDC | Will Türkiye win on 2026-06-14?)
+2026-06-14 05:23:53 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.070 | $7.53 USDC | Australia vs. Türkiye: O/U 3.5)
 ```
 
 ## Letzte Fehler (3)

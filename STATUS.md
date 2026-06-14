@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-14 15:17:20 UTC
+> 2026-06-14 15:22:26 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 3785454s | HB: WARNUNG 549s alt
+STALE — lief vor 3785760s | HB: OK (5s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-06-14 12:49:09 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Alex Bolt @ $0.450 | $489.60 USDC | Halle Open, Qualification: Mattia Bellucci vs Alex Bolt)
-2026-06-14 12:49:09 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Mattia Bellucci @ $0.550 | $34.87 USDC | Halle Open, Qualification: Mattia Bellucci vs Alex Bolt)
-2026-06-14 12:49:09 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Mattia Bellucci @ $0.550 | $34.88 USDC | Halle Open, Qualification: Mattia Bellucci vs Alex Bolt)
-2026-06-14 12:49:09 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Kimberly Birrell @ $0.150 | $6.89 USDC | Nottingham Open, Qualification: Katie Volynets vs Kimberly B)
-2026-06-14 12:49:09 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Mattia Bellucci @ $0.550 | $5.97 USDC | Halle Open, Qualification: Mattia Bellucci vs Alex Bolt)
+2026-06-14 15:19:24 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Himeno Sakatsume @ $0.870 | $33.46 USDC | Nottingham Open, Qualification: Himeno Sakatsume vs Alicia D)
+2026-06-14 15:19:24 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Himeno Sakatsume @ $0.870 | $133.85 USDC | Nottingham Open, Qualification: Himeno Sakatsume vs Alicia D)
+2026-06-14 15:19:24 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yunchaokete Bu @ $0.770 | $139.40 USDC | Ilkley: Jacob Fearnley vs Yunchaokete Bu)
+2026-06-14 15:19:24 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Antonia Ruzic @ $0.526 | $30.43 USDC | Nottingham Open, Qualification: Antonia Ruzic vs Taylah Pres)
+2026-06-14 15:19:24 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Himeno Sakatsume @ $0.870 | $34.80 USDC | Nottingham Open, Qualification: Himeno Sakatsume vs Alicia D)
 ```
 
 ## Letzte Fehler (3)

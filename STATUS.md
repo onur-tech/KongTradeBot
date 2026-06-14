@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-14 12:46:32 UTC
+> 2026-06-14 12:51:32 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 3776406s | HB: WARNUNG 501s alt
+STALE — lief vor 3776706s | HB: OK (25s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-06-14 10:19:59 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Kimberly Birrell @ $0.550 | $46.54 USDC | Nottingham Open, Qualification: Katie Volynets vs Kimberly B)
-2026-06-14 10:19:59 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Kimberly Birrell @ $0.550 | $6.11 USDC | Nottingham Open, Qualification: Katie Volynets vs Kimberly B)
-2026-06-14 10:19:59 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Kimberly Birrell @ $0.550 | $11.70 USDC | Nottingham Open, Qualification: Katie Volynets vs Kimberly B)
-2026-06-14 10:19:59 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Kimberly Birrell @ $0.550 | $7.83 USDC | Nottingham Open, Qualification: Katie Volynets vs Kimberly B)
-2026-06-14 10:19:59 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Kimberly Birrell @ $0.550 | $11.95 USDC | Nottingham Open, Qualification: Katie Volynets vs Kimberly B)
+2026-06-14 12:49:09 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Alex Bolt @ $0.450 | $489.60 USDC | Halle Open, Qualification: Mattia Bellucci vs Alex Bolt)
+2026-06-14 12:49:09 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Mattia Bellucci @ $0.550 | $34.87 USDC | Halle Open, Qualification: Mattia Bellucci vs Alex Bolt)
+2026-06-14 12:49:09 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Mattia Bellucci @ $0.550 | $34.88 USDC | Halle Open, Qualification: Mattia Bellucci vs Alex Bolt)
+2026-06-14 12:49:09 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Kimberly Birrell @ $0.150 | $6.89 USDC | Nottingham Open, Qualification: Katie Volynets vs Kimberly B)
+2026-06-14 12:49:09 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Mattia Bellucci @ $0.550 | $5.97 USDC | Halle Open, Qualification: Mattia Bellucci vs Alex Bolt)
 ```
 
 ## Letzte Fehler (3)

@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-14 17:49:17 UTC
+> 2026-06-14 17:54:24 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 3794571s | HB: WARNUNG 553s alt
+STALE — lief vor 3794878s | HB: OK (50s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-06-14 15:19:24 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Himeno Sakatsume @ $0.870 | $33.46 USDC | Nottingham Open, Qualification: Himeno Sakatsume vs Alicia D)
-2026-06-14 15:19:24 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Himeno Sakatsume @ $0.870 | $133.85 USDC | Nottingham Open, Qualification: Himeno Sakatsume vs Alicia D)
-2026-06-14 15:19:24 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yunchaokete Bu @ $0.770 | $139.40 USDC | Ilkley: Jacob Fearnley vs Yunchaokete Bu)
-2026-06-14 15:19:24 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Antonia Ruzic @ $0.526 | $30.43 USDC | Nottingham Open, Qualification: Antonia Ruzic vs Taylah Pres)
-2026-06-14 15:19:24 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Himeno Sakatsume @ $0.870 | $34.80 USDC | Nottingham Open, Qualification: Himeno Sakatsume vs Alicia D)
+2026-06-14 17:51:36 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Seattle Mariners @ $0.610 | $91.77 USDC | Seattle Mariners vs. Washington Nationals)
+2026-06-14 17:51:36 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Seattle Mariners @ $0.610 | $7.32 USDC | Seattle Mariners vs. Washington Nationals)
+2026-06-14 17:51:36 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Seattle Mariners @ $0.610 | $250.10 USDC | Seattle Mariners vs. Washington Nationals)
+2026-06-14 17:51:36 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Seattle Mariners @ $0.610 | $6.71 USDC | Seattle Mariners vs. Washington Nationals)
+2026-06-14 17:51:36 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Seattle Mariners @ $0.610 | $7.82 USDC | Seattle Mariners vs. Washington Nationals)
 ```
 
 ## Letzte Fehler (3)

@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-14 00:30:45 UTC
+> 2026-06-14 00:35:53 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 3732259s | HB: WARNUNG 532s alt
+STALE — lief vor 3732567s | HB: OK (39s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-06-13 22:05:56 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.160 | $38.82 USDC | Will France win the 2026 FIFA World Cup?)
-2026-06-13 22:05:56 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.160 | $138.34 USDC | Will France win the 2026 FIFA World Cup?)
-2026-06-13 22:05:56 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.160 | $35.37 USDC | Will France win the 2026 FIFA World Cup?)
-2026-06-13 22:05:56 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.160 | $566.39 USDC | Will France win the 2026 FIFA World Cup?)
-2026-06-13 22:05:56 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.160 | $19.88 USDC | Will France win the 2026 FIFA World Cup?)
+2026-06-14 00:32:15 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.840 | $5.25 USDC | Will Haiti win on 2026-06-13?)
+2026-06-14 00:32:15 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.840 | $10.19 USDC | Will Haiti win on 2026-06-13?)
+2026-06-14 00:32:15 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.840 | $10.19 USDC | Will Haiti win on 2026-06-13?)
+2026-06-14 00:32:15 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.840 | $52.50 USDC | Will Haiti win on 2026-06-13?)
+2026-06-14 00:32:15 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.840 | $50.92 USDC | Will Haiti win on 2026-06-13?)
 ```
 
 ## Letzte Fehler (3)

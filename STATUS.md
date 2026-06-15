@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-15 16:32:42 UTC
+> 2026-06-15 16:37:46 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 3876376s | HB: STALE 838s alt (Bot moeglicherweise haengend)
+STALE — lief vor 3876680s | HB: OK (50s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-06-15 13:57:15 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Elias Ymer @ $0.420 | $193.17 USDC | Dublin: Elias Ymer vs Henry Searle)
-2026-06-15 13:57:15 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Diana Shnaider @ $0.520 | $1084.52 USDC | Grass Court Championships: Nikola Bartunkova vs Diana Shnaid)
-2026-06-15 13:57:15 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.070 | $75.27 USDC | Will Spain win on 2026-06-15?)
-2026-06-15 13:57:15 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.070 | $73.08 USDC | Will Spain win on 2026-06-15?)
-2026-06-15 13:57:15 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.021 | $28.04 USDC | Will USA win the 2026 FIFA World Cup?)
+2026-06-15 16:33:00 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.021 | $21.00 USDC | Will USA win the 2026 FIFA World Cup?)
+2026-06-15 16:33:00 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.021 | $42.00 USDC | Will USA win the 2026 FIFA World Cup?)
+2026-06-15 16:33:00 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.021 | $21.00 USDC | Will USA win the 2026 FIFA World Cup?)
+2026-06-15 16:33:00 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.021 | $42.00 USDC | Will USA win the 2026 FIFA World Cup?)
+2026-06-15 16:33:00 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.021 | $6.78 USDC | Will USA win the 2026 FIFA World Cup?)
 ```
 
 ## Letzte Fehler (3)

@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-15 08:43:47 UTC
+> 2026-06-15 08:48:43 UTC
 
 ## Bot-Status
 ```
@@ -14,21 +14,25 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 3848241s | HB: WARNUNG 432s alt
+STALE — lief vor 3848537s | HB: OK (51s alt)
 ```
 
 ## Portfolio
 ```
-Dashboard nicht erreichbar: timed out
+Total:         $6.41 USDC
+Cash:          $0.00 USDC
+In Positionen: $6.41 USDC
+Offene Pos.:   1
+PnL heute:     $0.00
 ```
 
 ## Letzte Trades (5)
 ```
-2026-06-15 06:17:08 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $7.00 USDC | Will Arsenal FC win on 2026-02-22?)
-2026-06-15 06:17:08 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $14.30 USDC | Will Arsenal FC win on 2026-02-22?)
-2026-06-15 06:17:08 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $23.17 USDC | Will Arsenal FC win on 2026-02-22?)
-2026-06-15 06:17:08 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $12.39 USDC | Will Arsenal FC win on 2026-02-22?)
-2026-06-15 06:17:08 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $31.43 USDC | Will Arsenal FC win on 2026-02-22?)
+2026-06-15 08:47:55 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.160 | $29.81 USDC | Will France win the 2026 FIFA World Cup?)
+2026-06-15 08:47:55 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.162 | $50.00 USDC | Will Spain win the 2026 FIFA World Cup?)
+2026-06-15 08:47:55 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.160 | $32.00 USDC | Will France win the 2026 FIFA World Cup?)
+2026-06-15 08:47:55 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.162 | $7.25 USDC | Will Spain win the 2026 FIFA World Cup?)
+2026-06-15 08:47:55 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.162 | $10.00 USDC | Will Spain win the 2026 FIFA World Cup?)
 ```
 
 ## Letzte Fehler (3)

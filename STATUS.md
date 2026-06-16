@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-16 03:06:39 UTC
+> 2026-06-16 03:11:39 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 3914413s | HB: WARNUNG 398s alt
+STALE — lief vor 3914713s | HB: OK (28s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-06-16 00:44:24 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.710 | $313.38 USDC | Will IR Iran vs. New Zealand end in a draw?)
-2026-06-16 00:44:24 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.710 | $69.65 USDC | Will IR Iran vs. New Zealand end in a draw?)
-2026-06-16 00:44:24 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.710 | $71.56 USDC | Will IR Iran vs. New Zealand end in a draw?)
-2026-06-16 00:44:24 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.710 | $24.48 USDC | Will IR Iran vs. New Zealand end in a draw?)
-2026-06-16 00:44:24 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.710 | $11.87 USDC | Will IR Iran vs. New Zealand end in a draw?)
+2026-06-16 03:10:12 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.066 | $8.54 USDC | Will Brazil win the 2026 FIFA World Cup?)
+2026-06-16 03:10:12 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.066 | $7.07 USDC | Will Brazil win the 2026 FIFA World Cup?)
+2026-06-16 03:10:12 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Norway @ $0.370 | $6.99 USDC | Spread: Norway (-2.5))
+2026-06-16 03:10:12 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.066 | $75.90 USDC | Will Brazil win the 2026 FIFA World Cup?)
+2026-06-16 03:10:12 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Norway @ $0.370 | $117.46 USDC | Spread: Norway (-2.5))
 ```
 
 ## Letzte Fehler (3)

@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-16 14:52:28 UTC
+> 2026-06-16 14:57:29 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 3956762s | HB: WARNUNG 488s alt
+STALE — lief vor 3957063s | HB: OK (12s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-06-16 12:46:13 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Cosme de Ravel @ $0.110 | $22.25 USDC | Royan: Cosme de Ravel vs Geoffrey Blancaneaux)
-2026-06-16 12:46:13 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Cosme de Ravel @ $0.110 | $13.69 USDC | Royan: Cosme de Ravel vs Geoffrey Blancaneaux)
-2026-06-16 12:46:13 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Tallon Griekspoor @ $0.300 | $128.57 USDC | Halle Open: Tallon Griekspoor vs Sho Shimabukuro)
-2026-06-16 12:46:13 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Conor Gannon @ $0.410 | $93.25 USDC | Dublin: Bernard Tomic vs Conor Gannon)
-2026-06-16 12:46:13 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.066 | $130.15 USDC | Will Brazil win the 2026 FIFA World Cup?)
+2026-06-16 14:56:20 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.800 | $40.00 USDC | Will Norway win on 2026-06-16?)
+2026-06-16 14:56:20 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.800 | $40.00 USDC | Will Norway win on 2026-06-16?)
+2026-06-16 14:56:20 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.800 | $38.68 USDC | Will Norway win on 2026-06-16?)
+2026-06-16 14:56:20 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.800 | $35.20 USDC | Will Norway win on 2026-06-16?)
+2026-06-16 14:56:20 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.800 | $8.00 USDC | Will Norway win on 2026-06-16?)
 ```
 
 ## Letzte Fehler (3)

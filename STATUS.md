@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-16 17:54:30 UTC
+> 2026-06-16 17:59:31 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 3967684s | HB: STALE 1020s alt (Bot moeglicherweise haengend)
+STALE — lief vor 3967985s | HB: OK (51s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-06-16 14:56:20 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.800 | $40.00 USDC | Will Norway win on 2026-06-16?)
-2026-06-16 14:56:20 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.800 | $40.00 USDC | Will Norway win on 2026-06-16?)
-2026-06-16 14:56:20 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.800 | $38.68 USDC | Will Norway win on 2026-06-16?)
-2026-06-16 14:56:20 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.800 | $35.20 USDC | Will Norway win on 2026-06-16?)
-2026-06-16 14:56:20 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.800 | $8.00 USDC | Will Norway win on 2026-06-16?)
+2026-06-16 17:54:44 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Norway @ $0.580 | $55.24 USDC | Spread: Norway (-1.5))
+2026-06-16 17:54:44 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Norway @ $0.580 | $27.46 USDC | Spread: Norway (-1.5))
+2026-06-16 17:54:44 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Norway @ $0.580 | $96.67 USDC | Spread: Norway (-1.5))
+2026-06-16 17:54:44 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Norway @ $0.580 | $6.90 USDC | Spread: Norway (-1.5))
+2026-06-16 17:54:44 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Norway @ $0.580 | $45.99 USDC | Spread: Norway (-1.5))
 ```
 
 ## Letzte Fehler (3)

@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-16 00:43:29 UTC
+> 2026-06-16 00:48:33 UTC
 
 ## Bot-Status
 ```
@@ -14,21 +14,25 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 3905823s | HB: WARNUNG 577s alt
+STALE — lief vor 3906127s | HB: OK (11s alt)
 ```
 
 ## Portfolio
 ```
-Dashboard nicht erreichbar: timed out
+Total:         $0.00 USDC
+Cash:          $0.00 USDC
+In Positionen: $0.00 USDC
+Offene Pos.:   0
+PnL heute:     $0.00
 ```
 
 ## Letzte Trades (5)
 ```
-2026-06-15 22:17:51 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.169 | $9.70 USDC | Will France win the 2026 FIFA World Cup?)
-2026-06-15 22:17:51 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.169 | $34.87 USDC | Will France win the 2026 FIFA World Cup?)
-2026-06-15 22:17:51 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.169 | $10.00 USDC | Will France win the 2026 FIFA World Cup?)
-2026-06-15 22:17:51 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.169 | $124.00 USDC | Will France win the 2026 FIFA World Cup?)
-2026-06-15 22:17:51 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.169 | $48.54 USDC | Will France win the 2026 FIFA World Cup?)
+2026-06-16 00:44:24 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.710 | $313.38 USDC | Will IR Iran vs. New Zealand end in a draw?)
+2026-06-16 00:44:24 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.710 | $69.65 USDC | Will IR Iran vs. New Zealand end in a draw?)
+2026-06-16 00:44:24 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.710 | $71.56 USDC | Will IR Iran vs. New Zealand end in a draw?)
+2026-06-16 00:44:24 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.710 | $24.48 USDC | Will IR Iran vs. New Zealand end in a draw?)
+2026-06-16 00:44:24 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.710 | $11.87 USDC | Will IR Iran vs. New Zealand end in a draw?)
 ```
 
 ## Letzte Fehler (3)

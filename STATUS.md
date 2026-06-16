@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-16 07:40:05 UTC
+> 2026-06-16 07:45:20 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 3930819s | HB: WARNUNG 635s alt
+STALE — lief vor 3931134s | HB: OK (53s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-06-16 05:12:21 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Norway @ $0.590 | $7.20 USDC | Spread: Norway (-1.5))
-2026-06-16 05:12:21 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.066 | $19.64 USDC | Will Brazil win the 2026 FIFA World Cup?)
-2026-06-16 05:12:21 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Norway @ $0.360 | $54.25 USDC | Spread: Norway (-2.5))
-2026-06-16 05:12:21 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Norway @ $0.360 | $28.44 USDC | Spread: Norway (-2.5))
-2026-06-16 05:12:21 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Norway @ $0.360 | $168.75 USDC | Spread: Norway (-2.5))
+2026-06-16 07:40:29 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Corentin Moutet @ $0.500 | $300.00 USDC | HSBC Championships: Giovanni Mpetshi Perricard vs Corentin M)
+2026-06-16 07:40:29 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Corentin Moutet @ $0.500 | $9.41 USDC | HSBC Championships: Giovanni Mpetshi Perricard vs Corentin M)
+2026-06-16 07:40:29 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.710 | $4970.00 USDC | Will Austria win on 2026-06-17?)
+2026-06-16 07:40:29 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.066 | $35.87 USDC | Will Brazil win the 2026 FIFA World Cup?)
+2026-06-16 07:40:29 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.066 | $13.20 USDC | Will Brazil win the 2026 FIFA World Cup?)
 ```
 
 ## Letzte Fehler (3)

@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-17 01:45:42 UTC
+> 2026-06-17 01:50:41 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 3995956s | HB: WARNUNG 486s alt
+STALE — lief vor 3996255s | HB: OK (49s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-06-16 23:21:28 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Kansas City Royals @ $0.410 | $785.68 USDC | Spread: Washington Nationals (-1.5))
-2026-06-16 23:21:28 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.730 | $270.37 USDC | Iraq vs. Norway: O/U 3.5)
-2026-06-16 23:21:28 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.066 | $107.56 USDC | Will Brazil win the 2026 FIFA World Cup?)
-2026-06-16 23:21:28 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.066 | $6.60 USDC | Will Brazil win the 2026 FIFA World Cup?)
-2026-06-16 23:21:28 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.066 | $6.60 USDC | Will Brazil win the 2026 FIFA World Cup?)
+2026-06-17 01:47:53 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.066 | $66.00 USDC | Will Brazil win the 2026 FIFA World Cup?)
+2026-06-17 01:47:53 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.066 | $66.00 USDC | Will Brazil win the 2026 FIFA World Cup?)
+2026-06-17 01:47:53 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.066 | $66.00 USDC | Will Brazil win the 2026 FIFA World Cup?)
+2026-06-17 01:47:53 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.066 | $66.00 USDC | Will Brazil win the 2026 FIFA World Cup?)
+2026-06-17 01:47:53 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.066 | $245.90 USDC | Will Brazil win the 2026 FIFA World Cup?)
 ```
 
 ## Letzte Fehler (3)

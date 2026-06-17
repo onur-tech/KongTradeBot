@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-17 09:08:17 UTC
+> 2026-06-17 09:13:19 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 4022511s | HB: WARNUNG 403s alt
+STALE — lief vor 4022813s | HB: OK (10s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-06-17 06:41:54 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.600 | $24.77 USDC | Portugal vs. DR Congo: Portugal O/U 2.5)
-2026-06-17 06:41:54 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.016 | $351.26 USDC | Will Belgium win the 2026 FIFA World Cup?)
-2026-06-17 06:41:54 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.066 | $13.20 USDC | Will Brazil win the 2026 FIFA World Cup?)
-2026-06-17 06:41:54 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.066 | $7.07 USDC | Will Brazil win the 2026 FIFA World Cup?)
-2026-06-17 06:41:54 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.066 | $6.60 USDC | Will Brazil win the 2026 FIFA World Cup?)
+2026-06-17 09:13:11 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.066 | $7.92 USDC | Will Brazil win the 2026 FIFA World Cup?)
+2026-06-17 09:13:11 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.066 | $39.85 USDC | Will Brazil win the 2026 FIFA World Cup?)
+2026-06-17 09:13:11 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.016 | $24.44 USDC | Will Belgium win the 2026 FIFA World Cup?)
+2026-06-17 09:13:11 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.066 | $78.57 USDC | Will Brazil win the 2026 FIFA World Cup?)
+2026-06-17 09:13:11 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.016 | $76.19 USDC | Will Belgium win the 2026 FIFA World Cup?)
 ```
 
 ## Letzte Fehler (3)

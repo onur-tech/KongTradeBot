@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-18 09:44:26 UTC
+> 2026-06-18 09:49:26 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 4111080s | HB: WARNUNG 599s alt
+STALE — lief vor 4111380s | HB: OK (30s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-06-18 08:29:29 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.470 | $11.36 USDC | Will Czechia win on 2026-06-18?)
-2026-06-18 08:29:29 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.470 | $8.87 USDC | Will Czechia win on 2026-06-18?)
-2026-06-18 08:29:29 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.470 | $101.98 USDC | Will Czechia win on 2026-06-18?)
-2026-06-18 08:29:29 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.470 | $23.20 USDC | Will Czechia win on 2026-06-18?)
-2026-06-18 08:29:29 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.470 | $61.09 USDC | Will Czechia win on 2026-06-18?)
+2026-06-18 09:45:58 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.066 | $24.03 USDC | Will Brazil win the 2026 FIFA World Cup?)
+2026-06-18 09:45:58 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.066 | $19.80 USDC | Will Brazil win the 2026 FIFA World Cup?)
+2026-06-18 09:45:58 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.066 | $66.00 USDC | Will Brazil win the 2026 FIFA World Cup?)
+2026-06-18 09:45:58 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.066 | $38.82 USDC | Will Brazil win the 2026 FIFA World Cup?)
+2026-06-18 09:45:58 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.066 | $6.78 USDC | Will Brazil win the 2026 FIFA World Cup?)
 ```
 
 ## Letzte Fehler (3)

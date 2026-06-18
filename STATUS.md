@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-18 08:29:06 UTC
+> 2026-06-18 08:34:09 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 4106560s | HB: WARNUNG 650s alt
+STALE — lief vor 4106863s | HB: OK (41s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-06-18 05:59:49 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.066 | $8.41 USDC | Will Brazil win the 2026 FIFA World Cup?)
-2026-06-18 05:59:49 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.066 | $8.48 USDC | Will Brazil win the 2026 FIFA World Cup?)
-2026-06-18 05:59:49 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.066 | $9.19 USDC | Will Brazil win the 2026 FIFA World Cup?)
-2026-06-18 05:59:49 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.066 | $9.26 USDC | Will Brazil win the 2026 FIFA World Cup?)
-2026-06-18 05:59:49 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.066 | $8.90 USDC | Will Brazil win the 2026 FIFA World Cup?)
+2026-06-18 08:29:29 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.470 | $11.36 USDC | Will Czechia win on 2026-06-18?)
+2026-06-18 08:29:29 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.470 | $8.87 USDC | Will Czechia win on 2026-06-18?)
+2026-06-18 08:29:29 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.470 | $101.98 USDC | Will Czechia win on 2026-06-18?)
+2026-06-18 08:29:29 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.470 | $23.20 USDC | Will Czechia win on 2026-06-18?)
+2026-06-18 08:29:29 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.470 | $61.09 USDC | Will Czechia win on 2026-06-18?)
 ```
 
 ## Letzte Fehler (3)

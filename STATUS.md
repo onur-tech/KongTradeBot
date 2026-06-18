@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-18 14:26:26 UTC
+> 2026-06-18 14:31:27 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 4128000s | HB: WARNUNG 511s alt
+STALE — lief vor 4128301s | HB: OK (36s alt)
 ```
 
 ## Portfolio
@@ -37,9 +37,9 @@ PnL heute:     $0.00
 
 ## Letzte Fehler (3)
 ```
+The above exception was the direct cause of the following exception:
 raise asyncio.TimeoutError from exc_val
 TimeoutError
-2026-06-18 14:14:13 | ERROR    | polymarket_bot.claim | fetch_redeemable_positions fehlgeschlagen:
 ```
 
 ---

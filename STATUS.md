@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-18 19:16:27 UTC
+> 2026-06-18 19:21:29 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 4145401s | HB: STALE 743s alt (Bot moeglicherweise haengend)
+STALE — lief vor 4145703s | HB: OK (58s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-06-18 16:16:43 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $7.00 USDC | Will Arsenal FC win on 2026-02-22?)
-2026-06-18 16:16:43 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $14.30 USDC | Will Arsenal FC win on 2026-02-22?)
-2026-06-18 16:16:43 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $23.17 USDC | Will Arsenal FC win on 2026-02-22?)
-2026-06-18 16:16:43 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $12.39 USDC | Will Arsenal FC win on 2026-02-22?)
-2026-06-18 16:16:43 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $31.43 USDC | Will Arsenal FC win on 2026-02-22?)
+2026-06-18 19:20:37 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.090 | $9.89 USDC | Switzerland vs. Bosnia and Herzegovina: O/U 4.5)
+2026-06-18 19:20:37 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.090 | $9.89 USDC | Switzerland vs. Bosnia and Herzegovina: O/U 4.5)
+2026-06-18 19:20:37 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.090 | $9.89 USDC | Switzerland vs. Bosnia and Herzegovina: O/U 4.5)
+2026-06-18 19:20:37 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.410 | $16.40 USDC | Switzerland vs. Bosnia and Herzegovina: Both Teams to Score)
+2026-06-18 19:20:37 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.015 | $1036.87 USDC | Will Belgium win the 2026 FIFA World Cup?)
 ```
 
 ## Letzte Fehler (3)

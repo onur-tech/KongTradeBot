@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-18 11:25:04 UTC
+> 2026-06-18 11:30:04 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 4117118s | HB: WARNUNG 476s alt
+STALE — lief vor 4117418s | HB: OK (15s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-06-18 09:45:58 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.066 | $24.03 USDC | Will Brazil win the 2026 FIFA World Cup?)
-2026-06-18 09:45:58 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.066 | $19.80 USDC | Will Brazil win the 2026 FIFA World Cup?)
-2026-06-18 09:45:58 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.066 | $66.00 USDC | Will Brazil win the 2026 FIFA World Cup?)
-2026-06-18 09:45:58 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.066 | $38.82 USDC | Will Brazil win the 2026 FIFA World Cup?)
-2026-06-18 09:45:58 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.066 | $6.78 USDC | Will Brazil win the 2026 FIFA World Cup?)
+2026-06-18 11:28:51 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Caty McNally @ $0.310 | $164.54 USDC | Nottingham Open: Karolina Pliskova vs Caty McNally)
+2026-06-18 11:28:51 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.066 | $46.84 USDC | Will Brazil win the 2026 FIFA World Cup?)
+2026-06-18 11:28:51 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.066 | $29.55 USDC | Will Brazil win the 2026 FIFA World Cup?)
+2026-06-18 11:28:51 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.066 | $7.01 USDC | Will Brazil win the 2026 FIFA World Cup?)
+2026-06-18 11:28:51 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.066 | $6.60 USDC | Will Brazil win the 2026 FIFA World Cup?)
 ```
 
 ## Letzte Fehler (3)

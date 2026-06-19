@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-19 05:44:29 UTC
+> 2026-06-19 05:49:32 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 4183083s | HB: WARNUNG 421s alt
+STALE — lief vor 4183386s | HB: OK (22s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-06-19 03:20:58 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Hamad Medjedovic @ $0.440 | $298.61 USDC | HSBC Championships: Hamad Medjedovic vs Ugo Humbert)
-2026-06-19 03:20:58 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Athletics @ $0.971 | $502.24 USDC | Los Angeles Angels vs. Athletics)
-2026-06-19 03:20:58 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Athletics @ $0.971 | $28.63 USDC | Los Angeles Angels vs. Athletics)
-2026-06-19 03:20:58 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.760 | $47.50 USDC | Los Angeles Angels vs. Athletics: O/U 9.5)
-2026-06-19 03:20:58 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.015 | $17.86 USDC | Will Belgium win the 2026 FIFA World Cup?)
+2026-06-19 05:48:12 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Lucie Nguyen Tan @ $0.680 | $273.86 USDC | ITF Blois: Lucie Nguyen Tan vs Despina Papamichail)
+2026-06-19 05:48:12 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.015 | $72.81 USDC | Will Belgium win the 2026 FIFA World Cup?)
+2026-06-19 05:48:12 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.015 | $37.31 USDC | Will Belgium win the 2026 FIFA World Cup?)
+2026-06-19 05:48:12 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.015 | $150.00 USDC | Will Belgium win the 2026 FIFA World Cup?)
+2026-06-19 05:48:12 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.015 | $6.26 USDC | Will Belgium win the 2026 FIFA World Cup?)
 ```
 
 ## Letzte Fehler (3)

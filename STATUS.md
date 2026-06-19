@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-19 18:10:38 UTC
+> 2026-06-19 18:15:38 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 4227852s | HB: WARNUNG 547s alt
+STALE — lief vor 4228152s | HB: OK (17s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-06-19 16:04:47 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Daniel Altmaier @ $0.470 | $87.79 USDC | Halle Open: Daniel Altmaier vs Daniil Medvedev)
-2026-06-19 16:04:47 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Ann Li @ $0.480 | $1364.08 USDC | Nottingham Open: Ann Li vs Viktorija Golubic)
-2026-06-19 16:04:47 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Viktorija Golubic @ $0.500 | $8.63 USDC | Nottingham Open: Ann Li vs Viktorija Golubic)
-2026-06-19 16:04:47 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Daniel Altmaier @ $0.450 | $97.36 USDC | Halle Open: Daniel Altmaier vs Daniil Medvedev)
-2026-06-19 16:04:48 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.015 | $11.25 USDC | Will Belgium win the 2026 FIFA World Cup?)
+2026-06-19 18:14:24 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $7.00 USDC | Will Arsenal FC win on 2026-02-22?)
+2026-06-19 18:14:24 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $14.30 USDC | Will Arsenal FC win on 2026-02-22?)
+2026-06-19 18:14:24 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $23.17 USDC | Will Arsenal FC win on 2026-02-22?)
+2026-06-19 18:14:24 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $12.39 USDC | Will Arsenal FC win on 2026-02-22?)
+2026-06-19 18:14:24 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $31.43 USDC | Will Arsenal FC win on 2026-02-22?)
 ```
 
 ## Letzte Fehler (3)

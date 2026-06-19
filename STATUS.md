@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-19 20:21:36 UTC
+> 2026-06-19 20:26:36 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 4235710s | HB: WARNUNG 413s alt
+STALE — lief vor 4236010s | HB: OK (25s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-06-19 18:14:24 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $7.00 USDC | Will Arsenal FC win on 2026-02-22?)
-2026-06-19 18:14:24 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $14.30 USDC | Will Arsenal FC win on 2026-02-22?)
-2026-06-19 18:14:24 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $23.17 USDC | Will Arsenal FC win on 2026-02-22?)
-2026-06-19 18:14:24 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $12.39 USDC | Will Arsenal FC win on 2026-02-22?)
-2026-06-19 18:14:24 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $31.43 USDC | Will Arsenal FC win on 2026-02-22?)
+2026-06-19 20:26:16 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.021 | $5.96 USDC | Will United States vs. Australia end in a draw?)
+2026-06-19 20:26:16 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.021 | $15.47 USDC | Will United States vs. Australia end in a draw?)
+2026-06-19 20:26:16 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.977 | $91.97 USDC | United States vs. Australia: O/U 5.5)
+2026-06-19 20:26:16 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.750 | $7.50 USDC | United States vs. Australia: Australia O/U 0.5)
+2026-06-19 20:26:16 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.015 | $79.50 USDC | Will Belgium win the 2026 FIFA World Cup?)
 ```
 
 ## Letzte Fehler (3)

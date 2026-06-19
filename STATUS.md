@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-19 00:51:04 UTC
+> 2026-06-19 00:56:08 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 4165478s | HB: WARNUNG 456s alt
+STALE — lief vor 4165782s | HB: OK (13s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-06-18 22:26:43 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.430 | $27.43 USDC | Canada vs. Qatar: O/U 3.5)
-2026-06-18 22:26:43 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.015 | $500.00 USDC | Will Belgium win the 2026 FIFA World Cup?)
-2026-06-18 22:26:43 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.015 | $15112.51 USDC | Will Belgium win the 2026 FIFA World Cup?)
-2026-06-18 22:26:43 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.015 | $6.82 USDC | Will Belgium win the 2026 FIFA World Cup?)
-2026-06-18 22:26:43 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.015 | $29.59 USDC | Will Belgium win the 2026 FIFA World Cup?)
+2026-06-19 00:53:57 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.530 | $112.77 USDC | Will Mexico win on 2026-06-18?)
+2026-06-19 00:53:57 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.530 | $900.47 USDC | Will Mexico win on 2026-06-18?)
+2026-06-19 00:53:57 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.530 | $11.27 USDC | Will Mexico win on 2026-06-18?)
+2026-06-19 00:53:57 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.530 | $5.51 USDC | Will Mexico win on 2026-06-18?)
+2026-06-19 00:53:57 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.530 | $5.47 USDC | Will Mexico win on 2026-06-18?)
 ```
 
 ## Letzte Fehler (3)

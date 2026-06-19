@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-19 03:17:04 UTC
+> 2026-06-19 03:22:05 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 4174238s | HB: WARNUNG 394s alt
+STALE — lief vor 4174539s | HB: OK (9s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-06-19 00:53:57 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.530 | $112.77 USDC | Will Mexico win on 2026-06-18?)
-2026-06-19 00:53:57 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.530 | $900.47 USDC | Will Mexico win on 2026-06-18?)
-2026-06-19 00:53:57 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.530 | $11.27 USDC | Will Mexico win on 2026-06-18?)
-2026-06-19 00:53:57 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.530 | $5.51 USDC | Will Mexico win on 2026-06-18?)
-2026-06-19 00:53:57 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.530 | $5.47 USDC | Will Mexico win on 2026-06-18?)
+2026-06-19 03:20:58 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Hamad Medjedovic @ $0.440 | $298.61 USDC | HSBC Championships: Hamad Medjedovic vs Ugo Humbert)
+2026-06-19 03:20:58 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Athletics @ $0.971 | $502.24 USDC | Los Angeles Angels vs. Athletics)
+2026-06-19 03:20:58 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Athletics @ $0.971 | $28.63 USDC | Los Angeles Angels vs. Athletics)
+2026-06-19 03:20:58 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.760 | $47.50 USDC | Los Angeles Angels vs. Athletics: O/U 9.5)
+2026-06-19 03:20:58 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.015 | $17.86 USDC | Will Belgium win the 2026 FIFA World Cup?)
 ```
 
 ## Letzte Fehler (3)

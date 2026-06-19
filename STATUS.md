@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-19 10:46:50 UTC
+> 2026-06-19 10:51:59 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 4201224s | HB: WARNUNG 525s alt
+STALE — lief vor 4201533s | HB: OK (21s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-06-19 08:18:04 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.480 | $179.23 USDC | United States vs. Australia: Both Teams to Score)
-2026-06-19 08:18:04 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.480 | $17.92 USDC | United States vs. Australia: Both Teams to Score)
-2026-06-19 08:18:04 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.480 | $89.61 USDC | United States vs. Australia: Both Teams to Score)
-2026-06-19 08:18:04 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.480 | $8.06 USDC | United States vs. Australia: Both Teams to Score)
-2026-06-19 08:18:04 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.015 | $7.73 USDC | Will Belgium win the 2026 FIFA World Cup?)
+2026-06-19 10:49:40 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Jil Teichmann @ $0.640 | $32.36 USDC | Figueira Da Foz: Darja Vidmanova vs Jil Teichmann)
+2026-06-19 10:49:40 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Michele Ribecai @ $0.570 | $1060.86 USDC | Poznan: Michele Ribecai vs Facundo Acosta)
+2026-06-19 10:49:40 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Jessica Pegula @ $0.860 | $2596.35 USDC | Grass Court Championships: Jessica Pegula vs Madison Keys)
+2026-06-19 10:49:40 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Jessica Pegula @ $0.860 | $88.45 USDC | Grass Court Championships: Jessica Pegula vs Madison Keys)
+2026-06-19 10:49:40 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Jessica Pegula @ $0.860 | $19.90 USDC | Grass Court Championships: Jessica Pegula vs Madison Keys)
 ```
 
 ## Letzte Fehler (3)

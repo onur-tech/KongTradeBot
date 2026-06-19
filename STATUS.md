@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-19 13:22:28 UTC
+> 2026-06-19 13:27:29 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 4210562s | HB: WARNUNG 617s alt
+STALE — lief vor 4210863s | HB: OK (42s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-06-19 10:49:40 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Jil Teichmann @ $0.640 | $32.36 USDC | Figueira Da Foz: Darja Vidmanova vs Jil Teichmann)
-2026-06-19 10:49:40 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Michele Ribecai @ $0.570 | $1060.86 USDC | Poznan: Michele Ribecai vs Facundo Acosta)
-2026-06-19 10:49:40 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Jessica Pegula @ $0.860 | $2596.35 USDC | Grass Court Championships: Jessica Pegula vs Madison Keys)
-2026-06-19 10:49:40 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Jessica Pegula @ $0.860 | $88.45 USDC | Grass Court Championships: Jessica Pegula vs Madison Keys)
-2026-06-19 10:49:40 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Jessica Pegula @ $0.860 | $19.90 USDC | Grass Court Championships: Jessica Pegula vs Madison Keys)
+2026-06-19 13:23:48 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Hamad Medjedovic @ $0.470 | $44.34 USDC | HSBC Championships: Hamad Medjedovic vs Ugo Humbert)
+2026-06-19 13:23:48 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Hamad Medjedovic @ $0.470 | $8.87 USDC | HSBC Championships: Hamad Medjedovic vs Ugo Humbert)
+2026-06-19 13:23:48 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Hamad Medjedovic @ $0.470 | $6.84 USDC | HSBC Championships: Hamad Medjedovic vs Ugo Humbert)
+2026-06-19 13:23:48 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.550 | $1466.03 USDC | Scotland vs. Morocco: Both Teams to Score)
+2026-06-19 13:23:48 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.550 | $2787.12 USDC | Scotland vs. Morocco: Both Teams to Score)
 ```
 
 ## Letzte Fehler (3)

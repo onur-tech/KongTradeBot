@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-19 22:26:59 UTC
+> 2026-06-19 22:32:00 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 4243233s | HB: WARNUNG 383s alt
+STALE — lief vor 4243534s | HB: OK (42s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-06-19 20:26:16 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.021 | $5.96 USDC | Will United States vs. Australia end in a draw?)
-2026-06-19 20:26:16 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.021 | $15.47 USDC | Will United States vs. Australia end in a draw?)
-2026-06-19 20:26:16 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.977 | $91.97 USDC | United States vs. Australia: O/U 5.5)
-2026-06-19 20:26:16 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.750 | $7.50 USDC | United States vs. Australia: Australia O/U 0.5)
-2026-06-19 20:26:16 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.015 | $79.50 USDC | Will Belgium win the 2026 FIFA World Cup?)
+2026-06-19 22:31:20 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.210 | $7.98 USDC | Will Morocco win on 2026-06-19?)
+2026-06-19 22:31:20 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.210 | $156.45 USDC | Will Morocco win on 2026-06-19?)
+2026-06-19 22:31:20 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.210 | $7.98 USDC | Will Morocco win on 2026-06-19?)
+2026-06-19 22:31:20 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.210 | $7.98 USDC | Will Morocco win on 2026-06-19?)
+2026-06-19 22:31:20 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.210 | $7.98 USDC | Will Morocco win on 2026-06-19?)
 ```
 
 ## Letzte Fehler (3)

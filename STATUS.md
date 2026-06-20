@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-20 18:30:04 UTC
+> 2026-06-20 18:35:03 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 4315418s | HB: WARNUNG 566s alt
+STALE — lief vor 4315717s | HB: OK (41s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-06-20 15:57:54 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Alexander Zverev @ $0.320 | $8.57 USDC | Halle Open: Alexander Zverev vs Taylor Fritz)
-2026-06-20 15:57:54 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Alexander Zverev @ $0.320 | $106.54 USDC | Halle Open: Alexander Zverev vs Taylor Fritz)
-2026-06-20 15:57:54 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.015 | $9.38 USDC | Will Belgium win the 2026 FIFA World Cup?)
-2026-06-20 15:57:54 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.015 | $15.62 USDC | Will Belgium win the 2026 FIFA World Cup?)
-2026-06-20 15:57:54 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.015 | $17.02 USDC | Will Belgium win the 2026 FIFA World Cup?)
+2026-06-20 18:32:24 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Côte dIvoire @ $0.570 | $31.81 USDC | Spread: Germany (-1.5))
+2026-06-20 18:32:24 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Charles Broom @ $0.490 | $49.73 USDC | Lexus Eastbourne Open, Qualification: Marcos Giron vs Charle)
+2026-06-20 18:32:24 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Côte dIvoire @ $0.570 | $265.12 USDC | Spread: Germany (-1.5))
+2026-06-20 18:32:24 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Côte dIvoire @ $0.570 | $5.70 USDC | Spread: Germany (-1.5))
+2026-06-20 18:32:24 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.015 | $56.25 USDC | Will Belgium win the 2026 FIFA World Cup?)
 ```
 
 ## Letzte Fehler (3)

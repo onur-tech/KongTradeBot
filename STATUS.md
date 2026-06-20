@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-20 03:24:28 UTC
+> 2026-06-20 03:29:35 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 4261082s | HB: WARNUNG 579s alt
+STALE — lief vor 4261389s | HB: OK (24s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-06-20 00:58:56 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.950 | $291.67 USDC | Brazil leading at halftime?)
-2026-06-20 00:58:56 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.550 | $12.22 USDC | Brazil vs. Haiti: O/U 3.5)
-2026-06-20 00:58:56 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.011 | $11.00 USDC | Will Haiti win on 2026-06-19?)
-2026-06-20 00:58:56 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.560 | $226.96 USDC | Brazil vs. Haiti: O/U 3.5)
-2026-06-20 00:58:56 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.015 | $11.25 USDC | Will Belgium win the 2026 FIFA World Cup?)
+2026-06-20 03:25:13 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.850 | $5.67 USDC | Baltimore Orioles vs. Los Angeles Dodgers: O/U 11.5)
+2026-06-20 03:25:13 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.790 | $2460.06 USDC | Türkiye vs. Paraguay: Both Teams to Score)
+2026-06-20 03:25:13 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Seattle Mariners @ $0.350 | $5.16 USDC | Boston Red Sox vs. Seattle Mariners)
+2026-06-20 03:25:13 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.620 | $62.00 USDC | Türkiye vs. Paraguay: O/U 2.5)
+2026-06-20 03:25:13 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.015 | $8.33 USDC | Will Belgium win the 2026 FIFA World Cup?)
 ```
 
 ## Letzte Fehler (3)

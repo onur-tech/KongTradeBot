@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-20 10:49:00 UTC
+> 2026-06-20 10:54:01 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 4287754s | HB: WARNUNG 532s alt
+STALE — lief vor 4288055s | HB: OK (30s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-06-20 08:20:32 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Philadelphia Phillies @ $0.620 | $1626.85 USDC | New York Mets vs. Philadelphia Phillies)
-2026-06-20 08:20:32 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.510 | $7.76 USDC | New York Mets vs. Philadelphia Phillies: O/U 7.5)
-2026-06-20 08:20:32 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Titouan Droguet @ $0.600 | $42.00 USDC | Dublin: Titouan Droguet vs Jurij Rodionov)
-2026-06-20 08:20:32 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Jurij Rodionov @ $0.370 | $177.46 USDC | Dublin: Titouan Droguet vs Jurij Rodionov)
-2026-06-20 08:20:32 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.390 | $2730.00 USDC | Netherlands vs. Sweden: Both Teams to Score)
+2026-06-20 10:51:33 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Aryna Sabalenka @ $0.390 | $73.88 USDC | Grass Court Championships: Aryna Sabalenka vs Jessica Pegula)
+2026-06-20 10:51:33 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.600 | $85.25 USDC | Netherlands vs. Sweden: 1st Half O/U 1.5)
+2026-06-20 10:51:33 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.600 | $1691.51 USDC | Netherlands vs. Sweden: 1st Half O/U 1.5)
+2026-06-20 10:51:33 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.015 | $35.42 USDC | Will Belgium win the 2026 FIFA World Cup?)
+2026-06-20 10:51:33 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.015 | $7.50 USDC | Will Belgium win the 2026 FIFA World Cup?)
 ```
 
 ## Letzte Fehler (3)

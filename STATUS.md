@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-20 05:50:55 UTC
+> 2026-06-20 05:56:09 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 4269869s | HB: WARNUNG 558s alt
+STALE — lief vor 4270183s | HB: OK (58s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-06-20 03:25:13 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.850 | $5.67 USDC | Baltimore Orioles vs. Los Angeles Dodgers: O/U 11.5)
-2026-06-20 03:25:13 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.790 | $2460.06 USDC | Türkiye vs. Paraguay: Both Teams to Score)
-2026-06-20 03:25:13 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Seattle Mariners @ $0.350 | $5.16 USDC | Boston Red Sox vs. Seattle Mariners)
-2026-06-20 03:25:13 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.620 | $62.00 USDC | Türkiye vs. Paraguay: O/U 2.5)
-2026-06-20 03:25:13 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.015 | $8.33 USDC | Will Belgium win the 2026 FIFA World Cup?)
+2026-06-20 05:52:12 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.029 | $290.00 USDC | Will Josh Shapiro win the 2028 US Presidential Election?)
+2026-06-20 05:52:12 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.097 | $970.00 USDC | Will Jon Ossoff win the 2028 Democratic presidential nominat)
+2026-06-20 05:52:12 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.097 | $485.00 USDC | Will Jon Ossoff win the 2028 Democratic presidential nominat)
+2026-06-20 05:52:12 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.050 | $250.00 USDC | Will Josh Shapiro win the 2028 Democratic presidential nomin)
+2026-06-20 05:52:12 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Jurij Rodionov @ $0.360 | $48.91 USDC | Dublin: Titouan Droguet vs Jurij Rodionov)
 ```
 
 ## Letzte Fehler (3)

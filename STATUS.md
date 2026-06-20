@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-20 08:17:16 UTC
+> 2026-06-20 08:22:25 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 4278650s | HB: WARNUNG 459s alt
+STALE — lief vor 4278959s | HB: OK (55s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-06-20 05:52:12 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.029 | $290.00 USDC | Will Josh Shapiro win the 2028 US Presidential Election?)
-2026-06-20 05:52:12 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.097 | $970.00 USDC | Will Jon Ossoff win the 2028 Democratic presidential nominat)
-2026-06-20 05:52:12 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.097 | $485.00 USDC | Will Jon Ossoff win the 2028 Democratic presidential nominat)
-2026-06-20 05:52:12 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.050 | $250.00 USDC | Will Josh Shapiro win the 2028 Democratic presidential nomin)
-2026-06-20 05:52:12 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Jurij Rodionov @ $0.360 | $48.91 USDC | Dublin: Titouan Droguet vs Jurij Rodionov)
+2026-06-20 08:20:32 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Philadelphia Phillies @ $0.620 | $1626.85 USDC | New York Mets vs. Philadelphia Phillies)
+2026-06-20 08:20:32 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.510 | $7.76 USDC | New York Mets vs. Philadelphia Phillies: O/U 7.5)
+2026-06-20 08:20:32 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Titouan Droguet @ $0.600 | $42.00 USDC | Dublin: Titouan Droguet vs Jurij Rodionov)
+2026-06-20 08:20:32 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Jurij Rodionov @ $0.370 | $177.46 USDC | Dublin: Titouan Droguet vs Jurij Rodionov)
+2026-06-20 08:20:32 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.390 | $2730.00 USDC | Netherlands vs. Sweden: Both Teams to Score)
 ```
 
 ## Letzte Fehler (3)

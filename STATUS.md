@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-20 13:19:15 UTC
+> 2026-06-20 13:24:17 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 4296769s | HB: WARNUNG 395s alt
+STALE — lief vor 4297071s | HB: OK (10s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-06-20 10:51:33 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Aryna Sabalenka @ $0.390 | $73.88 USDC | Grass Court Championships: Aryna Sabalenka vs Jessica Pegula)
-2026-06-20 10:51:33 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.600 | $85.25 USDC | Netherlands vs. Sweden: 1st Half O/U 1.5)
-2026-06-20 10:51:33 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.600 | $1691.51 USDC | Netherlands vs. Sweden: 1st Half O/U 1.5)
-2026-06-20 10:51:33 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.015 | $35.42 USDC | Will Belgium win the 2026 FIFA World Cup?)
-2026-06-20 10:51:33 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.015 | $7.50 USDC | Will Belgium win the 2026 FIFA World Cup?)
+2026-06-20 13:24:09 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Taylor Townsend @ $0.930 | $1039.43 USDC | Bad Homburg Open, Qualification: Martina Trevisan vs Taylor )
+2026-06-20 13:24:09 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Taylor Fritz @ $0.410 | $5.85 USDC | Halle Open: Alexander Zverev vs Taylor Fritz)
+2026-06-20 13:24:09 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Taylor Fritz @ $0.410 | $34.75 USDC | Halle Open: Alexander Zverev vs Taylor Fritz)
+2026-06-20 13:24:09 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Veronika Erjavec @ $0.480 | $8.29 USDC | Lexus Eastbourne Open, Qualification: Lanlana Tararudee vs V)
+2026-06-20 13:24:09 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.015 | $75.00 USDC | Will Belgium win the 2026 FIFA World Cup?)
 ```
 
 ## Letzte Fehler (3)

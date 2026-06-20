@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-20 00:58:28 UTC
+> 2026-06-20 01:03:28 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 4252322s | HB: WARNUNG 598s alt
+STALE — lief vor 4252622s | HB: OK (34s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-06-19 22:31:20 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.210 | $7.98 USDC | Will Morocco win on 2026-06-19?)
-2026-06-19 22:31:20 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.210 | $156.45 USDC | Will Morocco win on 2026-06-19?)
-2026-06-19 22:31:20 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.210 | $7.98 USDC | Will Morocco win on 2026-06-19?)
-2026-06-19 22:31:20 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.210 | $7.98 USDC | Will Morocco win on 2026-06-19?)
-2026-06-19 22:31:20 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.210 | $7.98 USDC | Will Morocco win on 2026-06-19?)
+2026-06-20 00:58:56 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.950 | $291.67 USDC | Brazil leading at halftime?)
+2026-06-20 00:58:56 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.550 | $12.22 USDC | Brazil vs. Haiti: O/U 3.5)
+2026-06-20 00:58:56 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.011 | $11.00 USDC | Will Haiti win on 2026-06-19?)
+2026-06-20 00:58:56 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.560 | $226.96 USDC | Brazil vs. Haiti: O/U 3.5)
+2026-06-20 00:58:56 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.015 | $11.25 USDC | Will Belgium win the 2026 FIFA World Cup?)
 ```
 
 ## Letzte Fehler (3)

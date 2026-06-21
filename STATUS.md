@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-21 16:12:31 UTC
+> 2026-06-21 16:17:45 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 4393565s | HB: WARNUNG 675s alt
+STALE — lief vor 4393879s | HB: OK (49s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-06-21 14:01:44 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Frances Tiafoe @ $0.390 | $792.48 USDC | Halle Open: Taylor Fritz vs Frances Tiafoe)
-2026-06-21 14:01:44 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Toby Samuel @ $0.590 | $455.84 USDC | Lexus Eastbourne Open, Qualification: Matteo Arnaldi vs Toby)
-2026-06-21 14:01:44 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Toby Samuel @ $0.590 | $56.74 USDC | Lexus Eastbourne Open, Qualification: Matteo Arnaldi vs Toby)
-2026-06-21 14:01:44 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Tommy Paul @ $0.810 | $21.32 USDC | HSBC Championships: Francisco Cerundolo vs Tommy Paul)
-2026-06-21 14:01:44 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Tommy Paul @ $0.810 | $5.97 USDC | HSBC Championships: Francisco Cerundolo vs Tommy Paul)
+2026-06-21 16:13:58 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.320 | $6.53 USDC | Spain vs. Saudi Arabia: O/U 3.5)
+2026-06-21 16:13:58 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.590 | $1134.79 USDC | Spain vs. Saudi Arabia: Both Teams to Score)
+2026-06-21 16:13:58 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.840 | $50.92 USDC | Exact Score: Spain 3 - 0 Saudi Arabia?)
+2026-06-21 16:13:58 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.590 | $19.79 USDC | Spain vs. Saudi Arabia: 1st Half O/U 2.5)
+2026-06-21 16:13:58 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.840 | $5.25 USDC | Exact Score: Spain 3 - 0 Saudi Arabia?)
 ```
 
 ## Letzte Fehler (3)

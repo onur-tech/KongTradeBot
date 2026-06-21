@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-21 18:23:22 UTC
+> 2026-06-21 18:28:22 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 4401416s | HB: WARNUNG 498s alt
+STALE — lief vor 4401716s | HB: OK (43s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-06-21 16:13:58 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.320 | $6.53 USDC | Spain vs. Saudi Arabia: O/U 3.5)
-2026-06-21 16:13:58 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.590 | $1134.79 USDC | Spain vs. Saudi Arabia: Both Teams to Score)
-2026-06-21 16:13:58 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.840 | $50.92 USDC | Exact Score: Spain 3 - 0 Saudi Arabia?)
-2026-06-21 16:13:58 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.590 | $19.79 USDC | Spain vs. Saudi Arabia: 1st Half O/U 2.5)
-2026-06-21 16:13:58 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.840 | $5.25 USDC | Exact Score: Spain 3 - 0 Saudi Arabia?)
+2026-06-21 18:27:42 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.500 | $25.38 USDC | San Francisco Giants vs. Miami Marlins: O/U 7.5)
+2026-06-21 18:27:42 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.640 | $6284.80 USDC | Belgium vs. IR Iran: Belgium O/U 1.5)
+2026-06-21 18:27:42 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.590 | $591.28 USDC | Cleveland Guardians vs. Houston Astros: O/U 7.5)
+2026-06-21 18:27:42 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Washington Nationals @ $0.470 | $55.93 USDC | Washington Nationals vs. Tampa Bay Rays)
+2026-06-21 18:27:42 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.590 | $985.47 USDC | Cleveland Guardians vs. Houston Astros: O/U 7.5)
 ```
 
 ## Letzte Fehler (3)

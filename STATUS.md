@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-21 21:05:15 UTC
+> 2026-06-21 21:10:17 UTC
 
 ## Bot-Status
 ```
@@ -14,25 +14,21 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 4411129s | HB: WARNUNG 681s alt
+STALE — lief vor 4411431s | HB: OK (16s alt)
 ```
 
 ## Portfolio
 ```
-Total:         $0.00 USDC
-Cash:          $0.00 USDC
-In Positionen: $0.00 USDC
-Offene Pos.:   0
-PnL heute:     $0.00
+Dashboard nicht erreichbar: timed out
 ```
 
 ## Letzte Trades (5)
 ```
-2026-06-21 18:27:42 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.500 | $25.38 USDC | San Francisco Giants vs. Miami Marlins: O/U 7.5)
-2026-06-21 18:27:42 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.640 | $6284.80 USDC | Belgium vs. IR Iran: Belgium O/U 1.5)
-2026-06-21 18:27:42 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.590 | $591.28 USDC | Cleveland Guardians vs. Houston Astros: O/U 7.5)
-2026-06-21 18:27:42 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Washington Nationals @ $0.470 | $55.93 USDC | Washington Nationals vs. Tampa Bay Rays)
-2026-06-21 18:27:42 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.590 | $985.47 USDC | Cleveland Guardians vs. Houston Astros: O/U 7.5)
+2026-06-21 21:06:03 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Athletics @ $0.720 | $1468.18 USDC | Los Angeles Angels vs. Athletics)
+2026-06-21 21:06:03 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Athletics @ $0.720 | $12.86 USDC | Los Angeles Angels vs. Athletics)
+2026-06-21 21:06:03 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.140 | $5.06 USDC | New Zealand vs. Egypt: Egypt O/U 0.5)
+2026-06-21 21:06:03 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.360 | $75.58 USDC | Pittsburgh Pirates vs. Colorado Rockies: O/U 12.5)
+2026-06-21 21:06:03 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Boston Red Sox @ $0.390 | $134.66 USDC | Boston Red Sox vs. Seattle Mariners)
 ```
 
 ## Letzte Fehler (3)

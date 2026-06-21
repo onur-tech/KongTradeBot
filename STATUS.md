@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-21 14:01:40 UTC
+> 2026-06-21 14:06:40 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 4385714s | HB: STALE 748s alt (Bot moeglicherweise haengend)
+STALE — lief vor 4386014s | HB: OK (58s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-06-21 02:09:44 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.045 | $21.79 USDC | Will Kamala Harris win the 2028 US Presidential Election?)
-2026-06-21 02:09:44 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.610 | $122.00 USDC | Starmer out by June 22, 2026?)
-2026-06-21 02:09:44 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.800 | $40.00 USDC | Will the Republican Party control the House after the 2026 M)
-2026-06-21 02:09:44 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.850 | $551.65 USDC |  Iran agrees to end enrichment of uranium by July 31?)
-2026-06-21 02:09:44 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.620 | $124.00 USDC | Starmer out by June 22, 2026?)
+2026-06-21 14:01:44 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Frances Tiafoe @ $0.390 | $792.48 USDC | Halle Open: Taylor Fritz vs Frances Tiafoe)
+2026-06-21 14:01:44 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Toby Samuel @ $0.590 | $455.84 USDC | Lexus Eastbourne Open, Qualification: Matteo Arnaldi vs Toby)
+2026-06-21 14:01:44 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Toby Samuel @ $0.590 | $56.74 USDC | Lexus Eastbourne Open, Qualification: Matteo Arnaldi vs Toby)
+2026-06-21 14:01:44 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Tommy Paul @ $0.810 | $21.32 USDC | HSBC Championships: Francisco Cerundolo vs Tommy Paul)
+2026-06-21 14:01:44 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Tommy Paul @ $0.810 | $5.97 USDC | HSBC Championships: Francisco Cerundolo vs Tommy Paul)
 ```
 
 ## Letzte Fehler (3)

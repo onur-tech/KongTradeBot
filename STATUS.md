@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-21 02:04:47 UTC
+> 2026-06-21 02:09:45 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 4342701s | HB: OK (339s alt)
+STALE — lief vor 4342999s | HB: OK (1s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-06-20 18:32:24 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Côte dIvoire @ $0.570 | $31.81 USDC | Spread: Germany (-1.5))
-2026-06-20 18:32:24 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Charles Broom @ $0.490 | $49.73 USDC | Lexus Eastbourne Open, Qualification: Marcos Giron vs Charle)
-2026-06-20 18:32:24 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Côte dIvoire @ $0.570 | $265.12 USDC | Spread: Germany (-1.5))
-2026-06-20 18:32:24 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Côte dIvoire @ $0.570 | $5.70 USDC | Spread: Germany (-1.5))
-2026-06-20 18:32:24 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.015 | $56.25 USDC | Will Belgium win the 2026 FIFA World Cup?)
+2026-06-21 02:09:44 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.045 | $21.79 USDC | Will Kamala Harris win the 2028 US Presidential Election?)
+2026-06-21 02:09:44 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.610 | $122.00 USDC | Starmer out by June 22, 2026?)
+2026-06-21 02:09:44 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.800 | $40.00 USDC | Will the Republican Party control the House after the 2026 M)
+2026-06-21 02:09:44 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.850 | $551.65 USDC |  Iran agrees to end enrichment of uranium by July 31?)
+2026-06-21 02:09:44 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.620 | $124.00 USDC | Starmer out by June 22, 2026?)
 ```
 
 ## Letzte Fehler (3)

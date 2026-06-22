@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-22 06:38:04 UTC
+> 2026-06-22 06:43:04 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 4445498s | HB: WARNUNG 458s alt
+STALE — lief vor 4445798s | HB: OK (35s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-06-22 04:11:25 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.500 | $19.41 USDC | Argentina leading at halftime?)
-2026-06-22 04:11:25 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.500 | $359.31 USDC | Argentina leading at halftime?)
-2026-06-22 04:11:25 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.500 | $300.00 USDC | Argentina leading at halftime?)
-2026-06-22 04:11:25 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.500 | $9.99 USDC | Argentina leading at halftime?)
-2026-06-22 04:11:25 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.500 | $1056.73 USDC | Argentina leading at halftime?)
+2026-06-22 06:41:31 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.500 | $10.00 USDC | Argentina leading at halftime?)
+2026-06-22 06:41:31 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.500 | $5.00 USDC | Argentina leading at halftime?)
+2026-06-22 06:41:31 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.939 | $282.22 USDC | Exact Score: Norway 3 - 1 Senegal?)
+2026-06-22 06:41:31 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.939 | $253.99 USDC | Exact Score: Norway 3 - 1 Senegal?)
+2026-06-22 06:41:31 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.939 | $178.74 USDC | Exact Score: Norway 3 - 1 Senegal?)
 ```
 
 ## Letzte Fehler (3)

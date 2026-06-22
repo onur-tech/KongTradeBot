@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-22 21:49:58 UTC
+> 2026-06-22 21:54:57 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 4500212s | HB: WARNUNG 362s alt
+STALE — lief vor 4500511s | HB: OK (17s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-06-22 19:22:41 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Juan Bautista Torres @ $0.670 | $751.99 USDC | Piracicaba: Juan Bautista Torres vs Alex Hernandez)
-2026-06-22 19:22:41 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Franco Agamenone @ $0.680 | $1009.32 USDC | Targu Mures: Luca Castelnuovo vs Franco Agamenone)
-2026-06-22 19:22:41 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Alex Hernandez @ $0.300 | $6.46 USDC | Piracicaba: Juan Bautista Torres vs Alex Hernandez)
-2026-06-22 19:22:41 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Franco Agamenone @ $0.670 | $214.25 USDC | Targu Mures: Luca Castelnuovo vs Franco Agamenone)
-2026-06-22 19:22:41 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Alex Hernandez @ $0.300 | $411.92 USDC | Piracicaba: Juan Bautista Torres vs Alex Hernandez)
+2026-06-22 21:54:41 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.710 | $24.48 USDC | Exact Score: France 2 - 0 Iraq?)
+2026-06-22 21:54:41 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Luciano Emanuel Ambrogi @ $0.600 | $6.00 USDC | Piracicaba: Matheus Pucinelli de Almeida vs Luciano Emanuel )
+2026-06-22 21:54:41 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Gonzalo Villanueva @ $0.610 | $242.44 USDC | Piracicaba: Gonzalo Villanueva vs Nicolas Villalon)
+2026-06-22 21:54:41 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Gonzalo Villanueva @ $0.610 | $75.03 USDC | Piracicaba: Gonzalo Villanueva vs Nicolas Villalon)
+2026-06-22 21:54:41 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.710 | $225.35 USDC | Exact Score: France 2 - 0 Iraq?)
 ```
 
 ## Letzte Fehler (3)

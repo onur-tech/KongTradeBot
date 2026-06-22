@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-22 19:19:41 UTC
+> 2026-06-22 19:24:40 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 4491195s | HB: WARNUNG 542s alt
+STALE — lief vor 4491494s | HB: OK (1s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-06-22 16:45:00 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Pierre-Hugues Herbert @ $0.370 | $29.98 USDC | Wimbledon, Qualification ATP: Pierre-Hugues Herbert vs Paul )
-2026-06-22 16:45:00 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Pierre-Hugues Herbert @ $0.370 | $742.59 USDC | Wimbledon, Qualification ATP: Pierre-Hugues Herbert vs Paul )
-2026-06-22 16:45:00 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Daria Kasatkina @ $0.330 | $6.60 USDC | Lexus Eastbourne Open: McCartney Kessler vs Daria Kasatkina)
-2026-06-22 16:45:00 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Daria Kasatkina @ $0.340 | $63.09 USDC | Lexus Eastbourne Open: McCartney Kessler vs Daria Kasatkina)
-2026-06-22 16:45:00 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Irina-Camelia Begu @ $0.720 | $12.12 USDC | Bad Homburg Open: Venus Williams vs Irina-Camelia Begu)
+2026-06-22 19:22:41 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Juan Bautista Torres @ $0.670 | $751.99 USDC | Piracicaba: Juan Bautista Torres vs Alex Hernandez)
+2026-06-22 19:22:41 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Franco Agamenone @ $0.680 | $1009.32 USDC | Targu Mures: Luca Castelnuovo vs Franco Agamenone)
+2026-06-22 19:22:41 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Alex Hernandez @ $0.300 | $6.46 USDC | Piracicaba: Juan Bautista Torres vs Alex Hernandez)
+2026-06-22 19:22:41 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Franco Agamenone @ $0.670 | $214.25 USDC | Targu Mures: Luca Castelnuovo vs Franco Agamenone)
+2026-06-22 19:22:41 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Alex Hernandez @ $0.300 | $411.92 USDC | Piracicaba: Juan Bautista Torres vs Alex Hernandez)
 ```
 
 ## Letzte Fehler (3)

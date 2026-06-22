@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-22 11:48:35 UTC
+> 2026-06-22 11:53:37 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 4464130s | HB: WARNUNG 482s alt
+STALE — lief vor 4464431s | HB: OK (51s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-06-22 09:16:27 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Clara Tauson @ $0.350 | $276.02 USDC | Bad Homburg Open: Clara Tauson vs Diana Shnaider)
-2026-06-22 09:16:27 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.680 | $8.50 USDC | Argentina vs. Austria: Argentina O/U 2.5)
-2026-06-22 09:16:27 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Clara Tauson @ $0.360 | $24.22 USDC | Bad Homburg Open: Clara Tauson vs Diana Shnaider)
-2026-06-22 09:16:27 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Clara Tauson @ $0.360 | $175.66 USDC | Bad Homburg Open: Clara Tauson vs Diana Shnaider)
-2026-06-22 09:16:27 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.680 | $13.60 USDC | Argentina vs. Austria: Argentina O/U 2.5)
+2026-06-22 11:52:49 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Sinja Kraus @ $0.120 | $13.64 USDC | Bad Homburg Open: Sinja Kraus vs Anna Kalinskaya)
+2026-06-22 11:52:49 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Anton Matusevich @ $0.460 | $802.47 USDC | Wimbledon, Qualification ATP: Anton Matusevich vs Rei Sakamo)
+2026-06-22 11:52:49 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Anton Matusevich @ $0.470 | $23.68 USDC | Wimbledon, Qualification ATP: Anton Matusevich vs Rei Sakamo)
+2026-06-22 11:52:49 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Terence Atmane @ $0.660 | $319.87 USDC | Lexus Eastbourne Open: Gabriel Diallo vs Terence Atmane)
+2026-06-22 11:52:49 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Hugo Gaston @ $0.610 | $104.04 USDC | Wimbledon, Qualification ATP: Hugo Gaston vs Lautaro Midon)
 ```
 
 ## Letzte Fehler (3)

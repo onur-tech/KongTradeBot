@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-22 09:13:18 UTC
+> 2026-06-22 09:18:16 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 4454812s | HB: WARNUNG 577s alt
+STALE — lief vor 4455110s | HB: OK (50s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-06-22 06:41:31 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.500 | $10.00 USDC | Argentina leading at halftime?)
-2026-06-22 06:41:31 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.500 | $5.00 USDC | Argentina leading at halftime?)
-2026-06-22 06:41:31 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.939 | $282.22 USDC | Exact Score: Norway 3 - 1 Senegal?)
-2026-06-22 06:41:31 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.939 | $253.99 USDC | Exact Score: Norway 3 - 1 Senegal?)
-2026-06-22 06:41:31 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.939 | $178.74 USDC | Exact Score: Norway 3 - 1 Senegal?)
+2026-06-22 09:16:27 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Clara Tauson @ $0.350 | $276.02 USDC | Bad Homburg Open: Clara Tauson vs Diana Shnaider)
+2026-06-22 09:16:27 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.680 | $8.50 USDC | Argentina vs. Austria: Argentina O/U 2.5)
+2026-06-22 09:16:27 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Clara Tauson @ $0.360 | $24.22 USDC | Bad Homburg Open: Clara Tauson vs Diana Shnaider)
+2026-06-22 09:16:27 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Clara Tauson @ $0.360 | $175.66 USDC | Bad Homburg Open: Clara Tauson vs Diana Shnaider)
+2026-06-22 09:16:27 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.680 | $13.60 USDC | Argentina vs. Austria: Argentina O/U 2.5)
 ```
 
 ## Letzte Fehler (3)

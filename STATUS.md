@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-22 16:44:16 UTC
+> 2026-06-22 16:49:18 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 4481870s | HB: WARNUNG 684s alt
+STALE — lief vor 4482172s | HB: OK (20s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-06-22 14:07:00 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Cezar Cretu @ $0.860 | $12.29 USDC | Targu Mures: Cezar Cretu vs Akira Santillan)
-2026-06-22 14:07:00 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Qinwen Zheng @ $0.640 | $1956.48 USDC | Bad Homburg Open: Solana Sierra vs Qinwen Zheng)
-2026-06-22 14:07:00 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Elias Ymer @ $0.352 | $71.10 USDC | Wimbledon, Qualification ATP: Nikoloz Basilashvili vs Elias )
-2026-06-22 14:07:00 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Antonia Ruzic @ $0.550 | $24.20 USDC | Lexus Eastbourne Open: Antonia Ruzic vs Petra Marcinko)
-2026-06-22 14:07:00 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Alex Molcan @ $0.280 | $56.28 USDC | Mallorca Championships: Fabian Marozsan vs Alex Molcan)
+2026-06-22 16:45:00 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Pierre-Hugues Herbert @ $0.370 | $29.98 USDC | Wimbledon, Qualification ATP: Pierre-Hugues Herbert vs Paul )
+2026-06-22 16:45:00 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Pierre-Hugues Herbert @ $0.370 | $742.59 USDC | Wimbledon, Qualification ATP: Pierre-Hugues Herbert vs Paul )
+2026-06-22 16:45:00 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Daria Kasatkina @ $0.330 | $6.60 USDC | Lexus Eastbourne Open: McCartney Kessler vs Daria Kasatkina)
+2026-06-22 16:45:00 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Daria Kasatkina @ $0.340 | $63.09 USDC | Lexus Eastbourne Open: McCartney Kessler vs Daria Kasatkina)
+2026-06-22 16:45:00 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Irina-Camelia Begu @ $0.720 | $12.12 USDC | Bad Homburg Open: Venus Williams vs Irina-Camelia Begu)
 ```
 
 ## Letzte Fehler (3)

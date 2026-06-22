@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-22 04:07:52 UTC
+> 2026-06-22 04:12:52 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 4436486s | HB: WARNUNG 451s alt
+STALE — lief vor 4436786s | HB: OK (28s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-06-22 02:06:56 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.650 | $185.71 USDC | New Zealand vs. Egypt: Both Teams to Score)
-2026-06-22 02:06:56 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.650 | $55.71 USDC | New Zealand vs. Egypt: Both Teams to Score)
-2026-06-22 02:06:56 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.904 | $26.22 USDC | New Zealand vs. Egypt: New Zealand O/U 2.5)
-2026-06-22 02:06:56 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.904 | $13.56 USDC | New Zealand vs. Egypt: New Zealand O/U 2.5)
-2026-06-22 02:06:56 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.903 | $91.63 USDC | New Zealand vs. Egypt: New Zealand O/U 2.5)
+2026-06-22 04:11:25 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.500 | $19.41 USDC | Argentina leading at halftime?)
+2026-06-22 04:11:25 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.500 | $359.31 USDC | Argentina leading at halftime?)
+2026-06-22 04:11:25 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.500 | $300.00 USDC | Argentina leading at halftime?)
+2026-06-22 04:11:25 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.500 | $9.99 USDC | Argentina leading at halftime?)
+2026-06-22 04:11:25 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.500 | $1056.73 USDC | Argentina leading at halftime?)
 ```
 
 ## Letzte Fehler (3)

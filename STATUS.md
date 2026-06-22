@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-22 14:03:55 UTC
+> 2026-06-22 14:08:58 UTC
 
 ## Bot-Status
 ```
@@ -14,25 +14,21 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 4472249s | HB: WARNUNG 582s alt
+STALE — lief vor 4472552s | HB: OK (5s alt)
 ```
 
 ## Portfolio
 ```
-Total:         $0.00 USDC
-Cash:          $0.00 USDC
-In Positionen: $0.00 USDC
-Offene Pos.:   0
-PnL heute:     $0.00
+Dashboard nicht erreichbar: timed out
 ```
 
 ## Letzte Trades (5)
 ```
-2026-06-22 11:52:49 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Sinja Kraus @ $0.120 | $13.64 USDC | Bad Homburg Open: Sinja Kraus vs Anna Kalinskaya)
-2026-06-22 11:52:49 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Anton Matusevich @ $0.460 | $802.47 USDC | Wimbledon, Qualification ATP: Anton Matusevich vs Rei Sakamo)
-2026-06-22 11:52:49 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Anton Matusevich @ $0.470 | $23.68 USDC | Wimbledon, Qualification ATP: Anton Matusevich vs Rei Sakamo)
-2026-06-22 11:52:49 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Terence Atmane @ $0.660 | $319.87 USDC | Lexus Eastbourne Open: Gabriel Diallo vs Terence Atmane)
-2026-06-22 11:52:49 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Hugo Gaston @ $0.610 | $104.04 USDC | Wimbledon, Qualification ATP: Hugo Gaston vs Lautaro Midon)
+2026-06-22 14:07:00 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Cezar Cretu @ $0.860 | $12.29 USDC | Targu Mures: Cezar Cretu vs Akira Santillan)
+2026-06-22 14:07:00 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Qinwen Zheng @ $0.640 | $1956.48 USDC | Bad Homburg Open: Solana Sierra vs Qinwen Zheng)
+2026-06-22 14:07:00 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Elias Ymer @ $0.352 | $71.10 USDC | Wimbledon, Qualification ATP: Nikoloz Basilashvili vs Elias )
+2026-06-22 14:07:00 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Antonia Ruzic @ $0.550 | $24.20 USDC | Lexus Eastbourne Open: Antonia Ruzic vs Petra Marcinko)
+2026-06-22 14:07:00 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Alex Molcan @ $0.280 | $56.28 USDC | Mallorca Championships: Fabian Marozsan vs Alex Molcan)
 ```
 
 ## Letzte Fehler (3)

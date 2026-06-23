@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-23 00:20:18 UTC
+> 2026-06-23 00:25:18 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 4509232s | HB: WARNUNG 412s alt
+STALE — lief vor 4509532s | HB: OK (17s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-06-22 21:54:41 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.710 | $24.48 USDC | Exact Score: France 2 - 0 Iraq?)
-2026-06-22 21:54:41 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Luciano Emanuel Ambrogi @ $0.600 | $6.00 USDC | Piracicaba: Matheus Pucinelli de Almeida vs Luciano Emanuel )
-2026-06-22 21:54:41 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Gonzalo Villanueva @ $0.610 | $242.44 USDC | Piracicaba: Gonzalo Villanueva vs Nicolas Villalon)
-2026-06-22 21:54:41 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Gonzalo Villanueva @ $0.610 | $75.03 USDC | Piracicaba: Gonzalo Villanueva vs Nicolas Villalon)
-2026-06-22 21:54:41 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.710 | $225.35 USDC | Exact Score: France 2 - 0 Iraq?)
+2026-06-23 00:24:04 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Detroit Tigers @ $0.870 | $20.08 USDC | New York Yankees vs. Detroit Tigers)
+2026-06-23 00:24:04 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.450 | $1046.57 USDC | Norway vs. Senegal: Both Teams to Score)
+2026-06-23 00:24:04 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Detroit Tigers @ $0.870 | $49.18 USDC | New York Yankees vs. Detroit Tigers)
+2026-06-23 00:24:04 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.510 | $5.20 USDC | Norway vs. Senegal: 1st Half O/U 0.5)
+2026-06-23 00:24:04 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.470 | $719.06 USDC | Norway vs. Senegal: 1st Half O/U 0.5)
 ```
 
 ## Letzte Fehler (3)

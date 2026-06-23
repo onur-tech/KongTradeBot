@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-23 07:46:29 UTC
+> 2026-06-23 07:51:29 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 4536003s | HB: WARNUNG 509s alt
+STALE — lief vor 4536303s | HB: OK (27s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-06-23 05:19:21 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.410 | $3474.58 USDC | Will FC Barcelona win on 2026-03-18?)
-2026-06-23 05:19:21 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.410 | $20.85 USDC | Will FC Barcelona win on 2026-03-18?)
-2026-06-23 05:19:21 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.680 | $4768.59 USDC | Will Micah Lasher be the democratic nominee for NY-12?)
-2026-06-23 05:19:21 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.320 | $4725.77 USDC | Strait of Hormuz traffic returns to normal by July 15?)
-2026-06-23 05:19:21 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.500 | $300.00 USDC | Strait of Hormuz traffic returns to normal by July 31?)
+2026-06-23 07:49:03 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.470 | $971.56 USDC | Will Japan win on 2026-06-25?)
+2026-06-23 07:49:03 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Manoj Dhamne Manas @ $0.650 | $52.54 USDC | Plovdiv: Eero Vasa vs Manoj Dhamne Manas)
+2026-06-23 07:49:03 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Marko Topo @ $0.650 | $6.13 USDC | Targu Mures: Ilia Simakin vs Marko Topo)
+2026-06-23 07:49:03 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Chicago Cubs @ $0.470 | $85.06 USDC | Chicago Cubs vs. New York Mets)
+2026-06-23 07:49:03 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Ilia Simakin @ $0.330 | $7.14 USDC | Targu Mures: Ilia Simakin vs Marko Topo)
 ```
 
 ## Letzte Fehler (3)

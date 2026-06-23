@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-23 15:32:24 UTC
+> 2026-06-23 15:37:25 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 4563958s | HB: WARNUNG 628s alt
+STALE — lief vor 4564259s | HB: OK (39s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-06-23 12:56:11 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY 9INE @ $0.360 | $116.28 USDC | Counter-Strike: Sashi Esport vs 9INE - Map 1 Winner)
-2026-06-23 12:56:11 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Sashi Esport @ $0.613 | $9.31 USDC | Counter-Strike: Sashi Esport vs 9INE - Map 1 Winner)
-2026-06-23 12:56:11 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Sashi Esport @ $0.620 | $802.65 USDC | Counter-Strike: Sashi Esport vs 9INE (BO3) - DraculaN Group )
-2026-06-23 12:56:11 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Sashi Esport @ $0.610 | $803.14 USDC | Counter-Strike: Sashi Esport vs 9INE - Map 1 Winner)
-2026-06-23 12:56:11 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Sashi Esport @ $0.640 | $21.35 USDC | Counter-Strike: Sashi Esport vs 9INE - Map 1 Winner)
+2026-06-23 15:34:48 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Roman Andres Burruchaga @ $0.691 | $16.86 USDC | Lexus Eastbourne Open: Roman Andres Burruchaga vs Arthur Fer)
+2026-06-23 15:34:48 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Roman Andres Burruchaga @ $0.691 | $31.43 USDC | Lexus Eastbourne Open: Roman Andres Burruchaga vs Arthur Fer)
+2026-06-23 15:34:48 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Sharks @ $0.480 | $21.60 USDC | Counter-Strike: Sharks vs Eternal Fire - Map 1 Winner)
+2026-06-23 15:34:48 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Roman Andres Burruchaga @ $0.691 | $11.18 USDC | Lexus Eastbourne Open: Roman Andres Burruchaga vs Arthur Fer)
+2026-06-23 15:34:48 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Arthur Fery @ $0.302 | $402.20 USDC | Lexus Eastbourne Open: Roman Andres Burruchaga vs Arthur Fer)
 ```
 
 ## Letzte Fehler (3)

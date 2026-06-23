@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-23 18:17:57 UTC
+> 2026-06-23 18:22:59 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 4573891s | HB: STALE 989s alt (Bot moeglicherweise haengend)
+STALE — lief vor 4574193s | HB: OK (30s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-06-23 15:34:48 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Roman Andres Burruchaga @ $0.691 | $16.86 USDC | Lexus Eastbourne Open: Roman Andres Burruchaga vs Arthur Fer)
-2026-06-23 15:34:48 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Roman Andres Burruchaga @ $0.691 | $31.43 USDC | Lexus Eastbourne Open: Roman Andres Burruchaga vs Arthur Fer)
-2026-06-23 15:34:48 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Sharks @ $0.480 | $21.60 USDC | Counter-Strike: Sharks vs Eternal Fire - Map 1 Winner)
-2026-06-23 15:34:48 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Roman Andres Burruchaga @ $0.691 | $11.18 USDC | Lexus Eastbourne Open: Roman Andres Burruchaga vs Arthur Fer)
-2026-06-23 15:34:48 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Arthur Fery @ $0.302 | $402.20 USDC | Lexus Eastbourne Open: Roman Andres Burruchaga vs Arthur Fer)
+2026-06-23 18:20:34 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Uzbekistan @ $0.140 | $24.42 USDC | Spread: Portugal (-2.5))
+2026-06-23 18:20:34 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Uzbekistan @ $0.140 | $17.89 USDC | Spread: Portugal (-2.5))
+2026-06-23 18:20:34 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Elvina Kalieva @ $0.560 | $748.96 USDC | Wimbledon, Qualification WTA: Ella McDonald vs Elvina Kaliev)
+2026-06-23 18:20:34 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.334 | $50.15 USDC | Portugal vs. Uzbekistan: Both Teams to Score)
+2026-06-23 18:20:34 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.195 | $7806.81 USDC | Will France win the 2026 FIFA World Cup?)
 ```
 
 ## Letzte Fehler (3)

@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-23 23:33:53 UTC
+> 2026-06-23 23:38:51 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 4592847s | HB: WARNUNG 466s alt
+STALE — lief vor 4593145s | HB: OK (0s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-06-23 21:07:27 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.490 | $1162.26 USDC | England vs. Ghana: O/U 1.5)
-2026-06-23 21:07:27 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.080 | $15.60 USDC | England vs. Ghana: 1st Half O/U 0.5)
-2026-06-23 21:07:27 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.680 | $10.62 USDC | Will England win on 2026-06-23?)
-2026-06-23 21:07:27 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.680 | $42.16 USDC | Will England win on 2026-06-23?)
-2026-06-23 21:07:27 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.680 | $42.16 USDC | Will England win on 2026-06-23?)
+2026-06-23 23:36:52 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.530 | $30.84 USDC | Seattle Mariners vs. Pittsburgh Pirates: O/U 7.5)
+2026-06-23 23:36:52 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.530 | $11.28 USDC | Seattle Mariners vs. Pittsburgh Pirates: O/U 7.5)
+2026-06-23 23:36:52 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.530 | $5.64 USDC | Seattle Mariners vs. Pittsburgh Pirates: O/U 7.5)
+2026-06-23 23:36:52 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.530 | $11.28 USDC | Seattle Mariners vs. Pittsburgh Pirates: O/U 7.5)
+2026-06-23 23:36:52 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.230 | $101.73 USDC | Croatia leading at halftime?)
 ```
 
 ## Letzte Fehler (3)

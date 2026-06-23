@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-23 10:16:44 UTC
+> 2026-06-23 10:21:43 UTC
 
 ## Bot-Status
 ```
@@ -14,21 +14,25 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 4545018s | HB: WARNUNG 425s alt
+STALE — lief vor 4545317s | HB: OK (37s alt)
 ```
 
 ## Portfolio
 ```
-Dashboard nicht erreichbar: timed out
+Total:         $0.00 USDC
+Cash:          $0.00 USDC
+In Positionen: $0.00 USDC
+Offene Pos.:   0
+PnL heute:     $0.00
 ```
 
 ## Letzte Trades (5)
 ```
-2026-06-23 07:49:03 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.470 | $971.56 USDC | Will Japan win on 2026-06-25?)
-2026-06-23 07:49:03 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Manoj Dhamne Manas @ $0.650 | $52.54 USDC | Plovdiv: Eero Vasa vs Manoj Dhamne Manas)
-2026-06-23 07:49:03 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Marko Topo @ $0.650 | $6.13 USDC | Targu Mures: Ilia Simakin vs Marko Topo)
-2026-06-23 07:49:03 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Chicago Cubs @ $0.470 | $85.06 USDC | Chicago Cubs vs. New York Mets)
-2026-06-23 07:49:03 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Ilia Simakin @ $0.330 | $7.14 USDC | Targu Mures: Ilia Simakin vs Marko Topo)
+2026-06-23 10:21:13 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Esport Academy Copenhagen @ $0.380 | $110.85 USDC | Counter-Strike: Infinite vs Esport Academy Copenhagen - Map )
+2026-06-23 10:21:13 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Daniella Britton @ $0.420 | $5.62 USDC | Wimbledon, Qualification WTA: Julia Riera vs Daniella Britto)
+2026-06-23 10:21:13 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Daniella Britton @ $0.420 | $20.86 USDC | Wimbledon, Qualification WTA: Julia Riera vs Daniella Britto)
+2026-06-23 10:21:13 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Ann Li @ $0.110 | $81.34 USDC | Bad Homburg Open: Ann Li vs Ekaterina Alexandrova)
+2026-06-23 10:21:13 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Inner Circle Esports @ $0.680 | $102.00 USDC | Map Handicap: ICE (-1.5) vs AM Gaming (+1.5))
 ```
 
 ## Letzte Fehler (3)

@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-23 12:52:04 UTC
+> 2026-06-23 12:57:05 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 4554338s | HB: WARNUNG 498s alt
+STALE — lief vor 4554639s | HB: OK (55s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-06-23 10:21:13 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Esport Academy Copenhagen @ $0.380 | $110.85 USDC | Counter-Strike: Infinite vs Esport Academy Copenhagen - Map )
-2026-06-23 10:21:13 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Daniella Britton @ $0.420 | $5.62 USDC | Wimbledon, Qualification WTA: Julia Riera vs Daniella Britto)
-2026-06-23 10:21:13 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Daniella Britton @ $0.420 | $20.86 USDC | Wimbledon, Qualification WTA: Julia Riera vs Daniella Britto)
-2026-06-23 10:21:13 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Ann Li @ $0.110 | $81.34 USDC | Bad Homburg Open: Ann Li vs Ekaterina Alexandrova)
-2026-06-23 10:21:13 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Inner Circle Esports @ $0.680 | $102.00 USDC | Map Handicap: ICE (-1.5) vs AM Gaming (+1.5))
+2026-06-23 12:56:11 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY 9INE @ $0.360 | $116.28 USDC | Counter-Strike: Sashi Esport vs 9INE - Map 1 Winner)
+2026-06-23 12:56:11 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Sashi Esport @ $0.613 | $9.31 USDC | Counter-Strike: Sashi Esport vs 9INE - Map 1 Winner)
+2026-06-23 12:56:11 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Sashi Esport @ $0.620 | $802.65 USDC | Counter-Strike: Sashi Esport vs 9INE (BO3) - DraculaN Group )
+2026-06-23 12:56:11 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Sashi Esport @ $0.610 | $803.14 USDC | Counter-Strike: Sashi Esport vs 9INE - Map 1 Winner)
+2026-06-23 12:56:11 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Sashi Esport @ $0.640 | $21.35 USDC | Counter-Strike: Sashi Esport vs 9INE - Map 1 Winner)
 ```
 
 ## Letzte Fehler (3)

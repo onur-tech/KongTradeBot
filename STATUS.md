@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-23 21:03:20 UTC
+> 2026-06-23 21:08:22 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 4583814s | HB: WARNUNG 487s alt
+STALE — lief vor 4584116s | HB: OK (57s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-06-23 18:20:34 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Uzbekistan @ $0.140 | $24.42 USDC | Spread: Portugal (-2.5))
-2026-06-23 18:20:34 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Uzbekistan @ $0.140 | $17.89 USDC | Spread: Portugal (-2.5))
-2026-06-23 18:20:34 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Elvina Kalieva @ $0.560 | $748.96 USDC | Wimbledon, Qualification WTA: Ella McDonald vs Elvina Kaliev)
-2026-06-23 18:20:34 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.334 | $50.15 USDC | Portugal vs. Uzbekistan: Both Teams to Score)
-2026-06-23 18:20:34 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.195 | $7806.81 USDC | Will France win the 2026 FIFA World Cup?)
+2026-06-23 21:07:27 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.490 | $1162.26 USDC | England vs. Ghana: O/U 1.5)
+2026-06-23 21:07:27 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.080 | $15.60 USDC | England vs. Ghana: 1st Half O/U 0.5)
+2026-06-23 21:07:27 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.680 | $10.62 USDC | Will England win on 2026-06-23?)
+2026-06-23 21:07:27 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.680 | $42.16 USDC | Will England win on 2026-06-23?)
+2026-06-23 21:07:27 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.680 | $42.16 USDC | Will England win on 2026-06-23?)
 ```
 
 ## Letzte Fehler (3)

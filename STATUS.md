@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-24 09:29:43 UTC
+> 2026-06-24 09:34:43 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 4628597s | HB: WARNUNG 606s alt
+STALE — lief vor 4628897s | HB: OK (45s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-06-24 07:00:03 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $14.30 USDC | Will Arsenal FC win on 2026-02-22?)
-2026-06-24 07:00:03 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $4629.80 USDC | Will Arsenal FC win on 2026-02-22?)
-2026-06-24 07:00:03 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $23.17 USDC | Will Arsenal FC win on 2026-02-22?)
-2026-06-24 07:00:03 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $12.39 USDC | Will Arsenal FC win on 2026-02-22?)
-2026-06-24 07:00:03 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.700 | $31.43 USDC | Will Arsenal FC win on 2026-02-22?)
+2026-06-24 09:31:00 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.470 | $258.50 USDC | Côte d'Ivoire vs. Ecuador: O/U 7.5 Total Corners)
+2026-06-24 09:31:00 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.770 | $370.12 USDC | Bosnia and Herzegovina vs. Qatar: O/U 4.5)
+2026-06-24 09:31:00 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.450 | $3150.00 USDC | Scotland vs. Brazil: O/U 2.5)
+2026-06-24 09:31:00 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.440 | $8.64 USDC | Switzerland vs. Canada: Both Teams to Score)
+2026-06-24 09:31:00 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.440 | $18.31 USDC | Switzerland vs. Canada: Both Teams to Score)
 ```
 
 ## Letzte Fehler (3)

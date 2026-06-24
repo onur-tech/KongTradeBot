@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-24 23:17:05 UTC
+> 2026-06-24 23:22:15 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 4678239s | HB: WARNUNG 457s alt
+STALE — lief vor 4678549s | HB: OK (0s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-06-24 20:55:14 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.021 | $10.50 USDC | Switzerland vs. Canada: O/U 3.5)
-2026-06-24 20:55:14 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.024 | $49.18 USDC | Will Switzerland win on 2026-06-24?)
-2026-06-24 20:55:14 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.024 | $12.00 USDC | Will Switzerland win on 2026-06-24?)
-2026-06-24 20:55:14 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.022 | $64.20 USDC | Will Switzerland win on 2026-06-24?)
-2026-06-24 20:55:14 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.030 | $31.30 USDC | Switzerland vs. Canada: O/U 3.5)
+2026-06-24 23:20:18 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.390 | $58.85 USDC | Scotland vs. Brazil: O/U 3.5)
+2026-06-24 23:20:18 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.630 | $1489.05 USDC | Will Morocco win on 2026-06-24?)
+2026-06-24 23:20:18 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.630 | $8.89 USDC | Will Morocco win on 2026-06-24?)
+2026-06-24 23:20:18 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.630 | $44.90 USDC | Will Morocco win on 2026-06-24?)
+2026-06-24 23:20:18 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.640 | $1267.53 USDC | Will Morocco win on 2026-06-24?)
 ```
 
 ## Letzte Fehler (3)

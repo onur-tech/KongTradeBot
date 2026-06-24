@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-24 11:39:59 UTC
+> 2026-06-24 11:44:59 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 4636413s | HB: OK (28s alt)
+STALE — lief vor 4636713s | HB: OK (28s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-06-24 09:31:00 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.470 | $258.50 USDC | Côte d'Ivoire vs. Ecuador: O/U 7.5 Total Corners)
-2026-06-24 09:31:00 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.770 | $370.12 USDC | Bosnia and Herzegovina vs. Qatar: O/U 4.5)
-2026-06-24 09:31:00 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.450 | $3150.00 USDC | Scotland vs. Brazil: O/U 2.5)
-2026-06-24 09:31:00 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.440 | $8.64 USDC | Switzerland vs. Canada: Both Teams to Score)
-2026-06-24 09:31:00 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.440 | $18.31 USDC | Switzerland vs. Canada: Both Teams to Score)
+2026-06-24 11:41:53 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Qinwen Zheng @ $0.620 | $19.00 USDC | Bad Homburg Open: Qinwen Zheng vs Clara Tauson)
+2026-06-24 11:41:53 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Murphy Cassone @ $0.150 | $286.11 USDC | Mallorca Championships: Murphy Cassone vs Ethan Quinn)
+2026-06-24 11:41:53 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Gabriela Ruse @ $0.700 | $21.82 USDC | Bad Homburg Open: Anna Kalinskaya vs Gabriela Ruse)
+2026-06-24 11:41:53 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Gabriela Ruse @ $0.640 | $27.82 USDC | Bad Homburg Open: Anna Kalinskaya vs Gabriela Ruse)
+2026-06-24 11:41:53 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Vit Kopriva @ $0.500 | $868.47 USDC | Mallorca Championships: Vit Kopriva vs Ignacio Buse)
 ```
 
 ## Letzte Fehler (3)

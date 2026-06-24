@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-24 20:51:06 UTC
+> 2026-06-24 20:56:23 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 4669480s | HB: OK (18s alt)
+STALE — lief vor 4669797s | HB: OK (35s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-06-24 19:05:53 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.640 | $323.46 USDC | Bosnia-Herzegovina vs. Qatar: 1st Half O/U 1.5)
-2026-06-24 19:05:53 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.250 | $83.33 USDC | Switzerland vs. Canada: 1st Half O/U 1.5)
-2026-06-24 19:05:53 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Xiyu Wang @ $0.330 | $110.84 USDC | Wimbledon, Qualification WTA: Xiyu Wang vs Marina Bassols Ri)
-2026-06-24 19:05:53 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.510 | $10.10 USDC | Bosnia-Herzegovina leading at halftime?)
-2026-06-24 19:05:53 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.870 | $29.89 USDC | Will Qatar win on 2026-06-24?)
+2026-06-24 20:55:14 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.021 | $10.50 USDC | Switzerland vs. Canada: O/U 3.5)
+2026-06-24 20:55:14 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.024 | $49.18 USDC | Will Switzerland win on 2026-06-24?)
+2026-06-24 20:55:14 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.024 | $12.00 USDC | Will Switzerland win on 2026-06-24?)
+2026-06-24 20:55:14 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.022 | $64.20 USDC | Will Switzerland win on 2026-06-24?)
+2026-06-24 20:55:14 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.030 | $31.30 USDC | Switzerland vs. Canada: O/U 3.5)
 ```
 
 ## Letzte Fehler (3)

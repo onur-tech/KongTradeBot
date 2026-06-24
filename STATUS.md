@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-24 14:15:07 UTC
+> 2026-06-24 14:20:07 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 4645721s | HB: WARNUNG 629s alt
+STALE — lief vor 4646021s | HB: OK (29s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-06-24 11:41:53 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Qinwen Zheng @ $0.620 | $19.00 USDC | Bad Homburg Open: Qinwen Zheng vs Clara Tauson)
-2026-06-24 11:41:53 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Murphy Cassone @ $0.150 | $286.11 USDC | Mallorca Championships: Murphy Cassone vs Ethan Quinn)
-2026-06-24 11:41:53 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Gabriela Ruse @ $0.700 | $21.82 USDC | Bad Homburg Open: Anna Kalinskaya vs Gabriela Ruse)
-2026-06-24 11:41:53 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Gabriela Ruse @ $0.640 | $27.82 USDC | Bad Homburg Open: Anna Kalinskaya vs Gabriela Ruse)
-2026-06-24 11:41:53 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Vit Kopriva @ $0.500 | $868.47 USDC | Mallorca Championships: Vit Kopriva vs Ignacio Buse)
+2026-06-24 14:16:41 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Michael Zheng @ $0.460 | $34.07 USDC | Wimbledon, Qualification ATP: Laslo Djere vs Michael Zheng)
+2026-06-24 14:16:41 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Laslo Djere @ $0.530 | $45.11 USDC | Wimbledon, Qualification ATP: Laslo Djere vs Michael Zheng)
+2026-06-24 14:16:41 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.195 | $100.00 USDC | Will France win the 2026 FIFA World Cup?)
+2026-06-24 14:16:41 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.195 | $39.96 USDC | Will France win the 2026 FIFA World Cup?)
+2026-06-24 14:16:41 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.195 | $30.00 USDC | Will France win the 2026 FIFA World Cup?)
 ```
 
 ## Letzte Fehler (3)

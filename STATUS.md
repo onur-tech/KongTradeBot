@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-24 18:10:39 UTC
+> 2026-06-24 18:15:41 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 4659853s | HB: WARNUNG 606s alt
+STALE — lief vor 4660155s | HB: OK (50s alt)
 ```
 
 ## Portfolio
@@ -37,9 +37,9 @@ PnL heute:     $0.00
 
 ## Letzte Fehler (3)
 ```
-2026-06-21 01:33:34 | WARNING  | polymarket_bot.state | [state] daily_pnl split fallback (disk I/O error)
-2026-06-21 02:58:53 | WARNING  | polymarket_bot.state | [state] daily_pnl split fallback (disk I/O error)
-2026-06-21 02:58:53 | ERROR    | polymarket_bot.state | State speichern fehlgeschlagen: [Errno 28] No space left on device
+websockets.exceptions.ConnectionClosedError: no close frame received or sent
+During handling of the above exception, another exception occurred:
+OSError: [Errno 28] No space left on device
 ```
 
 ---

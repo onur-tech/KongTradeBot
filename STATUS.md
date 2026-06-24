@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-24 01:59:02 UTC
+> 2026-06-24 02:04:02 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 4601556s | HB: OK (335s alt)
+STALE — lief vor 4601856s | HB: OK (4s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-06-23 23:36:52 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.530 | $30.84 USDC | Seattle Mariners vs. Pittsburgh Pirates: O/U 7.5)
-2026-06-23 23:36:52 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.530 | $11.28 USDC | Seattle Mariners vs. Pittsburgh Pirates: O/U 7.5)
-2026-06-23 23:36:52 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.530 | $5.64 USDC | Seattle Mariners vs. Pittsburgh Pirates: O/U 7.5)
-2026-06-23 23:36:52 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.530 | $11.28 USDC | Seattle Mariners vs. Pittsburgh Pirates: O/U 7.5)
-2026-06-23 23:36:52 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.230 | $101.73 USDC | Croatia leading at halftime?)
+2026-06-24 02:04:00 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.560 | $25.30 USDC | Colombia vs. DR Congo: Both Teams to Score)
+2026-06-24 02:04:00 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.380 | $6.08 USDC | Atlanta Braves vs. San Diego Padres: O/U 9.5)
+2026-06-24 02:04:00 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Atlanta Braves @ $0.650 | $2062.43 USDC | Atlanta Braves vs. San Diego Padres)
+2026-06-24 02:04:00 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Atlanta Braves @ $0.510 | $176.97 USDC | Spread: Atlanta Braves (-1.5))
+2026-06-24 02:04:00 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.560 | $1120.00 USDC | Colombia vs. DR Congo: Both Teams to Score)
 ```
 
 ## Letzte Fehler (3)

@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-24 19:05:45 UTC
+> 2026-06-24 19:10:45 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 4663159s | HB: STALE 748s alt (Bot moeglicherweise haengend)
+STALE — lief vor 4663459s | HB: OK (55s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-06-24 16:28:13 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Karolina Muchova @ $0.920 | $12.07 USDC | Bad Homburg Open: Karolina Muchova vs Irina-Camelia Begu)
-2026-06-24 16:28:13 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Moez Echargui @ $0.850 | $45.94 USDC | Wimbledon, Qualification ATP: Keegan Smith vs Moez Echargui)
-2026-06-24 16:28:13 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Gabriel Diallo @ $0.590 | $142.42 USDC | Lexus Eastbourne Open: Gabriel Diallo vs Tomas Etcheverry)
-2026-06-24 16:28:13 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Jack Draper @ $0.870 | $31.07 USDC | Lexus Eastbourne Open: Jack Draper vs Jack Pinnington Jones)
-2026-06-24 16:28:13 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Jack Draper @ $0.870 | $109.24 USDC | Lexus Eastbourne Open: Jack Draper vs Jack Pinnington Jones)
+2026-06-24 19:05:53 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.640 | $323.46 USDC | Bosnia-Herzegovina vs. Qatar: 1st Half O/U 1.5)
+2026-06-24 19:05:53 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.250 | $83.33 USDC | Switzerland vs. Canada: 1st Half O/U 1.5)
+2026-06-24 19:05:53 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Xiyu Wang @ $0.330 | $110.84 USDC | Wimbledon, Qualification WTA: Xiyu Wang vs Marina Bassols Ri)
+2026-06-24 19:05:53 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.510 | $10.10 USDC | Bosnia-Herzegovina leading at halftime?)
+2026-06-24 19:05:53 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.870 | $29.89 USDC | Will Qatar win on 2026-06-24?)
 ```
 
 ## Letzte Fehler (3)

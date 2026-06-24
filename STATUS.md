@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-24 04:29:14 UTC
+> 2026-06-24 04:34:14 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 4610568s | HB: WARNUNG 509s alt
+STALE — lief vor 4610868s | HB: OK (1s alt)
 ```
 
 ## Portfolio
@@ -28,11 +28,11 @@ PnL heute:     $0.00
 
 ## Letzte Trades (5)
 ```
-2026-06-24 02:04:00 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.560 | $25.30 USDC | Colombia vs. DR Congo: Both Teams to Score)
-2026-06-24 02:04:00 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.380 | $6.08 USDC | Atlanta Braves vs. San Diego Padres: O/U 9.5)
-2026-06-24 02:04:00 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Atlanta Braves @ $0.650 | $2062.43 USDC | Atlanta Braves vs. San Diego Padres)
-2026-06-24 02:04:00 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Atlanta Braves @ $0.510 | $176.97 USDC | Spread: Atlanta Braves (-1.5))
-2026-06-24 02:04:00 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.560 | $1120.00 USDC | Colombia vs. DR Congo: Both Teams to Score)
+2026-06-24 04:31:14 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.011 | $197.09 USDC | Will Tulsi Gabbard win the 2028 Republican presidential nomi)
+2026-06-24 04:31:14 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.986 | $18.73 USDC | Iran agrees to surrender enriched uranium stockpile by June )
+2026-06-24 04:31:14 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.986 | $10.00 USDC | Iran agrees to surrender enriched uranium stockpile by June )
+2026-06-24 04:31:14 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY No @ $0.977 | $9123.81 USDC | Strait of Hormuz traffic returns to normal by end of June?)
+2026-06-24 04:31:14 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.013 | $7.80 USDC | Israel x Iran permanent peace deal by June 30, 2026?)
 ```
 
 ## Letzte Fehler (3)

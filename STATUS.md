@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-25 01:47:52 UTC
+> 2026-06-25 01:52:53 UTC
 
 ## Bot-Status
 ```
@@ -14,25 +14,21 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 4687286s | HB: WARNUNG 599s alt
+STALE — lief vor 4687587s | HB: OK (16s alt)
 ```
 
 ## Portfolio
 ```
-Total:         $0.00 USDC
-Cash:          $0.00 USDC
-In Positionen: $0.00 USDC
-Offene Pos.:   0
-PnL heute:     $0.00
+Dashboard nicht erreichbar: timed out
 ```
 
 ## Letzte Trades (5)
 ```
-2026-06-24 23:20:18 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.390 | $58.85 USDC | Scotland vs. Brazil: O/U 3.5)
-2026-06-24 23:20:18 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.630 | $1489.05 USDC | Will Morocco win on 2026-06-24?)
-2026-06-24 23:20:18 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.630 | $8.89 USDC | Will Morocco win on 2026-06-24?)
-2026-06-24 23:20:18 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.630 | $44.90 USDC | Will Morocco win on 2026-06-24?)
-2026-06-24 23:20:18 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.640 | $1267.53 USDC | Will Morocco win on 2026-06-24?)
+2026-06-25 01:48:40 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Korea Republic @ $0.020 | $62.30 USDC | Spread: Korea Republic (-2.5))
+2026-06-25 01:48:40 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.150 | $9.63 USDC | South Africa vs. Korea Republic: O/U 2.5)
+2026-06-25 01:48:40 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Under @ $0.600 | $7.50 USDC | South Africa vs. Korea Republic: O/U 1.5)
+2026-06-25 01:48:40 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Atlanta Braves @ $0.220 | $27.89 USDC | Atlanta Braves vs. San Diego Padres)
+2026-06-25 01:48:40 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Los Angeles Dodgers @ $0.740 | $14.23 USDC | Los Angeles Dodgers vs. Minnesota Twins)
 ```
 
 ## Letzte Fehler (3)

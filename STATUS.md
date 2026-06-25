@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-06-25 05:25:25 UTC
+> 2026-06-25 05:30:45 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 4700339s | HB: OK (278s alt)
+STALE — lief vor 4700659s | HB: WARNUNG 597s alt
 ```
 
 ## Portfolio

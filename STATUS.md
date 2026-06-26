@@ -1,10 +1,10 @@
 # KongTradeBot Live Status
 
-> 2026-06-26 06:15:05 UTC
+> 2026-06-26 06:20:04 UTC
 
 ## Bot-Status
 ```
-RUNNING (seit Fri 2026-06-12 06:51:07 UTC)
+DOWN failed/failed
 ```
 
 ## Dashboard-URL
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-STALE — lief vor 4789719s | HB: OK (16s alt)
+STALE — lief vor 4790018s | HB: OK (196s alt)
 ```
 
 ## Portfolio
@@ -37,9 +37,9 @@ PnL heute:     $0.00
 
 ## Letzte Fehler (3)
 ```
-2026-06-25 03:06:43 | ERROR    | polymarket_bot.state | State speichern fehlgeschlagen: [Errno 28] No space left on device
 2026-06-25 03:07:43 | WARNING  | polymarket_bot.state | [state] daily_pnl split fallback (disk I/O error)
 2026-06-25 03:07:43 | ERROR    | polymarket_bot.state | State speichern fehlgeschlagen: [Errno 28] No space left on device
+2026-06-26 06:17:08 | INFO     | polymarket_bot.wallet_monitor | WalletMonitor gestoppt | Stats: {'polls': 3350, 'trades_detected': 5880, 'trades_skipped_duplicate': 33399, 'early_entry_signals': 0, 'whale_sells_detected': 159, 'ws_messages': 0, 'ws_reconnects': 809, 'errors': 0}
 ```
 
 ---
